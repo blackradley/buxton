@@ -1,0 +1,9 @@
+<h1>Editing organisation</h1>
+
+<% form_tag :action => 'update', :id => @organisation do %>
+  <%= render :partial => 'form' %>
+  <%= submit_tag 'Edit' %>
+<% end %>
+
+<%= link_to 'Show', :action => 'show', :id => @organisation %> |
+<%= link_to 'Back', :action => 'list' %>
