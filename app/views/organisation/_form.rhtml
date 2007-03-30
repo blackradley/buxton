@@ -1,0 +1,22 @@
+<%= error_messages_for 'organisation' %>
+
+<!--[form:organisation]-->
+<p><label for="organisation_key">Key</label><br/>
+<%= text_field 'organisation', 'key'  %></p>
+
+<p><label for="organisation_email">Email</label><br/>
+<%= text_field 'organisation', 'email'  %></p>
+
+<p><label for="organisation_name">Name</label><br/>
+<%= text_field 'organisation', 'name'  %></p>
+
+<p><label for="organisation_style">Style</label><br/>
+<%= text_field 'organisation', 'style'  %></p>
+
+<p><label for="organisation_created_on">Created on</label><br/>
+<%= datetime_select 'organisation', 'created_on'  %></p>
+
+<p><label for="organisation_updated_on">Updated on</label><br/>
+<%= datetime_select 'organisation', 'updated_on'  %></p>
+<!--[eoform:organisation]-->
+
