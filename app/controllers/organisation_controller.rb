@@ -1,5 +1,5 @@
 class OrganisationController < ApplicationController
-  layout 'default'
+  layout 'application'
   
   def index
     list

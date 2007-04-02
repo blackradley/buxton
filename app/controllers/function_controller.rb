@@ -1,5 +1,5 @@
 class FunctionController < ApplicationController
-  layout 'default'
+  layout 'application'
 
   def index
     list
@@ -24,6 +24,7 @@ class FunctionController < ApplicationController
 
   def create
     @function = Function.new(params[:function])
+    @function.organisation_id = 1
     if @function.save
       flash[:notice] = 'Function was successfully created.'
       redirect_to :action => 'list'

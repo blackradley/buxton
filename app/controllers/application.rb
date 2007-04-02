@@ -2,6 +2,42 @@
 # Likewise, all the methods added will be available for all controllers.
 
 class ApplicationController < ActionController::Base
+    #before_filter :authenticate
+  #before_filter :authorize
+ 
+ 
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_buxton_session_id'
+  
+  # Date formats
+  ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
+    :default => "%m/%d/%Y",
+    :date_time12 => "%d %b %Y %I:%M%p",
+    :date_time24 => "%d %b %Y %H:%M"
+  )
+  
+  protected
+    def authenticate
+      unless @session["person"]
+        @session["return_to"] = @request.request_uri
+        redirect_to :controller => "login" 
+        return false
+      end
+    end
+
+  protected
+    # Override in controller classes that should require authentication
+    def secure?
+      false
+    end
+
+  private
+    def authorize
+      if secure? && session["person"].nil?
+        session["return_to"] = request.request_uri
+        redirect_to :controller => "auth" 
+        return false
+      end
+    end
+  
 end
