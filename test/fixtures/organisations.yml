@@ -1,5 +1,11 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
   id: 1
+  name: Derbyshire County Council
+  email: joe@bagbatch
+  style: derby
 two:
   id: 2
+  name: Birmingham City Council
+  email: joe@bagbatch.co.uk
+  style: birmingham
