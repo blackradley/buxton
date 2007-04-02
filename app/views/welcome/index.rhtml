@@ -1,2 +1,5 @@
-<p><label for="function_email">Email</label><br/>
-<%= text_field 'function', 'email'  %></p>
+<% form_tag :action => 'new_key' do %>
+  <p><label for="function_email">Email</label>: 
+  <%= text_field 'function', 'email'  %></p>
+  <%= submit_tag "Send New Key" %>
+<% end %>

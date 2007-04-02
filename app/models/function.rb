@@ -1,6 +1,5 @@
 class Function < ActiveRecord::Base
   belongs_to :organisation
-  
   def state
     read_attribute(:relevance01) +
     read_attribute(:relevance02) +
@@ -9,5 +8,4 @@ class Function < ActiveRecord::Base
     read_attribute(:relevance05) +
     read_attribute(:relevance06)
   end
-    
 end
