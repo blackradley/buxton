@@ -58,3 +58,12 @@ end
 # Mime::Type.register "application/x-mobile", :mobile
 
 # Include your application configuration below
+# 
+ActionMailer::Base.smtp_settings = {
+  :address  => "smtp.postoffice.net",
+  :port  => 25, 
+  :domain  => 'www.mywebsite.com',
+  :user_name  => "me@postoffice.net",
+  :password  => 'mypass',
+  :authentication  => :login
+} 
