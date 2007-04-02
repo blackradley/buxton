@@ -1,5 +1,10 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
   id: 1
+  name: Emptying the bins
+  email: peter@blackradley.com
+  
 two:
   id: 2
+  name: Meals on Wheels
+  email: drbollins@hotmail.com
