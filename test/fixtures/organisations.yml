@@ -1,11 +1,13 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
   id: 1
+  key: 4138e3f0-32aa-102a-a9bc-080046905aee
   name: Derbyshire County Council
   email: joe@bagbatch
   style: derby
 two:
   id: 2
+  key: 6f6ba00a-32aa-102a-a9bc-080046905aee
   name: Birmingham City Council
   email: joe@bagbatch.co.uk
   style: birmingham
