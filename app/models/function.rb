@@ -1,5 +1,10 @@
 class Function < ActiveRecord::Base
   belongs_to :organisation
+  
+  validates_format_of :email,
+  :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,
+  :message => 'email must be valid'
+  
   def state
     read_attribute(:relevance01).nil? ? 0 : 1 +
     read_attribute(:relevance02).nil? ? 0 : 1 +
