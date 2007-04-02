@@ -12,7 +12,7 @@
   <tr>
   <td><%= function.name %></td>
   <td><%= function.email %></td>
-  <td></td>
+  <td><%= function.updated_on.to_formatted_s(:date_time12) %></td>
   <td><%= function.state %></td>
     <td><%= link_to 'Show', :action => 'show', :id => function %></td>
     <td><%= link_to 'Edit', :action => 'edit', :id => function %></td>
