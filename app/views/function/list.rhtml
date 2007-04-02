@@ -1,17 +1,19 @@
-<h1>Listing functions</h1>
+<h1>Functions</h1>
 
 <table>
   <tr>
-  <% for column in Function.content_columns %>
-    <th><%= column.human_name %></th>
-  <% end %>
+<td>Name</td>
+<td>Email</td>
+<td>Last Updated</td>
+<td>State</td>
   </tr>
   
 <% for function in @functions %>
   <tr>
-  <% for column in Function.content_columns %>
-    <td><%=h function.send(column.name) %></td>
-  <% end %>
+  <td><%= function.name %></td>
+  <td><%= function.email %></td>
+  <td><%= function.updated_on.to_formatted_s(:date_time12) %></td>
+  <td><%= function.state %></td>
     <td><%= link_to 'Show', :action => 'show', :id => function %></td>
     <td><%= link_to 'Edit', :action => 'edit', :id => function %></td>
     <td><%= link_to 'Destroy', { :action => 'destroy', :id => function }, :confirm => 'Are you sure?', :method => :post %></td>
@@ -24,4 +26,4 @@
 
 <br />
 
-<%= link_to 'New function', :action => 'new' %>
+<%= link_to 'Add New', :action => 'new' %>
