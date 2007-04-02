@@ -1,5 +1,103 @@
-body 
-{ 
-	background-color: #ffa500; 	
-	color: #333; 
-}
+  A.atozlinks:link    {text-decoration:none; color:#003399; font-family:Arial; font-size:16px;}
+  A.atozlinks:visited {text-decoration:none; color:#003399; font-family:Arial; font-size:16px;}
+  A.atozlinks:hover   {color:#CC0000;}
+
+  A.redlinks:link    {text-decoration:none; color:#CC0000; font-family:Arial; font-size:10pt;}
+  A.redlinks:visited {text-decoration:none; color:#CC0000; font-family:Arial; font-size:10pt;}
+  A.redlinks:hover   {color:#003399;}
+
+  A.bluelinks:link    {text-decoration:none; color:#003399; font-family:Arial; font-size:10pt;}
+  A.bluelinks:visited {text-decoration:none; color:#003399; font-family:Arial; font-size:10pt;}
+  A.bluelinks:hover   {color:#CC0000;}
+
+  A.whitelinks:link    {text-decoration:underline; color:#FFFFFF; font-family:Arial; font-size:10pt;}
+  A.whitelinks:visited {text-decoration:underline; color:#FFFFFF; font-family:Arial; font-size:10pt;}
+  A.whitelinks:hover   {color:#FFFFFF;}
+
+  A.mainlinks:link    {text-decoration:none; color:#FFFFFF; font-family:Arial; font-size:10pt;}
+  A.mainlinks:visited {text-decoration:none; color:#FFFFFF; font-family:Arial; font-size:10pt;}
+  A.mainlinks:hover   {color:#FFFFFF;}
+
+  A.menuheaderlink:link    {text-decoration:none; color:#FFFFFF; font-family:Arial; font-size:10pt; font-weight:bold;}
+  A.menuheaderlink:visited {text-decoration:none; color:#FFFFFF; font-family:Arial; font-size:10pt; font-weight:bold;}
+  A.menuheaderlink:hover   {color:#FF9900;}
+
+  A.leftmenulink1:link    {text-decoration:none; color:#FFFFFF; font-family:Arial; font-size:8pt;}
+  A.leftmenulink1:visited {text-decoration:none; color:#FFFFFF; font-family:Arial; font-size:8pt;}
+  A.leftmenulink1:hover   {color:#FF9900;}
+
+  A.leftmenulink2:link    {text-decoration:none; color:#000000; font-family:Arial; font-size:8pt;}
+  A.leftmenulink2:visited {text-decoration:none; color:#000000; font-family:Arial; font-size:8pt;}
+  A.leftmenulink2:hover   {color: White;  background : #003366; }
+
+  A.question-and-answer-heading-link:link    {font-family: Arial, Helvetica, sans-serif;  text-decoration:none; color:#003399; font-size:12px; font-weight:bold;}
+  A.question-and-answer-heading-link:visited {font-family: Arial, Helvetica, sans-serif;  text-decoration:none; color:#003399; font-size:12px; font-weight:bold;}
+  A.question-and-answer-heading-link:hover   {color:#CC0000;}
+  A.question-and-answer-heading-link {font-family: Arial, Helvetica, sans-serif;  text-decoration:none; color:#003399; font-size:17px; font-weight:bold;}
+
+  A.main-links {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000099;}
+  A.main-links:link {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000099;}
+  A.main-links:hover {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #0000ff;}
+
+  A.search-link:link    {text-decoration:none; color:#FFFFFF; font-family:Arial; font-size:8pt; font-weight:bold;}
+  A.search-link:visited {text-decoration:none; color:#FFFFFF; font-family:Arial; font-size:8pt; font-weight:bold;}
+  A.search-link:hover   {color:#FF9900;}
+
+  Select    {font-family:Arial; font-size:8pt;}
+  Input     {font-family:Arial; font-size:8pt;}
+  TextArea  {font-family:Arial; font-size:8pt;}
+
+  TD {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000000;}
+  TD14 {  font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #000000;}
+  P {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000000;}
+  HR.form {color : #A9A9A9;}
+
+   TD.form {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000000;}
+ .dateline  {color:#003399; font-family:Arial Helvetica, sans-serif; font-size:8pt;}
+  .bold-white  {color:#FFFFFF; font-family:Arial; font-size:8pt; font-weight:bold;}
+  .section  {color:#FFFFFF; font-family:Arial; font-size:10pt; font-weight:bold;}
+  .left-menu  {color:#FFFFFF; font-family:Arial; font-size:8pt; font-weight:bold;  background : #CC0000; }
+  .left-menu-black {color:#000000; font-family:Arial; font-size:8pt; font-weight:bold;}
+  .menu-header  {background:#003399; color:#FFFFFF; font-family:Arial; font-size:10pt; font-weight:bold;}
+  .left-menu_highlight  {background:#660000; width:165px; color:#FFFFFF; font-weight:bold; font-size:8pt;}
+  .sectionheader-bg   {background:#255E83; color:#FFFFFF; font-family:Arial; font-size:8pt; font-weight:bold;}
+  .sectionlinks-bg   {background:#98CEF1; color:#000000; font-family:Arial; font-size:8pt; font-weight:bold;}
+  .breadcrumb-trail   {font-family:Arial,Helvetica,Sanserif; font-size:11px; color:#003399; padding:4px;}
+  .disclaimer {  font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: #CC0000;}
+  .header {  font-family: Arial, Helvetica, sans-serif; font-size: 18px; font-weight: bold; color: #000000;}
+  .header2 {  font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; color: #000000;}
+  .main {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000000;}
+  .smalltext {  font-family: Arial, Helvetica, sans-serif; font-size: 10px; color: #000000;}
+  .black {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000000;}
+  .black-breadcrumb {  font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: #000000;}
+  .blue {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000099}
+  .blue2 {  font-family: Arial, Helvetica, sans-serif; font-size: 10px; color: #000099}
+  .blue10pt {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000099}
+  .blue12pt {  font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #000099}
+  .black10pt {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000000}
+  P.black11ptbold {COLOR: #000000; FONT-FAMILY: Arial, Helvetica, sans-serif; FONT-SIZE: 11px; FONT-WEIGHT: bold}
+  .button {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #FFFFFF; background-color: #CC0000}
+  .red-header {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #CC0000; font-style: normal; font-weight: bold}
+  .white-header {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #FFFFFF; font-style: normal; font-weight: bold}
+  .paragraph-header {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #003399; font-style: normal; font-weight: bold}
+  .bluetext {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000099;}
+  .bluetextbold {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000099; font-weight:bold;}
+  .bluetextSubHeading {  font-family: Arial, Helvetica, sans-serif; font-size: 16px; font-weight: bold; color: #000099;}
+  .error {  font-family: Arial, Helvetica, sans-serif; font-size: 9px; color: #FF0000; font-style: normal; font-weight: bold}
+  .red-normal {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #FF0000; font-style: normal;}
+  .largeerror {  font-family: Arial, Helvetica, sans-serif; font-size: 10px; color: #FF0000; font-style: normal; font-weight: bold}
+  .largesterror {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #FF0000; font-style: normal; font-weight: bold}
+  .image-caption {  font-family: Arial, Helvetica, sans-serif; font-size: 9px; color: #000000; font-style: normal; font-weight: bold}
+  .disclaimer {  font-family: Arial, Helvetica, sans-serif; font-size: 11px; color: #CC0000;}
+  .header2 {  font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; color: #000000;}
+  .atoz-selected { text-decoration:none; color:#CC0000; font-family:Arial; font-size:16px;}
+  .blocktext {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000000; text-align: justify;}
+  .blocktext14 {  font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: #000000; text-align: justify;}
+  .blueblocktext {  font-family: Arial, Helvetica, sans-serif; font-size: 12px; color: #000099; text-align: justify;}
+
+  .recruitmentElement {
+      FONT-FAMILY: Arial, Helvetica, sans-serif;
+	  font-size: 11px;
+      OVERFLOW: hidden;
+      Border:1px solid black;
+  }
