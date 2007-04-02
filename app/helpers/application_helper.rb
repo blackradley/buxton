@@ -5,7 +5,7 @@ module ApplicationHelper
     return request.subdomains(0).first
   end
   
-  def ApplicationHelper.UUID
+  def ApplicationHelper.newUUID
     return ActiveRecord::Base.connection.select_one('select UUID()')['UUID()']
   end
   

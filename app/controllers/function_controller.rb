@@ -24,6 +24,7 @@ class FunctionController < ApplicationController
 
   def create
     @function = Function.new(params[:function])
+    @function.key = ApplicationHelper.newUUID
     @function.organisation_id = 1
     if @function.save
       flash[:notice] = 'Function was successfully created.'
