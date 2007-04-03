@@ -1,6 +1,7 @@
 <h2>Functions</h2>
 <table>
   <tr>
+    <td></td>
     <td>Name</td>
     <td>Email</td>
     <td>Last Updated</td>
@@ -8,13 +9,13 @@
   </tr>
   <% for function in @functions %>
   <tr>
+    <td><%= link_to 'view', :action => 'show', :id => function %></td>
     <td><%= function.name %></td>
     <td><%= function.email %></td>
     <td><%= function.updated_on.to_formatted_s(:date_time12) %></td>
     <td><%= function.state %></td>
-    <td><%= link_to 'Show', :action => 'show', :id => function %></td>
     <td><%= link_to 'Edit', :action => 'edit', :id => function %></td>
-    <td><%= link_to 'Destroy', { :action => 'destroy', :id => function }, :confirm => 'Are you sure?', :method => :post %></td>
+    <td><%= link_to 'Delete', { :action => 'destroy', :id => function }, :confirm => 'Are you sure?', :method => :post %></td>
   </tr>
   <% end %>
 </table>
