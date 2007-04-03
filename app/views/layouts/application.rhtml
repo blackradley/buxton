@@ -25,13 +25,17 @@
   </script>
 </head>
 <body OnLoad="setFocus()">
-    <div class="mast_head">  </div>
-    <span class="left">
+    <span class="content">  
         <h1>Online Eina</h1>
-        <%= @content_for_layout %>
-    </span>
-    <span class="right">
-        <p style="color: green"><%= flash[:notice] %></p>
+        <span class="left">
+            <%= @content_for_layout %>
+        </span>
+        <span class="right">
+            <p style="color: green"><%= flash[:notice] %></p>
+        </span>
+        <div>
+            Footer
+        </div>
     </span>
 </body>
 </html>
