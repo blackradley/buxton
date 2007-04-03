@@ -1,8 +1,14 @@
 body{
-    padding:20px 20px 20px 0;
+    padding:5px 20px 20px 20px;
+	background-color: #ffffff;
+}
+
+.masthead{
+    padding:65px 20px 20px 0;
 	background: url(../images/derbyshire.gif);
 	background-repeat: no-repeat;
 }
+
 .content{
 	position: relative;
 	top: 40px;
@@ -16,4 +22,8 @@ body{
 .message_area, .errorExplanation{
 	float: right; 
 	width: 200px;
+}
+
+.footer{
+    float: bottom;
 }
