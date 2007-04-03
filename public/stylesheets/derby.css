@@ -1,5 +1,4 @@
-body 
-{ 
-	background-color: #ffff00; 
-	color: #333; 
+body { 
+	background: url(../images/derby.gif);
+	background-repeat: no-repeat;
 }
