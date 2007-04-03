@@ -11,7 +11,7 @@
   <tr>
     <td><%= link_to 'View', :action => 'show', :id => organisation %></td>
     <td><%= organisation.name %></td>
-    <td><%= organisation.email %></td>
+    <td><a href="<%= organisation.email %>"><%= organisation.email %></a></td>
     <td><%= organisation.updated_on.to_formatted_s(:date_time12) %></td>    
     <td><%= link_to 'Edit', :action => 'edit', :id => organisation %></td>
     <td><%= link_to 'Delete', { :action => 'destroy', :id => organisation }, :confirm => 'Are you sure?', :method => :post %></td>

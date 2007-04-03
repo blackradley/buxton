@@ -11,7 +11,7 @@
   <tr>
     <td><%= link_to 'view', :action => 'show', :id => function %></td>
     <td><%= function.name %></td>
-    <td><%= function.email %></td>
+    <td><a href="<%= function.email %>"><%= function.email %></a></td>
     <td><%= function.updated_on.to_formatted_s(:date_time12) %></td>
     <td><%= function.state %></td>
     <td><%= link_to 'Edit', :action => 'edit', :id => function %></td>
