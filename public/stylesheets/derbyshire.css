@@ -1,4 +1,19 @@
-mast_head{
+body{
+    padding:20px 20px 20px 0;
 	background: url(../images/derbyshire.gif);
 	background-repeat: no-repeat;
+}
+.content{
+	position: relative;
+	top: 40px;
+	left: 10px;
+}
+
+.working_area{
+	float: left; 
+}
+
+.message_area, .errorExplanation{
+	float: right; 
+	width: 200px;
 }
