@@ -24,6 +24,7 @@ class OrganisationController < ApplicationController
 
   def create
     @organisation = Organisation.new(params[:organisation])
+    @organisation.key = ApplicationHelper.newUUID 
     if @organisation.save
       flash[:notice] = 'Organisation was successfully created.'
       redirect_to :action => 'list'

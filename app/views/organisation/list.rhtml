@@ -1,20 +1,20 @@
 <h2>Listing organisations</h2>
-
 <table>
   <tr>
-  <% for column in Organisation.content_columns %>
-    <th><%= column.human_name %></th>
-  <% end %>
+    <td></td>
+    <td>Name</td>
+    <td>Email</td>
+    <td>Last Updated</td>
   </tr>
   
 <% for organisation in @organisations %>
   <tr>
-  <% for column in Organisation.content_columns %>
-    <td><%=h organisation.send(column.name) %></td>
-  <% end %>
-    <td><%= link_to 'Show', :action => 'show', :id => organisation %></td>
+    <td><%= link_to 'View', :action => 'show', :id => organisation %></td>
+    <td><%= organisation.name %></td>
+    <td><%= organisation.email %></td>
+    <td><%= organisation.updated_on.to_formatted_s(:date_time12) %></td>    
     <td><%= link_to 'Edit', :action => 'edit', :id => organisation %></td>
-    <td><%= link_to 'Destroy', { :action => 'destroy', :id => organisation }, :confirm => 'Are you sure?', :method => :post %></td>
+    <td><%= link_to 'Delete', { :action => 'destroy', :id => organisation }, :confirm => 'Are you sure?', :method => :post %></td>
   </tr>
 <% end %>
 </table>

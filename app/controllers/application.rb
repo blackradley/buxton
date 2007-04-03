@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   
   # Date formats
   ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
-    :default => "%m/%d/%Y",
+    :default => "%m/%d/%Y %H:%M",
     :date_time12 => "%d %b %Y %I:%M%p",
     :date_time24 => "%d %b %Y %H:%M"
   )
