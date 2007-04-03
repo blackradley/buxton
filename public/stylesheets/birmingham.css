@@ -4,6 +4,19 @@ body{
 }
 
 .content{
+	padding:2px 2px 2px 0;
+	position: relative;
+	top: 30px;
+	left: 10px;
+}
+
+.working_area{
+	float: left; 
+}
+
+.message_area{
+	float: right; 
+	width: 200px;
 }
 
 select{
