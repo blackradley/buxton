@@ -1,0 +1,26 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+one:
+  id: 1
+  look_up_type: 1
+  name: Disagree strongly
+  description: Disagree strongly
+two:
+  id: 2
+  look_up_type: 1
+  name: Disagree a little
+  description: Disagree a little
+three:
+  id: 3
+  look_up_type: 1
+  name: Neither agree or disagree
+  description: Neither agree or disagree
+four:
+  id: 4
+  look_up_type: 1
+  name: Agree a little
+  description: Agree a little
+five:
+  id: 5
+  look_up_type: 1
+  name: Agree strongly
+  description: Agree strongly
