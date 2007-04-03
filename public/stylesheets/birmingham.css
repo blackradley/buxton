@@ -1,12 +1,18 @@
 body{
+    padding:20px 20px 20px 0;
+	background: url(../images/birmingham.jpg);
+	background-repeat: no-repeat;
+}
+
+.masthead{
+    padding:20px 20px 20px 0;
 	background: url(../images/birmingham.jpg);
 	background-repeat: no-repeat;
 }
 
 .content{
-	padding:2px 2px 2px 0;
 	position: relative;
-	top: 30px;
+	top: 40px;
 	left: 10px;
 }
 
@@ -14,7 +20,7 @@ body{
 	float: left; 
 }
 
-.message_area{
+.message_area, .errorExplanation{
 	float: right; 
 	width: 200px;
 }
