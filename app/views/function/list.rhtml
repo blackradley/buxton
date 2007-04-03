@@ -1,29 +1,24 @@
 <h1>Functions</h1>
-
 <table>
   <tr>
-<td>Name</td>
-<td>Email</td>
-<td>Last Updated</td>
-<td>State</td>
+    <td>Name</td>
+    <td>Email</td>
+    <td>Last Updated</td>
+    <td>State</td>
   </tr>
-  
-<% for function in @functions %>
+  <% for function in @functions %>
   <tr>
-  <td><%= function.name %></td>
-  <td><%= function.email %></td>
-  <td><%= function.updated_on.to_formatted_s(:date_time12) %></td>
-  <td><%= function.state %></td>
+    <td><%= function.name %></td>
+    <td><%= function.email %></td>
+    <td><%= function.updated_on.to_formatted_s(:date_time12) %></td>
+    <td><%= function.state %></td>
     <td><%= link_to 'Show', :action => 'show', :id => function %></td>
     <td><%= link_to 'Edit', :action => 'edit', :id => function %></td>
     <td><%= link_to 'Destroy', { :action => 'destroy', :id => function }, :confirm => 'Are you sure?', :method => :post %></td>
   </tr>
-<% end %>
+  <% end %>
 </table>
-
 <%= link_to 'Previous page', { :page => @function_pages.current.previous } if @function_pages.current.previous %>
 <%= link_to 'Next page', { :page => @function_pages.current.next } if @function_pages.current.next %> 
-
 <br />
-
 <%= link_to 'Add New', :action => 'new' %>
