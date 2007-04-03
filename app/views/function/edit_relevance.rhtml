@@ -1,15 +1,9 @@
-<%= error_messages_for 'function' %>
+<h2>Editing Relevance</h2>
 
-<!--[form:function]-->
-
-<p><label for="function_email">Email</label><br/>
-<%= text_field 'function', 'email'  %></p>
-
-<p><label for="function_name">Name</label><br/>
-<%= text_field 'function', 'name'  %></p>
-
+<% form_tag :action => 'update', :id => @function do %>
+  
 <p><label for="function_relevance01">Relevance01</label><br/>
-<%= text_field 'function', 'relevance01'  %></p>
+<%= select("funtion", "relevance01", Look_up.find(:all).collect {|l| [ l.name, l.id ] }, { :include_blank => true })  %></p>
 
 <p><label for="function_relevance02">Relevance02</label><br/>
 <%= text_field 'function', 'relevance02'  %></p>
@@ -38,10 +32,8 @@
 <p><label for="function_relevance10">Relevance10</label><br/>
 <%= text_field 'function', 'relevance10'  %></p>
 
-<p><label for="function_created_on">Created on</label><br/>
-<%= datetime_select 'function', 'created_on'  %></p>
+  <%= submit_tag 'Save' %>
+<% end %>
 
-<p><label for="function_updated_on">Updated on</label><br/>
-<%= datetime_select 'function', 'updated_on'  %></p>
-<!--[eoform:function]-->
-
+<%= link_to 'Show', :action => 'show', :id => @function %> |
+<%= link_to 'Back', :action => 'list' %>
