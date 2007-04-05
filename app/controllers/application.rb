@@ -13,6 +13,13 @@ class ApplicationController < ActionController::Base
     :date_time12 => "%d %b %Y %I:%M%p",
     :date_time24 => "%d %b %Y %H:%M"
   )
+  
+  # add a starts with method to the string
+  class String
+    def startsWith str
+      return self[0...str.length] == str
+    end
+  end
 
   protected
   # Override in controller classes that should require authentication
