@@ -3,13 +3,20 @@
 <% form_tag :action => 'update', :id => @function do %>
   
 <p><label for="function_relevance01">Relevance01</label><br/>
-<%= select("funtion", "relevance01", Look_up.find(:all).collect {|l| [ l.name, l.id ] }, { :include_blank => true })  %></p>
+<% LookUp.find(:all, :order => 'id').each do |lookup| %>
+<%= lookup.name %>  <%= radio_button 'function', 'relevance01', lookup.id %>
+<% end %>
+</p>
 
 <p><label for="function_relevance02">Relevance02</label><br/>
-<%= text_field 'function', 'relevance02'  %></p>
+<%= select("function", "relevance02", LookUp.agree_disagree.collect {|l| [ l.name, l.id ] }, { :include_blank => false })  %></p>
+</p>
 
-<p><label for="function_relevance03">Relevance03</label><br/>
-<%= text_field 'function', 'relevance03'  %></p>
+<p><label for="function_relevance03">Relevance01</label><br/>
+<% LookUp.agree_disagree.each do |lookup| %>
+<%= lookup.name %>  <%= radio_button 'function', 'relevance03', lookup.id %>
+<% end %>
+</p>
 
 <p><label for="function_relevance04">Relevance04</label><br/>
 <%= text_field 'function', 'relevance04'  %></p>

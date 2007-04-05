@@ -16,6 +16,11 @@ class EmailTest < Test::Unit::TestCase
     @expected.mime_version = '1.0'
   end
 
+  # Replace this with your real tests.
+  def test_truth
+    assert true
+  end
+
   private
     def read_fixture(action)
       IO.readlines("#{FIXTURES_PATH}/email/#{action}")
@@ -24,4 +29,5 @@ class EmailTest < Test::Unit::TestCase
     def encode(subject)
       quoted_printable(subject, CHARSET)
     end
+    
 end
