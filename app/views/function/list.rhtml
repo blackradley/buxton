@@ -14,7 +14,7 @@
     <td><a href="<%= function.email %>"><%= function.email %></a></td>
     <td><%= function.updated_on.to_formatted_s(:date_time12) %></td>
     <td><%= function.state %></td>
-    <td><%= link_to 'Edit', :action => 'edit', :id => function %></td>
+    <td><%= link_to 'Edit', :action => 'edit_contact', :id => function %></td>
     <td><%= link_to 'Delete', { :action => 'destroy', :id => function }, :confirm => 'Are you sure?', :method => :post %></td>
   </tr>
   <% end %>

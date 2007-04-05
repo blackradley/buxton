@@ -34,7 +34,11 @@ class FunctionController < ApplicationController
     end
   end
 
-  def edit
+  def edit_contact
+    @function = Function.find(params[:id])
+  end
+
+  def edit_relevance
     @function = Function.find(params[:id])
   end
 
