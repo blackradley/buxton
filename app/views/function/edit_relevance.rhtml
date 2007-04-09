@@ -14,7 +14,7 @@
 
 <p><label for="function_relevance03">Relevance01</label><br/>
 <% LookUp.agree_disagree.each do |lookup| %>
-<%= lookup.name %>  <%= radio_button 'function', 'relevance03', lookup.id %>
+<%= lookup.name %>  <%= radio_button('function', 'relevance03', lookup.id, {:title => lookup.description}) %>
 <% end %>
 </p>
 
