@@ -1,12 +1,7 @@
 <% for column in Function.content_columns %>
 <p>
   <b><%= column.human_name %>:</b> 
-  
-  <% if column.name.to_string.startsWith('Relevance') %>
-    test
-  <% else %>
     <%= @function.send(column.name) %>
-  <% end %>
 </p>
 <% end %>
 
