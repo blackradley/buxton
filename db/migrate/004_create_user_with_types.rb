@@ -4,7 +4,7 @@
 # * $Author: BlackRadleyJoe $
 # * $Date: 2007-04-10 11:31:29 +0100 (Tue, 10 Apr 2007) $
 #
-class CreateUserTypes < ActiveRecord::Migration
+class CreateUserWithTypes < ActiveRecord::Migration
 #
 # Create a view so we can see what types of users we have.  Rather
 # than putting a user type in the users table this is done using 
@@ -13,7 +13,7 @@ class CreateUserTypes < ActiveRecord::Migration
 # can't see a way right now. 
 #
   def self.up
-    create_view :user_with_type, "SELECT users.*, " + 
+    create_view :user_with_types, "SELECT users.*, " + 
 	    "CASE " +  
 	    "  WHEN functions.id <> '' THEN 'Operational' " +  
 	    "  WHEN organisations.id <> '' THEN 'Organisational' " +  
@@ -31,6 +31,6 @@ class CreateUserTypes < ActiveRecord::Migration
   end
 
   def self.down
-    drop_view :user_with_type
+    drop_view :user_with_types
   end
 end
