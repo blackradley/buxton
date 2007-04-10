@@ -1,0 +1,27 @@
+<h1>Listing strategies</h1>
+
+<table>
+  <tr>
+  <% for column in Strategy.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for strategy in @strategies %>
+  <tr>
+  <% for column in Strategy.content_columns %>
+    <td><%=h strategy.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => strategy %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => strategy %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => strategy }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @strategy_pages.current.previous } if @strategy_pages.current.previous %>
+<%= link_to 'Next page', { :page => @strategy_pages.current.next } if @strategy_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New strategy', :action => 'new' %>
