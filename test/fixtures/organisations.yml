@@ -1,6 +1,15 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+#  
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+# 
+# A dummy test county
 one:
   id: 1
   user_id: 4
+  name: The Independent County Of Anywhereshire
   style: anywhereshire
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
   

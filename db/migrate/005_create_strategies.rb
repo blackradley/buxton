@@ -3,7 +3,9 @@ class CreateStrategies < ActiveRecord::Migration
     create_table :strategies, :force => true do |t|
       t.column :name,            :string
       t.column :description,     :string
-      t.column :display_order,   :integer      
+      t.column :display_order,   :integer  
+      t.column :created_on,      :timestamp
+      t.column :updated_on,      :timestamp    
     end
   end
 
