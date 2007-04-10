@@ -11,11 +11,11 @@
 # These groups are mutually exclusive.
 # 
 class User < ActiveRecord::Base
-  belongs_to :organisation
-  belongs_to :function
+  has_one :organisation
+  has_one :function
   
  # Administrative users have no organisation or function to control. 
   def self.find_admins
-    find(:all)
+    find(:all, :include => [:function, :organisation])
   end
 end

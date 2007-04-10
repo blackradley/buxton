@@ -3,6 +3,7 @@ class CreateFunctions < ActiveRecord::Migration
     create_table :functions, :force => true do |t|
       t.column :user_id,          :integer
       t.column :organisation_id,  :integer
+      t.column :name,             :string
       t.column :relevance01,      :integer
       t.column :relevance02,      :integer
       t.column :relevance03,      :integer
