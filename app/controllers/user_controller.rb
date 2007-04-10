@@ -19,16 +19,18 @@ class UserController < ApplicationController
     @users = User.find_admins
   end
 
-  def show
-    @user = User.find(params[:id])
-  end
-
   def new
     @user = User.new
   end
-
+#
+# You can only create an administrative user, the other users have
+# to be created in conjunction with the organisation or function
+# that they will be responsible for.
+#
   def create
     @user = User.new(params[:user])
+    @user.user_type = User_Type::ADMINISTRATIVE
+    @user.passkey = User.newUUID
     if @user.save
       flash[:notice] = 'User was successfully created.'
       redirect_to :action => 'list'
@@ -43,9 +45,10 @@ class UserController < ApplicationController
 
   def update
     @user = User.find(params[:id])
+    @user.passkey = User.newUUID
     if @user.update_attributes(params[:user])
       flash[:notice] = 'User was successfully updated.'
-      redirect_to :action => 'show', :id => @user
+      redirect_to :action => 'list'
     else
       render :action => 'edit'
     end

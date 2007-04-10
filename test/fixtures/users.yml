@@ -7,18 +7,21 @@
 # Three Administrators
 one:
   id: 1
+  user_type: 0
   passkey: fd84d4e8-32a4-102a-a9bc-080046905aee
   email: PeterLatchford@blackradley.com
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
 two:
   id: 2
+  user_type: 0
   passkey: 6f6ba00a-32aa-102a-a9bc-080046905aee
   email: IainWilkinson@blackradley.com
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
 three:
   id: 3
+  user_type: 0
   passkey: 72fde67c-368f-102a-b437-080046905aee
   email: joe@bagbatch.co.uk
   created_on: 2007-04-01 00:00:00
@@ -26,6 +29,7 @@ three:
 # One organisation
 four: 
   id: 4
+  user_type: 1
   passkey: 59788d7e-368f-102a-b437-080046905aee
   email: anywhereshire@bagbatch.co.uk
   created_on: 2007-04-01 00:00:00
@@ -33,6 +37,7 @@ four:
 # One Function
 five:
   id: 5
+  user_type: 2
   passkey: 4138e3f0-32aa-102a-a9bc-080046905aee
   email: refuse@bagbatch.co.uk
   created_on: 2007-04-01 00:00:00
