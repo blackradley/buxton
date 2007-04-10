@@ -1,8 +1,8 @@
 #  
-# * $URL: http://svn3.cvsdude.com/BlackRadley/buxton/trunk/db/migrate/001_create_users.rb $
-# * $Rev: 35 $
-# * $Author: BlackRadleyJoe $
-# * $Date: 2007-04-10 11:31:29 +0100 (Tue, 10 Apr 2007) $
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
 #
 class CreateUserWithTypes < ActiveRecord::Migration
 #
