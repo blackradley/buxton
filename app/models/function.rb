@@ -1,5 +1,5 @@
 class Function < ActiveRecord::Base
-  has_one :user
+  belongs_to :user
   belongs_to :organisation
   validates_presence_of :email  
   validates_format_of :email,

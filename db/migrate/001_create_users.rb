@@ -13,7 +13,7 @@
 class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users, :force => true do |t|
-      t.column :key,         :string
+      t.column :passkey,     :string
       t.column :email,       :string
       t.column :created_on,  :timestamp
       t.column :updated_on,  :timestamp

@@ -12,6 +12,7 @@
     <td><%=h user.email %></td>
     <td><%=h user.created_on.to_formatted_s(:date_time12) %></td>
     <td><%=h user.updated_on.to_formatted_s(:date_time12) %></td>
+    <td><%=h user.function %></td>
     <td><%= link_to 'Edit', :action => 'edit', :id => user %></td>
     <td><%= link_to 'Destroy', { :action => 'destroy', :id => user }, :confirm => 'Delete?', :method => :post %></td>
   </tr>
