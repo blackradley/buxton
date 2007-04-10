@@ -2,8 +2,7 @@
 
 <% form_tag :action => 'update', :id => @user do %>
   <%= render :partial => 'form' %>
-  <%= submit_tag 'Edit' %>
+  <%= submit_tag 'Save Changes' %>
 <% end %>
 
-<%= link_to 'Show', :action => 'show', :id => @user %> |
-<%= link_to 'Back', :action => 'list' %>
+<%= link_to 'List Admins', :action => 'list' %>
