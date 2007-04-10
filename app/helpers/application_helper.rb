@@ -1,7 +1,12 @@
 # Methods added to this helper will be available to all 
 # templates in the application.
 # 
-# $Id: foo.bar 123 2006-02-02 08:40:12Z agorf $
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
+# $Id$
+# 
 module ApplicationHelper
 
   # I could use request.subdomains(0).first but it throws
