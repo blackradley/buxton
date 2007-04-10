@@ -1,3 +1,9 @@
+#  
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+# 
 class UserController < ApplicationController
   def index
     list
@@ -9,7 +15,8 @@ class UserController < ApplicationController
          :redirect_to => { :action => :list }
 
   def list
-    @user_pages, @users = paginate :users, :per_page => 10
+    #@user_pages, @users = paginate :users, :per_page => 10
+    @users = User.find_admins
   end
 
   def show

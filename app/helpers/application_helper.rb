@@ -1,12 +1,11 @@
+# 
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+# 
 # Methods added to this helper will be available to all 
 # templates in the application.
-# 
-# $URL$
-# $Rev$
-# $Author$
-# $Date$
-# $Id$
-# 
 module ApplicationHelper
 
   # I could use request.subdomains(0).first but it throws

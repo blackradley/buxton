@@ -1,26 +1,22 @@
-<h1>Listing users</h1>
-
+<h1>Admin Users</h1>
 <table>
   <tr>
-  <% for column in User.content_columns %>
-    <th><%= column.human_name %></th>
-  <% end %>
+    <th></th>
+    <th>Email</th>
+    <th>Created</th>
+    <th>Updated</th>
   </tr>
-  
-<% for user in @users %>
+<% for user in @users -%>
   <tr>
-  <% for column in User.content_columns %>
-    <td><%=h user.send(column.name) %></td>
-  <% end %>
-    <td><%= link_to 'Show', :action => 'show', :id => user %></td>
+    <td><%= link_to 'Remind', {:action => 'remind', :id => user}, :confirm => 'Send new key?', :method => :post %></td>
+    <td><%=h user.email %></td>
+    <td><%=h user.created_on.to_formatted_s(:date_time12) %></td>
+    <td><%=h user.updated_on.to_formatted_s(:date_time12) %></td>
     <td><%= link_to 'Edit', :action => 'edit', :id => user %></td>
-    <td><%= link_to 'Destroy', { :action => 'destroy', :id => user }, :confirm => 'Are you sure?', :method => :post %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => user }, :confirm => 'Delete?', :method => :post %></td>
   </tr>
-<% end %>
+<% end -%>
 </table>
-
-<%= link_to 'Previous page', { :page => @user_pages.current.previous } if @user_pages.current.previous %>
-<%= link_to 'Next page', { :page => @user_pages.current.next } if @user_pages.current.next %> 
 
 <br />
 
