@@ -29,7 +29,7 @@ class UserController < ApplicationController
 #
   def create
     @user = User.new(params[:user])
-    @user.user_type = 0#User.ADMINISTRATIVE
+    @user.user_type = User::ADMINISTRATIVE
     @user.passkey = User.new_UUID
     if @user.save
       flash[:notice] = 'User was successfully created.'
