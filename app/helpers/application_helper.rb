@@ -25,7 +25,7 @@ module ApplicationHelper
     end
   end
 #
-# Date formats
+# Extend the date formats to include some British styley ones
 # 
   ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
     :default => "%m/%d/%Y %H:%M",

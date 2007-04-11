@@ -1,3 +1,9 @@
+#  
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+# 
 class WelcomeController < ApplicationController
   layout "application"
   

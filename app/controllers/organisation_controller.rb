@@ -1,3 +1,9 @@
+#  
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+# 
 class OrganisationController < ApplicationController
   layout 'application'
   

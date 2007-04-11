@@ -1,3 +1,9 @@
+#  
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+# 
 class Function < ActiveRecord::Base
   belongs_to :user
   belongs_to :organisation

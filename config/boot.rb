@@ -1,3 +1,9 @@
+#  
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+# 
 # Don't change this file. Configuration is done in config/environment.rb and config/environments/*.rb
 
 unless defined?(RAILS_ROOT)
