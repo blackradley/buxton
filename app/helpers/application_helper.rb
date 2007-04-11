@@ -16,5 +16,30 @@ module ApplicationHelper
   def subdomain(request)
     return request.host().split(/\s*\.\s*/)[0] 
   end
-  
+# 
+# Add a starts with method to the string
+#
+  class String
+    def startsWith str
+      return self[0...str.length] == str
+    end
+  end
+#
+# Date formats
+# 
+  ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
+    :default => "%m/%d/%Y %H:%M",
+    :date_time12 => "%d %b %Y %I:%M%p",
+    :date_time24 => "%d %b %Y %H:%M"
+  )
+#
+# Format the date or say there is nothing
+#
+  def date_or_blank(date)
+    if date.nil?
+      return 'no date'
+    else
+      return date.to_formatted_s(:date_time12)
+    end
+  end
 end

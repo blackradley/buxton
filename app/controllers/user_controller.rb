@@ -29,8 +29,8 @@ class UserController < ApplicationController
 #
   def create
     @user = User.new(params[:user])
-    @user.user_type = User_Type::ADMINISTRATIVE
-    @user.passkey = User.newUUID
+    @user.user_type = ADMINISTRATIVE
+    @user.passkey = User.new_UUID
     if @user.save
       flash[:notice] = 'User was successfully created.'
       redirect_to :action => 'list'
@@ -45,7 +45,7 @@ class UserController < ApplicationController
 
   def update
     @user = User.find(params[:id])
-    @user.passkey = User.newUUID
+    @user.passkey = User.new_UUID
     if @user.update_attributes(params[:user])
       flash[:notice] = 'User was successfully updated.'
       redirect_to :action => 'list'

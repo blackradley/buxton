@@ -4,16 +4,16 @@
 <%= text_field 'user', 'email'  %></p>
 
 <p><label for="user_created_on">Created on</label><br/>
-<%=h @user.created_on.to_formatted_s(:date_time12) %></p>
+<%=h date_or_blank(@user.created_on) %></p>
 
 <p><label for="user_updated_on">Updated on</label><br/>
-<%=h @user.updated_on.to_formatted_s(:date_time12) %></p>
+<%=h date_or_blank(@user.updated_on) %></p>
 
 <p><label for="user_reminded_on">Reminded on</label><br/>
-<%=h @user.reminded_on.to_formatted_s(:date_time12) %></p>
+<%=h date_or_blank(@user.reminded_on) %></p>
 
-<p><label for="user_deleted_on">Deleted on</label><br/>
-<%=h @user.deleted_on.to_formatted_s(:date_time12) %></p>
+
+
 
 
 
