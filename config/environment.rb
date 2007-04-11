@@ -64,10 +64,10 @@ end
 # Include your application configuration below
 #  
 ActionMailer::Base.smtp_settings = {
-  :address  => "smtp.adsl4less.com",
+  :address  => "mail.in-tuition.net",
   :port  => 25, 
-  :domain  => 'www.adsl4less.com',
-  :user_name  => "bagbatch@mail.adsl4less.com",
-  :password  => 'tmratsr',
+  :domain  => 'www.blackradley.com',
+  :user_name  => "joanna_tong@blackradley.com",
+  :password  => 'scrublet',
   :authentication  => :login
 } 

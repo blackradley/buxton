@@ -58,4 +58,10 @@ class UserController < ApplicationController
     User.find(params[:id]).destroy
     redirect_to :action => 'list'
   end
+  
+  def remind
+    email = Notifier.create_new_key(Time.now)
+    Notifier.deliver(email)
+    redirect_to :action => 'list'
+  end
 end
