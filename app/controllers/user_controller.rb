@@ -47,7 +47,7 @@ class UserController < ApplicationController
     @user = User.find(params[:id])
     @user.passkey = User.new_UUID
     if @user.update_attributes(params[:user])
-      flash[:notice] = 'User was successfully updated.'
+      flash[:notice] = @user.email + ' was successfully updated.'
       redirect_to :action => 'list'
     else
       render :action => 'edit'
@@ -60,8 +60,13 @@ class UserController < ApplicationController
   end
   
   def remind
-    email = Notifier.create_new_key(Time.now)
+    @user = User.find(params[:id])
+    @user.passkey = User.new_UUID
+    @user.reminded_on = Time.now
+    @user.save
+    email = Notifier.create_new_key(@user)
     Notifier.deliver(email)
+    flash[:notice] = 'New key sent to ' + @user.email
     redirect_to :action => 'list'
   end
 end
