@@ -1,3 +1,9 @@
+#  
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+# 
 class LookUp < ActiveRecord::Base
   AGREE_DISAGREE = 1
   
