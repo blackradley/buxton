@@ -29,7 +29,7 @@ class UserController < ApplicationController
 #
   def create
     @user = User.new(params[:user])
-    @user.user_type = ADMINISTRATIVE
+    @user.user_type = 0#User.ADMINISTRATIVE
     @user.passkey = User.new_UUID
     if @user.save
       flash[:notice] = 'User was successfully created.'
@@ -64,7 +64,7 @@ class UserController < ApplicationController
     @user.passkey = User.new_UUID
     @user.reminded_on = Time.now
     @user.save
-    email = Notifier.create_new_key(@user)
+    email = Notifier.create_administration_key(@user)
     Notifier.deliver(email)
     flash[:notice] = 'New key sent to ' + @user.email
     redirect_to :action => 'list'
