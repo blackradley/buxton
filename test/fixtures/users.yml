@@ -5,6 +5,7 @@
 # * $Date$
 # 
 # Three Administrators
+#
 one:
   id: 1
   user_type: 0
@@ -26,7 +27,9 @@ three:
   email: drbollins@hotmail.com
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
+#
 # One organisation
+#
 four: 
   id: 4
   user_type: 1
@@ -34,7 +37,9 @@ four:
   email: anywhereshire@bagbatch.co.uk
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
+#
 # One Function
+#
 five:
   id: 5
   user_type: 2
