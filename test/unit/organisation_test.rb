@@ -1,3 +1,9 @@
+#  
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+# 
 require File.dirname(__FILE__) + '/../test_helper'
 
 class OrganisationTest < Test::Unit::TestCase
