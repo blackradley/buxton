@@ -8,13 +8,22 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class UserTest < Test::Unit::TestCase
   fixtures :users
-
-  def setup
-    @user = users(:three)
+#
+# Check the properties of the third user (me).
+# 
+  def test_third_user
+    @user = User.find(3)
+    assert_equal @user.email, users(:three).email
+    assert_equal @user.user_type, User::ADMINISTRATIVE
   end
-
-  # Replace this with your real tests.
-  def test_first_user
-    assert_equal @user.email, 'drbollins@hotmail.com'
+#
+# Get the admin users
+#  
+  def test_administrative_user
+    @users = User.find_all_by_email(users(:three).email)
+    assert_equal @users.length, 1
+    @user = @users.first
+    assert_equal @user.email, users(:three).email
+    assert_equal @user.user_type, User::ADMINISTRATIVE
   end
 end

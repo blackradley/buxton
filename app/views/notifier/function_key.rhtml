@@ -1,5 +1,3 @@
 Click on the link below.
 
-Key: <%= @user.passkey %>
-
-(TODO: Link needs assembly)
+http://www.<%= @request.host_with_port.split(/\s*\.\s*/, 2)[1] %>/<%= @user.passkey %>

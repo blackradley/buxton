@@ -1,5 +1,4 @@
-Click on the link below.
+To add or edit functions click on the link below.
 
-Key: <%= @user.passkey %>
+http://<%= @user.organisation.style %>.<%= @request.host_with_port.split(/\s*\.\s*/, 2)[1] %>/<%= @user.passkey %>
 
-(TODO: Link needs assembly)
