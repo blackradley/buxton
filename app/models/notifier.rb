@@ -27,6 +27,13 @@ class Notifier < ActionMailer::Base
 #
   def organisation_key(user, request)
     @subject      = 'New Organisation Key for ' + user.organisation.name
+    email_details(user, request)
+  end
+#
+# A new key for the function administrator
+#
+  def function_key(user, request)
+    @subject      = 'New Function Key for ' + user.function.name
     @body         = {"user" => user, "request" => request}
     @recipients   = user.email
     @from         = FROM
@@ -34,10 +41,10 @@ class Notifier < ActionMailer::Base
     @headers      = {}
   end
 #
-# A new key for the function administrator
+# Set the bits and pieces in the email
 #
-  def function_key(user, request)
-    @subject      = 'New Function Key for ' + user.function.name
+private
+  def email_details(user, request)
     @body         = {"user" => user, "request" => request}
     @recipients   = user.email
     @from         = FROM

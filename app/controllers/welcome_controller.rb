@@ -45,7 +45,10 @@ class WelcomeController < ApplicationController
     redirect_to :action => 'index'
   end
   
-  private
+private
+#
+# Give the user a new key
+#
   def rekey_user(user)
     @user.passkey = User.new_UUID
     @user.reminded_on = Time.now
