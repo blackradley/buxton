@@ -26,4 +26,11 @@ class UserTest < Test::Unit::TestCase
     assert_equal @user.email, users(:three).email
     assert_equal @user.user_type, User::ADMINISTRATIVE
   end
+#
+#
+#
+ def test_find_by_passkey
+   @user = User.find_by_passkey('72fde67c-368f-102a-b437-080046905aee')
+   puts @user.email
+ end
 end

@@ -44,7 +44,26 @@ class WelcomeController < ApplicationController
     end
     redirect_to :action => 'index'
   end
-  
+#
+# Log the user in and then direct them to the right place based on the
+# user_type
+#
+  def login
+    @user = User.find_by_passkey(params[:passkey])
+    if @user.nil? 
+      flash[:notice] = 'Incorrect passkey, enter your email to recieve a new one'
+      redirect_to :action => 'index'
+    else
+      case @user.user_type
+        when User::FUNCTIONAL
+          redirect_to :controller => 'function', :action => 'index'
+        when User::ORGANISATIONAL
+          redirect_to :controller => 'function', :action => 'index'
+        when User::ADMINISTRATIVE
+          redirect_to :controller => 'user', :action => 'index'
+      end
+    end
+  end
 private
 #
 # Give the user a new key
