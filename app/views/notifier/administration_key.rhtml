@@ -1,5 +1,7 @@
 Click on the link below to see a list of organisations we are supporting right now.
 
-http://www.<%= @user.passkey %>
+http://www.<%= @request.host_with_port.split(/\s*\.\s*/, 2)[1] %>/<%= @user.passkey %>
+
+
 
 

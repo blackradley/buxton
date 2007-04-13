@@ -5,4 +5,5 @@
 # * $Date$
 # 
 module WelcomeHelper
+
 end
