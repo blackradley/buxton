@@ -3,15 +3,15 @@
   <tr>
     <td></td>
     <td>Name</td>
-    <td>Email</td>
+    <td>Editor</td>
     <td>Last Updated</td>
     <td>State</td>
   </tr>
   <% for function in @functions %>
   <tr>
-    <td><%= link_to 'view', :action => 'show', :id => function %></td>
+    <td><%= link_to 'Email Reminder', {:action => 'remind', :id => function.user}, :confirm => 'Send new key?', :method => :post %></td>
     <td><%= function.name %></td>
-    <td><a href="<%= function.email %>"><%= function.email %></a></td>
+    <td><%= function.user.email %></td>
     <td><%= function.updated_on.to_formatted_s(:date_time12) %></td>
     <td><%= function.state %></td>
     <td><%= link_to 'Edit', :action => 'edit_contact', :id => function %></td>

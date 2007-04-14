@@ -56,9 +56,9 @@ class WelcomeController < ApplicationController
     else
       case @user.user_type
         when User::FUNCTIONAL
-          redirect_to :controller => 'function', :action => 'index'
+          redirect_to :controller => 'function', :action => 'edit', :id => 1
         when User::ORGANISATIONAL
-          redirect_to :controller => 'function', :action => 'index'
+          redirect_to :controller => 'function', :action => 'list'
         when User::ADMINISTRATIVE
           redirect_to :controller => 'user', :action => 'index'
       end

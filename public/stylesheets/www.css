@@ -10,14 +10,14 @@ body{
 
 .logo{
     padding:76px 20px 20px 0;
-	background: url(../images/anywhereshire.png);
+	background: url(../images/black_radley.gif);
 	background-repeat: no-repeat;
-	float: left; 
+	float: right; 
 	width: 250px;
 }
 
 .titleArea{
-	float: right; 
+	float: left; 
 }
 
 .content{
@@ -38,7 +38,8 @@ body{
 
 
 .footer{
-	float: left; 
+	background-color: #FF9900;
+	float: right; 
 }
 
 select{

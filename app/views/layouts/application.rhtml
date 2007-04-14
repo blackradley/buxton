@@ -25,19 +25,23 @@
   </script>
 </head>
 <body OnLoad="setFocus()">
-    <div class="content"> 
-        <div class="masthead">
-        </div> 
-        <h1>Online Equality and Cohesion Assessment</h1>
-        <span class="left">
-            <%= @content_for_layout %>  
-        </span>
-        <span class="right">
-            <p style="color: green"><%= flash[:notice] %></p>
-        </span>
-        <div class="footer">
-            This application is for demonstration purposes only.
+    <div class="mastHead">
+        <div class="logo">
         </div>
+        <h1 class="titleArea">Equalities Assessment</h1>
+    </div> 
+    <div class="content"> 
+        <div>
+            <div class="workingArea">
+                <%= @content_for_layout %>  
+            </div>
+            <div class="messageArea">
+                <p style="color: green"><%= flash[:notice] %></p>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        This application is for demonstration purposes only.
     </div>
 </body>
 </html>

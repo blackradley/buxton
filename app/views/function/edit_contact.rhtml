@@ -1,7 +1,16 @@
 <h2>Editing function</h2>
 
 <% form_tag :action => 'update', :id => @function do %>
-  <%= render :partial => 'form' %>
+
+  <%= error_messages_for 'user' %>
+  <%= error_messages_for 'function' %>
+    
+  <p><label for="user_email">Email</label><br/>
+  <%= text_field 'user', 'email'  %></p>
+    
+  <p><label for="function_name">Name</label><br/>
+  <%= text_field 'function', 'name'  %></p>
+
   <%= submit_tag 'Save' %>
 <% end %>
 
