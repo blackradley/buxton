@@ -1,7 +1,10 @@
-<%= error_messages_for 'function' %>
+  <%= error_messages_for 'user' %>
+  <%= error_messages_for 'function' %>
+    
+  <p><label for="user_email">Email</label><br/>
+  <%= text_field 'user', 'email'  %></p>
+    
+  <p><label for="function_name">Name</label><br/>
+  <%= text_field 'function', 'name'  %></p>
 
-<p><label for="function_email">Email</label><br/>
-<%= text_field 'function.user', 'email'  %></p>
-
-<p><label for="function_name">Name</label><br/>
-<%= text_field 'function', 'name'  %></p>
+  <%= submit_tag 'Save' %>
