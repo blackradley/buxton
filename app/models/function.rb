@@ -9,8 +9,10 @@ class Function < ActiveRecord::Base
   belongs_to :organisation
   
   def state
-    read_attribute(:relevance01).nil? ? 0 : 1 +
-    read_attribute(:relevance02).nil? ? 0 : 1 +
-    read_attribute(:relevance03).nil? ? 0 : 1
+    function_state = 0 
+    function_state += read_attribute(:relevance01).nil? ? 0 : 1
+    function_state += read_attribute(:relevance02).nil? ? 0 : 1 
+    function_state += read_attribute(:relevance03).nil? ? 0 : 1 
+    return function_state
   end
 end

@@ -51,12 +51,12 @@ class WelcomeController < ApplicationController
   def login
     @user = User.find_by_passkey(params[:passkey])
     if @user.nil? 
-      flash[:notice] = 'Incorrect passkey, enter your email to recieve a new one'
+      flash[:notice] = 'Out of date reminder, enter your email to recieve a new one'
       redirect_to :action => 'index'
     else
       case @user.user_type
         when User::FUNCTIONAL
-          redirect_to :controller => 'function', :action => 'edit', :id => 1
+          redirect_to :controller => 'function', :action => 'show', :id => 1
         when User::ORGANISATIONAL
           redirect_to :controller => 'function', :action => 'list'
         when User::ADMINISTRATIVE

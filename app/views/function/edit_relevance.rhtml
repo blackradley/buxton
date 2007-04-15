@@ -1,6 +1,10 @@
 <h2>Editing Relevance</h2>
 
 <% form_tag :action => 'update', :id => @function do %>
+
+    <p><label for="function_name">Name: </label><%=h @function.name %></p>
+    <p><label for="user_email">Email: </label><%=h @function.user.email %></pd>
+    <p><label for="function_updated_on">Last updated: </label><%= date_or_blank(@function.updated_on) %></pd>
   
 <p><label for="function_relevance01">Relevance01</label><br/>
 <% LookUp.find(:all, :order => 'id').each do |lookup| %>
@@ -21,5 +25,4 @@
   <%= submit_tag 'Save' %>
 <% end %>
 
-<%= link_to 'Show', :action => 'show', :id => @function %> |
-<%= link_to 'Back', :action => 'list' %>
+<%= link_to 'Back', :action => 'show', :id => @function %>
