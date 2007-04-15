@@ -29,12 +29,16 @@ class FunctionController < ApplicationController
     @function = Function.new
     @user = User.new 
   end
-
+#
+# Create a new function and a new user based on the parameters on the
+# form.  
+#
   def create
-    @function = Function.new(params[:function])    
-    @function.organisation_id = 1
+    @function = Function.new(params[:function])   
+    @function.organisation_id = @session['logged_in_user'].organisation.id 
     @user = User.new(params[:user])
     @user.passkey = User.new_UUID
+    @user.user_type = User::FUNCTIONAL
     Function.transaction do
       @user.function = @function
       @function.save!
@@ -55,7 +59,8 @@ class FunctionController < ApplicationController
     @user = @function.user
   end
 #
-# Get the function information ready for editing
+# Get the function information ready for editing using the 
+# relevance form.
 #
   def edit_relevance
     @function = Function.find(params[:id])
@@ -68,9 +73,9 @@ class FunctionController < ApplicationController
       @user = @function.user
       @user.update_attributes(params[:user])
       flash[:notice] =  @function.name + ' was successfully changed.'
-      if @user.user_type == User::FUNCTIONAL
+      if @session['logged_in_user'].user_type == User::FUNCTIONAL
         redirect_to :action => :show, :id => @function
-      elsif @user.user_type == User::ORGANISATIONAL
+      elsif @session['logged_in_user'].user_type == User::ORGANISATIONAL
         redirect_to :action => :list
       end
     end
@@ -78,7 +83,13 @@ class FunctionController < ApplicationController
     @user.valid? # force checking of errors even if function failed
     render :action => :new  
   end
-
+#
+# Send a reminder to the email associated with that function.
+# Only one email should be sent for that function, so if the email
+# is used a number of times in the functions/users then the other
+# functions are ignored until a reminder is sent for that specific
+# function.
+#
   def remind
     @user = User.find(params[:id])
     @user.passkey = User.new_UUID
@@ -89,9 +100,20 @@ class FunctionController < ApplicationController
     flash[:notice] = 'Reminder for ' + @user.function.name + ' sent to ' + @user.email
     redirect_to :action => 'list'
   end
-
+#
+# TODO: Mark the record with a deleted date
+#
   def destroy
     Function.find(params[:id]).destroy
     redirect_to :action => 'list'
+  end
+
+protected
+#
+# Secure the relevant methods in the controller.
+#
+  def secure?
+    true
+    #["list", "add", "show"].include?(action_name)
   end
 end

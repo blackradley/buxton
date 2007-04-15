@@ -49,9 +49,20 @@ class StrategyController < ApplicationController
       render :action => 'edit'
     end
   end
-
+#
+# 
+#
   def destroy
     Strategy.find(params[:id]).destroy
     redirect_to :action => 'list'
+  end
+  
+protected
+#
+# Secure the relevant methods in the controller.
+#
+  def secure?
+    true
+    #["list", "add", "show"].include?(action_name)
   end
 end

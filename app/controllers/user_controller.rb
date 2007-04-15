@@ -69,4 +69,13 @@ class UserController < ApplicationController
     flash[:notice] = 'New key sent to ' + @user.email
     redirect_to :action => 'list'
   end
+  
+protected
+#
+# Secure the relevant methods in the controller.
+#
+  def secure?
+    true
+    #["list", "add", "show"].include?(action_name)
+  end
 end
