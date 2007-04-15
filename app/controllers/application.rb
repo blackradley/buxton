@@ -21,10 +21,9 @@ class ApplicationController < ActionController::Base
 
   private
   def authenticate
-#    if secure? && session["person"].nil?
-#      session["return_to"] = request.request_uri
-#      redirect_to :controller => "auth" 
-#      return false
-#    end
+    if secure? && session['logged_in_user'].nil?
+      redirect_to :controller => 'welcome' 
+      return false
+    end
   end
 end

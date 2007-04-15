@@ -50,10 +50,11 @@ class WelcomeController < ApplicationController
 #
   def login
     @user = User.find_by_passkey(params[:passkey])
-    if @user.nil? 
+    if @user.nil? # the key is not in the user table
       flash[:notice] = 'Out of date reminder, enter your email to recieve a new one'
       redirect_to :action => 'index'
-    else
+    else # the key is in the table so stash the user
+      @session['logged_in_user'] = @user
       case @user.user_type
         when User::FUNCTIONAL
           redirect_to :controller => 'function', :action => 'show', :id => 1
@@ -64,6 +65,16 @@ class WelcomeController < ApplicationController
       end
     end
   end
+
+protected
+#
+# No methods are secured because this is an entirely public page.
+#
+  def secure?
+    false
+  end
+end  
+  
 private
 #
 # Give the user a new key
