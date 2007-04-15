@@ -32,15 +32,15 @@ class FunctionController < ApplicationController
 
   def create
     @function = Function.new(params[:function])    
-    @function.key = ApplicationHelper.newUUID
     @function.organisation_id = 1
     @user = User.new(params[:user])
+    @user.passkey = User.new_UUID
     Function.transaction do
       @user.function = @function
       @function.save!
       @user.save!
-      flash[:notice] = 'Function and User were successfully created.'
-      redirect_to :action => 'list'
+      flash[:notice] = @function.name + ' was created.'
+      redirect_to :action => :list
     end
   rescue ActiveRecord::RecordInvalid => e
     @user.valid? # force checking of errors even if function failed
@@ -58,12 +58,16 @@ class FunctionController < ApplicationController
 
   def update
     @function = Function.find(params[:id])
-    if @function.update_attributes(params[:function])
-      flash[:notice] = 'Function was successfully updated.'
-      redirect_to :action => 'show', :id => @function
-    else
-      render :action => 'edit'
+    @function.update_attributes(params[:function])
+    Function.transaction do
+      @user = @function.user
+      @user.update_attributes(params[:user])
+      flash[:notice] =  @function.name + ' was successfully changed.'
+      redirect_to :action => :list
     end
+  rescue ActiveRecord::RecordInvalid => e
+    @user.valid? # force checking of errors even if function failed
+    render :action => :new  
   end
 
   def remind
