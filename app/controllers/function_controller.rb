@@ -46,12 +46,17 @@ class FunctionController < ApplicationController
     @user.valid? # force checking of errors even if function failed
     render :action => :new    
   end
-
+#
+# Get both the function and user information ready for editing, since they
+# are both edited at the same time.
+#
   def edit_contact
     @function = Function.find(params[:id])
     @user = @function.user
   end
-
+#
+# Get the function information ready for editing
+#
   def edit_relevance
     @function = Function.find(params[:id])
   end
@@ -63,7 +68,11 @@ class FunctionController < ApplicationController
       @user = @function.user
       @user.update_attributes(params[:user])
       flash[:notice] =  @function.name + ' was successfully changed.'
-      redirect_to :action => :list
+      if @user.user_type == User::FUNCTIONAL
+        redirect_to :action => :show, :id => @function
+      elsif @user.user_type == User::ORGANISATIONAL
+        redirect_to :action => :list
+      end
     end
   rescue ActiveRecord::RecordInvalid => e
     @user.valid? # force checking of errors even if function failed
@@ -77,7 +86,7 @@ class FunctionController < ApplicationController
     @user.save
     email = Notifier.create_function_key(@user, request)
     Notifier.deliver(email)
-    flash[:notice] = 'New key sent to ' + @user.email
+    flash[:notice] = 'Reminder for ' + @user.function.name + ' sent to ' + @user.email
     redirect_to :action => 'list'
   end
 

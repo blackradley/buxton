@@ -1,12 +1,17 @@
- <p><b>Email</b>
-  <%= @user.email %></p>
-
+<p><b>Email:</b> <%= @user.email %></p>
+<p><b>Reminded:</b> <%= date_or_blank(@user.reminded_on) %></p>
 <% for column in Function.content_columns %>
 <p>
   <b><%= column.human_name %>:</b> 
     <%= @function.send(column.name) %>
 </p>
 <% end %>
-
-<%= link_to 'Edit', :action => 'edit', :id => @function %> |
-<%= link_to 'Back', :action => 'list' %>
+<p>
+<% case @user.user_type 
+     when User::FUNCTIONAL %>
+    <%= link_to 'Edit', :action => 'edit_relevance', :id => @function %>
+  <% when User::ORGANISATIONAL %>
+    <%= link_to 'Edit', :action => 'edit_contact', :id => @function %> |
+    <%= link_to 'Back', :action => 'list' %>
+<% end %>
+</p>

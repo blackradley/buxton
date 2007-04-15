@@ -4,17 +4,21 @@
     <td></td>
     <td>Name</td>
     <td>Editor</td>
-    <td>Last Updated</td>
+    <td></td>
+    <td>Last Reminder</td>
+    <td></td>
     <td>State</td>
+    <td></td>
   </tr>
   <% for function in @functions %>
   <tr>
-    <td><%= link_to 'Email Reminder', {:action => 'remind', :id => function.user}, :confirm => 'Send new key?', :method => :post %></td>
-    <td><%= function.name %></td>
-    <td><%= function.user.email %></td>
-    <td><%= function.updated_on.to_formatted_s(:date_time12) %></td>
-    <td><%= function.state %></td>
+    <td><%= link_to 'View', :action => 'show', :id => function %></td>
+    <td><%=h function.name %></td>
+    <td><%=h function.user.email %></td>
     <td><%= link_to 'Edit', :action => 'edit_contact', :id => function %></td>
+    <td><%= date_or_blank(function.user.reminded_on) %></td>
+    <td><%= link_to 'Remind', {:action => 'remind', :id => function.user}, :confirm => 'Send reminder to ' + function.name + '?', :method => :post %></td>
+    <td><%= function.state %></td>
     <td><%= link_to 'Delete', { :action => 'destroy', :id => function }, :confirm => 'Are you sure?', :method => :post %></td>
   </tr>
   <% end %>
