@@ -72,8 +72,7 @@ protected
 #
   def secure?
     false
-  end
-end  
+  end  
   
 private
 #

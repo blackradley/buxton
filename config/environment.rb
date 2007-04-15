@@ -32,7 +32,7 @@ Rails::Initializer.run do |config|
 
   # Use the database for sessions instead of the file system
   # (create the session table with 'rake db:sessions:create')
-config.action_controller.session_store = :active_record_store
+  config.action_controller.session_store = :active_record_store
 
   # Use SQL instead of Active Record's schema dumper when creating the test database.
   # This is necessary if your schema can't be completely dumped by the schema dumper, 
@@ -44,8 +44,6 @@ config.action_controller.session_store = :active_record_store
 
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
-  
-  # See Rails::Configuration for more options
 end
 
 # Add new inflection rules using the following format 
@@ -60,8 +58,9 @@ end
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register "application/x-mobile", :mobile
-
-# Include your application configuration below
+ 
+#  
+# Configuration for the SMTP server.
 #  
 ActionMailer::Base.smtp_settings = {
   :address  => "mail.in-tuition.net",

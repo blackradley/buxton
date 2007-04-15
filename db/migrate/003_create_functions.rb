@@ -1,3 +1,9 @@
+#  
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+#
 class CreateFunctions < ActiveRecord::Migration
   def self.up
     create_table :functions, :force => true do |t|

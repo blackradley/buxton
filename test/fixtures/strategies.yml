@@ -1,20 +1,26 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 one:
   id: 1
+  organisation_id: 1
   name: World Domination
   description: Dominating the world throught fear and intimidation
+  display_order: 2
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
 two:
   id: 2
+  organisation_id: 1
   name: Eliminating All Enemies
   description: Liquidating all the enemies of the county
+  display_order: 3
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
 three:
   id: 3
+  organisation_id: 1
   name: Suppressing Dissent
   description: Locking up all the scum who oppose our policies
+  display_order: 1
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   
