@@ -1,3 +1,9 @@
+#  
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+#
 class CreateLookUps < ActiveRecord::Migration
   def self.up
     create_table :look_ups, :force => true do |t|

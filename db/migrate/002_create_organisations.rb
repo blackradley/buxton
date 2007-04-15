@@ -1,3 +1,9 @@
+#  
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+#
 class CreateOrganisations < ActiveRecord::Migration
   def self.up
     create_table :organisations, :force => true do |t|

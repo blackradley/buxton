@@ -31,6 +31,9 @@ class CreateUsers < ActiveRecord::Migration
       t.column :reminded_on,   :timestamp
       t.column :deleted_on,    :timestamp
     end
+    
+    add_index :users, :passkey
+    add_index :users, :email
   end
 
   def self.down
