@@ -30,8 +30,7 @@ class FunctionController < ApplicationController
     @user = User.new 
   end
 #
-# Create a new function and a new user based on the parameters on the
-# form.  
+# Create a new function and a new user based on the parameters on the form.  
 #
   def create
     @function = Function.new(params[:function])   
@@ -67,7 +66,10 @@ class FunctionController < ApplicationController
     @function = Function.find(params[:id])
     @strategies = Strategy.find_all_by_organisation_id(@session['logged_in_user'].function.organisation_id)
   end
-
+#
+# Update the function and all of its attributes, then redirect based on the
+# type of user.
+#
   def update
     @function = Function.find(params[:id])
     @function.update_attributes(params[:function])
@@ -86,11 +88,10 @@ class FunctionController < ApplicationController
     render :action => :new  
   end
 #
-# Send a reminder to the email associated with that function.
-# Only one email should be sent for that function, so if the email
-# is used a number of times in the functions/users then the other
-# functions are ignored until a reminder is sent for that specific
-# function.
+# Send a reminder to the email associated with that function.  Only one
+# email should be sent for that function, so if the email is used a number
+# of times in the functions/users then the other functions are ignored 
+# until a reminder is sent for that specific function.
 #
   def remind
     @user = User.find(params[:id])
