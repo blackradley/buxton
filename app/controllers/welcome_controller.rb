@@ -38,7 +38,7 @@ class WelcomeController < ApplicationController
             Notifier.deliver(email)
         end
       end
-      flash[:notice] = 'New passkey sent to ' + @user.email 
+      flash[:notice] = 'New passkey' + (@users.length >= 2 ? 's' :'') + ' sent to ' + @user.email 
     end
     redirect_to :action => 'index'
   end
