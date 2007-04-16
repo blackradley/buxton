@@ -28,6 +28,8 @@ class FunctionController < ApplicationController
   def new
     @function = Function.new
     @user = User.new 
+# TODO: should only find strategies for this organisation, not all as below.
+    @strategies = Strategy.find_all
   end
 #
 # Create a new function and a new user based on the parameters on the
@@ -64,6 +66,8 @@ class FunctionController < ApplicationController
 #
   def edit_relevance
     @function = Function.find(params[:id])
+    # TODO: should only find strategies for this organisation, not all as below.
+    @strategies = Strategy.find_all
   end
 
   def update
