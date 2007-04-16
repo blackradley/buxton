@@ -30,17 +30,15 @@ class WelcomeController < ApplicationController
           when User::FUNCTIONAL
             email = Notifier.create_function_key(@user, request)
             Notifier.deliver(email)
-            flash[:notice] = 'New function key sent to ' + @user.email 
-          when User::ORGANISATIONAL
+           when User::ORGANISATIONAL
             email = Notifier.create_organisation_key(@user, request)
             Notifier.deliver(email)
-            flash[:notice] = 'New organisation key sent to ' + @user.email
           when User::ADMINISTRATIVE
             email = Notifier.create_administration_key(@user, request)
             Notifier.deliver(email)
-            flash[:notice] = 'New administration key sent to ' + @user.email
         end
       end
+      flash[:notice] = 'New passkey sent to ' + @user.email 
     end
     redirect_to :action => 'index'
   end
