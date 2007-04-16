@@ -7,6 +7,7 @@
 class Function < ActiveRecord::Base
   belongs_to :user
   belongs_to :organisation
+  has_and_belongs_to_many :strategies
   
   def state
     function_state = 0 

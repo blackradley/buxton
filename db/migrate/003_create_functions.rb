@@ -13,6 +13,7 @@ class CreateFunctions < ActiveRecord::Migration
       t.column :relevance01,      :integer
       t.column :relevance02,      :integer
       t.column :relevance03,      :integer
+      t.column :is_approved,      :boolean
       t.column :created_on,       :timestamp
       t.column :updated_on,       :timestamp
       t.column :deleted_on,       :timestamp
