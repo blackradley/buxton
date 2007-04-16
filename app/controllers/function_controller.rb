@@ -28,8 +28,6 @@ class FunctionController < ApplicationController
   def new
     @function = Function.new
     @user = User.new 
-# TODO: should only find strategies for this organisation, not all as below.
-    @strategies = Strategy.find_all
   end
 #
 # Create a new function and a new user based on the parameters on the
@@ -54,20 +52,20 @@ class FunctionController < ApplicationController
   end
 #
 # Get both the function and user information ready for editing, since they
-# are both edited at the same time.
+# are both edited at the same time.  The organisational manager edits these
+# not the functional manager.
 #
   def edit_contact
     @function = Function.find(params[:id])
     @user = @function.user
   end
 #
-# Get the function information ready for editing using the 
-# relevance form.
+# Get the function information ready for editing using the relevance form.  
+# These are edited by the functional manager.
 #
   def edit_relevance
     @function = Function.find(params[:id])
-    # TODO: should only find strategies for this organisation, not all as below.
-    @strategies = Strategy.find_all
+    @strategies = Strategy.find_all_by_organisation_id(@session['logged_in_user'].function.organisation_id)
   end
 
   def update
