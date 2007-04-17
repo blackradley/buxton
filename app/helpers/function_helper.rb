@@ -25,4 +25,10 @@ module FunctionHelper
     html += "</tr>"
     html += "</table>"
   end
+#
+# Radio buttons for look ups
+#
+  def radio_look_ups(lookups)
+
+  end
 end
