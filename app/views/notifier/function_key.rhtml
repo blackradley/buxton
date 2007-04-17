@@ -1,3 +1,3 @@
 To complete or edit your function details click on the link below:
 
-http://www.<%= @request.host_with_port.split(/\s*\.\s*/, 2)[1] %>/<%= @user.passkey %>
+http://<%= @user.organisation.style %>.<%= @request.host_with_port.split(/\s*\.\s*/, 2)[1] %>/<%= @user.passkey %>
