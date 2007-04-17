@@ -18,10 +18,10 @@ module FunctionHelper
 #
 # Display the users progress through the questions
 #
-  def progress_bar(answers, out_of)
+  def progress_bar(percentage)
     html = "<table border='0' cellpadding='0' cellSpacing='0' bgColor='Red'>"
     html += "<tr>"
-    html += "<td width='100'><img src='bar.gif' width='50' height='10px'></td>"
+    html += "<td width='100'><img src='../images/bar.gif' width='#{percentage}' height='10px'></td>"
     html += "</tr>"
     html += "</table>"
   end

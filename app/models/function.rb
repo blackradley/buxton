@@ -8,12 +8,15 @@ class Function < ActiveRecord::Base
   belongs_to :user
   belongs_to :organisation
   has_and_belongs_to_many :strategies
-  
-  def state
-    function_state = 0 
-    function_state += read_attribute(:relevance01).nil? ? 0 : 1
-    function_state += read_attribute(:relevance02).nil? ? 0 : 1 
-    function_state += read_attribute(:relevance03).nil? ? 0 : 1 
-    return function_state
+#
+# Retun a float for the number of questions answered
+#
+  def percentage_answered
+    percentage = 0.0 # the .0 ensures a float is used
+    percentage += read_attribute(:relevance01).nil? ? 0.0 : 1.0
+    percentage += read_attribute(:relevance02).nil? ? 0.0 : 1.0 
+    percentage += read_attribute(:relevance03).nil? ? 0.0 : 1.0 
+    percentage = (percentage/3.0)*100
+    return percentage
   end
 end
