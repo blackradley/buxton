@@ -18,7 +18,8 @@
     <td><%= link_to 'Edit', :action => 'edit_contact', :id => function %></td>
     <td><%= date_or_blank(function.user.reminded_on) %></td>
     <td><%= link_to 'Remind', {:action => 'remind', :id => function.user}, :confirm => 'Send reminder to ' + function.name + '?', :method => :post %></td>
-    <td><%= function.state %></td>
+    <td><%= progress_bar(function.state, 10) %></td>
+    <td><%= approved_tag(function.is_approved?) %></td>
     <td><%= link_to 'Delete', { :action => 'destroy', :id => function }, :confirm => 'Are you sure?', :method => :post %></td>
   </tr>
   <% end %>
