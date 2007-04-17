@@ -2,25 +2,81 @@
 one:
   id: 1
   organisation_id: 1
-  name: World Domination
-  description: Dominating the world throught fear and intimidation
+  name: Manage resources effectively, flexibly and responsively
+  description: Manage resources effectively, flexibly and responsively
   display_order: 2
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
 two:
   id: 2
   organisation_id: 1
-  name: Eliminating All Enemies
-  description: Liquidating all the enemies of the county
+  name: Investing in our staff to build an organisation that is fit for its purpose
+  description:  Investing in our staff to build an organisation that is fit for its purpose
   display_order: 3
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
 three:
   id: 3
   organisation_id: 1
-  name: Suppressing Dissent
-  description: Locking up all the scum who oppose our policies
+  name: Raising performance in our services for children, young people, families and adult
+  description: Raising performance in our services for children, young people, families and adult
   display_order: 1
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
-  
+four:
+  id: 4
+  organisation_id: 1
+  name: Raising performance in our housing services
+  description: Raising performance in our housing services
+  display_order: 1
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
+four:
+  id: 4
+  organisation_id: 1
+  name: Cleaner, greener and safer city – Your City, Your Birmingham
+  description: Cleaner, greener and safer city – Your City, Your Birmingham
+  display_order: 1
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
+five:
+  id: 5
+  organisation_id: 1
+  name: Investing in regeneration
+  description: Investing in regeneration
+  display_order: 1
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
+six:
+  id: 6
+  organisation_id: 1
+  name: Improving the city's transport and tackling congestion
+  description: Improving the city's transport and tackling congestion
+  display_order: 1
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
+seven:
+  id: 7
+  organisation_id: 1
+  name: A fair and welcoming city
+  description: A fair and welcoming city
+  display_order: 1
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
+eight:
+  id: 8
+  organisation_id: 1
+  name: Providing more effective education and leisure opportunities
+  description: Providing more effective education and leisure opportunities
+  display_order: 1
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
+nine:
+  id: 9
+  organisation_id: 1
+  name: Promoting Birmingham as a great international city
+  description: Promoting Birmingham as a great international city
+  display_order: 1
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
+ 

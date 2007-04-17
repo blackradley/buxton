@@ -16,7 +16,7 @@ class Function < ActiveRecord::Base
     percentage += read_attribute(:relevance01).nil? ? 0.0 : 1.0
     percentage += read_attribute(:relevance02).nil? ? 0.0 : 1.0 
     percentage += read_attribute(:relevance03).nil? ? 0.0 : 1.0 
-    percentage = (percentage/3.0)*100
+    percentage = (percentage/30.0)*100
     return percentage
   end
 end
