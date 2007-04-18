@@ -1,8 +1,8 @@
 #  
-# * $URL: http://svn3.cvsdude.com/BlackRadley/buxton/trunk/app/models/strategy.rb $
-# * $Rev: 42 $
-# * $Author: BlackRadleyJoe $
-# * $Date: 2007-04-11 12:05:59 +0100 (Wed, 11 Apr 2007) $
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
 # 
 require File.dirname(__FILE__) + '/../test_helper'
 
