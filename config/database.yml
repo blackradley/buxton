@@ -31,6 +31,6 @@ test:
 production:
   adapter: mysql
   database: buxton_production
-  username: root
-  password: 
-  socket: /var/run/mysqld/mysqld.sock
+  username: buxton
+  password: ramjet
+  socket: /tmp/mysql.sock
