@@ -38,7 +38,7 @@ class WelcomeController < ApplicationController
             Notifier.deliver(email)
         end
       end
-      flash[:notice] = 'New passkey' + (@users.length >= 2 ? 's' :'') + ' sent to ' + @user.email 
+      flash[:notice] = 'New link' + (@users.length >= 2 ? 's' :'') + ' sent to ' + @user.email 
     end
     redirect_to :action => 'index'
   end
@@ -49,7 +49,7 @@ class WelcomeController < ApplicationController
   def login
     @user = User.find_by_passkey(params[:passkey])
     if @user.nil? # the key is not in the user table
-      flash[:notice] = 'Out of date reminder, enter your email to recieve a new one'
+      flash[:notice] = 'Out of date link, enter your email to recieve a new one'
       redirect_to :action => 'index'
     else # the key is in the table so stash the user
       @session['logged_in_user'] = @user
