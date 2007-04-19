@@ -10,9 +10,9 @@ module FunctionHelper
 #
   def approved_tag(is_ticked)
     if is_ticked
-      return '<img src="../images/tick.gif" title="Approved" />'
+      return image_tag('tick.gif', :alt => "Approved", :title => "Approved")
     else
-      return '<img src="../images/cross.gif" title="Not approved yet" />'
+      return image_tag('cross.gif', :alt => "Not approved yet", :title => "Not approved yet")
     end
   end
 #
