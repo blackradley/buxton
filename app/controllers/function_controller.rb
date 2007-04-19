@@ -24,7 +24,9 @@ class FunctionController < ApplicationController
     @function = Function.find(params[:id])
     @user = @function.user
   end
-
+#
+# Create a new function and a new associated user
+#
   def new
     @function = Function.new
     @user = User.new 
@@ -95,7 +97,7 @@ class FunctionController < ApplicationController
 #
   def remind
     @user = User.find(params[:id])
-    @user.passkey = User.new_UUID
+    @user.passkey = User.new_passkey
     @user.reminded_on = Time.now
     @user.save
     email = Notifier.create_function_key(@user, request)
@@ -104,7 +106,7 @@ class FunctionController < ApplicationController
     redirect_to :action => 'list'
   end
 #
-# TODO: Mark the record with a deleted date
+# TODO: Mark the function record with a deleted date do not destroy
 #
   def destroy
     Function.find(params[:id]).destroy

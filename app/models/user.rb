@@ -22,10 +22,17 @@ class User < ActiveRecord::Base
   ORGANISATIONAL = 1
   FUNCTIONAL = 2
 #
-# There is no built in method for creating a GUID in Ruby
-# so the UUID in MySql is called instead.
+# There is no built in method for creating a GUID in Ruby so the UUID in
+# MySql is called instead.  The UUID is designed as a number that is globally
+# unique in space and time, but has predictable features, so it is probably
+# not ideal as a passkey.
+# 
+# TODO: Ensure that the passkey is not predictable.
+#   a. remove the dashes so it doesn't look like a GUID
+#   b. add a random number (in hex) so it is not predictable
+#   c. add a check bit so we can detect if it has been messed with
 #
-  def self.new_UUID
+  def self.new_passkey
     return ActiveRecord::Base.connection.select_one('select UUID()')['UUID()']
   end  
 #

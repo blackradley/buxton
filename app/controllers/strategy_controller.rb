@@ -50,7 +50,7 @@ class StrategyController < ApplicationController
     end
   end
 #
-# 
+# TODO: Mark the strategy record with a deleted date do not destroy
 #
   def destroy
     Strategy.find(params[:id]).destroy

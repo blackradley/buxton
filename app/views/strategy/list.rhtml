@@ -2,21 +2,16 @@
 
 <table>
   <tr>
-  <% for column in Strategy.content_columns %>
-    <th><%= column.human_name %></th>
-  <% end %>
+    <th>Name</th>
   </tr>
-  
-<% for strategy in @strategies %>
+  <% for strategy in @strategies %>
   <tr>
-  <% for column in Strategy.content_columns %>
-    <td><%=h strategy.send(column.name) %></td>
-  <% end %>
-    <td><%= link_to 'Show', :action => 'show', :id => strategy %></td>
+    <td><%= link_to 'View', :action => 'show', :id => strategy %></td>
+    <td title="<%=h strategy.description %>"><%=h strategy.name %></td>
     <td><%= link_to 'Edit', :action => 'edit', :id => strategy %></td>
-    <td><%= link_to 'Destroy', { :action => 'destroy', :id => strategy }, :confirm => 'Are you sure?', :method => :post %></td>
+    <td><%= link_to 'Delete', { :action => 'destroy', :id => strategy }, :confirm => 'Delete ' + strategy.name + '?', :method => :post %></td>
   </tr>
-<% end %>
+  <% end %>
 </table>
 
 <%= link_to 'Previous page', { :page => @strategy_pages.current.previous } if @strategy_pages.current.previous %>

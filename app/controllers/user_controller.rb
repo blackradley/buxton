@@ -42,10 +42,12 @@ class UserController < ApplicationController
   def edit
     @user = User.find(params[:id])
   end
-
+#
+# Give the user a new key every time it is updated
+#
   def update
     @user = User.find(params[:id])
-    @user.passkey = User.new_UUID
+    @user.passkey = User.new_passkey
     if @user.update_attributes(params[:user])
       flash[:notice] = @user.email + ' was successfully updated.'
       redirect_to :action => 'list'
@@ -53,20 +55,24 @@ class UserController < ApplicationController
       render :action => 'edit'
     end
   end
-
-  def destroy
-    User.find(params[:id]).destroy
-    redirect_to :action => 'list'
-  end
-  
+#
+# Send a reminder to the email of the administrator
+#
   def remind
     @user = User.find(params[:id])
-    @user.passkey = User.new_UUID
+    @user.passkey = User.new_passkey
     @user.reminded_on = Time.now
     @user.save
     email = Notifier.create_administration_key(@user)
     Notifier.deliver(email)
     flash[:notice] = 'New key sent to ' + @user.email
+    redirect_to :action => 'list'
+  end
+#
+# TODO: Mark the function record with a deleted date do not destroy
+#
+  def destroy
+    User.find(params[:id]).destroy
     redirect_to :action => 'list'
   end
   

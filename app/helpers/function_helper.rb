@@ -16,16 +16,6 @@ module FunctionHelper
     end
   end
 #
-# Display the users progress through the questions
-#
-  def progress_bar(percentage)
-    html = "<table border='0' cellpadding='0' cellSpacing='0' bgColor='Red'>"
-    html += "<tr>"
-    html += "<td width='100'><img src='../images/bar.gif' width='#{percentage}' height='10px'></td>"
-    html += "</tr>"
-    html += "</table>"
-  end
-#
 # Radio buttons for look ups
 #
   def radio_look_ups(lookups)

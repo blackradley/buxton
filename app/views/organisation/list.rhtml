@@ -1,22 +1,33 @@
-<h2>Listing organisations</h2>
+<h2>Organisations</h2>
 <table>
   <tr>
     <td></td>
     <td>Name</td>
-    <td>Email</td>
-    <td>Last Updated</td>
+    <td>Editor</td>
+    <td></td>
+    <td></td>
+    <td>Last Reminder</td>
+    <td></td>
+    <td>Completed</td>
+    <td></td>
   </tr>
-  
-<% for organisation in @organisations %>
+  <% for organisation in @organisations %>
   <tr>
     <td><%= link_to 'View', :action => 'show', :id => organisation %></td>
-    <td><%= organisation.name %></td>
-    <td><a href="<%= organisation.email %>"><%= organisation.email %></a></td>
-    <td><%= organisation.updated_on.to_formatted_s(:date_time12) %></td>    
+    <td><%=h organisation.name %></td>
+    <td>
+      <a href="<%=h "mailto:" + organisation.user.email + "?subject=" + organisation.name %>">
+        <%=h organisation.user.email %>
+      </a>
+    </td>
     <td><%= link_to 'Edit', :action => 'edit', :id => organisation %></td>
-    <td><%= link_to 'Delete', { :action => 'destroy', :id => organisation }, :confirm => 'Are you sure?', :method => :post %></td>
+    <td><%= link_to 'Strategies', :controller => 'strategy', :action => 'list', :id => organisation %></td>
+    <td><%= date_or_blank(organisation.user.reminded_on) %></td>
+    <td><%= link_to 'Remind', {:action => 'remind', :id => organisation.user}, :confirm => 'Send reminder to ' + organisation.name + '?', :method => :post %></td>
+    <td><%= progress_bar(organisation.percentage_completed) %></td>
+    <td><%= link_to 'Delete', { :action => 'destroy', :id => organisation }, :confirm => 'Delete ' + organisation.name + '?', :method => :post %></td>
   </tr>
-<% end %>
+  <% end %>
 </table>
 
 <%= link_to 'Previous page', { :page => @organisation_pages.current.previous } if @organisation_pages.current.previous %>

@@ -15,13 +15,17 @@
   <tr>
     <td><%= link_to 'View', :action => 'show', :id => function %></td>
     <td><%=h function.name %></td>
-    <td><%=h function.user.email %></td>
+    <td>
+      <a href="<%=h "mailto:" + function.user.email + "?subject=" + function.name %>">
+        <%=h function.user.email %>
+      </a>
+    </td>
     <td><%= link_to 'Edit', :action => 'edit_contact', :id => function %></td>
     <td><%= date_or_blank(function.user.reminded_on) %></td>
     <td><%= link_to 'Remind', {:action => 'remind', :id => function.user}, :confirm => 'Send reminder to ' + function.name + '?', :method => :post %></td>
     <td><%= progress_bar(function.percentage_answered) %></td>
     <td><%= approved_tag(function.is_approved?) %></td>
-    <td><%= link_to 'Delete', { :action => 'destroy', :id => function }, :confirm => 'Are you sure?', :method => :post %></td>
+    <td><%= link_to 'Delete', { :action => 'destroy', :id => function }, :confirm => 'Delete ' + function.name + '?', :method => :post %></td>
   </tr>
   <% end %>
 </table>

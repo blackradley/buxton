@@ -16,13 +16,15 @@ module ApplicationHelper
   def subdomain(request)
     return request.host().split(/\s*\.\s*/)[0] 
   end
-# 
-# Add a starts with method to the string
 #
-  class String
-    def startsWith str
-      return self[0...str.length] == str
-    end
+# Display the users progress through the questions
+#
+  def progress_bar(percentage)
+    html = "<table border='0' cellpadding='0' cellSpacing='0' bgColor='Red'>"
+    html += "<tr>"
+    html += "<td width='100'><img src='../images/bar.gif' width='#{percentage}' height='10px'></td>"
+    html += "</tr>"
+    html += "</table>"
   end
 #
 # Extend the date formats to include some British styley ones
