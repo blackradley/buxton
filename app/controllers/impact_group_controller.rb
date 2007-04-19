@@ -14,8 +14,12 @@ class ImpactGroupController < ApplicationController
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
 
+#
+# Get the organisation you are considering and a list of it's strategies
+#
   def list
-    @impact_group_pages, @impact_groups = paginate :impact_groups, :per_page => 10
+    @organisation = Organisation.find(params[:id])
+    @impact_groups = ImpactGroup.find_all_by_organisation_id(params[:id])
   end
 
   def show
@@ -24,13 +28,14 @@ class ImpactGroupController < ApplicationController
 
   def new
     @impact_group = ImpactGroup.new
+    @impact_group.organisation_id = params[:id]
   end
 
   def create
     @impact_group = ImpactGroup.new(params[:impact_group])
     if @impact_group.save
-      flash[:notice] = 'ImpactGroup was successfully created.'
-      redirect_to :action => 'list'
+      flash[:notice] = 'Impact Group was successfully created.'
+      redirect_to :action => 'list', :id => @impact_group.organisation_id
     else
       render :action => 'new'
     end
