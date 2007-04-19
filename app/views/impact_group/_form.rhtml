@@ -1,0 +1,19 @@
+<%= error_messages_for 'impact_group' %>
+
+<!--[form:impact_group]-->
+<p><label for="impact_group_name">Name</label><br/>
+<%= text_field 'impact_group', 'name'  %></p>
+
+<p><label for="impact_group_description">Description</label><br/>
+<%= text_field 'impact_group', 'description'  %></p>
+
+<p><label for="impact_group_display_order">Display order</label><br/>
+<%= text_field 'impact_group', 'display_order'  %></p>
+
+<p><label for="impact_group_created_on">Created on</label><br/>
+<%= datetime_select 'impact_group', 'created_on'  %></p>
+
+<p><label for="impact_group_updated_on">Updated on</label><br/>
+<%= datetime_select 'impact_group', 'updated_on'  %></p>
+<!--[eoform:impact_group]-->
+

@@ -5,20 +5,20 @@
 # * $Date$
 # 
 require File.dirname(__FILE__) + '/../test_helper'
-require 'strategy_controller'
+require 'impact_group_controller'
 
 # Re-raise errors caught by the controller.
-class StrategyController; def rescue_action(e) raise e end; end
+class ImpactGroupController; def rescue_action(e) raise e end; end
 
-class StrategyControllerTest < Test::Unit::TestCase
-  fixtures :strategies
+class ImpactGroupControllerTest < Test::Unit::TestCase
+  fixtures :impact_groups
 
   def setup
-    @controller = StrategyController.new
+    @controller = ImpactGroupController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    @first_id = strategies(:first).id
+    @first_id = impact_groups(:first).id
   end
 
   def test_index
@@ -33,7 +33,7 @@ class StrategyControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'list'
 
-    assert_not_nil assigns(:strategies)
+    assert_not_nil assigns(:impact_groups)
   end
 
   def test_show
@@ -42,8 +42,8 @@ class StrategyControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'show'
 
-    assert_not_nil assigns(:strategy)
-    assert assigns(:strategy).valid?
+    assert_not_nil assigns(:impact_group)
+    assert assigns(:impact_group).valid?
   end
 
   def test_new
@@ -52,18 +52,18 @@ class StrategyControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'new'
 
-    assert_not_nil assigns(:strategy)
+    assert_not_nil assigns(:impact_group)
   end
 
   def test_create
-    num_strategies = Strategy.count
+    num_impact_groups = ImpactGroup.count
 
-    post :create, :strategy => {}
+    post :create, :impact_group => {}
 
     assert_response :redirect
     assert_redirected_to :action => 'list'
 
-    assert_equal num_strategies + 1, Strategy.count
+    assert_equal num_impact_groups + 1, ImpactGroup.count
   end
 
   def test_edit
@@ -72,8 +72,8 @@ class StrategyControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'edit'
 
-    assert_not_nil assigns(:strategy)
-    assert assigns(:strategy).valid?
+    assert_not_nil assigns(:impact_group)
+    assert assigns(:impact_group).valid?
   end
 
   def test_update
@@ -84,7 +84,7 @@ class StrategyControllerTest < Test::Unit::TestCase
 
   def test_destroy
     assert_nothing_raised {
-      Strategy.find(@first_id)
+      ImpactGroup.find(@first_id)
     }
 
     post :destroy, :id => @first_id
@@ -92,7 +92,7 @@ class StrategyControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => 'list'
 
     assert_raise(ActiveRecord::RecordNotFound) {
-      Strategy.find(@first_id)
+      ImpactGroup.find(@first_id)
     }
   end
 end

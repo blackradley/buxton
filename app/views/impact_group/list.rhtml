@@ -1,0 +1,27 @@
+<h1>Listing impact_groups</h1>
+
+<table>
+  <tr>
+  <% for column in ImpactGroup.content_columns %>
+    <th><%= column.human_name %></th>
+  <% end %>
+  </tr>
+  
+<% for impact_group in @impact_groups %>
+  <tr>
+  <% for column in ImpactGroup.content_columns %>
+    <td><%=h impact_group.send(column.name) %></td>
+  <% end %>
+    <td><%= link_to 'Show', :action => 'show', :id => impact_group %></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => impact_group %></td>
+    <td><%= link_to 'Destroy', { :action => 'destroy', :id => impact_group }, :confirm => 'Are you sure?', :method => :post %></td>
+  </tr>
+<% end %>
+</table>
+
+<%= link_to 'Previous page', { :page => @impact_group_pages.current.previous } if @impact_group_pages.current.previous %>
+<%= link_to 'Next page', { :page => @impact_group_pages.current.next } if @impact_group_pages.current.next %> 
+
+<br />
+
+<%= link_to 'New impact_group', :action => 'new' %>

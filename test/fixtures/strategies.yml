@@ -4,7 +4,7 @@ one:
   organisation_id: 1
   name: Manage resources effectively, flexibly and responsively
   description: Manage resources effectively, flexibly and responsively
-  display_order: 2
+  display_order: 0
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
 two:
@@ -12,7 +12,7 @@ two:
   organisation_id: 1
   name: Investing in our staff to build an organisation that is fit for its purpose
   description:  Investing in our staff to build an organisation that is fit for its purpose
-  display_order: 3
+  display_order: 1
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
 three:
@@ -20,7 +20,7 @@ three:
   organisation_id: 1
   name: Raising performance in our services for children, young people, families and adult
   description: Raising performance in our services for children, young people, families and adult
-  display_order: 1
+  display_order: 2
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
 four:
@@ -28,7 +28,7 @@ four:
   organisation_id: 1
   name: Raising performance in our housing services
   description: Raising performance in our housing services
-  display_order: 1
+  display_order: 3
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
 four:
@@ -36,7 +36,7 @@ four:
   organisation_id: 1
   name: Cleaner, greener and safer city – Your City, Your Birmingham
   description: Cleaner, greener and safer city – Your City, Your Birmingham
-  display_order: 1
+  display_order: 4
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
 five:
@@ -44,7 +44,7 @@ five:
   organisation_id: 1
   name: Investing in regeneration
   description: Investing in regeneration
-  display_order: 1
+  display_order: 5
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
 six:
@@ -52,7 +52,7 @@ six:
   organisation_id: 1
   name: Improving the city's transport and tackling congestion
   description: Improving the city's transport and tackling congestion
-  display_order: 1
+  display_order: 6
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
 seven:
@@ -60,7 +60,7 @@ seven:
   organisation_id: 1
   name: A fair and welcoming city
   description: A fair and welcoming city
-  display_order: 1
+  display_order: 7
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
 eight:
@@ -68,7 +68,7 @@ eight:
   organisation_id: 1
   name: Providing more effective education and leisure opportunities
   description: Providing more effective education and leisure opportunities
-  display_order: 1
+  display_order: 8
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
 nine:
@@ -76,7 +76,7 @@ nine:
   organisation_id: 1
   name: Promoting Birmingham as a great international city
   description: Promoting Birmingham as a great international city
-  display_order: 1
+  display_order: 9
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
  
