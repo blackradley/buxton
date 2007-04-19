@@ -1,3 +1,9 @@
+#  
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+# 
 require File.dirname(__FILE__) + '/../test_helper'
 require 'organisation_controller'
 

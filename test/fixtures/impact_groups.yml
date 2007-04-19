@@ -1,0 +1,38 @@
+#  
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+# 
+one:
+  id: 1
+  organisation_id: 1
+  name: Service users
+  description: the residents of the fine city of Birmingham
+  display_order: 0
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
+two:
+  id: 2
+  organisation_id: 1
+  name: Staff of the City Council
+  description: the honourable and hard working officers of the council
+  display_order: 1
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00  
+three:
+  id: 3
+  organisation_id: 1
+  name: Partner organisations of the City Council
+  description: Partner organisations of the City Council
+  display_order: 2
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00  
+four:
+  id: 2
+  organisation_id: 1
+  name: Businesses operating within the city
+  description: Businesses operating within the city
+  display_order: 3
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00  
