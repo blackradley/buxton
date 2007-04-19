@@ -1,11 +1,21 @@
-<p><b>Email:</b> <%= @user.email %></p>
-<p><b>Reminded:</b> <%= date_or_blank(@user.reminded_on) %></p>
-<% for column in Function.content_columns %>
+<h2><%= @function.name %></h2>
 <p>
-  <b><%= column.human_name %>:</b> 
-    <%= @function.send(column.name) %>
+  <a href="<%=h "mailto:" + @user.email + "?subject=" + @user.email %>">
+    <%=h @user.email %>
+  </a>
 </p>
+
+<p>Percentage Completed <%= progress_bar(@function.percentage_answered) %></p>
+
+<p>Strategies</p>
+<ul>
+<% for strategy in @function.strategies %>
+ <li><%= strategy.name %></li>
 <% end %>
+</ul>
+
+<p>Approved <%= approved_tag @function.is_approved? %></p>
+
 <p>
 <% case @user.user_type 
      when User::FUNCTIONAL %>
