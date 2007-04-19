@@ -14,8 +14,12 @@ class StrategyController < ApplicationController
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
 
+#
+# Get the organisation you are considering and a list of it's strategies
+#
   def list
-    @strategy_pages, @strategies = paginate :strategies, :per_page => 10
+    @organisation = Organisation.find(params[:id])
+    @strategies = Strategy.find_all_by_organisation_id(params[:id])
   end
 
   def show
@@ -24,13 +28,16 @@ class StrategyController < ApplicationController
 
   def new
     @strategy = Strategy.new
+    @strategy.organisation_id = params[:id]
   end
-
+#
+# Create a new strategy, the organisation id is derived from
+#
   def create
     @strategy = Strategy.new(params[:strategy])
     if @strategy.save
       flash[:notice] = 'Strategy was successfully created.'
-      redirect_to :action => 'list'
+      redirect_to :action => 'list', :id => @strategy.organisation_id
     else
       render :action => 'new'
     end
@@ -39,7 +46,9 @@ class StrategyController < ApplicationController
   def edit
     @strategy = Strategy.find(params[:id])
   end
-
+#
+# Update the strategy attributes
+#
   def update
     @strategy = Strategy.find(params[:id])
     if @strategy.update_attributes(params[:strategy])

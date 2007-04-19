@@ -1,4 +1,4 @@
-<h1>Listing strategies</h1>
+<h1><%= @organisation.name %> strategies</h1>
 
 <table>
   <tr>
@@ -12,11 +12,9 @@
     <td><%= link_to 'Delete', { :action => 'destroy', :id => strategy }, :confirm => 'Delete ' + strategy.name + '?', :method => :post %></td>
   </tr>
   <% end %>
-</table>
-
-<%= link_to 'Previous page', { :page => @strategy_pages.current.previous } if @strategy_pages.current.previous %>
-<%= link_to 'Next page', { :page => @strategy_pages.current.next } if @strategy_pages.current.next %> 
+</table> 
 
 <br />
-
-<%= link_to 'New strategy', :action => 'new' %>
+<%= link_to 'New strategy', :action => 'new', :id => @organisation.id %>
+<br />
+<%= link_to 'Back', :controller => 'organisation', :action => 'list' %>

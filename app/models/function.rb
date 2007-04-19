@@ -8,6 +8,7 @@ class Function < ActiveRecord::Base
   belongs_to :user
   belongs_to :organisation
   has_and_belongs_to_many :strategies
+  validates_presence_of :name
 #
 # Retun a float for the number of questions answered
 #

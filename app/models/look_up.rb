@@ -5,6 +5,11 @@
 # * $Date$
 # 
 class LookUp < ActiveRecord::Base
+  validates_presence_of :name
+
+#
+#  Constants for look up types
+#  
   YES_NO = 0
   AGREE_DISAGREE = 1
   EXISTING_PROPOSED = 2
