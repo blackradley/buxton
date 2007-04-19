@@ -20,7 +20,7 @@
         <%=h organisation.user.email %>
       </a>
     </td>
-    <td><%= link_to 'Edit', :action => 'edit', :id => organisation %></td>
+    <td><%= link_to 'Edit', :action => 'edit_contact', :id => organisation %></td>
     <td><%= link_to 'Strategies', :controller => 'strategy', :action => 'list', :id => organisation %></td>
     <td><%= date_or_blank(organisation.user.reminded_on) %></td>
     <td><%= link_to 'Remind', {:action => 'remind', :id => organisation.user}, :confirm => 'Send reminder to ' + organisation.name + '?', :method => :post %></td>

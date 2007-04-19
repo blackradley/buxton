@@ -10,6 +10,10 @@ one:
   user_id: 4
   name: Anywhereshire County Council
   style: anywhereshire
+  strategy_description: The Council Plan 2006+ identifies ten strategic priorities.  
+    All council activities should contribute to delivering one or more of these priorities.  
+    Which of BCC's ten strategic priorities below does the Function assist in 
+    delivering?
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   

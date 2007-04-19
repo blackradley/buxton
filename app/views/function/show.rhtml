@@ -1,7 +1,7 @@
 <h2><%= @function.name %></h2>
 <p>
   Contact: 
-  <a href="<%=h "mailto:" + @user.email + "?subject=" + @user.email %>">
+  <a href="<%=h "mailto:" + @user.email + "?subject=" + @function.name %>">
     <%=h @user.email %>
   </a>
 </p>
