@@ -19,13 +19,13 @@ class WelcomeController < ApplicationController
 # I should probably check that the subdomain is correct as well,
 # but who can be bothered with that.
 #
-  def new_key 
+  def new_link 
     @users = User.find_all_by_email(params[:email])
     if @users.empty? 
       flash[:notice] = 'Unknown Email'
     else
       for @user in @users
-        rekey_user(@user)
+        new_passkey(@user)
         case @user.user_type
           when User::FUNCTIONAL
             email = Notifier.create_function_key(@user, request)
@@ -45,6 +45,11 @@ class WelcomeController < ApplicationController
 #
 # Log the user in and then direct them to the right place based on the
 # user_type
+# 
+# TODO: Ensure that the subdomain matches the one expected for that user.
+# 
+# TODO: Monitor for repeated log ins from the same IP, block the IP if it
+# looks like some kind of brute force attack.
 #
   def login
     @user = User.find_by_passkey(params[:passkey])
@@ -59,7 +64,7 @@ class WelcomeController < ApplicationController
         when User::ORGANISATIONAL
           redirect_to :controller => 'function', :action => 'list'
         when User::ADMINISTRATIVE
-          redirect_to :controller => 'user', :action => 'index'
+          redirect_to :controller => 'organisation', :action => 'index'
       end
     end
   end
@@ -76,8 +81,8 @@ private
 #
 # Give the user a new key
 #
-  def rekey_user(user)
-    @user.passkey = User.new_UUID
+  def new_passkey(user)
+    @user.passkey = User.new_passkey
     @user.reminded_on = Time.now
     @user.save
   end

@@ -1,3 +1,5 @@
+<p><b>Email:</b> <%= @user.email %></p>
+<p><b>Reminded:</b> <%= date_or_blank(@user.reminded_on) %></p>
 <% for column in Organisation.content_columns %>
 <p>
   <b><%= column.human_name %>:</b> <%=h @organisation.send(column.name) %>
