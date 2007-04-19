@@ -21,9 +21,10 @@
 <p><%=h @function.organisation.strategy_description %></p>
 
 <% @strategies.each do |strategy| %>
+<div title="<%= strategy.description %>">
 <%= check_box_tag("function[strategy_ids][]", strategy.id, @function.strategies.include?(strategy)) %>
   <%= strategy.name %>
-  <br />
+</div>
 <% end %>
 
 <p>What is the target outcome of the Function?  The Function will probably 
@@ -34,60 +35,74 @@ affected will be Council staff.  Functions may also affect businesses or
 partner organisations.  Which of the following groups does the Function 
 have an impact on?</p>
 
-<p><label for="function_relevance02">Service users, the residents of the city</label><br/>
-<% LookUp.yes_no.each do |lookup| %>
-<%= lookup.name %>  <%= radio_button('function', 'relevance02', lookup.id, {:title => lookup.description}) %>
-<% end %>
+<% @impact_groups.each do |impact_group| %>
+<p>
+  <%= impact_group.name %><br />
+  <% LookUp.yes_no.each do |lookup| %>
+    <%= lookup.name %>  <%= radio_button('function', 'relevance13', lookup.id, {:title => lookup.description}) %>
+  <% end %>
+  <% LookUp.proportion.each do |lookup| %>
+    <%= lookup.name %>  <%= radio_button('function', 'relevance14', lookup.id, {:title => lookup.description}) %>
+  <% end %>
 </p>
-
-<p><label for="function_relevance03">Staff of the City Council</label><br/>
-<% LookUp.yes_no.each do |lookup| %>
-<%= lookup.name %>  <%= radio_button('function', 'relevance03', lookup.id, {:title => lookup.description}) %>
 <% end %>
+
+<p>Does the Function try to meet the particular needs of any of the following groups?</p>
+
+<p>People from particular ethnic backgrounds
+  <% LookUp.yes_no.each do |lookup| %>
+    <%= lookup.name %>  <%= radio_button('function', 'relevance02', lookup.id, {:title => lookup.description}) %>
+  <% end %>
 </p>
-
-<p><label for="function_relevance04">Partner organisations of the City Council</label><br/>
-<% LookUp.yes_no.each do |lookup| %>
-<%= lookup.name %>  <%= radio_button('function', 'relevance04', lookup.id, {:title => lookup.description}) %>
-<% end %>
+<p>People with disabilities
+  <% LookUp.yes_no.each do |lookup| %>
+    <%= lookup.name %>  <%= radio_button('function', 'relevance03', lookup.id, {:title => lookup.description}) %>
+  <% end %>
 </p>
-
-<p><label for="function_relevance05">Businesses operating within the city</label><br/>
-<% LookUp.yes_no.each do |lookup| %>
-<%= lookup.name %>  <%= radio_button('function', 'relevance05', lookup.id, {:title => lookup.description}) %>
-<% end %>
+<p>People without disabilities
+  <% LookUp.yes_no.each do |lookup| %>
+    <%= lookup.name %>  <%= radio_button('function', 'relevance04', lookup.id, {:title => lookup.description}) %>
+  <% end %>
 </p>
-
-<p><label for="function_relevance06">Other groups</label><br/>
-<% LookUp.yes_no.each do |lookup| %>
-<%= lookup.name %>  <%= radio_button('function', 'relevance06', lookup.id, {:title => lookup.description}) %>
-<% end %>
+<p>Men
+  <% LookUp.yes_no.each do |lookup| %>
+    <%= lookup.name %>  <%= radio_button('function', 'relevance05', lookup.id, {:title => lookup.description}) %>
+  <% end %>
 </p>
-
-<p>Approximately what proportion of each group does the Function have an impact on?</p>
-
-<p><label for="function_relevance07">Service users, the residents of the city</label><br/>
-<% LookUp.proportion.each do |lookup| %>
-<%= lookup.name %>  <%= radio_button('function', 'relevance07', lookup.id, {:title => lookup.description}) %>
-<% end %>
+<p>Women
+  <% LookUp.yes_no.each do |lookup| %>
+    <%= lookup.name %>  <%= radio_button('function', 'relevance06', lookup.id, {:title => lookup.description}) %>
+  <% end %>
 </p>
-
-<p><label for="function_relevance08">Staff of the City Council</label><br/>
-<% LookUp.proportion.each do |lookup| %>
-<%= lookup.name %>  <%= radio_button('function', 'relevance08', lookup.id, {:title => lookup.description}) %>
-<% end %>
+<p>People of particular sexual orientations
+  <% LookUp.yes_no.each do |lookup| %>
+    <%= lookup.name %>  <%= radio_button('function', 'relevance07', lookup.id, {:title => lookup.description}) %>
+  <% end %>
 </p>
-
-<p><label for="function_relevance09">Partner organisations of the City Council</label><br/>
-<% LookUp.proportion.each do |lookup| %>
-<%= lookup.name %>  <%= radio_button('function', 'relevance09', lookup.id, {:title => lookup.description}) %>
-<% end %>
+<p>People of particular faiths or religions
+  <% LookUp.yes_no.each do |lookup| %>
+    <%= lookup.name %>  <%= radio_button('function', 'relevance08', lookup.id, {:title => lookup.description}) %>
+  <% end %>
 </p>
-
-<p><label for="function_relevance09">Businesses operating within the city</label><br/>
-<% LookUp.proportion.each do |lookup| %>
-<%= lookup.name %>  <%= radio_button('function', 'relevance10', lookup.id, {:title => lookup.description}) %>
-<% end %>
+<p>People over 65 years old
+  <% LookUp.yes_no.each do |lookup| %>
+    <%= lookup.name %>  <%= radio_button('function', 'relevance09', lookup.id, {:title => lookup.description}) %>
+  <% end %>
+</p>
+<p>People under 16 years old
+  <% LookUp.yes_no.each do |lookup| %>
+    <%= lookup.name %>  <%= radio_button('function', 'relevance10', lookup.id, {:title => lookup.description}) %>
+  <% end %>
+</p>
+<p>People aged between 16 and 40 years old
+  <% LookUp.yes_no.each do |lookup| %>
+    <%= lookup.name %>  <%= radio_button('function', 'relevance11', lookup.id, {:title => lookup.description}) %>
+  <% end %>
+</p>
+<p>People aged between 40 and 65 years old
+  <% LookUp.yes_no.each do |lookup| %>
+    <%= lookup.name %>  <%= radio_button('function', 'relevance12', lookup.id, {:title => lookup.description}) %>
+  <% end %>
 </p>
 
 <p><label for="function_is_approved">Approved</label><br/>

@@ -67,6 +67,7 @@ class FunctionController < ApplicationController
   def edit_relevance
     @function = Function.find(params[:id])
     @strategies = Strategy.find_all_by_organisation_id(@session['logged_in_user'].function.organisation_id)
+    @impact_groups = ImpactGroup.find_all_by_organisation_id(@session['logged_in_user'].function.organisation_id)
   end
 #
 # Update the function and all of its attributes, then redirect based on the
