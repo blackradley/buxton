@@ -1,7 +1,18 @@
 <h1><%= @organisation.name %> strategies</h1>
+<table>
+  <tr>
+    <th>Strategy Description</th>
+  </tr>
+  <tr>
+    <td><%= @organisation.strategy_description %></td>
+    <td><%= link_to 'Edit', :controller => 'organisation', :action => 'edit_strategy_description', :id => @organisation %></td>
+  </tr>
+  
+</table>
 
 <table>
   <tr>
+    <th></th>
     <th>Name</th>
   </tr>
   <% for strategy in @strategies %>

@@ -54,9 +54,15 @@ class OrganisationController < ApplicationController
 # Get both the organisation and it's user since the user can also be edited
 # by the administrator.
 #
-  def edit
+  def edit_contact
     @organisation = Organisation.find(params[:id])
     @user = @organisation.user
+  end
+#
+#  
+#  
+  def edit_strategy_description
+    @organisation = Organisation.find(params[:id])
   end
 #
 # Update the organiation and all of its attributes

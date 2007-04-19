@@ -1,0 +1,10 @@
+<h2>Editing <%=h @organisation.name %></h2>
+
+<% form_tag :action => 'update', :id => @organisation do %>
+<p><label for="organisation_strategy_description">Description</label><br/>
+<%= text_area 'organisation', 'strategy_description', "cols" => 50, "rows" => 4  %></p>
+  <%= submit_tag 'Save' %>
+<% end %>
+
+<%= link_to 'Show', :action => 'show', :id => @organisation %> |
+<%= link_to 'Back', :controller => 'strategy', :action => 'list', :id => @organisation %>

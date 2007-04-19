@@ -1,10 +1,14 @@
-<h2>Editing Relevance</h2>
+<h2>Editing <%=h @function.name %></h2>
 
 <% form_tag :action => 'update', :id => @function do %>
 
 <!-- Basic Information -->
-<p><label for="function_name">Name: </label><%=h @function.name %></p>
-<p><label for="user_email">Email: </label><%=h @function.user.email %></pd>
+<p>
+  Contact: 
+  <a href="<%=h "mailto:" + @function.user.email + "?subject=" + @function.name %>">
+    <%=h @function.user.email %>
+  </a>
+</p>
 <p><label for="function_updated_on">Last updated: </label><%= date_or_blank(@function.updated_on) %></pd>
   
 <!-- Function Information -->
@@ -14,10 +18,7 @@
 <% end %>
 </p>
 
-<p>The Council Plan 2006+ identifies ten strategic priorities.  All council 
-activities should contribute to delivering one or more of these priorities.  
-Which of BCC's ten strategic priorities below does the Function assist in 
-delivering?</p>
+<p><%=h @function.organisation.strategy_description %></p>
 
 <% @strategies.each do |strategy| %>
 <%= check_box_tag("function[strategy_ids][]", strategy.id, @function.strategies.include?(strategy)) %>
