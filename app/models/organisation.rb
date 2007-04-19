@@ -7,6 +7,7 @@
 class Organisation < ActiveRecord::Base
   belongs_to :user
   has_many :functions
+  validates_presence_of :name
   
 #
 # Retun a float for the percentage of questions answered
