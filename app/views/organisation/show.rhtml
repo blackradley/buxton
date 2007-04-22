@@ -1,3 +1,5 @@
+<h2><%=h @organisation.name %></h2>
+
 <p><b>Email:</b> <%= @user.email %></p>
 <p><b>Reminded:</b> <%= date_or_blank(@user.reminded_on) %></p>
 <% for column in Organisation.content_columns %>
@@ -6,5 +8,5 @@
 </p>
 <% end %>
 
-<%= link_to 'Edit', :action => 'edit', :id => @organisation %> |
+<%= link_to 'Edit', :action => 'edit_contact', :id => @organisation %> |
 <%= link_to 'Back', :action => 'list' %>

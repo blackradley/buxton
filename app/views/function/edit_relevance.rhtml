@@ -27,13 +27,7 @@
 </div>
 <% end %>
 
-<p>What is the target outcome of the Function?  The Function will probably 
-affect a range of different individuals.  If it is a function relating to 
-a service which the council provides then the people affected will be the 
-residents or service users, if it is an internal function then the people 
-affected will be Council staff.  Functions may also affect businesses or 
-partner organisations.  Which of the following groups does the Function 
-have an impact on?</p>
+<p><%=h @function.organisation.impact_groups_description %></p>
 
 <% @impact_groups.each do |impact_group| %>
 <p>

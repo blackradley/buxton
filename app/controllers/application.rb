@@ -4,11 +4,12 @@
 # $Author$
 # $Date$
 #
-# Copyright © 2007 Black Radley Limited. All rights reserved. 
+# Copyright (c) 2007 Black Radley Limited. All rights reserved. 
 #
 # Filters added to this controller apply to all controllers in 
 # the application.  Likewise, all the methods added will be 
 # available for all controllers.
+# 
 class ApplicationController < ActionController::Base
   before_filter :authenticate
   

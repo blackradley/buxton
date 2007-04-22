@@ -1,5 +1,13 @@
 <h1><%= @organisation.name %> impact groups</h1>
-
+<table>
+  <tr>
+    <th>Strategy Description</th>
+  </tr>
+  <tr>
+    <td><%= @organisation.impact_groups_description %></td>
+    <td><%= link_to 'Edit', :controller => 'organisation', :action => 'edit_impact_groups_description', :id => @organisation %></td>
+  </tr>
+</table>
 <table>
   <tr>
     <th></th>
