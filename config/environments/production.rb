@@ -1,8 +1,8 @@
 #  
-# * $URL$
-# * $Rev$
-# * $Author$
-# * $Date$
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
 # 
 # Settings specified here will take precedence over those in config/environment.rb
 

@@ -4,7 +4,7 @@
 # $Author$
 # $Date$
 #
-# Copyright Â© 2007 Black Radley Limited. All rights reserved. 
+# Copyright © 2007 Black Radley Limited. All rights reserved. 
 #
 # Filters added to this controller apply to all controllers in 
 # the application.  Likewise, all the methods added will be 
