@@ -4,6 +4,8 @@
 # * $Author$
 # * $Date$
 #
+# Copyright © 2007 Black Radley Limited. All rights reserved. 
+#
 class AddSessions < ActiveRecord::Migration
   def self.up
     create_table :sessions do |t|

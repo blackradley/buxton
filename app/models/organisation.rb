@@ -3,7 +3,9 @@
 # * $Rev$
 # * $Author$
 # * $Date$
-# 
+#
+# Copyright © 2007 Black Radley Limited. All rights reserved. 
+#
 class Organisation < ActiveRecord::Base
   belongs_to :user
   has_many :functions
