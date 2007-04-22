@@ -4,7 +4,7 @@
 # $Author$
 # $Date$
 #
-# Copyright © 2007 Black Radley Limited. All rights reserved. 
+# Copyright (c) 2007 Black Radley Limited. All rights reserved. 
 #
 class OrganisationController < ApplicationController
   layout 'application'
@@ -63,7 +63,13 @@ class OrganisationController < ApplicationController
 #
 #  
 #  
-  def edit_strategy_description
+  def edit_strategies_description
+    @organisation = Organisation.find(params[:id])
+  end
+#
+#  
+#  
+  def edit_impact_groups_description
     @organisation = Organisation.find(params[:id])
   end
 #
