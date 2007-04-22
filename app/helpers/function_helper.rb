@@ -1,10 +1,10 @@
 # 
-# * $URL$
-# * $Rev$
-# * $Author$
-# * $Date$
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
 #
-# Copyright Â© 2007 Black Radley Limited. All rights reserved. 
+# Copyright © 2007 Black Radley Limited. All rights reserved. 
 #
 module FunctionHelper
 #

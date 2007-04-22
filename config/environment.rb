@@ -1,8 +1,8 @@
 #  
-# * $URL$
-# * $Rev$
-# * $Author$
-# * $Date$
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
 #
 # Uncomment below to force Rails into production mode when 
 # you don't control web/app server and can't set it the proper way
