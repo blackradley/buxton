@@ -3,6 +3,8 @@
 # * $Rev$
 # * $Author$
 # * $Date$
+#
+# Copyright © 2007 Black Radley Limited. All rights reserved. 
 # 
 class UserController < ApplicationController
   def index

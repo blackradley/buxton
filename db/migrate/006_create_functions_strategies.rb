@@ -1,3 +1,11 @@
+#  
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+#
+# Copyright © 2007 Black Radley Limited. All rights reserved. 
+#
 class CreateFunctionsStrategies < ActiveRecord::Migration
   def self.up
     create_table :functions_strategies, :force => true do |t|

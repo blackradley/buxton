@@ -4,6 +4,8 @@
 # * $Author$
 # * $Date$
 #
+# Copyright © 2007 Black Radley Limited. All rights reserved. 
+#
 class CreateOrganisations < ActiveRecord::Migration
   def self.up
     create_table :organisations, :force => true do |t|
@@ -11,6 +13,7 @@ class CreateOrganisations < ActiveRecord::Migration
       t.column :name,                  :string
       t.column :style,                 :string
       t.column :strategy_description,  :text
+      t.column :impact_groups_description,  :text
       t.column :created_on,            :timestamp
       t.column :updated_on,            :timestamp
       t.column :deleted_on,            :timestamp

@@ -3,7 +3,9 @@
 # * $Rev$
 # * $Author$
 # * $Date$
-# 
+#
+# Copyright © 2007 Black Radley Limited. All rights reserved. 
+#
 require File.dirname(__FILE__) + '/../test_helper'
 require 'user_controller'
 

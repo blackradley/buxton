@@ -1,4 +1,11 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+#  
+# * $URL$
+# * $Rev$
+# * $Author$
+# * $Date$
+#
+# Copyright © 2007 Black Radley Limited. All rights reserved. 
+#
 one:
   id: 1
   organisation_id: 1

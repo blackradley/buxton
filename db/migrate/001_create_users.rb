@@ -3,7 +3,9 @@
 # * $Rev$
 # * $Author$
 # * $Date$
-# 
+#
+# Copyright © 2007 Black Radley Limited. All rights reserved. 
+#
 # The user table only contains only the email and key.
 # These are effectively the username and password, well
 # actually the key is both the username and password 

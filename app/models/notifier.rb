@@ -3,7 +3,9 @@
 # * $Rev$
 # * $Author$
 # * $Date$
-# 
+#
+# Copyright © 2007 Black Radley Limited. All rights reserved. 
+#
 class Notifier < ActionMailer::Base
 
   FROM = 'equality_support@blackradley.com'
