@@ -10,6 +10,11 @@ class Function < ActiveRecord::Base
   belongs_to :user
   belongs_to :organisation
   has_and_belongs_to_many :strategies
+  has_many :functions_impact_groups, :dependent => true
+  has_many :impact_groups, :through => :functions_impact_groups
+  has_and_belongs_to_many :impact_groups
+  
+  
   validates_presence_of :name
 #
 # Retun a float for the number of questions answered
