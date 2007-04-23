@@ -9,8 +9,9 @@
 class CreateFunctionsImpactGroups < ActiveRecord::Migration
   def self.up
     create_table :functions_impact_groups, :force => true do |t|
-      t.column :function_id,     :integer
-      t.column :impact_group_id,     :integer
+      t.column :function_id,        :integer
+      t.column :impact_group_id,    :integer
+      t.column :impact_group_value, :integer
     end
   end
 

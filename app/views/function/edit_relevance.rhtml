@@ -1,22 +1,11 @@
-<script type="text/javascript">
-//Show or hide a list of species
-function toggleNode(node){
-  var nodeArray = node.childNodes;
-  for(i=0; i < nodeArray.length; i++){
-    node = nodeArray[i];
-    if (node.tagName && node.tagName.toLowerCase() == 'div')
-      node.style.display = (node.style.display == 'block') ? 'none' : 'block';
-  }
-}
-</script>
-
 <h2>Editing <%=h @function.name %></h2>
 
 <% form_tag :action => 'update', :id => @function do %>
 
-<table valign="top">
+<table width="100%">
   <tr>
-    <td width="60%"></td>
+    <td width="60%">
+    </td>
   </tr>
   <tr>
     <td>Contact:
@@ -26,19 +15,24 @@ function toggleNode(node){
     </td>
   </tr>
   <tr>
-    <td>Last updated:
+    <td>Last changed:
       <%= date_or_blank(@function.updated_on) %></td>
   </tr>
   <tr>
-    <td><label for="function_relevance01">Is this a proposed or existing Function?</label>
+    <td>Is it
       <% LookUp.existing_proposed.each do |lookup| %>
         <%= lookup.name %>  <%= radio_button('function', 'relevance01', lookup.id, {:title => lookup.description}) %>
-      <% end %>
+      <% end %>?
     </td>
   </tr>
   <tr>
     <td><%=h @function.organisation.strategies_description %></td>
-    <td rowspan="2"><%=image_tag('help.gif', :height => 20)%><%= @function.organisation.strategies_help %></td>
+    <td rowspan="2">
+    <a href="#" onclick="$('strategies_help').toggle(); return false;" title="help"><%=image_tag('help.gif')%></a> 
+      <span id='strategies_help' style="display:none;">
+        <%= @function.organisation.strategies_help %>
+      </span>
+    </td>
   </tr>
   <tr>
     <td>
@@ -52,85 +46,99 @@ function toggleNode(node){
   </tr> 
   <tr>
     <td><%=h @function.organisation.impact_groups_description %></td>
-    <td rowspan="2"><%=image_tag('help.gif', :height => 20)%><%= @function.organisation.impact_groups_help %></td>
+    <td rowspan="2">
+    <a href="#" onclick="$('impact_groups_help').toggle(); return false;" title="help"><%=image_tag('help.gif')%></a> 
+      <span id='impact_groups_help' style="display:none;"> 
+        <%= @function.organisation.impact_groups_help %>
+      </span>
+    </td>
   </tr>
   <tr>
     <td>
       <% @impact_groups.each do |impact_group| %>
-        <div title="<%= impact_group.description %>">
-          <%= impact_group.name %>
+        <p title="<%= impact_group.description %>">
+          <strong>
+            <%= impact_group.name %>
+          </strong>
+        </p>
+        <div id="track1" style="width: 300px; background-color: rgb(170, 170, 170); height: 10px;">
+          <div class="selected" id="handle1" style="width:19px; height:20px;"><%= image_tag('slider_handle.png', :style => "float: left")%></div>
         </div>
-        <% LookUp.proportion.each do |lookup| %>
-          <span title="<%= lookup.description %>">
-            <%= lookup.name %>  <%= radio_button('function', 'relevance14', lookup.id, {:title => lookup.description}) %>
-          </span>
+        <br />
+        <div style="width: 300px;">
+          <span style="float: left">None</span><span style="float: right">All</span>
+        </div>
+        <br />
+        <%= hidden_field 'function', 'relevance02' %>
+        <script type="text/javascript" language="javascript">
+        // <![CDATA[
+          new Control.Slider('handle1','track1',{
+            range:$R(0,10),
+            values:[0,1,2,3,4,5,6,7,8,9,10],
+            handleImage: 'images/slider_handle.png',
+            onChange:function(v){$('function_relevance02').value = v;}});
+        // ]]>
+        </script>
         <% end %>
-      <% end %>
     </td>
   </tr>
-</table>
-
-<p>Does the Function try to meet the particular needs of any of the following groups?</p>
-
-<p>People from particular ethnic backgrounds
+    <td><%=h @function.organisation.equality_groups_description %></td>
+    <td rowspan="2">
+    <a href="#" onclick="$('equality_groups_help').toggle(); return false;" title="help"><%=image_tag('help.gif')%></a> 
+      <span id='equality_groups_help' style="display:none;">
+        <%= @function.organisation.equality_groups_help %>
+      </span>
+    </td>
+  </tr>
+  <tr>
+    <td>
+    
+    <!-- TODO: below -->
+    <p>Ethnic
   <% LookUp.yes_no.each do |lookup| %>
     <%= lookup.name %>  <%= radio_button('function', 'relevance02', lookup.id, {:title => lookup.description}) %>
   <% end %>
 </p>
-<p>People with disabilities
+<p>Ability
   <% LookUp.yes_no.each do |lookup| %>
     <%= lookup.name %>  <%= radio_button('function', 'relevance03', lookup.id, {:title => lookup.description}) %>
   <% end %>
 </p>
-<p>People without disabilities
-  <% LookUp.yes_no.each do |lookup| %>
-    <%= lookup.name %>  <%= radio_button('function', 'relevance04', lookup.id, {:title => lookup.description}) %>
-  <% end %>
-</p>
-<p>Men
+<p>Gender
   <% LookUp.yes_no.each do |lookup| %>
     <%= lookup.name %>  <%= radio_button('function', 'relevance05', lookup.id, {:title => lookup.description}) %>
   <% end %>
 </p>
-<p>Women
-  <% LookUp.yes_no.each do |lookup| %>
-    <%= lookup.name %>  <%= radio_button('function', 'relevance06', lookup.id, {:title => lookup.description}) %>
-  <% end %>
-</p>
-<p>People of particular sexual orientations
+<p>Sexual orientation
   <% LookUp.yes_no.each do |lookup| %>
     <%= lookup.name %>  <%= radio_button('function', 'relevance07', lookup.id, {:title => lookup.description}) %>
   <% end %>
 </p>
-<p>People of particular faiths or religions
+<p>Faiths or religions
   <% LookUp.yes_no.each do |lookup| %>
     <%= lookup.name %>  <%= radio_button('function', 'relevance08', lookup.id, {:title => lookup.description}) %>
   <% end %>
 </p>
-<p>People over 65 years old
-  <% LookUp.yes_no.each do |lookup| %>
-    <%= lookup.name %>  <%= radio_button('function', 'relevance09', lookup.id, {:title => lookup.description}) %>
-  <% end %>
-</p>
-<p>People under 16 years old
-  <% LookUp.yes_no.each do |lookup| %>
-    <%= lookup.name %>  <%= radio_button('function', 'relevance10', lookup.id, {:title => lookup.description}) %>
-  <% end %>
-</p>
-<p>People aged between 16 and 40 years old
-  <% LookUp.yes_no.each do |lookup| %>
-    <%= lookup.name %>  <%= radio_button('function', 'relevance11', lookup.id, {:title => lookup.description}) %>
-  <% end %>
-</p>
-<p>People aged between 40 and 65 years old
+<p>Age
   <% LookUp.yes_no.each do |lookup| %>
     <%= lookup.name %>  <%= radio_button('function', 'relevance12', lookup.id, {:title => lookup.description}) %>
   <% end %>
 </p>
+    <!-- TODO: above -->
 
-<p><label for="function_is_approved">Approved</label><br/>
-<%= check_box('function', 'is_approved') %>
-</p>
+    </td>
+  <tr>
+  <tr>
+    <td>Approved <%= check_box('function', 'is_approved') %></td>
+    <td>
+    <a href="#" onclick="$('approval_help').toggle(); return false;" title="help"><%=image_tag('help.gif')%></a> 
+      <span id='approval_help' style="display:none;">
+        <%= @function.organisation.approval_help %>
+      </span>
+    </td>
+  </tr>
+</table>
+
   <%= submit_tag 'Save' %>
 <% end %>
 

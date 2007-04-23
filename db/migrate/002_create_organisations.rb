@@ -9,16 +9,19 @@
 class CreateOrganisations < ActiveRecord::Migration
   def self.up
     create_table :organisations, :force => true do |t|
-      t.column :user_id,                   :integer
-      t.column :name,                      :string
-      t.column :style,                     :string
-      t.column :strategies_description,    :text
-      t.column :strategies_help,           :text
-      t.column :impact_groups_description, :text
-      t.column :impact_groups_help,        :text
-      t.column :created_on,                :timestamp
-      t.column :updated_on,                :timestamp
-      t.column :deleted_on,                :timestamp
+      t.column :user_id,                     :integer
+      t.column :name,                        :string
+      t.column :style,                       :string
+      t.column :strategies_description,      :text
+      t.column :strategies_help,             :text
+      t.column :impact_groups_description,   :text
+      t.column :impact_groups_help,          :text
+      t.column :equality_groups_description, :text
+      t.column :equality_groups_help,        :text
+      t.column :approval_help,               :text
+      t.column :created_on,                  :timestamp
+      t.column :updated_on,                  :timestamp
+      t.column :deleted_on,                  :timestamp
     end
   end
 
