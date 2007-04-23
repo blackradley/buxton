@@ -70,28 +70,28 @@ class CreateLookUps < ActiveRecord::Migration
     
     # Existing/Proposed
     LookUp.create(:look_up_type => LookUp::PROPORTION,
-    :name => 'Virtually all',
-    :description => 'Virtually all',
+    :name => 'None',
+    :description => 'None at all, 0%',
     :display_order => 0)
 
     LookUp.create(:look_up_type => LookUp::PROPORTION,
-    :name => 'Substantial majority',
-    :description => 'Substantial majority',
+    :name => 'A few',
+    :description => 'Some, up to 20%',
     :display_order => 1)
 
     LookUp.create(:look_up_type => LookUp::PROPORTION,
-    :name => 'Small minority',
-    :description => 'Small minority',
+    :name => 'Less than half',
+    :description => 'Less than half, between 20% and 50%',
     :display_order => 2)
 
     LookUp.create(:look_up_type => LookUp::PROPORTION,
-    :name => 'Other proportion',
-    :description => 'Other proportion',
+    :name => 'More than half',
+    :description => 'More than half, between 50% and 80%',
     :display_order => 3)
 
     LookUp.create(:look_up_type => LookUp::PROPORTION,
-    :name => 'Not sure',
-    :description => 'Not sure',
+    :name => 'Nearly all',
+    :description => 'Nearly all, between 80% and 100%',
     :display_order => 4)
 
   end

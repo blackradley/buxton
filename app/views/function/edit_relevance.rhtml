@@ -1,45 +1,74 @@
+<script type="text/javascript">
+//Show or hide a list of species
+function toggleNode(node){
+  var nodeArray = node.childNodes;
+  for(i=0; i < nodeArray.length; i++){
+    node = nodeArray[i];
+    if (node.tagName && node.tagName.toLowerCase() == 'div')
+      node.style.display = (node.style.display == 'block') ? 'none' : 'block';
+  }
+}
+</script>
+
 <h2>Editing <%=h @function.name %></h2>
 
 <% form_tag :action => 'update', :id => @function do %>
 
-<!-- Basic Information -->
-<p>
-  Contact: 
-  <a href="<%=h "mailto:" + @function.user.email + "?subject=" + @function.name %>">
-    <%=h @function.user.email %>
-  </a>
-</p>
-<p><label for="function_updated_on">Last updated: </label><%= date_or_blank(@function.updated_on) %></pd>
-  
-<!-- Function Information -->
-<p><label for="function_relevance01">Is this a proposed or existing Function?</label>
-<% LookUp.existing_proposed.each do |lookup| %>
-<%= lookup.name %>  <%= radio_button('function', 'relevance01', lookup.id, {:title => lookup.description}) %>
-<% end %>
-</p>
-
-<p><%=h @function.organisation.strategy_description %></p>
-
-<% @strategies.each do |strategy| %>
-<div title="<%= strategy.description %>">
-<%= check_box_tag("function[strategy_ids][]", strategy.id, @function.strategies.include?(strategy)) %>
-  <%= strategy.name %>
-</div>
-<% end %>
-
-<p><%=h @function.organisation.impact_groups_description %></p>
-
-<% @impact_groups.each do |impact_group| %>
-<p>
-  <%= impact_group.name %><br />
-  <% LookUp.yes_no.each do |lookup| %>
-    <%= lookup.name %>  <%= radio_button('function', 'relevance13', lookup.id, {:title => lookup.description}) %>
-  <% end %>
-  <% LookUp.proportion.each do |lookup| %>
-    <%= lookup.name %>  <%= radio_button('function', 'relevance14', lookup.id, {:title => lookup.description}) %>
-  <% end %>
-</p>
-<% end %>
+<table valign="top">
+  <tr>
+    <td width="60%"></td>
+  </tr>
+  <tr>
+    <td>Contact:
+      <a href="<%=h "mailto:" + @function.user.email + "?subject=" + @function.name %>">
+        <%=h @function.user.email %>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td>Last updated:
+      <%= date_or_blank(@function.updated_on) %></td>
+  </tr>
+  <tr>
+    <td><label for="function_relevance01">Is this a proposed or existing Function?</label>
+      <% LookUp.existing_proposed.each do |lookup| %>
+        <%= lookup.name %>  <%= radio_button('function', 'relevance01', lookup.id, {:title => lookup.description}) %>
+      <% end %>
+    </td>
+  </tr>
+  <tr>
+    <td><%=h @function.organisation.strategies_description %></td>
+    <td rowspan="2"><%=image_tag('help.gif', :height => 20)%><%= @function.organisation.strategies_help %></td>
+  </tr>
+  <tr>
+    <td>
+      <% @strategies.each do |strategy| %>
+        <div title="<%= strategy.description %>">
+          <%= check_box_tag("function[strategy_ids][]", strategy.id, @function.strategies.include?(strategy)) %>
+          <%= strategy.name %>
+        </div>
+      <% end %>
+    </td>
+  </tr> 
+  <tr>
+    <td><%=h @function.organisation.impact_groups_description %></td>
+    <td rowspan="2"><%=image_tag('help.gif', :height => 20)%><%= @function.organisation.impact_groups_help %></td>
+  </tr>
+  <tr>
+    <td>
+      <% @impact_groups.each do |impact_group| %>
+        <div title="<%= impact_group.description %>">
+          <%= impact_group.name %>
+        </div>
+        <% LookUp.proportion.each do |lookup| %>
+          <span title="<%= lookup.description %>">
+            <%= lookup.name %>  <%= radio_button('function', 'relevance14', lookup.id, {:title => lookup.description}) %>
+          </span>
+        <% end %>
+      <% end %>
+    </td>
+  </tr>
+</table>
 
 <p>Does the Function try to meet the particular needs of any of the following groups?</p>
 
