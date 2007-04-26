@@ -73,6 +73,12 @@ class OrganisationController < ApplicationController
     @organisation = Organisation.find(params[:id])
   end
 #
+#  
+#  
+  def edit_equality_groups_description
+    @organisation = Organisation.find(params[:id])
+  end
+#
 # Update the organiation and all of its attributes
 # 
   def update

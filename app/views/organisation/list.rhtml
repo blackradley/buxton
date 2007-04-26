@@ -6,7 +6,7 @@
     <th>Editor</th>
     <th></th>
     <th></th>
-    <th></th>
+    <th>Groups</th>
     <th>Last Reminder</th>
     <th></th>
     <th>Completed</th>
@@ -23,7 +23,10 @@
     </td>
     <td><%= link_to 'Edit', :action => 'edit_contact', :id => organisation %></td>
     <td><%= link_to 'Strategies', :controller => 'strategy', :action => 'list', :id => organisation %></td>
-    <td><%= link_to 'Groups', :controller => 'impact_group', :action => 'list', :id => organisation %></td>
+    <td>
+      <%= link_to 'Impact', :controller => 'impact_group', :action => 'list', :id => organisation %>
+      <%= link_to 'Equality', :controller => 'organisation', :action => 'edit_equality_groups_description', :id => organisation %>
+    </td>
     <td><%= date_or_blank(organisation.user.reminded_on) %></td>
     <td><%= link_to 'Remind', {:action => 'remind', :id => organisation.user}, :confirm => 'Send reminder to ' + organisation.name + '?', :method => :post %></td>
     <td><%= progress_bar(organisation.percentage_completed) %></td>

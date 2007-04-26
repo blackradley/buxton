@@ -2,7 +2,12 @@
 
 <% form_tag :action => 'update', :id => @organisation do %>
 <p><label for="organisation_strategies_description">Description</label><br/>
-<%= text_area 'organisation', 'strategies_description', "cols" => 50, "rows" => 5  %></p>
+<%= text_area 'organisation', 'strategies_description', "cols" => 70, "rows" => 3  %></p>
+
+<p><label for="organisation_strategies_help">Help</label><br/>
+<%= text_area 'organisation', 'strategies_help', "cols" => 70, "rows" => 7  %></p>
+
+
   <%= submit_tag 'Save' %>
 <% end %>
 
