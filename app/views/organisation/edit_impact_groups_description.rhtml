@@ -2,7 +2,11 @@
 
 <% form_tag :action => 'update', :id => @organisation do %>
 <p><label for="organisation_impact_groups_description">Description</label><br/>
-<%= text_area 'organisation', 'impact_groups_description', "cols" => 50, "rows" => 4  %></p>
+<%= text_area 'organisation', 'impact_groups_description', "cols" => 70, "rows" => 3  %></p>
+
+<p><label for="organisation_impact_groups_help">Help</label><br/>
+<%= text_area 'organisation', 'impact_groups_help', "cols" => 70, "rows" => 7  %></p>
+
   <%= submit_tag 'Save' %>
 <% end %>
 

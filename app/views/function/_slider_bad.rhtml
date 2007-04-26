@@ -1,5 +1,5 @@
 <div id="track1" style="width: 300px; background-color: rgb(170, 170, 170); height: 10px;">
-  <div class="selected" id="handle1" style="width:19px; height:20px;"><%= image_tag('slider_handle.png', :style => "float: left")%></div>
+  <div class="selected" id="handle1" style="width:19px; height:20px;"><%= image_tag('slider_handle_bad.png', :style => "float: left")%></div>
 </div>
 <br />
 <div style="width: 300px;">
@@ -11,7 +11,6 @@
   new Control.Slider('handle1','track1',{
     range:$R(0,10),
     values:[0,1,2,3,4,5,6,7,8,9,10],
-    handleImage: 'images/slider_handle_bad.png',
     onChange:function(v){$('function_relevance02').value = v;}});
 // ]]>
 </script>
