@@ -39,7 +39,7 @@ four:
   id: 4
   user_type: 1
   passkey: 59788d7e368f102ab437080046905aeeDEMO
-  email: john_smith@birmingham.gov.uk-
+  email: Peter_Latchford@blackradley.com
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   reminded_on: 2007-04-01 00:00:00
@@ -50,7 +50,7 @@ five:
   id: 5
   user_type: 2
   passkey: 4138e3f032aa102aa9bc080046905aeeDEMO
-  email: john_smith@birmingham.gov.uk-
+  email: Peter_Latchford@blackradley.com
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   reminded_on: 2007-04-01 00:00:00
