@@ -43,7 +43,11 @@ class User < ActiveRecord::Base
   def self.find_admins
     find(:all, :conditions => "User_Type = #{ADMINISTRATIVE}")
   end
-  
+# 
+# TODO: if the user "email" of the user has changed then the "reminded_on"
+# date should be set to null.  Because the reminder is when the user was
+# reminded so is no longer valid if it is a new user.
+# 
 end
 
   
