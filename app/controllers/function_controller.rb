@@ -74,7 +74,11 @@ class FunctionController < ApplicationController
 #
 # Update the function and all of its attributes, then redirect based on the
 # type of user.
-#
+# 
+# TODO: if the user "email" of the user has changed then the "reminded_on"
+# date should be set to null.  Because the reminder is when the user was
+# reminded so is no longer valid if it is a new user.
+# 
   def update
     @function = Function.find(params[:id])
     @function.update_attributes(params[:function])
