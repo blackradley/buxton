@@ -2,6 +2,7 @@
 <table>
   <tr>
     <th></th>
+    <th></th>
     <th>Name</th>
     <th>Editor</th>
     <th></th>
@@ -14,7 +15,7 @@
   <% for function in @functions %>
   <tr>
     <td><%= link_to 'View', :action => 'show', :id => function %></td>
-    <td><%= image_tag('red.gif')%></td>
+    <td><%= traffic_light_status_tag(function.is_red)%></td>
     <td><%=h function.name %></td>
     <td>
       <a href="<%=h "mailto:" + function.user.email + "?subject=" + function.name %>">
