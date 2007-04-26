@@ -14,6 +14,7 @@
   <% for function in @functions %>
   <tr>
     <td><%= link_to 'View', :action => 'show', :id => function %></td>
+    <td><%= image_tag('red.gif')%></td>
     <td><%=h function.name %></td>
     <td>
       <a href="<%=h "mailto:" + function.user.email + "?subject=" + function.name %>">
