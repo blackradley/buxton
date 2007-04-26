@@ -18,9 +18,14 @@ module FunctionHelper
     end
   end
 #
-# Radio buttons for look ups
+# Traffic light status
 #
-  def radio_look_ups(lookups)
-
+  def traffic_light_status_tag(is_red)
+    if is_red
+      return image_tag('red.gif', :alt => "Red", :title => "Red")
+    else
+      return image_tag('green.gif', :alt => "Green", :title => "Green")
+    end
   end
+
 end

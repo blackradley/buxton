@@ -23,9 +23,10 @@ one:
     then the people affected will be the residents or service users, if it is an internal 
     function then the people affected will be Council staff.  Functions may also affect 
     businesses or partner organisations.
-  equality_groups_description: Does the Function try to meet the particular needs of any of 
-    the following groups?
-  equality_groups_help: Help about equality groups.
+  good_equality_groups_description: Good equality groups description?
+  good_equality_groups_help: Help about good equality groups.
+  bad_equality_groups_description: Bad equality groups description?
+  bad_equality_groups_help: Help about bad equality groups.  
   approval_help: Help about the approval process and how to go about it.
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00

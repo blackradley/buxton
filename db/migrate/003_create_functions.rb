@@ -9,33 +9,26 @@
 class CreateFunctions < ActiveRecord::Migration
   def self.up
     create_table :functions, :force => true do |t|
-      t.column :user_id,               :integer
-      t.column :organisation_id,       :integer
-      t.column :name,                  :string
-      t.column :relevance01,           :integer
-      t.column :relevance02,           :integer
-      t.column :relevance03,           :integer
-      t.column :relevance04,           :integer
-      t.column :relevance05,           :integer
-      t.column :relevance06,           :integer
-      t.column :relevance07,           :integer
-      t.column :relevance08,           :integer
-      t.column :relevance09,           :integer
-      t.column :relevance10,           :integer
-      t.column :relevance11,           :integer
-      t.column :relevance12,           :integer
-      t.column :relevance13,           :integer
-      t.column :relevance14,           :integer
-      t.column :relevance15,           :integer
-      t.column :relevance16,           :integer
-      t.column :relevance17,           :integer
-      t.column :relevance18,           :integer
-      t.column :relevance19,           :integer
-      t.column :relevance20,           :integer
-      t.column :is_approved,           :boolean
-      t.column :created_on,            :timestamp
-      t.column :updated_on,            :timestamp
-      t.column :deleted_on,            :timestamp
+      t.column :user_id,                 :integer
+      t.column :organisation_id,         :integer
+      t.column :name,                    :string
+      t.column :is_proposed,             :boolean
+      t.column :good_ethnic,             :integer
+      t.column :good_ability,            :integer
+      t.column :good_gender,             :integer
+      t.column :good_sexual_orientation, :integer
+      t.column :good_faith,              :integer
+      t.column :good_age,                :integer
+      t.column :bad_ethnic ,             :integer
+      t.column :bad_ability,             :integer
+      t.column :bad_gender,              :integer
+      t.column :bad_sexual_orientation,  :integer
+      t.column :bad_faith,               :integer
+      t.column :bad_age,                 :integer
+      t.column :is_approved,             :boolean
+      t.column :created_on,              :timestamp
+      t.column :updated_on,              :timestamp
+      t.column :deleted_on,              :timestamp
     end
   end
 

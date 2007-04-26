@@ -14,17 +14,26 @@ class Function < ActiveRecord::Base
   has_many :impact_groups, :through => :functions_impact_groups
   has_and_belongs_to_many :impact_groups
   
-  
   validates_presence_of :name
 #
-# Retun a float for the number of questions answered
+# Bogus percentage answered
 #
-  def percentage_answered
-    percentage = 0.0 # the .0 ensures a float is used
-    percentage += read_attribute(:relevance01).nil? ? 0.0 : 1.0
-    percentage += read_attribute(:relevance02).nil? ? 0.0 : 1.0 
-    percentage += read_attribute(:relevance03).nil? ? 0.0 : 1.0 
-    percentage = (percentage/30.0)*100
-    return percentage
+  def percentage_answered     
+    if rand(3)==2
+      return 0
+    else
+      return 25
+    end
   end
+#
+# Bogus traffic light status
+#
+  def is_red
+    if rand(3)==2
+      return true
+    else
+      return false
+    end
+  end
+
 end
