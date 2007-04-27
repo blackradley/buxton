@@ -28,10 +28,12 @@
   <tr>
     <td><strong><%=h @function.organisation.strategies_description %></strong></td>
     <td rowspan="2">
-    <a href="#" onclick="$('strategies_help').toggle(); return false;" title="help"><%=image_tag('help.gif')%></a> 
-      <span id='strategies_help' style="display:none;">
+    <div><%= link_to_function image_tag("help.gif"), visual_effect(:toggle_slide, 'strategies_help') %></div>
+    <div id="strategies_help" style="display:none;">
+      <span>
         <%= @function.organisation.strategies_help %>
       </span>
+    </span>  
     </td>
   </tr>
   <tr>
@@ -47,10 +49,10 @@
   <tr>
     <td><strong><%=h @function.organisation.impact_groups_description %></strong></td>
     <td rowspan="2">
-    <a href="#" onclick="$('impact_groups_help').toggle(); return false;" title="help"><%=image_tag('help.gif')%></a> 
-      <span id='impact_groups_help' style="display:none;"> 
-        <%= @function.organisation.impact_groups_help %>
-      </span>
+    <%= link_to_function image_tag("help.gif"), visual_effect(:toggle_appear, 'impact_groups_help') %>
+    <div id="impact_groups_help" style="display:none;">
+      <%= @function.organisation.impact_groups_help %>
+    </div>       
     </td>
   </tr>
   <tr>
@@ -80,10 +82,10 @@
   <tr>
     <td><strong><%=h @function.organisation.good_equality_groups_description %></strong></td>
     <td rowspan="6">
-      <a href="#" onclick="$('good_equality_groups_help').toggle(); return false;" title="help"><%=image_tag('help.gif')%></a> 
-      <span id='good_equality_groups_help' style="display:none;">
+      <div><%= link_to_function image_tag("help.gif"), visual_effect(:toggle_blind, 'good_equality_groups_help') %></div>
+      <div id="good_equality_groups_help" style="display:none;">
         <%= @function.organisation.good_equality_groups_help %>
-      </span>
+      </div>  
     </td>
   </tr>
   <tr>
@@ -119,10 +121,10 @@
   <tr>
     <td><strong><%=h @function.organisation.bad_equality_groups_description %></strong></td>
     <td rowspan="6">
-      <a href="#" onclick="$('bad_equality_groups_help').toggle(); return false;" title="help"><%=image_tag('help.gif')%></a> 
-      <span id='bad_equality_groups_help' style="display:none;">
+      <%= link_to_function image_tag("help.gif"), "Element.toggle('bad_equality_groups_help')" %>
+      <span id="bad_equality_groups_help" style="display:none;">
         <%= @function.organisation.bad_equality_groups_help %>
-      </span>
+      </span> 
     </td>
   </tr>
   <tr>
