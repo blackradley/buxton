@@ -52,6 +52,9 @@ class WelcomeController < ApplicationController
 # 
 # TODO: Monitor for repeated log ins from the same IP, block the IP if it
 # looks like some kind of brute force attack.
+# 
+# TODO: Keys should expire after a couple of weeks, users should be able
+# to get a new key.  So if the key has expired send a new key to the user.
 #
   def login
     @user = User.find_by_passkey(params[:passkey])

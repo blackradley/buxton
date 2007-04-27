@@ -6,6 +6,10 @@
 #
 # Copyright (c) 2007 Black Radley Limited. All rights reserved. 
 #
+# TODO: The user contains an email address (which can be the first name and 
+# surname) this is associated with the organisation or function that they are
+# associated with.  Does this have a data protection implication???
+#
 class User < ActiveRecord::Base
   has_one :organisation
   has_one :function
@@ -20,6 +24,7 @@ class User < ActiveRecord::Base
 # * Functional - the user controls a function
 # These groups are mutually exclusive.
 # 
+  TYPE = [:administrative, :organisational, :functional]
   ADMINISTRATIVE = 0
   ORGANISATIONAL = 1
   FUNCTIONAL = 2
