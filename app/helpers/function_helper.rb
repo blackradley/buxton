@@ -28,4 +28,13 @@ module FunctionHelper
     end
   end
 
+#
+# Slider
+#
+  def standard_slider_tag(object, method)
+    html = slider_field(object, method, {:values => "[0,1,2,3,4,5,6,7,8,9,10]", :range => 1..10})
+    html += "<div style='width: 300px;'>"
+    html += "<span style='float: left'>not at all</span><span style='float: right'>very different impact</span>"
+    html += "</div>"
+  end
 end

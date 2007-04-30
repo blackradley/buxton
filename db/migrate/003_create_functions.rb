@@ -12,20 +12,20 @@ class CreateFunctions < ActiveRecord::Migration
       t.column :user_id,                 :integer
       t.column :organisation_id,         :integer
       t.column :name,                    :string
-      t.column :is_proposed,             :boolean
-      t.column :good_ethnic,             :integer
-      t.column :good_ability,            :integer
-      t.column :good_gender,             :integer
-      t.column :good_sexual_orientation, :integer
-      t.column :good_faith,              :integer
-      t.column :good_age,                :integer
-      t.column :bad_ethnic ,             :integer
-      t.column :bad_ability,             :integer
-      t.column :bad_gender,              :integer
-      t.column :bad_sexual_orientation,  :integer
-      t.column :bad_faith,               :integer
-      t.column :bad_age,                 :integer
-      t.column :is_approved,             :boolean
+      t.column :is_proposed,             :integer
+      t.column :good_ethnic,             :integer,  :default => 0
+      t.column :good_ability,            :integer,  :default => 0
+      t.column :good_gender,             :integer,  :default => 0
+      t.column :good_sexual_orientation, :integer,  :default => 0
+      t.column :good_faith,              :integer,  :default => 0
+      t.column :good_age,                :integer,  :default => 0
+      t.column :bad_ethnic ,             :integer,  :default => 0
+      t.column :bad_ability,             :integer,  :default => 0
+      t.column :bad_gender,              :integer,  :default => 0
+      t.column :bad_sexual_orientation,  :integer,  :default => 0
+      t.column :bad_faith,               :integer,  :default => 0
+      t.column :bad_age,                 :integer,  :default => 0
+      t.column :is_approved,             :integer
       t.column :created_on,              :timestamp
       t.column :updated_on,              :timestamp
       t.column :deleted_on,              :timestamp

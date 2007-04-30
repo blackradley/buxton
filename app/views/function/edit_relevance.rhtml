@@ -28,12 +28,10 @@
   <tr>
     <td><strong><%=h @function.organisation.strategies_description %></strong></td>
     <td rowspan="2">
-    <div><%= link_to_function image_tag("help.gif"), visual_effect(:toggle_slide, 'strategies_help') %></div>
-    <div id="strategies_help" style="display:none;">
-      <span>
+      <%= link_to_function image_tag("help.gif"), "Element.toggle('strategies_help')" %>
+      <span id="strategies_help" style="display:none;">
         <%= @function.organisation.strategies_help %>
-      </span>
-    </span>  
+      </span>  
     </td>
   </tr>
   <tr>
@@ -49,73 +47,57 @@
   <tr>
     <td><strong><%=h @function.organisation.impact_groups_description %></strong></td>
     <td rowspan="2">
-    <%= link_to_function image_tag("help.gif"), visual_effect(:toggle_appear, 'impact_groups_help') %>
-    <div id="impact_groups_help" style="display:none;">
-      <%= @function.organisation.impact_groups_help %>
-    </div>       
+      <%= link_to_function image_tag("help.gif"), "Element.toggle('impact_groups_help')" %>
+      <span id="impact_groups_help" style="display:none;">
+        <%= @function.organisation.impact_groups_help %>
+      </span>       
     </td>
   </tr>
   <tr>
     <td>
       <% @impact_groups.each do |impact_group| %>
         <span title="<%= impact_group.description %>"><%= impact_group.name %></span>
-        <div id="track1" style="width: 300px; background-color: rgb(170, 170, 170); height: 10px;">
-          <div class="selected" id="handle1" style="width:19px; height:20px;"><%= image_tag('slider_handle.png', :style => "float: left")%></div>
-        </div>
-        <br />
-        <div style="width: 300px;">
-          <span style="float: left">None</span><span style="float: right">All</span>
-        </div>
-        <br />
-        <script type="text/javascript" language="javascript">
-        // <![CDATA[
-          new Control.Slider('handle1','track1',{
-            range:$R(0,10),
-            values:[0,1,2,3,4,5,6,7,8,9,10],
-            handleImage: 'images/slider_handle.png',
-            onChange:function(v){$('function_relevance02').value = v;}});
-        // ]]>
-        </script>
+          <%= standard_slider_tag(:function, :good_age) %>
         <% end %>
     </td>
   </tr>
   <tr>
     <td><strong><%=h @function.organisation.good_equality_groups_description %></strong></td>
     <td rowspan="6">
-      <div><%= link_to_function image_tag("help.gif"), visual_effect(:toggle_blind, 'good_equality_groups_help') %></div>
-      <div id="good_equality_groups_help" style="display:none;">
+      <%= link_to_function image_tag("help.gif"), "Element.toggle('good_equality_groups_help')" %>
+      <span id="good_equality_groups_help" style="display:none;">
         <%= @function.organisation.good_equality_groups_help %>
-      </div>  
+      </span>  
     </td>
   </tr>
   <tr>
     <td>If the function were performed well, would it affect different <u>age groups</u> differently?
-      <%= render :partial => 'slider_good' %>
+      <%= standard_slider_tag(:function, :good_age) %>
     </td>
   <tr>
   <tr>
     <td>If the function were performed well, would it affect different <u>Ethnic groups</u> differently?
-      <%= render :partial => 'slider_good' %>
+      <%= standard_slider_tag(:function, :good_ethnic) %>
     </td>
   <tr>
   <tr>
     <td>If the function were performed well, would it affect <u>men and women</u> differently?
-      <%= render :partial => 'slider_good' %>
+      <%= standard_slider_tag(:function, :good_gender) %>
     </td>
   <tr>
   <tr>
     <td>If the function were performed well, would it affect people of different <u>sexual orientation</u> differently?
-      <%= render :partial => 'slider_good' %>
+      <%= standard_slider_tag(:function, :good_sexual_orientation) %>
     </td>
   <tr>
   <tr>
     <td>If the function were performed well, would it affect different <u>faith groups</u> differently?
-      <%= render :partial => 'slider_good' %>
+      <%= standard_slider_tag(:function, :good_faith) %>
     </td>
   <tr>
   <tr>
     <td>If the function were performed well, would it affect <u>people with different kinds of disabilities</u> differently?
-      <%= render :partial => 'slider_good' %>
+      <%= standard_slider_tag(:function, :good_ability) %>
     </td>
   <tr>
   <tr>
@@ -129,38 +111,38 @@
   </tr>
   <tr>
     <td>If the function were performed badly, would it affect different <u>age groups</u> differently?
-      <%= render :partial => 'slider_bad' %>
+      <%= standard_slider_tag(:function, :bad_age) %>
     </td>
   </tr>
   <tr>
     <td>If the function were performed badly, would it affect different <u>Ethnic groups</u> differently?
-      <%= render :partial => 'slider_bad' %>
+      <%= standard_slider_tag(:function, :bad_ethnic) %>
     </td>
   </tr>
   <tr>
     <td>If the function were performed badly, would it affect <u>men and women</u> differently?
-      <%= render :partial => 'slider_bad' %>
+      <%= standard_slider_tag(:function, :bad_gender) %>
     </td>
   <tr>
   <tr>
     <td>If the function were performed badly, would it affect people of different <u>sexual orientation</u> differently?
-      <%= render :partial => 'slider_bad' %>
+      <%= standard_slider_tag(:function, :bad_sexual_orientation) %>
     </td>
   </tr>
   <tr>
     <td>If the function were performed badly, would it affect different <u>faith groups</u> differently?
-      <%= render :partial => 'slider_bad' %>
+      <%= standard_slider_tag(:function, :bad_faith) %>
     </td>
   </tr>
   <tr>
     <td>If the function were performed badly, would it affect <u>people with different kinds of disabilities</u> differently?
-      <%= render :partial => 'slider_bad' %>
+      <%= standard_slider_tag(:function, :bad_ability) %>
     </td>
   </tr>
   <tr>
     <td>Approved <%= check_box('function', 'is_approved') %></td>
     <td>
-    <a href="#" onclick="$('approval_help').toggle(); return false;" title="help"><%=image_tag('help.gif')%></a> 
+      <%= link_to_function image_tag("help.gif"), "Element.toggle('approval_help')" %>
       <span id='approval_help' style="display:none;">
         <%= @function.organisation.approval_help %>
       </span>
