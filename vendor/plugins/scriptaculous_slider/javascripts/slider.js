@@ -39,6 +39,7 @@ Control.Slider.prototype = {
     } else {
       this.handles = [$(handle)];
     }
+    
     this.track   = $(track);
     this.options = options || {};
 
@@ -194,7 +195,7 @@ Control.Slider.prototype = {
         $R(0, this.values.length>1 ? this.getRange(0).min() : this.value ));
     if(this.options.endSpan)
       this.setSpan(this.options.endSpan, 
-        $R(this.values.length>1 ? this.getRange(this.spans.length-1).max() : this.value, this.maximum));   
+        $R(this.values.length>1 ? this.getRange(this.spans.length-1).max() : this.value, this.maximum));
   },
   setSpan: function(span, range) {
     if(this.isVertical()) {
@@ -279,6 +280,4 @@ Control.Slider.prototype = {
       this.options.onChange(this.values.length>1 ? this.values : this.value, this);
     this.event = null;
   }
-
-  
 }

@@ -3,16 +3,5 @@
   <p><label>Email</label>: 
   <%= text_field_tag :email  %></p>
   
-<p>  
-<%= content_tag 'DIV', 'Click Here', :onclick => visual_effect(:highlight, 'msg', :duration => 1.0)  %>
-<%= content_tag 'DIV', 'Hello, World', :id => 'msg' %>
-</p>
-  
-  
-<%= link_to_function "toggle with my div", "Element.toggle('to_toggle')" %>
-<div id="to_toggle">
-  Now you see me, now you don't!
-</div>
-  
   <%= submit_tag 'Send Me a Reminder' %>
 <% end %>
