@@ -4,15 +4,18 @@ body{
 }
 
 .question-impact-groups{
-    background-color: #659EC7;
+	background: url(../images/blue.gif);
+	background-repeat: repeat;
 }
 
 .question-equality-good{
-    background-color: #5EFB6E;
+	background: url(../images/green.gif);
+	background-repeat: repeat;
 }
 
 .question-equality-bad{
-    background-color: #F6358A;
+	background: url(../images/red.gif);
+	background-repeat: repeat;
 }
 
 .mastHead{
