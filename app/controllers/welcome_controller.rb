@@ -21,6 +21,10 @@ class WelcomeController < ApplicationController
 # I should probably check that the subdomain is correct as well,
 # but who can be bothered with that.
 #
+# TODO: I am not sure that this actually works, check that if you have
+# a user that is operational user and a number of functional users, do 
+# the links actually match up with the functions.
+#
   def new_link 
     @users = User.find_all_by_email(params[:email])
     if @users.empty? 
