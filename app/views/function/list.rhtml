@@ -15,7 +15,7 @@
   <% for function in @functions %>
   <tr>
     <td><%= link_to 'View', :action => 'show', :id => function %></td>
-    <td><%= traffic_light_status_tag(function.is_red)%></td>
+    <td style='display: table-cell;vertical-align: middle;'><%= traffic_light_status_tag(function.traffic_light_status)%></td>
     <td><%=h function.name %></td>
     <td>
       <a href="<%=h "mailto:" + function.user.email + "?subject=" + function.name %>">

@@ -25,6 +25,7 @@ class FunctionController < ApplicationController
   def show
     @function = Function.find(params[:id])
     @user = @function.user
+    @impact_groups = ImpactGroup.find_all_by_organisation_id(@user.function.organisation_id)
   end
 #
 # Create a new function and a new associated user
