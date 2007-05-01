@@ -1,26 +1,27 @@
 <h2><%= @function.name %></h2>
-<table width="100%">
+<table width="60%">
   <tr>
-    <td width="60%">
-    </td>
-  </tr>
-  <tr>
-    <td>Contact:
+    <td>Contact:</td>
+    <td>
       <a href="<%=h "mailto:" + @function.user.email + "?subject=" + @function.name %>">
         <%=h @function.user.email %>
       </a>
     </td>
   </tr>
   <tr>
-    <td>Last changed: <%= date_or_blank(@function.updated_on) %></td>
+    <td>Last changed:</td>
+    <td><%= date_or_blank(@function.updated_on) %></td>
   </tr>
   <tr>
-    <td>Percentage Completed <%= progress_bar(@function.percentage_answered) %></td>
+    <td>Percentage Completed</td>
+    <td><%= progress_bar(@function.percentage_answered) %></td>
   </tr>
   <tr>
-    <td>Approved <%= approved_tag @function.is_approved? %></td>
+    <td>Approved</td>
+    <td><%= approved_tag @function.is_approved? %></td>
   </tr>
-    <td>
+  <tr>
+    <td colspan="2">
       <p>Strategies</p>
       <ul>
         <% for strategy in @function.strategies %>
@@ -30,7 +31,92 @@
     </td>
   </tr>
   <tr>
-    <td width='100'>Service 1<%= image_tag('bar.gif', :width => 50, :height => 10) %></td>
+    <td colspan="2">
+      <table>
+        <% @impact_groups.each do |impact_group| %>
+        <tr>
+          <td>
+            <span title="<%= impact_group.description %>"><%= impact_group.name %></span>
+          </td>
+          <td>
+            <span title="50%"><%= image_tag('blue.gif', :width => 50, :height => 10) %></span>
+          </td>
+        </tr>
+        <% end %>
+        <tr>
+          <td title="<%= $equality_questions['good_age'] %>">Good, Age</td>
+          <td title="<%= (@function.good_age * 10).to_s + '%' %>">
+            <%= image_tag('green.gif', :width => (@function.good_age * 10), :height => 10) %>
+          </td>
+        </tr>
+        <tr>
+          <td title="<%= $equality_questions['good_ethnic'] %>">Good, Ethnic</td>
+          <td title="<%= (@function.good_ethnic * 10).to_s + '%' %>">
+            <%= image_tag('green.gif', :width => (@function.good_ethnic * 10), :height => 10) %>
+          </td>
+        </tr>
+        <tr>
+          <td title="<%= $equality_questions['good_gender'] %>">Good, Gender</td>
+          <td title="<%= (@function.good_gender * 10).to_s + '%' %>">
+            <%= image_tag('green.gif', :width => (@function.good_gender * 10), :height => 10) %>
+          </td>
+        </tr>
+        <tr>
+          <td title="<%= $equality_questions['good_sexual_orientation'] %>">Good, Sexual Orientation</td>
+          <td title="<%= (@function.good_sexual_orientation * 10).to_s + '%' %>">
+            <%= image_tag('green.gif', :width => (@function.good_sexual_orientation * 10), :height => 10) %>
+          </td>
+        </tr>
+        <tr>
+          <td title="<%= $equality_questions['good_faith'] %>">Good, Faith</td>
+          <td title="<%= (@function.good_faith * 10).to_s + '%' %>">
+            <%= image_tag('green.gif', :width => (@function.good_faith * 10), :height => 10) %>
+          </td>
+        </tr>
+        <tr>
+          <td title="<%= $equality_questions['good_ability'] %>">Good, Ability</td>
+          <td title="<%= (@function.good_ability * 10).to_s + '%' %>">
+            <%= image_tag('green.gif', :width => (@function.good_ability * 10), :height => 10) %>
+          </td>
+        </tr>
+        <tr>
+          <td title="<%= $equality_questions['bad_age'] %>">Bad, Age</td>
+          <td title="<%= (@function.bad_age * 10).to_s + '%' %>">
+            <%= image_tag('red.gif', :width => (@function.bad_age * 10), :height => 10) %>
+          </td>
+        </tr>
+        <tr>
+          <td title="<%= $equality_questions['bad_ethnic'] %>">Bad, Ethnic</td>
+          <td title="<%= (@function.bad_ethnic * 10).to_s + '%' %>">
+            <%= image_tag('red.gif', :width => (@function.bad_ethnic * 10), :height => 10) %>
+          </td>
+        </tr>
+        <tr>
+          <td title="<%= $equality_questions['bad_gender'] %>">Bad, Gender</td>
+          <td title="<%= (@function.bad_gender * 10).to_s + '%' %>">
+            <%= image_tag('red.gif', :width => (@function.bad_gender * 10), :height => 10) %>
+          </td>
+        </tr>
+        <tr>
+          <td title="<%= $equality_questions['bad_sexual_orientation'] %>">Bad, Sexual Orientation</td>
+          <td title="<%= (@function.bad_sexual_orientation * 10).to_s + '%' %>">
+            <%= image_tag('red.gif', :width => (@function.bad_sexual_orientation * 10), :height => 10) %>
+          </td>
+        </tr>
+        <tr>
+          <td title="<%= $equality_questions['bad_faith'] %>">Bad, Faith</td>
+          <td title="<%= (@function.bad_faith * 10).to_s + '%' %>">
+            <%= image_tag('red.gif', :width => (@function.bad_faith * 10), :height => 10) %>
+          </td>
+        </tr>
+        <tr>
+          <td title="<%= $equality_questions['bad_ability'] %>">Bad, Ability</td>
+          <td title="<%= (@function.bad_ability * 10).to_s + '%' %>">
+            <%= image_tag('red.gif', :width => (@function.bad_ability * 10), :height => 10) %>
+          </td>
+        </tr>
+      </table>
+    </td>
   </tr>
 </table>
 

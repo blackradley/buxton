@@ -28,12 +28,8 @@ class Function < ActiveRecord::Base
 #
 # Bogus traffic light status
 #
-  def is_red
-    if rand(3)==2
-      return true
-    else
-      return false
-    end
+  def traffic_light_status
+    rand(3)
   end
 
 end
