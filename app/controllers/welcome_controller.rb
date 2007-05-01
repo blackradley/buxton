@@ -60,6 +60,13 @@ class WelcomeController < ApplicationController
 # TODO: Keys should expire after a couple of weeks, users should be able
 # to get a new key.  So if the key has expired send a new key to the user.
 #
+# TODO: Functional user should redirect to somewhere sensible, rather than
+# just the first record in the functions list.
+# 
+# TODO: Once a user has authenticated they can then look at any record (and
+# edit it) by manipulating the query string/Url.  On the whole this is
+# probably a bad thing.
+# 
   def login
     @user = User.find_by_passkey(params[:passkey])
     if @user.nil? # the key is not in the user table
