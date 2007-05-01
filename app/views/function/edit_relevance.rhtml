@@ -15,10 +15,6 @@
     </td>
   </tr>
   <tr>
-    <td>Last changed:
-      <%= date_or_blank(@function.updated_on) %></td>
-  </tr>
-  <tr>
     <td>Is it
       <% LookUp.existing_proposed.each do |lookup| %>
         <%= lookup.name %>  <%= radio_button('function', 'is_proposed', lookup.id, {:title => lookup.description}) %>
@@ -45,24 +41,24 @@
     </td>
   </tr> 
   <tr>
-    <td><strong><%=h @function.organisation.impact_groups_description %></strong></td>
-    <td rowspan="2">
+    <td class="question-impact-groups"><strong><%=h @function.organisation.impact_groups_description %></strong></td>
+    <td rowspan="<%= @impact_groups.length + 1 %>">
       <%= link_to_function image_tag("help.gif"), "Element.toggle('impact_groups_help')" %>
       <span id="impact_groups_help" style="display:none;">
         <%= @function.organisation.impact_groups_help %>
       </span>       
     </td>
   </tr>
+  <% @impact_groups.each do |impact_group| %>
   <tr>
-    <td>
-      <% @impact_groups.each do |impact_group| %>
+    <td class="question-impact-groups">
         <span title="<%= impact_group.description %>"><%= impact_group.name %></span>
           <%= standard_slider_tag(:function, :good_age) %>
-        <% end %>
     </td>
   </tr>
+  <% end %>
   <tr>
-    <td><strong><%=h @function.organisation.good_equality_groups_description %></strong></td>
+    <td class="question-equality-good"><strong><%=h @function.organisation.good_equality_groups_description %></strong></td>
     <td rowspan="6">
       <%= link_to_function image_tag("help.gif"), "Element.toggle('good_equality_groups_help')" %>
       <span id="good_equality_groups_help" style="display:none;">
@@ -71,37 +67,37 @@
     </td>
   </tr>
   <tr>
-    <td>If the function were performed well, would it affect different <u>age groups</u> differently?
+    <td class="question-equality-good">If the function were performed well, would it affect different <u>age groups</u> differently?
       <%= standard_slider_tag(:function, :good_age) %>
     </td>
   <tr>
   <tr>
-    <td>If the function were performed well, would it affect different <u>Ethnic groups</u> differently?
+    <td class="question-equality-good">If the function were performed well, would it affect different <u>Ethnic groups</u> differently?
       <%= standard_slider_tag(:function, :good_ethnic) %>
     </td>
   <tr>
   <tr>
-    <td>If the function were performed well, would it affect <u>men and women</u> differently?
+    <td class="question-equality-good">If the function were performed well, would it affect <u>men and women</u> differently?
       <%= standard_slider_tag(:function, :good_gender) %>
     </td>
   <tr>
   <tr>
-    <td>If the function were performed well, would it affect people of different <u>sexual orientation</u> differently?
+    <td class="question-equality-good">If the function were performed well, would it affect people of different <u>sexual orientation</u> differently?
       <%= standard_slider_tag(:function, :good_sexual_orientation) %>
     </td>
   <tr>
   <tr>
-    <td>If the function were performed well, would it affect different <u>faith groups</u> differently?
+    <td class="question-equality-good">If the function were performed well, would it affect different <u>faith groups</u> differently?
       <%= standard_slider_tag(:function, :good_faith) %>
     </td>
   <tr>
   <tr>
-    <td>If the function were performed well, would it affect <u>people with different kinds of disabilities</u> differently?
+    <td class="question-equality-good">If the function were performed well, would it affect <u>people with different kinds of disabilities</u> differently?
       <%= standard_slider_tag(:function, :good_ability) %>
     </td>
   <tr>
   <tr>
-    <td><strong><%=h @function.organisation.bad_equality_groups_description %></strong></td>
+    <td class="question-equality-bad"><strong><%=h @function.organisation.bad_equality_groups_description %></strong></td>
     <td rowspan="6">
       <%= link_to_function image_tag("help.gif"), "Element.toggle('bad_equality_groups_help')" %>
       <span id="bad_equality_groups_help" style="display:none;">
@@ -110,32 +106,32 @@
     </td>
   </tr>
   <tr>
-    <td>If the function were performed badly, would it affect different <u>age groups</u> differently?
+    <td class="question-equality-bad">If the function were performed badly, would it affect different <u>age groups</u> differently?
       <%= standard_slider_tag(:function, :bad_age) %>
     </td>
   </tr>
   <tr>
-    <td>If the function were performed badly, would it affect different <u>Ethnic groups</u> differently?
+    <td class="question-equality-bad">If the function were performed badly, would it affect different <u>Ethnic groups</u> differently?
       <%= standard_slider_tag(:function, :bad_ethnic) %>
     </td>
   </tr>
   <tr>
-    <td>If the function were performed badly, would it affect <u>men and women</u> differently?
+    <td class="question-equality-bad">If the function were performed badly, would it affect <u>men and women</u> differently?
       <%= standard_slider_tag(:function, :bad_gender) %>
     </td>
   <tr>
   <tr>
-    <td>If the function were performed badly, would it affect people of different <u>sexual orientation</u> differently?
+    <td class="question-equality-bad">If the function were performed badly, would it affect people of different <u>sexual orientation</u> differently?
       <%= standard_slider_tag(:function, :bad_sexual_orientation) %>
     </td>
   </tr>
   <tr>
-    <td>If the function were performed badly, would it affect different <u>faith groups</u> differently?
+    <td class="question-equality-bad">If the function were performed badly, would it affect different <u>faith groups</u> differently?
       <%= standard_slider_tag(:function, :bad_faith) %>
     </td>
   </tr>
   <tr>
-    <td>If the function were performed badly, would it affect <u>people with different kinds of disabilities</u> differently?
+    <td class="question-equality-bad">If the function were performed badly, would it affect <u>people with different kinds of disabilities</u> differently?
       <%= standard_slider_tag(:function, :bad_ability) %>
     </td>
   </tr>
