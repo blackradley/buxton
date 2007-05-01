@@ -1,22 +1,39 @@
 <h2><%= @function.name %></h2>
-<p>
-  Contact: 
-  <a href="<%=h "mailto:" + @user.email + "?subject=" + @function.name %>">
-    <%=h @user.email %>
-  </a>
-</p>
+<table width="100%">
+  <tr>
+    <td width="60%">
+    </td>
+  </tr>
+  <tr>
+    <td>Contact:
+      <a href="<%=h "mailto:" + @function.user.email + "?subject=" + @function.name %>">
+        <%=h @function.user.email %>
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <td>Last changed: <%= date_or_blank(@function.updated_on) %></td>
+  </tr>
+  <tr>
+    <td>Percentage Completed <%= progress_bar(@function.percentage_answered) %></td>
+  </tr>
+  <tr>
+    <td>Approved <%= approved_tag @function.is_approved? %></td>
+  </tr>
+    <td>
+      <p>Strategies</p>
+      <ul>
+        <% for strategy in @function.strategies %>
+        <li><%= strategy.name %></li>
+        <% end %>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td width='100'>Service 1<%= image_tag('bar.gif', :width => 50, :height => 10) %></td>
+  </tr>
+</table>
 
-<p>Percentage Completed</p>
-<%= progress_bar(@function.percentage_answered) %>
-
-<p>Strategies</p>
-<ul>
-<% for strategy in @function.strategies %>
- <li><%= strategy.name %></li>
-<% end %>
-</ul>
-
-<p>Approved <%= approved_tag @function.is_approved? %></p>
 
 <p>
 <% case @user.user_type 

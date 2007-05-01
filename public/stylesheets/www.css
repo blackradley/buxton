@@ -3,6 +3,18 @@ body{
 	background-color: #ffffff;
 }
 
+.question-impact-groups{
+    background-color: #659EC7;
+}
+
+.question-equality-good{
+    background-color: #5EFB6E;
+}
+
+.question-equality-bad{
+    background-color: #F6358A;
+}
+
 .mastHead{
     height: 80px;
     width: 100%;
