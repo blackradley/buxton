@@ -17,9 +17,12 @@ class FunctionController < ApplicationController
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
-
+#
+# List the functions for an organisation but don't paginate, a long list is
+# actually more convenient for the Organisational user to scan down.
+#
   def list
-    @function_pages, @functions = paginate :functions, :per_page => 10
+    @functions = Function.find_all_by_organisation_id(@session['logged_in_user'].organisation.id )
   end
 
   def show
