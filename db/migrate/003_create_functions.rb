@@ -26,6 +26,7 @@ class CreateFunctions < ActiveRecord::Migration
       t.column :bad_faith,               :integer,  :default => 0
       t.column :bad_age,                 :integer,  :default => 0
       t.column :is_approved,             :integer
+      t.column :approver,                :string
       t.column :created_on,              :timestamp
       t.column :updated_on,              :timestamp
       t.column :deleted_on,              :timestamp
