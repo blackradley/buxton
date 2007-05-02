@@ -19,6 +19,12 @@ module ApplicationHelper
     return request.host().split(/\s*\.\s*/)[0] 
   end
 #
+# Get the organisation name based on the style used
+#
+  def organisation_name(request)
+    return Organisation.find_by_style(subdomain(request)).name
+  end
+#
 # Display the users progress through the questions
 #
   def progress_bar(percentage)

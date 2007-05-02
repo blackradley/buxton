@@ -24,12 +24,45 @@ class Function < ActiveRecord::Base
     else
       return 25
     end
+  end 
+#
+# Status constants
+#
+  RED = 3
+  AMBER = 2
+  GREEN = 1
+#
+# Traffic light status
+#
+  def relevance_status
+    if read_attribute(:is_proposed) == 9
+      return RED
+    else
+      if relevance > 0
+        return GREEN
+      else
+        return AMBER
+      end
+    end
   end
 #
-# Bogus traffic light status
 #
-  def traffic_light_status
-    rand(3)
+#
+  def relevance
+    relevance = read_attribute(:good_ethnic) +
+      read_attribute(:good_ethnic) +
+      read_attribute(:good_ability) +
+      read_attribute(:good_gender) +
+      read_attribute(:good_sexual_orientation) +
+      read_attribute(:good_faith) +
+      read_attribute(:good_age) +
+      read_attribute(:bad_ethnic) +
+      read_attribute(:bad_ability) +
+      read_attribute(:bad_gender) +
+      read_attribute(:bad_sexual_orientation) +
+      read_attribute(:bad_faith) +
+      read_attribute(:bad_age)
+      return relevance
   end
 
 end
