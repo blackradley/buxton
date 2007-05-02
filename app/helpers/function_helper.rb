@@ -48,24 +48,24 @@ module FunctionHelper
   def standard_slider_tag(object, method)
     html = slider_field(object, method, {:values => "[0,1,2,3,4,5,6,7,8,9,10]", :range => 0..10})
     html += "<div style='width: 300px;'>"
-    html += "<span style='float: left'>not at all</span><span style='float: right'>very different impact</span>"
+    html += "<span style='float: left'><em>none</em></span><span style='float: right'><em>all</em></span>"
     html += "</div>"
   end
 #
 # Hash of equality dimensions questions
 #
   $equality_questions = {
-    'good_age'=>'If the function were performed well, would it affect different <u>age groups</u> differently?', 
-    'good_ethnic'=>'If the function were performed well, would it affect different <u>Ethnic groups</u> differently?', 
-    'good_gender'=>'If the function were performed well, would it affect <u>men and women</u> differently?',
-    'good_sexual_orientation'=>'If the function were performed well, would it affect people of different <u>sexual orientation</u> differently?',
-    'good_faith'=>'If the function were performed well, would it affect different <u>faith groups</u> differently?',
-    'good_ability'=>'If the function were performed well, would it affect <u>people with different kinds of disabilities</u> differently?',
-    'bad_age'=>'If the function were performed badly, would it affect different <u>age groups</u> differently?', 
-    'bad_ethnic'=>'If the function were performed badly, would it affect different <u>Ethnic groups</u> differently?', 
-    'bad_gender'=>'If the function were performed badly, would it affect <u>men and women</u> differently?',
-    'bad_sexual_orientation'=>'f the function were performed badly, would it affect people of different <u>sexual orientation</u> differently?',
-    'bad_faith'=>'If the function were performed badly, would it affect different <u>faith groups</u> differently?',
-    'bad_ability'=>'If the function were performed badly, would it affect <u>people with different kinds of disabilities</u> differently?'
+    'good_age'=>'If the function were performed well, would it affect different <strong>age groups</strong> differently?', 
+    'good_ethnic'=>'If the function were performed well, would it affect different <strong>Ethnic groups</strong> differently?', 
+    'good_gender'=>'If the function were performed well, would it affect <strong>men and women</strong> differently?',
+    'good_sexual_orientation'=>'If the function were performed well, would it affect people of different <strong>sexual orientation</strong> differently?',
+    'good_faith'=>'If the function were performed well, would it affect different <strong>faith groups</strong> differently?',
+    'good_ability'=>'If the function were performed well, would it affect <strong>people with different kinds of disabilities</strong> differently?',
+    'bad_age'=>'If the function were performed badly, would it affect different <strong>age groups</strong> differently?', 
+    'bad_ethnic'=>'If the function were performed badly, would it affect different <strong>Ethnic groups</strong> differently?', 
+    'bad_gender'=>'If the function were performed badly, would it affect <strong>men and women</strong> differently?',
+    'bad_sexual_orientation'=>'f the function were performed badly, would it affect people of different <strong>sexual orientation</strong> differently?',
+    'bad_faith'=>'If the function were performed badly, would it affect different <strong>faith groups</strong> differently?',
+    'bad_ability'=>'If the function were performed badly, would it affect <strong>people with different kinds of disabilities</strong> differently?'
     }
 end
