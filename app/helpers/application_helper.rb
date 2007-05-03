@@ -29,11 +29,21 @@ module ApplicationHelper
 #
   def progress_bar(percentage)
     html = "<table border='0' cellpadding='0' cellSpacing='0' bgColor='Red'>"
-    html += "<tr>"
-    html += "<td width='100'>" + image_tag('green.gif', :width => "#{percentage}", :height => 10) + "</td>"
+    html += "<tr title='" + percentage.to_s + "%'>"
+    html += "<td width='100'>" + image_tag('green.gif', :width => percentage, :height => 10, :title=> percentage.to_s + '%') + "</td>"
     html += "</tr>"
     html += "</table>"
   end
+#
+# Display level of the slider
+#
+  def level_bar(percentage, color_image)
+    html = "<table border='0' cellpadding='0' cellSpacing='0'>"
+    html += "<tr title='" + percentage.to_s + "%'>"
+    html += "<td width='200'>" + image_tag(color_image, :width => percentage * 2, :height => 10, :title=> percentage.to_s + '%') + "</td>"
+    html += "</tr>"
+    html += "</table>"
+  end  
 #
 # Extend the date formats to include some British styley ones
 # 

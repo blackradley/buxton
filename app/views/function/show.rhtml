@@ -108,7 +108,7 @@
         <tr>
           <td title="<%= $equality_questions['bad_age'] %>">Age</td>
           <td title="<%= (@function.bad_age * 10).to_s + '%' %>">
-            <%= image_tag('purple.gif', :width => (@function.bad_age * 10), :height => 10) %>
+            <%= level_bar(@function.bad_age * 10, 'purple.gif') %>
           </td>
         </tr>
         <tr>
@@ -145,7 +145,6 @@
     </td>
   </tr>
 </table>
-
 
 <p>
 <% case @session['logged_in_user'].user_type 
