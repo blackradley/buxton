@@ -52,6 +52,16 @@ module FunctionHelper
     html += "</div>"
   end
 #
+# Display level of the slider
+#
+  def level_bar(percentage, color_image)
+    html = "<table border='0' cellpadding='0' cellSpacing='0'>"
+    html += "<tr title='" + percentage.to_s + "%'>"
+    html += "<td width='200' class='bar'>" + image_tag(color_image, :width => percentage * 2, :height => 10, :title=> percentage.to_s + '%') + "</td>"
+    html += "</tr>"
+    html += "</table>"
+  end 
+#
 # Hash of equality dimensions questions
 #
   $equality_questions = {

@@ -16,23 +16,13 @@ class Function < ActiveRecord::Base
   
   validates_presence_of :name
 #
-# Bogus percentage answered
-#
-  def percentage_answered     
-    if rand(3)==2
-      return 0
-    else
-      return 25
-    end
-  end 
-#
 # Status constants
 #
   RED = 3
   AMBER = 2
   GREEN = 1
 #
-# Traffic light status
+# TODO: Traffic light status
 #
   def relevance_status
     if read_attribute(:is_proposed) == 9
@@ -46,7 +36,7 @@ class Function < ActiveRecord::Base
     end
   end
 #
-#
+# TODO: Bogus level of relevance
 #
   def relevance
     relevance = read_attribute(:good_ethnic) +
@@ -64,5 +54,17 @@ class Function < ActiveRecord::Base
       read_attribute(:bad_age)
       return relevance
   end
-
+#
+# TODO: Bogus percentage answered
+#
+  def percentage_answered     
+    case relevance_status
+      when RED
+        return 25
+      when GREEN
+        return 100
+      when AMBER
+        return 0
+    end
+  end 
 end
