@@ -78,7 +78,7 @@ table.list{
     border: 2px solid; 
 }
 
-td{
+table.list td{
 	font-family: Arial, Helvetica, sans-serif; 
 	font-size: 12px; 
 	color: #000000;
@@ -89,6 +89,12 @@ td.icon{
     display: table-cell;
     vertical-align: middle;
 }
+
+td.bar{
+	font-family: Arial, Helvetica, sans-serif; 
+	font-size: 12px; 
+	color: #000000;
+	border: 1px solid;
 
 p, li{
 	font-family: Arial, Helvetica, sans-serif; 
