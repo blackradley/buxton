@@ -23,7 +23,7 @@
   </tr>
   <tr>
     <td>Approved</td>
-    <td class='icon'><%= approved_tag @function.is_approved? %></td>
+    <td class='icon'><%= approved_tag @function.is_approved? %> by <%=h @function.approver %></td>
   </tr>
   <tr>
     <td colspan="2">
