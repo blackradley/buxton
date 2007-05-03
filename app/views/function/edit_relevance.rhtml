@@ -23,7 +23,7 @@
     </td>
   </tr>
   <tr>
-    <td><h4><%=h @function.organisation.strategies_description %></h4></td>
+    <td><strong><%=h @function.organisation.strategies_description %></strong></td>
     <td rowspan="2">
       <%= link_to_function image_tag("help.gif"), "Element.toggle('strategies_help')" %>
       <span id="strategies_help" style="display:none;">
@@ -42,7 +42,7 @@
     </td>
   </tr> 
   <tr>
-    <td class="question-impact-groups"><h4><%=h @function.organisation.impact_groups_description %></h4></td>
+    <td class="question-impact-groups"><strong><%=h @function.organisation.impact_groups_description %></strong></td>
     <td rowspan="<%= @impact_groups.length + 1 %>">
       <%= link_to_function image_tag("help.gif"), "Element.toggle('impact_groups_help')" %>
       <span id="impact_groups_help" style="display:none;">
@@ -53,13 +53,13 @@
   <% @impact_groups.each do |impact_group| %>
   <tr>
     <td>
-        <span title="<%= impact_group.description %>"><%= impact_group.name %></span>
+        <span title="<%= impact_group.description %>"><strong><%= impact_group.name %></strong></span>
           <%= standard_slider_tag(:function, :good_age) %>
     </td>
   </tr>
   <% end %>
   <tr>
-    <td class="question-equality-good"><h4><%=h @function.organisation.good_equality_groups_description %></h4></td>
+    <td class="question-equality-good"><strong><%=h @function.organisation.good_equality_groups_description %></strong></td>
     <td rowspan="7">
       <%= link_to_function image_tag("help.gif"), "Element.toggle('good_equality_groups_help')" %>
       <span id="good_equality_groups_help" style="display:none;">
@@ -71,34 +71,34 @@
     <td><%= $equality_questions['good_age'] %>
       <%= standard_slider_tag(:function, :good_age) %>
     </td>
-  <tr>
+  </tr>
   <tr>
     <td><%= $equality_questions['good_ethnic'] %>
       <%= standard_slider_tag(:function, :good_ethnic) %>
     </td>
-  <tr>
+  </tr>
   <tr>
     <td><%= $equality_questions['good_gender'] %>
       <%= standard_slider_tag(:function, :good_gender) %>
     </td>
-  <tr>
+  </tr>
   <tr>
     <td><%= $equality_questions['good_sexual_orientation'] %>
       <%= standard_slider_tag(:function, :good_sexual_orientation) %>
     </td>
-  <tr>
+  </tr>
   <tr>
     <td><%= $equality_questions['good_faith'] %>
       <%= standard_slider_tag(:function, :good_faith) %>
     </td>
-  <tr>
+  </tr>
   <tr>
     <td><%= $equality_questions['good_ability'] %>
       <%= standard_slider_tag(:function, :good_ability) %>
     </td>
+  </tr>
   <tr>
-  <tr>
-    <td class="question-equality-bad"><h4><%=h @function.organisation.bad_equality_groups_description %></h4></td>
+    <td class="question-equality-bad"><strong><%=h @function.organisation.bad_equality_groups_description %></strong></td>
     <td rowspan="7">
       <%= link_to_function image_tag("help.gif"), "Element.toggle('bad_equality_groups_help')" %>
       <span id="bad_equality_groups_help" style="display:none;">
@@ -120,7 +120,7 @@
     <td><%= $equality_questions['bad_gender'] %>
       <%= standard_slider_tag(:function, :bad_gender) %>
     </td>
-  <tr>
+  </tr>
   <tr>
     <td><%= $equality_questions['bad_sexual_orientation'] %>
       <%= standard_slider_tag(:function, :bad_sexual_orientation) %>
