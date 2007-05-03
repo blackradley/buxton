@@ -9,12 +9,12 @@ body{
 }
 
 .question-equality-good{
-	background: url(../images/green.gif);
+	background: url(../images/pink.gif);
 	background-repeat: repeat;
 }
 
 .question-equality-bad{
-	background: url(../images/red.gif);
+	background: url(../images/purple.gif);
 	background-repeat: repeat;
 }
 
