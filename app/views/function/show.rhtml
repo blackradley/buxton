@@ -27,7 +27,7 @@
   </tr>
   <tr>
     <td>Function/Policy is </td>
-    <td class='icon'><%= LookUp.find_by_id(@function.existence_status).name %></td>
+    <td class='icon'><%= existence_status_tag(@function.existence_status) %></td>
   </tr>
   <tr>
     <td colspan="2">

@@ -20,11 +20,12 @@ module FunctionHelper
 #
 # 
 #
-  def proposed_tag(is_proposed)
-    if is_proposed
-      return ''
+  def existence_status_tag(existence_status)
+    look_up = LookUp.find_by_id(existence_status)
+    if look_up.nil?
+      return 'not set'
     else
-      return ''
+      look_up.name
     end
   end
 #
