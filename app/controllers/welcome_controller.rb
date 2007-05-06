@@ -76,7 +76,7 @@ class WelcomeController < ApplicationController
       @session['logged_in_user'] = @user
       case @user.user_type
         when User::FUNCTIONAL
-          redirect_to :controller => 'function', :action => 'show', :id => 1
+          redirect_to :controller => 'function', :action => 'show', :id => Function.find_by_user_id(@user.id).id
         when User::ORGANISATIONAL
           redirect_to :controller => 'function', :action => 'list'
         when User::ADMINISTRATIVE
