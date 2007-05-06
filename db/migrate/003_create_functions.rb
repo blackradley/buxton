@@ -12,7 +12,7 @@ class CreateFunctions < ActiveRecord::Migration
       t.column :user_id,                 :integer
       t.column :organisation_id,         :integer
       t.column :name,                    :string
-      t.column :is_proposed,             :integer
+      t.column :existence_status,        :integer
       t.column :good_ethnic,             :integer,  :default => 0
       t.column :good_ability,            :integer,  :default => 0
       t.column :good_gender,             :integer,  :default => 0

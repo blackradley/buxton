@@ -25,7 +25,7 @@ class Function < ActiveRecord::Base
 # TODO: Traffic light status
 #
   def relevance_status
-    if read_attribute(:is_proposed) == 9
+    if read_attribute(:existence_status) == 9
       return RED
     else
       if relevance > 0

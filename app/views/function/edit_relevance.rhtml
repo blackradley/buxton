@@ -16,9 +16,9 @@
     </td>
   </tr>
   <tr>
-    <td>Is it
+    <td>Is the Function/Policy 
       <% LookUp.existing_proposed.each do |lookup| %>
-        <%= lookup.name %>  <%= radio_button('function', 'is_proposed', lookup.id, {:title => lookup.description}) %>
+        <%= lookup.name %>  <%= radio_button('function', 'existence_status', lookup.id, {:title => lookup.description}) %>
       <% end %>?
     </td>
   </tr>
