@@ -26,6 +26,10 @@
     <td class='icon'><%= approved_tag @function.is_approved? %> by <%=h @function.approver %></td>
   </tr>
   <tr>
+    <td>Function/Policy is </td>
+    <td class='icon'><%= LookUp.find_by_id(@function.existence_status).name %></td>
+  </tr>
+  <tr>
     <td colspan="2">
       <p><strong>The Function/Policy helps in delivering the following strategic priorities</strong></p>
       <ul>
@@ -55,6 +59,11 @@
           </td>
         </tr>
         <% end %>
+        <tr>
+          <td>
+            &nbsp;
+          </td>
+        </tr>
         <tr>
           <td colspan="2">
             <strong>
@@ -96,6 +105,11 @@
           <td title="<%= $equality_questions['good_ability'] %>">Ability</td>
           <td title="<%= (@function.good_ability * 10).to_s + '%' %>" class="icon">
             <%= level_bar(@function.good_ability * 10, 'pink.gif') %>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            &nbsp;
           </td>
         </tr>
         <tr>
@@ -149,9 +163,9 @@
 <p>
 <% case @session['logged_in_user'].user_type 
      when User::FUNCTIONAL %>
-    <%= link_to 'Edit', :action => 'edit_relevance', :id => @function %>
+    <%= link_to 'Amend Function/Policy Details', :action => 'edit_relevance', :id => @function %>
   <% when User::ORGANISATIONAL %>
-    <%= link_to 'Edit', :action => 'edit_contact', :id => @function %> |
+    <%= link_to 'Amend Function/Policy Details', :action => 'edit_contact', :id => @function %> |
     <%= link_to 'Back', :action => 'list' %>
 <% end %>
 </p>

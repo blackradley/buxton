@@ -1,6 +1,27 @@
 body{
+    font-family: verdana, arial, helvetica, sans-serif; 
     padding:5px 20px 20px 20px;
 	background-color: #ffffff;
+}
+
+h1{
+	font-size:18pt;
+	font-weight: bold;
+}
+
+h2{
+	font-size:16pt;
+	font-weight: bold;
+}
+
+h3{
+	font-size:14pt;
+	font-weight: bold;
+}
+
+h4{ 
+	font-size:12pt;
+	font-weight: bold;
 }
 
 .question-impact-groups{
@@ -75,13 +96,15 @@ textArea{
 
 table.list{
     border-collapse: collapse;
-    border: 2px solid; 
+    border: 2px solid;  
+	color: #000000;
 }
 
-table.list td{
-	font-family: Arial, Helvetica, sans-serif; 
-	font-size: 12px; 
-	color: #000000;
+table.list th{ 
+	border: 1px solid;
+}   
+
+table.list td{ 
 	border: 1px solid;
 }   
 
@@ -91,13 +114,11 @@ td.icon{
 }
 
 td.bar{
-	font-family: Arial, Helvetica, sans-serif; 
 	font-size: 12px; 
 	color: #000000;
 	border: 1px solid;
 
-p, li{
-	font-family: Arial, Helvetica, sans-serif; 
+p, li{; 
 	font-size: 12px; 
 	color: #000000;
 }

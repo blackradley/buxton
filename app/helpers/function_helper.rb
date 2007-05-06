@@ -18,6 +18,16 @@ module FunctionHelper
     end
   end
 #
+# 
+#
+  def proposed_tag(is_proposed)
+    if is_proposed
+      return ''
+    else
+      return ''
+    end
+  end
+#
 # Traffic light status
 #
   def traffic_light_status_tag(traffic_light_status)
