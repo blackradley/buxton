@@ -6,52 +6,35 @@
 #
 # Copyright (c) 2007 Black Radley Limited. All rights reserved. 
 #
-# Three Administrators
+# One dummy admin
 #
-one:
+administrative:
   id: 1
   user_type: 0
-  passkey: fd84d4e832a4102aa9bc080046905aeeDEMO
-  email: Peter_Latchford@blackradley.com
+  passkey: 2981b26fccafeabbeb8c78b461fddc1a1f13ba1e
+  email: administrative_equalities@bagbatch.co.uk
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   reminded_on: 2007-04-01 00:00:00
-two:
+#
+# One dummy organisation
+#
+organisational: 
   id: 2
-  user_type: 0
-  passkey: 6f6ba00a32aa102aa9bc080046905aeeDEMO
-  email: Iain_Wilkinson@blackradley.com
-  created_on: 2007-04-01 00:00:00
-  updated_on: 2007-04-01 00:00:00
-  reminded_on: 2007-04-01 00:00:00
-three:
-  id: 3
-  user_type: 0
-  passkey: 72fde67c368f102ab437080046905aeeDEMO
-  email: drbollins@hotmail.com
-  created_on: 2007-04-01 00:00:00
-  updated_on: 2007-04-01 00:00:00
-  reminded_on: 2007-04-01 00:00:00
-#
-# One organisation
-#
-four: 
-  id: 4
   user_type: 1
-  passkey: 59788d7e368f102ab437080046905aeeDEMO
-  email: Peter_Latchford@blackradley.com
+  passkey: 5b550821be4aa80e4fefd672722c236a109e8abd
+  email: organisational_equalities@bagbatch.co.uk
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   reminded_on: 2007-04-01 00:00:00
 #
-# Some dummy function users
+# One dummy function user
 #
-five:
-  id: 5
+functional:
+  id: 3
   user_type: 2
-  passkey: 4138e3f032aa102aa9bc080046905aeeDEMO
-  email: Peter_Latchford@blackradley.com
+  passkey: 158dbc032e936dc7f36939ecd80d531223e146e2
+  email: functional_equalities@bagbatch.co.uk
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   reminded_on: 2007-04-01 00:00:00
-  

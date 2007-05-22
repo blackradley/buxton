@@ -8,9 +8,16 @@
 #
 class Organisation < ActiveRecord::Base
   belongs_to :user
-  has_many :functions
-  validates_presence_of :name
-  
+  validates_presence_of :user
+  validates_associated :user
+  has_many :functions, :dependent => :destroy
+  validates_presence_of :name,
+    :message => 'All organisations must have a name'
+  validates_presence_of :style,
+    :message => 'Please provide an css style name'
+  validates_format_of :style,
+    :with => /[^www]/i,
+    :message => 'The style cannot be called www'
 #
 # Retun a float for the percentage of questions answered
 #

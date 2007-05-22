@@ -1,9 +1,0 @@
-<h1>Editing <%= @impact_group.organisation.name %> impact group</h1>
-
-<% form_tag :action => 'update', :id => @impact_group do %>
-  <%= render :partial => 'form' %>
-  <%= submit_tag 'Save' %>
-<% end %>
-
-<%= link_to 'Show', :action => 'show', :id => @impact_group %> |
-<%= link_to 'Back', :action => 'list', :id => @impact_group.organisation_id %>

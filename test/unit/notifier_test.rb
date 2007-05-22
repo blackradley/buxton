@@ -26,7 +26,7 @@ class NotifierTest < Test::Unit::TestCase
     @expected.set_content_type "text", "plain", { "charset" => CHARSET }
     @expected.mime_version = '1.0'
     
-    @user = users(:three)
+    @user = users(:administrative)
   end
 #
 # 
