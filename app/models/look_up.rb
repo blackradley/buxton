@@ -8,29 +8,28 @@
 #
 class LookUp < ActiveRecord::Base
   validates_presence_of :name
-
 #
 #  Constants for look up types
 #  
-  YES_NO = 0
-  AGREE_DISAGREE = 1
-  EXISTING_PROPOSED = 2
-  PROPORTION = 3
+  TYPE = {:yes_no => 0, 
+    :agree_disagree => 1, 
+    :existing_proposed => 2, 
+    :impact_level => 3}
   
   def self.yes_no #self makes it static
-    return find_all_by_look_up_type(YES_NO)
+    return find_all_by_look_up_type(TYPE[:yes_no])
   end
   
   def self.agree_disagree #self makes it static
-    return find_all_by_look_up_type(AGREE_DISAGREE)
+    return find_all_by_look_up_type(TYPE[:agree_disagree])
   end
   
   def self.existing_proposed #self makes it static
-    return find_all_by_look_up_type(EXISTING_PROPOSED)
+    return find_all_by_look_up_type(TYPE[:existing_proposed])
   end
   
   def self.proportion #self makes it static
-    return find_all_by_look_up_type(PROPORTION)
+    return find_all_by_look_up_type(TYPE[:impact_level])
   end
   
 end

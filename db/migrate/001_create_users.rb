@@ -25,7 +25,7 @@
 class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users, :force => true do |t|
-      t.column :user_type,     :integer
+      t.column :user_type,     :integer,  :default =>  User::TYPE[:functional]
       t.column :passkey,       :string
       t.column :email,         :string
       t.column :created_on,    :timestamp
@@ -33,9 +33,16 @@ class CreateUsers < ActiveRecord::Migration
       t.column :reminded_on,   :timestamp
       t.column :deleted_on,    :timestamp
     end
-    
     add_index :users, :passkey
     add_index :users, :email
+    
+    # Three admin users
+    User.create(:user_type => User::TYPE[:administrative],
+    :email => 'Peter_Latchford@blackradley.com')
+    User.create(:user_type => User::TYPE[:administrative],
+    :email => 'Iain_Wilkinson@blackradley.com')
+    User.create(:user_type => User::TYPE[:administrative],
+    :email => 'drbollins@hotmail.com')
   end
 
   def self.down

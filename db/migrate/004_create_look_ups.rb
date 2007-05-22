@@ -16,84 +16,80 @@ class CreateLookUps < ActiveRecord::Migration
     end
     
     # Yes/No/Not sure
-    LookUp.create(:look_up_type => LookUp::YES_NO,
+    LookUp.create(:look_up_type => LookUp::TYPE[:yes_no],
+    :name => 'Not answered yet',
+    :description => 'Not answered yet',
+    :display_order => 0)
+    LookUp.create(:look_up_type => LookUp::TYPE[:yes_no],
     :name => 'Yes',
     :description => 'Yes',
-    :display_order => 0)
-
-    LookUp.create(:look_up_type => LookUp::YES_NO,
+    :display_order => 1)
+    LookUp.create(:look_up_type => LookUp::TYPE[:yes_no],
     :name => 'No',
     :description => 'No',
-    :display_order => 1)
-    
-    LookUp.create(:look_up_type => LookUp::YES_NO,
+    :display_order => 2)
+    LookUp.create(:look_up_type => LookUp::TYPE[:yes_no],
     :name => 'Not sure',
     :description => 'Not sure',
-    :display_order => 2)
+    :display_order => 3)
 
     # Agree/Disagree
-    LookUp.create(:look_up_type => LookUp::AGREE_DISAGREE,
+    LookUp.create(:look_up_type => LookUp::TYPE[:agree_disagree],
+    :name => 'Not answered yet',
+    :description => 'Not answered yet',
+    :display_order => 0)
+    LookUp.create(:look_up_type => LookUp::TYPE[:agree_disagree],
     :name => 'Disagree strongly',
     :description => 'Disagree strongly',
-    :display_order => 0)
-    
-    LookUp.create(:look_up_type => LookUp::AGREE_DISAGREE,
+    :display_order => 1)
+    LookUp.create(:look_up_type => LookUp::TYPE[:agree_disagree],
     :name => 'Disagree a little',
     :description => 'Disagree a little',
-    :display_order => 1)
-    
-    LookUp.create(:look_up_type => LookUp::AGREE_DISAGREE,
+    :display_order => 2)
+    LookUp.create(:look_up_type => LookUp::TYPE[:agree_disagree],
     :name => 'Neither agree or disagree',
     :description => 'Neither agree or disagree',
-    :display_order => 2)
-    
-    LookUp.create(:look_up_type => LookUp::AGREE_DISAGREE,
+    :display_order => 3)
+    LookUp.create(:look_up_type => LookUp::TYPE[:agree_disagree],
     :name => 'Agree a little',
     :description => 'Agree a little',
-    :display_order => 3)
-    
-    LookUp.create(:look_up_type => LookUp::AGREE_DISAGREE,
+    :display_order => 4)
+    LookUp.create(:look_up_type => LookUp::TYPE[:agree_disagree],
     :name => 'Agree strongly',
     :description => 'Agree strongly',
-    :display_order => 4)
+    :display_order => 5)
     
-    # Existing/Proposed
-    LookUp.create(:look_up_type => LookUp::EXISTING_PROPOSED,
+#   Existing/Proposed
+    LookUp.create(:look_up_type => LookUp::TYPE[:existing_proposed],
+    :name => 'Not answered yet',
+    :description => 'Not answered yet',
+    :display_order => 0)
+    LookUp.create(:look_up_type => LookUp::TYPE[:existing_proposed],
     :name => 'Proposed',
     :description => 'Proposed',
-    :display_order => 0)
-    
-    LookUp.create(:look_up_type => LookUp::EXISTING_PROPOSED,
+    :display_order => 1)
+    LookUp.create(:look_up_type => LookUp::TYPE[:existing_proposed],
     :name => 'Existing',
     :description => 'Existing',
-    :display_order => 1)
-    
-    # Existing/Proposed
-    LookUp.create(:look_up_type => LookUp::PROPORTION,
-    :name => 'None',
-    :description => 'None at all, 0%',
-    :display_order => 0)
-
-    LookUp.create(:look_up_type => LookUp::PROPORTION,
-    :name => 'A few',
-    :description => 'Some, up to 20%',
-    :display_order => 1)
-
-    LookUp.create(:look_up_type => LookUp::PROPORTION,
-    :name => 'Less than half',
-    :description => 'Less than half, between 20% and 50%',
     :display_order => 2)
-
-    LookUp.create(:look_up_type => LookUp::PROPORTION,
-    :name => 'More than half',
-    :description => 'More than half, between 50% and 80%',
+    
+    # Level of impact
+    LookUp.create(:look_up_type => LookUp::TYPE[:impact_level],
+    :name => 'Not answered yet',
+    :description => 'Not answered yet',
+    :display_order => 0)
+    LookUp.create(:look_up_type => LookUp::TYPE[:impact_level],
+    :name => 'None',
+    :description => 'None at all',
+    :display_order => 1)
+    LookUp.create(:look_up_type => LookUp::TYPE[:impact_level],
+    :name => 'Limited',
+    :description => 'Some impact',
+    :display_order => 2)
+    LookUp.create(:look_up_type => LookUp::TYPE[:impact_level],
+    :name => 'Significant',
+    :description => 'Significant impact',
     :display_order => 3)
-
-    LookUp.create(:look_up_type => LookUp::PROPORTION,
-    :name => 'Nearly all',
-    :description => 'Nearly all, between 80% and 100%',
-    :display_order => 4)
-
   end
 
   def self.down

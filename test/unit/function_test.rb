@@ -9,10 +9,14 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
 class FunctionTest < Test::Unit::TestCase
+  fixtures :users
   fixtures :functions
-
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+#
+# Check the properties of the organisation
+# 
+  def test_function_from_user
+    user = User.find(3)
+    function = user.function
+    assert_equal functions(:meals_on_wheels).name, function.name
   end
 end

@@ -22,7 +22,12 @@ module ApplicationHelper
 # Get the organisation name based on the style used
 #
   def organisation_name(request)
-    return Organisation.find_by_style(subdomain(request)).name
+    begin
+      organisation_name_out = Organisation.find_by_style(subdomain(request)).name
+    rescue
+      organisation_name_out = "Black Radley Limited"
+    end
+    return organisation_name_out
   end
 #
 # Display the users progress through the questions
