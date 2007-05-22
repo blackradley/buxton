@@ -12,5 +12,6 @@ class DemonstrationController < ApplicationController
   end
 
   def new_organisation
+    
   end
 end

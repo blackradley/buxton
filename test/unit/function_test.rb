@@ -19,4 +19,13 @@ class FunctionTest < Test::Unit::TestCase
     function = user.function
     assert_equal functions(:meals_on_wheels).name, function.name
   end
+#
+# Ensure the validation works
+#
+  def test_function_empty_attributes
+    function = Function.new
+    assert !function.valid?
+    assert function.errors.invalid?(:user)
+    assert function.errors.invalid?(:name)
+  end
 end

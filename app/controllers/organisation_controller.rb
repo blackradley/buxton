@@ -99,7 +99,6 @@ class OrganisationController < ApplicationController
 #
   def remind
     @user = User.find(params[:id])
-    @user.passkey = User.new_passkey
     @user.reminded_on = Time.now
     @user.save
     email = Notifier.create_organisation_key(@user, request)

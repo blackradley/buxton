@@ -11,6 +11,7 @@ class Organisation < ActiveRecord::Base
   validates_presence_of :user
   validates_associated :user
   has_many :functions, :dependent => :destroy
+  has_many :strategies
   validates_presence_of :name,
     :message => 'All organisations must have a name'
   validates_presence_of :style,
