@@ -33,13 +33,13 @@ class WelcomeController < ApplicationController
       for @user in @users
         new_passkey(@user)
         case @user.user_type
-          when User::FUNCTIONAL
+          when User::TYPE[:functional]
             email = Notifier.create_function_key(@user, request)
             Notifier.deliver(email)
-           when User::ORGANISATIONAL
+           when User::TYPE[:organisational]
             email = Notifier.create_organisation_key(@user, request)
             Notifier.deliver(email)
-          when User::ADMINISTRATIVE
+          when User::TYPE[:administrative]
             email = Notifier.create_administration_key(@user, request)
             Notifier.deliver(email)
         end
@@ -75,11 +75,11 @@ class WelcomeController < ApplicationController
     else # the key is in the table so stash the user
       @session['logged_in_user'] = @user
       case @user.user_type
-        when User::FUNCTIONAL
+        when User::TYPE[:functional]
           redirect_to :controller => 'function', :action => 'show', :id => Function.find_by_user_id(@user.id).id
-        when User::ORGANISATIONAL
+        when User::TYPE[:organisational]
           redirect_to :controller => 'function', :action => 'list'
-        when User::ADMINISTRATIVE
+        when User::TYPE[:administrative]
           redirect_to :controller => 'organisation', :action => 'index'
       end
     end
@@ -95,10 +95,9 @@ protected
   
 private
 #
-# Give the user a new key
+# Saving the user will give the user a new key
 #
   def new_passkey(user)
-    @user.passkey = User.new_passkey
     @user.reminded_on = Time.now
     @user.save
   end

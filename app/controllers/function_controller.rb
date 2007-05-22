@@ -25,11 +25,10 @@ class FunctionController < ApplicationController
     @functions = Function.find_all_by_organisation_id(@session['logged_in_user'].organisation.id )
   end
 #
-# Get the function and its impact groups
+# Get the function
 #
   def show
     @function = Function.find(params[:id])
-    @impact_groups = ImpactGroup.find_all_by_organisation_id(@function.organisation_id)
   end
 #
 # Create a new function and a new associated user
@@ -66,6 +65,7 @@ class FunctionController < ApplicationController
   def edit_contact
     @function = Function.find(params[:id])
     @user = @function.user
+    @strategies = @function.organisation.strategies
   end
 #
 # Get the function information ready for editing using the relevance form.  
@@ -73,8 +73,8 @@ class FunctionController < ApplicationController
 #
   def edit_relevance
     @function = Function.find(params[:id])
-    @strategies = Strategy.find_all_by_organisation_id(@session['logged_in_user'].function.organisation_id)
-    @impact_groups = ImpactGroup.find_all_by_organisation_id(@session['logged_in_user'].function.organisation_id)
+    @user = @function.user
+    @strategies = @function.organisation.strategies
   end
 #
 # Update the function and all of its attributes, then redirect based on the
@@ -91,9 +91,9 @@ class FunctionController < ApplicationController
       @user = @function.user
       @user.update_attributes(params[:user])
       flash[:notice] =  @function.name + ' was successfully changed.'
-      if @session['logged_in_user'].user_type == User::FUNCTIONAL
+      if @session['logged_in_user'].user_type == User::TYPE[:functional]
         redirect_to :action => :show, :id => @function
-      elsif @session['logged_in_user'].user_type == User::ORGANISATIONAL
+      elsif @session['logged_in_user'].user_type == User::TYPE[:organisational]
         redirect_to :action => :list
       end
     end
@@ -109,7 +109,6 @@ class FunctionController < ApplicationController
 #
   def remind
     @user = User.find(params[:id])
-    @user.passkey = User.new_passkey
     @user.reminded_on = Time.now
     @user.save
     email = Notifier.create_function_key(@user, request)

@@ -8,13 +8,16 @@
 # 
 class Function < ActiveRecord::Base
   belongs_to :user
+  validates_presence_of :user
+  validates_associated :user
   belongs_to :organisation
   has_and_belongs_to_many :strategies
-  has_many :functions_impact_groups, :dependent => true
+  has_many :functions_impact_groups, :dependent => :destroy
   has_many :impact_groups, :through => :functions_impact_groups
   has_and_belongs_to_many :impact_groups
   
-  validates_presence_of :name
+  validates_presence_of :name,
+    :message => 'All functions must have a name'
 #
 # Status constants
 #
@@ -39,18 +42,17 @@ class Function < ActiveRecord::Base
 # TODO: Bogus level of relevance
 #
   def relevance
-    relevance = read_attribute(:good_ethnic) +
-      read_attribute(:good_ethnic) +
-      read_attribute(:good_ability) +
-      read_attribute(:good_gender) +
-      read_attribute(:good_sexual_orientation) +
+    relevance = read_attribute(:good_gender) +
+      read_attribute(:good_race) +
+      read_attribute(:good_disability) +
       read_attribute(:good_faith) +
+      read_attribute(:good_sexual_orientation) +
       read_attribute(:good_age) +
-      read_attribute(:bad_ethnic) +
-      read_attribute(:bad_ability) +
       read_attribute(:bad_gender) +
-      read_attribute(:bad_sexual_orientation) +
+      read_attribute(:bad_race) +
+      read_attribute(:bad_disability) +
       read_attribute(:bad_faith) +
+      read_attribute(:bad_sexual_orientation) +
       read_attribute(:bad_age)
       return relevance
   end

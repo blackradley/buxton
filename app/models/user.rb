@@ -11,8 +11,8 @@
 # associated with.  Does this have a data protection implication???
 #
 class User < ActiveRecord::Base
-  has_one :organisation
-  has_one :function
+  has_one :organisation, :dependent => :destroy
+  has_one :function, :dependent => :destroy
   validates_presence_of :user_type,
     :message => 'User type is required'  
   validates_presence_of :passkey,

@@ -22,7 +22,7 @@ class OrganisationTest < Test::Unit::TestCase
     assert_equal organisations(:birmingham).strategies_description, organisation.strategies_description
   end
 #
-# Check the properties of the organisation
+# Ensure the validation works
 # 
   def test_organisation_empty_attributes
     organisation = Organisation.new
