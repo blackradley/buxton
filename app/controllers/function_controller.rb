@@ -44,8 +44,7 @@ class FunctionController < ApplicationController
     @function = Function.new(params[:function])   
     @function.organisation_id = @session['logged_in_user'].organisation.id 
     @user = User.new(params[:user])
-    @user.passkey = User.new_passkey
-    @user.user_type = User::FUNCTIONAL
+    @user.user_type = User::TYPE[:organisational]
     Function.transaction do
       @user.function = @function
       @function.save!
