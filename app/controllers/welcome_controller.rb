@@ -67,17 +67,16 @@ class WelcomeController < ApplicationController
 # probably a bad thing.
 # 
   def login
-    @user = User.find_by_passkey(params[:passkey])
-    if @user.nil? # the key is not in the user table
+    user = User.find_by_passkey(params[:passkey])
+    if user.nil? # the key is not in the user table
       flash[:notice] = 'Out of date link, enter your email to recieve a new one'
       redirect_to :action => 'index'
     else # the key is in the table so stash the user
-      @session['logged_in_user'] = @user
-      case @user.user_type
+      case user.user_type
         when User::TYPE[:functional]
-          redirect_to :controller => 'function', :action => 'show', :id => Function.find_by_user_id(@user.id).id
+          redirect_to :controller => 'function', :action => 'show', :id => user.function.id
         when User::TYPE[:organisational]
-          redirect_to :controller => 'function', :action => 'list'
+          redirect_to :controller => 'function', :action => 'list', :id => user.organisation.id
         when User::TYPE[:administrative]
           redirect_to :controller => 'organisation', :action => 'index'
       end
