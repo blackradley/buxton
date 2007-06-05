@@ -7,7 +7,6 @@
 # Copyright (c) 2007 Black Radley Limited. All rights reserved. 
 # 
 class WelcomeController < ApplicationController
-  layout "application"
   
   def index
   end

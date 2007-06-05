@@ -14,9 +14,7 @@ class User < ActiveRecord::Base
   has_one :organisation, :dependent => :destroy
   has_one :function, :dependent => :destroy
   validates_presence_of :user_type,
-    :message => 'User type is required'  
-  validates_presence_of :passkey,
-    :message => 'All users must have a passkey'  
+    :message => 'User type is required'    
   validates_presence_of :email, 
     :message => 'Please provide an email'
   validates_format_of :email,
@@ -32,22 +30,35 @@ class User < ActiveRecord::Base
   TYPE = {:administrative => 0, 
     :organisational => 1, 
     :functional => 2}
+
 #
-# There is no built in method for creating a GUID in Ruby so the UUID in
-# MySql is called instead.  The UUID is designed as a number that is globally
-# unique in space and time, but has predictable features, so it is probably
-# not ideal as a passkey.
+# Over ride the two save methods, adding the new key in on the way.
 # 
-# TODO: Ensure that the passkey is not predictable.
-#   a. add a check bit so we can detect if it has been messed with
-#
+# TODO: Review if this is a Ruby thing to do.
+# 
   def save
+    save_with_key
+    super
+  end
+  
+  def save!
+    save_with_key
+    super
+  end
+#
+# There is no built in method for creating a GUID in Ruby so I have knocked
+# one up from the email, date and a random number.
+# 
+# TODO: Review how secure the keys are.  They don't have to be bomb proof
+# just secure enough.
+# 
+  private
+  def save_with_key
     email = read_attribute(:email)
     date = read_attribute(:created_on).nil? ? DateTime::now() : read_attribute(:created_on)
     number = rand(999999)
     key = Digest::SHA1.hexdigest(email.to_s + date.to_s + number.to_s)
     write_attribute(:passkey, key)
-    super
   end
 #
 # Administrative users have no organisation or function to control. 
