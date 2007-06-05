@@ -12,10 +12,15 @@ class DemonstrationController < ApplicationController
   end
 #
 # Create a new user and organisation, then log the user in.  Obviously this 
-# bypasses the minimal security, but it is just a demo.
+# bypasses the minimal security, but it is just a demo.  If the user is already
+# an organisational user the they go straight to the login.  So we don't get 
+# multiple demo organisations for the same user.
+# 
+# If an admin user requests a demo then one is created for them since the 
+# admin users are not sought in the first find.
 #
   def new_organisation
-    user = User.find_by_email(params[:email])
+    user = User.find(:first, :conditions => {:email => params[:email], :user_type => User::TYPE[:organisational]})
     if !user.nil?
       passkey = user.passkey
     else
