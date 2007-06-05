@@ -22,7 +22,7 @@ class FunctionController < ApplicationController
 # actually more convenient for the Organisational user to scan down.
 #
   def list
-    @functions = Function.find_all_by_organisation_id(@session['logged_in_user'].organisation.id )
+    @functions = Function.find_all_by_organisation_id(params[:id])
   end
 #
 # Get the function

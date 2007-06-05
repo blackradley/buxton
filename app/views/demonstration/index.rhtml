@@ -1,13 +1,13 @@
 <% form_tag :action => 'new_organisation' do %>
     <p>Explains what the kit is about.  If you want to do the demo insert email and organisation name.  
     This sends them a key to access the demo (this is the organisation key).  
-    This sets up three functions that are inserted into the organisation.
+    This sets up three functions that are inserted into the organisation.</p>
+    <p>To create a new organisation</p>
+    <p>
+        <label>Organisation name</label>:<%= text_field_tag :name, nil, options = {:size => 50} %>
     </p>
     <p>
-    To create a new organisation
-    </p>
-    <p>
-        <label>Email</label>:<%= text_field_tag :email %>
+        <label>Email</label>:<%= text_field_tag :email, nil, options = {:size => 50} %>
     </p>
 
     <%= submit_tag 'Create New Organisation' %>
