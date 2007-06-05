@@ -72,6 +72,7 @@ class WelcomeController < ApplicationController
       flash[:notice] = 'Out of date link, enter your email to recieve a new one'
       redirect_to :action => 'index'
     else # the key is in the table so stash the user
+      session['logged_in_user'] = user
       case user.user_type
         when User::TYPE[:functional]
           redirect_to :controller => 'function', :action => 'show', :id => user.function.id
