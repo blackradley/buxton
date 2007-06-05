@@ -11,7 +11,7 @@ class CreateOrganisations < ActiveRecord::Migration
     create_table :organisations, :force => true do |t|
       t.column :user_id,                          :integer
       t.column :name,                             :string
-      t.column :style,                            :string
+      t.column :style,                            :string,  :default => 'www'
       t.column :strategies_description,           :string,  :default => 'Which of the priorities (below) are you helping to deliver?'
       t.column :strategies_help,                  :text
       t.column :impact_groups_description,        :string,  :default => 'Which of these groups are you having an impact on?'
