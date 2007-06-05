@@ -63,10 +63,10 @@ end
 # Configuration for the SMTP server.
 #  
 ActionMailer::Base.smtp_settings = {
-  :address  => "mail.in-tuition.net",
+  :address  => "mail.protectedservice.net",
   :port  => 25, 
   :domain  => 'www.blackradley.com',
-  :user_name  => "joanna_tong@blackradley.com",
-  :password  => 'scrublet',
+  :user_name  => "Iain_Wilkinson@blackradley.com",
+  :password  => 'callustu',
   :authentication  => :login
 } 
