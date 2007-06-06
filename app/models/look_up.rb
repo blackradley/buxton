@@ -14,7 +14,9 @@ class LookUp < ActiveRecord::Base
   TYPE = {:yes_no => 0, 
     :agree_disagree => 1, 
     :existing_proposed => 2, 
-    :impact_level => 3}
+    :impact_amount => 3,
+    :impact_level => 4,
+    :priority => 5}
   
   def self.yes_no #self makes it static
     return find_all_by_look_up_type(TYPE[:yes_no])
@@ -28,8 +30,16 @@ class LookUp < ActiveRecord::Base
     return find_all_by_look_up_type(TYPE[:existing_proposed])
   end
   
-  def self.proportion #self makes it static
+  def self.impact_amount #self makes it static
+    return find_all_by_look_up_type(TYPE[:impact_amount])
+  end
+  
+  def self.impact_level #self makes it static
     return find_all_by_look_up_type(TYPE[:impact_level])
   end
   
+  def self.impact_priority #self makes it static
+    return find_all_by_look_up_type(TYPE[:impact_priority])
+  end
+    
 end
