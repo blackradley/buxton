@@ -41,16 +41,18 @@ class FunctionController < ApplicationController
 # Create a new function and a new user based on the parameters on the form.  
 #
   def create
-    @function = Function.new(params[:function])   
-    @function.organisation_id = @session['logged_in_user'].organisation.id 
-    @user = User.new(params[:user])
-    @user.user_type = User::TYPE[:organisational]
     Function.transaction do
-      @user.function = @function
-      @function.save!
-      @user.save!
-      flash[:notice] = @function.name + ' was created.'
-      redirect_to :action => :list
+      User.transaction do
+        @user = User.new(params[:user])
+        @user.user_type = User::TYPE[:organisational]
+        @user.save!
+        @function = Function.new(params[:function])   
+        @function.organisation_id = @session['logged_in_user'].organisation.id 
+        @function.user = @user
+        @function.save!
+        flash[:notice] = @function.name + ' was created.'
+        redirect_to :action => :list, :id =>  @session['logged_in_user'].organisation.id
+      end
     end
   rescue ActiveRecord::RecordInvalid => e
     @user.valid? # force checking of errors even if function failed
@@ -93,7 +95,7 @@ class FunctionController < ApplicationController
       if @session['logged_in_user'].user_type == User::TYPE[:functional]
         redirect_to :action => :show, :id => @function
       elsif @session['logged_in_user'].user_type == User::TYPE[:organisational]
-        redirect_to :action => :list
+        redirect_to :action => :list, :id => @function.organisation
       end
     end
   rescue ActiveRecord::RecordInvalid => e

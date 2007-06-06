@@ -47,8 +47,8 @@ module FunctionHelper
 #
 #
   def approver_or_blank(approver)
-    if approver == nil
-      return 'not provided'
+    if approver.nil? or approver.blank?
+      return 'none'
     else
       approver
     end
