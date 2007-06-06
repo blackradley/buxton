@@ -16,9 +16,6 @@ class Organisation < ActiveRecord::Base
     :message => 'All organisations must have a name'
   validates_presence_of :style,
     :message => 'Please provide an css style name, all organisations must have a style'
-  validates_format_of :style,
-    :with => /[^www]/i,
-    :message => 'The style cannot be called www because this is the style for Black Radley Limited'
 #
 # Retun a float for the percentage of questions answered
 #
