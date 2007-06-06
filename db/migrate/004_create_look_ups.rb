@@ -73,6 +73,44 @@ class CreateLookUps < ActiveRecord::Migration
     :description => 'Existing',
     :display_order => 2)
     
+#   Amount of impact
+    LookUp.create(:look_up_type => LookUp::TYPE[:impact_amount],
+    :name => 'Not answered yet',
+    :description => 'Not answered yet',
+    :display_order => 0)
+    LookUp.create(:look_up_type => LookUp::TYPE[:impact_amount],
+    :name => 'None',
+    :description => 'None',
+    :display_order => 1)
+    LookUp.create(:look_up_type => LookUp::TYPE[:impact_amount],
+    :name => 'Small minority',
+    :description => 'Small minority',
+    :display_order => 2)
+    LookUp.create(:look_up_type => LookUp::TYPE[:impact_amount],
+    :name => 'Significant minority',
+    :description => 'Significant minority',
+    :display_order => 3)
+    LookUp.create(:look_up_type => LookUp::TYPE[:impact_amount],
+    :name => 'About half',
+    :description => 'About half',
+    :display_order => 4)
+    LookUp.create(:look_up_type => LookUp::TYPE[:impact_amount],
+    :name => 'Majority',
+    :description => 'Majority',
+    :display_order => 5)
+    LookUp.create(:look_up_type => LookUp::TYPE[:impact_amount],
+    :name => 'Substantial majority',
+    :description => 'Substantial majority',
+    :display_order => 6)
+    LookUp.create(:look_up_type => LookUp::TYPE[:impact_amount],
+    :name => 'All',
+    :description => 'All',
+    :display_order => 7)
+    LookUp.create(:look_up_type => LookUp::TYPE[:impact_amount],
+    :name => 'Not sure',
+    :description => 'Not sure',
+    :display_order => 8)
+    
     # Level of impact
     LookUp.create(:look_up_type => LookUp::TYPE[:impact_level],
     :name => 'Not answered yet',
@@ -90,6 +128,24 @@ class CreateLookUps < ActiveRecord::Migration
     :name => 'Significant',
     :description => 'Significant impact',
     :display_order => 3)
+
+    # Level of priority
+    LookUp.create(:look_up_type => LookUp::TYPE[:priority],
+    :name => 'Not answered yet',
+    :description => 'Not answered yet',
+    :display_order => 0)
+    LookUp.create(:look_up_type => LookUp::TYPE[:priority],
+    :name => 'Yes',
+    :description => 'Yes',
+    :display_order => 1)
+    LookUp.create(:look_up_type => LookUp::TYPE[:priority],
+    :name => 'No',
+    :description => 'No',
+    :display_order => 2)
+    LookUp.create(:look_up_type => LookUp::TYPE[:priority],
+    :name => 'Not sure',
+    :description => 'Not sure',
+    :display_order => 3)    
   end
 
   def self.down
