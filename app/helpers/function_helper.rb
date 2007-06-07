@@ -77,16 +77,16 @@ module FunctionHelper
 #
   $equality_questions = {
     'good_age'=>'If the function were performed well, would it affect different <strong>age groups</strong> differently?', 
-    'good_ethnic'=>'If the function were performed well, would it affect different <strong>Ethnic groups</strong> differently?', 
+    'good_race'=>'If the function were performed well, would it affect different <strong>Ethnic groups</strong> differently?', 
     'good_gender'=>'If the function were performed well, would it affect <strong>men and women</strong> differently?',
     'good_sexual_orientation'=>'If the function were performed well, would it affect people of different <strong>sexual orientation</strong> differently?',
     'good_faith'=>'If the function were performed well, would it affect different <strong>faith groups</strong> differently?',
-    'good_ability'=>'If the function were performed well, would it affect <strong>people with different kinds of disabilities</strong> differently?',
+    'good_disability'=>'If the function were performed well, would it affect <strong>people with different kinds of disabilities</strong> differently?',
     'bad_age'=>'If the function were performed badly, would it affect different <strong>age groups</strong> differently?', 
-    'bad_ethnic'=>'If the function were performed badly, would it affect different <strong>Ethnic groups</strong> differently?', 
+    'bad_race'=>'If the function were performed badly, would it affect different <strong>Ethnic groups</strong> differently?', 
     'bad_gender'=>'If the function were performed badly, would it affect <strong>men and women</strong> differently?',
-    'bad_sexual_orientation'=>'f the function were performed badly, would it affect people of different <strong>sexual orientation</strong> differently?',
+    'bad_sexual_orientation'=>'If the function were performed badly, would it affect people of different <strong>sexual orientation</strong> differently?',
     'bad_faith'=>'If the function were performed badly, would it affect different <strong>faith groups</strong> differently?',
-    'bad_ability'=>'If the function were performed badly, would it affect <strong>people with different kinds of disabilities</strong> differently?'
+    'bad_disability'=>'If the function were performed badly, would it affect <strong>people with different kinds of disabilities</strong> differently?'
     }
 end

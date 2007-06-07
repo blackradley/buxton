@@ -6,7 +6,7 @@
 #
 # Copyright (c) 2007 Black Radley Limited. All rights reserved. 
 # 
-# require 'digest/sha1'
+require 'digest/sha1'
 
 class WelcomeController < ApplicationController
   
