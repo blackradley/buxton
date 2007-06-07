@@ -85,22 +85,22 @@
   </tr>
   <tr>
     <td><%= $equality_questions['good_disability'] %>
-      <%= standard_slider_tag(:function, :good_disability) %>
+      <%= select('function', 'good_disability', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['good_faith'] %>
-      <%= standard_slider_tag(:function, :good_faith) %>
+      <%= select('function', 'good_faith', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['good_sexual_orientation'] %>
-      <%= standard_slider_tag(:function, :good_sexual_orientation) %>
+      <%= select('function', 'good_sexual_orientation', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['good_age'] %>
-      <%= standard_slider_tag(:function, :good_age) %>
+      <%= select('function', 'good_age', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
     </td>
   </tr>
 
@@ -116,32 +116,32 @@
   </tr>
   <tr>
     <td><%= $equality_questions['bad_gender'] %>
-      <%= standard_slider_tag(:function, :bad_gender) %>
+      <%= select('function', 'bad_gender', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['bad_race'] %>
-      <%= standard_slider_tag(:function, :bad_race) %>
+      <%= select('function', 'bad_race', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['bad_disability'] %>
-      <%= standard_slider_tag(:function, :bad_disability) %>
+      <%= select('function', 'bad_disability', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['bad_faith'] %>
-      <%= standard_slider_tag(:function, :bad_faith) %>
+      <%= select('function', 'bad_faith', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['bad_sexual_orientation'] %>
-      <%= standard_slider_tag(:function, :bad_sexual_orientation) %>
+      <%= select('function', 'bad_sexual_orientation', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['bad_age'] %>
-      <%= standard_slider_tag(:function, :bad_age) %>
+      <%= select('function', 'bad_age', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
     </td>
   </tr>
   <tr>
