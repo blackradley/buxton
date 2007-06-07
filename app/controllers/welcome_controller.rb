@@ -6,6 +6,8 @@
 #
 # Copyright (c) 2007 Black Radley Limited. All rights reserved. 
 # 
+# require 'digest/sha1'
+
 class WelcomeController < ApplicationController
   
   def index
@@ -13,7 +15,7 @@ class WelcomeController < ApplicationController
 #
 # Find the user and then send them a new key
 # 
-# Unlike controllers from Action Pack, the mailer instance doesn‘t 
+# Unlike controllers from Action Pack, the mailer instance doesn't 
 # have any context about the incoming request.  So the request is 
 # passed in explicitly
 #
