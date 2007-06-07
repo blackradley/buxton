@@ -6,9 +6,7 @@
   </tr>
   <tr>
     <td>Is the Function/Policy 
-      <% LookUp.existing_proposed.each do |lookup| %>
-        <%= lookup.name %>  <%= radio_button('function', 'existence_status', lookup.id, {:title => lookup.description}) %>
-      <% end %>?
+      <%= select('function', 'existence_status', LookUp.existing_proposed.collect {|l| [ l.name, l.id ] }) %>?
     </td>
   </tr>
   <tr>
@@ -41,27 +39,27 @@
   </tr>
   <tr>
     <td>Service Users
-    <%= select('function', 'impact_service_users', LookUp.impact_amount.collect {|l| [ l.name, l.id ] }) %>?
+    <%= select('function', 'impact_service_users', LookUp.impact_amount.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>  
   <tr>
-    <td>Staff
-    <%= select('function', 'impact_staff', LookUp.impact_amount.collect {|l| [ l.name, l.id ] }) %>?
+    <td>Staff employed by the council
+    <%= select('function', 'impact_staff', LookUp.impact_amount.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>  
   <tr>
     <td>Supplier Staff
-    <%= select('function', 'impact_supplier_staff', LookUp.impact_amount.collect {|l| [ l.name, l.id ] }) %>?
+    <%= select('function', 'impact_supplier_staff', LookUp.impact_amount.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>  
   <tr>
     <td>Partner Staff
-    <%= select('function', 'impact_partner_staff', LookUp.impact_amount.collect {|l| [ l.name, l.id ] }) %>?
+    <%= select('function', 'impact_partner_staff', LookUp.impact_amount.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>  
   <tr>
     <td>Employees
-    <%= select('function', 'impact_employees', LookUp.impact_amount.collect {|l| [ l.name, l.id ] }) %>?
+    <%= select('function', 'impact_employees', LookUp.impact_amount.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>  
   <tr>
@@ -75,32 +73,32 @@
   </tr>
   <tr>
     <td><%= $equality_questions['good_gender'] %>
-      <%= select('function', 'good_gender', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
+      <%= select('function', 'good_gender', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['good_race'] %>
-      <%= select('function', 'good_race', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
+      <%= select('function', 'good_race', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['good_disability'] %>
-      <%= select('function', 'good_disability', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
+      <%= select('function', 'good_disability', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['good_faith'] %>
-      <%= select('function', 'good_faith', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
+      <%= select('function', 'good_faith', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['good_sexual_orientation'] %>
-      <%= select('function', 'good_sexual_orientation', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
+      <%= select('function', 'good_sexual_orientation', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['good_age'] %>
-      <%= select('function', 'good_age', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
+      <%= select('function', 'good_age', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>
 
@@ -116,32 +114,32 @@
   </tr>
   <tr>
     <td><%= $equality_questions['bad_gender'] %>
-      <%= select('function', 'bad_gender', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
+      <%= select('function', 'bad_gender', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['bad_race'] %>
-      <%= select('function', 'bad_race', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
+      <%= select('function', 'bad_race', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['bad_disability'] %>
-      <%= select('function', 'bad_disability', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
+      <%= select('function', 'bad_disability', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['bad_faith'] %>
-      <%= select('function', 'bad_faith', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
+      <%= select('function', 'bad_faith', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['bad_sexual_orientation'] %>
-      <%= select('function', 'bad_sexual_orientation', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
+      <%= select('function', 'bad_sexual_orientation', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>
   <tr>
     <td><%= $equality_questions['bad_age'] %>
-      <%= select('function', 'bad_age', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>?
+      <%= select('function', 'bad_age', LookUp.impact_level.collect {|l| [ l.name, l.id ] }) %>
     </td>
   </tr>
   <tr>
