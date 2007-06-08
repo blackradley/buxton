@@ -10,7 +10,6 @@ class FunctionController < ApplicationController
   layout 'application'
 
   def index
-    list
     render :action => 'list'
   end
 
@@ -21,8 +20,9 @@ class FunctionController < ApplicationController
 # List the functions for an organisation but don't paginate, a long list is
 # actually more convenient for the Organisational user to scan down.
 #
-  def list
+  def list1
     @functions = Function.find_all_by_organisation_id(params[:id])
+    render :action => 'list1'
   end
 #
 # Get the function

@@ -8,14 +8,11 @@
 # 
 ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
-
-  # Named route:
-  # map.home '', :controller => 'shit', :action => 'shit'
- 
   # Install the default route as the lowest priority.
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action'
   map.connect ':passkey', :controller => 'user', :action => 'login'
-  map.connect '', :controller => 'user', :action => 'demo_organisation'
+  # Default to showing the demo, rather than the index like normal
+  map.connect '', :controller => 'user', :action => 'demo'
 end
