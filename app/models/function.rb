@@ -15,26 +15,19 @@ class Function < ActiveRecord::Base
   has_many :functions_impact_groups, :dependent => :destroy
   has_many :impact_groups, :through => :functions_impact_groups
   has_and_belongs_to_many :impact_groups
-  
   validates_presence_of :name,
     :message => 'All functions must have a name'
-#
-# Status constants
-#
-  RED = 3
-  AMBER = 2
-  GREEN = 1
 #
 # TODO: Traffic light status
 #
   def relevance_status
     if read_attribute(:existence_status) == 9
-      return RED
+      return 'High'
     else
       if relevance > 0
-        return GREEN
+        return 'Low'
       else
-        return AMBER
+        return 'Medium'
       end
     end
   end
@@ -57,16 +50,30 @@ class Function < ActiveRecord::Base
       return relevance
   end
 #
-# TODO: Bogus percentage answered
+# The percentage answered for section 1
 #
-  def percentage_answered     
-    case relevance_status
-      when RED
-        return 25
-      when GREEN
-        return 100
-      when AMBER
-        return 0
-    end
+  def section1_percentage_answered     
+    number_of_questions = 20.0 # decimal point prevents rounding
+    questions_answered = read_attribute(:existence_status) > 0 ? 1 : 0
+    questions_answered += read_attribute(:impact_service_users) > 0 ? 1 : 0
+    questions_answered += read_attribute(:impact_staff) > 0 ? 1 : 0
+    questions_answered += read_attribute(:impact_supplier_staff) > 0 ? 1 : 0
+    questions_answered += read_attribute(:impact_partner_staff) > 0 ? 1 : 0
+    questions_answered += read_attribute(:impact_employees) > 0 ? 1 : 0
+    questions_answered += read_attribute(:good_gender) > 0 ? 1 : 0
+    questions_answered += read_attribute(:good_race) > 0 ? 1 : 0
+    questions_answered += read_attribute(:good_disability) > 0 ? 1 : 0
+    questions_answered += read_attribute(:good_faith) > 0 ? 1 : 0
+    questions_answered += read_attribute(:good_sexual_orientation) > 0 ? 1 : 0
+    questions_answered += read_attribute(:good_age) > 0 ? 1 : 0
+    questions_answered += read_attribute(:bad_gender) > 0 ? 1 : 0
+    questions_answered += read_attribute(:bad_race) > 0 ? 1 : 0
+    questions_answered += read_attribute(:bad_disability) > 0 ? 1 : 0
+    questions_answered += read_attribute(:bad_faith) > 0 ? 1 : 0
+    questions_answered += read_attribute(:bad_sexual_orientation) > 0 ? 1 : 0
+    questions_answered += read_attribute(:bad_age) > 0 ? 1 : 0
+    questions_answered += read_attribute(:is_approved).to_i 
+    questions_answered += read_attribute(:approver).blank? ? 0 : 1
+    return (questions_answered / number_of_questions) * 100
   end 
 end

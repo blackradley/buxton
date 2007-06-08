@@ -29,21 +29,6 @@ module FunctionHelper
     end
   end
 #
-# Traffic light status
-#
-  def traffic_light_status_tag(traffic_light_status)
-    case traffic_light_status
-      when 1
-        return image_tag('green.gif', :alt => "Green", :title => "Green", :width => 10, :height => 10)
-      when 2
-        return image_tag('amber.gif', :alt => "Amber", :title => "Amber", :width => 10, :height => 10)
-      when 3
-        return image_tag('red.gif', :alt => "Red", :title => "Red", :width => 10, :height => 10)
-      else
-        return image_tag('blue.gif', :alt => "Blue", :title => "Blue", :width => 10, :height => 10)
-    end
-  end
-#
 #
 #
   def approver_or_blank(approver)
@@ -52,15 +37,6 @@ module FunctionHelper
     else
       approver
     end
-  end
-#
-# Slider
-#
-  def standard_slider_tag(object, method)
-    html = slider_field(object, method, {:values => "[0,1,2,3,4,5,6,7,8,9,10]", :range => 0..10})
-    html += "<div style='width: 300px;'>"
-    html += "<span style='float: left'><em>none</em></span><span style='float: right'><em>all</em></span>"
-    html += "</div>"
   end
 #
 # Display level of the slider
