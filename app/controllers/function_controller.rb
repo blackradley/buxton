@@ -20,9 +20,25 @@ class FunctionController < ApplicationController
 # List the functions for an organisation but don't paginate, a long list is
 # actually more convenient for the Organisational user to scan down.
 #
+  def list
+    @functions = Function.find_all_by_organisation_id(params[:id])
+    render :action => 'list', :id => params[:id]
+  end
   def list1
     @functions = Function.find_all_by_organisation_id(params[:id])
-    render :action => 'list1'
+    render :action => 'list1', :id => params[:id]
+  end
+  def list2
+    @functions = Function.find_all_by_organisation_id(params[:id])
+    render :action => 'list2', :id => params[:id]
+  end
+  def list3
+    @functions = Function.find_all_by_organisation_id(params[:id])
+    render :action => 'list3', :id => params[:id]
+  end
+  def list4
+    @functions = Function.find_all_by_organisation_id(params[:id])
+    render :action => 'list4', :id => params[:id]
   end
 #
 # Get the function
@@ -51,7 +67,7 @@ class FunctionController < ApplicationController
         @function.user = @user
         @function.save!
         flash[:notice] = @function.name + ' was created.'
-        redirect_to :action => :list, :id =>  @session['logged_in_user'].organisation.id
+        redirect_to :action => :list1, :id =>  @session['logged_in_user'].organisation.id
       end
     end
   rescue ActiveRecord::RecordInvalid => e

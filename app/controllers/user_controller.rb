@@ -11,8 +11,6 @@ class UserController < ApplicationController
     # log out the user if they are logged in
     session['logged_in_user'] = nil
   end
-  
-
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify :method => :post, :only => [ :destroy, :create, :update ],
@@ -33,14 +31,16 @@ class UserController < ApplicationController
 #
   def create
     @user = User.new(params[:user])
-    @user.user_type = User::ADMINISTRATIVE
-    @user.passkey = User.new_UUID
+    @user.user_type = User::TYPE[:administrative]
     if @user.save
       flash[:notice] = 'User was successfully created.'
       redirect_to :action => 'list'
     else
-      render :action => 'new'
+      render :action => :new
     end
+    rescue ActiveRecord::RecordInvalid => e
+      @user.valid? # force checking of errors even if function failed
+      render :action => :new
   end
 
   def edit
