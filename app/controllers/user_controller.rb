@@ -11,6 +11,8 @@ class UserController < ApplicationController
     # log out the user if they are logged in
     session['logged_in_user'] = nil
   end
+  
+
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify :method => :post, :only => [ :destroy, :create, :update ],
@@ -153,6 +155,11 @@ class UserController < ApplicationController
       end
     end
   end
+
+  def demo
+    # log out the user if they are logged in
+    session['logged_in_user'] = nil
+  end
 #
 # Create a new user and organisation, then log the user in.  Obviously this 
 # bypasses the minimal security, but it is just a demo.  If the user is already
@@ -162,7 +169,7 @@ class UserController < ApplicationController
 # If an admin user requests a demo then one is created for them since the 
 # admin users are not sought in the first find.
 #
-  def demo_organisation
+  def create_demo
     @user = User.find(:first, :conditions => {:email => params[:email], :user_type => User::TYPE[:organisational]})
     organisational_user_passkey = nil # the passkey will have to be retained for the organisational user.
     if @user.nil? 
@@ -221,12 +228,12 @@ class UserController < ApplicationController
     end
     flash[:notice] = 'Demonstration organisation was created.'
     # Log in the organisational version of the user.
-    redirect_to :controller => :user, :action => :login, :passkey => organisational_user_passkey
+    redirect_to :action => :login, :passkey => organisational_user_passkey
     rescue ActiveRecord::RecordInvalid => invalid
       @user.valid?
-#      @user.errors.each {|key, value| flash[:error] = "Something has gone wrong (#{value}), please try again." }
+       @user.errors.each {|key, value| flash[:error] = "Something has gone wrong (#{value}), please try again." }
 #      redirect_to :action => :index
-      render :action => :index
+      render :action => :demo
   end
 #
 # No methods are secured because this is an entirely public page.
