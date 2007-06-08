@@ -19,11 +19,23 @@ module ApplicationHelper
     return request.host().split(/\s*\.\s*/)[0] 
   end
 #
-# Get the organisation name based on the style used
+# Get the organisation name can be determined based on the style used,
+# this is probably the best approach since it ensures that the style
+# and the organisation name stay in step.  Also the organisation name
+# can be determined even if the user isn't logged on.  Finally it
+# provides another line of security defence so during the log on
+# and security checks you can confirm that the user and organisation
+# match.
+# 
+# However, the demonstration surcomvents most of this.  The subdomains
+# for the demonstration organisations and the styles are no longer 
+# unique.  And the security has been largely removed because it is
+# a demonstration.
 #
   def organisation_name(request)
     begin
-      organisation_name_out = Organisation.find_by_style(subdomain(request)).name
+      # organisation_name_out = Organisation.find_by_style(subdomain(request)).name
+      organisation_name_out = session['logged_in_user'].organisation.name
     rescue
       organisation_name_out = "Black Radley Limited"
     end
