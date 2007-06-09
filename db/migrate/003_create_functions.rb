@@ -30,7 +30,7 @@ class CreateFunctions < ActiveRecord::Migration
       t.column :bad_faith,               :integer,  :default => 0
       t.column :bad_sexual_orientation,  :integer,  :default => 0
       t.column :bad_age,                 :integer,  :default => 0
-      t.column :is_approved,             :integer
+      t.column :approved,                :integer,  :default => 0
       t.column :approver,                :string
       t.column :created_on,              :timestamp
       t.column :updated_on,              :timestamp
@@ -39,9 +39,136 @@ class CreateFunctions < ActiveRecord::Migration
     end
     
     # Five functions for birmingham
-    # User.create(:user_type => User::TYPE[:administrative],
-    # :email => 'Peter_Latchford@blackradley.com')
-  end
+    birmingham = Organisation.find(:first, :conditions => "style = 'birmingham'")
+    # Community Strategy
+    user = User.create(:user_type => User::TYPE[:functional],
+      :email => 'Peter_Latchford@blackradley.com')
+    Function.create(:user_id => user.id,
+      :organisation_id => birmingham.id,
+      :name => 'Community Strategy',
+      :existence_status => 0,
+      :impact_service_users => 0,
+      :impact_staff => 0,
+      :impact_supplier_staff => 0,
+      :impact_partner_staff => 0,
+      :impact_employees => 0,
+      :good_gender => 0,
+      :good_race => 0,
+      :good_disability => 0,
+      :good_faith => 0,
+      :good_sexual_orientation => 0,
+      :good_age => 0,
+      :bad_gender => 0,
+      :bad_race => 0,
+      :bad_disability => 0,
+      :bad_faith => 0,
+      :bad_sexual_orientation => 0,
+      :bad_age => 0,
+      :approved => 1,
+      :approver => 'Iain Wilkinson')
+    user = User.create(:user_type => User::TYPE[:functional],
+      :email => 'Iain_Wilkinson@blackradley.com')
+    # Publications
+    Function.create(:user_id => user.id,
+      :organisation_id => birmingham.id,
+      :name => 'Publications',
+      :existence_status => 0,
+      :impact_service_users => 0,
+      :impact_staff => 0,
+      :impact_supplier_staff => 0,
+      :impact_partner_staff => 0,
+      :impact_employees => 0,
+      :good_gender => 0,
+      :good_race => 0,
+      :good_disability => 0,
+      :good_faith => 0,
+      :good_sexual_orientation => 0,
+      :good_age => 0,
+      :bad_gender => 0,
+      :bad_race => 0,
+      :bad_disability => 0,
+      :bad_faith => 0,
+      :bad_sexual_orientation => 0,
+      :bad_age => 0,
+      :approved => 1,
+      :approver => 'Peter Latchford')   
+    # Meals on Wheels
+    user = User.create(:user_type => User::TYPE[:functional],
+      :email => 'Joe_Collins@blackradley.com')
+    Function.create(:user_id => user.id,
+      :organisation_id => birmingham.id,
+      :name => 'Meals on Wheels',
+      :existence_status => 0,
+      :impact_service_users => 0,
+      :impact_staff => 0,
+      :impact_supplier_staff => 0,
+      :impact_partner_staff => 0,
+      :impact_employees => 0,
+      :good_gender => 0,
+      :good_race => 0,
+      :good_disability => 0,
+      :good_faith => 0,
+      :good_sexual_orientation => 0,
+      :good_age => 0,
+      :bad_gender => 0,
+      :bad_race => 0,
+      :bad_disability => 0,
+      :bad_faith => 0,
+      :bad_sexual_orientation => 0,
+      :bad_age => 0,
+      :approved => 1,
+      :approver => 'Iain Wilkinson')
+    user = User.create(:user_type => User::TYPE[:functional],
+      :email => 'drbollins@hotmail.com')
+    Function.create(:user_id => user.id,
+      :organisation_id => birmingham.id,
+      :name => 'Another service name required',
+      :existence_status => 0,
+      :impact_service_users => 0,
+      :impact_staff => 0,
+      :impact_supplier_staff => 0,
+      :impact_partner_staff => 0,
+      :impact_employees => 0,
+      :good_gender => 0,
+      :good_race => 0,
+      :good_disability => 0,
+      :good_faith => 0,
+      :good_sexual_orientation => 0,
+      :good_age => 0,
+      :bad_gender => 0,
+      :bad_race => 0,
+      :bad_disability => 0,
+      :bad_faith => 0,
+      :bad_sexual_orientation => 0,
+      :bad_age => 0,
+      :approved => 0,
+      :approver => '')
+    user = User.create(:user_type => User::TYPE[:functional],
+      :email => 'Peter_Latchford@blackradley.com')
+    Function.create(:user_id => user.id,
+      :organisation_id => birmingham.id,
+      :name => 'Yet another service name required',
+      :existence_status => 0,
+      :impact_service_users => 0,
+      :impact_staff => 0,
+      :impact_supplier_staff => 0,
+      :impact_partner_staff => 0,
+      :impact_employees => 0,
+      :good_gender => 0,
+      :good_race => 0,
+      :good_disability => 0,
+      :good_faith => 0,
+      :good_sexual_orientation => 0,
+      :good_age => 0,
+      :bad_gender => 0,
+      :bad_race => 0,
+      :bad_disability => 0,
+      :bad_faith => 0,
+      :bad_sexual_orientation => 0,
+      :bad_age => 0,
+      :approved => 1,
+      :approver => 'Iain Wilkinson')
+    end
 
   def self.down
     drop_table :functions
