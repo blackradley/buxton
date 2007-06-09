@@ -16,34 +16,33 @@ class Notifier < ActionMailer::Base
 #
 # A new key for the system administrator
 #
-  def administration_key(user, request, rails_directory)
+  def administration_key(user, request)
     @subject      = 'New Administration Key'
-    email_details(user, request, rails_directory)
+    email_details(user, request)
   end
 #
 # A new key for the organisation administrator
 #
-  def organisation_key(user, request, rails_directory)
+  def organisation_key(user, request)
     @subject      = 'New Organisation Key for ' + user.organisation.name
-    email_details(user, request, rails_directory)
+    email_details(user, request)
   end
 #
 # A new key for the function administrator
 #
-  def function_key(user, request, rails_directory)
+  def function_key(user, request)
     @subject      = 'New Function Key for ' + user.function.name
-    email_details(user, request, rails_directory)
+    email_details(user, request)
   end
 #
 # Set the bits and pieces in the email
 #
 private
-  def email_details(user, request, rails_directory)
+  def email_details(user, request)
     @body         = {"user" => user, "request" => request}
     @recipients   = user.email
     @from         = FROM
     @sent_on      = Time.now
     @headers      = {}
-    @rails_directory = rails_directory
   end
 end
