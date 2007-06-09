@@ -37,6 +37,10 @@ class CreateFunctions < ActiveRecord::Migration
       t.column :updated_by,              :string
       t.column :deleted_on,              :timestamp
     end
+    
+    # Five functions for birmingham
+    # User.create(:user_type => User::TYPE[:administrative],
+    # :email => 'Peter_Latchford@blackradley.com')
   end
 
   def self.down
