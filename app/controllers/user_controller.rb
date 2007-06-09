@@ -81,17 +81,20 @@ class UserController < ApplicationController
     if @users.empty? 
       flash[:notice] = 'Unknown Email'
     else
+      # Kluge to get the links right on www.buxton.34sp.com which uses a /public directory
+      rails_directory = request.include?('localhost') ? 'left' : 'right'
+      puts rails_directory
       for @user in @users
         new_passkey(@user)
         case @user.user_type
           when User::TYPE[:functional]
-            email = Notifier.create_function_key(@user, request)
+            email = Notifier.create_function_key(@user, request, rails_directory)
             Notifier.deliver(email)
            when User::TYPE[:organisational]
-            email = Notifier.create_organisation_key(@user, request)
+            email = Notifier.create_organisation_key(@user, request, rails_directory)
             Notifier.deliver(email)
           when User::TYPE[:administrative]
-            email = Notifier.create_administration_key(@user, request)
+            email = Notifier.create_administration_key(@user, request, rails_directory)
             Notifier.deliver(email)
         end
       end

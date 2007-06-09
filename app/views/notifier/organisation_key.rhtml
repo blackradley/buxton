@@ -1,4 +1,4 @@
 To add or edit functions click on the link below.
 
-http://<%= @user.organisation.style %>.<%= @request.host_with_port.split(/\s*\.\s*/, 2)[1] %>/<%= @user.passkey %>
+http://<%= @user.organisation.style %>.<%= @request.host_with_port.split(/\s*\.\s*/, 2)[1] + @rails_directory.to_s %>/<%= @user.passkey %>
 
