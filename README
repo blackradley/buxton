@@ -2,3 +2,14 @@ Project Buxton
 --------------
 
 1. Check out from <http://svn3.cvsdude.com/BlackRadley/buxton/trunk>.
+
+2. Run db:migrate to create the database.
+
+3. The subdomain determines the css style so set up these aliases for 1ocalhost
+	birmingham.localhost
+	www.localhost
+
+4. To set up a demo visit <http://www.localhost:3000/> and enter your email address
+
+5. To recieve a reminder email visit <http://www.localhost:3000/user> and enter your email address.
+
