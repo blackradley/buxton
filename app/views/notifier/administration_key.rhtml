@@ -1,6 +1,6 @@
 Click on the link below to see a list of organisations we are supporting right now.
 
-http://<%= @request.host_with_port %>/<%= @user.passkey %>
+http://<%= @user.function.organisation.style %>.<%= @request.host_with_port.split(/\s*\.\s*/, 2)[1] %>/<%= @user.passkey %>
 
 
 

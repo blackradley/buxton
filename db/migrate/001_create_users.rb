@@ -43,6 +43,10 @@ class CreateUsers < ActiveRecord::Migration
     :email => 'Iain_Wilkinson@blackradley.com')
     User.create(:user_type => User::TYPE[:administrative],
     :email => 'drbollins@hotmail.com')
+    
+    # Birmingham user
+    User.create(:user_type => User::TYPE[:organisational],
+    :email => 'Peter_Latchford@blackradley.com')
   end
 
   def self.down
