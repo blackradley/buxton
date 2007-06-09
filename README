@@ -5,7 +5,7 @@ Project Buxton
 
 2. Run db:migrate to create the database.
 
-3. The subdomain determines the css style so set up these aliases for 1ocalhost
+3. The subdomain determines the css style so set up these aliases for localhost
 	birmingham.localhost
 	www.localhost
 
