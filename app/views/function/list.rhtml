@@ -1,8 +1,14 @@
-<%= render :partial => 'head' %> 
-<p>Number of policies and functions <%= Function.count(:conditions => "organisation_id = 1") %></p>
-<p><%= link_to 'Section 1', :action => 'list1', :id => 1 %></p>
-<p><%= link_to 'Section 2', :action => 'list2', :id => 1 %></p>
-<p><%= link_to 'Section 3', :action => 'list3', :id => 1 %></p>
-<p><%= link_to 'Section 4', :action => 'list4', :id => 1 %></p>
-
-<%= link_to 'Back', :action => 'show', :id => @function %>
+<%= render :partial => 'head' %>
+<p>Number of functions <%= @organisation.functions.count %></p>
+<p><%= link_to 'Section 1', :action => 'list1', :id => @organisation.id %>
+    <br />Approved <%= @organisation.functions.count("approved = 1") %>
+</p>
+<p><%= link_to 'Section 2', :action => 'list2', :id => @organisation.id %>
+    <br />Not available
+</p>
+<p><%= link_to 'Section 3', :action => 'list3', :id => @organisation.id %>
+    <br />Not available
+</p>
+<p><%= link_to 'Section 4', :action => 'list4', :id => @organisation.id %>
+    <br />Not available
+</p>

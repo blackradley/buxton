@@ -21,6 +21,7 @@ class FunctionController < ApplicationController
 # actually more convenient for the Organisational user to scan down.
 #
   def list
+    @organisation = Organisation.find(params[:id])
     @functions = Function.find_all_by_organisation_id(params[:id])
     render :action => 'list', :id => params[:id]
   end
@@ -57,17 +58,19 @@ class FunctionController < ApplicationController
 # Create a new function and a new user based on the parameters on the form.  
 #
   def create
-    Function.transaction do
-      User.transaction do
-        @user = User.new(params[:user])
-        @user.user_type = User::TYPE[:organisational]
-        @user.save!
-        @function = Function.new(params[:function])   
-        @function.organisation_id = @session['logged_in_user'].organisation.id 
-        @function.user = @user
-        @function.save!
-        flash[:notice] = @function.name + ' was created.'
-        redirect_to :action => :list1, :id =>  @session['logged_in_user'].organisation.id
+    FunctionStrategy.transaction do
+      Function.transaction do
+        User.transaction do
+          @user = User.new(params[:user])
+          @user.user_type = User::TYPE[:organisational]
+          @user.save!
+          @function = Function.new(params[:function])   
+          @function.organisation_id = @session['logged_in_user'].organisation.id 
+          @function.user = @user
+          @function.save!      
+          flash[:notice] = @function.name + ' was created.'
+          redirect_to :action => :list1, :id =>  @session['logged_in_user'].organisation.id
+        end
       end
     end
   rescue ActiveRecord::RecordInvalid => e
@@ -81,8 +84,9 @@ class FunctionController < ApplicationController
 #
   def edit_contact
     @function = Function.find(params[:id])
-    @user = @function.user
     @strategies = @function.organisation.strategies
+    @function_responses = @function.function_strategies
+    @user = @function.user
   end
 #
 # Get the function information ready for editing using the relevance form.  
@@ -90,8 +94,9 @@ class FunctionController < ApplicationController
 #
   def edit_relevance
     @function = Function.find(params[:id])
-    @user = @function.user
     @strategies = @function.organisation.strategies
+    @function_responses = @function.function_strategies 
+    @user = @function.user
   end
 #
 # Update the function and all of its attributes, then redirect based on the
@@ -104,6 +109,12 @@ class FunctionController < ApplicationController
   def update
     @function = Function.find(params[:id])
     @function.update_attributes(params[:function])
+    params[:function_strategies].each do |function_strategy|
+      shit = @function.function_strategies.find_or_create_by_strategy_id(function_strategy[0])
+      shit.strategy_response = function_strategy[1]
+      puts shit
+      shit.save
+    end
     Function.transaction do
       @user = @function.user
       @user.update_attributes(params[:user])
