@@ -122,7 +122,7 @@ class CreateFunctions < ActiveRecord::Migration
       :email => 'drbollins@hotmail.com')
     Function.create(:user_id => user.id,
       :organisation_id => birmingham.id,
-      :name => 'Another service name required',
+      :name => 'Drugs and Alcohol',
       :existence_status => 0,
       :impact_service_users => 0,
       :impact_staff => 0,
@@ -147,7 +147,7 @@ class CreateFunctions < ActiveRecord::Migration
       :email => 'Peter_Latchford@blackradley.com')
     Function.create(:user_id => user.id,
       :organisation_id => birmingham.id,
-      :name => 'Yet another service name required',
+      :name => 'Occupational Therapy',
       :existence_status => 0,
       :impact_service_users => 0,
       :impact_staff => 0,
