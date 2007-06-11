@@ -30,11 +30,10 @@ class User < ActiveRecord::Base
   TYPE = {:administrative => 0, 
     :organisational => 1, 
     :functional => 2}
-
 #
 # Over ride the two save methods, adding the new key in on the way.
 # 
-# TODO: Review if this is a Ruby thing to do.
+# TODO: Review, is this a Ruby thing to do.
 # 
   def save
     save_with_key

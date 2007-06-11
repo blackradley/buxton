@@ -6,7 +6,7 @@
   </tr>
   <tr>
     <td>Is the Function/Policy 
-      <%= select('function', 'existence_status', LookUp.existing_proposed.collect {|l| [ l.name, l.id ] }) %>?
+      <%= select('function', 'existence_status', LookUp.existing_proposed.collect {|l| [ l.name, l.value ] }) %>?
     </td>
   </tr>
   <tr>
@@ -20,10 +20,13 @@
   </tr>
   <tr>
     <td>
-      <% @strategies.each do |strategy| %>
+    <% @strategies.each do |strategy| %>
         <div title="<%= strategy.description %>">
-          <%= check_box_tag("function[strategy_ids][]", strategy.id, @function.strategies.include?(strategy)) %>
           <%= strategy.name %>
+          <%= select('function_strategies', 
+            strategy.id, 
+            LookUp.yes_no.collect {|l| [ l.name, l.value ] }, 
+            :selected => @function_responses.find_by_strategy_id(strategy.id).strategy_response) %>
         </div>
       <% end %>
     </td>

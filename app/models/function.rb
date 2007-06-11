@@ -11,10 +11,7 @@ class Function < ActiveRecord::Base
   validates_presence_of :user
   validates_associated :user
   belongs_to :organisation
-  has_and_belongs_to_many :strategies
-  has_many :functions_impact_groups, :dependent => :destroy
-  has_many :impact_groups, :through => :functions_impact_groups
-  has_and_belongs_to_many :impact_groups
+  has_many :function_strategies
   validates_presence_of :name,
     :message => 'All functions must have a name'
 #
