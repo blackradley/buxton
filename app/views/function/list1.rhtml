@@ -12,7 +12,7 @@
   <% for function in @functions %>
   <tr>
     <td><%=h function.name %></td>
-    <td class='icon'><%= progress_bar(function.section1_percentage_answered) %></td>
+    <td class='icon'><%= progress_bar(section1_percentage_answered(function)) %></td>
     <td class='icon' align='center'><%= function.relevance_status %></td>
     <td class='icon' align='center'><%= approved_tag(function.approved?) %></td>
     <td><%=h approver_or_blank(function.approver) %></td>

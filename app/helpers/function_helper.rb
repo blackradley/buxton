@@ -22,7 +22,7 @@ module FunctionHelper
 #
   def approver_or_blank(approver)
     if approver.nil? or approver.blank?
-      return 'none'
+      return 'not given'
     else
       approver
     end
@@ -30,7 +30,8 @@ module FunctionHelper
 #
 # Display a thermometer bar.
 #
-  def level_bar(percentage, color_image)
+  def level_bar(value, out_of, color_image)
+    percentage = (value.to_f / out_of.length) * 100
     html = "<table border='0' cellpadding='0' cellSpacing='0'>"
     html += "<tr title='" + percentage.to_s + "%'>"
     html += "<td width='200' class='bar'>" + image_tag(color_image, :width => percentage * 2, :height => 10, :title=> percentage.to_s + '%') + "</td>"
@@ -41,28 +42,42 @@ module FunctionHelper
 # The percentage answered for section 1
 #
   def section1_percentage_answered(function)     
-    number_of_questions = 20.0 # decimal point prevents rounding
-    questions_answered = read_attribute(:existence_status) > 0 ? 1 : 0
-    questions_answered += read_attribute(:impact_service_users) > 0 ? 1 : 0
-    questions_answered += read_attribute(:impact_staff) > 0 ? 1 : 0
-    questions_answered += read_attribute(:impact_supplier_staff) > 0 ? 1 : 0
-    questions_answered += read_attribute(:impact_partner_staff) > 0 ? 1 : 0
-    questions_answered += read_attribute(:impact_employees) > 0 ? 1 : 0
-    questions_answered += read_attribute(:good_gender) > 0 ? 1 : 0
-    questions_answered += read_attribute(:good_race) > 0 ? 1 : 0
-    questions_answered += read_attribute(:good_disability) > 0 ? 1 : 0
-    questions_answered += read_attribute(:good_faith) > 0 ? 1 : 0
-    questions_answered += read_attribute(:good_sexual_orientation) > 0 ? 1 : 0
-    questions_answered += read_attribute(:good_age) > 0 ? 1 : 0
-    questions_answered += read_attribute(:bad_gender) > 0 ? 1 : 0
-    questions_answered += read_attribute(:bad_race) > 0 ? 1 : 0
-    questions_answered += read_attribute(:bad_disability) > 0 ? 1 : 0
-    questions_answered += read_attribute(:bad_faith) > 0 ? 1 : 0
-    questions_answered += read_attribute(:bad_sexual_orientation) > 0 ? 1 : 0
-    questions_answered += read_attribute(:bad_age) > 0 ? 1 : 0
-    questions_answered += read_attribute(:is_approved).to_i 
-    questions_answered += read_attribute(:approver).blank? ? 0 : 1
+    number_of_questions = 20.0 + function.organisation.strategies.count # decimal point prevents rounding
+    questions_answered = function.existence_status > 0 ? 1 : 0
+    questions_answered += function.impact_service_users > 0 ? 1 : 0
+    questions_answered += function.impact_staff > 0 ? 1 : 0
+    questions_answered += function.impact_supplier_staff > 0 ? 1 : 0
+    questions_answered += function.impact_partner_staff > 0 ? 1 : 0
+    questions_answered += function.impact_employees > 0 ? 1 : 0
+    questions_answered += function.good_gender > 0 ? 1 : 0
+    questions_answered += function.good_race > 0 ? 1 : 0
+    questions_answered += function.good_disability > 0 ? 1 : 0
+    questions_answered += function.good_faith > 0 ? 1 : 0
+    questions_answered += function.good_sexual_orientation > 0 ? 1 : 0
+    questions_answered += function.good_age > 0 ? 1 : 0
+    questions_answered += function.bad_gender > 0 ? 1 : 0
+    questions_answered += function.bad_race > 0 ? 1 : 0
+    questions_answered += function.bad_disability > 0 ? 1 : 0
+    questions_answered += function.bad_faith > 0 ? 1 : 0
+    questions_answered += function.bad_sexual_orientation > 0 ? 1 : 0
+    questions_answered += function.bad_age > 0 ? 1 : 0
+    questions_answered += function.approved.to_i 
+    questions_answered += function.approver.blank? ? 0 : 1
+    function.function_strategies.each do |strategy|
+      questions_answered += strategy.strategy_response > 0 ? 1 : 0
+    end
     return (questions_answered / number_of_questions) * 100
+  end
+#
+# If the strategy response is not set for a function, return 0 instead.
+# 
+  def strategy_response_or_zero(function_responses, id)
+    function_response = function_responses.find_by_strategy_id(id)
+    if function_response.nil?
+      return 0
+    else
+      return function_response.strategy_response
+    end
   end
 #
 # Hash of equality dimensions questions, figured that they might be used in a 

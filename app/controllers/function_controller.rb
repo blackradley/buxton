@@ -85,17 +85,17 @@ class FunctionController < ApplicationController
   def edit_contact
     @function = Function.find(params[:id])
     @strategies = @function.organisation.strategies
-    @function_responses = @function.function_strategies
+    @function_responses = @function.function_strategies # could be empty
     @user = @function.user
   end
 #
 # Get the function information ready for editing using the relevance form.  
 # These are edited by the functional manager.
 #
-  def edit_relevance
+  def edit_section1
     @function = Function.find(params[:id])
     @strategies = @function.organisation.strategies
-    @function_responses = @function.function_strategies 
+    @function_responses = @function.function_strategies # could be empty
     @user = @function.user
   end
 #
@@ -110,10 +110,9 @@ class FunctionController < ApplicationController
     @function = Function.find(params[:id])
     @function.update_attributes(params[:function])
     params[:function_strategies].each do |function_strategy|
-      shit = @function.function_strategies.find_or_create_by_strategy_id(function_strategy[0])
-      shit.strategy_response = function_strategy[1]
-      puts shit
-      shit.save
+      function_response = @function.function_strategies.find_or_create_by_strategy_id(function_strategy[0])
+      function_response.strategy_response = function_strategy[1]
+      function_response.save
     end
     Function.transaction do
       @user = @function.user
@@ -122,7 +121,7 @@ class FunctionController < ApplicationController
       if @session['logged_in_user'].user_type == User::TYPE[:functional]
         redirect_to :action => :show, :id => @function
       elsif @session['logged_in_user'].user_type == User::TYPE[:organisational]
-        redirect_to :action => :list, :id => @function.organisation
+        redirect_to :action => :list1, :id => @function.organisation
       end
     end
   rescue ActiveRecord::RecordInvalid => e

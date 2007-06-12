@@ -46,31 +46,4 @@ class Function < ActiveRecord::Base
       read_attribute(:bad_age)
       return relevance
   end
-#
-# The percentage answered for section 1
-#
-  def section1_percentage_answered     
-    number_of_questions = 20.0 # decimal point prevents rounding
-    questions_answered = read_attribute(:existence_status) > 0 ? 1 : 0
-    questions_answered += read_attribute(:impact_service_users) > 0 ? 1 : 0
-    questions_answered += read_attribute(:impact_staff) > 0 ? 1 : 0
-    questions_answered += read_attribute(:impact_supplier_staff) > 0 ? 1 : 0
-    questions_answered += read_attribute(:impact_partner_staff) > 0 ? 1 : 0
-    questions_answered += read_attribute(:impact_employees) > 0 ? 1 : 0
-    questions_answered += read_attribute(:good_gender) > 0 ? 1 : 0
-    questions_answered += read_attribute(:good_race) > 0 ? 1 : 0
-    questions_answered += read_attribute(:good_disability) > 0 ? 1 : 0
-    questions_answered += read_attribute(:good_faith) > 0 ? 1 : 0
-    questions_answered += read_attribute(:good_sexual_orientation) > 0 ? 1 : 0
-    questions_answered += read_attribute(:good_age) > 0 ? 1 : 0
-    questions_answered += read_attribute(:bad_gender) > 0 ? 1 : 0
-    questions_answered += read_attribute(:bad_race) > 0 ? 1 : 0
-    questions_answered += read_attribute(:bad_disability) > 0 ? 1 : 0
-    questions_answered += read_attribute(:bad_faith) > 0 ? 1 : 0
-    questions_answered += read_attribute(:bad_sexual_orientation) > 0 ? 1 : 0
-    questions_answered += read_attribute(:bad_age) > 0 ? 1 : 0
-    questions_answered += read_attribute(:is_approved).to_i 
-    questions_answered += read_attribute(:approver).blank? ? 0 : 1
-    return (questions_answered / number_of_questions) * 100
-  end 
 end
