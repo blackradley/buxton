@@ -141,14 +141,14 @@ class FunctionController < ApplicationController
     email = Notifier.create_function_key(@user, request)
     Notifier.deliver(email)
     flash[:notice] = 'Reminder for ' + @user.function.name + ' sent to ' + @user.email
-    redirect_to :action => 'list'
+    redirect_to :action => :list1, :id =>  @session['logged_in_user'].organisation.id
   end
 #
 # TODO: Mark the function record with a deleted date do not destroy
 #
   def destroy
     Function.find(params[:id]).destroy
-    redirect_to :action => 'list'
+    redirect_to :action => :list1, :id =>  @session['logged_in_user'].organisation.id
   end
 
 protected
