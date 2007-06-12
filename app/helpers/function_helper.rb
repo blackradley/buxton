@@ -18,18 +18,7 @@ module FunctionHelper
     end
   end
 #
-# 
-#
-  def existence_status_tag(existence_status)
-    look_up = LookUp.find_by_id(existence_status)
-    if look_up.nil?
-      return 'not set'
-    else
-      look_up.name
-    end
-  end
-#
-#
+# If the approver field is blank, return some other string 
 #
   def approver_or_blank(approver)
     if approver.nil? or approver.blank?
@@ -39,7 +28,7 @@ module FunctionHelper
     end
   end
 #
-# Display level of the slider
+# Display a thermometer bar.
 #
   def level_bar(percentage, color_image)
     html = "<table border='0' cellpadding='0' cellSpacing='0'>"
@@ -49,7 +38,35 @@ module FunctionHelper
     html += "</table>"
   end 
 #
-# Hash of equality dimensions questions
+# The percentage answered for section 1
+#
+  def section1_percentage_answered(function)     
+    number_of_questions = 20.0 # decimal point prevents rounding
+    questions_answered = read_attribute(:existence_status) > 0 ? 1 : 0
+    questions_answered += read_attribute(:impact_service_users) > 0 ? 1 : 0
+    questions_answered += read_attribute(:impact_staff) > 0 ? 1 : 0
+    questions_answered += read_attribute(:impact_supplier_staff) > 0 ? 1 : 0
+    questions_answered += read_attribute(:impact_partner_staff) > 0 ? 1 : 0
+    questions_answered += read_attribute(:impact_employees) > 0 ? 1 : 0
+    questions_answered += read_attribute(:good_gender) > 0 ? 1 : 0
+    questions_answered += read_attribute(:good_race) > 0 ? 1 : 0
+    questions_answered += read_attribute(:good_disability) > 0 ? 1 : 0
+    questions_answered += read_attribute(:good_faith) > 0 ? 1 : 0
+    questions_answered += read_attribute(:good_sexual_orientation) > 0 ? 1 : 0
+    questions_answered += read_attribute(:good_age) > 0 ? 1 : 0
+    questions_answered += read_attribute(:bad_gender) > 0 ? 1 : 0
+    questions_answered += read_attribute(:bad_race) > 0 ? 1 : 0
+    questions_answered += read_attribute(:bad_disability) > 0 ? 1 : 0
+    questions_answered += read_attribute(:bad_faith) > 0 ? 1 : 0
+    questions_answered += read_attribute(:bad_sexual_orientation) > 0 ? 1 : 0
+    questions_answered += read_attribute(:bad_age) > 0 ? 1 : 0
+    questions_answered += read_attribute(:is_approved).to_i 
+    questions_answered += read_attribute(:approver).blank? ? 0 : 1
+    return (questions_answered / number_of_questions) * 100
+  end
+#
+# Hash of equality dimensions questions, figured that they might be used in a 
+# number of different places.
 #
   $equality_questions = {
     'good_age'=>'If the function were performed well, would it affect different <strong>age groups</strong> differently?', 
