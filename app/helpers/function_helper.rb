@@ -31,7 +31,7 @@ module FunctionHelper
 # Display a thermometer bar.
 #
   def level_bar(value, out_of, color_image)
-    html = $NO_ANSWER
+    html = 'No response'
     if value != 0
       percentage = (value.to_f / (out_of.length - 1)) * 100
       html = "<table border='0' cellpadding='0' cellSpacing='0'>"
