@@ -27,7 +27,7 @@
   </tr>
   <tr>
     <td>Function/Policy is </td>
-    <td class='icon'><%= @function.existence_status %></td>
+    <td class='icon'><%= LookUp.existing_proposed.find{|lookUp| @function.existence_status == lookUp.value}.name %></td>
   </tr>
   <tr>
     <td colspan="2">
