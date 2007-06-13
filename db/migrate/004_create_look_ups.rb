@@ -36,12 +36,6 @@ class CreateLookUps < ActiveRecord::Migration
     :weight => 1,
     :description => 'Existing',
     :display_order => 2)
-    LookUp.create(:look_up_type => LookUp::TYPE[:existing_proposed],
-    :name => 'Not sure',
-    :value => 3,
-    :weight => 10,
-    :description => 'Not sure',
-    :display_order => 3)
 
     # Yes/No/Not sure
     LookUp.create(:look_up_type => LookUp::TYPE[:yes_no],
@@ -62,12 +56,6 @@ class CreateLookUps < ActiveRecord::Migration
     :weight => 1,
     :description => 'No',
     :display_order => 2)
-    LookUp.create(:look_up_type => LookUp::TYPE[:yes_no],
-    :name => 'Not sure',
-    :value => 3,
-    :weight => 5,
-    :description => 'Not sure',
-    :display_order => 3)
     
 #   Amount of impact
     LookUp.create(:look_up_type => LookUp::TYPE[:impact_amount],
@@ -118,12 +106,6 @@ class CreateLookUps < ActiveRecord::Migration
     :weight => 5,
     :description => 'All',
     :display_order => 7)
-    LookUp.create(:look_up_type => LookUp::TYPE[:impact_amount],
-    :name => 'Not sure',
-    :value => 8,
-    :weight => 5,
-    :description => 'Not sure',
-    :display_order => 8)
     
     # Level of impact
     LookUp.create(:look_up_type => LookUp::TYPE[:impact_level],
