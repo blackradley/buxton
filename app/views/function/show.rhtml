@@ -23,7 +23,7 @@
   </tr>
   <tr>
     <td>Approved</td>
-    <td class='icon'><%= approved_tag @function.approved %> by <%=h approver_or_blank(@function.approver) %></td>
+    <td class='icon'><%= approved_tag(@function.approved?) %> by <%=h approver_or_blank(@function.approver) %></td>
   </tr>
   <tr>
     <td>Function/Policy is </td>
@@ -33,8 +33,8 @@
     <td colspan="2">
       <p><strong>The Function/Policy helps in delivering the following strategic priorities</strong></p>
       <ul>
-        <% for strategy in @function.organisation.strategies %>
-        <li><%= strategy.name %></li>
+        <% for function_strategy in @function.function_strategies.find(:all, :conditions => "strategy_response = 1").collect %>
+        <li><%= function_strategy.strategy.name %></li>
         <% end %>
       </ul>
     </td>
