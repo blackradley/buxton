@@ -16,13 +16,14 @@ class CreateLookUps < ActiveRecord::Migration
       t.column :description,     :string
       t.column :display_order,   :integer
     end
-      
+    
+    $NO_ANSWER = 'Not answered yet'
 #   Existing/Proposed
     LookUp.create(:look_up_type => LookUp::TYPE[:existing_proposed],
-    :name => 'Not answered yet',
+    :name => $NO_ANSWER,
     :value => 0,
     :weight => 0,
-    :description => 'Not answered yet',
+    :description => $NO_ANSWER,
     :display_order => 0)
     LookUp.create(:look_up_type => LookUp::TYPE[:existing_proposed],
     :name => 'Proposed',
@@ -39,10 +40,10 @@ class CreateLookUps < ActiveRecord::Migration
 
     # Yes/No/Not sure
     LookUp.create(:look_up_type => LookUp::TYPE[:yes_no],
-    :name => 'Not answered yet',
+    :name => $NO_ANSWER,
     :value => 0,
     :weight => 0,
-    :description => 'Not answered yet',
+    :description => $NO_ANSWER,
     :display_order => 0)
     LookUp.create(:look_up_type => LookUp::TYPE[:yes_no],
     :name => 'Yes',
@@ -59,10 +60,10 @@ class CreateLookUps < ActiveRecord::Migration
     
 #   Amount of impact
     LookUp.create(:look_up_type => LookUp::TYPE[:impact_amount],
-    :name => 'Not answered yet',
+    :name => $NO_ANSWER,
     :value => 0,
     :weight => 0,
-    :description => 'Not answered yet',
+    :description => $NO_ANSWER,
     :display_order => 0)
     LookUp.create(:look_up_type => LookUp::TYPE[:impact_amount],
     :name => 'None',
@@ -109,10 +110,10 @@ class CreateLookUps < ActiveRecord::Migration
     
     # Level of impact
     LookUp.create(:look_up_type => LookUp::TYPE[:impact_level],
-    :name => 'Not answered yet',
+    :name => $NO_ANSWER,
     :value => 0,
     :weight => 0,
-    :description => 'Not answered yet',
+    :description => $NO_ANSWER,
     :display_order => 0)
     LookUp.create(:look_up_type => LookUp::TYPE[:impact_level],
     :name => 'None',

@@ -8,6 +8,5 @@
 #
 module UserHelper
 
-
 end
 

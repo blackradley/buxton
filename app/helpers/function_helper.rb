@@ -31,12 +31,16 @@ module FunctionHelper
 # Display a thermometer bar.
 #
   def level_bar(value, out_of, color_image)
-    percentage = (value.to_f / out_of.length) * 100
-    html = "<table border='0' cellpadding='0' cellSpacing='0'>"
-    html += "<tr title='" + percentage.to_s + "%'>"
-    html += "<td width='200' class='bar'>" + image_tag(color_image, :width => percentage * 2, :height => 10, :title=> percentage.to_s + '%') + "</td>"
-    html += "</tr>"
-    html += "</table>"
+    html = $NO_ANSWER
+    if value != 0
+      percentage = (value.to_f / (out_of.length - 1)) * 100
+      html = "<table border='0' cellpadding='0' cellSpacing='0'>"
+      html += "<tr title='" + percentage.to_s + "%'>"
+      html += "<td width='200' class='bar'>" + image_tag(color_image, :width => percentage * 2, :height => 10, :title=> percentage.to_s + '%') + "</td>"
+      html += "</tr>"
+      html += "</table>"
+    end
+    return html
   end 
 #
 # The percentage answered for section 1
