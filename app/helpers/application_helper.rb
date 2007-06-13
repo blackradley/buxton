@@ -72,4 +72,5 @@ module ApplicationHelper
       return date.to_formatted_s(:date_time12)
     end
   end
+ 
 end
