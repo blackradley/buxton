@@ -15,7 +15,7 @@
   </tr>
   <tr>
     <td>Relevance</td>
-    <td class='icon' title="<%= @function.relevance %>"><%= @function.relevance_status %></td>
+    <td class='icon'><%= progress_bar(relevance_percentage(@function)) %></td>
    </tr>
   <tr>
     <td>Percentage Completed</td>
@@ -201,6 +201,6 @@
     <%= link_to 'Amend Function/Policy Details', :action => 'edit_relevance', :id => @function %>
   <% when User::TYPE[:organisational] %>
     <%= link_to 'Amend Function/Policy Details', :action => 'edit_contact', :id => @function %> |
-    <%= link_to 'Back', :action => 'list', :id => @session['logged_in_user'].organisation.id %> 
+    <%= link_to 'Back', :action => 'list1', :id => @session['logged_in_user'].organisation.id %> 
 <% end %>
 </p>

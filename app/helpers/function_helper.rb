@@ -28,12 +28,13 @@ module FunctionHelper
     end
   end
 #
-# Display a thermometer bar.
+# Display a coloured bar showing the level selected
 #
   def level_bar(value, out_of, color_image)
     html = 'No response'
     if value != 0
-      percentage = (value.to_f / (out_of.length - 1)) * 100
+      percentage = (value.to_f / (out_of.length - 1)) * 100.0
+      percentage = percentage.round
       html = "<table border='0' cellpadding='0' cellSpacing='0'>"
       html += "<tr title='" + percentage.to_s + "%'>"
       html += "<td width='200' class='bar'>" + image_tag(color_image, :width => percentage * 2, :height => 10, :title=> percentage.to_s + '%') + "</td>"
@@ -70,7 +71,17 @@ module FunctionHelper
     function.function_strategies.each do |strategy|
       questions_answered += strategy.strategy_response > 0 ? 1 : 0
     end
-    return (questions_answered / number_of_questions) * 100
+    percentage = (questions_answered / number_of_questions) * 100 # calculate
+    percentage = percentage.round # round to one decimal place
+    return percentage
+  end
+
+#
+# Calculation of relevance level expressed as a percentage
+#
+  def relevance_percentage(function) 
+    function.existence_status
+    return 10
   end
 #
 # If the strategy response is not set for a function, return 0 instead.
@@ -100,5 +111,5 @@ module FunctionHelper
     'bad_sexual_orientation'=>'If the function were performed badly, would it affect people of different <strong>sexual orientation</strong> differently?',
     'bad_faith'=>'If the function were performed badly, would it affect different <strong>faith groups</strong> differently?',
     'bad_disability'=>'If the function were performed badly, would it affect <strong>people with different kinds of disabilities</strong> differently?'
-    }
+    }   
 end
