@@ -10,6 +10,8 @@
 # the application.  Likewise, all the methods added will be 
 # available for all controllers.
 # 
+require 'digest/sha1'
+
 class ApplicationController < ActionController::Base
   before_filter :authenticate
   

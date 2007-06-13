@@ -6,7 +6,6 @@
 #
 # Copyright (c) 2007 Black Radley Limited. All rights reserved. 
 # 
-require 'digest/sha1'
 
 class UserController < ApplicationController
   def index
