@@ -75,13 +75,19 @@ module FunctionHelper
     percentage = percentage.round # round to one decimal place
     return percentage
   end
-
 #
 # Calculation of relevance level expressed as a percentage
 #
   def relevance_percentage(function) 
-    function.existence_status
-    return 10
+    lookUpList = LookUp.existing_proposed
+    weighted_value = lookUpList.find{|lookUp| function.existence_status == lookUp.value}.weight
+    lookUpList = LookUp.impact_amount
+    weighted_value += lookUpList.find{|lookUp| function.impact_service_users == lookUp.value}.weight
+    weighted_value += lookUpList.find{|lookUp| function.impact_staff == lookUp.value}.weight
+    weighted_value += lookUpList.find{|lookUp| function.impact_supplier_staff == lookUp.value}.weight
+    weighted_value += lookUpList.find{|lookUp| function.impact_partner_staff == lookUp.value}.weight
+    weighted_value += lookUpList.find{|lookUp| function.impact_employees == lookUp.value}.weight
+    return weighted_value
   end
 #
 # If the strategy response is not set for a function, return 0 instead.
