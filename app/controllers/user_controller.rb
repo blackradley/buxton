@@ -223,8 +223,32 @@ class UserController < ApplicationController
                 function.user = @user
                 function.organisation = @organisation
                 function.name = function_name
+                function.existence_status = rand(2)
+                function.impact_service_users = rand(8)
+                function.impact_staff = rand(8)
+                function.impact_supplier_staff = rand(8)
+                function.impact_partner_staff = rand(8)
+                function.impact_employees = rand(8)
+                function.good_gender = rand(4)
+                function.good_race = rand(4)
+                function.good_disability = rand(4)
+                function.good_faith = rand(4)
+                function.good_sexual_orientation = rand(4)
+                function.good_age = rand(4)
+                function.bad_gender = rand(4)
+                function.bad_race = rand(4)
+                function.bad_disability = rand(4)
+                function.bad_faith = rand(4)
+                function.bad_sexual_orientation = rand(4)
+                function.bad_age = rand(4)
+                function.approved = rand(2)
                 function.save!
-              }
+                @organisation.strategies.each do |function_strategy|
+                  function_response = function.function_strategies.find_or_create_by_strategy_id(function_strategy.id)
+                  function_response.strategy_response = rand(3)
+                  function_response.save
+                end   
+              }              
             end
           end
         end
