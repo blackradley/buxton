@@ -79,6 +79,14 @@ h4{
 	float: right; 
 }
 
+.login_status{
+	float: right; 
+}
+
+.number{
+  text-align: right;
+}
+
 select{
 	font-family:Arial; 
 	font-size:8pt;
