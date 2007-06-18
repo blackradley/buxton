@@ -17,11 +17,44 @@ class LookUp < ActiveRecord::Base
     :impact_amount => 3,
     :impact_level => 4,
     :priority => 5}
-  
-  def self.yes_no #self makes it static
+
+
+# Eat shit
+#
+# <p>red
+# when the light is red, you
+# must stop</p>
+# 
+#: amber
+#
+# the amber light means that things are about to change. Either:
+# * step on the gas, or
+# * slam on the brakes
+# 
+# : green
+# 
+# green means GO
+# Calculate the set of unique abbreviations for a given set of strings.
+#
+#   require 'abbrev'
+#   require 'pp'
+#
+#   pp Abbrev::abbrev(['ruby', 'rules']).sort
+#
+# <i>Generates:</i>
+#
+#   [["rub", "ruby"],
+#    ["ruby", "ruby"],
+#    ["rul", "rules"],
+#    ["rule", "rules"],
+#    ["rules", "rules"]]
+#
+# Also adds an +abbrev+ method to class +Array+.
+  def self.yes_no # :yields: bar, baz
     return find_all_by_look_up_type(TYPE[:yes_no])
   end
-  
+#
+#
   def self.agree_disagree #self makes it static
     return find_all_by_look_up_type(TYPE[:agree_disagree])
   end
