@@ -19,9 +19,9 @@ class CreateOrganisations < ActiveRecord::Migration
       t.column :strategies_help,                  :text
       t.column :impact_groups_description,        :string,  :default => 'Which of these groups are you having an impact on?'
       t.column :impact_groups_help,               :text
-      t.column :good_equality_groups_description, :string,  :default => 'Positive differential impact'
+      t.column :good_equality_groups_description, :string,  :default => 'If the function were performed well...'
       t.column :good_equality_groups_help,        :text
-      t.column :bad_equality_groups_description,  :string,  :default => 'Negative differential impact'
+      t.column :bad_equality_groups_description,  :string,  :default => 'If the function were performed badly...'
       t.column :bad_equality_groups_help,         :text
       t.column :approval_help,                    :text
       t.column :created_on,                       :timestamp

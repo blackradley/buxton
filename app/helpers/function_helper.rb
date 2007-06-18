@@ -28,7 +28,7 @@ module FunctionHelper
 #
   def approver_or_blank(approver)
     if approver.nil? or approver.blank?
-      return 'not given'
+      return 'Not answered yet'
     else
       approver
     end
@@ -39,7 +39,7 @@ module FunctionHelper
 # so bad but feels a bit uncomfortable.
 #
   def level_bar(value, out_of, color_image)
-    html = 'No response'
+    html = 'Not answered yet'
     if value != 0
       percentage = (value.to_f / (out_of.length - 1)) * 100.0
       percentage = percentage.round
@@ -94,18 +94,10 @@ module FunctionHelper
     return percentage
   end
 #
-# Calculation of relevance level expressed as a percentage
+# Return a yes or no for relevance, based on the Function
 #
-  def relevance_percentage(function) 
-    lookUpList = LookUp.existing_proposed
-    weighted_value = lookUpList.find{|lookUp| function.existence_status == lookUp.value}.weight
-    lookUpList = LookUp.impact_amount
-    weighted_value += lookUpList.find{|lookUp| function.impact_service_users == lookUp.value}.weight
-    weighted_value += lookUpList.find{|lookUp| function.impact_staff == lookUp.value}.weight
-    weighted_value += lookUpList.find{|lookUp| function.impact_supplier_staff == lookUp.value}.weight
-    weighted_value += lookUpList.find{|lookUp| function.impact_partner_staff == lookUp.value}.weight
-    weighted_value += lookUpList.find{|lookUp| function.impact_employees == lookUp.value}.weight
-    return weighted_value
+  def relevance_tag(function)
+    return 'No'
   end
 #
 # If the strategy response is not set for a function, return 0 instead.
@@ -120,24 +112,30 @@ module FunctionHelper
   end
 #
 # Hash of equality dimensions questions, I figured that they might be used in a 
-# number of different places.  It could have been placed in the database, in 
-# fact having it tacked on the end of the helper doesn't seem that good.
-# 
-# TODO: Review if these questions should be hard coded into the pages or stuck
-# in the database.  They seem like a bit of an anomally here.
+# number of different places.
 #
   $equality_questions = {
-    'good_age'=>'If the function were performed well, would it affect different <strong>age groups</strong> differently?', 
-    'good_race'=>'If the function were performed well, would it affect different <strong>Ethnic groups</strong> differently?', 
-    'good_gender'=>'If the function were performed well, would it affect <strong>men and women</strong> differently?',
-    'good_sexual_orientation'=>'If the function were performed well, would it affect people of different <strong>sexual orientation</strong> differently?',
-    'good_faith'=>'If the function were performed well, would it affect different <strong>faith groups</strong> differently?',
-    'good_disability'=>'If the function were performed well, would it affect <strong>people with different kinds of disabilities</strong> differently?',
-    'bad_age'=>'If the function were performed badly, would it affect different <strong>age groups</strong> differently?', 
-    'bad_race'=>'If the function were performed badly, would it affect different <strong>Ethnic groups</strong> differently?', 
-    'bad_gender'=>'If the function were performed badly, would it affect <strong>men and women</strong> differently?',
-    'bad_sexual_orientation'=>'If the function were performed badly, would it affect people of different <strong>sexual orientation</strong> differently?',
-    'bad_faith'=>'If the function were performed badly, would it affect different <strong>faith groups</strong> differently?',
-    'bad_disability'=>'If the function were performed badly, would it affect <strong>people with different kinds of disabilities</strong> differently?'
-    }   
+    'good_age'=>'Would it affect different <strong>age groups</strong> differently?', 
+    'good_race'=>'Would it affect different <strong>Ethnic groups</strong> differently?', 
+    'good_gender'=>'Would it affect <strong>men and women</strong> differently?',
+    'good_sexual_orientation'=>'Would it affect people of different <strong>sexual orientation</strong> differently?',
+    'good_faith'=>'Would it affect different <strong>faith groups</strong> differently?',
+    'good_disability'=>'Would it affect <strong>people with different kinds of disabilities</strong> differently?',
+    'bad_age'=>'Would it affect different <strong>age groups</strong> differently?', 
+    'bad_race'=>'Would it affect different <strong>Ethnic groups</strong> differently?', 
+    'bad_gender'=>'Would it affect <strong>men and women</strong> differently?',
+    'bad_sexual_orientation'=>'Would it affect people of different <strong>sexual orientation</strong> differently?',
+    'bad_faith'=>'Would it affect different <strong>faith groups</strong> differently?',
+    'bad_disability'=>'Would it affect <strong>people with different kinds of disabilities</strong> differently?'
+    }
+#
+# Hash of impact groups, because they are used in a number of places. 
+#    
+   $impact_groups = {
+    'service_users'=>'Service users', 
+    'staff'=>'Staff employed by the council', 
+    'supplier_staff'=>'Staff of supplier organisations', 
+    'partner_staff'=>'Staff of partner organisations', 
+    'employees'=>'Employees of businesses'
+    }
 end

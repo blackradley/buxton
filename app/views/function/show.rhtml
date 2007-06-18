@@ -1,5 +1,7 @@
-<h2>Equalities Assessment Function/Policy Summary Page</h2>
-<h3><%= @function.name %></h3>
+<h3>CEPT Function Summary Page</h3>
+<h4><%= @function.name %></h4>
+<p>This page lets either the Organisation Manger or Function Manager review
+the status of the active function.</p>
 <table width="60%">
   <tr>
     <td>Contact:</td>
@@ -15,7 +17,7 @@
   </tr>
   <tr>
     <td>Relevance</td>
-    <td class='icon'><%= progress_bar(relevance_percentage(@function)) %></td>
+    <td class='icon'><%= relevance_tag(@function) %></td>
    </tr>
   <tr>
     <td>Percentage Completed</td>
@@ -50,13 +52,13 @@
         <tr>
           <td colspan="2">
             <strong>
-              The Function/Policy has the following level impact on these customer groups
+              What proportion of these groups does "<%= @function.name %>" impact?
             </strong>
           </td>
         </tr>
         <tr>
           <td>
-            Service users
+            <%= $impact_groups['service_users'] %>
           </td>
           <td>
             <%= level_bar(@function.impact_service_users, LookUp.impact_amount, 'blue.gif') %>
@@ -64,7 +66,7 @@
         </tr>
         <tr>
           <td>
-            Staff
+            <%= $impact_groups['staff'] %>
           </td>
           <td>
             <%= level_bar(@function.impact_staff, LookUp.impact_amount, 'blue.gif') %>
@@ -72,7 +74,7 @@
         </tr>
         <tr>
           <td>
-            Supplier staff
+            <%= $impact_groups['supplier_staff'] %>
           </td>
           <td>
             <%= level_bar(@function.impact_supplier_staff, LookUp.impact_amount, 'blue.gif') %>
@@ -80,7 +82,7 @@
         </tr>
         <tr>
           <td>
-            Partner staff
+            <%= $impact_groups['partner_staff'] %>
           </td>
           <td>
             <%= level_bar(@function.impact_partner_staff, LookUp.impact_amount, 'blue.gif') %>
@@ -88,7 +90,7 @@
         </tr>
         <tr>
           <td>
-            Employees
+            <%= $impact_groups['employees'] %>
           </td>
           <td>
             <%= level_bar(@function.impact_employees, LookUp.impact_amount, 'blue.gif') %>

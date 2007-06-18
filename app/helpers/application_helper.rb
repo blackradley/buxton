@@ -41,7 +41,7 @@ module ApplicationHelper
         organisation_name_out = Organisation.find_by_style(subdomain(request)).name
       end
     rescue
-      organisation_name_out = "Black Radley Limited"
+      organisation_name_out = '' 
     end
     return organisation_name_out
   end
@@ -74,5 +74,28 @@ module ApplicationHelper
     else
       return date.to_formatted_s(:date_time12)
     end
+  end
+#
+# Spoof the login status because the demo is supposed to show the User
+# logged in as both the Organisation and the Function manger at one
+# point while reverting to soley one or the other at other points.  This
+# makes no sense, but there you go.
+#
+  def login_status()
+    html = 'Login status unknown'
+    user = session['logged_in_user']
+    if user.nil?
+      html = 'You are not logged in'
+    else
+      case user.user_type
+        when User::TYPE[:functional]
+          html = 'You are logged in as Function Manager'
+        when User::TYPE[:organisational]
+          html = 'You are logged in as Organisation Manager'
+        when User::TYPE[:administrative]
+          html = 'You are logged in as Administration Manager'
+      end
+    end
+    return html
   end
 end
