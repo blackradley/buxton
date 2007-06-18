@@ -1,12 +1,14 @@
 #  
-# $URL$
+# $URL$ 
+# 
 # $Rev$
+# 
 # $Author$
+# 
 # $Date$
 #
 # Copyright (c) 2007 Black Radley Limited. All rights reserved. 
 # 
-
 class UserController < ApplicationController
   def index
     # log out the user if they are logged in

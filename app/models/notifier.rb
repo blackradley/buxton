@@ -1,18 +1,28 @@
-#  
-# $URL$
+# 
+# $URL$ 
+# 
 # $Rev$
+# 
 # $Author$
+# 
 # $Date$
 #
 # Copyright (c) 2007 Black Radley Limited. All rights reserved. 
 #
-class Notifier < ActionMailer::Base
-
-  FROM = 'equality_support@blackradley.com'
+# The notifier sends out new "unique" URLs to the different users.  The users
+# can then click on the link to get to the page they need to fill in.  No user
+# names or passwords to remember, but quite insecure.  Then again no one 
+# remembers the user names and passwords so they are a hassle.  It is all a 
+# bit of a compromise between hassle and security.
 #
-# Unlike controllers from Action Pack, the mailer instance doesn‘t 
-# have any context about the incoming request.  So the request is 
-# passed in explicitly
+# Unlike controllers from Action Pack, the mailer instance doesn‘t have any 
+# context about the incoming request.  So the request is passed in explicitly
+# to each of the methods.
+class Notifier < ActionMailer::Base
+#
+# Constant for the origin of all the emails.
+#
+  FROM = 'equality_support@blackradley.com'
 #
 # A new key for the system administrator
 #
@@ -28,7 +38,7 @@ class Notifier < ActionMailer::Base
     email_details(user, request)
   end
 #
-# A new key for the function administrator
+# Request a new key for the function manager
 #
   def function_key(user, request)
     @subject      = 'New Function Key for ' + user.function.name

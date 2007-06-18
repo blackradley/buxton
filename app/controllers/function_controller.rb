@@ -1,54 +1,74 @@
 #  
-# $URL$
+# $URL$ 
+# 
 # $Rev$
+# 
 # $Author$
+# 
 # $Date$
 #
 # Copyright (c) 2007 Black Radley Limited. All rights reserved. 
 # 
 class FunctionController < ApplicationController
-  layout 'application'
-
+#
+# By default list the functions.
+#
   def index
     render :action => 'list'
   end
-
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
+# 
+# GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
+# 
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
 #
-# List the functions for an organisation but don't paginate, a long list is
-# actually more convenient for the Organisational user to scan down.
+# Provide a summary of the stay of all the functions for all the four
+# sections of the review.
 #
   def list
     @organisation = Organisation.find(params[:id])
     @functions = Function.find_all_by_organisation_id(params[:id])
     render :action => 'list', :id => params[:id]
   end
+#
+# List the section 1 (the relevance test) for the functions of an Organisation
+# but don't paginate, a long list is actually more convenient for the Organisation
+# User to scan down.
+#
   def list1
     @functions = Function.find_all_by_organisation_id(params[:id])
     render :action => 'list1', :id => params[:id]
   end
+#
+# TODO: List for secton 2
+#
   def list2
     @functions = Function.find_all_by_organisation_id(params[:id])
     render :action => 'list2', :id => params[:id]
   end
+#
+# TODO: List for secton 3
+#
   def list3
     @functions = Function.find_all_by_organisation_id(params[:id])
     render :action => 'list3', :id => params[:id]
   end
+#
+# TODO: List for secton 4
+#
   def list4
     @functions = Function.find_all_by_organisation_id(params[:id])
     render :action => 'list4', :id => params[:id]
   end
 #
-# Get the function
+# Get the function to show it's summary information
 #
   def show
     @function = Function.find(params[:id])
   end
 #
-# Create a new function and a new associated user
+# Create a new Function and a new associated user, all functions must
+# have single a valid User.
 #
   def new
     @function = Function.new

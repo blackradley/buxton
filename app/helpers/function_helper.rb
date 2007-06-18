@@ -1,14 +1,17 @@
 # 
-# $URL$
+# $URL$ 
+# 
 # $Rev$
+# 
 # $Author$
+# 
 # $Date$
 #
 # Copyright (c) 2007 Black Radley Limited. All rights reserved. 
 #
 module FunctionHelper
 #
-# Show a tick or cross, if the function is approved or not
+# Show a tick or cross, if the function is approved or not.
 #
   def approved_tag(is_ticked)
     if is_ticked
@@ -18,7 +21,10 @@ module FunctionHelper
     end
   end
 #
-# If the approver field is blank, return some other string 
+# If the approver field is blank, return some other string, otherwise the 
+# table of functions looks a bit odd with blanks in it.  Then again this might
+# be what you want.  On the whole I think having some kind of 'null' entry 
+# makes sense.
 #
   def approver_or_blank(approver)
     if approver.nil? or approver.blank?
@@ -28,7 +34,9 @@ module FunctionHelper
     end
   end
 #
-# Display a coloured bar showing the level selected
+# Display a coloured bar showing the level selected.  A table is used because it is
+# convenient but it requires the colour to be provided as an image file.  This isn't
+# so bad but feels a bit uncomfortable.
 #
   def level_bar(value, out_of, color_image)
     html = 'No response'
@@ -44,7 +52,17 @@ module FunctionHelper
     return html
   end 
 #
-# The percentage answered for section 1
+# The percentage number of questions answered for section 1 (the relevance
+# test).  Originally this was part of the model but it has to make use of
+# the Strategy table as well, which was inconvenient from the model.  Also
+# you could argue that the number of questions answered is an external and
+# arbitary value not inherent in the model.  In a way it is something that 
+# is calculated based on the model, which is what happens here.
+# 
+# To prevent rounding occuring during the calculation (which would happen
+# because all the values are integers) the number of questions is given with
+# a decimal place to make it a float.  This seems a bit naff to me, I think
+# there should be a neater way, but Ruby isn't my strongest skill.
 #
   def section1_percentage_answered(function)     
     number_of_questions = 20.0 + function.organisation.strategies.count # decimal point prevents rounding
@@ -101,8 +119,12 @@ module FunctionHelper
     end
   end
 #
-# Hash of equality dimensions questions, figured that they might be used in a 
-# number of different places.
+# Hash of equality dimensions questions, I figured that they might be used in a 
+# number of different places.  It could have been placed in the database, in 
+# fact having it tacked on the end of the helper doesn't seem that good.
+# 
+# TODO: Review if these questions should be hard coded into the pages or stuck
+# in the database.  They seem like a bit of an anomally here.
 #
   $equality_questions = {
     'good_age'=>'If the function were performed well, would it affect different <strong>age groups</strong> differently?', 
