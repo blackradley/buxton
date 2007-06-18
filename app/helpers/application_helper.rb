@@ -1,19 +1,20 @@
 # 
-# $URL$
+# $URL$ 
+# 
 # $Rev$
+# 
 # $Author$
+# 
 # $Date$
 #
 # Copyright (c) 2007 Black Radley Limited. All rights reserved. 
 # 
-# Methods added to this helper will be available to all 
-# templates in the application.
+# Methods added to this helper will be available to all templates in the application.
 # 
 module ApplicationHelper
 #
-# I could use request.subdomains(0).first but it throws
-# a wobbly if in the development environment because
-# there is no subdomain on http://localhost:3000/
+# I could use <tt>request.subdomains(0).first</tt> but it throws a wobbly if in 
+# the development environment because there is no subdomain on http://localhost:3000/
 # 
   def subdomain(request)
     return request.host().split(/\s*\.\s*/)[0] 
@@ -27,7 +28,7 @@ module ApplicationHelper
 # and security checks you can confirm that the user and organisation
 # match.
 # 
-# However, the demonstration surcomvents most of this.  The subdomains
+# However, the demonstration circumvents most of this.  The subdomains
 # for the demonstration organisations and the styles are no longer 
 # unique.  And the security has been largely removed because it is
 # a demonstration.
@@ -45,7 +46,8 @@ module ApplicationHelper
     return organisation_name_out
   end
 #
-# Display the users progress through the questions
+# Display the users progress through the questions, this is used both in the 
+# Function and on the Organisation, hence it is here in the ApplicationHelper.
 #
   def progress_bar(percentage)
     html = "<table border='0' cellpadding='0' cellSpacing='0' bgColor='Red'>"
@@ -63,7 +65,8 @@ module ApplicationHelper
     :date_time24 => "%d %b %Y %H:%M"
   )
 #
-# Format the date or say there is nothing
+# Format the date or say there is nothing, rather than just outputting 
+# a blank or the date from the begining of the epoch.
 #
   def date_or_blank(date)
     if date.nil?
@@ -72,5 +75,4 @@ module ApplicationHelper
       return date.to_formatted_s(:date_time12)
     end
   end
- 
 end
