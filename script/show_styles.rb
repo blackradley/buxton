@@ -19,14 +19,18 @@ def wait_for_IE(ie)
   sleep(1) until ie.ReadyState == 4 #wait until ready state indicates complete
 end
 
+DEMO_HOST = 'http://www.localhost:3000/'
+ORGANISATION_HOST = 'http://birmingham.localhost:3000/'
+
 ie = WIN32OLE.new('InternetExplorer.Application')
 ie.Visible = true
-ie.Navigate('http://google.com')
-wait_for_IE(ie) 
-ie.Document.All.q.Value = 'ruby on windows'
-ie.Document.All.btnG.click
+ie.Navigate(DEMO_HOST)
 wait_for_IE(ie) 
 
-#ie.Quit
+ie = WIN32OLE.new('InternetExplorer.Application')
+ie.Visible = true
+ie.Navigate(ORGANISATION_HOST)
+wait_for_IE(ie) 
 
+ie.quit
 
