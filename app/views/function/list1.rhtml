@@ -18,8 +18,8 @@
     <td><%=h approver_or_blank(function.approver) %></td>
     <td><%= date_or_blank(function.user.reminded_on) %></td>
     <td>
-      <%= link_to 'View', :action => 'show', :id => function %> 
-      <%= link_to 'Amend', :action => 'edit_contact', :id => function %>
+      <%= link_to 'View', {:action => 'show', :id => function}, :id => 'view' %> 
+      <%= link_to 'Amend', {:action => 'edit_contact', :id => function}, :id => 'amend' %>
       <%= link_to 'Remind', {:action => 'remind', :id => function.user}, :confirm => 'Send email reminder to ' + function.name + '?', :method => :post %>
       <%= link_to 'Delete', { :action => 'destroy', :id => function }, :confirm => 'Delete ' + function.name + '?', :method => :post %>
     </td>

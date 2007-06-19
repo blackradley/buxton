@@ -7,7 +7,7 @@
     <th>Number Approved</th>
   </tr>
   <tr>
-    <td><%= link_to '1 - Purpose', :action => 'list1', :id => @organisation.id %></td>
+    <td><%= link_to '1 - Purpose', {:action => 'list1', :id => @organisation.id}, :id => 'list1' %></td>
     <td class="number"><%= @organisation.functions.count("approved = 1") %></td>
   </tr>
   <tr>
