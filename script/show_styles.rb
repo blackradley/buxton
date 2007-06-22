@@ -53,5 +53,7 @@ puts 'CEPT Section 1 amend - press return'
 ie.Document.All.amend.click
 input = gets
 
+# no email error message on /public/function/new
+
 ie.quit
 

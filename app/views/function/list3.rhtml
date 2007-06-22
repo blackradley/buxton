@@ -1,3 +1,31 @@
-<h4>Section 3</h4>
-<p>Not Available</p>
-<%= link_to 'Back', :action => 'show', :id => @function %>
+<h4>CEPT Organisation Control Page - Section 3a, Information</h4>
+<p>This page shows the Organisation Manager the progress in completing 
+section 3a, information, for all the identified functions and policies.  
+It also lets Organisation Manger view the answers completed to date and 
+send reminders to the Function Managers.</p>
+<table class="list">
+  <tr>
+    <th>Name</th>
+    <th>Completion</th>
+    <th>Score</th>
+    <th>Approved?</th>
+    <th>Approver</th>
+    <th>Last Reminder</th>
+  </tr>
+  <% for function in @functions %>
+  <tr>
+    <td><%=h function.name %></td>
+    <td class='icon'></td>
+    <td class='icon' align='center'></td>
+    <td class='icon' align='center'></td>
+    <td></td>
+    <td></td>
+    <td>
+      <%= link_to 'View' %> 
+      <%= link_to 'Remind' %>
+      <%= link_to 'Delete' %>
+    </td>
+  </tr>
+  <% end %>
+</table>
+<%= link_to 'Back', :action => 'list', :id => @function %>

@@ -36,6 +36,7 @@ class FunctionController < ApplicationController
 # User to scan down.
 #
   def list1
+    @organisation = Organisation.find(params[:id])
     @functions = Function.find_all_by_organisation_id(params[:id])
     render :action => 'list1', :id => params[:id]
   end
@@ -43,6 +44,7 @@ class FunctionController < ApplicationController
 # TODO: List for secton 2
 #
   def list2
+    @organisation = Organisation.find(params[:id])
     @functions = Function.find_all_by_organisation_id(params[:id])
     render :action => 'list2', :id => params[:id]
   end
@@ -50,6 +52,7 @@ class FunctionController < ApplicationController
 # TODO: List for secton 3
 #
   def list3
+    @organisation = Organisation.find(params[:id])
     @functions = Function.find_all_by_organisation_id(params[:id])
     render :action => 'list3', :id => params[:id]
   end
@@ -57,6 +60,7 @@ class FunctionController < ApplicationController
 # TODO: List for secton 4
 #
   def list4
+    @organisation = Organisation.find(params[:id])
     @functions = Function.find_all_by_organisation_id(params[:id])
     render :action => 'list4', :id => params[:id]
   end
