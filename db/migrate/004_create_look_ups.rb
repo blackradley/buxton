@@ -25,19 +25,19 @@ class CreateLookUps < ActiveRecord::Migration
     LookUp.create(:look_up_type => LookUp::TYPE[:existing_proposed],
     :name => $NO_ANSWER,
     :value => 0,
-    :weight => 0,
+    :weight => 15,
     :description => $NO_ANSWER,
     :display_order => 0)
     LookUp.create(:look_up_type => LookUp::TYPE[:existing_proposed],
     :name => 'Proposed',
     :value => 1,
-    :weight => 10,
+    :weight => 15,
     :description => 'Proposed',
     :display_order => 1)
     LookUp.create(:look_up_type => LookUp::TYPE[:existing_proposed],
     :name => 'Existing',
     :value => 2,
-    :weight => 1,
+    :weight => 5,
     :description => 'Existing',
     :display_order => 2)
 
@@ -45,7 +45,7 @@ class CreateLookUps < ActiveRecord::Migration
     LookUp.create(:look_up_type => LookUp::TYPE[:yes_no],
     :name => $NO_ANSWER,
     :value => 0,
-    :weight => 0,
+    :weight => 5,
     :description => $NO_ANSWER,
     :display_order => 0)
     LookUp.create(:look_up_type => LookUp::TYPE[:yes_no],
@@ -57,7 +57,7 @@ class CreateLookUps < ActiveRecord::Migration
     LookUp.create(:look_up_type => LookUp::TYPE[:yes_no],
     :name => 'No',
     :value => 2,
-    :weight => 1,
+    :weight => 5,
     :description => 'No',
     :display_order => 2)
     
@@ -115,25 +115,25 @@ class CreateLookUps < ActiveRecord::Migration
     LookUp.create(:look_up_type => LookUp::TYPE[:impact_level],
     :name => $NO_ANSWER,
     :value => 0,
-    :weight => 0,
+    :weight => 15,
     :description => $NO_ANSWER,
     :display_order => 0)
     LookUp.create(:look_up_type => LookUp::TYPE[:impact_level],
     :name => 'None',
     :value => 1,
-    :weight => 1,
+    :weight => 5,
     :description => 'None at all',
     :display_order => 1)
     LookUp.create(:look_up_type => LookUp::TYPE[:impact_level],
     :name => 'Limited',
     :value => 2,
-    :weight => 5,
+    :weight => 10,
     :description => 'Some impact',
     :display_order => 2)
     LookUp.create(:look_up_type => LookUp::TYPE[:impact_level],
     :name => 'Significant',
     :value => 3,
-    :weight => 10,
+    :weight => 15,
     :description => 'Significant impact',
     :display_order => 3)
    
