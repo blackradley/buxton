@@ -1,5 +1,8 @@
 <h3>CEPT Organisation Control Page</h3>
-<p>This page lets the Organisation Manager review the status of all the identified functions.</p>
+<p>This page lists all the functions and policies identified by the 
+local authority and their completion status by section.  It is for 
+use by the Organisation Manager to let them track and control to 
+progress with the impact assessment process.</p>
 <p>Number of functions identified <%= @organisation.functions.count %></p>
 <table class="list">
   <tr>
@@ -15,11 +18,15 @@
     <td class="number">0</td>
   </tr>
   <tr>
-    <td><%= link_to '3 - Information', :action => 'list3', :id => @organisation.id %></td>
+    <td>3 - Confidence</td>
     <td class="number">0</td>
   </tr>
   <tr>
-    <td><%= link_to '4 - Consultation', :action => 'list4', :id => @organisation.id %></td>
+    <td><%= link_to '3a - Information', :action => 'list3', :id => @organisation.id %></td>
+    <td class="number">0</td>
+  </tr>
+  <tr>
+    <td><%= link_to '3b - Consultation', :action => 'list4', :id => @organisation.id %></td>
     <td class="number">0</td>
   </tr>
 </table>
