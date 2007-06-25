@@ -13,6 +13,7 @@ been approved.</p>
   <tr>
     <td>
       <table class="list">
+        <caption>Table 1</caption>
         <tr>
           <th width="30%">Section</th>
           <th>Started</th>
@@ -21,15 +22,15 @@ been approved.</p>
         </tr>
         <tr>
           <td><%= link_to '1 - Purpose', {:action => 'list1', :id => @organisation.id}, :id => 'list1' %></td>
-          <td class="number">30</td>
+          <td class="number">50</td>
+          <td class="number">40</td>
           <td class="number">20</td>
-          <td class="number"><%= @organisation.functions.count("approved = 1") %></td>
         </tr>
         <tr>
           <td><%= link_to '2 - Performance', :action => 'list2', :id => @organisation.id %></td>
-          <td class="number">40</td>
+          <td class="number">30</td>
+          <td class="number">15</td>
           <td class="number">10</td>
-          <td class="number">8</td>
         </tr>
         <tr>
           <td>3 - Confidence</td>
@@ -39,20 +40,23 @@ been approved.</p>
         </tr>
         <tr>
           <td><%= link_to '3a - Information', :action => 'list3', :id => @organisation.id %></td>
-          <td class="number">42</td>
-          <td class="number">9</td>
-          <td class="number">8</td>
+          <td class="number">30</td>
+          <td class="number">15</td>
+          <td class="number">10</td>
         </tr>
         <tr>
           <td><%= link_to '3b - Consultation', :action => 'list4', :id => @organisation.id %></td>
-          <td class="number">46</td>
-          <td class="number">4</td>
-          <td class="number">3</td>
+          <td class="number">25</td>
+          <td class="number">15</td>
+          <td class="number">10</td>
         </tr>
       </table>
     </td>
+    <td width="15px">
+    </td>
     <td>
       <table class="list">
+        <caption>Table 2</caption>
         <tr>
           <th width="30%">
           </th>
@@ -75,66 +79,34 @@ been approved.</p>
           </td>
         </tr>
         <tr>
-          <td>
-            5 – high
-          </td>
-          <td class="number">
-          </td>
-          <td class="number">
-            1
-          </td>
-          <td class="number">
-          </td>
+          <td>5 – high</td>
+          <td class="number"></td>
+          <td class="number"></td>
+          <td class="number"></td>
         </tr>
         <tr>
-          <td>
-            4
-          </td>
-          <td class="number">
-          </td>
-          <td class="number">
-            1
-          </td>
-          <td class="number">
-          </td>
+          <td>4</td>
+          <td class="number"></td>
+          <td class="number">3</td>
+          <td class="number">2</td>
         </tr>
         <tr>
-          <td>
-            3
-          </td>
-          <td class="number">
-            2
-          </td>
-          <td class="number">
-          </td>
-          <td class="number">
-            6
-          </td>
+          <td>3</td>
+          <td class="number">1</td>
+          <td class="number">3</td>
+          <td class="number"></td>
         </tr>
         <tr>
-          <td>
-            2
-          </td>
-          <td class="number">
-            4
-          </td>
-          <td class="number">
-          </td>
-          <td class="number">
-            4
-          </td>
+          <td>2</td>
+          <td class="number">1</td>
+          <td class="number"></td>
+          <td class="number"></td>
         </tr>
         <tr>
-          <td>
-            1 - low
-          </td>
-          <td class="number">
-            12
-          </td>
-          <td class="number">
-          </td>
-          <td class="number">
-          </td>
+          <td>1 - low</td>
+          <td class="number"></td>
+          <td class="number"></td>
+          <td class="number"></td>
         </tr>
       </table>
     </td>
