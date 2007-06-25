@@ -84,7 +84,8 @@ h4{
 }
 
 .number{
-  text-align: right;
+  text-align: center;
+  width: 50px;
 }
 
 select{

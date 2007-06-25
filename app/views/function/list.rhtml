@@ -1,130 +1,142 @@
 <h3>CEPT Organisation Control Page</h3>
-<p>This page lists all the functions and policies identified by the 
-local authority and their completion status by section.  It is for 
-use by the Organisation Manager to let them track and control to 
-progress with the impact assessment process.</p>
+<p>This page is for use by the Organisation Manager to enable monitoring and control of the
+CEPT process. It shows the progress front line staff, have made in completing the CEPT
+process. The Organisation Manager can view the detail for each function or policy and
+contact the front line staff as required.</p>
+<p>Table 1 lists all the functions and policies identified by the local authority and whether
+the CEPT process has been started, completed or approved by section.</p>
+<p>Table 2 shows the distribution of overall priority scores (1 to 5) and impact dscores (H,
+M, L) for policies and functions that have been completed for all three sections and have
+been approved.</p>
 <p>Number of functions identified 50</p>
-<table class="list">
-  <tr>
-    <th>Section</th>
-    <th>Started</th>
-    <th>Completed</th>
-    <th>Number Approved</th>
-  </tr>
-  <tr>
-    <td><%= link_to '1 - Purpose', {:action => 'list1', :id => @organisation.id}, :id => 'list1' %></td>
-    <td class="number">30</td>
-    <td class="number">20</td>
-    <td class="number"><%= @organisation.functions.count("approved = 1") %></td>
-  </tr>
-  <tr>
-    <td><%= link_to '2 - Performance', :action => 'list2', :id => @organisation.id %></td>
-    <td class="number">40</td>
-    <td class="number">10</td>
-    <td class="number">8</td>
-  </tr>
-  <tr>
-    <td>3 - Confidence</td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td><%= link_to '3a - Information', :action => 'list3', :id => @organisation.id %></td>
-    <td class="number">42</td>
-    <td class="number">9</td>
-    <td class="number">8</td>
-  </tr>
-  <tr>
-    <td><%= link_to '3b - Consultation', :action => 'list4', :id => @organisation.id %></td>
-    <td class="number">46</td>
-    <td class="number">4</td>
-    <td class="number">3</td>
-  </tr>
-</table>
-<br />
-<table class="list">
-  <tr>
-    <th>
-    </th>
-    <th colspan="3">
-      Potential Impact
-    </th>
-  </tr>
+<table>
   <tr>
     <td>
-      Priority
+      <table class="list">
+        <tr>
+          <th width="30%">Section</th>
+          <th>Started</th>
+          <th>Completed</th>
+          <th>Approved</th>
+        </tr>
+        <tr>
+          <td><%= link_to '1 - Purpose', {:action => 'list1', :id => @organisation.id}, :id => 'list1' %></td>
+          <td class="number">30</td>
+          <td class="number">20</td>
+          <td class="number"><%= @organisation.functions.count("approved = 1") %></td>
+        </tr>
+        <tr>
+          <td><%= link_to '2 - Performance', :action => 'list2', :id => @organisation.id %></td>
+          <td class="number">40</td>
+          <td class="number">10</td>
+          <td class="number">8</td>
+        </tr>
+        <tr>
+          <td>3 - Confidence</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td><%= link_to '3a - Information', :action => 'list3', :id => @organisation.id %></td>
+          <td class="number">42</td>
+          <td class="number">9</td>
+          <td class="number">8</td>
+        </tr>
+        <tr>
+          <td><%= link_to '3b - Consultation', :action => 'list4', :id => @organisation.id %></td>
+          <td class="number">46</td>
+          <td class="number">4</td>
+          <td class="number">3</td>
+        </tr>
+      </table>
     </td>
     <td>
-      Low
-    </td>
-    <td>
-      Medium
-    </td>
-    <td>
-      High
-    </td>
-  </tr>
-  <tr>
-    <td>
-      5 – high
-    </td>
-    <td class="number">
-    </td>
-    <td class="number">
-      1
-    </td>
-    <td class="number">
-    </td>
-  </tr>
-  <tr>
-    <td>
-      4
-    </td>
-    <td class="number">
-    </td>
-    <td class="number">
-      1
-    </td>
-    <td class="number">
-    </td>
-  </tr>
-  <tr>
-    <td>
-      3
-    </td>
-    <td class="number">
-      2
-    </td>
-    <td class="number">
-    </td>
-    <td class="number">
-      6
-    </td>
-  </tr>
-  <tr>
-    <td>
-      2
-    </td>
-    <td class="number">
-      4
-    </td>
-    <td class="number">
-    </td>
-    <td class="number">
-      4
-    </td>
-  </tr>
-  <tr>
-    <td>
-      1 - low
-    </td>
-    <td class="number">
-      12
-    </td>
-    <td class="number">
-    </td>
-    <td class="number">
+      <table class="list">
+        <tr>
+          <th width="30%">
+          </th>
+          <th colspan="3">
+            Potential Impact
+          </th>
+        </tr>
+        <tr>
+          <td>
+            Priority
+          </td>
+          <td class="number">
+            Low
+          </td>
+          <td class="number">
+            Medium
+          </td>
+          <td class="number">
+            High
+          </td>
+        </tr>
+        <tr>
+          <td>
+            5 – high
+          </td>
+          <td class="number">
+          </td>
+          <td class="number">
+            1
+          </td>
+          <td class="number">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            4
+          </td>
+          <td class="number">
+          </td>
+          <td class="number">
+            1
+          </td>
+          <td class="number">
+          </td>
+        </tr>
+        <tr>
+          <td>
+            3
+          </td>
+          <td class="number">
+            2
+          </td>
+          <td class="number">
+          </td>
+          <td class="number">
+            6
+          </td>
+        </tr>
+        <tr>
+          <td>
+            2
+          </td>
+          <td class="number">
+            4
+          </td>
+          <td class="number">
+          </td>
+          <td class="number">
+            4
+          </td>
+        </tr>
+        <tr>
+          <td>
+            1 - low
+          </td>
+          <td class="number">
+            12
+          </td>
+          <td class="number">
+          </td>
+          <td class="number">
+          </td>
+        </tr>
+      </table>
     </td>
   </tr>
 </table>
