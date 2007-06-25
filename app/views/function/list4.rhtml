@@ -1,4 +1,4 @@
-<h4>CEPT Organisation Control Page - Section 3b, Consultation</h4>
+<h3>CEPT Organisation Control Page - Section 3b, Consultation</h3>
 <p>This page shows the Organisation Manager the progress in completing 
 section 3b, consultation, for all the identified functions and policies.  
 It also lets Organisation Manger view the answers completed to date and 
@@ -15,11 +15,11 @@ send reminders to the Function Managers.</p>
   <% for function in @functions %>
   <tr>
     <td><%=h function.name %></td>
-    <td class='icon'></td>
-    <td class='icon' align='center'></td>
-    <td class='icon' align='center'></td>
-    <td></td>
-    <td></td>
+    <td class='icon'><%= progress_bar(0) %></td>
+    <td class='icon' align='center'>N/A</td>
+    <td class='icon' align='center'><%= approved_tag(false) %></td>
+    <td><%=h approver_or_blank('') %></td>
+    <td>25 Jun 2007 05:39PM</td>
     <td>
       <%= link_to 'View' %> 
       <%= link_to 'Remind' %>
