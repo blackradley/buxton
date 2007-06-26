@@ -1,24 +1,21 @@
-
 <% form_tag :action => 'create_demo' do %>
-    <p>The CEPT comprises a questionnaire in three sections to be 
-    completed for each identified function or policy by the relevant 
-    operational manager.  Sections one and two are just one questionnaire 
-    whist the third section comprises two questionnaires.  All the answers 
-    to the questions are fixed in drop down menus so the user just has to 
-    choose the correct answer.  Some questions may be answered 'not sure' 
-    so that the user will be able to complete the questionnaire and return to any questions answered not sure at a later time.</p>
-    <p>The answers to the questions generate a score from 0 to 1 for each 
-    of the sections.  These scores produce an overall priority score on a 
-    scale of 1 (low priority) to 5 (high priority) and a potential impact 
-    rating of high, medium or low.  The results of section one also 
-    determine whether sections two and three need completion.</p>
-    <p>The CEPT has two levels of access; Organisation Manager being 
-    equalities staff who monitor and control the process and Function 
-    Manager who are the operational staff who complete the questionnaire.</p>
-    <p>In the demonstration version of CEPT only section one is 
-    functional.</p>
-    <p>Input your email address below to create a new organisation or 
-    access an organisation you have previously created.</p>
+<p>CEPT is a system for helping managers undertake equalities impact assessments on
+their own functions.</p>
+<p>At its heart are three sets of simple questions:</p>
+<ul>
+  <li>Purpose (Section 1): establishes how relevant the function is to equalities considerations</li>
+  <li>Performance (Section 2): reviews how well the function is performing, particularly from an equalities perspective</li>
+  <li>Confidence (Section 3): examines how robust that performance assessment is.</li>
+</ul>
+<p>CEPT has two levels of access:</p>
+<ul>
+   <li>Organisation Equalities Manager: staff with equalities responsibility across the organisation who monitor and control the overall CEPT environment</li>
+   <li>Function Manager: operational staff, responsible for the various functions of the organisation.</li>
+</ul>
+<p>This is a demonstration version of CEPT. Only the performance section is functional.
+To start the demonstration version, input your email address below. This will enable
+you to set up a new organisation, or access an organisation you have already created.
+</p>
     <p>
         <label>Email</label>:<%= text_field_tag :email, nil, options = {:size => 50} %>
     </p>
