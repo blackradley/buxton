@@ -14,7 +14,7 @@ class FunctionController < ApplicationController
 # By default list the functions.
 #
   def index
-    render :action => 'list'
+    render :action => 'summary'
   end
 # 
 # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
@@ -22,7 +22,15 @@ class FunctionController < ApplicationController
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
 #
-# Provide a summary of the stay of all the functions for all the four
+# Summary statistics for the functions
+#
+  def summary
+    @organisation = Organisation.find(params[:id])
+    @functions = Function.find_all_by_organisation_id(params[:id])
+    render :action => 'summary', :id => params[:id]
+  end
+#
+# Provide a summary of the state of all the functions for all the
 # sections of the review.
 #
   def list
@@ -55,14 +63,6 @@ class FunctionController < ApplicationController
     @organisation = Organisation.find(params[:id])
     @functions = Function.find_all_by_organisation_id(params[:id])
     render :action => 'list3', :id => params[:id]
-  end
-#
-# TODO: List for secton 4
-#
-  def list4
-    @organisation = Organisation.find(params[:id])
-    @functions = Function.find_all_by_organisation_id(params[:id])
-    render :action => 'list4', :id => params[:id]
   end
 #
 # Get the function to show it's summary information

@@ -1,0 +1,120 @@
+<h3>CEPT Organisation Summary Page</h3>
+<p>This is the headline page for the Organisation Equalities Manager. It shows how the
+organisation is progressing its equalities impact work, allowing monitoring and
+control.</p>
+<p>The CEPT Progress Table shows how many of the organisation’s functions and
+policies have started or been through the CEPT assessment process.</p>
+<p>The CEPT Results Table shows how each function/policy has scored. There are two
+scores per function:</p>
+<ul>
+  <li>Potential impact – the effect this function could have on achieving and promoting equality (high/medium.low)</li>
+  <li>Priority – a measure of how urgent it is that this function undertake a full action planning assessment exercise - from 5 (high priority) to 1 (low priority).</li>
+</ul>
+<p>
+<p>Number of functions identified 50</p>
+<table>
+  <tr>
+    <td>
+      <table class="list">
+        <caption>CEPT Progress Table</caption>
+        <tr>
+          <th width="30%">Section</th>
+          <th>Started</th>
+          <th>Completed</th>
+          <th>Approved</th>
+        </tr>
+        <tr>
+          <td>1 - Purpose</td>
+          <td class="number">50</td>
+          <td class="number">40</td>
+          <td class="number">20</td>
+        </tr>
+        <tr>
+          <td>2 - Performance</td>
+          <td class="number">30</td>
+          <td class="number">15</td>
+          <td class="number">10</td>
+        </tr>
+        <tr>
+          <td>3 - Confidence</td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td>3a - Information</td>
+          <td class="number">30</td>
+          <td class="number">15</td>
+          <td class="number">10</td>
+        </tr>
+        <tr>
+          <td>3b - Consultation</td>
+          <td class="number">25</td>
+          <td class="number">15</td>
+          <td class="number">10</td>
+        </tr>
+      </table>
+    </td>
+    <td width="15px">
+    </td>
+    <td>
+      <table class="list">
+        <caption>CEPT Results Table</caption>
+        <tr>
+          <th width="30%">
+          </th>
+          <th colspan="3">
+            Potential Impact
+          </th>
+        </tr>
+        <tr>
+          <td>
+            Priority
+          </td>
+          <td class="number">
+            Low
+          </td>
+          <td class="number">
+            Medium
+          </td>
+          <td class="number">
+            High
+          </td>
+        </tr>
+        <tr>
+          <td>5 – high</td>
+          <td class="number"></td>
+          <td class="number"></td>
+          <td class="number"></td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td class="number"></td>
+          <td class="number">3</td>
+          <td class="number">2</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td class="number">1</td>
+          <td class="number">3</td>
+          <td class="number"></td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td class="number">1</td>
+          <td class="number"></td>
+          <td class="number"></td>
+        </tr>
+        <tr>
+          <td>1 - low</td>
+          <td class="number"></td>
+          <td class="number"></td>
+          <td class="number"></td>
+        </tr>
+      </table>
+    </td>
+  </tr>
+</table>
+<p>
+<%= link_to 'Organisation Control Page – Functions', {:action => 'list', :id => @organisation.id}, :id => 'list1' %>
+</p>

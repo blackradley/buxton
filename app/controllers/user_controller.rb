@@ -152,7 +152,7 @@ class UserController < ApplicationController
         when User::TYPE[:functional]
           redirect_to :controller => 'function', :action => 'show', :id => user.function.id
         when User::TYPE[:organisational]
-          redirect_to :controller => 'function', :action => 'list', :id => user.organisation.id
+          redirect_to :controller => 'function', :action => 'summary', :id => user.organisation.id
         when User::TYPE[:administrative]
           redirect_to :controller => 'organisation', :action => 'index'
       end
