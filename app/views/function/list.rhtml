@@ -1,119 +1,34 @@
-<h3>CEPT Organisation Control Page</h3>
-<p>This is the headline page for the Organisation Equalities Manager. It shows how the
-organisation is progressing its equalities impact work, allowing monitoring and
-control.</p>
-<p>The CEPT Progress Table shows how many of the organisation’s functions and
-policies have started or been through the CEPT assessment process.</p>
-<p>TABLE 1 (change title to CEPT Progress Table, remove hyperlinks from
-Purpose/Performance/Confidence)</p>
-<p>The CEPT Results Table shows how each function/policy has scored. There are two
-scores per function:</p>
-<ul>
-  <li>Potential impact – the effect this function could have on achieving and promoting equality (high/medium.low)</li>
-  <li>Priority – a measure of how urgent it is that this function undertake a full action planning assessment exercise - from 5 (high priority) to 1 (low priority).</li>
-</ul>
-<p>
-<p>Number of functions identified 50</p>
-<table>
+<h3>CEPT Organisation Control Page - Functions</h3>
+<p>This page shows the Organisation Equalities Manager how each function is
+progressing through CEPT. It lets the Manager view the answers completed and send
+reminders to the Function Managers.</p>
+<table class="list">
   <tr>
+    <th>Name</th>
+    <th>Purpose</th>
+    <th>Performance</th>
+    <th>Confidence</th>
+    <th>Impact</th>
+    <th>Priority</th>
+  </tr>
+  <% for function in @functions %>
+  <tr>
+    <td><%=h function.name %></td>
+    <td>Started</td>
+    <td>Started</td>
+    <td>Started</td>
+    <td>Low</td>
+    <td>Low</td>
     <td>
-      <table class="list">
-        <caption>Table 1</caption>
-        <tr>
-          <th width="30%">Section</th>
-          <th>Started</th>
-          <th>Completed</th>
-          <th>Approved</th>
-        </tr>
-        <tr>
-          <td><%= link_to '1 - Purpose', {:action => 'list1', :id => @organisation.id}, :id => 'list1' %></td>
-          <td class="number">50</td>
-          <td class="number">40</td>
-          <td class="number">20</td>
-        </tr>
-        <tr>
-          <td><%= link_to '2 - Performance', :action => 'list2', :id => @organisation.id %></td>
-          <td class="number">30</td>
-          <td class="number">15</td>
-          <td class="number">10</td>
-        </tr>
-        <tr>
-          <td>3 - Confidence</td>
-          <td></td>
-          <td></td>
-          <td></td>
-        </tr>
-        <tr>
-          <td><%= link_to '3a - Information', :action => 'list3', :id => @organisation.id %></td>
-          <td class="number">30</td>
-          <td class="number">15</td>
-          <td class="number">10</td>
-        </tr>
-        <tr>
-          <td><%= link_to '3b - Consultation', :action => 'list4', :id => @organisation.id %></td>
-          <td class="number">25</td>
-          <td class="number">15</td>
-          <td class="number">10</td>
-        </tr>
-      </table>
-    </td>
-    <td width="15px">
-    </td>
-    <td>
-      <table class="list">
-        <caption>Table 2</caption>
-        <tr>
-          <th width="30%">
-          </th>
-          <th colspan="3">
-            Potential Impact
-          </th>
-        </tr>
-        <tr>
-          <td>
-            Priority
-          </td>
-          <td class="number">
-            Low
-          </td>
-          <td class="number">
-            Medium
-          </td>
-          <td class="number">
-            High
-          </td>
-        </tr>
-        <tr>
-          <td>5 – high</td>
-          <td class="number"></td>
-          <td class="number"></td>
-          <td class="number"></td>
-        </tr>
-        <tr>
-          <td>4</td>
-          <td class="number"></td>
-          <td class="number">3</td>
-          <td class="number">2</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td class="number">1</td>
-          <td class="number">3</td>
-          <td class="number"></td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td class="number">1</td>
-          <td class="number"></td>
-          <td class="number"></td>
-        </tr>
-        <tr>
-          <td>1 - low</td>
-          <td class="number"></td>
-          <td class="number"></td>
-          <td class="number"></td>
-        </tr>
-      </table>
+      <%= link_to 'View', {:action => 'show', :id => function}, :id => 'view' %> 
+      <%= link_to 'Amend', {:action => 'edit_contact', :id => function}, :id => 'amend' %>
+      <%= link_to 'Remind', {:action => 'remind', :id => function.user}, :confirm => 'Send email reminder to ' + function.name + '?', :method => :post %>
+      <%= link_to 'Delete', { :action => 'destroy', :id => function }, :confirm => 'Delete ' + function.name + '?', :method => :post %>
     </td>
   </tr>
+  <% end %>
 </table>
+<p><%= link_to 'Organisation Control Page - Function - Purpose', {:action => 'list1', :id => @organisation.id}, :id => 'list1' %></p>
+<p><%= link_to 'Organisation Control Page - Function - Performance', :action => 'list2', :id => @organisation.id %></p>
+<p><%= link_to 'Organisation Control Page - Function - Confidence', :action => 'list3', :id => @organisation.id %></p>
+<%= link_to 'Back', :action => 'summary', :id => @organisation %>
