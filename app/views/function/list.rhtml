@@ -15,16 +15,10 @@ reminders to the Function Managers.</p>
   <tr>
     <td><%=h function.name %></td>
     <td>Started</td>
-    <td>Started</td>
-    <td>Started</td>
+    <td>Not Started</td>
+    <td>Not Started</td>
     <td>Low</td>
     <td>Low</td>
-    <td>
-      <%= link_to 'View', {:action => 'show', :id => function}, :id => 'view' %> 
-      <%= link_to 'Amend', {:action => 'edit_contact', :id => function}, :id => 'amend' %>
-      <%= link_to 'Remind', {:action => 'remind', :id => function.user}, :confirm => 'Send email reminder to ' + function.name + '?', :method => :post %>
-      <%= link_to 'Delete', { :action => 'destroy', :id => function }, :confirm => 'Delete ' + function.name + '?', :method => :post %>
-    </td>
   </tr>
   <% end %>
 </table>
