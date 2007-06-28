@@ -1,27 +1,61 @@
-body{
-    font-family: verdana, arial, helvetica, sans-serif; 
-    padding:5px 20px 20px 20px;
-	background-color: #ffffff;
+BODY
+{
+	font-family: Tahoma, Verdana, Arial, Sans-Serif;
+	font-size: 0.7em;
+	text-align: center;
+	background: #FFF;
+	margin: 0;
+	color: #666;
 }
 
-h1{
-	font-size:18pt;
-	font-weight: bold;
+.content, .mastHead, .login_status
+{
+	width: 700px;
+	background-color: #FFF;
+	margin: 0px auto 0px auto;
+	text-align: left;
 }
 
-h2{
-	font-size:16pt;
-	font-weight: bold;
+
+h1
+{
+	font-weight:normal;
+	color: #339;
+}
+
+h2
+{
+	font-weight:normal;
+	color: #F90;
+	margin:0;
+	padding-bottom: 1em;
+}
+
+.titleArea
+{
+	border-bottom: solid 10px #cccce5;
+}
+.mastHead
+{
+	border-bottom: solid 2px #ff9900;
+}
+
+.login_status
+{
+	border-top: solid 2px #ff9900;
 }
 
 h3{
-	font-size:14pt;
 	font-weight: bold;
 }
 
 h4{ 
-	font-size:12pt;
 	font-weight: bold;
+}
+
+P, LI
+{
+	line-height: 150%;
 }
 
 .question-impact-groups{
@@ -39,48 +73,11 @@ h4{
 	background-repeat: repeat;
 }
 
-.mastHead{
-    height: 80px;
-    width: 100%;
-}
-
-.logo{
-    padding:76px 20px 20px 0;
-	background: url(../images/black_radley.gif);
-	background-repeat: no-repeat;
-	float: right; 
-	width: 250px;
-}
-
-.titleArea{
-    height: 30px;
-	float: left; 
-}
-
-.content{
-	float: left; 
-	top: 40px;
-	left: 10px;
-	width: 100%;
-}
-
-.workingArea{
-	float: left; 
-}
-
-.messageArea, .errorExplanation{
-	float: right; 
-	width: 200px;
-}
-
-
 .footer{
 	background-color: #FF9900;
-	float: right; 
 }
 
 .login_status{
-	float: right; 
 }
 
 .number{
@@ -88,33 +85,35 @@ h4{
   width: 50px;
 }
 
-select{
-	font-family:Arial; 
-	font-size:8pt;
-}
-
-input{
-	font-family:Arial; 
-	font-size:8pt;
-}
-
-textArea{
-	font-family:Arial; 
-	font-size:8pt;
+TABLE.list CAPTION
+{
+	font-weight: normal;
+	text-align:left;
+	background-color: #999;
+	color: #FFF;
+	padding:2px;
+	text-decoration:none;
 }
 
 table.list{
     border-collapse: collapse;
-    border: 2px solid;  
-	color: #000000;
 }
 
 table.list th{ 
-	border: 1px solid;
+	background-color: #EEE;
+	border-style: solid;
+	border-width: 1px;
+	border-top-color: #FFF;
+	border-right-color: #CCC;
+	border-bottom-color: #CCC;
+	border-left-color: #FFF;
+	padding: 2px;
 }   
 
-table.list td{ 
-	border: 1px solid;
+table.list td
+{
+	padding: 2px;
+	border: 1px solid #CCC;  
 }   
 
 td.icon{
@@ -123,11 +122,24 @@ td.icon{
 }
 
 td.bar{
-	font-size: 12px; 
 	color: #000000;
 	border: 1px solid;
+}
 
-p, li{; 
-	font-size: 12px; 
-	color: #000000;
+a:link { 
+  color: #333399; 
+  text-decoration: none;
+  text-decoration: underline;
+}
+
+a:visited { 
+  color: #333399;
+  text-decoration: none;
+  text-decoration: underline;
+}
+
+a:hover { 
+  color: #FFF; 
+  background-color: #333399;
+  text-decoration: none;
 }
