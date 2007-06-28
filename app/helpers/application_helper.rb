@@ -82,7 +82,7 @@ module ApplicationHelper
     html = 'Login status unknown'
     user = session['logged_in_user']
     if user.nil?
-      html = 'You are not logged in'
+      html = ''
     else
       case user.user_type
         when User::TYPE[:functional]
