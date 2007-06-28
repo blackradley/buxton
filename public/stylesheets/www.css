@@ -3,7 +3,7 @@ BODY
 	font-family: Tahoma, Verdana, Arial, Sans-Serif;
 	font-size: 0.7em;
 	text-align: center;
-	background: #FFF;
+	background: #f8f8f8;
 	margin: 0;
 	color: #666;
 }
@@ -16,6 +16,23 @@ BODY
 	text-align: left;
 }
 
+.content .workingArea
+{
+	margin:10px;
+}
+
+.mastHead .logo
+{
+	border-bottom: solid 10px #cccce5;
+	background: #292c4b url(../images/www.jpg) no-repeat top left;
+	height: 120px;
+	width: 700px;
+}
+
+.mastHead H1, .mastHead H2
+{
+	display:none;
+}
 
 h1
 {
@@ -31,10 +48,6 @@ h2
 	padding-bottom: 1em;
 }
 
-.titleArea
-{
-	border-bottom: solid 10px #cccce5;
-}
 .mastHead
 {
 	border-bottom: solid 2px #ff9900;
@@ -46,16 +59,29 @@ h2
 }
 
 h3{
-	font-weight: bold;
+	font-weight: normal;
+	color: #333399;
+	font-size: 2.5em;
 }
 
 h4{ 
 	font-weight: bold;
+	
 }
 
 P, LI
 {
 	line-height: 150%;
+}
+
+LABEL
+{
+	font-weight:bold;
+}
+
+A IMG
+{
+	border-style:none;
 }
 
 .question-impact-groups{
