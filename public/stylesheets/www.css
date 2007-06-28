@@ -155,7 +155,8 @@ UL.menuBar LI A:hover
 	border-right-color: #000;
 }
 
-/*Application Areas*/
+/*Application Spasific Classes*/
+/*Questions*/
 .question-impact-groups
 {
 	color: #000;
@@ -175,6 +176,32 @@ UL.menuBar LI A:hover
 	padding: 5px;
 	background-color: #e5cccc;
 }
+
+/*Results Progress Bars*/
+.bar-background
+{
+	width:200px;
+	height: 13px;
+	background: #FFF url(../images/grey.gif) repeat-x top left;
+}
+
+.bar-impact-groups
+{
+	height: 13px;
+	background: #ccdce5 url(../images/blue.gif) repeat-x top left;
+}
+
+.bar-equality-good
+{
+	height: 13px;
+	background: #d4e5cc url(../images/green.gif) repeat-x top left;
+}
+
+.bar-equality-bad{
+	height: 13px;
+	background: #e5cccc url(../images/red.gif) repeat-x top left;
+}
+
 
 .number{
   text-align: center;

@@ -61,7 +61,7 @@ the status of the active function.</p>
             <%= $impact_groups['service_users'] %>
           </td>
           <td>
-            <%= level_bar(@function.impact_service_users, LookUp.impact_amount, 'blue.gif') %>
+            <%= level_bar(@function.impact_service_users, LookUp.impact_amount, 'bar-impact-groups') %>
           </td>
         </tr>
         <tr>
@@ -69,7 +69,7 @@ the status of the active function.</p>
             <%= $impact_groups['staff'] %>
           </td>
           <td>
-            <%= level_bar(@function.impact_staff, LookUp.impact_amount, 'blue.gif') %>
+            <%= level_bar(@function.impact_staff, LookUp.impact_amount, 'bar-impact-groups') %>
           </td>
         </tr>
         <tr>
@@ -77,7 +77,7 @@ the status of the active function.</p>
             <%= $impact_groups['supplier_staff'] %>
           </td>
           <td>
-            <%= level_bar(@function.impact_supplier_staff, LookUp.impact_amount, 'blue.gif') %>
+            <%= level_bar(@function.impact_supplier_staff, LookUp.impact_amount, 'bar-impact-groups') %>
           </td>
         </tr>
         <tr>
@@ -85,7 +85,7 @@ the status of the active function.</p>
             <%= $impact_groups['partner_staff'] %>
           </td>
           <td>
-            <%= level_bar(@function.impact_partner_staff, LookUp.impact_amount, 'blue.gif') %>
+            <%= level_bar(@function.impact_partner_staff, LookUp.impact_amount, 'bar-impact-groups') %>
           </td>
         </tr>
         <tr>
@@ -93,7 +93,7 @@ the status of the active function.</p>
             <%= $impact_groups['employees'] %>
           </td>
           <td>
-            <%= level_bar(@function.impact_employees, LookUp.impact_amount, 'blue.gif') %>
+            <%= level_bar(@function.impact_employees, LookUp.impact_amount, 'bar-impact-groups') %>
           </td>
         </tr>
         <tr>
@@ -111,37 +111,37 @@ the status of the active function.</p>
         <tr>
           <td title="<%= $equality_questions['good_gender'] %>">Gender</td>
           <td title="<%= (@function.good_gender * 10).to_s + '%' %>" class="icon">
-            <%= level_bar(@function.good_gender, LookUp.impact_level, 'pink.gif') %>
+            <%= level_bar(@function.good_gender, LookUp.impact_level, 'bar-equality-good') %>
           </td>
         </tr>
         <tr>
           <td title="<%= $equality_questions['good_race'] %>">Race</td>
           <td title="<%= (@function.good_race * 10).to_s + '%' %>" class="icon">
-            <%= level_bar(@function.good_race, LookUp.impact_level, 'pink.gif') %>
+            <%= level_bar(@function.good_race, LookUp.impact_level, 'bar-equality-good') %>
           </td>
         </tr>
         <tr>
           <td title="<%= $equality_questions['good_disability'] %>">Disability</td>
           <td title="<%= (@function.good_disability * 10).to_s + '%' %>" class="icon">
-            <%= level_bar(@function.good_disability, LookUp.impact_level, 'pink.gif') %>
+            <%= level_bar(@function.good_disability, LookUp.impact_level, 'bar-equality-good') %>
           </td>
         </tr>
         <tr>
           <td title="<%= $equality_questions['good_faith'] %>">Faith</td>
           <td title="<%= (@function.good_faith * 10).to_s + '%' %>" class="icon">
-            <%= level_bar(@function.good_faith, LookUp.impact_level, 'pink.gif') %>
+            <%= level_bar(@function.good_faith, LookUp.impact_level, 'bar-equality-good') %>
           </td>
         </tr>
         <tr>
           <td title="<%= $equality_questions['good_sexual_orientation'] %>">Sexual Orientation</td>
           <td title="<%= (@function.good_sexual_orientation * 10).to_s + '%' %>" class="icon">
-            <%= level_bar(@function.good_sexual_orientation, LookUp.impact_level, 'pink.gif') %>
+            <%= level_bar(@function.good_sexual_orientation, LookUp.impact_level, 'bar-equality-good') %>
           </td>
         </tr>
         <tr>
           <td title="<%= $equality_questions['good_age'] %>">Age</td>
           <td title="<%= (@function.good_age * 10).to_s + '%' %>" class="icon">
-            <%= level_bar(@function.good_age, LookUp.impact_level, 'pink.gif') %>
+            <%= level_bar(@function.good_age, LookUp.impact_level, 'bar-equality-good') %>
           </td>
         </tr>
         <tr>
@@ -159,37 +159,37 @@ the status of the active function.</p>
         <tr>
           <td title="<%= $equality_questions['bad_gender'] %>">Gender</td>
           <td title="<%= (@function.bad_gender * 10).to_s + '%' %>" class="icon">
-            <%= level_bar(@function.bad_gender, LookUp.impact_level, 'purple.gif') %>
+            <%= level_bar(@function.bad_gender, LookUp.impact_level, 'bar-equality-bad') %>
           </td>
         </tr>
         <tr>
           <td title="<%= $equality_questions['bad_race'] %>">Race</td>
           <td title="<%= (@function.bad_race * 10).to_s + '%' %>" class="icon">
-            <%= level_bar(@function.bad_race, LookUp.impact_level, 'purple.gif') %>
+            <%= level_bar(@function.bad_race, LookUp.impact_level, 'bar-equality-bad') %>
           </td>
         </tr>
         <tr>
           <td title="<%= $equality_questions['bad_disability'] %>">Disability</td>
           <td title="<%= (@function.bad_disability * 10).to_s + '%' %>" class="icon">
-            <%= level_bar(@function.bad_disability, LookUp.impact_level, 'purple.gif') %>
+            <%= level_bar(@function.bad_disability, LookUp.impact_level, 'bar-equality-bad') %>
           </td>
         </tr>
         <tr>
           <td title="<%= $equality_questions['bad_faith'] %>">Faith</td>
           <td title="<%= (@function.bad_faith * 10).to_s + '%' %>" class="icon">
-            <%= level_bar(@function.bad_faith, LookUp.impact_level, 'purple.gif') %>
+            <%= level_bar(@function.bad_faith, LookUp.impact_level, 'bar-equality-bad') %>
           </td>
         </tr>
         <tr>
           <td title="<%= $equality_questions['bad_sexual_orientation'] %>">Sexual Orientation</td>
           <td title="<%= (@function.bad_sexual_orientation * 10).to_s + '%' %>" class="icon">
-            <%= level_bar(@function.bad_sexual_orientation, LookUp.impact_level, 'purple.gif') %>
+            <%= level_bar(@function.bad_sexual_orientation, LookUp.impact_level, 'bar-equality-bad') %>
           </td>
         </tr>
         <tr>
           <td title="<%= $equality_questions['bad_age'] %>">Age</td>
           <td title="<%= (@function.bad_age * 10).to_s + '%' %>" class="icon">
-            <%= level_bar(@function.bad_age, LookUp.impact_level, 'purple.gif') %>
+            <%= level_bar(@function.bad_age, LookUp.impact_level, 'bar-equality-bad') %>
           </td>
         </tr>
       </table>
