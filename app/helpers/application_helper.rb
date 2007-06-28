@@ -76,10 +76,7 @@ module ApplicationHelper
     end
   end
 #
-# Spoof the login status because the demo is supposed to show the User
-# logged in as both the Organisation and the Function manger at one
-# point while reverting to soley one or the other at other points.  This
-# makes no sense, but there you go.
+# Show the logged in user type.
 #
   def login_status()
     html = 'Login status unknown'
@@ -95,6 +92,26 @@ module ApplicationHelper
         when User::TYPE[:administrative]
           html = 'You are logged in as Administration Manager'
       end
+    end
+    return html
+  end
+#
+# Show a simple menu bar for the organisational user, but not for
+# anyone else.
+#
+  def menu_bar
+    html = 'Menu Fail'
+    user = session['logged_in_user']
+    if user.nil?
+      html = 'Menu Not logged in'
+    elsif user.user_type == User::TYPE[:organisational]
+      html = '<table class="menuBar"><tr>'
+      html += '<td>' + link_to('Summary', {:controller => 'function', :action => 'summary', :id => @organisation.id}, :id => 'list1') + '</td>'
+      html += '<td>' + link_to('Functions', {:controller => 'function', :action => 'list', :id => @organisation.id}, :id => 'list1') + '</td>'
+      html += '<td>' + link_to('Purpose', {:controller => 'function', :action => 'list1', :id => @organisation.id}, :id => 'list1') + '</td>'
+      html += '<td>' + link_to('Performance', {:controller => 'function', :action => 'list2', :id => @organisation.id}, :id => 'list1') + '</td>'
+      html += '<td>' + link_to('Confidence', {:controller => 'function', :action => 'list2', :id => @organisation.id}, :id => 'list1') + '</td>'
+      html += '</tr></table>'
     end
     return html
   end
