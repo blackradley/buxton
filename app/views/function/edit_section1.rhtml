@@ -2,8 +2,10 @@
 <h3><%= @function.name %></h3>
 
 <% form_tag :action => 'update', :id => @function do %>
-  <%= render :partial => 'section1' %>  
+  <%= render :partial => 'section1' %> 
+  <span class="button"> 
   <%= submit_tag 'Save' %>
+  </span>
 <% end %>
 
 <%= link_to 'Back', :action => 'show', :id => @function %>

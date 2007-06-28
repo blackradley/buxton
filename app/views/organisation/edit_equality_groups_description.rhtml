@@ -13,7 +13,9 @@
 <p><label for="organisation_bad_equality_groups_help">Bad Help</label><br/>
 <%= text_area 'organisation', 'bad_equality_groups_help', "cols" => 70, "rows" => 7  %></p>
 
+  <span class="button">
   <%= submit_tag 'Save' %>
+  </span>
 <% end %>
 
 <%= link_to 'Back', :controller => 'organisation', :action => 'list' %>
