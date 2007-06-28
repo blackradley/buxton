@@ -4,21 +4,28 @@ BODY
 	font-size: 0.7em;
 	text-align: center;
 	background: #f8f8f8;
-	margin: 0;
+	margin-top: 20px;
 	color: #666;
 }
 
-.content, .mastHead, .login_status
+.content, .mastHead, .login_status, .footer
 {
 	width: 700px;
 	background-color: #FFF;
 	margin: 0px auto 0px auto;
 	text-align: left;
+	border-left: solid 1px #515f8d;
+	border-right: solid 1px #515f8d;
+}
+
+.footer
+{
+	border-bottom:  solid 1px #515f8d;
 }
 
 .content .workingArea
 {
-	margin:10px;
+	margin:20px;
 }
 
 .mastHead .logo
@@ -53,11 +60,6 @@ h2
 	border-bottom: solid 2px #ff9900;
 }
 
-.login_status
-{
-	border-top: solid 2px #ff9900;
-}
-
 h3{
 	font-weight: normal;
 	color: #333399;
@@ -84,6 +86,63 @@ A IMG
 	border-style:none;
 }
 
+/* menuBar */
+DIV.menuBar
+{
+	background-color: #515f8d;
+	height:30px;
+}
+
+UL.menuBar
+{
+	margin: 0 0 0 5px;
+	padding: 0;
+	list-style: none;
+}
+
+UL.menuBar LI
+{
+	list-style: none;
+	float:left;
+	display: block;
+	margin-right: 5px;
+	margin-top: 5px;
+}
+
+UL.menuBar LI A:link, UL.menuBar LI A:visited
+{
+	text-decoration: none;
+	color: #FFF;
+	display: block;
+	background-color: #a8afc6;
+	padding:0 1em;
+	line-height: 25px;
+	font-weight:bold;
+}
+
+UL.menuBar LI A:hover
+{
+	background-color: #FFF;
+	color: #515f8d;
+}
+
+/*Clickable Buttons*/
+.button INPUT, BUTTON
+{
+	font-family: Tahoma, Verdana, Arial, Sans-Serif;
+	font-size: 1em;
+	font-weight: bold;
+	color: #FFF;
+	background-color: #515f8d;
+	border-style: solid;
+	border-width: 1px;
+	border-top-color: #a2beff;
+	border-left-color: #a2beff;
+	border-bottom-color: #000;
+	border-right-color: #000;
+}
+
+/*Application Areas*/
 .question-impact-groups{
 	background: url(../images/blue.gif);
 	background-repeat: repeat;
@@ -99,23 +158,17 @@ A IMG
 	background-repeat: repeat;
 }
 
-.footer{
-	background-color: #FF9900;
-}
-
-.login_status{
-}
-
 .number{
   text-align: center;
   width: 50px;
 }
 
+/*Tabular Data*/
 TABLE.list CAPTION
 {
 	font-weight: normal;
 	text-align:left;
-	background-color: #999;
+	background-color: #515f8d;
 	color: #FFF;
 	padding:2px;
 	text-decoration:none;
@@ -152,6 +205,7 @@ td.bar{
 	border: 1px solid;
 }
 
+/*Links*/
 a:link { 
   color: #333399; 
   text-decoration: none;
