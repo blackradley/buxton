@@ -3,7 +3,9 @@
 <% form_tag :action => 'update', :id => @function do %>
   <%= render :partial => 'contact' %>  
   <%= render :partial => 'section1' %>  
+  <span class="button">
   <%= submit_tag 'Save' %>
+  </span>
 <% end %>
 
 <%= link_to 'Back', :action => 'list1', :id => @session['logged_in_user'].organisation.id %> 

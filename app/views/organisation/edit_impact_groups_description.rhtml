@@ -7,7 +7,9 @@
 <p><label for="organisation_impact_groups_help">Help</label><br/>
 <%= text_area 'organisation', 'impact_groups_help', "cols" => 70, "rows" => 7  %></p>
 
+  <span class="button">
   <%= submit_tag 'Save' %>
+  </span>
 <% end %>
 
 <%= link_to 'Back', :controller => 'strategy', :action => 'list', :id => @organisation %>
