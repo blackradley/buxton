@@ -38,19 +38,46 @@ module FunctionHelper
 # convenient but it requires the colour to be provided as an image file.  This isn't
 # so bad but feels a bit uncomfortable.
 #
-  def level_bar(value, out_of, color_image)
+#  def level_bar(value, out_of, color_image)
+#    html = 'Not answered yet'
+#    if value != 0
+#      percentage = (value.to_f / (out_of.length - 1)) * 100.0
+#      percentage = percentage.round
+#      html = "<table border='0' cellpadding='0' cellSpacing='0'>"
+#      html += "<tr title='" + percentage.to_s + "%'>"
+#      html += "<td width='200' class='bar'>" + image_tag(color_image, :width => percentage * 2, :height => 10, :title=> percentage.to_s + '%') + "</td>"
+#      html += "</tr>"
+#      html += "</table>"
+#    end
+#    return html
+#  end 
+
+
+
+
+
+
+
+  def level_bar(value, out_of, css_class)
     html = 'Not answered yet'
     if value != 0
       percentage = (value.to_f / (out_of.length - 1)) * 100.0
       percentage = percentage.round
-      html = "<table border='0' cellpadding='0' cellSpacing='0'>"
-      html += "<tr title='" + percentage.to_s + "%'>"
-      html += "<td width='200' class='bar'>" + image_tag(color_image, :width => percentage * 2, :height => 10, :title=> percentage.to_s + '%') + "</td>"
-      html += "</tr>"
-      html += "</table>"
+	html = "<div class='bar-background'>"
+	html += "<div "
+	html += "title='" + percentage.to_s + "%' "
+	html += "class='" + css_class + "' "
+	html += "style='width:" + percentage.to_s + "%'"
+	html += "></div>"
+	html += "</div>"
     end
     return html
   end 
+
+
+
+
+
 #
 # The percentage number of questions answered for section 1 (the relevance
 # test).  Originally this was part of the model but it has to make use of
