@@ -105,13 +105,13 @@ module ApplicationHelper
     if user.nil?
       html = 'Menu Not logged in'
     elsif user.user_type == User::TYPE[:organisational]
-      html = '<table class="menuBar"><tr>'
-      html += '<td>' + link_to('Summary', {:controller => 'function', :action => 'summary', :id => @organisation.id}, :id => 'list1') + '</td>'
-      html += '<td>' + link_to('Functions', {:controller => 'function', :action => 'list', :id => @organisation.id}, :id => 'list1') + '</td>'
-      html += '<td>' + link_to('Purpose', {:controller => 'function', :action => 'list1', :id => @organisation.id}, :id => 'list1') + '</td>'
-      html += '<td>' + link_to('Performance', {:controller => 'function', :action => 'list2', :id => @organisation.id}, :id => 'list1') + '</td>'
-      html += '<td>' + link_to('Confidence', {:controller => 'function', :action => 'list2', :id => @organisation.id}, :id => 'list1') + '</td>'
-      html += '</tr></table>'
+      html = '<ul class="menuBar">'
+      html += '<li>' + link_to('Summary', {:controller => 'function', :action => 'summary', :id => @organisation.id}, :id => 'list1') + '</li>'
+      html += '<li>' + link_to('Functions', {:controller => 'function', :action => 'list', :id => @organisation.id}, :id => 'list1') + '</li>'
+      html += '<li>' + link_to('Purpose', {:controller => 'function', :action => 'list1', :id => @organisation.id}, :id => 'list1') + '</li>'
+      html += '<li>' + link_to('Performance', {:controller => 'function', :action => 'list2', :id => @organisation.id}, :id => 'list1') + '</li>'
+      html += '<li>' + link_to('Confidence', {:controller => 'function', :action => 'list2', :id => @organisation.id}, :id => 'list1') + '</li>'
+      html += '</ul>'
     end
     return html
   end
