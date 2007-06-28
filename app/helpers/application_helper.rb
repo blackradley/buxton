@@ -97,20 +97,24 @@ module ApplicationHelper
   end
 #
 # Show a simple menu bar for the organisational user, but not for
-# anyone else.
+# anyone else. 
+# 
+# TODO: think of a better way of doing the menu.  This just seems
+# terrible to me.
 #
-  def menu_bar
+  def menu_bar(request)
     html = 'Menu Fail'
+    organisation = Organisation.find_by_style(subdomain(request))
     user = session['logged_in_user']
     if user.nil?
       html = 'Menu Not logged in'
     elsif user.user_type == User::TYPE[:organisational]
       html = '<ul class="menuBar">'
-      html += '<li>' + link_to('Summary', {:controller => 'function', :action => 'summary', :id => @organisation.id}, :id => 'list1') + '</li>'
-      html += '<li>' + link_to('Functions', {:controller => 'function', :action => 'list', :id => @organisation.id}, :id => 'list1') + '</li>'
-      html += '<li>' + link_to('Purpose', {:controller => 'function', :action => 'list1', :id => @organisation.id}, :id => 'list1') + '</li>'
-      html += '<li>' + link_to('Performance', {:controller => 'function', :action => 'list2', :id => @organisation.id}, :id => 'list1') + '</li>'
-      html += '<li>' + link_to('Confidence', {:controller => 'function', :action => 'list2', :id => @organisation.id}, :id => 'list1') + '</li>'
+      html += '<li>' + link_to('Summary', {:controller => 'function', :action => 'summary', :id => organisation.id}, :id => 'list1') + '</li>'
+      html += '<li>' + link_to('Functions', {:controller => 'function', :action => 'list', :id => organisation.id}, :id => 'list1') + '</li>'
+      html += '<li>' + link_to('Purpose', {:controller => 'function', :action => 'list1', :id => organisation.id}, :id => 'list1') + '</li>'
+      html += '<li>' + link_to('Performance', {:controller => 'function', :action => 'list2', :id => organisation.id}, :id => 'list1') + '</li>'
+      html += '<li>' + link_to('Confidence', {:controller => 'function', :action => 'list2', :id => organisation.id}, :id => 'list1') + '</li>'
       html += '</ul>'
     end
     return html
