@@ -28,7 +28,7 @@ module FunctionHelper
 #
   def approver_or_blank(approver)
     if approver.nil? or approver.blank?
-      return 'Not answered yet'
+      return 'Not answered'
     else
       approver
     end
