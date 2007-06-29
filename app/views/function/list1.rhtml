@@ -22,13 +22,9 @@ and send reminders to the Function Managers.</p>
     <td><%= date_or_blank(function.user.reminded_on) %></td>
     <td>
       <%= link_to 'View', {:action => 'show', :id => function}, :id => 'view' %> 
-      <%= link_to 'Amend', {:action => 'edit_contact', :id => function}, :id => 'amend' %>
+      <%= link_to 'Amend', {:action => 'edit_section1', :id => function}, :id => 'amend' %>
       <%= link_to 'Remind', {:action => 'remind', :id => function.user}, :confirm => 'Send email reminder to ' + function.name + '?', :method => :post %>
-      <%= link_to 'Delete', { :action => 'destroy', :id => function }, :confirm => 'Delete ' + function.name + '?', :method => :post %>
     </td>
   </tr>
   <% end %>
 </table>
-<br />
-<%= link_to 'Add New', :action => 'new' %>
-<%= link_to 'Back', :action => 'list', :id => @organisation %>

@@ -1,5 +1,5 @@
-<h2>Equalities Assessment - Section 1 input</h2>
-<h3><%= @function.name %></h3>
+<h3>CEPT Function Input Page</h3>
+<h4><%= @function.name %></h4>
 
 <% form_tag :action => 'update', :id => @function do %>
   <%= render :partial => 'section1' %> 
@@ -7,5 +7,4 @@
   <%= submit_tag 'Save' %>
   </span>
 <% end %>
-
-<%= link_to 'Back', :action => 'show', :id => @function %>
+<%= link_to 'Back', :action => 'list1', :id => @session['logged_in_user'].organisation.id %> 

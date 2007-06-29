@@ -110,11 +110,11 @@ module ApplicationHelper
     elsif user.user_type == User::TYPE[:organisational]
       organisation = user.organisation
       html = '<ul class="menuBar">'
-      html += '<li>' + link_to('Summary', {:controller => 'function', :action => 'summary', :id => organisation.id}, :id => 'list1') + '</li>'
-      html += '<li>' + link_to('Functions', {:controller => 'function', :action => 'list', :id => organisation.id}, :id => 'list1') + '</li>'
-      html += '<li>' + link_to('Purpose', {:controller => 'function', :action => 'list1', :id => organisation.id}, :id => 'list1') + '</li>'
-      html += '<li>' + link_to('Performance', {:controller => 'function', :action => 'list2', :id => organisation.id}, :id => 'list1') + '</li>'
-      html += '<li>' + link_to('Confidence', {:controller => 'function', :action => 'list2', :id => organisation.id}, :id => 'list1') + '</li>'
+      html += '<li title="Organisation Control Page - Summary">' + link_to('Summary', {:controller => 'function', :action => 'summary', :id => organisation.id}, :id => 'list1') + '</li>'
+      html += '<li title="Organisation Control Page - Functions">' + link_to('Functions', {:controller => 'function', :action => 'list', :id => organisation.id}, :id => 'list1') + '</li>'
+      html += '<li title="Organisation Control Page - Function - Purpose">' + link_to('Purpose', {:controller => 'function', :action => 'list1', :id => organisation.id}, :id => 'list1') + '</li>'
+      html += '<li title="Organisation Control Page - Function - Performance">' + link_to('Performance', {:controller => 'function', :action => 'list2', :id => organisation.id}, :id => 'list1') + '</li>'
+      html += '<li title="Organisation Control Page - Function - Confidence">' + link_to('Confidence', {:controller => 'function', :action => 'list2', :id => organisation.id}, :id => 'list1') + '</li>'
       html += '</ul>'
     end
     return html

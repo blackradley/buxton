@@ -54,5 +54,6 @@ private
     @from         = FROM
     @sent_on      = Time.now
     @headers      = {}
+    # @content_type = "text/html"
   end
 end
