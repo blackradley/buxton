@@ -99,16 +99,16 @@ module ApplicationHelper
 # Show a simple menu bar for the organisational user, but not for
 # anyone else. 
 # 
-# TODO: think of a better way of doing the menu.  This just seems
-# terrible to me.
+# TODO: I think of a better way of doing the menu.  This just seems
+# terribly complicated to me.
 #
-  def menu_bar(request)
+  def menu_bar()
     html = 'Menu Fail'
-    organisation = Organisation.find_by_style(subdomain(request))
     user = session['logged_in_user']
     if user.nil?
       html = 'Menu Not logged in'
     elsif user.user_type == User::TYPE[:organisational]
+      organisation = user.organisation
       html = '<ul class="menuBar">'
       html += '<li>' + link_to('Summary', {:controller => 'function', :action => 'summary', :id => organisation.id}, :id => 'list1') + '</li>'
       html += '<li>' + link_to('Functions', {:controller => 'function', :action => 'list', :id => organisation.id}, :id => 'list1') + '</li>'
