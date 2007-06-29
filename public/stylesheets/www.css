@@ -28,7 +28,7 @@ BODY
 	margin:10px 20px;
 }
 
-.content .workingArea
+.content .workingArea, .messageArea
 {
 	margin:20px;
 }
