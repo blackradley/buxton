@@ -155,7 +155,7 @@ UL.menuBar LI A:hover
 	border-right-color: #000;
 }
 
-/*Application Spasific Classes*/
+/*Application Specific Classes*/
 /*Questions*/
 .question-impact-groups
 {
@@ -201,7 +201,6 @@ UL.menuBar LI A:hover
 	height: 13px;
 	background: #e5cccc url(../images/red.gif) repeat-x top left;
 }
-
 
 .number{
   text-align: center;
