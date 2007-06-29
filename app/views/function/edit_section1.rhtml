@@ -2,9 +2,11 @@
 <h4><%= @function.name %></h4>
 
 <% form_tag :action => 'update_section1', :id => @function do %>
-  <%= render :partial => 'section1' %> 
-  <span class="button"> 
-  <%= submit_tag 'Save' %>
-  </span>
+    <%= render :partial => 'section1' %>
+    <span class="button"><%= submit_tag 'Save' %></span>
 <% end %>
-<%= link_to 'Back', :action => 'list1', :id => @session['logged_in_user'].organisation.id %> 
+<% if @session['logged_in_user'].user_type == User::TYPE[:organisational] %>
+    <%= link_to 'Back', :action => 'list1', :id => @session['logged_in_user'].organisation.id %>
+<% else %>
+    <%= link_to 'Back', :action => 'show', :id => @function.id %>
+<% end %>
