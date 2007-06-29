@@ -200,9 +200,9 @@ the status of the active function.</p>
 <p>
 <% case @session['logged_in_user'].user_type 
      when User::TYPE[:functional] %>
-    <%= link_to 'Amend Function/Policy Details', :action => 'edit_relevance', :id => @function %>
+    <%= link_to 'Amend Function/Policy Details', :action => 'edit_section1', :id => @function %>
   <% when User::TYPE[:organisational] %>
-    <%= link_to 'Amend Function/Policy Details', {:action => 'edit_contact', :id => @function}, :id => 'amend' %> |
+    <%= link_to 'Amend Function/Policy Details', {:action => 'edit_section1', :id => @function}, :id => 'amend' %> |
     <%= link_to 'Back', :action => 'list1', :id => @session['logged_in_user'].organisation.id %> 
 <% end %>
 </p>
