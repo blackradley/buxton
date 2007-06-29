@@ -93,7 +93,7 @@ class FunctionController < ApplicationController
           @function.user = @user
           @function.save!      
           flash[:notice] = @function.name + ' was created.'
-          redirect_to :action => :list1, :id =>  @session['logged_in_user'].organisation.id
+          redirect_to :action => :list, :id =>  @session['logged_in_user'].organisation.id
         end
       end
     end
@@ -108,12 +108,26 @@ class FunctionController < ApplicationController
 #
   def edit_contact
     @function = Function.find(params[:id])
-    @strategies = @function.organisation.strategies
-    @function_responses = @function.function_strategies # could be empty
     @user = @function.user
   end
 #
-# Get the function information ready for editing using the relevance form.  
+# Update the contact email and function name
+#
+  def update_contact
+    @function = Function.find(params[:id])
+    @function.update_attributes(params[:function])
+    Function.transaction do
+      @user = @function.user
+      @user.update_attributes(params[:user])
+      flash[:notice] =  @function.name + ' was successfully changed.'
+      redirect_to :action => 'list', :id => @function.organisation
+    end
+  rescue ActiveRecord::RecordInvalid => e
+    @user.valid? # force checking of errors even if function failed
+    render :action => :new  
+  end
+#
+# Get the function information ready for editing using the section1 form.  
 # These are edited by the functional manager.
 #
   def edit_section1
@@ -130,7 +144,7 @@ class FunctionController < ApplicationController
 # date should be set to null.  Because the reminder is when the user was
 # reminded so is no longer valid if it is a new user.
 # 
-  def update
+  def update_section1
     @function = Function.find(params[:id])
     @function.update_attributes(params[:function])
     params[:function_strategies].each do |function_strategy|
@@ -138,19 +152,8 @@ class FunctionController < ApplicationController
       function_response.strategy_response = function_strategy[1]
       function_response.save
     end
-    Function.transaction do
-      @user = @function.user
-      @user.update_attributes(params[:user])
-      flash[:notice] =  @function.name + ' was successfully changed.'
-      if @session['logged_in_user'].user_type == User::TYPE[:functional]
-        redirect_to :action => :show, :id => @function
-      elsif @session['logged_in_user'].user_type == User::TYPE[:organisational]
-        redirect_to :action => :list1, :id => @function.organisation
-      end
-    end
-  rescue ActiveRecord::RecordInvalid => e
-    @user.valid? # force checking of errors even if function failed
-    render :action => :new  
+    flash[:notice] =  @function.name + ' was successfully changed.'
+    redirect_to :action => :show, :id => @function
   end
 #
 # Send a reminder to the email associated with that function.  Only one
@@ -172,7 +175,7 @@ class FunctionController < ApplicationController
 #
   def destroy
     Function.find(params[:id]).destroy
-    redirect_to :action => :list1, :id =>  @session['logged_in_user'].organisation.id
+    redirect_to :action => :list, :id =>  @session['logged_in_user'].organisation.id
   end
 
 protected
