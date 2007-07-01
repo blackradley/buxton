@@ -1,14 +1,14 @@
-#  
-# $URL$ 
-# 
+#
+# $URL$
+#
 # $Rev$
-# 
+#
 # $Author$
-# 
+#
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Limited. All rights reserved. 
-# 
+# Copyright (c) 2007 Black Radley Limited. All rights reserved.
+#
 class FunctionController < ApplicationController
 #
 # By default list the functions.
@@ -16,9 +16,9 @@ class FunctionController < ApplicationController
   def index
     render :action => 'summary'
   end
-# 
+#
 # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-# 
+#
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
 #
@@ -76,10 +76,10 @@ class FunctionController < ApplicationController
 #
   def new
     @function = Function.new
-    @user = User.new 
+    @user = User.new
   end
 #
-# Create a new function and a new user based on the parameters on the form.  
+# Create a new function and a new user based on the parameters on the form.
 #
   def create
     FunctionStrategy.transaction do
@@ -88,10 +88,10 @@ class FunctionController < ApplicationController
           @user = User.new(params[:user])
           @user.user_type = User::TYPE[:organisational]
           @user.save!
-          @function = Function.new(params[:function])   
-          @function.organisation_id = @session['logged_in_user'].organisation.id 
+          @function = Function.new(params[:function])
+          @function.organisation_id = @session['logged_in_user'].organisation.id
           @function.user = @user
-          @function.save!      
+          @function.save!
           flash[:notice] = @function.name + ' was created.'
           redirect_to :action => :list, :id =>  @session['logged_in_user'].organisation.id
         end
@@ -99,7 +99,7 @@ class FunctionController < ApplicationController
     end
   rescue ActiveRecord::RecordInvalid => e
     @user.valid? # force checking of errors even if function failed
-    render :action => :new    
+    render :action => :new
   end
 #
 # Get both the function and user information ready for editing, since they
@@ -124,10 +124,10 @@ class FunctionController < ApplicationController
     end
   rescue ActiveRecord::RecordInvalid => e
     @user.valid? # force checking of errors even if function failed
-    render :action => :new  
+    render :action => :new
   end
 #
-# Get the function information ready for editing using the section1 form.  
+# Get the function information ready for editing using the section1 form.
 # These are edited by the functional manager.
 #
   def edit_section1
@@ -139,11 +139,11 @@ class FunctionController < ApplicationController
 #
 # Update the function and all of its attributes, then redirect based on the
 # type of user.
-# 
+#
 # TODO: if the user "email" of the user has changed then the "reminded_on"
 # date should be set to null.  Because the reminder is when the user was
 # reminded so is no longer valid if it is a new user.
-# 
+#
   def update_section1
     @function = Function.find(params[:id])
     @function.update_attributes(params[:function])
@@ -158,7 +158,7 @@ class FunctionController < ApplicationController
 #
 # Send a reminder to the email associated with that function.  Only one
 # email should be sent for that function, so if the email is used a number
-# of times in the functions/users then the other functions are ignored 
+# of times in the functions/users then the other functions are ignored
 # until a reminder is sent for that specific function.
 #
   def remind

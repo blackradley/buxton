@@ -17,20 +17,17 @@
         </div>
         <h1>Cohesion Equalities Performance Tool</h1>
         <h2 class="titleArea"><%= organisation_name(request) %></h2>
-    </div> 
-    <div class="content"> 
+    </div>
+    <div class="content">
         <div>
             <div class="menuBar">
                <%= menu_bar() %>
             </div>
             <div class="workingArea">
-                <%= @content_for_layout %>  
+                <%= @content_for_layout %>
             </div>
             <div class="messageArea">
                 <p style="color: green"><%= flash[:notice] %></p>
-            </div>
-            <div class="errorArea">
-                <p style="color: red"><%= flash[:error] %></p>
             </div>
         </div>
     </div>

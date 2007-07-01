@@ -1,4 +1,3 @@
-<% form_tag :action => 'create_demo' do %>
 <p>CEPT is a system for helping managers undertake equalities impact assessments on
 their own functions.</p>
 <p>At its heart are three sets of simple questions:</p>
@@ -16,6 +15,9 @@ their own functions.</p>
 To start the demonstration version, input your email address below. This will enable
 you to set up a new organisation, or access an organisation you have already created.
 </p>
+
+<%= error_messages_for 'user' %>
+<% form_tag :action => 'create_demo' do %>
     <p>
         <label>Email</label>:<%= text_field_tag :email, nil, options = {:size => 50} %>
     </p>
