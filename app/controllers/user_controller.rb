@@ -1,14 +1,14 @@
-#  
-# $URL$ 
-# 
+#
+# $URL$
+#
 # $Rev$
-# 
+#
 # $Author$
-# 
+#
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Limited. All rights reserved. 
-# 
+# Copyright (c) 2007 Black Radley Limited. All rights reserved.
+#
 class UserController < ApplicationController
   def index
     # log out the user if they are logged in
@@ -65,21 +65,21 @@ class UserController < ApplicationController
 
 #
 # Find the user and then send them a new key
-# 
-# Unlike controllers from Action Pack, the mailer instance doesn't 
-# have any context about the incoming request.  So the request is 
+#
+# Unlike controllers from Action Pack, the mailer instance doesn't
+# have any context about the incoming request.  So the request is
 # passed in explicitly
 #
 # I should probably check that the subdomain is correct as well,
 # but who can be bothered with that.
 #
 # TODO: I am not sure that this actually works, check that if you have
-# a user that is operational user and a number of functional users, do 
+# a user that is operational user and a number of functional users, do
 # the links actually match up with the functions.
 #
-  def new_link 
+  def new_link
     @users = User.find_all_by_email(params[:email])
-    if @users.empty? 
+    if @users.empty?
       flash[:notice] = 'Unknown Email'
     else
       for @user in @users
@@ -96,11 +96,11 @@ class UserController < ApplicationController
             Notifier.deliver(email)
         end
       end
-      flash[:notice] = 'New link' + (@users.length >= 2 ? 's' :'') + ' sent to ' + @user.email 
+      flash[:notice] = 'New link' + (@users.length >= 2 ? 's' :'') + ' sent to ' + @user.email
     end
     redirect_to :action => 'index'
   end
-  
+
 #
 # Send a reminder to the email of the administrator
 #
@@ -121,26 +121,26 @@ class UserController < ApplicationController
     User.find(params[:id]).destroy
     redirect_to :action => 'list'
   end
-  
+
 #
 # Log the user in and then direct them to the right place based on the
 # user_type
-# 
+#
 # TODO: Ensure that the subdomain matches the one expected for that user.
-# 
+#
 # TODO: Monitor for repeated log ins from the same IP, block the IP if it
 # looks like some kind of brute force attack.
-# 
+#
 # TODO: Keys should expire after a couple of weeks, users should be able
 # to get a new key.  So if the key has expired send a new key to the user.
 #
 # TODO: Functional user should redirect to somewhere sensible, rather than
 # just the first record in the functions list.
-# 
+#
 # TODO: Once a user has authenticated they can then look at any record (and
 # edit it) by manipulating the query string/Url.  On the whole this is
 # probably a bad thing.
-# 
+#
   def login
     user = User.find_by_passkey(params[:passkey])
     if user.nil? # the key is not in the user table
@@ -164,18 +164,18 @@ class UserController < ApplicationController
     session['logged_in_user'] = nil
   end
 #
-# Create a new user and organisation, then log the user in.  Obviously this 
+# Create a new user and organisation, then log the user in.  Obviously this
 # bypasses the minimal security, but it is just a demo.  If the user is already
-# an organisational user the they go straight to the login.  So we don't get 
+# an organisational user the they go straight to the login.  So we don't get
 # multiple demo organisations for the same user.
-# 
-# If an admin user requests a demo then one is created for them since the 
+#
+# If an admin user requests a demo then one is created for them since the
 # admin users are not sought in the first find.
 #
   def create_demo
     @user = User.find(:first, :conditions => {:email => params[:email], :user_type => User::TYPE[:organisational]})
     organisational_user_passkey = nil # the passkey will have to be retained for the organisational user.
-    if @user.nil? 
+    if @user.nil?
       Function.transaction do
         Strategy.transaction do
           Organisation.transaction do
@@ -225,8 +225,8 @@ class UserController < ApplicationController
                 function.user = @user
                 function.organisation = @organisation
                 function.name = function_name
-                function.save!  
-              }              
+                function.save!
+              }
             end
           end
         end
@@ -239,8 +239,6 @@ class UserController < ApplicationController
     redirect_to :action => :login, :passkey => organisational_user_passkey
     rescue ActiveRecord::RecordInvalid => invalid
       @user.valid?
-       @user.errors.each {|key, value| flash[:error] = "Something has gone wrong (#{value}), please try again." }
-#      redirect_to :action => :index
       render :action => :demo
   end
 #
@@ -249,7 +247,7 @@ class UserController < ApplicationController
   protected
   def secure?
     false
-  end  
+  end
 #
 # Saving the user will give the user a new key
 #
