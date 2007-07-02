@@ -1,21 +1,21 @@
-# 
-# $URL$ 
-# 
+#
+# $URL$
+#
 # $Rev$
-# 
+#
 # $Author$
-# 
+#
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Limited. All rights reserved. 
+# Copyright (c) 2007 Black Radley Limited. All rights reserved.
 #
 # The notifier sends out new "unique" URLs to the different users.  The users
 # can then click on the link to get to the page they need to fill in.  No user
-# names or passwords to remember, but quite insecure.  Then again no one 
-# remembers the user names and passwords so they are a hassle.  It is all a 
+# names or passwords to remember, but quite insecure.  Then again no one
+# remembers the user names and passwords so they are a hassle.  It is all a
 # bit of a compromise between hassle and security.
 #
-# Unlike controllers from Action Pack, the mailer instance doesn‘t have any 
+# Unlike controllers from Action Pack, the mailer instance doesn‘t have any
 # context about the incoming request.  So the request is passed in explicitly
 # to each of the methods.
 class Notifier < ActionMailer::Base
@@ -34,7 +34,7 @@ class Notifier < ActionMailer::Base
 # A new key for the organisation administrator
 #
   def organisation_key(user, request)
-    @subject      = 'New Organisation Key for ' + user.organisation.name
+    @subject      = 'CEPT Demonstration Version 2.1'
     email_details(user, request)
   end
 #

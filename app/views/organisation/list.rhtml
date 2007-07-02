@@ -9,7 +9,6 @@
     <th></th>
     <th>Last Reminder</th>
     <th></th>
-    <th>Completed</th>
     <th></th>
   </tr>
   <% for organisation in @organisations %>
@@ -28,15 +27,15 @@
     </td>
     <td><%= date_or_blank(organisation.user.reminded_on) %></td>
     <td><%= link_to 'Remind', {:action => 'remind', :id => organisation.user}, :confirm => 'Send reminder to ' + organisation.name + '?', :method => :post %></td>
-    <td><%= progress_bar(organisation.percentage_completed) %></td>
     <td><%= link_to 'Delete', { :action => 'destroy', :id => organisation }, :confirm => 'Delete ' + organisation.name + '?', :method => :post %></td>
   </tr>
   <% end %>
 </table>
 
 <%= link_to 'Previous page', { :page => @organisation_pages.current.previous } if @organisation_pages.current.previous %>
-<%= link_to 'Next page', { :page => @organisation_pages.current.next } if @organisation_pages.current.next %> 
+<%= link_to 'Next page', { :page => @organisation_pages.current.next } if @organisation_pages.current.next %>
 
 <br />
-
 <%= link_to 'New organisation', :action => 'new' %>
+<br />
+<%= link_to 'New demonstration', :controller => 'user', :action => 'demo' %>

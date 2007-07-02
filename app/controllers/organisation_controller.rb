@@ -1,24 +1,24 @@
-#  
-# $URL$ 
-# 
+#
+# $URL$
+#
 # $Rev$
-# 
+#
 # $Author$
-# 
+#
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Limited. All rights reserved.. 
+# Copyright (c) 2007 Black Radley Limited. All rights reserved..
 #
 class OrganisationController < ApplicationController
   layout 'application'
-  
+
   def index
     list
     render :action => 'list'
   end
 #
 # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-# 
+#
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
 #
@@ -39,26 +39,25 @@ class OrganisationController < ApplicationController
 #
   def new
     @organisation = Organisation.new
-    @user = User.new 
+    @user = User.new
   end
 #
-# Create a new organiation and a new user based on the parameters on the form.  
+# Create a new organiation and a new user based on the parameters on the form.
 #
   def create
     @organisation = Organisation.new(params[:organisation])
     @user = User.new(params[:user])
-    @user.passkey = User.new_passkey
-    @user.user_type = User::ORGANISATIONAL
+    @user.user_type = User::TYPE[:organisational]
     Organisation.transaction do
       @user.organisation = @organisation
-      @organisation.save!
       @user.save!
+      @organisation.save!
       flash[:notice] = @organisation.name + ' was created.'
       redirect_to :action => :list
     end
   rescue ActiveRecord::RecordInvalid => e
     @user.valid? # force checking of errors even if function failed
-    render :action => :new    
+    render :action => :new
   end
 #
 # Get both the organisation and it's user since the user can also be edited
@@ -69,26 +68,26 @@ class OrganisationController < ApplicationController
     @user = @organisation.user
   end
 #
-#  
-#  
+#
+#
   def edit_strategies_description
     @organisation = Organisation.find(params[:id])
   end
 #
-#  
-#  
+#
+#
   def edit_impact_groups_description
     @organisation = Organisation.find(params[:id])
   end
 #
-#  
-#  
+#
+#
   def edit_equality_groups_description
     @organisation = Organisation.find(params[:id])
   end
 #
 # Update the organiation and all of its attributes
-# 
+#
   def update
     @organisation = Organisation.find(params[:id])
     @organisation.update_attributes(params[:organisation])
@@ -100,10 +99,10 @@ class OrganisationController < ApplicationController
     end
   rescue ActiveRecord::RecordInvalid => e
     @user.valid? # force checking of errors even if function failed
-    render :action => :new     
+    render :action => :new
   end
 #
-# Send a reminder to the email associated with that organisation. 
+# Send a reminder to the email associated with that organisation.
 #
   def remind
     @user = User.find(params[:id])
@@ -121,7 +120,7 @@ class OrganisationController < ApplicationController
     Organisation.find(params[:id]).destroy
     redirect_to :action => 'list'
   end
-  
+
 protected
 #
 # Secure the relevant methods in the controller.
