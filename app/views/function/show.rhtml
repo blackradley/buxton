@@ -104,7 +104,7 @@ the status of the active function.</p>
         <tr>
           <td colspan="2">
             <strong>
-            The Function/Policy has been assessed as having the following differential positive impact on these equality groups
+            The Function/Policy may have the following differential positive impact on these equality groups
             </strong>
           </td>
         </tr>
@@ -152,7 +152,7 @@ the status of the active function.</p>
         <tr>
           <td colspan="2">
             <strong>
-            The Function/Policy has been assessed as having the following differential negative impact on these equality groups
+            The Function/Policy may have the following differential negative impact on these equality groups
             </strong>
           </td>
         </tr>
@@ -198,11 +198,11 @@ the status of the active function.</p>
 </table>
 
 <p>
-<% case @session['logged_in_user'].user_type 
+<% case @session['logged_in_user'].user_type
      when User::TYPE[:functional] %>
-    <%= link_to 'Amend Function/Policy Details', :action => 'edit_section1', :id => @function %>
+    <%= link_to 'Amend Responses', {:action => 'edit_section1', :id => @function}, :id => 'amend' %>
   <% when User::TYPE[:organisational] %>
-    <%= link_to 'Amend Function/Policy Details', {:action => 'edit_section1', :id => @function}, :id => 'amend' %> |
-    <%= link_to 'Back', :action => 'list1', :id => @session['logged_in_user'].organisation.id %> 
+    <%= link_to 'Amend Responses', {:action => 'edit_section1', :id => @function}, :id => 'amend' %> |
+    <%= link_to 'Back', :action => 'list1', :id => @session['logged_in_user'].organisation.id %>
 <% end %>
 </p>

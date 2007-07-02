@@ -131,9 +131,6 @@ class UserController < ApplicationController
 # TODO: Monitor for repeated log ins from the same IP, block the IP if it
 # looks like some kind of brute force attack.
 #
-# TODO: Keys should expire after a couple of weeks, users should be able
-# to get a new key.  So if the key has expired send a new key to the user.
-#
 # TODO: Functional user should redirect to somewhere sensible, rather than
 # just the first record in the functions list.
 #
@@ -143,7 +140,7 @@ class UserController < ApplicationController
 #
   def login
     user = User.find_by_passkey(params[:passkey])
-    if user.nil? # the key is not in the user table
+    if user.nil? or user.reminded_on < 10.days.ago # the key is not in the user table
       flash[:notice] = 'Out of date link, enter your email to recieve a new one'
       redirect_to :action => 'index'
     else # the key is in the table so stash the user
