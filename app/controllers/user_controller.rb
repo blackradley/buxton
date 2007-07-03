@@ -138,9 +138,11 @@ class UserController < ApplicationController
 # edit it) by manipulating the query string/Url.  On the whole this is
 # probably a bad thing.
 #
+# TODO: Expire the keys after 10 days.
+#
   def login
     user = User.find_by_passkey(params[:passkey])
-    if user.nil? or user.reminded_on < 10.days.ago # the key is not in the user table
+    if user.nil? # the key is not in the user table
       flash[:notice] = 'Out of date link, enter your email to recieve a new one'
       redirect_to :action => 'index'
     else # the key is in the table so stash the user
