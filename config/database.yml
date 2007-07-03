@@ -30,7 +30,7 @@ test:
 
 production:
   adapter: mysql
-  database: buxton_production
-  username: buxton
-  password: ramjet
-  socket: /tmp/mysql.sock
+  database: db21552_buxton
+  username: db21552
+  password: FmAFdyDw
+  host: internal-db.s21552.gridserver.com
