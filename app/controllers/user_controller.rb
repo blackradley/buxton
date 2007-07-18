@@ -107,7 +107,7 @@ class UserController < ApplicationController
   def remind
     @user = User.find(params[:id])
     @user.passkey = User.new_passkey
-    @user.reminded_on = Time.now
+    @user.reminded_on = Time.now.gmtime
     @user.save
     email = Notifier.create_administration_key(@user)
     Notifier.deliver(email)
