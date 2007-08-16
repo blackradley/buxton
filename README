@@ -8,7 +8,5 @@ Project Buxton
 	birmingham.localhost
 	www.localhost
 
-4. To set up a demo visit <http://www.localhost:3000/> and enter your email address
-
-5. To recieve a reminder email visit <http://www.localhost:3000/user> and enter your email address.
+4. To recieve a reminder email visit <http://www.localhost:3000/user> and enter your email address.
 
