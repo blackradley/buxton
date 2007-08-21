@@ -7,7 +7,7 @@
 # 
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Limited. All rights reserved. 
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
 # 
 # Each organisation is owned by a single user.  It is entirely possible that more
 # than one user will want to edit the organisation or at least review the status

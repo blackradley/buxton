@@ -7,7 +7,7 @@
 # 
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Limited. All rights reserved. 
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
 #
 # All the drop down lists and stuff like that are supplied from a
 # single table of look ups.  The look ups are then selected using

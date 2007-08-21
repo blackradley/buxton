@@ -7,7 +7,7 @@
 # 
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Limited. All rights reserved. 
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
 # 
 # Each Organisation has a set of strategies (or priorities) which the functions
 # contribute to.  The strategies are typically inane, like "make things nicer" or
