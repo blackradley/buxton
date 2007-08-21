@@ -8,7 +8,7 @@ require 'digest/sha1'
 # 
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Limited. All rights reserved.
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
 # Filters added to this controller apply to all controllers in the application. 
 # So it is at this point we apply the security (:authenticate) filter.  Well actually we don't

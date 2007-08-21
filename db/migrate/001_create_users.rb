@@ -7,7 +7,7 @@
 # 
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Limited. All rights reserve. 
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserve. 
 #
 # The user table only contains only the email and key.
 # These are effectively the username and password, well

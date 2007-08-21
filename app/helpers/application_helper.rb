@@ -7,7 +7,7 @@
 #
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Limited. All rights reserved.
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
 # Methods added to this helper will be available to all templates in the application.
 #

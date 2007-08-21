@@ -7,7 +7,7 @@
 # 
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Limited. All rights reserved. 
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
 #
 # Functions are identifed by their name, which does not have to be unique but
 # it might be a good idea since the Organisation manager will use the name
