@@ -57,14 +57,6 @@ class FunctionController < ApplicationController
     render :action => 'list2', :id => params[:id]
   end
 #
-# TODO: List for secton 3
-#
-  def list3
-    @organisation = Organisation.find(params[:id])
-    @functions = Function.find_all_by_organisation_id(params[:id])
-    render :action => 'list3', :id => params[:id]
-  end
-#
 # Get the function to show it's summary information
 #
   def show

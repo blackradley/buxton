@@ -114,7 +114,6 @@ module ApplicationHelper
       html += '<li title="Organisation Control Page - Functions">' + link_to('Functions', {:controller => 'function', :action => 'list', :id => organisation.id}, :id => 'list') + '</li>'
       html += '<li title="Organisation Control Page - Function - Purpose">' + link_to('Purpose', {:controller => 'function', :action => 'list1', :id => organisation.id}, :id => 'list1') + '</li>'
       html += '<li title="Organisation Control Page - Function - Performance">' + link_to('Performance', {:controller => 'function', :action => 'list2', :id => organisation.id}, :id => 'list2') + '</li>'
-      html += '<li title="Organisation Control Page - Function - Confidence">' + link_to('Confidence', {:controller => 'function', :action => 'list3', :id => organisation.id}, :id => 'list3') + '</li>'
       html += '</ul>'
     end
     return html
