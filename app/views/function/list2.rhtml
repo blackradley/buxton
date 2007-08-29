@@ -6,23 +6,19 @@ and send reminders to the Function Managers.</p>
 <table class="list">
   <tr>
     <th>Name</th>
-    <th>Completion</th>
-    <th>Score</th>
-    <th>Approved?</th>
-    <th>Approver</th>
-    <th>Last Reminder</th>
+    <th>Completed</th>
+    <th>Last key sent</th>
+	<th></th>
   </tr>
   <% for function in @functions %>
   <tr>
     <td><%=h function.name %></td>
-    <td class='icon'><%= progress_bar(0) %></td>
-    <td class='icon' align='center'>N/A</td>
-    <td class='icon' align='center'><%= approved_tag(false) %></td>
-    <td><%=h approver_or_blank('') %></td>
-    <td>25 Jun 2007 05:39PM</td>
+    <td><%= progress_bar(0) %></td>
+    <td><%= date_or_blank(function.user.reminded_on) %></td>
     <td nowrap>
-      <%= link_to 'View' %>
-      <%= link_to 'Remind' %>
+      <%= link_to 'View', {:action => 'show', :id => function}, :id => 'view' %> 
+	  <%= link_to 'Email', "mailto:#{function.user.email}" -%>
+      <%= link_to 'Key', { :action => 'remind', :id => function.user.id }, :confirm => "Send e-mail reminder for #{function.name}?", :method => :post %>
     </td>
   </tr>
   <% end %>
