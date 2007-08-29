@@ -12,7 +12,7 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action'
-  map.connect ':passkey', :controller => 'user', :action => 'login'
+  map.connect ':passkey', :controller => 'users', :action => 'login'
   # Default to showing the login page
-  map.connect '', :controller => 'user'
+  map.connect '', :controller => 'users'
 end
