@@ -9,7 +9,7 @@
 #
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
 #
-module FunctionHelper
+module FunctionsHelper
 #
 # Show a tick or cross, if the function is approved or not.
 #
