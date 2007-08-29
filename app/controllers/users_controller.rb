@@ -9,7 +9,7 @@
 #
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
-class UserController < ApplicationController
+class UsersController < ApplicationController
   def index
     # log out the user if they are logged in
     session['logged_in_user'] = nil
@@ -149,11 +149,11 @@ class UserController < ApplicationController
       session['logged_in_user'] = user
       case user.user_type
         when User::TYPE[:functional]
-          redirect_to :controller => 'function', :action => 'show', :id => user.function.id
+          redirect_to :controller => 'functions', :action => 'show', :id => user.function.id
         when User::TYPE[:organisational]
-          redirect_to :controller => 'function', :action => 'summary', :id => user.organisation.id
+          redirect_to :controller => 'functions', :action => 'summary', :id => user.organisation.id
         when User::TYPE[:administrative]
-          redirect_to :controller => 'organisation', :action => 'index'
+          redirect_to :controller => 'organisations', :action => 'index'
       end
     end
   end

@@ -9,7 +9,7 @@
 #
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
-class FunctionController < ApplicationController
+class FunctionsController < ApplicationController
 #
 # By default list the functions.
 #

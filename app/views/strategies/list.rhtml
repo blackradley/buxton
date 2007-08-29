@@ -5,7 +5,7 @@
   </tr>
   <tr>
     <td><%= @organisation.strategies_description %></td>
-    <td><%= link_to 'Edit', :controller => 'organisation', :action => 'edit_strategies_description', :id => @organisation %></td>
+    <td><%= link_to 'Edit', :controller => 'organisations', :action => 'edit_strategies_description', :id => @organisation %></td>
   </tr>
   
 </table>
@@ -28,4 +28,4 @@
 <br />
 <%= link_to 'New strategy', :action => 'new', :id => @organisation.id %>
 <br />
-<%= link_to 'Back', :controller => 'organisation', :action => 'list' %>
+<%= link_to 'Back', :controller => 'organisations', :action => 'list' %>

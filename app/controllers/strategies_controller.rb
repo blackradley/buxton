@@ -9,7 +9,7 @@
 #
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
 #
-class StrategyController < ApplicationController
+class StrategiesController < ApplicationController
   def index
     list
     render :action => 'list'
