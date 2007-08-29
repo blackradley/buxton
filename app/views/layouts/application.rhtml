@@ -24,7 +24,7 @@
                <%= menu_bar() %>
             </div>
             <div class="workingArea">
-                <%= @content_for_layout %>
+                <%= yield %>
             </div>
             <div class="messageArea">
                 <p style="color: green"><%= flash[:notice] %></p>

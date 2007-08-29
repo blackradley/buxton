@@ -10,7 +10,6 @@
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved..
 #
 class OrganisationsController < ApplicationController
-  layout 'application'
 
   def index
     list
