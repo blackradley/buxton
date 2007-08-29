@@ -10,16 +10,16 @@ and send reminders to the Function Managers.</p>
     <th>Last key sent</th>
     <th></th>
   </tr>
-  <% for function in @functions %>
+  <% for function in @functions -%>
   <tr>
-    <td><%=h function.name %></td>
-    <td><%= progress_bar(section1_percentage_answered(function)) %></td>
-    <td><%= date_or_blank(function.user.reminded_on) %></td>
+    <td><%=h function.name -%></td>
+    <td><%= progress_bar(section1_percentage_answered(function)) -%></td>
+    <td><%= date_or_blank(function.user.reminded_on) -%></td>
     <td nowrap>
-      <%= link_to 'View', {:action => 'show', :id => function}, :id => 'view' %> 
+      <%= link_to 'View', {:action => 'show', :id => function}, :id => 'view' -%> 
 	  <%= link_to 'Email', "mailto:#{function.user.email}" -%>
-      <%= link_to 'Key', { :action => 'remind', :id => function.user.id }, :confirm => "Send e-mail reminder for #{function.name}?", :method => :post %>
+      <%= link_to 'Key', { :action => 'remind', :id => function.user.id }, :confirm => "Send e-mail reminder for #{function.name}?", :method => :post -%>
     </td>
   </tr>
-  <% end %>
+  <% end -%>
 </table>
