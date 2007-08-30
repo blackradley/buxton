@@ -148,21 +148,6 @@ class FunctionsController < ApplicationController
     redirect_to :action => :show, :id => @function
   end
 #
-# Send a reminder to the email associated with that function.  Only one
-# email should be sent for that function, so if the email is used a number
-# of times in the functions/users then the other functions are ignored
-# until a reminder is sent for that specific function.
-#
-  def remind
-    @user = User.find(params[:id])
-    @user.reminded_on = Time.now.gmtime
-    @user.save
-    email = Notifier.create_function_key(@user, request)
-    Notifier.deliver(email)
-    flash[:notice] = 'Reminder for ' + @user.function.name + ' sent to ' + @user.email
-    redirect_to :action => :list1, :id =>  @session['logged_in_user'].organisation.id
-  end
-#
 # TODO: Mark the function record with a deleted date do not destroy
 #
   def destroy

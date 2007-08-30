@@ -121,7 +121,38 @@ class UsersController < ApplicationController
     User.find(params[:id]).destroy
     redirect_to :action => 'list'
   end
-
+#
+# Send a passkey reminder to the email associated with this user. Only one e-mail will be sent and
+# it will use the Organisation Manager or Function Manager template accordingly.
+# The system currently does not allow for a user to be both types of manager. If it did, this would not work.
+# 
+  def remind
+    @user = User.find(params[:id])
+    
+    # Are they a function manager?
+    if @user.function then
+      email = Notifier.create_function_key(@user, request)
+      flash[:notice] = 'Reminder for ' + @user.function.name + ' sent to ' + @user.email
+    # Nope, are they an organisation manager?
+    elsif @user.organisation then
+      email = Notifier.create_organisation_key(@user, request)
+      flash[:notice] = 'Reminder for ' + @user.organisation.name + ' sent to ' + @user.email
+    # Nope. Well do nothing then.
+    else
+      # Shouldn't get here - but let them know what happened anyway
+      # TODO: throw exception in dev mode?
+      flash[:notice] = 'No reminder e-mail sent. This user does not manage anything.'
+      redirect_to :back
+    end
+    
+    # Send the reminder e-mail
+    Notifier.deliver(email)
+    # Update the time we reminded them
+    @user.reminded_on = Time.now.gmtime
+    @user.save
+    
+    redirect_to :back
+  end
 #
 # Log the user in and then direct them to the right place based on the
 # user_type
