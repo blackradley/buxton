@@ -137,6 +137,12 @@ UL.menuBar LI A:link, UL.menuBar LI A:visited
 	font-weight:bold;
 }
 
+UL.menuBar LI.selected A:link, UL.menuBar LI.selected A:visited
+{
+	background-color: #FFF;
+	color: #515f8d;
+}
+
 UL.menuBar LI A:hover
 {
 	background-color: #FFF;

@@ -110,7 +110,7 @@ module ApplicationHelper
     elsif user.user_type == User::TYPE[:organisational]
       organisation = user.organisation
       html = '<ul class="menuBar">'
-      html += '<li title="Organisation Control Page - Summary">' + link_to('Summary', {:controller => 'functions', :action => 'summary', :id => organisation.id}, :id => 'summary') + '</li>'
+      html += '<li title="Organisation Control Page - Summary" class="selected">' + link_to('Summary', {:controller => 'functions', :action => 'summary', :id => organisation.id}, :id => 'summary') + '</li>'
       html += '<li title="Organisation Control Page - Functions">' + link_to('Functions', {:controller => 'functions', :action => 'list', :id => organisation.id}, :id => 'list') + '</li>'
       html += '<li title="Organisation Control Page - Function - Purpose">' + link_to('Purpose', {:controller => 'functions', :action => 'list1', :id => organisation.id}, :id => 'list1') + '</li>'
       html += '<li title="Organisation Control Page - Function - Performance">' + link_to('Performance', {:controller => 'functions', :action => 'list2', :id => organisation.id}, :id => 'list2') + '</li>'
@@ -118,4 +118,5 @@ module ApplicationHelper
     end
     return html
   end
+  
 end
