@@ -16,10 +16,6 @@ the status of the active function.</p>
     <td><%= date_or_blank(@function.updated_on) %></td>
   </tr>
   <tr>
-    <td>Relevance</td>
-    <td class='icon'><%= relevance_tag(@function) %></td>
-   </tr>
-  <tr>
     <td>Percentage Completed</td>
     <td class='icon'><%= progress_bar(section1_percentage_answered(@function)) %></td>
   </tr>
