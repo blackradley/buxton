@@ -26,7 +26,7 @@
       <%= link_to 'Equality', :controller => 'organisations', :action => 'edit_equality_groups_description', :id => organisation %>
     </td>
     <td><%= date_or_blank(organisation.user.reminded_on) %></td>
-    <td><%= link_to 'Remind', {:action => 'remind', :id => organisation.user}, :confirm => 'Send reminder to ' + organisation.name + '?', :method => :post %></td>
+    <td><%= link_to 'Remind', { :controller => 'users', :action => 'remind', :id => organisation.user}, :confirm => 'Send reminder to ' + organisation.name + '?', :method => :post %></td>
     <td><%= link_to 'Delete', { :action => 'destroy', :id => organisation }, :confirm => 'Delete ' + organisation.name + '?', :method => :post %></td>
   </tr>
   <% end %>

@@ -101,18 +101,6 @@ class OrganisationsController < ApplicationController
     render :action => :new
   end
 #
-# Send a reminder to the email associated with that organisation.
-#
-  def remind
-    @user = User.find(params[:id])
-    @user.reminded_on = Time.now.gmtime
-    @user.save
-    email = Notifier.create_organisation_key(@user, request)
-    Notifier.deliver(email)
-    flash[:notice] = 'Reminder for ' + @user.organisation.name + ' sent to ' + @user.email
-    redirect_to :action => 'list'
-  end
-#
 # TODO: Mark the organisation record with a deleted date
 #
   def destroy

@@ -26,7 +26,7 @@ existing functions and delete functions.</p>
     <td><%= date_or_blank(function.user.reminded_on) %></td>
     <td>
 	  <%= link_to 'Email', "mailto:#{function.user.email}" -%>
-      <%= link_to 'Key', { :action => 'remind', :id => function.user.id }, :confirm => "Send e-mail reminder for #{function.name}?", :method => :post  -%>
+      <%= link_to 'Key', { :controller => 'users', :action => 'remind', :id => function.user.id }, :confirm => "Send e-mail reminder for #{function.name}?", :method => :post  -%>
       <%= link_to 'Amend', { :action => 'edit_contact', :id => function.id }, :id => 'amend' -%>
       <%= link_to 'Delete', { :action => 'destroy', :id => function.id }, :confirm => "Delete #{function.name}?", :method => :post -%>
     </td>
