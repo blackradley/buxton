@@ -35,7 +35,6 @@ class FunctionsController < ApplicationController
 #
   def list
     @organisation = Organisation.find(params[:id])
-    @functions = Function.find_all_by_organisation_id(params[:id])
     render :action => 'list', :id => params[:id]
   end
 #
@@ -45,7 +44,6 @@ class FunctionsController < ApplicationController
 #
   def list1
     @organisation = Organisation.find(params[:id])
-    @functions = Function.find_all_by_organisation_id(params[:id])
     render :action => 'list1', :id => params[:id]
   end
 #
@@ -53,7 +51,6 @@ class FunctionsController < ApplicationController
 #
   def list2
     @organisation = Organisation.find(params[:id])
-    @functions = Function.find_all_by_organisation_id(params[:id])
     render :action => 'list2', :id => params[:id]
   end
 #
