@@ -112,8 +112,15 @@ module ApplicationHelper
       html = '<ul class="menuBar">'
       html += '<li title="Organisation Control Page - Summary" class="selected">' + link_to('Summary', {:controller => 'functions', :action => 'summary', :id => organisation.id}) + '</li>'
       html += '<li title="Organisation Control Page - Functions">' + link_to('Functions', {:controller => 'functions', :action => 'list', :id => organisation.id}) + '</li>'
-      html += '<li title="Organisation Control Page - Function - Purpose">' + link_to('Purpose', {:controller => 'sections', :action => 'list', :section => 'purpose', :id => organisation.id}) + '</li>'
-      html += '<li title="Organisation Control Page - Function - Performance">' + link_to('Performance', {:controller => 'sections', :action => 'list', :section => 'performance', :id => organisation.id}) + '</li>'
+      html += '<li title="Organisation Control Page - Section - Purpose">' + link_to('Purpose', {:controller => 'sections', :action => 'list', :section => 'purpose', :id => organisation.id}) + '</li>'
+      html += '<li title="Organisation Control Page - Section - Performance">' + link_to('Performance', {:controller => 'sections', :action => 'list', :section => 'performance', :id => organisation.id}) + '</li>'
+      html += '</ul>'
+    elsif user.user_type == User::TYPE[:functional]
+      function = user.function
+      html = '<ul class="menuBar">'
+      html += '<li title="Function Control Page - Summary" class="selected">' + link_to('Summary', {:controller => 'functions', :action => 'show', :id => function.id}) + '</li>'
+      html += '<li title="Function Control Page - Section - Purpose">' + link_to('Purpose', {:controller => 'sections', :action => 'edit', :section => 'purpose', :id => function.id}) + '</li>'
+      html += '<li title="Function Control Page - Section - Performance">' + link_to('Performance', {:controller => 'sections', :action => 'edit', :section => 'performance', :id => function.id}) + '</li>'
       html += '</ul>'
     end
     return html
@@ -160,5 +167,37 @@ module ApplicationHelper
     percentage = percentage.round # round to one decimal place
     return percentage
   end
-    
+
+  # String resources
+  # ================
+  
+  # 
+  # Hash of impact groups, because they are used in a number of places. 
+  #    
+     $impact_groups = {
+      'service_users'=>'Service users', 
+      'staff'=>'Staff employed by the council', 
+      'supplier_staff'=>'Staff of supplier organisations', 
+      'partner_staff'=>'Staff of partner organisations', 
+      'employees'=>'Employees of businesses'
+      }
+  #
+  # Hash of equality dimensions questions, I figured that they might be used in a 
+  # number of different places.
+  #
+    $equality_questions = {
+      'good_age'=>'Would it affect different <strong>age groups</strong> differently?', 
+      'good_race'=>'Would it affect different <strong>Ethnic groups</strong> differently?', 
+      'good_gender'=>'Would it affect <strong>men and women</strong> differently?',
+      'good_sexual_orientation'=>'Would it affect people of different <strong>sexual orientation</strong> differently?',
+      'good_faith'=>'Would it affect different <strong>faith groups</strong> differently?',
+      'good_disability'=>'Would it affect <strong>people with different kinds of disabilities</strong> differently?',
+      'bad_age'=>'Would it affect different <strong>age groups</strong> differently?', 
+      'bad_race'=>'Would it affect different <strong>Ethnic groups</strong> differently?', 
+      'bad_gender'=>'Would it affect <strong>men and women</strong> differently?',
+      'bad_sexual_orientation'=>'Would it affect people of different <strong>sexual orientation</strong> differently?',
+      'bad_faith'=>'Would it affect different <strong>faith groups</strong> differently?',
+      'bad_disability'=>'Would it affect <strong>people with different kinds of disabilities</strong> differently?'
+      }
+  
 end
