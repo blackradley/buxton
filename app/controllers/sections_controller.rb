@@ -77,7 +77,7 @@ class SectionsController < ApplicationController
       function_response.save
     end
     flash[:notice] =  "#{@function.name} was successfully updated."
-    redirect_to :action => :show, :id => @function
+    redirect_to :back
   end
   
 end
