@@ -1,3 +1,7 @@
+<h3>CEPT Function Input Page</h3>
+<h4><%= @function.name %></h4>
+
+<% form_for(:function, :url => {:action => 'update', :id => @function.id}) do |f| %>
 <table width="100%">
   <tr>
     <td width="60%">
@@ -5,7 +9,7 @@
   </tr>
   <tr>
     <td>Is the Function/Policy 
-      <%= select('function', 'existence_status', LookUp.existing_proposed.collect {|l| [ l.name, l.value ] }) %>?
+      <%= f.select :existence_status, LookUp.existing_proposed.collect {|l| [ l.name, l.value ] } -%>?
     </td>
   </tr>
   <tr>
@@ -159,3 +163,11 @@
     <td><label for="user_email">Approved by</label> <%= text_field 'function', 'approver', "size" => 50  %></td>
   </tr>
 </table>
+
+<span class="button"><%= submit_tag 'Save' %></span>
+<% end %>
+<% if @session['logged_in_user'].user_type == User::TYPE[:organisational] %>
+    <%= link_to 'Back', :action => 'list1', :id => @session['logged_in_user'].organisation.id %>
+<% else %>
+    <%= link_to 'Back', :action => 'show', :id => @function.id %>
+<% end %>

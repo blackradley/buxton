@@ -110,13 +110,55 @@ module ApplicationHelper
     elsif user.user_type == User::TYPE[:organisational]
       organisation = user.organisation
       html = '<ul class="menuBar">'
-      html += '<li title="Organisation Control Page - Summary" class="selected">' + link_to('Summary', {:controller => 'functions', :action => 'summary', :id => organisation.id}, :id => 'summary') + '</li>'
-      html += '<li title="Organisation Control Page - Functions">' + link_to('Functions', {:controller => 'functions', :action => 'list', :id => organisation.id}, :id => 'list') + '</li>'
-      html += '<li title="Organisation Control Page - Function - Purpose">' + link_to('Purpose', {:controller => 'functions', :action => 'list1', :id => organisation.id}, :id => 'list1') + '</li>'
-      html += '<li title="Organisation Control Page - Function - Performance">' + link_to('Performance', {:controller => 'functions', :action => 'list2', :id => organisation.id}, :id => 'list2') + '</li>'
+      html += '<li title="Organisation Control Page - Summary" class="selected">' + link_to('Summary', {:controller => 'functions', :action => 'summary', :id => organisation.id}) + '</li>'
+      html += '<li title="Organisation Control Page - Functions">' + link_to('Functions', {:controller => 'functions', :action => 'list', :id => organisation.id}) + '</li>'
+      html += '<li title="Organisation Control Page - Function - Purpose">' + link_to('Purpose', {:controller => 'sections', :action => 'list', :section => 'purpose', :id => organisation.id}) + '</li>'
+      html += '<li title="Organisation Control Page - Function - Performance">' + link_to('Performance', {:controller => 'sections', :action => 'list', :section => 'performance', :id => organisation.id}) + '</li>'
       html += '</ul>'
     end
     return html
   end
-  
+
+# The percentage number of questions answered for section 1 (the relevance
+# test).  Originally this was part of the model but it has to make use of
+# the Strategy table as well, which was inconvenient from the model.  Also
+# you could argue that the number of questions answered is an external and
+# arbitary value not inherent in the model.  In a way it is something that 
+# is calculated based on the model, which is what happens here.
+# 
+# To prevent rounding occuring during the calculation (which would happen
+# because all the values are integers) the number of questions is given with
+# a decimal place to make it a float.  This seems a bit naff to me, I think
+# there should be a neater way, but Ruby isn't my strongest skill.
+#
+  def section_purpose_percentage_answered(function)     
+    number_of_questions = 20.0 + function.organisation.strategies.count # decimal point prevents rounding
+    questions_answered = function.existence_status > 0 ? 1 : 0
+    questions_answered += function.impact_service_users > 0 ? 1 : 0
+    questions_answered += function.impact_staff > 0 ? 1 : 0
+    questions_answered += function.impact_supplier_staff > 0 ? 1 : 0
+    questions_answered += function.impact_partner_staff > 0 ? 1 : 0
+    questions_answered += function.impact_employees > 0 ? 1 : 0
+    questions_answered += function.good_gender > 0 ? 1 : 0
+    questions_answered += function.good_race > 0 ? 1 : 0
+    questions_answered += function.good_disability > 0 ? 1 : 0
+    questions_answered += function.good_faith > 0 ? 1 : 0
+    questions_answered += function.good_sexual_orientation > 0 ? 1 : 0
+    questions_answered += function.good_age > 0 ? 1 : 0
+    questions_answered += function.bad_gender > 0 ? 1 : 0
+    questions_answered += function.bad_race > 0 ? 1 : 0
+    questions_answered += function.bad_disability > 0 ? 1 : 0
+    questions_answered += function.bad_faith > 0 ? 1 : 0
+    questions_answered += function.bad_sexual_orientation > 0 ? 1 : 0
+    questions_answered += function.bad_age > 0 ? 1 : 0
+    questions_answered += function.approved.to_i 
+    questions_answered += function.approver.blank? ? 0 : 1
+    function.function_strategies.each do |strategy|
+      questions_answered += strategy.strategy_response > 0 ? 1 : 0
+    end
+    percentage = (questions_answered / number_of_questions) * 100 # calculate
+    percentage = percentage.round # round to one decimal place
+    return percentage
+  end
+    
 end

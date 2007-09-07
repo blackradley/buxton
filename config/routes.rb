@@ -9,6 +9,7 @@
 ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
   # Install the default route as the lowest priority.
+  map.connect 'sections/:action/:section/:id', :controller => 'sections'
   map.connect ':controller/:action/:id.:format'
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action'
