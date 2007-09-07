@@ -30,6 +30,13 @@ class FunctionsController < ApplicationController
     render :action => 'summary', :id => params[:id]
   end
 #
+# Show the summary information for a specific function.
+# Available to the Function manager.
+#
+  def show
+    @function = Function.find(params[:id])
+  end  
+#
 # Provide a summary of the state of all the functions for all the
 # sections of the review.
 #
@@ -37,29 +44,6 @@ class FunctionsController < ApplicationController
     @organisation = Organisation.find(params[:id])
     render :action => 'list', :id => params[:id]
   end
-#
-# List the section 1 (the relevance test) for the functions of an Organisation
-# but don't paginate, a long list is actually more convenient for the Organisation
-# User to scan down.
-#
-  def list1
-    @organisation = Organisation.find(params[:id])
-    render :action => 'list1', :id => params[:id]
-  end
-#
-# TODO: List for secton 2
-#
-  def list2
-    @organisation = Organisation.find(params[:id])
-    render :action => 'list2', :id => params[:id]
-  end
-#
-# Get the function to show it's summary information
-#
-  def show
-    @function = Function.find(params[:id])
-  end
-#
 # Create a new Function and a new associated user, all functions must
 # have single a valid User.
 #
@@ -114,35 +98,6 @@ class FunctionsController < ApplicationController
   rescue ActiveRecord::RecordInvalid => e
     @user.valid? # force checking of errors even if function failed
     render :action => :new
-  end
-#
-# Get the function information ready for editing using the section1 form.
-# These are edited by the functional manager.
-#
-  def edit_section1
-    @function = Function.find(params[:id])
-    @strategies = @function.organisation.strategies
-    @function_responses = @function.function_strategies # could be empty
-    @user = @function.user
-  end
-#
-# Update the function and all of its attributes, then redirect based on the
-# type of user.
-#
-# TODO: if the user "email" of the user has changed then the "reminded_on"
-# date should be set to null.  Because the reminder is when the user was
-# reminded so is no longer valid if it is a new user.
-#
-  def update_section1
-    @function = Function.find(params[:id])
-    @function.update_attributes(params[:function])
-    params[:function_strategies].each do |function_strategy|
-      function_response = @function.function_strategies.find_or_create_by_strategy_id(function_strategy[0])
-      function_response.strategy_response = function_strategy[1]
-      function_response.save
-    end
-    flash[:notice] =  @function.name + ' was successfully changed.'
-    redirect_to :action => :show, :id => @function
   end
 #
 # TODO: Mark the function record with a deleted date do not destroy

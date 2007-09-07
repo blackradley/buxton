@@ -53,48 +53,6 @@ module FunctionsHelper
     return html
   end 
 #
-# The percentage number of questions answered for section 1 (the relevance
-# test).  Originally this was part of the model but it has to make use of
-# the Strategy table as well, which was inconvenient from the model.  Also
-# you could argue that the number of questions answered is an external and
-# arbitary value not inherent in the model.  In a way it is something that 
-# is calculated based on the model, which is what happens here.
-# 
-# To prevent rounding occuring during the calculation (which would happen
-# because all the values are integers) the number of questions is given with
-# a decimal place to make it a float.  This seems a bit naff to me, I think
-# there should be a neater way, but Ruby isn't my strongest skill.
-#
-  def section1_percentage_answered(function)     
-    number_of_questions = 20.0 + function.organisation.strategies.count # decimal point prevents rounding
-    questions_answered = function.existence_status > 0 ? 1 : 0
-    questions_answered += function.impact_service_users > 0 ? 1 : 0
-    questions_answered += function.impact_staff > 0 ? 1 : 0
-    questions_answered += function.impact_supplier_staff > 0 ? 1 : 0
-    questions_answered += function.impact_partner_staff > 0 ? 1 : 0
-    questions_answered += function.impact_employees > 0 ? 1 : 0
-    questions_answered += function.good_gender > 0 ? 1 : 0
-    questions_answered += function.good_race > 0 ? 1 : 0
-    questions_answered += function.good_disability > 0 ? 1 : 0
-    questions_answered += function.good_faith > 0 ? 1 : 0
-    questions_answered += function.good_sexual_orientation > 0 ? 1 : 0
-    questions_answered += function.good_age > 0 ? 1 : 0
-    questions_answered += function.bad_gender > 0 ? 1 : 0
-    questions_answered += function.bad_race > 0 ? 1 : 0
-    questions_answered += function.bad_disability > 0 ? 1 : 0
-    questions_answered += function.bad_faith > 0 ? 1 : 0
-    questions_answered += function.bad_sexual_orientation > 0 ? 1 : 0
-    questions_answered += function.bad_age > 0 ? 1 : 0
-    questions_answered += function.approved.to_i 
-    questions_answered += function.approver.blank? ? 0 : 1
-    function.function_strategies.each do |strategy|
-      questions_answered += strategy.strategy_response > 0 ? 1 : 0
-    end
-    percentage = (questions_answered / number_of_questions) * 100 # calculate
-    percentage = percentage.round # round to one decimal place
-    return percentage
-  end
-#
 # Return a yes or no for relevance, based on the Function.  A totally
 # unpleasant way of doing it.  There must be a neater way of doing 
 # this with a SQL statement but I can't be bothered to think about it.
@@ -142,43 +100,4 @@ module FunctionsHelper
   #   end
   #   return html
   # end
-#
-# If the strategy response is not set for a function, return 0 instead.
-# 
-  def strategy_response_or_zero(function_responses, id)
-    function_response = function_responses.find_by_strategy_id(id)
-    if function_response.nil?
-      return 0
-    else
-      return function_response.strategy_response
-    end
-  end
-#
-# Hash of equality dimensions questions, I figured that they might be used in a 
-# number of different places.
-#
-  $equality_questions = {
-    'good_age'=>'Would it affect different <strong>age groups</strong> differently?', 
-    'good_race'=>'Would it affect different <strong>Ethnic groups</strong> differently?', 
-    'good_gender'=>'Would it affect <strong>men and women</strong> differently?',
-    'good_sexual_orientation'=>'Would it affect people of different <strong>sexual orientation</strong> differently?',
-    'good_faith'=>'Would it affect different <strong>faith groups</strong> differently?',
-    'good_disability'=>'Would it affect <strong>people with different kinds of disabilities</strong> differently?',
-    'bad_age'=>'Would it affect different <strong>age groups</strong> differently?', 
-    'bad_race'=>'Would it affect different <strong>Ethnic groups</strong> differently?', 
-    'bad_gender'=>'Would it affect <strong>men and women</strong> differently?',
-    'bad_sexual_orientation'=>'Would it affect people of different <strong>sexual orientation</strong> differently?',
-    'bad_faith'=>'Would it affect different <strong>faith groups</strong> differently?',
-    'bad_disability'=>'Would it affect <strong>people with different kinds of disabilities</strong> differently?'
-    }
-#
-# Hash of impact groups, because they are used in a number of places. 
-#    
-   $impact_groups = {
-    'service_users'=>'Service users', 
-    'staff'=>'Staff employed by the council', 
-    'supplier_staff'=>'Staff of supplier organisations', 
-    'partner_staff'=>'Staff of partner organisations', 
-    'employees'=>'Employees of businesses'
-    }
 end

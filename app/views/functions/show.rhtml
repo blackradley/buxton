@@ -17,7 +17,8 @@ the status of the active function.</p>
   </tr>
   <tr>
     <td>Percentage Completed</td>
-    <td class='icon'><%= progress_bar(section1_percentage_answered(@function)) %></td>
+	<!-- K: TODO: Progress bar shows status across all sections, not just purpose! -->
+    <td class='icon'><%= progress_bar(section_purpose_percentage_answered(@function)) %></td>
   </tr>
   <tr>
     <td>Approved</td>

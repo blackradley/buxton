@@ -43,4 +43,16 @@ class Function < ActiveRecord::Base
   validates_presence_of :organisation
   validates_associated :organisation
   has_many :function_strategies
+  
+  # K: TODO
+  # def destroy
+  #   deleted_on = Time.now
+  #   save
+  # end
+  
+  # K: TODO
+  # def self.find(*args)
+  #   self.with_scope(:find => { :conditions => 'deleted_on IS NULL' }) { super(*args) }
+  # end
+  
 end
