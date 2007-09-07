@@ -1,0 +1,48 @@
+<h2>Function Input Page - Performance</h2>
+<h3><%= @function.name %></h3>
+<% form_for(:function, :url => {:action => 'update', :id => @function.id}) do |f| %>
+<h4>Overall Performance</h4>
+<label>How would you rate the current performance of the Function?</label>
+<label>Has this performance been validated?</label>
+<label>Please note the validation regime:</label>
+<label>Are there any performance issues which might have implications for different individuals within equality groups?</label>
+<label>Please note any such performance issues:</label>
+<h4>Performance by equality group</h4>
+<h5>Men and Women</h5>
+<label>How would you rate the current performance of the Function in meeting the different needs of men and women?</label>
+<label>Has this performance been validated?</label>
+<label>Please note the validation regime:</label>
+<label>Are there any performance issues which might have implications for men or women?</label>
+<label>Please note any such performance issues:</label>
+<h5>People from different ethnic backgrounds</h5>
+<label>How would you rate the current performance of the Function in meeting the needs of people from different ethnic backgrounds?</label>
+<label>Has this performance been validated?</label>
+<label>Please note the validation regime:</label>
+<label>Are there any performance issues which might have implications for people from different ethnic backgrounds?</label>
+<label>Please note any such performance issues:</label>
+<h5>People with different kinds of disability</h5>
+<label>How would you rate the current performance of the Function in meeting the needs of people with different kinds of disability?</label>
+<label>Has this performance been validated?</label>
+<label>Please note the validation regime:</label>
+<label>Are there any performance issues which might have implications for people with different kinds of disability?</label>
+<label>Please note any such performance issues:</label>
+<h5>People from different faith groups</h5>
+<label>How would you rate the current performance of the Function in meeting the needs of people from different faith groups?</label>
+<label>Has this performance been validated?</label>
+<label>Please note the validation regime:</label>
+<label>Are there any performance issues which might have implications for people from different faith groups?</label>
+<label>Please note any such performance issues:</label>
+<h5>People of different sexual orientations</h5>          
+<label>How would you rate the current performance of the Function in meeting the needs of people of different sexual orientations?</label>
+<label>Has this performance been validated?</label>
+<label>Please note the validation regime:</label>
+<label>Are there any performance issues which might have implications for people of different sexual orientations?</label>
+<label>Please note any such performance issues:</label>
+<h5>People of different ages</h5>
+<label>How would you rate the current performance of the Function in meeting the needs of people of different ages?</label>
+<label>Has this performance been validated?</label>
+<label>Please note the validation regime:</label>
+<label>Are there any performance issues which might have implications for people of different ages?</label>
+<label>Please note any such performance issues:</label>
+<span class="button"><%= submit_tag 'Save' %></span>
+<% end -%>
