@@ -149,19 +149,6 @@
       </table>
     </td>
   </tr>
-
-  <tr>
-    <td>Approved <%= check_box('function', 'approved') %></td>
-    <td rowspan="2">
-      <%= link_to_function image_tag("help.gif"), "Element.toggle('approval_help')" %>
-      <span id='approval_help' style="display:none;">
-        <%= @function.organisation.approval_help %>
-      </span>
-    </td>
-  </tr>
-  <tr>
-    <td><label for="user_email">Approved by</label> <%= text_field 'function', 'approver', "size" => 50  %></td>
-  </tr>
 </table>
 
 <span class="button"><%= submit_tag 'Save' %></span>

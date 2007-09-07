@@ -1,32 +1,49 @@
 <h3>CEPT Function Summary Page</h3>
 <h4><%= @function.name %></h4>
-<p>This page lets either the Organisation Manger or Function Manager review
-the status of the active function.</p>
 <table width="60%">
   <tr>
     <td>Contact:</td>
-    <td>
-      <a href="<%=h "mailto:" + @function.user.email + "?subject=" + @function.name %>">
-        <%=h @function.user.email %>
-      </a>
-    </td>
+    <td><%= link_to @function.user.email, "mailto:#{@function.user.email}?subject=#{@function.name}"-%></td>
   </tr>
   <tr>
     <td>Last changed:</td>
     <td><%= date_or_blank(@function.updated_on) %></td>
   </tr>
   <tr>
+    <td>Relevance</td>
+	<!-- TODO: display properly -->
+    <td class='icon'>Yes</td>
+   </tr>
+  <tr>
     <td>Percentage Completed</td>
 	<!-- K: TODO: Progress bar shows status across all sections, not just purpose! -->
     <td class='icon'><%= progress_bar(section_purpose_percentage_answered(@function)) %></td>
   </tr>
+</table>
+<% form_for(:function, :url => {:action => 'update', :id => @function.id}) do |f| %>
+<table>
   <tr>
-    <td>Approved</td>
-    <td class='icon'><%= approved_tag(@function.approved?) %> by <%=h approver_or_blank(@function.approver) %></td>
+    <td>Approved <input id="function_approved" name="function[approved]" type="checkbox" value="1" /></td>
+    <td rowspan="2">
+    <div><a href="#" onclick="toggleNode(this.parentNode); return false;"><img alt="Help" src="../../public/images/help.gif?1183480526" /></a>
+    <br />
+      <div style="display:none;">Help for Demo Council approval required</div>
+    </div>
+    </td>
   </tr>
   <tr>
+    <td><label for="user_email">Approved by</label> <input id="function_approver" name="function[approver]" size="50" type="text" value="" /></td>
+  </tr>
+	<tr><td><%= submit_tag -%></td></tr>
+</table>
+<% end -%>
+<br />
+<div><a href="#" onclick="toggleNode(this.parentNode); return false;">Purpose</a>
+<div style="display: none;">
+<table>
+  <tr>
     <td>Function/Policy is </td>
-    <td class='icon'><%= LookUp.existing_proposed.find{|lookUp| @function.existence_status == lookUp.value}.name %></td>
+    <td class='icon'><%= LookUp.existing_proposed.find{|lookUp| @function.existence_status == lookUp.value}.name %>
   </tr>
   <tr>
     <td colspan="2">
@@ -42,74 +59,40 @@ the status of the active function.</p>
     <td colspan="2">
       <table>
         <tr>
-          <td>
-            &nbsp;
+          <td colspan="2">
+            <strong>What proportion of these groups does "<%= @function.name %>" impact?</strong>
           </td>
+        </tr>
+        <tr>
+          <td><%= $impact_groups['service_users'] %></td>
+          <td><%= level_bar(@function.impact_service_users, LookUp.impact_amount, 'bar-impact-groups') %></td>
+        </tr>
+        <tr>
+          <td><%= $impact_groups['staff'] %></td>
+          <td><%= level_bar(@function.impact_staff, LookUp.impact_amount, 'bar-impact-groups') %></td>
+        </tr>
+        <tr>
+          <td><%= $impact_groups['supplier_staff'] %></td>
+          <td><%= level_bar(@function.impact_supplier_staff, LookUp.impact_amount, 'bar-impact-groups') %></td>
+        </tr>
+        <tr>
+          <td><%= $impact_groups['partner_staff'] %></td>
+          <td><%= level_bar(@function.impact_partner_staff, LookUp.impact_amount, 'bar-impact-groups') %></td>
+        </tr>
+        <tr>
+          <td><%= $impact_groups['employees'] %></td>
+          <td><%= level_bar(@function.impact_employees, LookUp.impact_amount, 'bar-impact-groups') %></td>
         </tr>
         <tr>
           <td colspan="2">
-            <strong>
-              What proportion of these groups does "<%= @function.name %>" impact?
-            </strong>
+            <strong>The Function/Policy may have the following differential positive impact on these equality groups</strong>
           </td>
         </tr>
         <tr>
-          <td>
-            <%= $impact_groups['service_users'] %>
-          </td>
-          <td>
-            <%= level_bar(@function.impact_service_users, LookUp.impact_amount, 'bar-impact-groups') %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <%= $impact_groups['staff'] %>
-          </td>
-          <td>
-            <%= level_bar(@function.impact_staff, LookUp.impact_amount, 'bar-impact-groups') %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <%= $impact_groups['supplier_staff'] %>
-          </td>
-          <td>
-            <%= level_bar(@function.impact_supplier_staff, LookUp.impact_amount, 'bar-impact-groups') %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <%= $impact_groups['partner_staff'] %>
-          </td>
-          <td>
-            <%= level_bar(@function.impact_partner_staff, LookUp.impact_amount, 'bar-impact-groups') %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            <%= $impact_groups['employees'] %>
-          </td>
-          <td>
-            <%= level_bar(@function.impact_employees, LookUp.impact_amount, 'bar-impact-groups') %>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            &nbsp;
-          </td>
-        </tr>
-        <tr>
-          <td colspan="2">
-            <strong>
-            The Function/Policy may have the following differential positive impact on these equality groups
-            </strong>
-          </td>
-        </tr>
-        <tr>
-          <td title="<%= $equality_questions['good_gender'] %>">Gender</td>
-          <td title="<%= (@function.good_gender * 10).to_s + '%' %>" class="icon">
-            <%= level_bar(@function.good_gender, LookUp.impact_level, 'bar-equality-good') %>
-          </td>
+			<td title="<%= $equality_questions['good_gender'] %>">Gender</td>
+			<td title="<%= (@function.good_gender * 10).to_s + '%' %>" class="icon">
+			  <%= level_bar(@function.good_gender, LookUp.impact_level, 'bar-equality-good') %>
+			</td>
         </tr>
         <tr>
           <td title="<%= $equality_questions['good_race'] %>">Race</td>
@@ -148,9 +131,7 @@ the status of the active function.</p>
         </tr>
         <tr>
           <td colspan="2">
-            <strong>
-            The Function/Policy may have the following differential negative impact on these equality groups
-            </strong>
+            <strong>The Function/Policy may have the following differential negative impact on these equality groups</strong>
           </td>
         </tr>
         <tr>
@@ -193,13 +174,11 @@ the status of the active function.</p>
     </td>
   </tr>
 </table>
-
-<p>
-<% case @session['logged_in_user'].user_type
-     when User::TYPE[:functional] %>
-    <%= link_to 'Amend Responses', {:action => 'edit_section1', :id => @function}, :id => 'amend' %>
-  <% when User::TYPE[:organisational] %>
-    <%= link_to 'Amend Responses', {:action => 'edit_section1', :id => @function}, :id => 'amend' %> |
-    <%= link_to 'Back', :action => 'list1', :id => @session['logged_in_user'].organisation.id %>
-<% end %>
-</p>
+</div>
+</div>
+<br />
+<div><a href="#" onclick="toggleNode(this.parentNode); return false;">Performance</a>
+	<div style="display: none;">
+	  Performance view of the data
+	</div>
+</div>
