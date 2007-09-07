@@ -104,20 +104,20 @@ A IMG
 }
 
 /* menuBar */
-DIV.menuBar
+DIV#menu
 {
 	background-color: #515f8d;
 	height:30px;
 }
 
-UL.menuBar
+UL#menuBar
 {
 	margin: 0 0 0 5px;
 	padding: 0;
 	list-style: none;
 }
 
-UL.menuBar LI
+UL#menuBar LI
 {
 	list-style: none;
 	float:left;
@@ -126,7 +126,7 @@ UL.menuBar LI
 	margin-top: 5px;
 }
 
-UL.menuBar LI A:link, UL.menuBar LI A:visited
+UL#menuBar LI A:link, UL#menuBar LI A:visited
 {
 	text-decoration: none;
 	color: #FFF;
@@ -137,13 +137,13 @@ UL.menuBar LI A:link, UL.menuBar LI A:visited
 	font-weight:bold;
 }
 
-UL.menuBar LI.selected A:link, UL.menuBar LI.selected A:visited
+UL#menuBar LI.selected A:link, UL#menuBar LI.selected A:visited
 {
 	background-color: #FFF;
 	color: #515f8d;
 }
 
-UL.menuBar LI A:hover
+UL#menuBar LI A:hover
 {
 	background-color: #FFF;
 	color: #515f8d;

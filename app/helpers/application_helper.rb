@@ -95,35 +95,58 @@ module ApplicationHelper
     end
     return html
   end
+#   
+# Takes a list of links and generates a menu accordingly.
+# On state provided by introduction of class="selected"
+#   
+  def generate_menu(links)
+    link_html = ''
+    links.each do |link|
+      class_name = (current_page?(link[:url])) ? 'selected' : ''
+      link_html << content_tag('li', link_to(link[:text], link[:url], :title => link[:title]),
+        { :class => class_name })
+    end
+    content_tag('ul', link_html, :id => 'menuBar')
+  end
 #
-# Show a simple menu bar for the organisational user, but not for
-# anyone else.
+# Shows a menu bar. Different for different user types. 
 #
-# TODO: I think of a better way of doing the menu.  This just seems
-# terribly complicated to me.
-#
-  def menu_bar()
-    html = 'Menu Fail'
+  def menu()
     user = session['logged_in_user']
     if user.nil?
-      html = 'Menu Not logged in'
+      'Menu Not logged in'
     elsif user.user_type == User::TYPE[:organisational]
       organisation = user.organisation
-      html = '<ul class="menuBar">'
-      html += '<li title="Organisation Control Page - Summary" class="selected">' + link_to('Summary', {:controller => 'functions', :action => 'summary', :id => organisation.id}) + '</li>'
-      html += '<li title="Organisation Control Page - Functions">' + link_to('Functions', {:controller => 'functions', :action => 'list', :id => organisation.id}) + '</li>'
-      html += '<li title="Organisation Control Page - Section - Purpose">' + link_to('Purpose', {:controller => 'sections', :action => 'list', :section => 'purpose', :id => organisation.id}) + '</li>'
-      html += '<li title="Organisation Control Page - Section - Performance">' + link_to('Performance', {:controller => 'sections', :action => 'list', :section => 'performance', :id => organisation.id}) + '</li>'
-      html += '</ul>'
+      generate_menu( [
+                      { :text => 'Summary',
+                        :url => { :controller => 'functions', :action => 'summary', :id => organisation.id },
+                        :title => 'Organisation Control Page - Summary' },
+                      { :text => 'Functions',
+                        :url => { :controller => 'functions', :action => 'list', :id => organisation.id },
+                        :title => 'Organisation Control Page - Functions' },
+                      { :text => 'Purpose',
+                        :url => { :controller => 'sections', :action => 'list', :section => 'purpose', :id => organisation.id },
+                        :title => 'Organisation Control Page - Section - Purpose' },
+                      { :text => 'Performance',
+                        :url => { :controller => 'sections', :action => 'list', :section => 'performance', :id => organisation.id },
+                        :title => 'Organisation Control Page - Section - Performance' }
+                      ])
     elsif user.user_type == User::TYPE[:functional]
       function = user.function
-      html = '<ul class="menuBar">'
-      html += '<li title="Function Control Page - Summary" class="selected">' + link_to('Summary', {:controller => 'functions', :action => 'show', :id => function.id}) + '</li>'
-      html += '<li title="Function Control Page - Section - Purpose">' + link_to('Purpose', {:controller => 'sections', :action => 'edit', :section => 'purpose', :id => function.id}) + '</li>'
-      html += '<li title="Function Control Page - Section - Performance">' + link_to('Performance', {:controller => 'sections', :action => 'edit', :section => 'performance', :id => function.id}) + '</li>'
-      html += '</ul>'
+      generate_menu( [
+                      { :text => 'Summary',
+                        :url => { :controller => 'functions', :action => 'show', :id => function.id },
+                        :title => 'Function Control Page - Summary' },
+                      { :text => 'Purpose',
+                        :url => { :controller => 'sections', :action => 'edit', :section => 'purpose', :id => function.id },
+                        :title => 'Function Control Page - Section - Purpose' },
+                      { :text => 'Performance',
+                        :url => { :controller => 'sections', :action => 'edit', :section => 'performance', :id => function.id },
+                        :title => 'Function Control Page - Section - Performance' }
+                      ])
+    else
+      'Menu Fail'
     end
-    return html
   end
 
 # The percentage number of questions answered for section 1 (the relevance
