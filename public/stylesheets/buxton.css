@@ -58,45 +58,81 @@ BODY
 h1
 {
 	font-weight:normal;
-	color: #339;
+	color: #515f8d;
 }
 
 h2
 {
 	font-weight:normal;
 	color: #F90;
-	margin:0;
+	margin:0px;
 	padding-bottom: 1em;
+	font-size:1.5em;
 }
 
 h3{
-	font-weight: normal;
-	color: #333399;
-	font-size: 2.5em;
+	font-weight: bold;
+	color: #515f8d;
+	font-size:1.2em;
 }
 
 h4{ 
 	font-weight: bold;
-	
+	color: #515f8d;
 }
-
-P, LI
-{
+LI{
 	line-height: 150%;
+}
+P
+{
+	
+	margin-bottom: 10px;
+	clear: left;
 }
 
 LABEL
 {
-	font-weight:bold;
+	clear: left;
+	float: left;
+	width: 500px;
+	line-height:20px;
+	margin-right: 10px;
+	margin-bottom: 10px;
 }
+
 
 INPUT, SELECT, OPTION, TEXTAREA
 {
 	font-family: Tahoma, Verdana, Arial, Sans-Serif;
 	font-size: 1em;
+	width: 150px;
+	
+	
+	margin-top: 4px;
+	
 }
 
 FORM{margin:0;}
+
+/*Links*/
+
+a:link { 
+  color: #333399; 
+  text-decoration: none;
+  text-decoration: underline;
+}
+
+a:visited { 
+  color: #333399;
+  text-decoration: none;
+  text-decoration: underline;
+}
+
+a:hover { 
+  color: #FFF; 
+  background-color: #333399;
+  text-decoration: none;
+}
 
 A IMG
 {
@@ -152,17 +188,31 @@ UL#menuBar LI A:hover
 /*Clickable Buttons*/
 .button INPUT, BUTTON
 {
+	float: right;
+	width: auto;
 	font-family: Tahoma, Verdana, Arial, Sans-Serif;
 	font-size: 1em;
+	padding: 4px 20px;
 	font-weight: bold;
 	color: #FFF;
 	background-color: #515f8d;
-	border-style: solid;
-	border-width: 1px;
-	border-top-color: #a2beff;
-	border-left-color: #a2beff;
-	border-bottom-color: #000;
-	border-right-color: #000;
+	border: 2px solid #F90;
+	cursor: pointer;
+	
+}
+.button a, .button a:visited, .button a:hover
+{
+	float: left;
+	width: auto;
+	font-family: Tahoma, Verdana, Arial, Sans-Serif;
+	font-size: 1em;
+	padding: 4px 20px;
+	font-weight: bold;
+	color: #FFF;
+	background-color: #515f8d;
+	border: 2px solid #F90;
+	text-decoration: none;
+	
 }
 
 /*Application Specific Classes*/
@@ -259,24 +309,6 @@ td.bar{
 	border: 1px solid;
 }
 
-/*Links*/
-a:link { 
-  color: #333399; 
-  text-decoration: none;
-  text-decoration: underline;
-}
-
-a:visited { 
-  color: #333399;
-  text-decoration: none;
-  text-decoration: underline;
-}
-
-a:hover { 
-  color: #FFF; 
-  background-color: #333399;
-  text-decoration: none;
-}
 
 /*Errors*/
 
@@ -327,4 +359,21 @@ a:hover {
 	float:left;
 	width: 310px;
 	margin: 0 5px;
+}
+
+/*help*/
+.toggleHelp{
+	float:left;
+	width: auto;
+	font-weight: normal;
+	color:#515f8d;
+	font-size:1em;
+	padding:20px;
+	margin-bottom:10px;
+	background-color: #f9fdd0;
+	border: 1px solid #fff3a4;
+}
+
+.clear{
+	clear: both;
 }
