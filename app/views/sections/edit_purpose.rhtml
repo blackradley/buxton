@@ -3,7 +3,7 @@
 
 <% form_for(:function, :url => {:action => 'update', :id => @function.id}) do |f| -%>
 
-<label>Is the Function/Policy</label><%= f.select :existence_status, LookUp.existing_proposed.collect {|l| [ l.name, l.value ] } -%>
+<p><label>Is the Function/Policy</label><%= f.select :existence_status, LookUp.existing_proposed.collect {|l| [ l.name, l.value ] } -%></p>
 
 <h4><%=h @function.organisation.strategies_description %> <%= link_to_function image_tag("help.gif"), "Element.toggle('strategies_help')" %><span id="strategies_help" style="display:none;"><%= @function.organisation.strategies_help -%></span></h4>
 <% @strategies.each do |strategy| -%>
@@ -18,20 +18,20 @@
 <p><label><%= $impact_groups['employees'] %></label><%= f.select 'impact_employees', LookUp.impact_amount.collect {|l| [ l.name, l.value ] } %></p>
 
 <h4><%=h @function.organisation.good_equality_groups_description %> <%= link_to_function image_tag("help.gif"), "Element.toggle('good_equality_groups_help')" %><span id="good_equality_groups_help" style="display:none;"><%= @function.organisation.good_equality_groups_help %></span></h4>
-<p><label><%= $equality_questions['good_gender'] %></label><%= f.select 'good_gender', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
-<p><label><%= $equality_questions['good_race'] %></label><%= f.select 'good_race', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
-<p><label><%= $equality_questions['good_disability'] %></label><%= f.select 'good_disability', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
-<p><label><%= $equality_questions['good_faith'] %></label><%= f.select 'good_faith', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
-<p><label><%= $equality_questions['good_sexual_orientation'] %></label><%= f.select 'good_sexual_orientation', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
-<p><label><%= $equality_questions['good_age'] %></label><%= f.select 'good_age', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
+<p><label><%= $questions['good_gender'] %></label><%= f.select 'good_gender', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
+<p><label><%= $questions['good_race'] %></label><%= f.select 'good_race', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
+<p><label><%= $questions['good_disability'] %></label><%= f.select 'good_disability', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
+<p><label><%= $questions['good_faith'] %></label><%= f.select 'good_faith', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
+<p><label><%= $questions['good_sexual_orientation'] %></label><%= f.select 'good_sexual_orientation', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
+<p><label><%= $questions['good_age'] %></label><%= f.select 'good_age', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
         
 <h4><%=h @function.organisation.bad_equality_groups_description %> <%= link_to_function image_tag("help.gif"), "Element.toggle('bad_equality_groups_help')" -%><span id="bad_equality_groups_help" style="display:none;"><%= @function.organisation.bad_equality_groups_help %></span></h4>
-<p><label><%= $equality_questions['bad_gender'] %></label><%= f.select 'bad_gender', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
-<p><label><%= $equality_questions['bad_race'] %></label><%= f.select 'bad_race', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
-<p><label><%= $equality_questions['bad_disability'] %></label><%= f.select 'bad_disability', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
-<p><label><%= $equality_questions['bad_faith'] %></label><%= f.select 'bad_faith', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
-<p><label><%= $equality_questions['bad_sexual_orientation'] %></label><%= f.select 'bad_sexual_orientation', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
-<p><label><%= $equality_questions['bad_age'] %></label><%= f.select 'bad_age', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
+<p><label><%= $questions['bad_gender'] %></label><%= f.select 'bad_gender', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
+<p><label><%= $questions['bad_race'] %></label><%= f.select 'bad_race', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
+<p><label><%= $questions['bad_disability'] %></label><%= f.select 'bad_disability', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
+<p><label><%= $questions['bad_faith'] %></label><%= f.select 'bad_faith', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
+<p><label><%= $questions['bad_sexual_orientation'] %></label><%= f.select 'bad_sexual_orientation', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
+<p><label><%= $questions['bad_age'] %></label><%= f.select 'bad_age', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
 
 <span class="button"><%= submit_tag 'Save' %></span>
 <% end %>
