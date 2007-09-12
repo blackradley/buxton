@@ -5,19 +5,22 @@
 
 <p><label>Is the Function/Policy</label><%= f.select :existence_status, LookUp.existing_proposed.collect {|l| [ l.name, l.value ] } -%></p>
 
-<h4><%=h @function.organisation.strategies_description %> <%= link_to_function image_tag("help.gif"), "Element.toggle('strategies_help')" %><span id="strategies_help" style="display:none;"><%= @function.organisation.strategies_help -%></span></h4>
+<h4><%=h @function.organisation.strategies_description %> <%= link_to_function image_tag("help.gif"), "Element.toggle('strategies_help')" %></h4>
+<span id="strategies_help" class="toggleHelp" style="display:none;"><%= @function.organisation.strategies_help -%></span>
 <% @strategies.each do |strategy| -%>
 <p><label title="<%= strategy.description %>"><%= strategy.name %></label><%= select('function_strategies', strategy.id, LookUp.yes_no.collect {|l| [ l.name, l.value ] }, :selected => strategy_response_or_zero(@function_responses, strategy.id)) -%></p>
 <% end -%>
 
-<h4><%=h @function.organisation.impact_groups_description %> <%= link_to_function image_tag("help.gif"), "Element.toggle('impact_groups_help')" %><span id="impact_groups_help" style="display:none;"><%= @function.organisation.impact_groups_help %></span></h4>
+<h4><%=h @function.organisation.impact_groups_description %> <%= link_to_function image_tag("help.gif"), "Element.toggle('impact_groups_help')" %></h4>
+<span id="impact_groups_help" class="toggleHelp" style="display:none;"><%= @function.organisation.impact_groups_help %></span>
 <p><label><%= $impact_groups['service_users'] -%></label><%= f.select 'impact_service_users', LookUp.impact_amount.collect {|l| [ l.name, l.value ] } -%></p>
 <p><label><%= $impact_groups['staff'] %></label><%= f.select 'impact_staff', LookUp.impact_amount.collect {|l| [ l.name, l.value ] } %></p>
 <p><label><%= $impact_groups['supplier_staff'] %></label><%= f.select 'impact_supplier_staff', LookUp.impact_amount.collect {|l| [ l.name, l.value ] } %></p>
 <p><label><%= $impact_groups['partner_staff'] %></label><%= f.select 'impact_partner_staff', LookUp.impact_amount.collect {|l| [ l.name, l.value ] } %></p>
 <p><label><%= $impact_groups['employees'] %></label><%= f.select 'impact_employees', LookUp.impact_amount.collect {|l| [ l.name, l.value ] } %></p>
 
-<h4><%=h @function.organisation.good_equality_groups_description %> <%= link_to_function image_tag("help.gif"), "Element.toggle('good_equality_groups_help')" %><span id="good_equality_groups_help" style="display:none;"><%= @function.organisation.good_equality_groups_help %></span></h4>
+<h4><%=h @function.organisation.good_equality_groups_description %> <%= link_to_function image_tag("help.gif"), "Element.toggle('good_equality_groups_help')" %></h4>
+<span id="good_equality_groups_help" class="toggleHelp" style="display:none;"><%= @function.organisation.good_equality_groups_help %></span>
 <p><label><%= $questions['good_gender'] %></label><%= f.select 'good_gender', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
 <p><label><%= $questions['good_race'] %></label><%= f.select 'good_race', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
 <p><label><%= $questions['good_disability'] %></label><%= f.select 'good_disability', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
@@ -25,7 +28,8 @@
 <p><label><%= $questions['good_sexual_orientation'] %></label><%= f.select 'good_sexual_orientation', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
 <p><label><%= $questions['good_age'] %></label><%= f.select 'good_age', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
         
-<h4><%=h @function.organisation.bad_equality_groups_description %> <%= link_to_function image_tag("help.gif"), "Element.toggle('bad_equality_groups_help')" -%><span id="bad_equality_groups_help" style="display:none;"><%= @function.organisation.bad_equality_groups_help %></span></h4>
+<h4><%=h @function.organisation.bad_equality_groups_description %> <%= link_to_function image_tag("help.gif"), "Element.toggle('bad_equality_groups_help')" -%></h4>
+<span id="bad_equality_groups_help" class="toggleHelp" style="display:none;"><%= @function.organisation.bad_equality_groups_help %></span>
 <p><label><%= $questions['bad_gender'] %></label><%= f.select 'bad_gender', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
 <p><label><%= $questions['bad_race'] %></label><%= f.select 'bad_race', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
 <p><label><%= $questions['bad_disability'] %></label><%= f.select 'bad_disability', LookUp.impact_level.collect {|l| [ l.name, l.value ] } %></p>
@@ -36,7 +40,12 @@
 <span class="button"><%= submit_tag 'Save' %></span>
 <% end %>
 <% if @session['logged_in_user'].user_type == User::TYPE[:organisational] %>
+<span class="button">
     <%= link_to 'Back', :action => 'list1', :id => @session['logged_in_user'].organisation.id %>
+</span>
 <% else %>
+<span class="button">
     <%= link_to 'Back', :action => 'show', :id => @function.id %>
+</span>
 <% end %>
+<div class="clear"></div>
