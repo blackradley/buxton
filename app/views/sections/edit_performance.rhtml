@@ -1,50 +1,59 @@
 <h2>Function Input Page - Performance</h2>
-<h3><%= @function.name %></h3>
-<% form_for(:function, :url => {:action => 'update', :id => @function.id}) do |f| %>
-<%= question(f, :overall_performance, :rating) -%>
-<%= question(f, :overall_validated, :yes_no_notsure) -%>
-<%= question(f, :overall_validation_regime, :text) -%>
-<%= question(f, :overall_issues, :yes_no_notsure) -%>
-<%= question(f, :overall_note_issues, :text) -%>
+<h3><%= @function.name -%></h3>
+
+<% form_for(:function, :url => {:action => 'update', :id => @function.id}, :builder => QuestionBuilder) do |f| -%>
 
 <h4>Overall Performance</h4>
+<%= f.question :overall_performance %>
+<%= f.question :overall_validated %>
+<%= f.question :overall_validation_regime %>
+<%= f.question :overall_issues %>
+<%= f.question :overall_note_issues %>
+<%= f.question :overall_note_issues %>
 
 <h4>Performance by equality group</h4>
+
 <h5>Men and Women</h5>
-<label>How would you rate the current performance of the Function in meeting the different needs of men and women?</label>
-<label>Has this performance been validated?</label>
-<label>Please note the validation regime:</label>
-<label>Are there any performance issues which might have implications for men or women?</label>
-<label>Please note any such performance issues:</label>
+<%= f.question :gender_performance %>
+<%= f.question :gender_validated %>
+<%= f.question :gender_validation_regime %>
+<%= f.question :gender_issues %>
+<%= f.question :gender_note_issues %>
+
 <h5>People from different ethnic backgrounds</h5>
-<label>How would you rate the current performance of the Function in meeting the needs of people from different ethnic backgrounds?</label>
-<label>Has this performance been validated?</label>
-<label>Please note the validation regime:</label>
-<label>Are there any performance issues which might have implications for people from different ethnic backgrounds?</label>
-<label>Please note any such performance issues:</label>
+<%= f.question :race_performance %>
+<%= f.question :race_validated %>
+<%= f.question :race_validation_regime %>
+<%= f.question :race_issues %>
+<%= f.question :race_note_issues %>
+
 <h5>People with different kinds of disability</h5>
-<label>How would you rate the current performance of the Function in meeting the needs of people with different kinds of disability?</label>
-<label>Has this performance been validated?</label>
-<label>Please note the validation regime:</label>
-<label>Are there any performance issues which might have implications for people with different kinds of disability?</label>
-<label>Please note any such performance issues:</label>
+<%= f.question :disability_performance %>
+<%= f.question :disability_validated %>
+<%= f.question :disability_validation_regime %>
+<%= f.question :disability_issues %>
+<%= f.question :disability_note_issues %>
+
 <h5>People from different faith groups</h5>
-<label>How would you rate the current performance of the Function in meeting the needs of people from different faith groups?</label>
-<label>Has this performance been validated?</label>
-<label>Please note the validation regime:</label>
-<label>Are there any performance issues which might have implications for people from different faith groups?</label>
-<label>Please note any such performance issues:</label>
+<%= f.question :faith_performance %>
+<%= f.question :faith_validated %>
+<%= f.question :faith_validation_regime %>
+<%= f.question :faith_issues %>
+<%= f.question :faith_note_issues %>
+
 <h5>People of different sexual orientations</h5>          
-<label>How would you rate the current performance of the Function in meeting the needs of people of different sexual orientations?</label>
-<label>Has this performance been validated?</label>
-<label>Please note the validation regime:</label>
-<label>Are there any performance issues which might have implications for people of different sexual orientations?</label>
-<label>Please note any such performance issues:</label>
+<%= f.question :sexual_orientation_performance %>
+<%= f.question :sexual_orientation_validated %>
+<%= f.question :sexual_validation_regime %>
+<%= f.question :sexual_orientation_issues %>
+<%= f.question :sexual_note_issues %>
+
 <h5>People of different ages</h5>
-<label>How would you rate the current performance of the Function in meeting the needs of people of different ages?</label>
-<label>Has this performance been validated?</label>
-<label>Please note the validation regime:</label>
-<label>Are there any performance issues which might have implications for people of different ages?</label>
-<label>Please note any such performance issues:</label>
-<span class="button"><%= submit_tag 'Save' %></span>
+<%= f.question :age_performance %>
+<%= f.question :age_validated %>
+<%= f.question :age_validation_regime %>
+<%= f.question :age_issues %>
+<%= f.question :age_note_issues %>
+
+<span class="button"><%= submit_tag 'Save' -%></span>
 <% end -%>

@@ -11,17 +11,9 @@ module SectionsHelper
     end
   end
   
-  def question(f, name, type)
-    input_field = case type
-    when :rating
-      '1-5'
-    when :yes_no_notsure
-      # f.select 'impact_service_users', LookUp.impact_amount.collect {|l| [ l.name, l.value ] }
-      'yes no notsure'
-    when :text
-      f.text_area name 
-    end
-    "<p><label>#{$questions[name]}</label>#{input_field}</p>"
+  def header_with_help(id, text_title, text_help)
+    %Q[<h4>#{text_title} #{link_to_function image_tag("help.gif"), "Element.toggle('#{id}')"}</h4>
+    <span id="#{id}" class="toggleHelp" style="display:none;">#{text_help}</span>]
   end
   
 end
