@@ -69,12 +69,17 @@ class SectionsController < ApplicationController
   # K: TODO: move this to the FunctionsController?
   #
   def update
+    # Update the answers in the function table
     @function = Function.find(params[:id])
     @function.update_attributes(params[:function])
-    params[:function_strategies].each do |function_strategy|
-      function_response = @function.function_strategies.find_or_create_by_strategy_id(function_strategy[0])
-      function_response.strategy_response = function_strategy[1]
-      function_response.save
+    
+    # Update the function strategy answers if we have any (currently only in the Purpose section)
+    if params[:function_strategies] then
+      params[:function_strategies].each do |function_strategy|
+        function_response = @function.function_strategies.find_or_create_by_strategy_id(function_strategy[0])
+        function_response.strategy_response = function_strategy[1]
+        function_response.save
+      end
     end
     flash[:notice] =  "#{@function.name} was successfully updated."
     redirect_to :back
