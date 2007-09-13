@@ -14,9 +14,9 @@ class QuestionBuilder < ActionView::Helpers::FormBuilder
     when :impact_level
       select method, LookUp.impact_level.collect {|l| [ l.name, l.value ] }
     when :rating
-      '1-5'
+      select method, LookUp.rating.collect {|l| [ l.name, l.value ] }
     when :yes_no_notsure
-      'yes no notsure'
+      select method, LookUp.yes_no_notsure.collect {|l| [ l.name, l.value ] }
     when :text
       text_area method 
     end

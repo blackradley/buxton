@@ -26,7 +26,9 @@ class LookUp < ActiveRecord::Base
     :existing_proposed => 2, 
     :impact_amount => 3,
     :impact_level => 4,
-    :priority => 5}
+    :priority => 5,
+    :rating => 6,
+    :yes_no_notsure => 7}
 #
 # Yes or no, <tt>self</tt> makes it static
 # 
@@ -56,5 +58,17 @@ class LookUp < ActiveRecord::Base
 #
   def self.impact_level()
     return find_all_by_look_up_type(TYPE[:impact_level])
+  end
+#
+# Rating from 5 (excellent) to 1 (poor)
+#
+  def self.rating()
+    return find_all_by_look_up_type(TYPE[:rating])
+  end
+#
+# Yes / no / not sure
+# 
+  def self.yes_no_notsure()
+    return find_all_by_look_up_type(TYPE[:yes_no_notsure])
   end
 end

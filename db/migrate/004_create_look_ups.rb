@@ -41,7 +41,7 @@ class CreateLookUps < ActiveRecord::Migration
     :description => 'Existing',
     :display_order => 2)
 
-    # Yes/No/Not sure
+    # Yes/No
     LookUp.create(:look_up_type => LookUp::TYPE[:yes_no],
     :name => $NO_ANSWER,
     :value => 0,
