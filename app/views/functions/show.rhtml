@@ -1,42 +1,39 @@
 <h3>CEPT Function Summary Page</h3>
+<div class="summary">
 <h4><%= @function.name %></h4>
-<table width="60%">
-  <tr>
-    <td>Contact:</td>
-    <td><%= link_to @function.user.email, "mailto:#{@function.user.email}?subject=#{@function.name}"-%></td>
-  </tr>
-  <tr>
-    <td>Last changed:</td>
-    <td><%= date_or_blank(@function.updated_on) %></td>
-  </tr>
-  <tr>
-    <td>Relevance</td>
-	<!-- TODO: display properly -->
-    <td class='icon'>Yes</td>
-   </tr>
-  <tr>
-    <td>Percentage Completed</td>
-	<!-- K: TODO: Progress bar shows status across all sections, not just purpose! -->
-    <td class='icon'><%= progress_bar(section_purpose_percentage_answered(@function)) %></td>
-  </tr>
-</table>
+
 <% form_for(:function, :url => {:action => 'update', :id => @function.id}) do |f| %>
-<table>
-  <tr>
-    <td>Approved?<input id="function_approved" name="function[approved]" type="checkbox" value="1" /></td>
-    <td rowspan="2">
-    <div><%= link_to_function image_tag("help.gif"), "Element.toggle('show_help')" -%></div>
-    <div id="show_help" style="display:none;">Help for Demo Council approval required</div>
-    </td>
-  </tr>
-  <tr>
-    <td><label for="user_email">Approved by</label> <input id="function_approver" name="function[approver]" size="50" type="text" value="" /></td>
-  </tr>
-	<tr><td><%= submit_tag -%></td></tr>
-</table>
+<fieldset id="approval">
+	<legend>Approval <%= link_to_function image_tag("help.gif"), "Element.toggle('approval_help')" -%></legend>
+	<span id="approval_help" class="toggleHelp" style="display:none;">Help for Demo Council approval required</span>
+  	<label>Approved</label><input id="function_approved" name="function[approved]" type="checkbox" value="1" /><br />
+  	<label for="user_email" id="function_approver_label">By:</label> <input id="function_approver" name="function[approver]" size="50" type="text" value="" />
+	<span id="approval_submit"><%= submit_tag -%></span>
+</fieldset>
 <% end -%>
-<br />
-<h5><%= link_to_function 'Purpose', "Element.toggle('show_purpose')" -%></h5>
+<p>
+	<label>Contact:</label>
+	<div class="labelled"><%= link_to @function.user.email, "mailto:#{@function.user.email}?subject=#{@function.name}"-%></div>
+</p>
+<p>
+	<label>Last changed:</label>
+	<div class="labelled"><%= date_or_blank(@function.updated_on) %></div>
+</p>
+<p>
+	<label>Relevance</label>
+	<div class="labelled">Yes</div>
+</p>
+<p>
+	<label>Percentage Completed</label>
+	<!-- K: TODO: Progress bar shows status across all sections, not just purpose! -->
+    <div class="labelled"><%= progress_bar(section_purpose_percentage_answered(@function)) %></div>
+</p>
+
+<div style="clear:both"></div>
+<h4>Section Summaries:</h4>
+
+<h4 class="section_summary_header"><%= link_to_function 'Purpose', "Element.toggle('show_purpose')" -%><div class="section_summary_toggles" id="#.open" style="display:block;"><a href="#" onclick="toggleNode(this.parentNode); return false;">expand <img src="images/toggle_open.gif"></a><div class="section_summary_toggles" id="#.close" style="display:none;"><a href="#" onclick="toggleNode(this.parentNode); return false;">close <img src="images/toggle_close.gif"></a></h4>
 <div id="show_purpose" style="display:none;"><%= render :partial => 'show_purpose' -%></div>
-<h5><%= link_to_function 'Performance', "Element.toggle('show_performance')" -%></h5>
+
+<h4 class="section_summary_header"><%= link_to_function 'Performance', "Element.toggle('show_performance')" -%><div class="section_summary_toggles" id="#.open" style="display:block;"><a href="#" onclick="toggleNode(this.parentNode); return false;">expand <img src="images/toggle_open.gif"></a><div class="section_summary_toggles" id="#.close" style="display:none;"><a href="#" onclick="toggleNode(this.parentNode); return false;">close <img src="images/toggle_close.gif"></a></h4>
 <div id="show_performance" style="display:none;"><%= render :partial => 'show_performance' -%></div>
