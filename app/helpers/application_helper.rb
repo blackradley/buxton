@@ -148,6 +148,91 @@ module ApplicationHelper
       'Menu Fail'
     end
   end
+  
+# 
+# Calculates the percentage of questions answered for a specific section in a function or for the
+# function as a whole. Almost just a proxy method really that uses some private methods for the actual calculations.
+# 
+  def percentage_answered(function, section = nil)
+    unless section
+      return (section_purpose_percentage_answered(function) +
+                            section_performance_percentage_answered(function)) / 2
+    else
+      case section
+      when :purpose
+        return section_purpose_percentage_answered(function)
+      when :performance
+        return section_performance_percentage_answered(function)
+      else
+        # Shouldn't get here - if you have, there's a new section that hasn't been fully implemented
+        # as it needs tending to here and at the start of the method for the overall calculation.
+        # TODO: throw a wobbly
+      end
+    end
+  end
+
+#
+# Hash of questions (used in various places)
+#
+  $questions = {
+    # Purpose questions
+    :existence_status => ['Is the Function/Policy?', :existing_proposed],
+    :impact_service_users => ['Service users', :impact_amount],
+    :impact_staff => ['Staff employed by the council', :impact_amount],
+    :impact_supplier_staff => ['Staff of supplier organisations', :impact_amount],
+    :impact_partner_staff => ['Staff of partner organisations', :impact_amount],
+    :impact_employees => ['Employees of businesses', :impact_amount],
+    :good_age => ['Would it affect different <strong>age groups</strong> differently?', :impact_level],
+    :good_race => ['Would it affect different <strong>Ethnic groups</strong> differently?', :impact_level],
+    :good_gender => ['Would it affect <strong>men and women</strong> differently?', :impact_level],
+    :good_sexual_orientation => ['Would it affect people of different <strong>sexual orientation</strong> differently?', :impact_level],
+    :good_faith => ['Would it affect different <strong>faith groups</strong> differently?', :impact_level],
+    :good_disability => ['Would it affect <strong>people with different kinds of disabilities</strong> differently?', :impact_level],
+    :bad_age => ['Would it affect different <strong>age groups</strong> differently?', :impact_level],
+    :bad_race => ['Would it affect different <strong>Ethnic groups</strong> differently?', :impact_level],
+    :bad_gender => ['Would it affect <strong>men and women</strong> differently?', :impact_level],
+    :bad_sexual_orientation => ['Would it affect people of different <strong>sexual orientation</strong> differently?', :impact_level],
+    :bad_faith => ['Would it affect different <strong>faith groups</strong> differently?', :impact_level],
+    :bad_disability => ['Would it affect <strong>people with different kinds of disabilities</strong> differently?', :impact_level],
+    # Performance questions
+    :overall_performance => ['How would you rate the current performance of the Function?', :rating],
+    :overall_validated => ['Has this performance been validated?', :yes_no_notsure],
+    :overall_validation_regime => ['Please note the validation regime:', :text],
+    :overall_issues => ['Are there any performance issues which might have implications for different individuals within equality groups?', :yes_no_notsure],
+    :overall_note_issues => ['Please note any such performance issues:', :text],
+    :gender_performance => ['How would you rate the current performance of the Function in meeting the different needs of men and women?', :rating],
+    :gender_validated => ['Has this performance been validated?', :yes_no_notsure],
+    :gender_validation_regime => ['Please note the validation regime:', :text],
+    :gender_issues => ['Are there any performance issues which might have implications for men or women?', :yes_no_notsure],
+    :gender_note_issues => ['Please note any such performance issues:', :text],
+    :race_performance => ['How would you rate the current performance of the Function in meeting the needs of people from different ethnic backgrounds?', :rating],
+    :race_validated => ['Has this performance been validated?', :yes_no_notsure],
+    :race_validation_regime => ['Please note the validation regime:', :text],
+    :race_issues => ['Are there any performance issues which might have implications for people from different ethnic backgrounds?', :yes_no_notsure],
+    :race_note_issues => ['Please note any such performance issues:', :text],
+    :disability_performance => ['How would you rate the current performance of the Function in meeting the needs of people with different kinds of disability?', :rating],
+    :disability_validated => ['Has this performance been validated?', :yes_no_notsure],
+    :disability_validation_regime => ['Please note the validation regime:', :text],
+    :disability_issues => ['Are there any performance issues which might have implications for people with different kinds of disability?', :yes_no_notsure],
+    :disability_note_issues => ['Please note any such performance issues:', :text],
+    :faith_performance => ['How would you rate the current performance of the Function in meeting the needs of people from different faith groups?', :rating],
+    :faith_validated => ['Has this performance been validated?', :yes_no_notsure],
+    :faith_validation_regime => ['Please note the validation regime:', :text],
+    :faith_issues => ['Are there any performance issues which might have implications for people from different faith groups?', :yes_no_notsure],
+    :faith_note_issues => ['Please note any such performance issues:', :text],
+    :sexual_orientation_performance => ['How would you rate the current performance of the Function in meeting the needs of people of different sexual orientations?', :rating],
+    :sexual_orientation_validated => ['Has this performance been validated?', :yes_no_notsure],
+    :sexual_validation_regime => ['Please note the validation regime:', :text],
+    :sexual_orientation_issues => ['Are there any performance issues which might have implications for people of different sexual orientations?', :yes_no_notsure],
+    :sexual_note_issues => ['Please note any such performance issues:', :text],
+    :age_performance => ['How would you rate the current performance of the Function in meeting the needs of people of different ages?', :rating],
+    :age_validated => ['Has this performance been validated?', :yes_no_notsure],
+    :age_validation_regime => ['Please note the validation regime:', :text],
+    :age_issues => ['Are there any performance issues which might have implications for people of different ages?', :yes_no_notsure],
+    :age_note_issues => ['Please note any such performance issues:', :text],
+  }
+
+private
 
 # The percentage number of questions answered for section 1 (the relevance
 # test).  Originally this was part of the model but it has to make use of
@@ -235,66 +320,5 @@ module ApplicationHelper
     
     return percentage
   end
-
-  #
-  # Hash of questions (used in various places)
-  #
-  $questions = {
-    # Purpose questions
-    :existence_status => ['Is the Function/Policy?', :existing_proposed],
-    :impact_service_users => ['Service users', :impact_amount],
-    :impact_staff => ['Staff employed by the council', :impact_amount],
-    :impact_supplier_staff => ['Staff of supplier organisations', :impact_amount],
-    :impact_partner_staff => ['Staff of partner organisations', :impact_amount],
-    :impact_employees => ['Employees of businesses', :impact_amount],
-    :good_age => ['Would it affect different <strong>age groups</strong> differently?', :impact_level],
-    :good_race => ['Would it affect different <strong>Ethnic groups</strong> differently?', :impact_level],
-    :good_gender => ['Would it affect <strong>men and women</strong> differently?', :impact_level],
-    :good_sexual_orientation => ['Would it affect people of different <strong>sexual orientation</strong> differently?', :impact_level],
-    :good_faith => ['Would it affect different <strong>faith groups</strong> differently?', :impact_level],
-    :good_disability => ['Would it affect <strong>people with different kinds of disabilities</strong> differently?', :impact_level],
-    :bad_age => ['Would it affect different <strong>age groups</strong> differently?', :impact_level],
-    :bad_race => ['Would it affect different <strong>Ethnic groups</strong> differently?', :impact_level],
-    :bad_gender => ['Would it affect <strong>men and women</strong> differently?', :impact_level],
-    :bad_sexual_orientation => ['Would it affect people of different <strong>sexual orientation</strong> differently?', :impact_level],
-    :bad_faith => ['Would it affect different <strong>faith groups</strong> differently?', :impact_level],
-    :bad_disability => ['Would it affect <strong>people with different kinds of disabilities</strong> differently?', :impact_level],
-    # Performance questions
-    :overall_performance => ['How would you rate the current performance of the Function?', :rating],
-    :overall_validated => ['Has this performance been validated?', :yes_no_notsure],
-    :overall_validation_regime => ['Please note the validation regime:', :text],
-    :overall_issues => ['Are there any performance issues which might have implications for different individuals within equality groups?', :yes_no_notsure],
-    :overall_note_issues => ['Please note any such performance issues:', :text],
-    :gender_performance => ['How would you rate the current performance of the Function in meeting the different needs of men and women?', :rating],
-    :gender_validated => ['Has this performance been validated?', :yes_no_notsure],
-    :gender_validation_regime => ['Please note the validation regime:', :text],
-    :gender_issues => ['Are there any performance issues which might have implications for men or women?', :yes_no_notsure],
-    :gender_note_issues => ['Please note any such performance issues:', :text],
-    :race_performance => ['How would you rate the current performance of the Function in meeting the needs of people from different ethnic backgrounds?', :rating],
-    :race_validated => ['Has this performance been validated?', :yes_no_notsure],
-    :race_validation_regime => ['Please note the validation regime:', :text],
-    :race_issues => ['Are there any performance issues which might have implications for people from different ethnic backgrounds?', :yes_no_notsure],
-    :race_note_issues => ['Please note any such performance issues:', :text],
-    :disability_performance => ['How would you rate the current performance of the Function in meeting the needs of people with different kinds of disability?', :rating],
-    :disability_validated => ['Has this performance been validated?', :yes_no_notsure],
-    :disability_validation_regime => ['Please note the validation regime:', :text],
-    :disability_issues => ['Are there any performance issues which might have implications for people with different kinds of disability?', :yes_no_notsure],
-    :disability_note_issues => ['Please note any such performance issues:', :text],
-    :faith_performance => ['How would you rate the current performance of the Function in meeting the needs of people from different faith groups?', :rating],
-    :faith_validated => ['Has this performance been validated?', :yes_no_notsure],
-    :faith_validation_regime => ['Please note the validation regime:', :text],
-    :faith_issues => ['Are there any performance issues which might have implications for people from different faith groups?', :yes_no_notsure],
-    :faith_note_issues => ['Please note any such performance issues:', :text],
-    :sexual_orientation_performance => ['How would you rate the current performance of the Function in meeting the needs of people of different sexual orientations?', :rating],
-    :sexual_orientation_validated => ['Has this performance been validated?', :yes_no_notsure],
-    :sexual_validation_regime => ['Please note the validation regime:', :text],
-    :sexual_orientation_issues => ['Are there any performance issues which might have implications for people of different sexual orientations?', :yes_no_notsure],
-    :sexual_note_issues => ['Please note any such performance issues:', :text],
-    :age_performance => ['How would you rate the current performance of the Function in meeting the needs of people of different ages?', :rating],
-    :age_validated => ['Has this performance been validated?', :yes_no_notsure],
-    :age_validation_regime => ['Please note the validation regime:', :text],
-    :age_issues => ['Are there any performance issues which might have implications for people of different ages?', :yes_no_notsure],
-    :age_note_issues => ['Please note any such performance issues:', :text],
-  }
   
 end
