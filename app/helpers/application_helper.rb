@@ -161,7 +161,7 @@ module ApplicationHelper
 # a decimal place to make it a float.  This seems a bit naff to me, I think
 # there should be a neater way, but Ruby isn't my strongest skill.
 #
-  def section_purpose_percentage_answered(function)     
+  def section_purpose_percentage_answered(function)  
     number_of_questions = 20.0 + function.organisation.strategies.count # decimal point prevents rounding
     questions_answered = function.existence_status > 0 ? 1 : 0
     questions_answered += function.impact_service_users > 0 ? 1 : 0
@@ -188,6 +188,51 @@ module ApplicationHelper
     end
     percentage = (questions_answered / number_of_questions) * 100 # calculate
     percentage = percentage.round # round to one decimal place
+    return percentage
+  end
+
+# 
+# Calculates the percentage of questions answered in the performance section
+# Note: currently assumes that the textareas do not need filling in to be complete.
+# 
+  def section_performance_percentage_answered(function)
+
+    # All the questions, in function, that are in the performance section
+    performance_questions = [ :overall_performance,
+                              :overall_validated,
+                              :overall_issues,
+                              :gender_performance,
+                              :gender_validated,
+                              :gender_issues,
+                              :race_performance,
+                              :race_validated,
+                              :race_issues,
+                              :disability_performance,
+                              :disability_validated,
+                              :disability_issues,
+                              :faith_performance,
+                              :faith_validated,
+                              :faith_issues,
+                              :sexual_orientation_performance,
+                              :sexual_orientation_validated,
+                              :sexual_orientation_issues,
+                              :age_performance,
+                              :age_validated,
+                              :age_issues ]
+
+    # How many questions is this?
+    number_of_questions = performance_questions.size
+    
+    # How many are answered?
+    questions_answered = performance_questions.inject(0.to_f) { |answered, question|
+      # If there's an answer, add 1 to our accumulator else just add 0.
+      answered += (function.send(question) > 0) ? 1 : 0
+    }
+    
+    # What percentage does this make?
+    percentage = (questions_answered / number_of_questions) * 100 # calculate
+    percentage = percentage.round # round to one decimal place
+    
     return percentage
   end
 
