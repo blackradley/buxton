@@ -62,13 +62,7 @@ module FunctionsHelper
     if value != 0
       percentage = (value.to_f / (out_of.length - 1)) * 100.0
       percentage = percentage.round
-    	html = "<div class='bar-background'>"
-    	html += "<div "
-    	html += "title='" + percentage.to_s + "%' "
-    	html += "class='" + css_class + "' "
-    	html += "style='width:" + percentage.to_s + "%'"
-    	html += "></div>"
-    	html += "</div>"
+      html = progress_bar(percentage)
     end
     return html
   end 
