@@ -74,6 +74,16 @@ class FunctionsController < ApplicationController
     @user.valid? # force checking of errors even if function failed
     render :action => :new
   end
+# 
+# Update the function details accordingly. Currently only referenced by the Approval section in Function#show
+# 
+  def update
+    @function = Function.find(params[:id])
+    @function.update_attributes(params[:function])
+
+    flash[:notice] =  "#{@function.name} was successfully updated."
+    redirect_to :back
+  end
 #
 # Get both the function and user information ready for editing, since they
 # are both edited at the same time.  The organisational manager edits these
