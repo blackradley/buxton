@@ -49,12 +49,10 @@ module ApplicationHelper
 # Display the users progress through the questions, this is used both in the
 # Function and on the Organisation, hence it is here in the ApplicationHelper.
 #
-  def progress_bar(percentage)
-    html = "<table border='0' cellpadding='0' cellSpacing='0' bgColor='Red'>"
-    html += "<tr title='" + percentage.to_s + "%'>"
-    html += "<td width='100' class='bar'>" + image_tag('green.gif', :width => percentage, :height => 10, :title=> percentage.to_s + '%') + "</td>"
-    html += "</tr>"
-    html += "</table>"
+  def progress_bar(percentage, width=nil, height=nil)
+    options = {:controller => 'generate', :action => 'bar', :id => percentage}
+    if width then options.store(:width, width) end
+    image_tag(url_for(options))
   end
 #
 # Extend the date formats to include some British styley ones
