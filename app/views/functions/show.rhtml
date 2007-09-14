@@ -7,7 +7,7 @@
 
 <% form_for(:function, :url => {:action => 'update', :id => @function.id}) do |f| %>
 <fieldset id="approval">
-	<legend>Approval <%= link_to_function image_tag("help.gif"), "Element.toggle('approval_help')" -%></legend>
+	<legend>Approval <%= link_to_function image_tag("icons/help.gif"), "Element.toggle('approval_help')" -%></legend>
 	<span id="approval_help" class="toggleHelp" style="display:none;">Help for Demo Council approval required</span>
   	<label for="function_approved">Approved</label><%= f.check_box :approved -%><br />
   	<label for="function_approver">By:</label><%= f.text_field :approver -%>
