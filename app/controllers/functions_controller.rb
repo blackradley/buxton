@@ -117,6 +117,15 @@ class FunctionsController < ApplicationController
     redirect_to :action => :list, :id =>  @session['logged_in_user'].organisation.id
   end
 
+# 
+# Show a printer friendly summary page
+# 
+  def print
+    @function = Function.find(params[:id])
+    @print_only = true
+    render :action => 'show'
+  end
+
 protected
 #
 # Secure the relevant methods in the controller.
