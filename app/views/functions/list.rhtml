@@ -25,12 +25,13 @@ existing functions and delete functions.</p>
     <td><%=h approver_or_blank(function.approver) %></td>
     <td><%= date_or_blank(function.user.reminded_on) %></td>
     <td>
-	  <%= link_to 'Email', "mailto:#{function.user.email}" -%>
-      <%= link_to 'Key', { :controller => 'users', :action => 'remind', :id => function.user.id }, :confirm => "Send e-mail reminder for #{function.name}?", :method => :post  -%>
-      <%= link_to 'Amend', { :action => 'edit_contact', :id => function.id }, :id => 'amend' -%>
-      <%= link_to 'Delete', { :action => 'destroy', :id => function.id }, :confirm => "Delete #{function.name}?", :method => :post -%>
+	  <%= link_to "#{image_tag('icons/email')} Email", "mailto:#{function.user.email}" -%>
+      <%= link_to "#{image_tag('icons/key')} Key", { :controller => 'users', :action => 'remind', :id => function.user.id }, :confirm => "Send e-mail reminder for #{function.name} to #{function.user.email}?", :method => :post  -%>
+      <%= link_to "#{image_tag('icons/edit.jpg')} Amend", { :action => 'edit_contact', :id => function.id }, :id => 'amend' -%>
+      <%= link_to "#{image_tag('icons/delete')} Delete", { :action => 'destroy', :id => function.id }, :confirm => "Delete #{function.name}?", :method => :post -%>
     </td>
   </tr>
   <% end -%>
 </table>
 <%= link_to 'Add New', :action => 'new' -%>
+
