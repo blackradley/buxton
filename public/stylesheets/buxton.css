@@ -80,6 +80,11 @@ h4{
 	font-weight: bold;
 	color: #515f8d;
 }
+h5{ 
+clear: left;
+	font-weight: bold;
+	color: #515f8d;
+}
 LI{
 	line-height: 150%;
 }
@@ -438,6 +443,10 @@ td.bar{
 	border: 2px solid #F90;
 	cursor: pointer;
 }
+.summary fieldset .toggleHelp{
+	margin-left: 5px;
+}
+
 .summary fieldset .toggleHelp{
 	margin-left: 5px;
 }
