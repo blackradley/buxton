@@ -1,7 +1,7 @@
-<%= link_to "#{image_tag('icons/printer')} Print", {:action => 'print', :id => @function.id}, :target => '_blank' %>
 
-<h3>CEPT Function Summary Page</h3>
 
+<h3>CEPT Function Summary Page </h3>
+<span id="print_link"><%= link_to "#{image_tag('icons/printer')} Print", {:action => 'print', :id => @function.id}, :target => '_blank' %></span>
 <div class="summary">
 <h4><%= @function.name %></h4>
 
@@ -10,7 +10,7 @@
 	<legend>Approval <%= link_to_function image_tag("icons/help.gif"), "Element.toggle('approval_help')" -%></legend>
 	<span id="approval_help" class="toggleHelp" style="display:none;">Help for Demo Council approval required</span>
   	<label for="function_approved">Approved</label><%= f.check_box :approved -%><br />
-  	<label for="function_approver">By:</label><%= f.text_field :approver -%>
+  	<label for="function_approver" id="function_approver_label">By:</label><%= f.text_field :approver -%>
 	<span id="approval_submit"><%= submit_tag -%></span>
 </fieldset>
 <% end -%>
@@ -35,29 +35,29 @@
 <h4>Section Summaries:</h4>
 <div id="purpose_top" style="display:block;">
 <fieldset class="section_summary_header">
-	<legend><%= link_to_function 'Purpose', "Element.toggle('show_purpose')" -%></legend>
-	<legend class="section_summary_toggles"><%= link_to_function 'expand <img src="images/toggle_open.gif">', "Element.toggle('show_purpose')" -%></legend>
+	<legend><%= link_to_function 'Purpose', "Element.toggle('show_purpose'); Element.toggle('purpose_top')" -%></legend>
+	<div class="section_summary_toggles"><%= link_to_function 'view summary <img src="images/toggle_open.gif">', "Element.toggle('show_purpose'); Element.toggle('purpose_top')" -%></div>
 </fieldset>
 </div>
 <div id="show_purpose" style="display:none;">
 <fieldset class="section_summary_show">
-	<legend><%= link_to_function 'Purpose', "Element.toggle('show_purpose')" -%></legend>
-	<legend class="section_summary_toggles"><%= link_to_function 'close <img src="images/toggle_close.gif">', "Element.toggle('show_purpose')" -%></legend>
+	<legend><%= link_to_function 'Purpose', "Element.toggle('show_purpose'); Element.toggle('purpose_top')" -%></legend>
+	<div class="section_summary_toggles"><%= link_to_function 'close <img src="images/toggle_close.gif">', "Element.toggle('show_purpose'); Element.toggle('purpose_top')" -%></div>
 	<%= render :partial => 'show_purpose' -%>	
 </fieldset>
 </div>
 
 <div id="performance_top" style="display:block;">
 <fieldset class="section_summary_header">
-	<legend><%= link_to_function 'Purpose', "Element.toggle('show_performance')" -%></legend>
-	<legend class="section_summary_toggles"><%= link_to_function 'expand <img src="images/toggle_open.gif">', "Element.toggle('show_performance')" -%></legend>
+	<legend><%= link_to_function 'Performance', "Element.toggle('show_performance'); Element.toggle('performance_top')" -%></legend>
+	<div class="section_summary_toggles"><%= link_to_function 'view summary <img src="images/toggle_open.gif">', "Element.toggle('show_performance'); Element.toggle('performance_top')" -%></div>
 </fieldset>
 </div>
 
 <div id="show_performance" style="display:none;">
 <fieldset class="section_summary_show">
-	<legend><%= link_to_function 'Purpose', "Element.toggle('show_performance')" -%></legend>
-	<legend class="section_summary_toggles"><%= link_to_function 'close <img src="images/toggle_close.gif">', "Element.toggle('show_performance')" -%></legend>
+	<legend><%= link_to_function 'Performance', "Element.toggle('show_performance'); Element.toggle('performance_top')" -%></legend>
+	<div class="section_summary_toggles"><%= link_to_function 'close <img src="images/toggle_close.gif">', "Element.toggle('show_performance'); Element.toggle('performance_top')" -%></div>
 	<%= render :partial => 'show_performance' -%>	
 </fieldset>
 </div>

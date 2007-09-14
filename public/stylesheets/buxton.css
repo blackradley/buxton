@@ -79,11 +79,14 @@ h3{
 h4{ 
 	font-weight: bold;
 	color: #515f8d;
+	font-size:1.1em;
 }
 h5{ 
 clear: left;
 	font-weight: bold;
 	color: #515f8d;
+	font-size:1em;
+	padding-top: 10px;
 }
 LI{
 	line-height: 150%;
@@ -396,12 +399,25 @@ td.bar{
 	line-height:20px;
 }
 /*summary page */
+#print_link{
+	float: right;
+	margin-top: -30px;
+}
+#print_link img{
+	margin-bottom: -4px;
+}
+#print_link a, #print_link a:visited, #print_link a:hover{
+	text-decoration:none;
+}
+
+
 .summary label{
 	width: 130px;
 }
 .summary .labelled{
 	width: 300px;
 	line-height:20px;
+	
 }
 .summary .labelled table{
 	margin-top: 4px;
@@ -410,13 +426,17 @@ td.bar{
 	float: right;
 	width: 250px;
 	border: 2px solid #F90;
+	margin-top: -30px;
 }
 .summary fieldset legend{
 	color:#F90;
 	font-weight:bold;
 	background-color:#fff;
+	font-size:1.1em;
 }
-
+.summary fieldset legend img{
+	margin-bottom: -3px;
+}
 .summary fieldset label{
 	width: 40px;
 	border: 0px solid red;
@@ -443,26 +463,66 @@ td.bar{
 	border: 2px solid #F90;
 	cursor: pointer;
 }
-.summary fieldset .toggleHelp{
-	margin-left: 5px;
-}
+
 
 .summary fieldset .toggleHelp{
 	margin-left: 5px;
 }
 
-.section_summary_header{
-	background-color: #515f8d;
-	height:30px;
-	line-height:30px;
-	padding-left: 10px;
+.summary .section_summary_header{
+	float: none;
+	width: auto;
+	border: none;
+	border-top: 2px solid #515f8d;
+	margin-bottom:20px;
+	margin-top: 0px;
+	
+	}
+.summary .section_summary_show{
+	float: none;
+	width: auto;
+	border: 2px solid #515f8d;
+	margin-bottom:20px;
+	margin-top: 0px;
+	
+	}
+
+.summary .section_summary_header legend, .summary .section_summary_show legend{
+	color: #515f8d;	
+}
+
+.summary .section_summary_show h5, .summary .section_summary_show p{
+	margin-left: 20px;	
+}
+
+	
+.summary .section_summary_toggles{
+	float:right;
+	font-size:11px;
+	line-height:11px;
+	margin-top: -17px;
+	padding: 0px 5px;
+	background-color:#fff;
 }
 .section_summary_header a, .section_summary_header a:visited,.section_summary_header a:hover{
 	text-decoration:none;
-	color: #fff;
+	color: #515f8d;
 }
-.section_summary_toggles{
-	float: right;
-	margin-top: -30px;
-	margin-right: 10px;
+.section_summary_show a, .section_summary_show a:visited,.section_summary_show a:hover{
+	text-decoration:none;
+	color: #515f8d;
+}
+
+.summary .section_summary_show label{
+		width: 400px;
+	
+
+}
+.summary .section_summary_show .labelled{
+	float: left;
+		width: 150px;
+	
+	line-height:20px;
+
+
 }
