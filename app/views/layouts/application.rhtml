@@ -5,10 +5,15 @@
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
   <title><%= (controller.controller_name() + " : " + controller.action_name).titleize %></title>
-  <%= stylesheet_link_tag 'default' %>
-  <%= stylesheet_link_tag subdomain(request) %>
-  <%= javascript_include_tag "prototype" %>
-  <%= javascript_include_tag "effects" %>
+	<% if @print_only -%>
+		<%= stylesheet_link_tag 'print' %>
+	<% else -%>
+		<%= stylesheet_link_tag 'default' %>
+		<%= stylesheet_link_tag subdomain(request) %>
+		<%= stylesheet_link_tag 'print', :media => 'print' %>
+	<% end -%>
+	<%= javascript_include_tag "prototype" %>
+	<%= javascript_include_tag "effects" %>
   <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
 </head>
 <body>
