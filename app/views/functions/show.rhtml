@@ -28,8 +28,7 @@
 </p>
 <p>
 	<label>Percentage Completed</label>
-	<!-- K: TODO: Progress bar shows status across all sections, not just purpose! -->
-    <div class="labelled"><%= progress_bar(section_purpose_percentage_answered(@function)) %></div>
+    <div class="labelled"><%= progress_bar(percentage_answered(@function)) %></div>
 </p>
 
 <div style="clear:both"></div>

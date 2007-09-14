@@ -13,7 +13,7 @@ and send reminders to the Function Managers.</p>
   <% for function in @organisation.functions -%>
   <tr>
     <td><%=h function.name -%></td>
-    <td><%= progress_bar(section_purpose_percentage_answered(function)) -%></td>
+    <td><%= progress_bar(percentage_answered(function, :purpose)) -%></td>
     <td><%= date_or_blank(function.user.reminded_on) -%></td>
     <td nowrap>
       <%= link_to "#{image_tag('icons/view.jpg')} View", {:action => 'show', :section => 'purpose', :id => function}, :id => 'view' -%> 
