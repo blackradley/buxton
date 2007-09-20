@@ -5,20 +5,20 @@ It also lets Organisation Manger view the answers completed to date
 and send reminders to the Function Managers.</p>
 <table class="list">
   <tr>
-    <th>Name</th>
+    <th class="left" width="50%">Name</th>
     <th>Completed</th>
     <th>Last key sent</th>
     <th></th>
   </tr>
   <% for function in @organisation.functions -%>
   <tr>
-    <td><%=h function.name -%></td>
-    <td><%= progress_bar(percentage_answered(function, :purpose)) -%></td>
+    <td class="left"><%=h function.name -%></td>
+    <td width="104px"><%= progress_bar(percentage_answered(function, :purpose)) -%></td>
     <td><%= date_or_blank(function.user.reminded_on) -%></td>
-    <td nowrap>
-      <%= link_to "#{image_tag('icons/view.jpg')} View", {:action => 'show', :section => 'purpose', :id => function}, :id => 'view' -%> 
-	  <%= link_to "#{image_tag('icons/email')} Email", "mailto:#{function.user.email}" -%>
-      <%= link_to "#{image_tag('icons/key')} Key", { :controller => 'users', :action => 'remind', :id => function.user.id }, :confirm => "Send e-mail reminder for #{function.name}?", :method => :post -%>
+    <td class="actions" nowrap>
+      <%= link_to "#{image_tag('icons/view.jpg')}", {:action => 'show', :section => 'purpose', :id => function}, :id => 'view', :title =>"View" -%> 
+	  <%= link_to "#{image_tag('icons/email')}", "mailto:#{function.user.email}", :title =>"Email" -%>
+      <%= link_to "#{image_tag('icons/key')}", { :controller => 'users', :action => 'remind', :id => function.user.id }, :confirm => "Send e-mail reminder for #{function.name}?", :method => :post, :title =>"Key" -%>
     </td>
   </tr>
   <% end -%>

@@ -17,14 +17,14 @@
   <link rel="icon" href="/images/favicon.ico" type="image/x-icon" />
 </head>
 <body>
-    <div class="mastHead">
-        <div class="logo">
-        </div>
-        <h1>Cohesion Equalities Performance Tool</h1>
-        <h2 class="titleArea"><%= organisation_name(request) %></h2>
-    </div>
-    <div class="content">
-        <div>
+	<div class="container">
+	    <div class="mastHead">
+	        <div class="logo">
+	        </div>
+	        <h1>Impact Equality &trade;</h1>
+	        <h2 class="titleArea"><%= organisation_name(request) %></h2>
+	    </div>
+	    <div class="content">
             <div id="menu">
                <%= menu() %>
             </div>
@@ -34,10 +34,10 @@
             <div class="messageArea">
                 <p style="color: green"><%= flash[:notice] %></p>
             </div>
-        </div>
-    </div>
-    <div class="footer">
-	   <div class="login_status"><%= login_status() %></div>
-    </div>
+	    </div>
+	    <div class="footer">
+		   <div class="login_status"><%= login_status() %></div>
+	    </div>
+	</div>
 </body>
 </html>

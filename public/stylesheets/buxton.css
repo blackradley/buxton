@@ -7,29 +7,30 @@ BODY
 	font-family: Tahoma, Verdana, Arial, Sans-Serif;
 	font-size: 0.7em;
 	text-align: center;
-	background: #f8f8f8;
+	background-color: #f8f8f8;
 	margin-top: 20px;
 	color: #666;
 }
-
-.content, .mastHead, .footer
-{
+.container{
 	width: 700px;
 	background-color: #FFF;
-	margin: 0px auto 0px auto;
-	text-align: left;
-	border-left: solid 1px #515f8d;
-	border-right: solid 1px #515f8d;
+	margin: 0px auto;
+	border:1px solid #515f8d;
+	text-align: left;	
 }
-
-.footer
-{
-	border-bottom:  solid 1px #515f8d;
+.content{
+	
+}
+.mastHead{
+	
+}
+.footer{
+	
 }
 
 .login_status
 {
-	margin:10px 20px;
+	margin:20px;
 }
 
 .content .workingArea, .messageArea
@@ -133,13 +134,13 @@ FORM{margin:0;}
 /*Links*/
 
 a:link { 
-  color: #333399; 
+  color: #515f8d;
   text-decoration: none;
   text-decoration: underline;
 }
 
 a:visited { 
-  color: #333399;
+  color: #515f8d;
   text-decoration: none;
   text-decoration: underline;
 }
@@ -296,24 +297,40 @@ TABLE.list CAPTION
 
 table.list{
     border-collapse: collapse;
+    width: 100%;
 }
 
 table.list th{ 
 	background-color: #EEE;
 	border-style: solid;
 	border-width: 1px;
-	border-top-color: #FFF;
+	border-top-color: #CCC;
 	border-right-color: #CCC;
 	border-bottom-color: #CCC;
-	border-left-color: #FFF;
+	border-left-color: #CCC;
 	padding: 2px;
+	text-align:center;
 }   
 
 table.list td
 {
 	padding: 2px;
 	border: 1px solid #CCC;  
+	text-align:center;
+	vertical-align:middle;
+} 
+table.list table td
+{
+	text-align:left;
 }   
+table.list td.left
+{
+	text-align:left;
+}   
+table.list th.left
+{
+	text-align:left;
+} 
 
 td.icon{
     display: table-cell;
@@ -407,15 +424,20 @@ td.bar{
 	margin-bottom: -4px;
 }
 #print_link a, #print_link a:visited, #print_link a:hover{
-	text-decoration:none;
+	text-decoration:underline;
+	color: #515f8d;
 }
 
-
+.summary p{
+	
+	margin:0px;
+	margin-top:5px;
+}
 .summary label{
-	width: 130px;
+	width: 120px;
 }
 .summary .labelled{
-	width: 300px;
+	width: 220px;
 	line-height:20px;
 	
 }
@@ -427,33 +449,38 @@ td.bar{
 	width: 250px;
 	border: 2px solid #F90;
 	margin-top: -30px;
+	padding: 10px;
 }
+.summary fieldset legend img{
+	margin-bottom: -3px;
+}
+
 .summary fieldset legend{
 	color:#F90;
 	font-weight:bold;
 	background-color:#fff;
 	font-size:1.1em;
 }
-.summary fieldset legend img{
-	margin-bottom: -3px;
-}
+
 .summary fieldset label{
 	width: 40px;
 	border: 0px solid red;
 }
 .summary fieldset label#function_approver_label{
 	width: 20px;
-	
+		
 }
 
 .summary #function_approver{
-	width: 218px;
+	width: 213px;
 	border: 1px solid #979595;
+	margin: 0px;
 	margin-bottom: 10px;
+	
 }
 .summary fieldset #approval_submit input{
 	float: right;
-	width: auto;
+	width: 100px;
 	font-family: Tahoma, Verdana, Arial, Sans-Serif;
 	font-size: 1em;
 	padding: 4px 5px;
@@ -499,10 +526,14 @@ td.bar{
 .summary .section_summary_toggles{
 	float:right;
 	font-size:11px;
-	line-height:11px;
-	margin-top: -17px;
+	
+	margin-top: -20px;
 	padding: 0px 5px;
 	background-color:#fff;
+	text-align:right;
+}
+.summary .section_summary_toggles img{
+
 }
 .section_summary_header a, .section_summary_header a:visited,.section_summary_header a:hover{
 	text-decoration:none;
@@ -525,4 +556,21 @@ td.bar{
 	line-height:20px;
 
 
+}
+
+td .left{
+	text-align:left;
+}
+.actions a img{
+	margin:2px;
+}
+#lost label{
+	width: auto;
+}
+#lost{
+	margin-bottom: 20px;
+}
+.clear{
+	
+	clear:both;
 }
