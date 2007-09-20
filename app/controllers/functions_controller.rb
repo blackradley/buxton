@@ -25,8 +25,21 @@ class FunctionsController < ApplicationController
 # Summary statistics for the functions
 #
   def summary
-    @organisation = Organisation.find(params[:id])
-    @functions = Function.find_all_by_organisation_id(params[:id])
+    @organisation = Organisation.find(session['logged_in_user'].organisation.id)
+    @functions = @organisation.functions
+
+    @results_table = { 1 => { :high => 0, :medium => 0, :low => 0 },
+                      2 => { :high => 0, :medium => 0, :low => 0 }, 
+                      3 => { :high => 0, :medium => 0, :low => 0 }, 
+                      4 => { :high => 0, :medium => 0, :low => 0 }, 
+                      5 => { :high => 0, :medium => 0, :low => 0 } }
+
+    for function in @functions
+      if function.completed then
+        stats = function.statistics
+        @results_table[stats.fun_priority_ranking][stats.fun_impact] += 1
+      end
+    end
     render :action => 'summary', :id => params[:id]
   end
 #
@@ -34,14 +47,14 @@ class FunctionsController < ApplicationController
 # Available to the Function manager.
 #
   def show
-    @function = Function.find(params[:id])
+    @function = Function.find(session['logged_in_user'].function.id)
   end  
 #
 # Provide a summary of the state of all the functions for all the
 # sections of the review.
 #
   def list
-    @organisation = Organisation.find(params[:id])
+    @organisation = Organisation.find(session['logged_in_user'].organisation.id)
     render :action => 'list', :id => params[:id]
   end
 # Create a new Function and a new associated user, all functions must
@@ -78,7 +91,7 @@ class FunctionsController < ApplicationController
 # Update the function details accordingly. Currently only referenced by the Approval section in Function#show
 # 
   def update
-    @function = Function.find(params[:id])
+    @function = Function.find(session['logged_in_user'].function.id)
     @function.update_attributes(params[:function])
 
     flash[:notice] =  "#{@function.name} was successfully updated."
@@ -90,13 +103,19 @@ class FunctionsController < ApplicationController
 # not the functional manager.
 #
   def edit_contact
+    # K: TODO: catch this better
+    unless (session['logged_in_user'].user_type == User::TYPE[:organisational]) then render :inline => 'Invalid.' end
+
     @function = Function.find(params[:id])
-    @user = @function.user
+    @user = @function.user    
   end
 #
 # Update the contact email and function name
 #
   def update_contact
+    # K: TODO: catch this better
+    unless (session['logged_in_user'].user_type == User::TYPE[:organisational]) then render :inline => 'Invalid.' end
+
     @function = Function.find(params[:id])
     @function.update_attributes(params[:function])
     Function.transaction do
@@ -113,6 +132,9 @@ class FunctionsController < ApplicationController
 # TODO: Mark the function record with a deleted date do not destroy
 #
   def destroy
+    # K: TODO: catch this better
+    unless (session['logged_in_user'].user_type == User::TYPE[:organisational]) then render :inline => 'Invalid.' end
+    
     Function.find(params[:id]).destroy
     redirect_to :action => :list, :id =>  @session['logged_in_user'].organisation.id
   end
@@ -121,7 +143,7 @@ class FunctionsController < ApplicationController
 # Show a printer friendly summary page
 # 
   def print
-    @function = Function.find(params[:id])
+    @function = Function.find(@session['logged_in_user'].function.id)
     @print_only = true
     render :action => 'show'
   end

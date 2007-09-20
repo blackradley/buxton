@@ -1,17 +1,12 @@
 <h3>CEPT Organisation Summary Page</h3>
-<p>This is the headline page for the Organisation Equalities Manager. It shows how the
-organisation is progressing its equalities impact work, allowing monitoring and
-control.</p>
-<p>The CEPT Progress Table shows how many of the organisation’s functions and
-policies have started or been through the CEPT assessment process.</p>
-<p>The CEPT Results Table shows how each function/policy has scored. There are two
-scores per function:</p>
+<p>This is the headline page for the Organisation Equalities Manager. It shows how the organisation is progressing its equalities impact work, allowing monitoring and control.</p>
+<p>The CEPT Progress Table shows how many of the organisation’s functions and policies have started or been through the CEPT assessment process.</p>
+<p>The CEPT Results Table shows how each function/policy has scored. There are two scores per function:</p>
 <ul>
   <li>Potential impact – the effect this function could have on achieving and promoting equality (high/medium/low)</li>
   <li>Priority – a measure of how urgent it is that this function undertake a full action planning assessment exercise - from 5 (high priority) to 1 (low priority).</li>
 </ul>
-<p>
-<p>Number of functions identified 50 (Please note dummy data has been used for illustrative purposes)</p>
+<p>Number of functions identified: <%= @functions.size -%></p>
 <div class="splitColumn">
       <table class="list">
         <caption>CEPT Progress Table</caption>
@@ -19,25 +14,16 @@ scores per function:</p>
           <th width="55%">Section</th>
           <th>Started</th>
           <th>Completed</th>
-          <th>Approved</th>
         </tr>
         <tr>
           <td>1 - Purpose</td>
-          <td class="number">50</td>
-          <td class="number">40</td>
-          <td class="number">20</td>
+          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.started(:purpose)) ? 1 : 0 } -%></td>
+          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.completed(:purpose)) ? 1 : 0 } -%></td>
         </tr>
         <tr>
           <td>2 - Performance</td>
-          <td class="number">30</td>
-          <td class="number">15</td>
-          <td class="number">10</td>
-        </tr>
-        <tr>
-          <td>3 - Confidence</td>
-          <td class="number">25</td>
-          <td class="number">15</td>
-          <td class="number">10</td>
+          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.started(:performance)) ? 1 : 0 } -%></td>
+          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.completed(:performance)) ? 1 : 0 } -%></td>
         </tr>
       </table>
     </td>
@@ -67,35 +53,13 @@ scores per function:</p>
             High
           </th>
         </tr>
+		<% 5.downto(1) do |priority| -%>
         <tr>
-          <td>5 – high</td>
-          <td class="number"></td>
-          <td class="number"></td>
-          <td class="number"></td>
+          <td><% if priority == 5 -%><%= priority -%> - High<% elsif priority == 1 -%><%= priority -%> - Low<% else -%><%= priority -%><% end %></td>
+          <td class="number"><% if @results_table[priority][:low] > 0 -%><%= @results_table[priority][:low] -%><% end -%></td>
+          <td class="number"><% if @results_table[priority][:medium] > 0 -%><%= @results_table[priority][:medium] -%><% end -%></td>
+          <td class="number"><% if @results_table[priority][:high] > 0 -%><%= @results_table[priority][:high] -%><% end -%></td>
         </tr>
-        <tr>
-          <td>4</td>
-          <td class="number"></td>
-          <td class="number">3</td>
-          <td class="number">2</td>
-        </tr>
-        <tr>
-          <td>3</td>
-          <td class="number">1</td>
-          <td class="number">3</td>
-          <td class="number"></td>
-        </tr>
-        <tr>
-          <td>2</td>
-          <td class="number">1</td>
-          <td class="number"></td>
-          <td class="number"></td>
-        </tr>
-        <tr>
-          <td>1 - low</td>
-          <td class="number"></td>
-          <td class="number"></td>
-          <td class="number"></td>
-        </tr>
+		<% end -%>
       </table>
 </div>

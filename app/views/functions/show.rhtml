@@ -5,7 +5,7 @@
 <div class="summary">
 <h4><%= @function.name %></h4>
 
-<% form_for(:function, :url => {:action => 'update', :id => @function.id}) do |f| %>
+<% form_for(:function, :url => {:action => 'update'}) do |f| %>
 <fieldset id="approval">
 	<legend>Approval <%= link_to_function image_tag("icons/help.gif"), "Element.toggle('approval_help')" -%></legend>
 	<span id="approval_help" class="toggleHelp" style="display:none;">Help for Demo Council approval required</span>
@@ -20,15 +20,15 @@
 </p>
 <p>
 	<label>Last changed:</label>
-	<div class="labelled"><%= date_or_blank(@function.updated_on) %></div>
+	<div class="labelled"><%= date_or_blank(@function.updated_on) -%></div>
 </p>
 <p>
 	<label>Relevance</label>
-	<div class="labelled">Yes</div>
+	<div class="labelled"><%= relevance_tag(@function) -%></div>
 </p>
 <p>
 	<label>Percentage Completed</label>
-    <div class="labelled"><%= progress_bar(percentage_answered(@function), 100) %></div>
+    <div class="labelled"><%= progress_bar(@function.percentage_answered, 100) -%></div>
 </p>
 
 <div style="clear:both"></div>
