@@ -1,9 +1,10 @@
 <% form_tag :action => 'new_link' do %>
-    Lost the link that was emailed to you?  Then request a new one.
-    <p>
-        <label>Email</label>:<%= text_field_tag :email,  nil, options = {:size => 50} %>
-    </p>
+    <p>Lost the key that was emailed to you?  Then request a new one.</p>
+	<div id="lost">
+    <p><label>Email:</label><%= text_field_tag :email,  nil, options = {:size => 50} %></p>
     <span class="button">
-        <%= submit_tag 'Send Me a Reminder' %>
+        <%= submit_tag 'Send me a new key' %>
     </span>
+	<div class="clear"></div>
+	</div>
 <% end %>

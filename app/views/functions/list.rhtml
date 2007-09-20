@@ -1,11 +1,12 @@
-<%= link_to "#{image_tag('icons/add')} Add New", :action => 'new' -%>
+
 <h3>CEPT Organisation Control Page - Functions</h3>
+<div id="print_link"><%= link_to "#{image_tag('icons/add')} Add New", :action => 'new' -%></div>
 <p>This page shows the Organisation Equalities Manager how each function is
 progressing through CEPT. It also lets the manager add new functions, amend
 existing functions and delete functions.</p>
 <table class="list">
   <tr>
-    <th>Name</th>
+    <th class="left">Name</th>
     <th>Purpose</th>
     <th>Performance</th>
     <th>Impact</th>
@@ -17,7 +18,7 @@ existing functions and delete functions.</p>
   </tr>
   <% for function in @organisation.functions -%>
   <tr>
-    <td><%=h function.name -%></td>
+    <td class="left"><%=h function.name -%></td>
     <td><%= completed_tag(function, :purpose) -%></td>
     <td><%= completed_tag(function, :performance) -%></td>
     <td>N/A</td>
@@ -25,11 +26,11 @@ existing functions and delete functions.</p>
     <td><%= approved_tag(function.approved?) -%></td>
     <td><%=h approver_or_blank(function.approver) -%></td>
     <td><%= date_or_blank(function.user.reminded_on) -%></td>
-    <td>
-	  <%= link_to "#{image_tag('icons/email')} Email", "mailto:#{function.user.email}" -%>
-      <%= link_to "#{image_tag('icons/key')} Key", { :controller => 'users', :action => 'remind', :id => function.user.id }, :confirm => "Send e-mail reminder for #{function.name} to #{function.user.email}?", :method => :post  -%>
-      <%= link_to "#{image_tag('icons/edit.jpg')} Amend", { :action => 'edit_contact', :id => function.id }, :id => 'amend' -%>
-      <%= link_to "#{image_tag('icons/delete')} Delete", { :action => 'destroy', :id => function.id }, :confirm => "Delete #{function.name}?", :method => :post -%>
+    <td class="actions" nowrap>
+	  <%= link_to "#{image_tag('icons/email')}", "mailto:#{function.user.email}", :title =>"Email" -%>
+      <%= link_to "#{image_tag('icons/key')}", { :controller => 'users', :action => 'remind', :id => function.user.id }, :confirm => "Send e-mail reminder for #{function.name} to #{function.user.email}?", :method => :post, :title =>"Key"  -%>
+      <%= link_to "#{image_tag('icons/edit.jpg')}", { :action => 'edit_contact', :id => function.id }, :id => 'amend', :title =>"Amend" -%>
+      <%= link_to "#{image_tag('icons/delete')}", { :action => 'destroy', :id => function.id }, :confirm => "Delete #{function.name}?", :method => :post, :title =>"Delete" -%>
     </td>
   </tr>
   <% end -%>
