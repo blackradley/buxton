@@ -117,29 +117,29 @@ module ApplicationHelper
       organisation = user.organisation
       generate_menu( [
                       { :text => 'Summary',
-                        :url => { :controller => 'functions', :action => 'summary', :id => organisation.id },
+                        :url => { :controller => 'functions', :action => 'summary' },
                         :title => 'Organisation Control Page - Summary' },
                       { :text => 'Functions',
-                        :url => { :controller => 'functions', :action => 'list', :id => organisation.id },
+                        :url => { :controller => 'functions', :action => 'list' },
                         :title => 'Organisation Control Page - Functions' },
                       { :text => 'Purpose',
-                        :url => { :controller => 'sections', :action => 'list', :section => 'purpose', :id => organisation.id },
+                        :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
                         :title => 'Organisation Control Page - Section - Purpose' },
                       { :text => 'Performance',
-                        :url => { :controller => 'sections', :action => 'list', :section => 'performance', :id => organisation.id },
+                        :url => { :controller => 'sections', :action => 'list', :id => 'performance' },
                         :title => 'Organisation Control Page - Section - Performance' }
                       ])
     elsif user.user_type == User::TYPE[:functional]
       function = user.function
       generate_menu( [
                       { :text => 'Summary',
-                        :url => { :controller => 'functions', :action => 'show', :id => function.id },
+                        :url => { :controller => 'functions', :action => 'show' },
                         :title => 'Function Control Page - Summary' },
                       { :text => 'Purpose',
-                        :url => { :controller => 'sections', :action => 'edit', :section => 'purpose', :id => function.id },
+                        :url => { :controller => 'sections', :action => 'edit', :id => 'purpose' },
                         :title => 'Function Control Page - Section - Purpose' },
                       { :text => 'Performance',
-                        :url => { :controller => 'sections', :action => 'edit', :section => 'performance', :id => function.id },
+                        :url => { :controller => 'sections', :action => 'edit', :id => 'performance' },
                         :title => 'Function Control Page - Section - Performance' }
                       ])
     else
@@ -147,28 +147,6 @@ module ApplicationHelper
     end
   end
   
-# 
-# Calculates the percentage of questions answered for a specific section in a function or for the
-# function as a whole. Almost just a proxy method really that uses some private methods for the actual calculations.
-# 
-  def percentage_answered(function, section = nil)
-    unless section
-      return (section_purpose_percentage_answered(function) +
-                            section_performance_percentage_answered(function)) / 2
-    else
-      case section
-      when :purpose
-        return section_purpose_percentage_answered(function)
-      when :performance
-        return section_performance_percentage_answered(function)
-      else
-        # Shouldn't get here - if you have, there's a new section that hasn't been fully implemented
-        # as it needs tending to here and at the start of the method for the overall calculation.
-        # TODO: throw a wobbly
-      end
-    end
-  end
-
 #
 # Hash of questions (used in various places)
 #
@@ -229,94 +207,4 @@ module ApplicationHelper
     :age_issues => ['Are there any performance issues which might have implications for people of different ages?', :yes_no_notsure],
     :age_note_issues => ['Please note any such performance issues:', :text],
   }
-
-private
-
-# The percentage number of questions answered for section 1 (the relevance
-# test).  Originally this was part of the model but it has to make use of
-# the Strategy table as well, which was inconvenient from the model.  Also
-# you could argue that the number of questions answered is an external and
-# arbitary value not inherent in the model.  In a way it is something that 
-# is calculated based on the model, which is what happens here.
-# 
-# To prevent rounding occuring during the calculation (which would happen
-# because all the values are integers) the number of questions is given with
-# a decimal place to make it a float.  This seems a bit naff to me, I think
-# there should be a neater way, but Ruby isn't my strongest skill.
-#
-  def section_purpose_percentage_answered(function)  
-    number_of_questions = 20.0 + function.organisation.strategies.count # decimal point prevents rounding
-    questions_answered = function.existence_status > 0 ? 1 : 0
-    questions_answered += function.impact_service_users > 0 ? 1 : 0
-    questions_answered += function.impact_staff > 0 ? 1 : 0
-    questions_answered += function.impact_supplier_staff > 0 ? 1 : 0
-    questions_answered += function.impact_partner_staff > 0 ? 1 : 0
-    questions_answered += function.impact_employees > 0 ? 1 : 0
-    questions_answered += function.good_gender > 0 ? 1 : 0
-    questions_answered += function.good_race > 0 ? 1 : 0
-    questions_answered += function.good_disability > 0 ? 1 : 0
-    questions_answered += function.good_faith > 0 ? 1 : 0
-    questions_answered += function.good_sexual_orientation > 0 ? 1 : 0
-    questions_answered += function.good_age > 0 ? 1 : 0
-    questions_answered += function.bad_gender > 0 ? 1 : 0
-    questions_answered += function.bad_race > 0 ? 1 : 0
-    questions_answered += function.bad_disability > 0 ? 1 : 0
-    questions_answered += function.bad_faith > 0 ? 1 : 0
-    questions_answered += function.bad_sexual_orientation > 0 ? 1 : 0
-    questions_answered += function.bad_age > 0 ? 1 : 0
-    questions_answered += function.approved.to_i 
-    questions_answered += function.approver.blank? ? 0 : 1
-    function.function_strategies.each do |strategy|
-      questions_answered += strategy.strategy_response > 0 ? 1 : 0
-    end
-    percentage = (questions_answered / number_of_questions) * 100 # calculate
-    percentage = percentage.round # round to one decimal place
-    return percentage
-  end
-
-# 
-# Calculates the percentage of questions answered in the performance section
-# Note: currently assumes that the textareas do not need filling in to be complete.
-# 
-  def section_performance_percentage_answered(function)
-
-    # All the questions, in function, that are in the performance section
-    performance_questions = [ :overall_performance,
-                              :overall_validated,
-                              :overall_issues,
-                              :gender_performance,
-                              :gender_validated,
-                              :gender_issues,
-                              :race_performance,
-                              :race_validated,
-                              :race_issues,
-                              :disability_performance,
-                              :disability_validated,
-                              :disability_issues,
-                              :faith_performance,
-                              :faith_validated,
-                              :faith_issues,
-                              :sexual_orientation_performance,
-                              :sexual_orientation_validated,
-                              :sexual_orientation_issues,
-                              :age_performance,
-                              :age_validated,
-                              :age_issues ]
-
-    # How many questions is this?
-    number_of_questions = performance_questions.size
-    
-    # How many are answered?
-    questions_answered = performance_questions.inject(0.to_f) { |answered, question|
-      # If there's an answer, add 1 to our accumulator else just add 0.
-      answered += (function.send(question) > 0) ? 1 : 0
-    }
-    
-    # What percentage does this make?
-    percentage = (questions_answered / number_of_questions) * 100 # calculate
-    percentage = percentage.round # round to one decimal place
-    
-    return percentage
-  end
-  
 end

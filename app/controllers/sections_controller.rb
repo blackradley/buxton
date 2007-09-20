@@ -6,9 +6,9 @@ class SectionsController < ApplicationController
   # Manager to scan down.
   #
   def list
-    @organisation = Organisation.find(params[:id])
+    @organisation = Organisation.find(session['logged_in_user'].organisation.id)
     
-    case params[:section]
+    case params[:id]
     when 'purpose'
       render :template => 'sections/list_purpose'
     when 'performance'
@@ -24,9 +24,17 @@ class SectionsController < ApplicationController
   # Available to both the Function and Organisation managers.
   #
   def show
-    @function = Function.find(params[:id])
+    
+    # TODO: improve this - all a bit ugly
+    f_id = if (session['logged_in_user'].user_type == User::TYPE[:organisational])
+      params[:f]
+    else
+      session['logged_in_user'].function.id
+    end
+    
+    @function = Function.find(f_id)
 
-    case params[:section]
+    case params[:id]
     when 'purpose'
       render :template => 'sections/show_purpose'
     when 'performance'
@@ -42,12 +50,12 @@ class SectionsController < ApplicationController
   # These are edited by the Function manager.
   #
   def edit
-    @function = Function.find(params[:id])
+    @function = Function.find(session['logged_in_user'].function.id)
     @strategies = @function.organisation.strategies
     @function_responses = @function.function_strategies # could be empty
     @user = @function.user
 
-    case params[:section]
+    case params[:id]
     when 'purpose'
       render :template => 'sections/edit_purpose'
     when 'performance'
@@ -70,7 +78,7 @@ class SectionsController < ApplicationController
   #
   def update
     # Update the answers in the function table
-    @function = Function.find(params[:id])
+    @function = Function.find(session['logged_in_user'].function.id)
     @function.update_attributes(params[:function])
     
     # Update the function strategy answers if we have any (currently only in the Purpose section)

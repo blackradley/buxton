@@ -20,9 +20,9 @@ module FunctionsHelper
       
       case section
       when :purpose
-        (section_purpose_percentage_answered(function) == 100) ? complete_icon : incomplete_icon
+        (function.completed(:purpose)) ? complete_icon : incomplete_icon
       when :performance
-        (section_performance_percentage_answered(function) == 100) ? complete_icon : incomplete_icon
+        (function.completed(:performance)) ? complete_icon : incomplete_icon
       else
         # Shouldn't get here - if you have, there's a new section that hasn't been fully implemented
         # as it needs tending to here.
@@ -65,7 +65,32 @@ module FunctionsHelper
       html = progress_bar(percentage)
     end
     return html
-  end 
+  end
+  
+  def impact_tag(function)
+    if function.completed then
+      function.statistics.fun_impact.to_s.capitalize
+    else
+      '-'
+    end
+  end
+
+  def priority_tag(function)
+    if function.completed then
+      function.statistics.fun_priority_ranking
+    else
+      '-'
+    end
+  end
+  
+  def relevance_tag(function)
+    if function.completed then
+      (function.statistics.fun_relevance) ? 'Yes' : 'No'
+    else
+      '-'
+    end    
+  end
+  
 #
 # Return a yes or no for relevance, based on the Function.  A totally
 # unpleasant way of doing it.  There must be a neater way of doing 

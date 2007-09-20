@@ -1,7 +1,7 @@
 <h2>Function Input Page - Performance</h2>
 <h3><%= @function.name -%></h3>
 
-<% form_for(:function, :url => {:action => 'update', :id => @function.id}, :builder => QuestionBuilder) do |f| -%>
+<% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
 <h4>Overall Performance</h4>
 <%= f.question :overall_performance %>

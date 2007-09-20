@@ -21,8 +21,8 @@ existing functions and delete functions.</p>
     <td class="left"><%=h function.name -%></td>
     <td><%= completed_tag(function, :purpose) -%></td>
     <td><%= completed_tag(function, :performance) -%></td>
-    <td>N/A</td>
-    <td>N/A</td>
+    <td><%= impact_tag(function) -%></td>
+    <td><%= priority_tag(function) -%></td>
     <td><%= approved_tag(function.approved?) -%></td>
     <td><%=h approver_or_blank(function.approver) -%></td>
     <td><%= date_or_blank(function.user.reminded_on) -%></td>

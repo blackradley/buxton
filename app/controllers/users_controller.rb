@@ -180,9 +180,9 @@ class UsersController < ApplicationController
       session['logged_in_user'] = user
       case user.user_type
         when User::TYPE[:functional]
-          redirect_to :controller => 'functions', :action => 'show', :id => user.function.id
+          redirect_to :controller => 'functions', :action => 'show'
         when User::TYPE[:organisational]
-          redirect_to :controller => 'functions', :action => 'summary', :id => user.organisation.id
+          redirect_to :controller => 'functions', :action => 'summary'
         when User::TYPE[:administrative]
           redirect_to :controller => 'organisations', :action => 'index'
       end
