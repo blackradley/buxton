@@ -1,4 +1,19 @@
-require 'RMagick'
+#
+# $URL$
+#
+# $Rev$
+#
+# $Author$
+#
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
+#
+begin 
+  require 'RMagick' 
+  rescue NameError, LoadError 
+# RMagick didn't load right 
+end
 
 class GenerateController < ApplicationController
 
