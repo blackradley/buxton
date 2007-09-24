@@ -34,7 +34,7 @@ class Notifier < ActionMailer::Base
 # A new key for the organisation administrator
 #
   def organisation_key(user, request)
-    @subject      = 'CEPT Demonstration Version 2.1'
+    @subject      = 'Impact Engine Demonstration Version 2.1'
     email_details(user, request)
   end
 #
