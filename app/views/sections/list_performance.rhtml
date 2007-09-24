@@ -16,9 +16,9 @@ and send reminders to the Function Managers.</p>
     <td width="104px"><%= progress_bar(function.percentage_answered(:performance), 100) -%></td>
     <td><%= date_or_blank(function.user.reminded_on) -%></td>
     <td class="actions" nowrap>
-      <%= link_to "#{image_tag('icons/view.jpg')} View", {:action => 'show', :id => 'performance', :f => function}, :id => 'view', :title =>"View" -%> 
-	  <%= link_to "#{image_tag('icons/email')} Email", "mailto:#{function.user.email}", :title =>"Email" -%>
-      <%= link_to "#{image_tag('icons/key')} Key", { :controller => 'users', :action => 'remind', :id => function.user.id }, :confirm => "Send e-mail reminder for #{function.name}?", :method => :post, :title =>"Key" -%>
+      <%= link_to image_tag('icons/view.jpg'), {:action => 'show', :id => 'performance', :f => function}, :id => 'view', :title =>"View" -%> 
+	  <%= link_to image_tag('icons/email'), "mailto:#{function.user.email}", :title =>"Email" -%>
+      <%= link_to image_tag('icons/key'), { :controller => 'users', :action => 'remind', :id => function.user.id }, :confirm => "Send e-mail reminder for #{function.name}?", :method => :post, :title =>"Key" -%>
     </td>
   </tr>
   <% end -%>

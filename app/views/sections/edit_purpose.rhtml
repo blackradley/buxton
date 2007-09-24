@@ -1,6 +1,6 @@
 <h2>Function Input Page - Purpose</h2>
 <h3><%= @function.name %></h3>
-
+<div id="purpose">
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
 <%= f.question :existence_status %>
@@ -39,8 +39,9 @@
 <%= f.question :bad_age %>
 
 <span class="button"><%= submit_tag 'Save' %></span>
-<% end -%>
 
+<% end -%>
+</div>
 <!-- <span class="button">
 	<% if @session['logged_in_user'].user_type == User::TYPE[:organisational] -%>
 	    <%= link_to 'Back', :action => 'list1', :id => @session['logged_in_user'].organisation.id -%>

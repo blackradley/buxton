@@ -21,49 +21,49 @@
 			<p><label title="<%= $questions[:impact_employees][0] %>"><%= $questions[:impact_employees][0] %></label><div class="labelled"><%= level_bar(@function.impact_employees, LookUp.impact_amount, 'bar-impact-groups') %>	</div></p>
 
 <h5>The Function/Policy may have the following differential positive impact on these equality groups</h5>
-         	<p><label title="<%= $questions[:good_gender][0] %>">Gender</label><div class="labelled"><img src="" alt="<%= (@function.good_gender * 10).to_s + '%' %>">
+         	<p><label title="<%= $questions[:good_gender][0] %>">Gender</label><div class="labelled">
 			  <%= level_bar(@function.good_gender, LookUp.impact_level, 'bar-equality-good') %>
 			</div></p>
 
-			<p><label title="<%= $questions[:good_race][0] %>">Race</label><div class="labelled"><img src="" alt="<%= (@function.good_race * 10).to_s + '%' %>">
+			<p><label title="<%= $questions[:good_race][0] %>">Race</label><div class="labelled">
             <%= level_bar(@function.good_race, LookUp.impact_level, 'bar-equality-good') %>
           	</div></p>
 
-			<p><label title="<%= $questions[:good_disability][0] %>">Disability</label><div class="labelled"><img src="" alt="<%= (@function.good_disability * 10).to_s + '%' %>">
+			<p><label title="<%= $questions[:good_disability][0] %>">Disability</label><div class="labelled">
             <%= level_bar(@function.good_disability, LookUp.impact_level, 'bar-equality-good') %>
           	</div></p>
 
-			<p><label title="<%= $questions[:good_faith][0] %>">Faith</label><div class="labelled"><img src="" alt="<%= (@function.good_faith * 10).to_s + '%' %>">
+			<p><label title="<%= $questions[:good_faith][0] %>">Faith</label><div class="labelled">
             <%= level_bar(@function.good_faith, LookUp.impact_level, 'bar-equality-good') %>
          	</div></p>
 
-			<p><label title="<%= $questions[:good_sexual_orientation][0] %>">Sexual Orientation</label><div class="labelled"><img src="" alt="<%= (@function.good_sexual_orientation * 10).to_s + '%' %>">
+			<p><label title="<%= $questions[:good_sexual_orientation][0] %>">Sexual Orientation</label><div class="labelled">
             <%= level_bar(@function.good_sexual_orientation, LookUp.impact_level, 'bar-equality-good') %>
           	</div></p>
 
-			<p><label title="<%= $questions[:good_age][0] %>">Age</label><div class="labelled"><img src="" alt="<%= (@function.good_age * 10).to_s + '%' %>">
+			<p><label title="<%= $questions[:good_age][0] %>">Age</label><div class="labelled">
 		
             <%= level_bar(@function.good_age, LookUp.impact_level, 'bar-equality-good') %></div></p>
 
 <h5>The Function/Policy may have the following differential negative impact on these equality groups</h5>
-			<p><label title="<%= $questions[:bad_gender][0] %>">Gender</label><div class="labelled"><img src="" alt="<%= (@function.bad_gender * 10).to_s + '%' %>">
+			<p><label title="<%= $questions[:bad_gender][0] %>">Gender</label><div class="labelled">
             <%= level_bar(@function.bad_gender, LookUp.impact_level, 'bar-equality-bad') %>
          	</div></p>
 
-			<p><label title="<%= $questions[:bad_race][0] %>">Race</label><div class="labelled"><img src="" alt="<%= (@function.bad_race * 10).to_s + '%' %>">
+			<p><label title="<%= $questions[:bad_race][0] %>">Race</label><div class="labelled">
             <%= level_bar(@function.bad_race, LookUp.impact_level, 'bar-equality-bad') %>
           	</div></p>
 
-			<p><label title="<%= $questions[:bad_disability][0] %>">Disability</label><div class="labelled"><img src="" alt="<%= (@function.bad_disability * 10).to_s + '%' %>">
+			<p><label title="<%= $questions[:bad_disability][0] %>">Disability</label><div class="labelled">
             <%= level_bar(@function.bad_disability, LookUp.impact_level, 'bar-equality-bad') %>
          	</div></p>
 
-			<p><label title="<%= $questions[:bad_faith][0] %>">Faith</label><div class="labelled"><img src="" alt="<%= (@function.bad_faith * 10).to_s + '%' %>">
+			<p><label title="<%= $questions[:bad_faith][0] %>">Faith</label><div class="labelled">
             <%= level_bar(@function.bad_faith, LookUp.impact_level, 'bar-equality-bad') %>
           	</div></p>
 
-			<p><label title="<%= $questions[:bad_sexual_orientation][0] %>">Sexual Orientation</label><div class="labelled"><img src="" alt="<%= (@function.bad_sexual_orientation * 10).to_s + '%' %>">
+			<p><label title="<%= $questions[:bad_sexual_orientation][0] %>">Sexual Orientation</label><div class="labelled">
             <%= level_bar(@function.bad_sexual_orientation, LookUp.impact_level, 'bar-equality-bad') %></div></p>
 
-			<p><label title="<%= $questions[:bad_age][0] %>">Age</label><div class="labelled"><img src="" alt="<%= (@function.bad_age * 10).to_s + '%' %>">
+			<p><label title="<%= $questions[:bad_age][0] %>">Age</label><div class="labelled">
             <%= level_bar(@function.bad_age, LookUp.impact_level, 'bar-equality-bad') %></div></p>
