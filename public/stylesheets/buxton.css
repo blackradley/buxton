@@ -73,18 +73,22 @@ h2
 	margin:0px;
 	padding-bottom: 1em;
 	font-size:1.5em;
+	clear: left;
 }
 
 h3{
 	font-weight: bold;
 	color: #515f8d;
 	font-size:1.2em;
+	clear: left;
 }
 
 h4{ 
 	font-weight: bold;
 	color: #515f8d;
 	font-size:1.1em;
+	margin-top:20px;
+	clear: left;
 }
 h5{ 
 clear: left;
@@ -107,10 +111,10 @@ LABEL
 {
 	clear: left;
 	float: left;
-	width: 500px;
+	width: 480px;
 	line-height:20px;
 	margin-right: 10px;
-	margin-bottom: 10px;
+	margin-bottom: 5px;
 	border: 0px solid #515f8d;
 }
 
@@ -119,7 +123,7 @@ SELECT
 	font-family: Tahoma, Verdana, Arial, Sans-Serif;
 	font-size: 1em;
 	width: 150px;
-	
+	float: right;
 	border: 1px solid #515f8d;
 	margin-top: 4px;
 	
@@ -208,7 +212,8 @@ UL#menuBar LI A:hover
 
 /*Clickable Buttons*/
 .button INPUT, BUTTON
-{
+{	margin-top: 10px;
+	clear: both;
 	float: right;
 	width: auto;
 	font-family: Tahoma, Verdana, Arial, Sans-Serif;
@@ -423,9 +428,11 @@ td.bar{
 #print_link{
 	float: right;
 	margin-top: -30px;
+	width: 50px;
 }
 #print_link img{
-	margin-bottom: -4px;
+	margin-right:5px;
+	float: left;
 }
 #print_link a, #print_link a:visited, #print_link a:hover{
 	text-decoration:underline;
@@ -435,18 +442,26 @@ td.bar{
 .summary p{
 	
 	margin:0px;
-	margin-top:5px;
+	margin-top:-10px;
+}
+
+.summary a, .summary a:visited, .summary a:hover{
+	text-decoration:underline;
+	color: #515f8d;
 }
 .summary label{
-	width: 120px;
+	width: 150px;
+	float: left;	
+	margin: 0px;
 }
 .summary .labelled{
-	width: 220px;
+	width: 200px;
 	line-height:20px;
-	
+	float: left;	
+		
 }
-.summary .labelled table{
-	margin-top: 4px;
+.summary .labelled img{
+	margin-top: 5px;
 }
 .summary fieldset{
 	float: right;
@@ -454,9 +469,10 @@ td.bar{
 	border: 2px solid #F90;
 	margin-top: -30px;
 	padding: 10px;
+	margin-left: 5px;
 }
 .summary fieldset legend img{
-	margin-bottom: -3px;
+
 }
 
 .summary fieldset legend{
@@ -469,6 +485,8 @@ td.bar{
 .summary fieldset label{
 	width: 40px;
 	border: 0px solid red;
+	margin-bottom:5px;
+	margin-right:5px;
 }
 .summary fieldset label#function_approver_label{
 	width: 20px;
@@ -530,21 +548,23 @@ td.bar{
 .summary .section_summary_toggles{
 	float:right;
 	font-size:11px;
-	
+	font-weight:normal;
 	margin-top: -20px;
 	padding: 0px 5px;
 	background-color:#fff;
 	text-align:right;
+	width: 40px;
 }
 .summary .section_summary_toggles img{
-
+margin-left:5px;
+float: right;
 }
 .section_summary_header a, .section_summary_header a:visited,.section_summary_header a:hover{
-	text-decoration:none;
+	text-decoration:underline;
 	color: #515f8d;
 }
 .section_summary_show a, .section_summary_show a:visited,.section_summary_show a:hover{
-	text-decoration:none;
+	text-decoration:underline;
 	color: #515f8d;
 }
 

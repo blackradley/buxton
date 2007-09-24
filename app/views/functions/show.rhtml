@@ -1,7 +1,7 @@
 
 
-<h3>CEPT Function Summary Page </h3>
-<span id="print_link"><%= link_to "#{image_tag('icons/printer')} Print", {:action => 'print', :id => @function.id}, :target => '_blank' %></span>
+<h3>Impact Equality Function Summary Page</h3>
+<span id="print_link"><%= link_to "#{image_tag('icons/printer.jpg')} Print", {:action => 'print', :id => @function.id}, :target => '_blank', :title => 'Print' %></span>
 <div class="summary">
 <h4><%= @function.name %></h4>
 
@@ -35,29 +35,29 @@
 <h4>Section Summaries:</h4>
 <div id="purpose_top" style="display:block;">
 <fieldset class="section_summary_header">
-	<legend><%= link_to_function 'Purpose', "Element.toggle('show_purpose'); Element.toggle('purpose_top')" -%></legend>
-	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg"> view summary ', "Element.toggle('show_purpose'); Element.toggle('purpose_top')" -%></legend>
+	<legend>Purpose</legend>
+	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary ', "Element.toggle('show_purpose'); Element.toggle('purpose_top')", :title => 'View Summary' -%></legend>
 </fieldset>
 </div>
 <div id="show_purpose"<%= %Q[style="display:none;"] unless @print_only -%>>
 <fieldset class="section_summary_show">
-	<legend><%= link_to_function 'Purpose', "Element.toggle('show_purpose'); Element.toggle('purpose_top')" -%></legend>
-	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg"> close', "Element.toggle('show_purpose'); Element.toggle('purpose_top')" -%></legend>
+	<legend>Purpose</legend>
+	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_purpose'); Element.toggle('purpose_top')", :title => 'Close Summary View' -%></legend>
 	<%= render :partial => 'show_purpose' -%>	
 </fieldset>
 </div>
 
 <div id="performance_top" style="display:block;">
 <fieldset class="section_summary_header">
-	<legend><%= link_to_function 'Performance', "Element.toggle('show_performance'); Element.toggle('performance_top')" -%></legend>
-	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg"> view summary', "Element.toggle('show_performance'); Element.toggle('performance_top')" -%></legend>
+	<legend>Performance</legend>
+	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_performance'); Element.toggle('performance_top')", :title => 'View Summary' -%></legend>
 </fieldset>
 </div>
 
 <div id="show_performance"<%= %Q[style="display:none;"] unless @print_only -%>>
 <fieldset class="section_summary_show">
-	<legend><%= link_to_function 'Performance', "Element.toggle('show_performance'); Element.toggle('performance_top')" -%></legend>
-	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg"> close', "Element.toggle('show_performance'); Element.toggle('performance_top')" -%></legend>
+	<legend>Performance</legend>
+	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_performance'); Element.toggle('performance_top')", :title => 'Close Summary View' -%></legend>
 	<%= render :partial => 'show_performance' -%>	
 </fieldset>
 </div>

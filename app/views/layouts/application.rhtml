@@ -7,6 +7,7 @@
   <title><%= (controller.controller_name() + " : " + controller.action_name).titleize %></title>
 	<% if @print_only -%>
 		<%= stylesheet_link_tag 'print' %>
+		<%= stylesheet_link_tag 'print', :media => 'print' %>
 	<% else -%>
 		<%= stylesheet_link_tag 'default' %>
 		<%= stylesheet_link_tag subdomain(request) %>
