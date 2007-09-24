@@ -84,11 +84,11 @@ module ApplicationHelper
     else
       case user.user_type
         when User::TYPE[:functional]
-          html = 'You are logged in as Function Manager'
+          html = 'Logged in as a Function Manager'
         when User::TYPE[:organisational]
-          html = 'You are logged in as Organisation Manager'
+          html = 'Logged in as an Organisation Manager'
         when User::TYPE[:administrative]
-          html = 'You are logged in as Administration Manager'
+          html = 'Logged in as an Administration Manager'
       end
     end
     return html

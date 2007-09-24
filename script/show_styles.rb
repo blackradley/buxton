@@ -36,20 +36,20 @@ ie.Document.All.email.Value = 'not an email address'
 ie.Document.All.commit.click
 input = gets
 
-puts 'CEPT Organisation Control Page - press return'
+puts 'Impact Equality Organisation Control Page - press return'
 ie.Document.All.email.Value = 'demo@localhost.com'
 ie.Document.All.commit.click
 input = gets
 
-puts 'CEPT Section 1 Page - press return'
+puts 'Impact Equality Section 1 Page - press return'
 ie.Document.All.list1.click
 input = gets
 
-puts 'CEPT Section 1 view - press return'
+puts 'Impact Equality Section 1 view - press return'
 ie.Document.All.view(0).click
 input = gets
 
-puts 'CEPT Section 1 amend - press return'
+puts 'Impact Equality Section 1 amend - press return'
 ie.Document.All.amend.click
 input = gets
 
