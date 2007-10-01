@@ -204,9 +204,50 @@ private
       answered += (send(question) > 0) ? 1 : 0
     }
 
+    # What about the dependent questions (with text)?
+    dependent_questions = { :overall_validated => :overall_validation_regime,
+                            :overall_issues => :overall_note_issues,
+                            :gender_validated => :gender_validation_regime,
+                            :gender_issues => :gender_note_issues,
+                            :race_validated => :race_validation_regime,
+                            :race_issues => :race_note_issues,
+                            :disability_validated => :disability_validation_regime,
+                            :disability_issues => :disability_note_issues,
+                            :faith_validated => :faith_validation_regime,
+                            :faith_issues => :faith_note_issues,
+                            :sexual_orientation_validated => :sexual_orientation_validation_regime,
+                            :sexual_orientation_issues => :sexual_orientation_note_issues,
+                            :age_validated => :age_validation_regime,
+                            :age_issues => :age_note_issues,
+                            }
+      
+    # Process all of our dependent questions
+    for question in dependent_questions.keys
+    
+      # What does an answer of 'Yes' correspond to?
+      yes_value = LookUp.yes_no_notsure.find{|lookUp| 'Yes' == lookUp.name}.value
+
+      # If the main question has been answered 'Yes'
+      if (send(question) == yes_value) then
+        puts "consider: #{question}"
+        # We have one more question to consider
+        number_of_questions += 1
+        # If the dependent question has been answered (i.e. not nil)
+        answer = send(dependent_questions[question])
+        puts "answer: #{answer}"
+        if answer then # Check if it has any text in it or not
+          questions_answered += (answer.size > 0) ? 1 : 0
+        end
+      end
+      
+    end
+
     # What percentage does this make?
     percentage = (questions_answered / number_of_questions) * 100 # calculate
     percentage = percentage.round # round to one decimal place
+    
+    puts "number_of_questions: #{number_of_questions}"
+    puts "questions_answered: #{questions_answered}"
 
     return percentage
   end
