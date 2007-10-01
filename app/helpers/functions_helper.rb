@@ -53,19 +53,6 @@ module FunctionsHelper
       approver
     end
   end
-#
-# Display a coloured bar showing the level selected, produced 
-# entirely via div's courtessy of Sam.
-# 
-  def level_bar(value, out_of, css_class)
-    html = 'Not answered yet'
-    if value != 0
-      percentage = (value.to_f / (out_of.length - 1)) * 100.0
-      percentage = percentage.round
-      html = progress_bar(percentage)
-    end
-    return html
-  end
   
   def impact_tag(function)
     if function.completed then
