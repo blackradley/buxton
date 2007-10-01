@@ -1,12 +1,17 @@
 <p><label>Function/Policy is </label><div class="labelled"><%= LookUp.existing_proposed.find{|lookUp| @function.existence_status == lookUp.value}.name %></div></p>
 <br />
 <h5>The Function/Policy helps in delivering the following strategic priorities</h5>
+	<% function_strategies = @function.function_strategies.find(:all, :conditions => "strategy_response = 1") -%>
 	<p>
+		<% if function_strategies.size > 0 -%>
 		<ul>
-        <% for function_strategy in @function.function_strategies.find(:all, :conditions => "strategy_response = 1").collect %>
-        <li><%= function_strategy.strategy.name %></li>
-        <% end %>
-      </ul>
+	        <% for function_strategy in function_strategies -%>
+	        <li><%= function_strategy.strategy.name -%></li>
+	        <% end -%>
+      	</ul>
+		<% else -%>
+			No strategic priorities selected.
+		<% end -%>
     </p>
 <h5>What proportion of these groups does "<%= @function.name %>" impact?</h5>
 
