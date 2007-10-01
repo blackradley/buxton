@@ -88,10 +88,10 @@ h4{
 	color: #515f8d;
 	font-size:1.1em;
 	margin-top:20px;
-	clear: left;
+	clear: both;
 }
 h5{ 
-clear: left;
+clear: both;
 	font-weight: bold;
 	color: #515f8d;
 	font-size:1em;
@@ -111,28 +111,40 @@ LABEL
 {
 	clear: left;
 	float: left;
-	width: 480px;
+	width: 410px;
 	line-height:20px;
 	margin-right: 10px;
 	margin-bottom: 5px;
 	border: 0px solid #515f8d;
 }
-
+#show label{
+	border: 0px solid red;
+}
 SELECT
 {
 	font-family: Tahoma, Verdana, Arial, Sans-Serif;
 	font-size: 1em;
-	width: 150px;
+	width: 220px;
+	float: right;
+	border: 1px solid #515f8d;
+	margin-top: 4px;
+	
+}
+INPUT
+{
+	font-family: Tahoma, Verdana, Arial, Sans-Serif;
+	font-size: 1em;
+	width: 220px;
 	float: right;
 	border: 1px solid #515f8d;
 	margin-top: 4px;
 	
 }
 
-
 OPTION{} 
 TEXTAREA{
-	width: 100%;
+	width: 220px;
+	float: right;
 	height: 60px;
 	border: 1px solid #515f8d;
 }
@@ -423,6 +435,14 @@ td.bar{
 .labelled{
 	width: 300px;
 	line-height:20px;
+}
+#show .labelled{
+	width: 200px;
+	line-height:20px;
+	float: left;
+}
+#show .labelled img{
+margin-top: 5px;
 }
 /*summary page */
 #print_link{
