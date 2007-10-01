@@ -43,7 +43,7 @@
 <fieldset class="section_summary_show">
 	<legend>Purpose</legend>
 	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_purpose'); Element.toggle('purpose_top')", :title => 'Close Summary View' -%></legend>
-	<%= render :partial => 'show_purpose' -%>	
+	<%= render 'sections/show_purpose' -%>	
 </fieldset>
 </div>
 
@@ -58,6 +58,6 @@
 <fieldset class="section_summary_show">
 	<legend>Performance</legend>
 	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_performance'); Element.toggle('performance_top')", :title => 'Close Summary View' -%></legend>
-	<%= render :partial => 'show_performance' -%>	
+	<%= render 'sections/show_performance' -%>	
 </fieldset>
 </div>

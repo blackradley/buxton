@@ -24,7 +24,6 @@ class SectionsController < ApplicationController
   # Available to both the Function and Organisation managers.
   #
   def show
-    
     # TODO: improve this - all a bit ugly
     f_id = if (session['logged_in_user'].user_type == User::TYPE[:organisational])
       params[:f]
