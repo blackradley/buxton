@@ -18,7 +18,7 @@ and send reminders to the Function Managers.</p>
     <td class="actions" nowrap>
       <%= link_to image_tag('icons/view.jpg'), {:action => 'show', :id => 'performance', :f => function}, :id => 'view', :title =>"View" -%> 
 	  <%= link_to image_tag('icons/email'), "mailto:#{function.user.email}", :title =>"Email" -%>
-      <%= link_to image_tag('icons/key'), { :controller => 'users', :action => 'remind', :id => function.user.id }, :confirm => "Send e-mail reminder for #{function.name}?", :method => :post, :title =>"Key" -%>
+      <%= link_to image_tag('icons/key'), { :controller => 'users', :action => 'remind', :id => function.user.id }, :confirm => "Send access key reminder to #{function.name}?", :method => :post, :title =>"Key" -%>
     </td>
   </tr>
   <% end -%>
