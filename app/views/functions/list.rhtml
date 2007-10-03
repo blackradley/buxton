@@ -25,7 +25,7 @@
     <td><%= date_or_blank(function.user.reminded_on) -%></td>
     <td class="actions" nowrap>
 	  <%= link_to image_tag('icons/email'), "mailto:#{function.user.email}", :title =>"Email" -%>
-      <%= link_to image_tag('icons/key'), { :controller => 'users', :action => 'remind', :id => function.user.id }, :confirm => "Send e-mail reminder for #{function.name} to #{function.user.email}?", :method => :post, :title =>"Key"  -%>
+      <%= link_to image_tag('icons/key'), { :controller => 'users', :action => 'remind', :id => function.user.id }, :confirm => "Send access key reminder to #{function.name} to #{function.user.email}?", :method => :post, :title =>"Key"  -%>
       <%= link_to image_tag('icons/edit.jpg'), { :action => 'edit_contact', :id => function.id }, :id => 'amend', :title =>"Amend" -%>
       <%= link_to image_tag('icons/delete'), { :action => 'destroy', :id => function.id }, :confirm => "Delete #{function.name}?", :method => :post, :title =>"Delete" -%>
     </td>
