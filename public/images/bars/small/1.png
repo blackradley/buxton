@@ -1,0 +1,144 @@
+<html>
+<head>
+  <title>Action Controller: Exception caught</title>
+  <style>
+    body { background-color: #fff; color: #333; }
+
+    body, p, ol, ul, td {
+      font-family: verdana, arial, helvetica, sans-serif;
+      font-size:   13px;
+      line-height: 18px;
+    }
+
+    pre {
+      background-color: #eee;
+      padding: 10px;
+      font-size: 11px;
+    }
+
+    a { color: #000; }
+    a:visited { color: #666; }
+    a:hover { color: #fff; background-color:#000; }
+  </style>
+</head>
+<body>
+
+<h1>
+  Magick::ImageMagickError
+  
+    in GenerateController#bar
+  
+</h1>
+<pre>pixel cache is not open `'</pre>
+
+
+
+<p><code>RAILS_ROOT: ../config/..</code></p>
+
+<div id="traces">
+      
+    <a href="#" onclick="document.getElementById('Framework-Trace').style.display='none';document.getElementById('Full-Trace').style.display='none';document.getElementById('Application-Trace').style.display='block';; return false;">Application Trace</a> |
+      
+    <a href="#" onclick="document.getElementById('Application-Trace').style.display='none';document.getElementById('Full-Trace').style.display='none';document.getElementById('Framework-Trace').style.display='block';; return false;">Framework Trace</a> |
+      
+    <a href="#" onclick="document.getElementById('Application-Trace').style.display='none';document.getElementById('Framework-Trace').style.display='none';document.getElementById('Full-Trace').style.display='block';; return false;">Full Trace</a> 
+  
+      <div id="Application-Trace" style="display: block;">
+      <pre><code>#{RAILS_ROOT}/app/controllers/generate_controller.rb:47:in `append'
+#{RAILS_ROOT}/app/controllers/generate_controller.rb:47:in `bar'</code></pre>
+    </div>
+      <div id="Framework-Trace" style="display: none;">
+      <pre><code>/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/base.rb:1095:in `send'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/base.rb:1095:in `perform_action_without_filters'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:632:in `call_filter'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:638:in `call_filter'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:438:in `call'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:637:in `call_filter'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:638:in `call_filter'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:438:in `call'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:637:in `call_filter'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:619:in `perform_action_without_benchmark'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/benchmarking.rb:66:in `perform_action_without_rescue'
+/usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/benchmarking.rb:66:in `perform_action_without_rescue'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/rescue.rb:83:in `perform_action'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/base.rb:430:in `send'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/base.rb:430:in `process_without_filters'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:624:in `process_without_session_management_support'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/session_management.rb:114:in `process'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/base.rb:330:in `process'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/dispatcher.rb:41:in `dispatch'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:168:in `process_request'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:143:in `process_each_request!'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:109:in `with_signal_handler'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:142:in `process_each_request!'
+/usr/local/lib/ruby/gems/1.8/gems/fcgi-0.8.7/lib/fcgi.rb:612:in `each_cgi'
+/usr/local/lib/ruby/gems/1.8/gems/fcgi-0.8.7/lib/fcgi.rb:609:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/fcgi-0.8.7/lib/fcgi.rb:609:in `each_cgi'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:141:in `process_each_request!'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:55:in `process!'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:25:in `process!'
+dispatch.fcgi:24</code></pre>
+    </div>
+      <div id="Full-Trace" style="display: none;">
+      <pre><code>#{RAILS_ROOT}/app/controllers/generate_controller.rb:47:in `append'
+#{RAILS_ROOT}/app/controllers/generate_controller.rb:47:in `bar'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/base.rb:1095:in `send'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/base.rb:1095:in `perform_action_without_filters'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:632:in `call_filter'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:638:in `call_filter'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:438:in `call'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:637:in `call_filter'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:638:in `call_filter'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:438:in `call'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:637:in `call_filter'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:619:in `perform_action_without_benchmark'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/benchmarking.rb:66:in `perform_action_without_rescue'
+/usr/local/lib/ruby/1.8/benchmark.rb:293:in `measure'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/benchmarking.rb:66:in `perform_action_without_rescue'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/rescue.rb:83:in `perform_action'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/base.rb:430:in `send'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/base.rb:430:in `process_without_filters'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/filters.rb:624:in `process_without_session_management_support'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/session_management.rb:114:in `process'
+/usr/local/lib/ruby/gems/1.8/gems/actionpack-1.13.3/lib/action_controller/base.rb:330:in `process'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/dispatcher.rb:41:in `dispatch'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:168:in `process_request'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:143:in `process_each_request!'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:109:in `with_signal_handler'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:142:in `process_each_request!'
+/usr/local/lib/ruby/gems/1.8/gems/fcgi-0.8.7/lib/fcgi.rb:612:in `each_cgi'
+/usr/local/lib/ruby/gems/1.8/gems/fcgi-0.8.7/lib/fcgi.rb:609:in `each'
+/usr/local/lib/ruby/gems/1.8/gems/fcgi-0.8.7/lib/fcgi.rb:609:in `each_cgi'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:141:in `process_each_request!'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:55:in `process!'
+/usr/local/lib/ruby/gems/1.8/gems/rails-1.2.3/lib/fcgi_handler.rb:25:in `process!'
+dispatch.fcgi:24</code></pre>
+    </div>
+  </div>
+
+
+
+
+
+
+
+<h2 style="margin-top: 30px">Request</h2>
+<p><b>Parameters</b>: {&quot;id&quot;=&gt;&quot;1&quot;,
+ &quot;width&quot;=&gt;&quot;100.png&quot;}</p>
+
+<p><a href="#" onclick="document.getElementById('session_dump').style.display='block'; return false;">Show session dump</a></p>
+<div id="session_dump" style="display:none"><pre class='debug_dump'>--- 
+flash: !map:ActionController::Flash::FlashHash {}
+
+</pre></div>
+
+
+<h2 style="margin-top: 30px">Response</h2>
+<b>Headers</b>: {&quot;cookie&quot;=&gt;[],
+ &quot;Cache-Control&quot;=&gt;&quot;no-cache&quot;}<br/>
+
+
+
+</body>
+</html>
