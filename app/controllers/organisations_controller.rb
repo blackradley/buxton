@@ -49,6 +49,7 @@ class OrganisationsController < ApplicationController
     @user.user_type = User::TYPE[:organisational]
     Organisation.transaction do
       @user.organisation = @organisation
+      @user.passkey = User.generate_passkey(@user)
       @user.save!
       @organisation.save!
       flash[:notice] = @organisation.name + ' was created.'
