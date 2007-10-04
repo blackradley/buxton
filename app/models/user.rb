@@ -44,45 +44,20 @@ class User < ActiveRecord::Base
     :organisational => 1, 
     :functional => 2}
 #
-# Over ride the save method (which returns a boolean) so that when
-# the user is saved a new key is generated.
-# 
-# TODO: Review whether this is a Ruby thing to do.
-# 
-  def save
-    save_with_key
-    super
-  end
-# 
-# Over ride the save method (which returns an error message) so that when
-# the user is saved a new key is generated.
-# 
-  def save!
-    save_with_key
-    super
-  end
-#
-# There is no built in method for creating a GUID in Ruby so I have knocked
-# one up from the email, date and a random number.
-# 
-# TODO: Review how secure the keys are.  They don't have to be bomb proof
-# just secure enough.
-# 
-  private
-  def save_with_key
-    email = read_attribute(:email)
-    date = read_attribute(:created_on).nil? ? DateTime::now() : read_attribute(:created_on)
-    number = rand(999999)
-    key = Digest::SHA1.hexdigest(email.to_s + date.to_s + number.to_s)
-    write_attribute(:passkey, key)
-  end
-#
 # Administrative users have no organisation or function to control. 
 # 
   def self.find_admins
     find(:all, :conditions => {:user_type => User::TYPE[:administrative]})
+  end  
+# 
+# Generate a new pass key.
+# There is no built in method for creating a GUID in Ruby so I have knocked
+# one up from the email, date and a random number.
+# 
+  def self.generate_passkey(user)
+    email = user.email
+    date = user.created_on.nil? ? DateTime::now() : user.created_on
+    number = rand(999999)
+    return Digest::SHA1.hexdigest(email.to_s + date.to_s + number.to_s)
   end
 end
-
-  
-
