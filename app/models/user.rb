@@ -21,6 +21,8 @@
 # date should be set to null.  Because the reminder is when the user was
 # reminded so is no longer valid if it is a new user.
 # 
+require 'digest/sha1'
+
 class User < ActiveRecord::Base
   has_one :organisation, :dependent => :destroy
   has_one :function, :dependent => :destroy
