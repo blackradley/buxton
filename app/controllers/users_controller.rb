@@ -35,6 +35,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(params[:user])
     @user.user_type = User::TYPE[:administrative]
+    @user.passkey = User.generate_passkey(@user)
     if @user.save
       flash[:notice] = 'User was successfully created.'
       redirect_to :action => 'list'
@@ -50,11 +51,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 #
-# Give the user a new key every time it is updated
-#
+# Disabled - Give the user a new key every time it is updated
+# TODO: check whether this should be enabled
   def update
     @user = User.find(params[:id])
-    @user.passkey = User.new_passkey
+    # @user.passkey = User.new_passkey # TODO: check whether this should be enabled
     if @user.update_attributes(params[:user])
       flash[:notice] = @user.email + ' was successfully updated.'
       redirect_to :action => 'list'
@@ -83,7 +84,7 @@ class UsersController < ApplicationController
       flash[:notice] = 'Unknown Email'
     else
       for @user in @users
-        new_passkey(@user)
+        # new_passkey(@user)
         case @user.user_type
           when User::TYPE[:functional]
             email = Notifier.create_function_key(@user, request)
@@ -104,16 +105,16 @@ class UsersController < ApplicationController
 #
 # Send a reminder to the email of the administrator
 #
-  def remind
-    @user = User.find(params[:id])
-    @user.passkey = User.new_passkey
-    @user.reminded_on = Time.now.gmtime
-    @user.save
-    email = Notifier.create_administration_key(@user)
-    Notifier.deliver(email)
-    flash[:notice] = 'New key sent to ' + @user.email
-    redirect_to :action => 'list'
-  end
+      # def remind
+      #   @user = User.find(params[:id])
+      #   @user.passkey = User.new_passkey
+      #   @user.reminded_on = Time.now.gmtime
+      #   @user.save
+      #   email = Notifier.create_administration_key(@user)
+      #   Notifier.deliver(email)
+      #   flash[:notice] = 'New key sent to ' + @user.email
+      #   redirect_to :action => 'list'
+      # end
 #
 # TODO: Mark the function record with a deleted date do not destroy
 #
@@ -125,6 +126,7 @@ class UsersController < ApplicationController
 # Send a passkey reminder to the email associated with this user. Only one e-mail will be sent and
 # it will use the Organisation Manager or Function Manager template accordingly.
 # The system currently does not allow for a user to be both types of manager. If it did, this would not work.
+# TODO: check the logic associated with this, see also: User#new_link
 # 
   def remind
     @user = User.find(params[:id])
@@ -164,10 +166,6 @@ class UsersController < ApplicationController
 #
 # TODO: Functional user should redirect to somewhere sensible, rather than
 # just the first record in the functions list.
-#
-# TODO: Once a user has authenticated they can then look at any record (and
-# edit it) by manipulating the query string/Url.  On the whole this is
-# probably a bad thing.
 #
 # TODO: Expire the keys after 10 days.
 #
@@ -214,6 +212,7 @@ class UsersController < ApplicationController
               @user = User.new
               @user.email = params[:email]
               @user.user_type = User::TYPE[:organisational]
+              @user.passkey = User.generate_passkey(@user)
               @user.save!
               organisational_user_passkey = @user.passkey
               # Give the user an organisation
@@ -277,13 +276,5 @@ class UsersController < ApplicationController
   protected
   def secure?
     false
-  end
-#
-# Saving the user will give the user a new key
-#
-  private
-  def new_passkey(user)
-    @user.reminded_on = Time.now
-    @user.save
   end
 end
