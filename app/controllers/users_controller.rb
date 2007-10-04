@@ -249,6 +249,7 @@ class UsersController < ApplicationController
                 @user = User.new
                 @user.email = params[:email]
                 @user.user_type = User::TYPE[:functional]
+                @user.passkey = User.generate_passkey(@user)                
                 @user.save
                 function = Function.new
                 function.user = @user
