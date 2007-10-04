@@ -89,12 +89,18 @@ class UsersController < ApplicationController
           when User::TYPE[:functional]
             email = Notifier.create_function_key(@user, request)
             Notifier.deliver(email)
+            @user.reminded_on = Time.now.gmtime
+            @user.save
            when User::TYPE[:organisational]
             email = Notifier.create_organisation_key(@user, request)
             Notifier.deliver(email)
+            @user.reminded_on = Time.now.gmtime
+            @user.save
           when User::TYPE[:administrative]
             email = Notifier.create_administration_key(@user, request)
             Notifier.deliver(email)
+            @user.reminded_on = Time.now.gmtime
+            @user.save
         end
       end
       flash[:notice] = 'New link' + (@users.length >= 2 ? 's' :'') + ' sent to ' + @user.email
