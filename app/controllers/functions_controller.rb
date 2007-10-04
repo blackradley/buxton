@@ -72,7 +72,7 @@ class FunctionsController < ApplicationController
       Function.transaction do
         User.transaction do
           @user = User.new(params[:user])
-          @user.user_type = User::TYPE[:organisational]
+          @user.user_type = User::TYPE[:functional]
           @user.passkey = User.generate_passkey(@user)
           @user.save!
           @function = Function.new(params[:function])
