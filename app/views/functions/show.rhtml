@@ -8,7 +8,7 @@
 <% form_for(:function, :url => {:action => 'update'}) do |f| %>
 <fieldset id="approval">
 	<legend>Approval <%= link_to_function image_tag("icons/help.gif"), "Element.toggle('approval_help')" -%></legend>
-	<span id="approval_help" class="toggleHelp" style="display:none;">Help for Demo Council approval required</span>
+	<span id="approval_help" class="toggleHelp" style="display:none;">The assessment should be approved by the line manager of the Function Manager who is completing the assessment. It is the Function Manager's responsibility to obtain evidence of this approval. The approving manager's name should be included in the text box.</span>
   	<label for="function_approved">Approved</label><%= f.check_box :approved -%><br />
   	<label for="function_approver" id="function_approver_label">By:</label><%= f.text_field :approver -%>
 	<span id="approval_submit"><%= submit_tag -%></span>
@@ -39,7 +39,7 @@
 	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary ', "Element.toggle('show_purpose'); Element.toggle('purpose_top')", :title => 'View Summary' -%></legend>
 </fieldset>
 </div>
-<div id="show_purpose"<%= %Q[style="display:none;"] unless @print_only -%>>
+<div id="show_purpose" <%= %Q[style="display:none;"] unless @print_only -%>>
 <fieldset class="section_summary_show">
 	<legend>Purpose</legend>
 	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_purpose'); Element.toggle('purpose_top')", :title => 'Close Summary View' -%></legend>
@@ -54,7 +54,7 @@
 </fieldset>
 </div>
 
-<div id="show_performance"<%= %Q[style="display:none;"] unless @print_only -%>>
+<div id="show_performance" <%= %Q[style="display:none;"] unless @print_only -%>>
 <fieldset class="section_summary_show">
 	<legend>Performance</legend>
 	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_performance'); Element.toggle('performance_top')", :title => 'Close Summary View' -%></legend>
