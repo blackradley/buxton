@@ -6,74 +6,13 @@
  * Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
  */
 
-body{
-    padding:5px 20px 20px 20px;
-	background-color: #ffffff;
-}
 
-.mastHead{
-    height: 80px;
-    width: 100%;
+/*
+.mastHead .logo
+{
+	border-bottom: solid 10px #cccce5;
+	background: #292c4b url(../images/www.jpg) no-repeat top left;
+	height: 120px;
+	width: 700px;
 }
-
-.logo{
-    padding:76px 20px 20px 0;
-	background: url(../images/birmingham.jpg);
-	background-repeat: no-repeat;
-	float: left; 
-	width: 400px;
-}
-
-.titleArea{
-	float: right; 
-}
-
-.content{
-	float: left; 
-	top: 40px;
-	left: 10px;
-	width: 100%;
-}
-
-.workingArea{
-	float: left; 
-}
-
-.messageArea, .errorExplanation{
-	float: right; 
-	width: 300px;
-}
-
-.footer{
-	float: left; 
-}
-
-.login_status{
-	float: left; 
-}
-select{
-	font-family:Arial; 
-	font-size:8pt;
-}
-
-input{
-	font-family:Arial; 
-	font-size:8pt;
-}
-
-textArea{
-	font-family:Arial; 
-	font-size:8pt;
-}
-
-td{
-	font-family: Arial, Helvetica, sans-serif; 
-	font-size: 12px; 
-	color: #000000;
-}   
-
-p{
-	font-family: Arial, Helvetica, sans-serif; 
-	font-size: 12px; 
-	color: #000000;
-}
+*/
