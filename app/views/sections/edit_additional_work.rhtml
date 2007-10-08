@@ -1,8 +1,8 @@
 <h1 id="questions">
-	<%= image_tag('icons/no_previous.gif', :class =>'previous')-%>
-	<%= @function.name -%> - <%= params[:equalityStrand] -%> Purpose
-	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'performance', :equalityStrand => params[:equalityStrand] }, :title =>"Next Section" -%>
-</h1> 
+	<%= link_to image_tag('icons/previous.gif', :class =>'pervious'), { :action => 'edit', :id => 'confidence_consultation', :equalityStrand => params[:equalityStrand] }, :title =>"Previous Section" -%>
+	<%= @function.name -%> - <%= params[:equalityStrand] -%> Additional Work
+	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'action_planning', :equalityStrand => params[:equalityStrand] }, :title =>"Next Section" -%>
+</h1>
 <div id="questions">
 	
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
