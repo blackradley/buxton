@@ -59,6 +59,14 @@ class SectionsController < ApplicationController
       render :template => 'sections/edit_purpose'
     when 'performance'
       render :template => 'sections/edit_performance'
+    when 'confidence_information'
+      render :template => 'sections/edit_confidence_information'
+    when 'confidence_consultation'
+      render :template => 'sections/edit_confidence_consultation'
+    when 'additional_work'
+      render :template => 'sections/edit_additional_work'
+    when 'action_planning'
+      render :template => 'sections/edit_action_planning'
     else
       # K: TODO: catch this - we shouldn't ever be here
       render :inline => 'Invalid section.'

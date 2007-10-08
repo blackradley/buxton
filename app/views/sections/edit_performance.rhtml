@@ -1,5 +1,9 @@
-<h2>Function Input Page - Performance</h2>
-<h3><%= @function.name -%></h3>
+<h1 id="questions">
+	<%= link_to image_tag('icons/previous.gif', :class =>'pervious'), { :action => 'edit', :id => 'purpose', :equalityStrand => params[:equalityStrand] }, :title =>"Previous Section" -%>
+	<%= @function.name -%> - <%= params[:equalityStrand] -%> Performance
+	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'confidence_information', :equalityStrand => params[:equalityStrand] }, :title =>"Next Section" -%>
+</h1> 
+<div id="questions">
 
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 

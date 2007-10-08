@@ -125,7 +125,7 @@ module ApplicationHelper
   def menu()
     user = session['logged_in_user']
     if user.nil?
-      'Menu Not logged in'
+      ' '
     elsif user.user_type == User::TYPE[:organisational]
       organisation = user.organisation
       generate_menu( [
@@ -145,21 +145,111 @@ module ApplicationHelper
     elsif user.user_type == User::TYPE[:functional]
       function = user.function
       generate_menu( [
+                      { :text => 'Overview',
+                        :url => { :controller => 'functions', :action => 'overview'},
+                        :title => 'Function Control Page - Overview' },
                       { :text => 'Summary',
                         :url => { :controller => 'functions', :action => 'show' },
-                        :title => 'Function Control Page - Summary' },
-                      { :text => 'Purpose',
-                        :url => { :controller => 'sections', :action => 'edit', :id => 'purpose' },
-                        :title => 'Function Control Page - Section - Purpose' },
-                      { :text => 'Performance',
-                        :url => { :controller => 'sections', :action => 'edit', :id => 'performance' },
-                        :title => 'Function Control Page - Section - Performance' }
+                        :title => 'Function Control Page - Summary' }
                       ])
     else
       'Menu Fail'
     end
-  end
+    
 
+    
+  end
+  
+#generates stand nav bar
+def strandmenu()
+  if params[:equalityStrand].nil?
+    ''
+  elsif params[:equalityStrand]=='overall'
+       html = '<div id="strand">'
+       html << params[:equalityStrand] 
+       html << " : " 
+       
+       if params[:id]=='purpose'
+         html << link_to ('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => params[:equalityStrand] }, :title => 'Edit Purpose', :class => 'selected')
+			 else
+			   html << link_to ('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => params[:equalityStrand] }, :title => 'Edit Purpose', :class => '')
+       end
+       
+        html << ' >> '
+        
+       if params[:id]=='performance'
+            html << link_to ('Performance', { :controller => 'sections', :action => 'edit', :id => 'performance', :equalityStrand => params[:equalityStrand] }, :title => 'Edit Performance', :class => 'selected')
+   		  else
+   			   html << link_to ('Performance', { :controller => 'sections', :action => 'edit', :id => 'performance', :equalityStrand => params[:equalityStrand] }, :title => 'Edit Performance', :class => '')
+       end
+       
+        html << ' >> '
+        
+       if params[:id]=='confidence_information'
+          html << link_to ('Confidence Information', { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equalityStrand => params[:equalityStrand] }, :title => 'Edit Confidence Information', :class => 'selected')
+     		else
+     			html << link_to ('Confidence Information', { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equalityStrand => params[:equalityStrand] }, :title => 'Edit Confidence Information', :class => '')
+      end 
+        
+				html << "</div>"
+		return html
+    
+  else
+     html = '<div id="strand">'
+     html << params[:equalityStrand] 
+     html << " : " 
+     
+     if params[:id]=='purpose'
+       html << link_to ('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => params[:equalityStrand] }, :title => 'Edit Purpose', :class => 'selected')
+		 else
+		   html << link_to ('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => params[:equalityStrand] }, :title => 'Edit Purpose', :class => '')
+     end
+     
+      html << ' >> '
+      
+     if params[:id]=='performance'
+          html << link_to ('Performance', { :controller => 'sections', :action => 'edit', :id => 'performance', :equalityStrand => params[:equalityStrand] }, :title => 'Edit Performance', :class => 'selected')
+ 		  else
+ 			   html << link_to ('Performance', { :controller => 'sections', :action => 'edit', :id => 'performance', :equalityStrand => params[:equalityStrand] }, :title => 'Edit Performance', :class => '')
+     end
+     
+      html << ' >> '
+      
+     if params[:id]=='confidence_information'
+        html << link_to ('Confidence Information', { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equalityStrand => params[:equalityStrand] }, :title => 'Edit Confidence Information', :class => 'selected')
+   		else
+   			html << link_to ('Confidence Information', { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equalityStrand => params[:equalityStrand] }, :title => 'Edit Confidence Information', :class => '')
+    end 
+    
+      html << ' >> '
+      
+     if params[:id]=='confidence_consultation'
+        html << link_to ('Confidence Consultation', { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equalityStrand => params[:equalityStrand] }, :title => 'Edit Confidence Consultation', :class => 'selected')
+   		else
+   			html << link_to ('Confidence Consultation', { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equalityStrand => params[:equalityStrand] }, :title => 'Edit Confidence Consultation', :class => '')
+    end
+    
+    html << ' >> '
+    
+   if params[:id]=='additional_work'
+      html << link_to ('Additional Work', { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equalityStrand => params[:equalityStrand] }, :title => 'Additional Work', :class => 'selected')
+ 		else
+ 			html << link_to ('Additional Work', { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equalityStrand => params[:equalityStrand] }, :title => 'Additional Work', :class => '')
+  end
+ 
+   html << ' >> '
+    
+   if params[:id]=='action_planning'
+      html << link_to ('Action Planning', { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equalityStrand => params[:equalityStrand] }, :title => 'Action Planning', :class => 'selected')
+ 		else
+ 			html << link_to ('Action Planning', { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equalityStrand => params[:equalityStrand] }, :title => 'Action Planning', :class => '')
+  end   
+    
+			html << "</div>"
+			
+	return html
+  end
+end
 # Generates all the HTML needed to display the answer to a question
 def answer(function, question)
 

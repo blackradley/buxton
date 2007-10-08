@@ -1,0 +1,102 @@
+<h1>Overview</h1>
+
+
+<p>The Impact Equality Tool has six sections and there are six equality strands.&nbsp; 
+The table below shows the six sections along the first six columns of the horizontal 
+axis and the six equality strands down the vertical axis.&nbsp; The matrix shows 
+the&nbsp; level of completion of each section for each equality strand. The two 
+right hand columns show the priority scores and potential impact rating by 
+equality strand.</p>
+
+<p>The Impact Equality Tool can be completed 
+section by section or equality strand by equality strand as the user wishes.</p>
+
+<table>
+<tr>
+<th class="strandHeading"></th>
+<th>Purpose</th>
+<th>Performance</th>
+<th>Confidence Information</th>
+<th>Confidence Consultation</th>
+<th>Additional Work</th>
+<th>Action Planning</th>
+</tr>
+<tr>
+<th class="strandHeading">Overall</th>
+<td>
+	<img src="../images/icons/tick.gif"/>
+	<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => 'overall' }, :title =>"Edit Purpose" -%>
+</td>
+<td>
+	<img src="../images/icons/cross.gif"/>
+	<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'performance', :equalityStrand => 'overall' }, :title =>"Edit Performance" -%>
+</td>
+<td>
+	<img src="../images/icons/cross.gif"/>
+	<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equalityStrand => 'overall' }, :title =>"Confidence Information" -%>
+</td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<th class="strandHeading">Gender</th>
+<td><img src="../images/icons/tick.gif"/>
+	<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => 'gender' }, :title =>"Edit Purpose" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => 'gender' }, :title =>"Edit Performance" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equalityStrand => 'gender' }, :title =>"Edit Confidence Information" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equalityStrand => 'gender' }, :title =>"Edit Confidence Consultation" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equalityStrand => 'gender' }, :title =>"Edit Additional Work" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equalityStrand => 'gender' }, :title =>"Edit Action Planning" -%></td>
+</tr>
+<tr>
+<th class="strandHeading">Race</th>
+<td><img src="../images/icons/tick.gif"/>
+	<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => 'race' }, :title =>"Edit Purpose" -%></td>
+<td><img src="../images/icons/cross.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => 'race' }, :title =>"Edit Performance" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equalityStrand => 'race' }, :title =>"Edit Confidence Information" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equalityStrand => 'race' }, :title =>"Edit Confidence Consultation" -%></td>
+<td><img src="../images/icons/cross.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equalityStrand => 'race' }, :title =>"Edit Additional Work" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equalityStrand => 'race' }, :title =>"Edit Action Planning" -%></td>
+</tr>
+<tr>
+<th class="strandHeading">Disability</th>
+<td><img src="../images/icons/tick.gif"/>
+	<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => 'disability' }, :title =>"Edit Purpose" -%></td>
+<td><img src="../images/icons/cross.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => 'disability' }, :title =>"Edit Performance" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equalityStrand => 'disability' }, :title =>"Edit Confidence Information" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equalityStrand => 'disability' }, :title =>"Edit Confidence Consultation" -%></td>
+<td><img src="../images/icons/cross.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equalityStrand => 'disability' }, :title =>"Edit Additional Work" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equalityStrand => 'disability' }, :title =>"Edit Action Planning" -%></td>
+</tr>
+<tr>
+<th class="strandHeading">Faith</th>
+<td><img src="../images/icons/tick.gif"/>
+	<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => 'faith' }, :title =>"Edit Purpose" -%></td>
+<td><img src="../images/icons/cross.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => 'faith' }, :title =>"Edit Performance" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equalityStrand => 'faith' }, :title =>"Edit Confidence Information" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equalityStrand => 'faith' }, :title =>"Edit Confidence Consultation" -%></td>
+<td><img src="../images/icons/cross.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equalityStrand => 'faith' }, :title =>"Edit Additional Work" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equalityStrand => 'faith' }, :title =>"Edit Action Planning" -%></td>
+</tr>
+<tr>
+<th class="strandHeading">Sex</th>
+<td><img src="../images/icons/tick.gif"/>
+	<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => 'sex' }, :title =>"Edit Purpose" -%></td>
+<td><img src="../images/icons/cross.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => 'sex' }, :title =>"Edit Performance" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equalityStrand => 'sex' }, :title =>"Edit Confidence Information" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equalityStrand => 'sex' }, :title =>"Edit Confidence Consultation" -%></td>
+<td><img src="../images/icons/cross.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equalityStrand => 'sex' }, :title =>"Edit Additional Work" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equalityStrand => 'sex' }, :title =>"Edit Action Planning" -%></td>
+</tr>
+<tr>
+<th class="strandHeading">Age</th>
+<td><img src="../images/icons/tick.gif"/>
+	<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => 'age' }, :title =>"Edit Purpose" -%></td>
+<td><img src="../images/icons/cross.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equalityStrand => 'age' }, :title =>"Edit Purpose" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equalityStrand => 'age' }, :title =>"Edit Confidence Information" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equalityStrand => 'age' }, :title =>"Edit Confidence Consultation" -%></td>
+<td><img src="../images/icons/cross.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equalityStrand => 'age' }, :title =>"Edit Additional Work" -%></td>
+<td><img src="../images/icons/tick.gif"/><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equalityStrand => 'age' }, :title =>"Edit Action Planning" -%></td>
+</tr>
+</table>
