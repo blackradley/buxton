@@ -1,46 +1,26 @@
 <h1 id="questions">
 	<%= link_to image_tag('icons/previous.gif', :class =>'pervious'), { :action => 'edit', :id => 'performance', :equalityStrand => params[:equalityStrand] }, :title =>"Previous Section" -%>
 	<%= @function.name -%> - <%= params[:equalityStrand] -%> Confidence Information
-	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'confidence_consultation', :equalityStrand => params[:equalityStrand] }, :title =>"Next Section" -%>
+	<%= 
+	if params[:equalityStrand]=='overall'	
+		image_tag('icons/no_next.gif', :class =>'next') 
+	else
+		link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'confidence_consultation', :equalityStrand => params[:equalityStrand] }, :title =>"Next Section"
+	end
+	-%>
+
+
 </h1>
 <div id="questions">
 	
-<% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
+	<% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
-<%= f.question :existence_status %>
+	<%= f.question :confidence_information, {:equalityStrand => params[:equalityStrand], :number => 1} %>
+	<%= f.question :confidence_information, {:equalityStrand => params[:equalityStrand], :number => 2} %>
+	<%= f.question :confidence_information, {:equalityStrand => params[:equalityStrand], :number => 3} %>
+	<%= f.question :confidence_information, {:equalityStrand => params[:equalityStrand], :number => 4} %>
+	<%= f.question :confidence_information, {:equalityStrand => params[:equalityStrand], :number => 5} %>
 
-<%= header_with_help 'strategies_help', @function.organisation.strategies_description, @function.organisation.strategies_help %>
-
-<% # TODO: This may need some helper TLC / cleanup in the future but it works for now -%>
-<% @strategies.each do |strategy| -%>
-<p><label title="<%= strategy.description %>"><%= strategy.name %></label><%= select('function_strategies', strategy.id, LookUp.yes_no.collect {|l| [ l.name, l.value ] }, :selected => strategy_response_or_zero(@function_responses, strategy.id)) -%></p>
-<% end -%>
-
-<%= header_with_help 'impact_groups_help', @function.organisation.impact_groups_description, @function.organisation.impact_groups_help %>
-
-<%= f.question :impact_service_users %>
-<%= f.question :impact_staff %>
-<%= f.question :impact_supplier_staff %>
-<%= f.question :impact_partner_staff %>
-<%= f.question :impact_employees %>
-
-<%= header_with_help 'good_equality_groups_help', @function.organisation.good_equality_groups_description, @function.organisation.good_equality_groups_help %>
-
-<%= f.question :good_gender %>
-<%= f.question :good_race %>
-<%= f.question :good_disability %>
-<%= f.question :good_faith %>
-<%= f.question :good_sexual_orientation %>
-<%= f.question :good_age %>
-
-<%= header_with_help 'bad_equality_groups_help', @function.organisation.bad_equality_groups_description, @function.organisation.bad_equality_groups_help %>
-
-<%= f.question :bad_gender %>
-<%= f.question :bad_race %>
-<%= f.question :bad_disability %>
-<%= f.question :bad_faith %>
-<%= f.question :bad_sexual_orientation %>
-<%= f.question :bad_age %>
 <div class="clear"></div>
 <span class="button"><%= submit_tag 'Save' %></span>
 <div class="clear"></div>

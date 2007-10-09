@@ -163,16 +163,17 @@ select{
 }
 input
 {
-	font-size: 1em;
 	width: 220px;
 	border: 1px solid #515f8d;
 	margin-top: 4px;	
+	font-size: 1em;
 }
 
 textarea{
 	width: 220px;
-	height: 60px;
 	border: 1px solid #515f8d;
+	margin-top: 4px;	
+	height: 60px;
 }
 
 form{
@@ -546,11 +547,15 @@ text-align:center;
 }
 
 #questions label{
-	width: 410px;
+	width: 400px;
 	float: left;
+	text-align: left;
 }
+#questions p{
+	text-align: right;
+}
+
 #questions input, #questions select, #questions textarea{
-	float: right;
 }
 
 
