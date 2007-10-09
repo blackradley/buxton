@@ -48,18 +48,22 @@ class Function < ActiveRecord::Base
 #27-Stars Joe: Left in for legacy reasons to avoid breaking the old code and to have an easy place to manipulate it.
 #
   def percentage_answered(section = nil, strand = nil)
+    puts section
+    puts strand
     unless strand then
       total = 0
-      $questions[section].each{|strand| total += section_percentage_answered(section, strand)}
+      puts 'here'
+      $questions[section].each{|newstrand| (total += section_percentage_answered(section, newstrand) )if newstrand}
+      puts "there"
       return total/$questions[section].size
     end
     unless section then
       total = 0
       questions = 0
-      $questions.each{|section| section.each{|strand| total += section_percentage_answered(section, strand); questions += 1}}
+      $questions.each{|newsection| section.each{|newstrand| total += section_percentage_answered(newsection, newstrand); questions += 1}}
       return (total/questions)
     end
-    return section_percentage_answered(section, strand)
+    if strand && section then return section_percentage_answered(section, strand) end
   end
   
   def started(section = nil, strand = nil)
@@ -138,7 +142,7 @@ private
     sec_questions = []
     number_answered = 0
     total = 0
-    $questions[section][strand].each{|question, value| sec_questions.push(value[0])}
+    $questions[section][strand].each_key{|question| sec_questions.push("#{section}_#{strand}_#{question}".to_sym)}
     sec_questions.each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end}
     return ((Float(number_answered)/total)*100).round
   end
@@ -152,7 +156,7 @@ private
                             :performance_gender_5 => [[:performance_gender_4, yes_value]],
                             :performance_race_3 => [[:performance_race_2, yes_value]],
                             :performance_race_5 => [[:performance_race_4,  yes_value]],
-                            :performance_disability_3 => [[:performance_disability_2, is]],
+                            :performance_disability_3 => [[:performance_disability_2, yes_value]],
                             :performance_disability_5 => [[:performance_disability_4,  yes_value]],
                             :performance_faith_3 => [[:performance_faith_2, yes_value]],
                             :performance_faith_5 => [[:performance_faith_4, yes_value]],
