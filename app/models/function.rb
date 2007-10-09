@@ -52,9 +52,7 @@ class Function < ActiveRecord::Base
     puts strand
     unless strand then
       total = 0
-      puts 'here'
       $questions[section].each{|newstrand| (total += section_percentage_answered(section, newstrand) )if newstrand}
-      puts "there"
       return total/$questions[section].size
     end
     unless section then
