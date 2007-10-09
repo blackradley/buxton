@@ -276,7 +276,19 @@ def answer(function, question)
 
   %Q[<p><label title="#{label}">#{label}</label><div class="labelled">#{answer}</div></p>]
 end
-  
+
+  def summary_answer(function, section, strand, number)
+     label = $questions[section][strand][number][0]
+     question="#{section}_#{strand}_#{number}"
+     barImage = level_bar(function.send(question), LookUp.impact_amount, 'bar-impact-groups')
+
+         # Show our formatted question!
+         %Q[<p>
+         <label title="#{label}">#{label}</label>
+         <div class="labelled">>#{barImage}</div>
+         </p>]
+         #%Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]
+   end
 #
 # Hash of questions (used in various places)
 #

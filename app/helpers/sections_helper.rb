@@ -15,5 +15,6 @@ module SectionsHelper
     %Q[<h4>#{text_title} #{link_to_function image_tag("icons/help.gif"), "Element.toggle('#{id}')"}</h4>
     <span id="#{id}" class="toggleHelp" style="display:none;">#{text_help}</span>]
   end
-    
+  
+  
 end
