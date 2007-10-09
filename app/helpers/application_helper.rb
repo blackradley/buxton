@@ -395,43 +395,43 @@ end
     # Confidence Information questions
     :confidence_information => {  
       :overall => { 1 => ['Are there any gaps in the information about the Function?', :yes_no_notsure],
-                  2 => ['Are there plans to collect additional information?', :string],
+                  2 => ['Are there plans to collect additional information?', :yes_no_notsure],
                   3 => ['If there are plans to collect more information, what are the timescales?', :timescales],
                   4 => ['Are there any others ways by which performance could be assessed?', :yes_no_notsure],
                   5 => ['Please note any other performance measures:', :text]
                 },
       :gender => { 1 => ['Are there any gaps in the information about the Function?', :yes_no_notsure],
-                   2 => ['Are there plans to collect additional information?', :string],
+                   2 => ['Are there plans to collect additional information?', :yes_no_notsure],
                    3 => ['If there are plans to collect more information, what are the timescales?', :timescales],
                    4 => ['Are there any others ways by which performance could be assessed?', :yes_no_notsure],
                    5 => ['Please note any other performance measures:', :text]
                  },
       :race => { 1 => ['Are there any gaps in the information about the Function?', :yes_no_notsure],
-                  2 => ['Are there plans to collect additional information?', :string],
+                  2 => ['Are there plans to collect additional information?', :yes_no_notsure],
                   3 => ['If there are plans to collect more information, what are the timescales?', :timescales],
                   4 => ['Are there any others ways by which performance could be assessed?', :yes_no_notsure],
                   5 => ['Please note any other performance measures:', :text]
                 },
       :disability => { 1 => ['Are there any gaps in the information about the Function?', :yes_no_notsure],
-                   2 => ['Are there plans to collect additional information?', :string],
+                   2 => ['Are there plans to collect additional information?', :yes_no_notsure],
                    3 => ['If there are plans to collect more information, what are the timescales?', :timescales],
                    4 => ['Are there any others ways by which performance could be assessed?', :yes_no_notsure],
                    5 => ['Please note any other performance measures:', :text]
                  },
       :faith => { 1 => ['Are there any gaps in the information about the Function?', :yes_no_notsure],
-                 2 => ['Are there plans to collect additional information?', :string],
+                 2 => ['Are there plans to collect additional information?', :yes_no_notsure],
                  3 => ['If there are plans to collect more information, what are the timescales?', :timescales],
                  4 => ['Are there any others ways by which performance could be assessed?', :yes_no_notsure],
                  5 => ['Please note any other performance measures:', :text]
                },
       :sexual_orientation => { 1 => ['Are there any gaps in the information about the Function?', :yes_no_notsure],
-                  2 => ['Are there plans to collect additional information?', :string],
+                  2 => ['Are there plans to collect additional information?', :yes_no_notsure],
                   3 => ['If there are plans to collect more information, what are the timescales?', :timescales],
                   4 => ['Are there any others ways by which performance could be assessed?', :yes_no_notsure],
                   5 => ['Please note any other performance measures:', :text]
                 },
       :age => { 1 => ['Are there any gaps in the information about the Function?', :yes_no_notsure],
-                  2 => ['Are there plans to collect additional information?', :string],
+                  2 => ['Are there plans to collect additional information?', :yes_no_notsure],
                   3 => ['If there are plans to collect more information, what are the timescales?', :timescales],
                   4 => ['Are there any others ways by which performance could be assessed?', :yes_no_notsure],
                   5 => ['Please note any other performance measures:', :text]
