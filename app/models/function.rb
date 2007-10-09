@@ -45,32 +45,17 @@ class Function < ActiveRecord::Base
   has_many :function_strategies
   
 # 
-# Calculates the percentage of questions answered for a specific section in a function or for the
-# function as a whole. Almost just a proxy method really that uses some private methods for the actual calculations.
-# 
-  def percentage_answered(section = nil)
-    unless section
-      return (section_purpose_percentage_answered() +
-                            section_performance_percentage_answered()) / 2
-    else
-      case section
-      when :purpose
-        return section_purpose_percentage_answered()
-      when :performance
-        return section_performance_percentage_answered()
-      else
-        # Shouldn't get here - if you have, there's a new section that hasn't been fully implemented
-        # as it needs tending to here and at the start of the method for the overall calculation.
-        # TODO: throw a wobbly
-      end
-    end
+#27-Stars Joe: Left in for legacy reasons to avoid breaking the old code and to have an easy place to manipulate it.
+#
+  def percentage_answered(section, strand)
+    return section_percentage_answered(section, strand)
   end
   
-  def started(section = nil)
-    (percentage_answered(section) > 0)
+  def started(section, strand)
+    (percentage_answered(section, strand) > 0)
   end
   
-  def completed(section = nil)
+  def completed(section, strand)
     (percentage_answered(section) == 100)    
   end
   
@@ -136,120 +121,51 @@ private
 # a decimal place to make it a float.  This seems a bit naff to me, I think
 # there should be a neater way, but Ruby isn't my strongest skill.
 #
-  def section_purpose_percentage_answered  
-    number_of_questions = 20.0 + organisation.strategies.count # decimal point prevents rounding
-    questions_answered = existence_status > 0 ? 1 : 0
-    questions_answered += impact_service_users > 0 ? 1 : 0
-    questions_answered += impact_staff > 0 ? 1 : 0
-    questions_answered += impact_supplier_staff > 0 ? 1 : 0
-    questions_answered += impact_partner_staff > 0 ? 1 : 0
-    questions_answered += impact_employees > 0 ? 1 : 0
-    questions_answered += good_gender > 0 ? 1 : 0
-    questions_answered += good_race > 0 ? 1 : 0
-    questions_answered += good_disability > 0 ? 1 : 0
-    questions_answered += good_faith > 0 ? 1 : 0
-    questions_answered += good_sexual_orientation > 0 ? 1 : 0
-    questions_answered += good_age > 0 ? 1 : 0
-    questions_answered += bad_gender > 0 ? 1 : 0
-    questions_answered += bad_race > 0 ? 1 : 0
-    questions_answered += bad_disability > 0 ? 1 : 0
-    questions_answered += bad_faith > 0 ? 1 : 0
-    questions_answered += bad_sexual_orientation > 0 ? 1 : 0
-    questions_answered += bad_age > 0 ? 1 : 0
-    questions_answered += approved.to_i 
-    questions_answered += approver.blank? ? 0 : 1
-    function_strategies.each do |strategy|
-      questions_answered += strategy.strategy_response > 0 ? 1 : 0
-    end
-    percentage = (questions_answered / number_of_questions) * 100 # calculate
-    percentage = percentage.round # round to one decimal place
-    return percentage
+#27 stars Joe: Removed specific section code, turned it into a generic section format.
+#Must go back and comment code. 
+  def section_percentage_answered(section, strand)
+    sec_questions = []
+    number_answered = 0
+    total = 0
+    $questions[section][strand].each{|question, value| sec_questions.push(value[0])}
+    sec_questions.each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end}
+    return ((Float(number_answered)/total)*100).round
   end
 
-# 
-# Calculates the percentage of questions answered in the performance section
-# Note: currently assumes that the textareas do not need filling in to be complete.
-# 
-  def section_performance_percentage_answered
-
-    # All the questions, in function, that are in the performance section
-    performance_questions = [ :overall_performance,
-                              :overall_validated,
-                              :overall_issues,
-                              :gender_performance,
-                              :gender_validated,
-                              :gender_issues,
-                              :race_performance,
-                              :race_validated,
-                              :race_issues,
-                              :disability_performance,
-                              :disability_validated,
-                              :disability_issues,
-                              :faith_performance,
-                              :faith_validated,
-                              :faith_issues,
-                              :sexual_orientation_performance,
-                              :sexual_orientation_validated,
-                              :sexual_orientation_issues,
-                              :age_performance,
-                              :age_validated,
-                              :age_issues ]
-
-    # How many questions is this?
-    number_of_questions = performance_questions.size
-
-    # How many are answered?
-    questions_answered = performance_questions.inject(0.to_f) { |answered, question|
-      # If there's an answer, add 1 to our accumulator else just add 0.
-      answered += (send(question) > 0) ? 1 : 0
-    }
-
-    # What about the dependent questions (with text)?
-    dependent_questions = { :overall_validated => :overall_validation_regime,
-                            :overall_issues => :overall_note_issues,
-                            :gender_validated => :gender_validation_regime,
-                            :gender_issues => :gender_note_issues,
-                            :race_validated => :race_validation_regime,
-                            :race_issues => :race_note_issues,
-                            :disability_validated => :disability_validation_regime,
-                            :disability_issues => :disability_note_issues,
-                            :faith_validated => :faith_validation_regime,
-                            :faith_issues => :faith_note_issues,
-                            :sexual_orientation_validated => :sexual_orientation_validation_regime,
-                            :sexual_orientation_issues => :sexual_orientation_note_issues,
-                            :age_validated => :age_validation_regime,
-                            :age_issues => :age_note_issues,
+  def check_question(question)
+     t_yes = 10
+     f_yes = 10
+    @dependent_questions = { :performance_overall_3 => [[:performance_overall_2, t_yes]],,
+                            :performance_overall_5 => [[:performance_overall_4, f_yes]],
+                            :performance_gender_3 => [[:performance_gender_2, t_yes ]],
+                            :performance_gender_5 => [[:performance_gender_4, f_yes]],
+                            :performance_race_3 => [[:performance_race_2, t_yes]],
+                            :performance_race_5 => [[:performance_race_4,  f_yes]],
+                            :performance_disability_3 => [[:performance_disability_2, is]],
+                            :performance_disability_5 => [[:performance_disability_4,  f_yes]],
+                            :performance_faith_3 => [[:performance_faith_2, t_yes]],
+                            :performance_faith_5 => [[:performance_faith_4, f_yes]],
+                            :performance_sexual_orientation_3 => [[:performance_sexual_orientation_2, t_yes]],
+                            :performance_sexual_orientation_5 => [[:performance_sexual_orientation_4, f_yes]],
+                            :performance_age_3 => [[:performance_age_2, t_yes]],
+                            :performance_age_5 => [[:performance_age_4, f_yes]]
                             }
-      
-    # Process all of our dependent questions
-    for question in dependent_questions.keys
-    
-      # What does an answer of 'Yes' correspond to?
-      yes_value = LookUp.yes_no_notsure.find{|lookUp| 'Yes' == lookUp.name}.value
-
-      # If the main question has been answered 'Yes'
-      if (send(question) == yes_value) then
-        puts "consider: #{question}"
-        # We have one more question to consider
-        number_of_questions += 1
-        # If the dependent question has been answered (i.e. not nil)
-        answer = send(dependent_questions[question])
-        puts "answer: #{answer}"
-        if answer then # Check if it has any text in it or not
-          questions_answered += (answer.size > 0) ? 1 : 0
-        end
-      end
-      
+    dependency = @dependent_questions[question]
+    if dependency then
+      response = send(question)
+      dependant_correct = true
+      dependency.each{|dependent| dependant_correct = dependant_correct && (send(dependent[0])==dependent[1])}
+      return (check_response(response) && dependant_correct)
+    else
+      response = send(question)
+      return check_response(response)
     end
-
-    # What percentage does this make?
-    percentage = (questions_answered / number_of_questions) * 100 # calculate
-    percentage = percentage.round # round to one decimal place
-    
-    puts "number_of_questions: #{number_of_questions}"
-    puts "questions_answered: #{questions_answered}"
-
-    return percentage
+  end
+  
+  def check_response(response)
+    checker = !(response.to_i == 0)
+    checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
+    return checker
   end
   
 end

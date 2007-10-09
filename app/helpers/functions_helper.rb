@@ -14,21 +14,10 @@ module FunctionsHelper
   # Show a tick or cross, if all the questions in the section of this function have been answered
   # TODO: Not DRY enough
   #
-    def completed_tag(function, section)
+    def completed_tag(function, section, strand)
       complete_icon = image_tag('icons/tick.gif', :alt => "Complete", :title => "Complete")
       incomplete_icon = image_tag('icons/cross.gif', :alt => "Incomplete", :title => "Incomplete")
-      
-      case section
-      when :purpose
-        (function.completed(:purpose)) ? complete_icon : incomplete_icon
-      when :performance
-        (function.completed(:performance)) ? complete_icon : incomplete_icon
-      else
-        # Shouldn't get here - if you have, there's a new section that hasn't been fully implemented
-        # as it needs tending to here.
-        # TODO: throw a wobbly
-        'N/A'
-      end
+     (function.completed(section, strand)) ? complete_icon : incomplete_icon
     end
 #
 # Show a tick or cross, if the function is approved or not.
