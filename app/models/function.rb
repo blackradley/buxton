@@ -48,6 +48,17 @@ class Function < ActiveRecord::Base
 #27-Stars Joe: Left in for legacy reasons to avoid breaking the old code and to have an easy place to manipulate it.
 #
   def percentage_answered(section = nil, strand = nil)
+    unless strand then
+      total = 0
+      $questions[section].each{|strand| total += section_percentage_answered(section, strand)}
+      return total/$questions[section].size
+    end
+    unless section then
+      total = 0
+      questions = 0
+      $questions.each{|section| section.each{|strand| total += section_percentage_answered(section, strand); questions += 1}}
+      return (total/questions)
+    end
     return section_percentage_answered(section, strand)
   end
   
@@ -135,7 +146,7 @@ private
   def check_question(question)
       # What does an answer of 'Yes' correspond to?
       yes_value = LookUp.yes_no_notsure.find{|lookUp| 'Yes' == lookUp.name}.value 
-    @dependent_questions = { :performance_overall_3 => [[:performance_overall_2, yes_value]],,
+    @dependent_questions = { :performance_overall_3 => [[:performance_overall_2, yes_value]],
                             :performance_overall_5 => [[:performance_overall_4, yes_value]],
                             :performance_gender_3 => [[:performance_gender_2, yes_value ]],
                             :performance_gender_5 => [[:performance_gender_4, yes_value]],
