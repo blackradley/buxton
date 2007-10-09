@@ -48,8 +48,6 @@ class Function < ActiveRecord::Base
 #27-Stars Joe: Left in for legacy reasons to avoid breaking the old code and to have an easy place to manipulate it.
 #
   def percentage_answered(section = nil, strand = nil)
-    puts section
-    puts strand
     unless strand then
       total = 0
       $questions[section].each{|newstrand| (total += section_percentage_answered(section, newstrand) )if newstrand}
