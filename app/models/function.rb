@@ -47,15 +47,15 @@ class Function < ActiveRecord::Base
 # 
 #27-Stars Joe: Left in for legacy reasons to avoid breaking the old code and to have an easy place to manipulate it.
 #
-  def percentage_answered(section, strand)
+  def percentage_answered(section = nil, strand = nil)
     return section_percentage_answered(section, strand)
   end
   
-  def started(section, strand)
+  def started(section = nil, strand = nil)
     (percentage_answered(section, strand) > 0)
   end
   
-  def completed(section, strand)
+  def completed(section = nil, strand = nil)
     (percentage_answered(section) == 100)    
   end
   
@@ -133,22 +133,22 @@ private
   end
 
   def check_question(question)
-     t_yes = 10
-     f_yes = 10
-    @dependent_questions = { :performance_overall_3 => [[:performance_overall_2, t_yes]],,
-                            :performance_overall_5 => [[:performance_overall_4, f_yes]],
-                            :performance_gender_3 => [[:performance_gender_2, t_yes ]],
-                            :performance_gender_5 => [[:performance_gender_4, f_yes]],
-                            :performance_race_3 => [[:performance_race_2, t_yes]],
-                            :performance_race_5 => [[:performance_race_4,  f_yes]],
+      # What does an answer of 'Yes' correspond to?
+      yes_value = LookUp.yes_no_notsure.find{|lookUp| 'Yes' == lookUp.name}.value 
+    @dependent_questions = { :performance_overall_3 => [[:performance_overall_2, yes_value]],,
+                            :performance_overall_5 => [[:performance_overall_4, yes_value]],
+                            :performance_gender_3 => [[:performance_gender_2, yes_value ]],
+                            :performance_gender_5 => [[:performance_gender_4, yes_value]],
+                            :performance_race_3 => [[:performance_race_2, yes_value]],
+                            :performance_race_5 => [[:performance_race_4,  yes_value]],
                             :performance_disability_3 => [[:performance_disability_2, is]],
-                            :performance_disability_5 => [[:performance_disability_4,  f_yes]],
-                            :performance_faith_3 => [[:performance_faith_2, t_yes]],
-                            :performance_faith_5 => [[:performance_faith_4, f_yes]],
-                            :performance_sexual_orientation_3 => [[:performance_sexual_orientation_2, t_yes]],
-                            :performance_sexual_orientation_5 => [[:performance_sexual_orientation_4, f_yes]],
-                            :performance_age_3 => [[:performance_age_2, t_yes]],
-                            :performance_age_5 => [[:performance_age_4, f_yes]]
+                            :performance_disability_5 => [[:performance_disability_4,  yes_value]],
+                            :performance_faith_3 => [[:performance_faith_2, yes_value]],
+                            :performance_faith_5 => [[:performance_faith_4, yes_value]],
+                            :performance_sexual_orientation_3 => [[:performance_sexual_orientation_2, yes_value]],
+                            :performance_sexual_orientation_5 => [[:performance_sexual_orientation_4, yes_value]],
+                            :performance_age_3 => [[:performance_age_2, yes_value]],
+                            :performance_age_5 => [[:performance_age_4, yes_value]]
                             }
     dependency = @dependent_questions[question]
     if dependency then
