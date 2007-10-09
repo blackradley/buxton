@@ -2,10 +2,6 @@ class QuestionBuilder < ActionView::Helpers::FormBuilder
 
   # Generates all the HTML needed for a form question
   def question(method, options={})
-
-    puts options
-    puts method
-    #puts number
     strand=options[:equalityStrand].to_sym
     number=options[:number]
     question="#{method}_#{strand}_#{number}"

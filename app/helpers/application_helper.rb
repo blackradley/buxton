@@ -304,45 +304,29 @@ end
   $questions = {
     # Purpose questions
     :purpose => {  
-      :overall => { 1 =>['question1', :rating], 
-                  2 =>['question2', :yes_no_notsure],
-                  3 =>['question3', :string],
-                  4 =>['question4', :yes_no_notsure],
+      :overall => { 2 =>['question2', :yes_no_notsure],
                   5 =>['Service users', :impact_amount],
                   6 =>['Staff employed by the council', :impact_amount],
                   7 =>['Staff of supplier organisations', :impact_amount],
                   8 =>['Staff of partner organisations', :impact_amount],
-                  9 =>['Employees of businesses', :impact_amount],
+                  9 =>['Employees of businesses', :impact_amount]
                 },
-      :gender => { 1 =>['question1', :rating], 
-                   2 =>['question2', :yes_no_notsure],
-                   3 =>['Would it affect <strong>men and women</strong> differently?', :impact_level],
-                   4 =>['Would it affect <strong>men and women</strong> differently?', :impact_level],
-                   5 =>['Please note any such performance issues:', :text]
+      :gender => { 3 =>['Would it affect <strong>men and women</strong> differently?', :impact_level],
+                   4 =>['Would it affect <strong>men and women</strong> differently?', :impact_level]
                  },
-      :race => { 1 =>['question1', :rating], 
-                  2 =>['question2', :yes_no_notsure],
-                  3 =>['Would it affect different <strong>Ethnic groups</strong> differently?', :impact_level],
+      :race => { 3 =>['Would it affect different <strong>Ethnic groups</strong> differently?', :impact_level],
                   4 =>['Would it affect different <strong>Ethnic groups</strong> differently?', :impact_level]
                 },  
-      :disability => { 1 =>['question1', :rating], 
-                   2 =>['question2', :yes_no_notsure],
-                   3 =>['Would it affect <strong>people with different kinds of disabilities</strong> differently?', :impact_level],
+      :disability => { 3 =>['Would it affect <strong>people with different kinds of disabilities</strong> differently?', :impact_level],
                    4 =>['Would it affect <strong>people with different kinds of disabilities</strong> differently?', :impact_level]
                  },
-      :faith => { 1 =>['question1', :rating], 
-                  2 =>['question2', :yes_no_notsure],
-                  3 =>['Would it affect different <strong>faith groups</strong> differently?', :impact_level],
+      :faith => { 3 =>['Would it affect different <strong>faith groups</strong> differently?', :impact_level],
                   4 =>['Would it affect different <strong>faith groups</strong> differently?', :impact_level]
                 },
-      :sexual_orientation => { 1 =>['question1', :rating],
-                   2 =>['question2', :yes_no_notsure],
-                   3 =>['Would it affect people of different <strong>sexual orientation</strong> differently?', :impact_level],
+      :sexual_orientation => { 3 =>['Would it affect people of different <strong>sexual orientation</strong> differently?', :impact_level],
                    4 =>['Would it affect people of different <strong>sexual orientation</strong> differently?', :impact_level]
                  },
-      :age => { 1 =>['question1', :rating], 
-                  2 =>['question2', :yes_no_notsure],
-                  3 =>['Would it affect different <strong>age groups</strong> differently?', :impact_level],
+      :age => { 3 =>['Would it affect different <strong>age groups</strong> differently?', :impact_level],
                   4 =>['Would it affect different <strong>age groups</strong> differently?', :impact_level]
                 }
     },    
