@@ -67,7 +67,7 @@ class Function < ActiveRecord::Base
   end
   
   def completed(section = nil, strand = nil)
-    (percentage_answered(section) == 100)    
+    (percentage_answered(section, strand) == 100)    
   end
   
   def statistics

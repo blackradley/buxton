@@ -196,7 +196,7 @@ def strandmenu()
     
   else
      html = '<div id="strand">'
-     html << params[:equalityStrand] 
+     html << params[:equalityStrand].capitalize 
      html << " : " 
      
      if params[:id]=='purpose'
