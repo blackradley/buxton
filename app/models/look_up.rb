@@ -28,7 +28,9 @@ class LookUp < ActiveRecord::Base
     :impact_level => 4,
     :priority => 5,
     :rating => 6,
-    :yes_no_notsure => 7}
+    :yes_no_notsure => 7,
+    :timescales => 8,
+    }
 #
 # Yes or no, <tt>self</tt> makes it static
 # 
@@ -70,5 +72,11 @@ class LookUp < ActiveRecord::Base
 # 
   def self.yes_no_notsure()
     return find_all_by_look_up_type(TYPE[:yes_no_notsure])
+  end
+#
+# Timescales
+# 
+  def self.timescales()
+    return find_all_by_look_up_type(TYPE[:timescales])
   end
 end

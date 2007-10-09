@@ -100,6 +100,8 @@ class Function < ActiveRecord::Base
         LookUp.rating.find{|lookUp| answer == lookUp.value}.weight
       when :yes_no_notsure
         LookUp.yes_no_notsure.find{|lookUp| answer == lookUp.value}.weight
+      when :timescales
+        LookUp.timescales.find{|lookUp| answer == lookUp.value}.weight
       end      
       
       answers[q] = weight

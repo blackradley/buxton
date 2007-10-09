@@ -24,6 +24,8 @@ class QuestionBuilder < ActionView::Helpers::FormBuilder
           select question, LookUp.rating.collect {|l| [ l.name, l.value ] }
         when :yes_no_notsure
           select question, LookUp.yes_no_notsure.collect {|l| [ l.name, l.value ] }
+        when :timescales
+          select question, LookUp.timescales.collect {|l| [ l.name, l.value ] }
         when :text
           text_area question 
         when :string
