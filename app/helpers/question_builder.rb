@@ -22,6 +22,10 @@ class QuestionBuilder < ActionView::Helpers::FormBuilder
           select question, LookUp.yes_no_notsure.collect {|l| [ l.name, l.value ] }
         when :timescales
           select question, LookUp.timescales.collect {|l| [ l.name, l.value ] }
+        when :consult_groups
+          select question, LookUp.consult_groups.collect {|l| [ l.name, l.value ] }
+        when :consult_experts
+          select question, LookUp.consult_experts.collect {|l| [ l.name, l.value ] }
         when :text
           text_area question 
         when :string

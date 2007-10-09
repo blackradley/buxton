@@ -30,6 +30,8 @@ class LookUp < ActiveRecord::Base
     :rating => 6,
     :yes_no_notsure => 7,
     :timescales => 8,
+    :consult_groups => 9,
+    :consult_experts => 10,
     }
 #
 # Yes or no, <tt>self</tt> makes it static
@@ -79,4 +81,18 @@ class LookUp < ActiveRecord::Base
   def self.timescales()
     return find_all_by_look_up_type(TYPE[:timescales])
   end
+#
+# Groups
+# 
+  def self.consult_groups()
+    return find_all_by_look_up_type(TYPE[:consult_groups])
+  end
+#
+# Experts
+# 
+  def self.consult_experts()
+    return find_all_by_look_up_type(TYPE[:consult_experts])
+  end
+
+
 end
