@@ -7,56 +7,13 @@
 
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
-<h4>Overall Performance</h4>
-<%= f.question :overall_performance %>
-<%= f.question :overall_validated %>
-<%= f.question :overall_validation_regime %>
-<%= f.question :overall_issues %>
-<%= f.question :overall_note_issues %>
+<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 1} %>
+<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 2} %>
+<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 3} %>
+<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 4} %>
+<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 5} %>
 
-<h4>Performance by equality group</h4>
 
-<h5>Men and Women</h5>
-<%= f.question :gender_performance %>
-<%= f.question :gender_validated %>
-<%= f.question :gender_validation_regime %>
-<%= f.question :gender_issues %>
-<%= f.question :gender_note_issues %>
-
-<h5>People from different ethnic backgrounds</h5>
-<%= f.question :race_performance %>
-<%= f.question :race_validated %>
-<%= f.question :race_validation_regime %>
-<%= f.question :race_issues %>
-<%= f.question :race_note_issues %>
-
-<h5>People with different kinds of disability</h5>
-<%= f.question :disability_performance %>
-<%= f.question :disability_validated %>
-<%= f.question :disability_validation_regime %>
-<%= f.question :disability_issues %>
-<%= f.question :disability_note_issues %>
-
-<h5>People from different faith groups</h5>
-<%= f.question :faith_performance %>
-<%= f.question :faith_validated %>
-<%= f.question :faith_validation_regime %>
-<%= f.question :faith_issues %>
-<%= f.question :faith_note_issues %>
-
-<h5>People of different sexual orientations</h5>          
-<%= f.question :sexual_orientation_performance %>
-<%= f.question :sexual_orientation_validated %>
-<%= f.question :sexual_orientation_validation_regime %>
-<%= f.question :sexual_orientation_issues %>
-<%= f.question :sexual_orientation_note_issues %>
-
-<h5>People of different ages</h5>
-<%= f.question :age_performance %>
-<%= f.question :age_validated %>
-<%= f.question :age_validation_regime %>
-<%= f.question :age_issues %>
-<%= f.question :age_note_issues %>
 <div class="clear"></div>
 <span class="button"><%= submit_tag 'Save' -%></span>
 <div class="clear"></div>
