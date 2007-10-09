@@ -1,6 +1,6 @@
 <h1 id="questions">
 	<%= link_to image_tag('icons/previous.gif', :class =>'pervious'), { :action => 'edit', :id => 'performance', :equalityStrand => params[:equalityStrand] }, :title =>"Previous Section" -%>
-	<%= @function.name -%> - <%= params[:equalityStrand] -%> Confidence Information
+	<%= @function.name -%> - <%= params[:equalityStrand].capitalize -%> Confidence Information
 	<%= 
 	if params[:equalityStrand]=='overall'	
 		image_tag('icons/no_next.gif', :class =>'next') 
