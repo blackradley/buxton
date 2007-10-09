@@ -258,27 +258,31 @@ def answer(function, section, strand, number)
   question="#{section}_#{strand}_#{number}"
 
   # Get the answer options for this question and make an appropriate input field
-  answer = case $questions[section][strand][number][1]
-  when :existing_proposed
-    LookUp.existing_proposed.find{|lookUp| function.send(question) == lookUp.value}.name
-  when :impact_amount
-    LookUp.impact_amount.find{|lookUp| function.send(question) == lookUp.value}.name
-  when :impact_level
-    LookUp.impact_level.find{|lookUp| function.send(question) == lookUp.value}.name
-  when :rating
-    LookUp.rating.find{|lookUp| function.send(question) == lookUp.value}.name
-  when :yes_no_notsure
-    LookUp.yes_no_notsure.find{|lookUp| function.send(question) == lookUp.value}.name
-  when :timescales
-    LookUp.timescales.find{|lookUp| function.send(question) == lookUp.value}.name
-  when :consult_groups
-    LookUp.consult_groups.find{|lookUp| function.send(question) == lookUp.value}.name
-  when :consult_experts
-    LookUp.consult_experts.find{|lookUp| function.send(question) == lookUp.value}.name
-  when :text
-    function.send(question)
-  when :string
-    function.send(question)
+  unless function.send(question).nil?
+    answer = case $questions[section][strand][number][1]
+    when :existing_proposed
+      LookUp.existing_proposed.find{|lookUp| function.send(question) == lookUp.value}.name
+    when :impact_amount
+      LookUp.impact_amount.find{|lookUp| function.send(question) == lookUp.value}.name
+    when :impact_level
+      LookUp.impact_level.find{|lookUp| function.send(question) == lookUp.value}.name
+    when :rating
+      LookUp.rating.find{|lookUp| function.send(question) == lookUp.value}.name
+    when :yes_no_notsure
+      LookUp.yes_no_notsure.find{|lookUp| function.send(question) == lookUp.value}.name
+    when :timescales
+      LookUp.timescales.find{|lookUp| function.send(question) == lookUp.value}.name
+    when :consult_groups
+      LookUp.consult_groups.find{|lookUp| function.send(question) == lookUp.value}.name
+    when :consult_experts
+      LookUp.consult_experts.find{|lookUp| function.send(question) == lookUp.value}.name
+    when :text
+      function.send(question)
+    when :string
+      function.send(question)
+    end
+  else
+    answer = ''
   end
 
   %Q[<p><label title="#{label}">#{label}</label><div class="labelled">#{answer}</div></p>]
