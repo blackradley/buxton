@@ -47,16 +47,30 @@
 </fieldset>
 </div>
 
+<div id="performance_top" style="display:block;">
+<fieldset class="section_summary_header">
+	<legend>Performance</legend>
+	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary ', "Element.toggle('show_performance'); Element.toggle('performance_top')", :title => 'View Summary' -%></legend>
+</fieldset>
+</div>
+<div id="show_performance" <%= %Q[style="display:none;"] unless @print_only -%>>
+<fieldset class="section_summary_show">
+	<legend>Performance</legend>
+	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_performance'); Element.toggle('performance_top')", :title => 'Close Summary View' -%></legend>
+	<%= render 'sections/show_performance' -%>	
+</fieldset>
+</div>
+
 <div id="confidence_information_top" style="display:block;">
 <fieldset class="section_summary_header">
-	<legend>confidence_information</legend>
+	<legend>Confidence Information</legend>
 	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_confidence_information'); Element.toggle('confidence_information_top')", :title => 'View Summary' -%></legend>
 </fieldset>
 </div>
 
 <div id="show_confidence_information" <%= %Q[style="display:none;"] unless @print_only -%>>
 <fieldset class="section_summary_show">
-	<legend>confidence_information</legend>
+	<legend>Confidence Information</legend>
 	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_confidence_information'); Element.toggle('confidence_information_top')", :title => 'Close Summary View' -%></legend>
 	<%= render 'sections/show_confidence_information' -%>	
 </fieldset>
@@ -64,14 +78,14 @@
 
 <div id="confidence_consultation_top" style="display:block;">
 <fieldset class="section_summary_header">
-	<legend>confidence_consultation</legend>
+	<legend>Confidence Consultation</legend>
 	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_confidence_consultation'); Element.toggle('confidence_consultation_top')", :title => 'View Summary' -%></legend>
 </fieldset>
 </div>
 
 <div id="show_confidence_consultation" <%= %Q[style="display:none;"] unless @print_only -%>>
 <fieldset class="section_summary_show">
-	<legend>confidence_consultation</legend>
+	<legend>Confidence Consultation</legend>
 	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_confidence_consultation'); Element.toggle('confidence_consultation_top')", :title => 'Close Summary View' -%></legend>
 	<%= render 'sections/show_confidence_consultation' -%>	
 </fieldset>
@@ -80,14 +94,14 @@
 
 <div id="additional_work_top" style="display:block;">
 <fieldset class="section_summary_header">
-	<legend>additional_work</legend>
+	<legend>Additional Work</legend>
 	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_additional_work'); Element.toggle('additional_work_top')", :title => 'View Summary' -%></legend>
 </fieldset>
 </div>
 
 <div id="show_additional_work" <%= %Q[style="display:none;"] unless @print_only -%>>
 <fieldset class="section_summary_show">
-	<legend>additional_work</legend>
+	<legend>Additional Work</legend>
 	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_additional_work'); Element.toggle('additional_work_top')", :title => 'Close Summary View' -%></legend>
 	<%= render 'sections/show_additional_work' -%>	
 </fieldset>
@@ -96,14 +110,14 @@
 
 <div id="action_planning_top" style="display:block;">
 <fieldset class="section_summary_header">
-	<legend>action_planning</legend>
+	<legend>Action Planning</legend>
 	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_action_planning'); Element.toggle('action_planning_top')", :title => 'View Summary' -%></legend>
 </fieldset>
 </div>
 
 <div id="show_action_planning" <%= %Q[style="display:none;"] unless @print_only -%>>
 <fieldset class="section_summary_show">
-	<legend>action_planning</legend>
+	<legend>Action Planning</legend>
 	<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_action_planning'); Element.toggle('action_planning_top')", :title => 'Close Summary View' -%></legend>
 	<%= render 'sections/show_action_planning' -%>	
 </fieldset>

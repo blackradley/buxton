@@ -251,13 +251,14 @@ def strandmenu()
   end
 end
 # Generates all the HTML needed to display the answer to a question
-def answer(function, question)
+def answer(function, section, strand, number)
 
   # Get the label text for this question
-  label = $questions[question][0]
+  label = $questions[section][strand][number][0]
+  question="#{section}_#{strand}_#{number}"
 
   # Get the answer options for this question and make an appropriate input field
-  answer = case $questions[question][1]
+  answer = case $questions[section][strand][number][1]
   when :existing_proposed
     LookUp.existing_proposed.find{|lookUp| function.send(question) == lookUp.value}.name
   when :impact_amount
@@ -282,12 +283,13 @@ end
   def summary_answer(function, section, strand, number)
      label = $questions[section][strand][number][0]
      question="#{section}_#{strand}_#{number}"
+
      barImage = level_bar(function.send(question), LookUp.impact_amount, 'bar-impact-groups')
 
          # Show our formatted question!
          %Q[<p>
          <label title="#{label}">#{label}</label>
-         <div class="labelled">>#{barImage}</div>
+         <div class="labelled">#{barImage}</div>
          </p>]
          #%Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]
    end
@@ -438,57 +440,57 @@ end
  
     # Confidence Consultation questions
     :confidence_consultation => {
-          :gender => { 1 => ['How would you rate the current performance of the Function in meeting the different needs of men and women?', :integer],
-                  2 => ['If no, why is this so', :string],
-                  3 => ['If yes, list groups and dates', :string],
+          :gender => { 1 => ['Have groups from the equality stand been consulted on the potential impact of the Function?', :yes_no_notsure],
+                  2 => ['If no, why is this so', :text],
+                  3 => ['If yes, list groups and dates', :text],
                   4 => ['Have experts from the Equality Strand been consulted on the potential impact of the Function?', :yes_no_notsure],
-                  5 => ['If no, why is this so:', :string],
-                  6 => ['If yes, list groups and dates:', :string],
+                  5 => ['If no, why is this so:', :text],
+                  6 => ['If yes, list groups and dates:', :text],
                   7 => ['Did the consultations identify any issues with the potential impact of the Function on the Equality Strand?', :yes_no_notsure],
                   8 => ['Please note the issues identified:', :text],
                 },
-          :race => { 1 => ['How would you rate the current performance of the Function in meeting the needs of people from different ethnic backgrounds?', :integer],
-                  2 => ['If no, why is this so', :string],
-                  3 => ['If yes, list groups and dates', :string],
+          :race => { 1 => ['Have groups from the equality stand been consulted on the potential impact of the Function?', :yes_no_notsure],
+                  2 => ['If no, why is this so', :text],
+                  3 => ['If yes, list groups and dates', :text],
                   4 => ['Have experts from the Equality Strand been consulted on the potential impact of the Function?', :yes_no_notsure],
-                  5 => ['If no, why is this so:', :string],
-                  6 => ['If yes, list groups and dates:', :string],
+                  5 => ['If no, why is this so:', :text],
+                  6 => ['If yes, list groups and dates:', :text],
                   7 => ['Did the consultations identify any issues with the potential impact of the Function on the Equality Strand?', :yes_no_notsure],
                   8 => ['Please note the issues identified:', :text],
                 },
-          :disability => { 1 => ['How would you rate the current performance of the Function in meeting the needs of people with different kinds of disability?', :integer],
-                  2 => ['If no, why is this so', :string],
-                  3 => ['If yes, list groups and dates', :string],
+          :disability => { 1 => ['Have groups from the equality stand been consulted on the potential impact of the Function?', :yes_no_notsure],
+                  2 => ['If no, why is this so', :text],
+                  3 => ['If yes, list groups and dates', :text],
                   4 => ['Have experts from the Equality Strand been consulted on the potential impact of the Function?', :yes_no_notsure],
-                  5 => ['If no, why is this so:', :string],
-                  6 => ['If yes, list groups and dates:', :string],
+                  5 => ['If no, why is this so:', :text],
+                  6 => ['If yes, list groups and dates:', :text],
                   7 => ['Did the consultations identify any issues with the potential impact of the Function on the Equality Strand?', :yes_no_notsure],
                   8 => ['Please note the issues identified:', :text],
                 },
-          :faith => { 1 => ['How would you rate the current performance of the Function in meeting the needs of people from different faith groups?', :integer],
-                  2 => ['If no, why is this so', :string],
-                  3 => ['If yes, list groups and dates', :string],
+          :faith => { 1 => ['Have groups from the equality stand been consulted on the potential impact of the Function?', :yes_no_notsure],
+                  2 => ['If no, why is this so', :text],
+                  3 => ['If yes, list groups and dates', :text],
                   4 => ['Have experts from the Equality Strand been consulted on the potential impact of the Function?', :yes_no_notsure],
-                  5 => ['If no, why is this so:', :string],
-                  6 => ['If yes, list groups and dates:', :string],
+                  5 => ['If no, why is this so:', :text],
+                  6 => ['If yes, list groups and dates:', :text],
                   7 => ['Did the consultations identify any issues with the potential impact of the Function on the Equality Strand?', :yes_no_notsure],
                   8 => ['Please note the issues identified:', :text],
                 },
-          :sexual_orientation => { 1 => ['How would you rate the current performance of the Function in meeting the needs of people of different sexual orientations?', :integer],
-                  2 => ['If no, why is this so', :string],
-                  3 => ['If yes, list groups and dates', :string],
+          :sexual_orientation => { 1 => ['Have groups from the equality stand been consulted on the potential impact of the Function?', :yes_no_notsure],
+                  2 => ['If no, why is this so', :text],
+                  3 => ['If yes, list groups and dates', :text],
                   4 => ['Have experts from the Equality Strand been consulted on the potential impact of the Function?', :yes_no_notsure],
-                  5 => ['If no, why is this so:', :string],
-                  6 => ['If yes, list groups and dates:', :string],
+                  5 => ['If no, why is this so:', :text],
+                  6 => ['If yes, list groups and dates:', :text],
                   7 => ['Did the consultations identify any issues with the potential impact of the Function on the Equality Strand?', :yes_no_notsure],
                   8 => ['Please note the issues identified:', :text],
                 },
-         :age => { 1 => ['How would you rate the current performance of the Function in meeting the needs of people of different ages?', :integer],
-                  2 => ['If no, why is this so', :string],
-                  3 => ['If yes, list groups and dates', :string],
+         :age => { 1 => ['Have groups from the equality stand been consulted on the potential impact of the Function?', :yes_no_notsure],
+                  2 => ['If no, why is this so', :text],
+                  3 => ['If yes, list groups and dates', :text],
                   4 => ['Have experts from the Equality Strand been consulted on the potential impact of the Function?', :yes_no_notsure],
-                  5 => ['If no, why is this so:', :string],
-                  6 => ['If yes, list groups and dates:', :string],
+                  5 => ['If no, why is this so:', :text],
+                  6 => ['If yes, list groups and dates:', :text],
                   7 => ['Did the consultations identify any issues with the potential impact of the Function on the Equality Strand?', :yes_no_notsure],
                   8 => ['Please note the issues identified:', :text],
                 }
@@ -518,6 +520,7 @@ end
                   9 => ['Do you think that the Policy could have a role in preventing the Equality Strand being treated differently, in an unfair way, just because they were in this Equality Strand', :yes_no_notsure],
                   10 => ['Do you think that the Policy could have a role in making sure that the Equality Strand were treated equally and fairly', :yes_no_notsure],
                   11 => ['Do you think that the Function could assist the Equality Strand to get on better with each other', :yes_no_notsure],
+                  12 => ['Do you think that the Function could promote positive attitudes to Equality Strand', :yes_no_notsure],
                 },    
           :faith => { 5 => ['In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how the Policy impacts, or may impact, upon the Equality Strand?', :yes_no_notsure],
                   6 => ['Please explain the further information required', :text],
