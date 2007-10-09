@@ -13,12 +13,14 @@ class CorrectingImpactNames < ActiveRecord::Migration
 	rename_column :functions, :purpose_faith_4, :purpose_faith_3
 	rename_column :functions, :purpose_sexual_orientation_4, :purpose_sexual_orientation_3
 	rename_column :functions, :purpose_age_4, :purpose_age_3
+	rename_column :functions, :purpose_overall_4, :purpose_overall_3
 	rename_column :functions, :purpose_gender_5, :purpose_gender_4
 	rename_column :functions, :purpose_race_5, :purpose_race_4
 	rename_column :functions, :purpose_disability_5, :purpose_disability_4
 	rename_column :functions, :purpose_faith_5, :purpose_faith_4
 	rename_column :functions, :purpose_sexual_orientation_5, :purpose_sexual_orientation_4
 	rename_column :functions, :purpose_age_5, :purpose_age_4
+	rename_column :functions, :purpose_overall_5, :purpose_overall_4
 	
 	rename_column :functions, :impact_service_users, :purpose_overall_5
 	rename_column :functions, :impact_staff,  :purpose_overall_6
