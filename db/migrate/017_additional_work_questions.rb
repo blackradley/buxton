@@ -35,7 +35,7 @@ class AdditionalWorkQuestions < ActiveRecord::Migration
 	add_column :functions, :additional_work_disability_9, :integer, :default => 0
 	add_column :functions, :additional_work_disability_10, :integer, :default => 0
 	add_column :functions, :additional_work_disability_11, :integer, :default => 0
-        add_column :functions, :additional_work_disability_12, :integer, :default => 0
+  add_column :functions, :additional_work_disability_12, :integer, :default => 0
 
 	add_column :functions, :additional_work_sexual_orientation_1, :text
 	add_column :functions, :additional_work_sexual_orientation_2, :text
@@ -98,7 +98,7 @@ class AdditionalWorkQuestions < ActiveRecord::Migration
 	remove_column :functions, :additional_work_disability_9, :integer, :default => 0
 	remove_column :functions, :additional_work_disability_10, :integer, :default => 0
 	remove_column :functions, :additional_work_disability_11, :integer, :default => 0
-        remove_column :functions, :additional_work_disability_12, :integer, :default => 0
+  remove_column :functions, :additional_work_disability_12, :integer, :default => 0
 
 	remove_column :functions, :additional_work_sexual_orientation_1, :text
 	remove_column :functions, :additional_work_sexual_orientation_2, :text
