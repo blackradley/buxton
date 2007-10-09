@@ -46,9 +46,13 @@ class FunctionsController < ApplicationController
 # Show the summary information for a specific function.
 # Available to the Function manager.
 #
-  def show
-    @function = Function.find(session['logged_in_user'].function.id)
-  end  
+def show
+  @function = Function.find(session['logged_in_user'].function.id)
+end
+
+def overview
+  @function = Function.find(session['logged_in_user'].function.id)
+end
 #
 # Provide a summary of the state of all the functions for all the
 # sections of the review.
