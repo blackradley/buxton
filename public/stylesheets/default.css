@@ -552,6 +552,7 @@ text-align:center;
 	text-align: left;
 }
 #questions p{
+	clear: left;
 	text-align: right;
 }
 
@@ -670,7 +671,9 @@ text-align:center;
 	font-size:1.1em;
 	font-weight:bold;	
 }
-
+.summary fieldset.section_summary_show h4{
+	margin-left: 20px;
+}
 .summary fieldset.section_summary_show h5{
 	margin-left: 20px;
 	line-height:2em;
