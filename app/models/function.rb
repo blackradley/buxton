@@ -96,6 +96,10 @@ class Function < ActiveRecord::Base
         LookUp.rating.find{|lookUp| answer == lookUp.value}.weight
       when :yes_no_notsure
         LookUp.yes_no_notsure.find{|lookUp| answer == lookUp.value}.weight
+      when :consult_groups
+        LookUp.consult_groups.find{|lookUp| answer == lookUp.value}.weight
+      when :consult_experts
+        LookUp.consult_experts.find{|lookUp| answer == lookUp.value}.weight
       when :timescales
         LookUp.timescales.find{|lookUp| answer == lookUp.value}.weight
       end      

@@ -271,6 +271,10 @@ def answer(function, section, strand, number)
     LookUp.yes_no_notsure.find{|lookUp| function.send(question) == lookUp.value}.name
   when :timescales
     LookUp.timescales.find{|lookUp| function.send(question) == lookUp.value}.name
+  when :consult_groups
+    LookUp.consult_groups.find{|lookUp| function.send(question) == lookUp.value}.name
+  when :consult_experts
+    LookUp.consult_experts.find{|lookUp| function.send(question) == lookUp.value}.name
   when :text
     function.send(question)
   when :string
