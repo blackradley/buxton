@@ -145,7 +145,7 @@ private
     number_answered = 0
     total = 0
     $questions[section][strand].each_key{|question| sec_questions.push("#{section}_#{strand}_#{question}".to_sym)}
-    sec_questions.each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end}
+    sec_questions.each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end; puts question; puts check_question(question)}
     return ((Float(number_answered)/total)*100).round
   end
 
@@ -171,8 +171,12 @@ private
     if dependency then
       response = send(question)
       dependant_correct = true
-      dependency.each{|dependent| dependant_correct = dependant_correct && (send(dependent[0])==dependent[1])}
-      return (check_response(response) && dependant_correct)
+      dependency.each{|dependent| dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1])}
+      if dependant_correct then
+	return true 
+      else 
+	return (check_response(response))
+      end
     else
       response = send(question)
       return check_response(response)
