@@ -145,13 +145,15 @@ private
     number_answered = 0
     total = 0
     $questions[section][strand].each_key{|question| sec_questions.push("#{section}_#{strand}_#{question}".to_sym)}
-    sec_questions.each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end; puts question; puts check_question(question)}
+    sec_questions.each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end}
     return ((Float(number_answered)/total)*100).round
   end
 
   def check_question(question)
       # What does an answer of 'Yes' correspond to?
       yes_value = LookUp.yes_no_notsure.find{|lookUp| 'Yes' == lookUp.name}.value 
+      #What does an answer of 'No' correspond to?
+      no_value = LookUp.yes_no_notsure.find{|lookUp| 'No' == lookUp.name}.value 
     @dependent_questions = { :performance_overall_3 => [[:performance_overall_2, yes_value]],
                             :performance_overall_5 => [[:performance_overall_4, yes_value]],
                             :performance_gender_3 => [[:performance_gender_2, yes_value ]],
@@ -165,7 +167,37 @@ private
                             :performance_sexual_orientation_3 => [[:performance_sexual_orientation_2, yes_value]],
                             :performance_sexual_orientation_5 => [[:performance_sexual_orientation_4, yes_value]],
                             :performance_age_3 => [[:performance_age_2, yes_value]],
-                            :performance_age_5 => [[:performance_age_4, yes_value]]
+                            :performance_age_5 => [[:performance_age_4, yes_value]],
+			    :confidence_consultation_gender_2 => [[:confidence_consultation_gender_1, no_value]],
+			    :confidence_consultation_gender_3 => [[:confidence_consultation_gender_1, yes_value]],
+			    :confidence_consultation_gender_5 => [[:confidence_consultation_gender_4, no_value]],
+			    :confidence_consultation_gender_6 => [[:confidence_consultation_gender_4, yes_value]],
+			    :confidence_consultation_gender_8 => [[:confidence_consultation_gender_7, yes_value]],
+			    :confidence_consultation_age_2 => [[:confidence_consultation_age_1, no_value]],
+			    :confidence_consultation_age_3 => [[:confidence_consultation_age_1, yes_value]],
+			    :confidence_consultation_age_5 => [[:confidence_consultation_age_4, no_value]],
+			    :confidence_consultation_age_6 => [[:confidence_consultation_age_4, yes_value]],
+			    :confidence_consultation_age_8 => [[:confidence_consultation_age_7, yes_value]],
+			    :confidence_consultation_disability_2 => [[:confidence_consultation_disability_1, no_value]],
+			    :confidence_consultation_disability_3 => [[:confidence_consultation_disability_1, yes_value]],
+			    :confidence_consultation_disability_5 => [[:confidence_consultation_disability_4, no_value]],
+			    :confidence_consultation_disability_6 => [[:confidence_consultation_disability_4, yes_value]],
+			    :confidence_consultation_disability_8 => [[:confidence_consultation_disability_7, yes_value]],
+			    :confidence_consultation_race_2 => [[:confidence_consultation_race_1, no_value]],
+			    :confidence_consultation_race_3 => [[:confidence_consultation_race_1, yes_value]],
+			    :confidence_consultation_race_5 => [[:confidence_consultation_race_4, no_value]],
+			    :confidence_consultation_race_6 => [[:confidence_consultation_race_4, yes_value]],
+			    :confidence_consultation_race_8 => [[:confidence_consultation_race_7, yes_value]],
+			    :confidence_consultation_faith_2 => [[:confidence_consultation_faith_1, no_value]],
+			    :confidence_consultation_faith_3 => [[:confidence_consultation_faith_1, yes_value]],
+			    :confidence_consultation_faith_5 => [[:confidence_consultation_faith_4, no_value]],
+			    :confidence_consultation_faith_6 => [[:confidence_consultation_faith_4, yes_value]],
+			    :confidence_consultation_faith_8 => [[:confidence_consultation_faith_7, yes_value]],
+			    :confidence_consultation_sexual_orientation_2 => [[:confidence_consultation_sexual_orientation_1, no_value]],
+			    :confidence_consultation_sexual_orientation_3 => [[:confidence_consultation_sexual_orientation_1, yes_value]],
+			    :confidence_consultation_sexual_orientation_5 => [[:confidence_consultation_sexual_orientation_4, no_value]],
+			    :confidence_consultation_sexual_orientation_6 => [[:confidence_consultation_sexual_orientation_4, yes_value]],
+			    :confidence_consultation_sexual_orientation_8 => [[:confidence_consultation_sexual_orientation_7, yes_value]]
                             }
     dependency = @dependent_questions[question]
     if dependency then
