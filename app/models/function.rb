@@ -204,7 +204,21 @@ private
 			    :confidence_information_overall_3 => [[:confidence_information_overall_2, yes_value]],
 			    :confidence_information_sexual_orientation_3 => [[:confidence_information_sexual_orientation_2, yes_value]],
 			    :confidence_information_age_3 => [[:confidence_information_age_2, yes_value]],
-			    :confidence_information_gender_3 => [[:confidence_information_gender_2, yes_value]]
+			    :confidence_information_gender_3 => [[:confidence_information_gender_2, yes_value]],
+			    :additional_work_race_8 => [[:additional_work_race_7, yes_value]],
+			    :additional_work_disability_8 => [[:additional_work_disability_7, yes_value]],
+			    :additional_work_faith_8 => [[:additional_work_faith_7, yes_value]],
+			    :additional_work_overall_8 => [[:additional_work_overall_7, yes_value]],
+			    :additional_work_sexual_orientation_8 => [[:additional_work_sexual_orientation_7, yes_value]],
+			    :additional_work_age_8 => [[:additional_work_age_7, yes_value]],
+			    :additional_work_gender_8 => [[:additional_work_gender_7, yes_value]],
+			    :additional_work_race_6 => [[:additional_work_race_5, yes_value]],
+			    :additional_work_disability_6 => [[:additional_work_disability_5, yes_value]],
+			    :additional_work_faith_6 => [[:additional_work_faith_5, yes_value]],
+			    :additional_work_overall_6 => [[:additional_work_overall_5, yes_value]],
+			    :additional_work_sexual_orientation_6 => [[:additional_work_sexual_orientation_5, yes_value]],
+			    :additional_work_age_6 => [[:additional_work_age_5, yes_value]],
+			    :additional_work_gender_6 => [[:additional_work_gender_5, yes_value]]
                             }
     dependency = @dependent_questions[question]
     if dependency then
