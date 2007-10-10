@@ -197,7 +197,14 @@ private
 			    :confidence_consultation_sexual_orientation_3 => [[:confidence_consultation_sexual_orientation_1, yes_value]],
 			    :confidence_consultation_sexual_orientation_5 => [[:confidence_consultation_sexual_orientation_4, no_value]],
 			    :confidence_consultation_sexual_orientation_6 => [[:confidence_consultation_sexual_orientation_4, yes_value]],
-			    :confidence_consultation_sexual_orientation_8 => [[:confidence_consultation_sexual_orientation_7, yes_value]]
+			    :confidence_consultation_sexual_orientation_8 => [[:confidence_consultation_sexual_orientation_7, yes_value]],
+			    :confidence_information_race_3 => [[:confidence_information_race_2, yes_value]],
+			    :confidence_information_disability_3 => [[:confidence_information_disability_2, yes_value]],
+			    :confidence_information_faith_3 => [[:confidence_information_faith_2, yes_value]],
+			    :confidence_information_overall_3 => [[:confidence_information_overall_2, yes_value]],
+			    :confidence_information_sexual_orientation_3 => [[:confidence_information_sexual_orientation_2, yes_value]],
+			    :confidence_information_age_3 => [[:confidence_information_age_2, yes_value]],
+			    :confidence_information_gender_3 => [[:confidence_information_gender_2, yes_value]]
                             }
     dependency = @dependent_questions[question]
     if dependency then
