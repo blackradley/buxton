@@ -45,70 +45,67 @@ class Function < ActiveRecord::Base
   has_many :function_strategies
   
 # 
-#27-Stars Joe: Left in for legacy reasons to avoid breaking the old code and to have an easy place to manipulate it.
+#27-Stars Joe: This is what is called to interface with the private methods. Doesn't contain much actual functionality
 #
-  def percentage_answered(section = nil, strand = nil)
-    unless strand then
+  def percentage_answered(section = nil, strand = nil)	 
+    if ((!strand) && (section)) then
       total = 0
-      $questions[section].each{|newstrand| (total += section_percentage_answered(section, newstrand) )if newstrand}
+      $questions[section].each_key{|newstrand| (total += section_percentage_answered(section, newstrand) )if newstrand}
       return total/$questions[section].size
     end
     unless section then
       total = 0
       questions = 0
-      $questions.each{|newsection| section.each{|newstrand| total += section_percentage_answered(newsection, newstrand); questions += 1}}
+      $questions.each{|section_name, section_variables| section_variables.each_key{|strand_name| total += section_percentage_answered(section_name, strand_name); questions += 1}}
       return (total/questions)
     end
     if strand && section then return section_percentage_answered(section, strand) end
   end
   
   def started(section = nil, strand = nil)
+    if ((!strand) && (section)) then
+      total = 0
+      $questions[section].each_key{|newstrand| (total += section_percentage_answered(section, newstrand) )if newstrand}
+      return total/$questions[section].size
+    end
+    unless section then
+      total = 0
+      questions = 0
+      $questions.each{|section_name, section_variables| section_variables.each_key{|strand_name| total += section_percentage_answered(section_name, strand_name); questions += 1}}
+      return (total/questions)
+    end	  
     (percentage_answered(section, strand) > 0)
   end
   
   def completed(section = nil, strand = nil)
+    if ((!strand) && (section)) then
+      total = 0
+      $questions[section].each_key{|newstrand| (total += section_percentage_answered(section, newstrand) )if newstrand}
+      return total/$questions[section].size
+    end
+    unless section then
+      total = 0
+      questions = 0
+      $questions.each{|section_name, section_variables| section_variables.each_key{|strand_name| total += section_percentage_answered(section_name, strand_name); questions += 1}}
+      return (total/questions)
+    end
     (percentage_answered(section, strand) == 100)    
   end
   
   def statistics
     return nil unless completed # Don't calculate stats if all the necessary questions haven't been answered
-    
-    stats_questions = [ :existence_status, :good_gender, :good_race, :good_disability, :good_faith, :good_sexual_orientation, 
-    :good_age, :bad_gender, :bad_race, :bad_disability, :bad_faith, :bad_sexual_orientation, :bad_age, :overall_performance, 
-    :overall_validated, :overall_issues, :gender_performance, :gender_validated, :gender_issues, :race_performance, 
-    :race_validated, :race_issues, :disability_performance, :disability_validated, :disability_issues, :faith_performance, 
-    :faith_validated, :faith_issues, :sexual_orientation_performance, :sexual_orientation_validated, :sexual_orientation_issues, 
-    :age_performance, :age_validated, :age_issues ]
-    
-    answers = {}
-    
-    stats_questions.each do |q|
-      answer = send(q)
-      
-      weight = case $questions[q][1]
-      when :existing_proposed
-        LookUp.existing_proposed.find{|lookUp| answer == lookUp.value}.weight
-      when :impact_amount
-        LookUp.impact_amount.find{|lookUp| answer == lookUp.value}.weight
-      when :impact_level
-        LookUp.impact_level.find{|lookUp| answer == lookUp.value}.weight
-      when :rating
-        LookUp.rating.find{|lookUp| answer == lookUp.value}.weight
-      when :yes_no_notsure
-        LookUp.yes_no_notsure.find{|lookUp| answer == lookUp.value}.weight
-      when :consult_groups
-        LookUp.consult_groups.find{|lookUp| answer == lookUp.value}.weight
-      when :consult_experts
-        LookUp.consult_experts.find{|lookUp| answer == lookUp.value}.weight
-      when :timescales
-        LookUp.timescales.find{|lookUp| answer == lookUp.value}.weight
-      end      
-      
-      answers[q] = weight
+    questions = {}
+    $questions.each{|sectionname, section| questions[sectionname] = section} #add sections
+    questions.each{|section_name, section_values| section_values.each {|strand_name, strand_value| questions[section_name][strand_name] = strand_value}}
+    questions.each do |section_name, section_values| 
+	    section_values.each do |strand_name, strand_values| 
+		    strand_values.each do |question, value| 
+			    questions[section_name][strand_name][question] = send("#{section_name}_#{strand_name}_#{question}".to_sym)
+		    end
+	    end
     end
-    
     test = Statistics.new
-    test.score(answers)
+    test.score(questions)
     test.function
   end
   

@@ -37,7 +37,7 @@ class FunctionsController < ApplicationController
     for function in @functions
       if function.completed then
         stats = function.statistics
-        @results_table[stats.fun_priority_ranking][stats.fun_impact] += 1
+        @results_table[stats.fun_priority_ranking][stats.impact] += 1
       end
     end
     render :action => 'summary', :id => params[:id]

@@ -45,7 +45,7 @@ module FunctionsHelper
   
   def impact_tag(function)
     if function.completed then
-      function.statistics.fun_impact.to_s.capitalize
+      function.statistics.impact.to_s.capitalize
     else
       '-'
     end
