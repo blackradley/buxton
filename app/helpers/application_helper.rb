@@ -305,10 +305,6 @@ end
 # Hash of questions (used in various places)
 #
 
-
-
-
-
   $questions = {
     # Purpose questions
     :purpose => {  
@@ -495,7 +491,7 @@ end
                   8 => ['Please explain the further work required', :text],
                   9 => ['Do you think that the Policy could have a role in preventing the Equality Strand being treated differently, in an unfair way, just because they were in this Equality Strand', :yes_no_notsure],
                   10 => ['Do you think that the Policy could have a role in making sure that the Equality Strand were treated equally and fairly', :yes_no_notsure],
-                  11 => ['Do you think that the Function could assist the Equality Strand to get on better with each other', :yes_no_notsure],
+                  11 => ['Do you think that the Function could assist the Equality Strand to get on better with each other', :yes_no_notsure], # Nuke me
                 },
           :race => { 5 => ['In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how the Policy impacts, or may impact, upon the Equality Strand?', :yes_no_notsure],
                   6 => ['Please explain the further information required', :text],
@@ -849,5 +845,4 @@ end
 		}
 	}
   }
-
 end

@@ -109,6 +109,7 @@ class Function < ActiveRecord::Base
     test.function
   end
   
+  
     
   # K: TODO
   # def destroy
@@ -122,18 +123,6 @@ class Function < ActiveRecord::Base
   # end
 
 private
-
-# The percentage number of questions answered for section 1 (the relevance
-# test).  Originally this was part of the model but it has to make use of
-# the Strategy table as well, which was inconvenient from the model.  Also
-# you could argue that the number of questions answered is an external and
-# arbitary value not inherent in the model.  In a way it is something that 
-# is calculated based on the model, which is what happens here.
-# 
-# To prevent rounding occuring during the calculation (which would happen
-# because all the values are integers) the number of questions is given with
-# a decimal place to make it a float.  This seems a bit naff to me, I think
-# there should be a neater way, but Ruby isn't my strongest skill.
 #
 #27 stars Joe: Removed specific section code, turned it into a generic section format.
 #Must go back and comment code. 
