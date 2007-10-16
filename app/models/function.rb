@@ -462,7 +462,7 @@ private
 			    :action_planning_faith_47 => [[:action_planning_faith_30,""]],
 			    :action_planning_faith_48 => [[:action_planning_faith_30,""]],
 			    :action_planning_faith_49 => [[:action_planning_faith_30,""]],
-			    :action_planning_faith_50 => [[:action_planning_faith_30,""]],
+			    :action_planning_faith_50 => [[:action_planning_faith_30,""]]
                             }
     dependency = @dependent_questions[question]
     if dependency then
@@ -471,7 +471,7 @@ private
       dependency.each do
 	      |dependent|
 	      if dependent[1].class == String then
-		   dependant_correct = dependant_correct && !(send(dependent[0]).length > 0)   
+		   dependant_correct = dependant_correct && !(send(dependent[0]).to_s.length > 0)   
 	      else
 		dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1])
 	      end
