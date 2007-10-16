@@ -99,17 +99,19 @@ class Statistics
   attr_reader :function
   def initialize  
     topics = []
-    $questions[:purpose].each_key{|key| topics.push(key)}
+    $questions[:purpose].each_key{|key| topics.push(key); puts key.class}
     topic_hash = {}
     topics.each do 
 	    |topic|
 	    $questions.each do |section_name, section|
+		if section[topic] then
 		    section[topic].each do |question, value|
-			   puts section[topic]
-			   topic_hash[topic] = {"#{section_name.to_s}_#{topic.to_s}_#{question.to_s}".to_sym => value[0]} # Creates a hash of all the strands by strand, not by section
-		    end
+			   topic_hash[topic] = {"#{section_name.to_s}_#{topic.to_s}_#{question.to_s}".to_sym => value} # Creates a hash of all the strands by strand, not by section
+		   end
+		end
 	    end
     end
+
     #replace all the symbol references to lookups with the lookup itself, and initialize the question.
     topic_hash.each{|topic| topic.each{|question, value| topic_hash[topic][question] = StatQuestion.new(Lookup.find_by_look_up_type(value), question)}}
     #replace all the topic symbols with a StatTopic object
