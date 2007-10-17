@@ -45,50 +45,21 @@ class Function < ActiveRecord::Base
   has_many :function_strategies
   
 # 
-#27-Stars Joe: This is what is called to interface with the private methods. Doesn't contain much actual functionality
+#27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions. 
 #
-  def percentage_answered(section = nil, strand = nil)	 
-    if ((!strand) && (section)) then
-      total = 0
-      $questions[section].each_key{|newstrand| (total += section_percentage_answered(section, newstrand) )if newstrand}
-      return total/$questions[section].size
-    end
-    unless section then
-      total = 0
-      questions = 0
-      $questions.each{|section_name, section_variables| section_variables.each_key{|strand_name| total += section_percentage_answered(section_name, strand_name); questions += 1}}
-      return (total/questions)
-    end
-    if strand && section then return section_percentage_answered(section, strand) end
+  def percentage_answered(section = nil, strand = nil)
+    sec_questions = []
+    number_answered = 0
+    total = 0
+    get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end}
+    return ((Float(number_answered)/total)*100).round
   end
   
-  def started(section = nil, strand = nil)
-    if ((!strand) && (section)) then
-      total = 0
-      $questions[section].each_key{|newstrand| (total += section_percentage_answered(section, newstrand) )if newstrand}
-      return total/$questions[section].size
-    end
-    unless section then
-      total = 0
-      questions = 0
-      $questions.each{|section_name, section_variables| section_variables.each_key{|strand_name| total += section_percentage_answered(section_name, strand_name); questions += 1}}
-      return (total/questions)
-    end	  
+  def started(section = nil, strand = nil)  
     (percentage_answered(section, strand) > 0)
   end
   
   def completed(section = nil, strand = nil)
-    if ((!strand) && (section)) then
-      total = 0
-      $questions[section].each_key{|newstrand| (total += section_percentage_answered(section, newstrand) )if newstrand}
-      return total/$questions[section].size
-    end
-    unless section then
-      total = 0
-      questions = 0
-      $questions.each{|section_name, section_variables| section_variables.each_key{|strand_name| total += section_percentage_answered(section_name, strand_name); questions += 1}}
-      return (total/questions)
-    end
     (percentage_answered(section, strand) == 100)    
   end
   
@@ -109,7 +80,8 @@ class Function < ActiveRecord::Base
     test.function
   end
 
-  def get_question_names
+#This method recovers questions. It allows you to search by strand or by section.
+  def get_question_names(section = nil, strand = nil)
 	  questions = []
 	  Function.content_columns.each{|column| questions.push(column.name.to_sym)}
 	  questions.delete(:name)
@@ -119,6 +91,8 @@ class Function < ActiveRecord::Base
 	  questions.delete(:updated_on)
 	  questions.delete(:updated_by)
 	  questions.delete(:deleted_on)
+	  questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section
+	  questions.delete_if{ |question| !(question.to_s.include?(strand.to_s))}if strand
 	  return questions
   end
     
@@ -137,14 +111,6 @@ private
 #
 #27 stars Joe: Removed specific section code, turned it into a generic section format.
 #Must go back and comment code. 
-  def section_percentage_answered(section, strand)
-    sec_questions = []
-    number_answered = 0
-    total = 0
-    $questions[section][strand].each_key{|question| sec_questions.push("#{section}_#{strand}_#{question}".to_sym)}
-    sec_questions.each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end}
-    return ((Float(number_answered)/total)*100).round
-  end
 
   def check_question(question)
       # What does an answer of 'Yes' correspond to?
