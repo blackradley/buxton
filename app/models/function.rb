@@ -108,8 +108,19 @@ class Function < ActiveRecord::Base
     test.score(questions)
     test.function
   end
-  
-  
+
+  def get_question_names
+	  questions = []
+	  Function.content_columns.each{|column| questions.push(column.name.to_sym)}
+	  questions.delete(:name)
+	  questions.delete(:approved)
+	  questions.delete(:approver)
+	  questions.delete(:created_on)
+	  questions.delete(:updated_on)
+	  questions.delete(:updated_by)
+	  questions.delete(:deleted_on)
+	  return questions
+  end
     
   # K: TODO
   # def destroy
