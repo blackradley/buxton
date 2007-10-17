@@ -13,9 +13,13 @@
 <%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 8} %>
 <%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 9} %>
 <%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 10} %>
+<% unless params[:equalityStrand] == 'gender' then %>
 <%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 11} %>
-<% if params[:equalityStrand]=='disability' then%>	
+<% end %>
+<% if params[:equalityStrand]=='disability' then %>	
 <%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 12}%>
+<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 13}%>
+<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 14}%>
 <% end -%>
 
 

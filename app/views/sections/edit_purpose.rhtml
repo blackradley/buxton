@@ -8,7 +8,8 @@
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
 
-<% if params[:equalityStrand]=='overall' %>	
+<% if params[:equalityStrand]=='overall' %>
+<%= f.question :purpose, {:equalityStrand => params[:equalityStrand], :number => 2}%>
 <%= f.question :purpose, {:equalityStrand => params[:equalityStrand], :number => 5}%>
 <%= f.question :purpose, {:equalityStrand => params[:equalityStrand], :number => 6}%>
 <%= f.question :purpose, {:equalityStrand => params[:equalityStrand], :number => 7}%>
