@@ -1,4 +1,4 @@
-class CreateIssues < ActiveRecord::Migration
+class ExistenceStatusAndCreateIssues < ActiveRecord::Migration
   def self.up
     rename_column :functions, :existence_status, :purpose_overall_1	
     create_table :issues do |t|
