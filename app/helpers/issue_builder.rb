@@ -1,17 +1,14 @@
-class QuestionBuilder < ActionView::Helpers::FormBuilder    
+class IssueBuilder < ActionView::Helpers::FormBuilder    
 
   # Generates all the HTML needed for a form question
-  def question(section, options={}, f_id=  nil)
-    function = Function.find(f_id)
-    puts function.name
-    strand=options[:equalityStrand].to_sym
-    number=options[:number]
-    question="#{section}_#{strand}_#{number}"
+  def question(name, issue, f_id=  nil)
+    issues = { :description  => :text,  :actions => :text,  :resources => :text,  :timescales => :timescales,  :lead_officer => :text}
+    
+    question="Issue"
     # Get the label text for this question
-        label = function.question_wording_lookup(section.to_sym, strand.to_sym, number)[0]
-	puts label
+        label = name.to_s.gsub("_",  " ").capitalize
         # Get the answer options for this question and make an appropriate input field
-        input_field = case function.question_wording_lookup(section, strand,number)[1]      
+        input_field = case issues[name] 
         when :existing_proposed
           select question, LookUp.existing_proposed.collect {|l| [ l.name, l.value ] }
         when :function_policy
