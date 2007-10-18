@@ -7,19 +7,19 @@
 
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
-<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 5} %>
-<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 6} %>
-<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 7} %>
-<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 8} %>
-<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 9} %>
-<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 10} %>
+<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 5}, @function.id %>
+<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 6}, @function.id %>
+<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 7}, @function.id %>
+<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 8}, @function.id %>
+<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 9}, @function.id %>
+<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 10}, @function.id %>
 <% unless params[:equalityStrand] == 'gender' then %>
-<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 11} %>
+<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 11}, @function.id %>
 <% end %>
 <% if params[:equalityStrand]=='disability' then %>	
-<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 12}%>
-<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 13}%>
-<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 14}%>
+<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 12}, @function.id%>
+<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 13}, @function.id%>
+<%= f.question :additional_work, {:equalityStrand => params[:equalityStrand], :number => 14}, @function.id%>
 <% end -%>
 
 

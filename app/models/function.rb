@@ -43,6 +43,7 @@ class Function < ActiveRecord::Base
   validates_presence_of :organisation
   validates_associated :organisation
   has_many :function_strategies
+  has_many :issues, :dependent => :destroy
   
 # 
 #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions. 
@@ -51,7 +52,7 @@ class Function < ActiveRecord::Base
     sec_questions = []
     number_answered = 0
     total = 0
-    get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end}
+    Function.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end}
     return ((Float(number_answered)/total)*100).round
   end
   
@@ -66,22 +67,21 @@ class Function < ActiveRecord::Base
   def statistics
     return nil unless completed # Don't calculate stats if all the necessary questions haven't been answered
     questions = {}
-    $questions.each{|sectionname, section| questions[sectionname] = section} #add sections
-    questions.each{|section_name, section_values| section_values.each {|strand_name, strand_value| questions[section_name][strand_name] = strand_value}}
-    questions.each do |section_name, section_values| 
-	    section_values.each do |strand_name, strand_values| 
-		    strand_values.each do |question, value| 
-			    questions[section_name][strand_name][question] = send("#{section_name}_#{strand_name}_#{question}".to_sym)
-		    end
-	    end
+    question_hash = question_wording_lookup
+    question_hash.each do |strand_name, strand|
+	strand.each do |section_name, section|
+		section.each_key do |question|
+			questions[strand_name] = {"#{section_name.to_s}_#{topic.to_s}_#{question.to_s}".to_sym => send("#{section_name.to_s}_#{topic.to_s}_#{question.to_s}".to_sym)}
+		end
+	end
     end
-    test = Statistics.new
-    test.score(questions)
+    test = Statistics.new(question_hash)
+    test.score(questions, self)
     test.function
   end
 
 #This method recovers questions. It allows you to search by strand or by section.
-  def get_question_names(section = nil, strand = nil, number = nil)
+  def self.get_question_names(section = nil, strand = nil, number = nil)
 	  questions = []
 	  unnecessary_columns = [:name, :approved, :created_on, :updated_on, :updated_by, :deleted_on]
 	  Function.content_columns.each{|column| questions.push(column.name.to_sym)}
@@ -91,7 +91,7 @@ class Function < ActiveRecord::Base
 	  questions.delete_if{ |question| !(question.to_s.include?(number.to_s))} if number
 	  return questions
   end
-    
+  
   # K: TODO
   # def destroy
   #   deleted_on = Time.now
@@ -102,7 +102,18 @@ class Function < ActiveRecord::Base
   # def self.find(*args)
   #   self.with_scope(:find => { :conditions => 'deleted_on IS NULL' }) { super(*args) }
   # end
-  def self.question_wording_lookup(section, strand, question)
+  def question_wording_lookup(section = nil, strand = nil, question = nil)
+	  puts section
+	  puts strand
+	  puts question
+	 fun_flag = true
+	 if fun_flag then
+		fun_pol_indicator = "Function"
+	else
+		fun_pol_indicator = "Policy"
+	end
+	
+		
 	part_need = "the particular needs of "
 	wordings = {:gender =>  "men and women",
 		:race => "individuals from different ethnic backgrounds",
@@ -119,30 +130,35 @@ class Function < ActiveRecord::Base
 		:sexual_orientation => "Lesbian Gay Bisexual and Transgender",
 		:age => "Age"
 	}
+	unless strand then
+		question_hash = {}
+		strands.each_key{|strand| question_hash[strand] = question_wording_lookup(section, strand, question)}
+		return question_hash
+	end
 	questions = {
 		:purpose =>{
-			3  => ["If the Function was performed well would it affect #{wordings[strand]} differently?", :impact_level],
-			4  => ["If the Function was performed badly would it affect #{wordings[strand]} differently?", :impact_level]
+			3  => ["If the #{fun_pol_indicator} was performed well {does_will} it affect #{wordings[strand]} differently?", :impact_level],
+			4  => ["If the #{fun_pol_indicator} was performed badly {does_will} it affect #{wordings[strand]} differently?", :impact_level]
 		},
 		:performance => {
-			1 => ["How would you rate the current performance of the Function in meeting #{part_need + wordings[strand]}?", :rating],
+			1 => ["How would you rate the current performance of the #{fun_pol_indicator} in meeting #{part_need + wordings[strand]}?", :rating],
 			2 => ["Has this performance assessment been confirmed?", :yes_no_notsure],
-			3 => ["Please note the process by which the performance was confirmed", :string],
+			3 => ["Please note the process by which the performance {was_is} confirmed", :string],
 			4 => ["Are there any performance issues which might have implications for #{wordings[strand]}?", :yes_no_notsure],
 			5 => ["Please record any such performance issues for #{wordings[strand]}?", :text]
 		},
 		:confidence_information => {
-			1 => ["Are there any gaps in the information about the Function in relation to #{wordings[strand]}?", :yes_no_notsure],
+			1 => ["Are there any gaps in the information about the #{fun_pol_indicator} in relation to #{wordings[strand]}?", :yes_no_notsure],
 			2 => ["Are there plans to collect additional information?", :yes_no_notsure],
 			3 => ["If there are plans to collect more information what are the timescales?", :timescales],
 			4 => ["Are there any other ways by which performance in meeting the #{part_need + wordings[strand]} could be assessed?", :yes_no_notsure],
 			5 => ["Please record any such performance measures for #{wordings[strand]}", :text]
 		},
 		:confidence_consultation => {
-			1 => ["Have groups from the #{strands[strand]} Equality Strand been consulted on the potential impact of the Function on #{wordings[strand]}?", :yes_no_notsure],
+			1 => ["Have groups from the #{strands[strand]} Equality Strand been consulted on the potential impact of the #{fun_pol_indicator} on #{wordings[strand]}?", :yes_no_notsure],
 			2 => ["If no, why is this so?", :consult_groups],
 			3 => ["If yes, list groups and dates.", :text],
-			4 => ["Have experts from the #{strands[strand]} Equality Strand been consulted on the potential impact of the Function on #{wordings[strand]}?", :yes_no_notsure],
+			4 => ["Have experts from the #{strands[strand]} Equality Strand been consulted on the potential impact of the #{fun_pol_indicator} on #{wordings[strand]}?", :yes_no_notsure],
 			5 => ["If no, why is this so?",  :consult_experts],
 			6 => ["If yes, list groups and dates.", :text],
 			7 => ["Did the consultations identify any isues with the impact of the function on #{wordings[strand]}?", :yes_no_notsure],
@@ -150,17 +166,17 @@ class Function < ActiveRecord::Base
 		},
 		:additional_work =>{ 
 			5 => ["In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
-				the Function impacts, or may impact, upon #{wordings[strand]}?", :yes_no_notsure],
+				the #{fun_pol_indicator} impacts, or may impact, upon #{wordings[strand]}?", :yes_no_notsure],
 			6 => ["Please explain the further information required.", :text],
 			7 => ["Is there any more work you feel is necessary to complete the assessment?", :yes_no_notsure],
-			8 => ["Do you think that the Function could have a role in preventing #{wordings[strand]} being treated differently, in an unfair way, just because they were #{wordings[strand]}", :text],
-			9 => ["Do you think that the Function could have a role in making sure that #{wordings[strand]} were not subject to 
+			8 => ["Do you think that the #{fun_pol_indicator} could have a role in preventing #{wordings[strand]} being treated differently, in an unfair way, just because they were #{wordings[strand]}", :text],
+			9 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were not subject to 
 			   inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?", :yes_no_notsure],
-			10 => ["Do you think that the Function could have a role in making sure that #{wordings[strand]} were treated equally and fairly?", :yes_no_notsure],
-			11 => ["Do you think that the Function could assist #{wordings[strand]} to get on better with each other?", :yes_no_notsure],
+			10 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were treated equally and fairly?", :yes_no_notsure],
+			11 => ["Do you think that the #{fun_pol_indicator} could assist #{wordings[strand]} to get on better with each other?", :yes_no_notsure],
 			12 => ["Take account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?", :yes_no_notsure],
-			13 => ["Do you think that the Function could assist #{wordings[strand]} to participate more?", :yes_no_notsure],
-			14 => ["Do you think that the Function could assist in promoting positive attitudes to #{wordings[strand]}?", :yes_no_notsure]
+			13 => ["Do you think that the #{fun_pol_indicator} could assist #{wordings[strand]} to participate more?", :yes_no_notsure],
+			14 => ["Do you think that the #{fun_pol_indicator} could assist in promoting positive attitudes to #{wordings[strand]}?", :yes_no_notsure]
 		},
 		:action_planning =>{
 			1 => ['Issue 1', :text],
@@ -217,6 +233,7 @@ class Function < ActiveRecord::Base
 	}
 	overall_questions = {
 		:purpose =>{
+			#add existence_status in here?
 			2 => ["What is the target outcome of the Function", :text],
                         5 =>['Service users', :impact_amount],
                         6 =>['Staff employed by the council', :impact_amount],
@@ -239,6 +256,8 @@ class Function < ActiveRecord::Base
 			5 => ['Please note any other performance measures:', :text]
 		}
 	}
+	unless section then return questions end
+	if strand && section&&!(question) then return questions[section]end
 	unless strand == :overall then
 		return questions[section][question]
 	else

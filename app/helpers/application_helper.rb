@@ -254,12 +254,12 @@ end
 def answer(function, section, strand, number)
 
   # Get the label text for this question
-  label = Function.question_wording_lookup(section, strand,number)[0]
+  label = function.question_wording_lookup(section, strand,number)[0]
   question="#{section}_#{strand}_#{number}"
 
   # Get the answer options for this question and make an appropriate input field
   unless function.send(question).nil?
-    answer = case Function.question_wording_lookup(section, strand,number)[1]
+    answer = case function.question_wording_lookup(section, strand,number)[1]
     when :existing_proposed
       LookUp.existing_proposed.find{|lookUp| function.send(question) == lookUp.value}.name
     when :impact_amount
@@ -289,7 +289,7 @@ def answer(function, section, strand, number)
 end
 
   def summary_answer(function, section, strand, number)
-     label = Function.question_wording_lookup(section, strand,number)[0]
+     label = function.question_wording_lookup(section, strand,number)[0]
      question="#{section}_#{strand}_#{number}"
 
      barImage = level_bar(function.send(question), LookUp.impact_amount, 'bar-impact-groups')

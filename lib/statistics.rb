@@ -2,25 +2,13 @@ class StatFunction
   RELEVANCE = 0.35
   RANKING = [0.8,0.7,0.6,0.5]
   MAXRATING = 5
-  attr_reader :topics
-  def initialize(topics)
+  attr_reader :topics, :function
+  def initialize(topics, function)
     @topics = topics
-    @impact = 0
+    @function = function
   end
   def score(questions)
-    topics = []
-    questions[purpose].each_key{|topic| topics.push(topic)}
-    topic_hash = {}
-    topics.each do 
-	    |topic|
-	    $questions.each do |section|
-		    section[topic].each do |question, value|
-			    topic_hash[topic][question] = value # Creates a hash of all the strands by strand, not by section
-		    end
-	    end
-    end
-    @topics.each{|name, topic| topic.score(topic_hash[name])}
-    4.times{|i|  @impact = @topics['purpose']["purpose_overall_#{i+4}"].scores unless @topics['purpose']["purpose_overall_#{i+4}"].scores < @impact}
+    @topics.each{|name, topic| topic.score(questions[name])}
   end
   def relevant(topic)
     return (@topics[topic].purpose_result.to_f > RELEVANCE)
@@ -43,7 +31,9 @@ class StatFunction
     return total/count
   end
   def impact
-    return numtorank(@impact)
+	  impact = 5
+	  @topics.each{|topic| impact = topic.impact if topic.impact > impact}
+	return numtorank(impact)
   end
   private
   def numtorank(num)
@@ -73,12 +63,21 @@ class StatTopic
   def score(results)
     results.each{|question_name, lookup_result| @questions[question_name].score(lookup_result)}
     total = 0
+    existence = @function[:overall][:purpose_overall_1].score
+    total += existence
     @questions.each_value{|question| total += question.scores}
     @result = total.to_f/@topic.max
-    @questions.each_value{|question| @impact = question.score unless (!(question.name.to_s.include?("purpose")) or @impact > question.score)}
+    @questions.each_value do |question| # This checks for all purpose questions
+	name = question.name.to_s
+	if name.include?("purpose") then
+		unless @impact > question.score then
+			@impact = question.score
+		end
+	end
+   end
     purpose_total = 0
-    @questions.each_value{|question| purpose_total += question.score unless (!(question.name.to_s.include?("purpose")))}
-    @purpose_result = purpose_total.to_f/@purpose_max    
+    @questions.each_value{|question| purpose_total += question.score if (question.name.to_s.include?("purpose"))}
+    @purpose_result = (purpose_total.to_f + existence)/@purpose_max    
   end
 end
 class StatQuestion
@@ -88,39 +87,37 @@ class StatQuestion
     @max = 0
     @scores = 0
     @lookup = lookup
-    lookups.each{|lookup| @max = lookup.value unless lookup.value < @max}
+    lookups.each{|lookup| @max = lookup.weight unless lookup.weight < @max}
   end
   def score(response)
-    @scores = lookup.send(response)
+    @scores = 0
+    @lookup.each{|lookup_option| @scores = lookup_option.weight if lookup_option.value == response}
+    return @scores
   end
 end
 
 class Statistics
   attr_reader :function
-  def initialize  
-    topics = []
-    $questions[:purpose].each_key{|key| topics.push(key); puts key.class}
+  def initialize(question_wording_lookup)  
     topic_hash = {}
-    topics.each do 
-	    |topic|
-	    $questions.each do |section_name, section|
-		if section[topic] then
-		    section[topic].each do |question, value|
-			   topic_hash[topic] = {"#{section_name.to_s}_#{topic.to_s}_#{question.to_s}".to_sym => value} # Creates a hash of all the strands by strand, not by section
-		   end
+    questions = question_wording_lookup
+    questions.each do |strand_name, strand|
+	strand.each do |section_name, section|
+		section.each do |question, value|
+			topic_hash[strand_name] = {"#{section_name.to_s}_#{strand_name.to_s}_#{question.to_s}".to_sym => value[1]}
 		end
-	    end
+	end
     end
 
     #replace all the symbol references to lookups with the lookup itself, and initialize the question.
-    topic_hash.each{|topic| topic.each{|question, value| topic_hash[topic][question] = StatQuestion.new(Lookup.find_by_look_up_type(value), question)}}
+    topic_hash.each{|topic| topic.each{|question, value| topic_hash[topic][question] = StatQuestion.new(Look_up.find_by_look_up_type(value), question)}}
     #replace all the topic symbols with a StatTopic object
     stat_topics = {}
     topics.each{|topic| stat_hash[topic] = StatTopic.new(topic_hash[topic], topic)} 
     #create a StatFunction from the hash
     @function = StatFunction.new(stat_topics)
   end
-  def score(results)
-    @function.score(results) if results
+  def score(results, function)
+    @function.score(results, function) if results
   end
 end
