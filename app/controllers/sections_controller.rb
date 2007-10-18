@@ -13,6 +13,14 @@ class SectionsController < ApplicationController
       render :template => 'sections/list_purpose'
     when 'performance'
       render :template => 'sections/list_performance'
+    when 'confidence_information'
+      render :template => 'sections/list_confidence_information'
+    when 'confidence_consultation'
+      render :template => 'sections/list_confidence_consultation'
+    when 'additional_work'
+      render :template => 'sections/list_additional_work'
+    when 'action_planning'
+      render :template => 'sections/list_action_planning'
     else
       # K: TODO: catch this - we shouldn't ever be here
       render :inline => 'Invalid section.'

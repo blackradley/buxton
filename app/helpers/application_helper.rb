@@ -140,7 +140,19 @@ module ApplicationHelper
                         :title => 'Organisation Control Page - Section - Purpose' },
                       { :text => 'Performance',
                         :url => { :controller => 'sections', :action => 'list', :id => 'performance' },
-                        :title => 'Organisation Control Page - Section - Performance' }
+                        :title => 'Organisation Control Page - Section - Performance' },
+                      { :text => 'Confidence Information',
+                        :url => { :controller => 'sections', :action => 'list', :id => 'confidence_information' },
+                        :title => 'Organisation Control Page - Section - Confidence Information' },
+                      { :text => 'Confidence Consultation',
+                        :url => { :controller => 'sections', :action => 'list', :id => 'confidence_consultation' },
+                        :title => 'Organisation Control Page - Section - Confidence Consultation' },
+                      { :text => 'Additional Work',
+                        :url => { :controller => 'sections', :action => 'list', :id => 'additional_work' },
+                        :title => 'Organisation Control Page - Section - Additional Work' },
+                      { :text => 'Action Planning',
+                        :url => { :controller => 'sections', :action => 'list', :id => 'action_planning' },
+                        :title => 'Organisation Control Page - Section - Action Planning' }
                       ])
     elsif user.user_type == User::TYPE[:functional]
       function = user.function
@@ -262,6 +274,8 @@ def answer(function, section, strand, number)
     answer = case function.question_wording_lookup(section, strand,number)[1]
     when :existing_proposed
       LookUp.existing_proposed.find{|lookUp| function.send(question) == lookUp.value}.name
+    when :function_policy
+      LookUp.function_policy.find{|lookUp| function.send(question) == lookUp.value}.name
     when :impact_amount
       LookUp.impact_amount.find{|lookUp| function.send(question) == lookUp.value}.name
     when :impact_level

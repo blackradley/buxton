@@ -153,6 +153,14 @@ end
     render :action => 'show'
   end
 
+# 
+# Opening page where they must choose between Function/Policy and Existing/Proposed
+# 
+  def status
+    @function = Function.find(@session['logged_in_user'].function.id)
+    @hide_menu = true
+  end
+
 protected
 #
 # Secure the relevant methods in the controller.

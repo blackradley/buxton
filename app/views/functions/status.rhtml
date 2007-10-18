@@ -1,0 +1,9 @@
+<h1>Impact Equality&trade;</h1>
+
+<h3><%= @function.name -%></h3>
+
+<% form_for(:function, :url => {:action => 'update'}) do |f| %>
+	<p><label for="purpose_overall_1">Is this:</label><%= f.select :purpose_overall_1, LookUp.existing_proposed.collect {|l| [ l.name, l.value ] } -%></p>
+	<p><label for="purpose_overall_1">Is this a:</label><%= f.select :purpose_overall_1, LookUp.function_policy.collect {|l| [ l.name, l.value ] } -%></p>
+	<p><%= submit_tag -%></p>
+<% end -%>

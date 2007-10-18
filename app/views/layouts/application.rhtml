@@ -27,7 +27,7 @@
 	    </div>
 	    <div class="content">
             <div id="menu">
-               <%= menu() %>
+               <%= menu() unless @hide_menu %>
             </div>
 			<%= strandmenu() %>
 			<div class="workingArea">
