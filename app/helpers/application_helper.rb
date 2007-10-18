@@ -316,3 +316,180 @@ end
          #%Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]
    end
 end
+
+
+$help = {
+	:performance => { 
+	  :gender => {
+      	1 => [
+        	"<p>This question asks you to assess how well the Function is performing in meeting the needs of the different groups within an Equality Strand.  The available answers are on a five point scale from 5 excellent to 1 poor.  As before Not sure if also an acceptable answer.</p>
+          <p>Please answer the question, identifying how well the Function is meeting the particular needs of men and women.  It may be that the Function is meeting the needs of women very effectively but is not meeting the needs of men.</p>
+          <p>If the Function is not meeting the needs of either men or women because of their gender then the Function is not performing well for the Gender Equality Strand.</p>
+          <p>If you are not sure whether the Function meets the particular needs of men and women please answer not sure.  This is a perfectly acceptable answer as it is not always clear whether a particular Function meets the particular needs of men and women.</p>"
+          ],
+    		2 => [
+    		  "<p>The performance assessment in question 1 may have been confirmed or validated by either an internal or external inspection process.  Please answer the question to indicate whether this is the case and, if applicable, write the name of the relevant process in the text box.  Examples of the sort of thing you might include are a CPA finding or an OFSTED report.</p>"
+    		  ],
+    		4 => [
+    		  "<p>The performance assessment in question 1 will provide the background to answering this question.  Please answer whether there are any performance issues which affect men or women because of their gender.  Please record any such issues in the text box.  Any issues recorded should arise because of the user’s gender, not just a general failing of the Function to meet user needs.</p>"
+    		  ]
+    },
+    :race => {
+      	1 => [
+        	"<p>This question asks you to assess how well the Function is performing in meeting the needs of the different groups within an Equality Strand.  The available answers are on a five point scale from 5 excellent to 1 poor.  As before Not sure if also an acceptable answer.</p>
+          <p>Please answer the question, identifying how well the Function is meeting the particular needs of people from different ethnic backgrounds.  It may be that the Function is meeting the needs of one ethnic group very effectively but is not meeting the needs of another.</p>
+          <p>If the Function is not meeting the needs of any individuals from an ethnic group because of their ethnicity then the Function is not performing well for the Gender Equality Strand.</p>
+          <p>If you are not sure whether the Function meets the particular needs of people from different ethnic backgrounds please answer not sure.  This is a perfectly acceptable answer as it is not always clear whether a particular Function meets the particular needs of people from different ethnic backgrounds.</p>"
+          ],
+    		2 => [
+    		  "<p>The performance assessment in question 1 may have been confirmed or validated by either an internal or external inspection process.  Please answer the question to indicate whether this is the case and, if applicable, write the name of the relevant process in the text box.  Examples of the sort of thing you might include are a CPA finding or an OFSTED report.</p>"
+    		  ],
+    		4 => [
+    		  "<p>The performance assessment in question 1 will provide the background to answering this question.  Please answer whether there are any performance issues which affect people from different ethnic groups because of their ethnic background.  Please record any such issues in the text box.  Any issues recorded should arise because of the user’s ethnicity, not just a general failing of the Function to meet user needs.</p>"
+    		  ],
+    },
+    :disability => {
+      	1 => [
+        	"<p>This question asks you to assess how well the Function is performing in meeting the needs of the different groups within an Equality Strand.  The available answers are on a five point scale from 5 excellent to 1 poor.  As before Not sure if also an acceptable answer.</p>
+          <p>Please answer the question, identifying how well the Function is meeting the particular needs of people with different kinds of disability.  It may be that the Function is meeting the needs of people with one type of disability very effectively but is not meeting the needs of another.</p>
+          <p>If the Function is not meeting the needs of either men or women because of their disability then the Function is not performing well for the Disability Equality Strand.</p>
+          <p>If you are not sure whether the Function meets the particular needs of people with different kinds of disability please answer not sure.  This is a perfectly acceptable answer as it is not always clear whether a particular Function meets the particular needs of people with different kinds of disability.</p>"
+          ],
+    		2 => [
+    		  "<p>The performance assessment in question 1 may have been confirmed or validated by either an internal or external inspection process.  Please answer the question to indicate whether this is the case and, if applicable, write the name of the relevant process in the text box.  Examples of the sort of thing you might include are a CPA finding or an OFSTED report.</p>"
+    		  ],
+    		4 => [
+    		  "<p>The performance assessment in question 1 will provide the background to answering this question.  Please answer whether there are any performance issues which affect people with different kinds of disability because of their disability.  Please record any such issues in the text box.  Any issues recorded should arise because of the user’s disability, not just a general failing of the Function to meet user needs.</p>"
+    		  ],
+    },
+    :faith => {
+      	1 => [
+        	"<p>This question asks you to assess how well the Function is performing in meeting the needs of the different groups within an Equality Strand.  The available answers are on a five point scale from 5 excellent to 1 poor.  As before Not sure if also an acceptable answer.</p>
+        	<p>Please answer the question, identifying how well the Function is meeting the particular needs of people of different faiths.  It may be that the Function is meeting the needs of people of one faith very effectively but is not meeting the needs of another.</p>
+          <p>If the Function is not meeting the needs of people of different faiths because of their faith then the Function is not performing well for the Faith Equality Strand.</p>
+          <p>If you are not sure whether the Function meets the particular needs of people of different faiths please answer not sure.  This is a perfectly acceptable answer as it is not always clear whether a particular Function meets the particular needs of people of different faiths.</p>"
+          ],
+    		2 => [
+    		  "<p>The performance assessment in question 1 may have been confirmed or validated by either an internal or external inspection process.  Please answer the question to indicate whether this is the case and, if applicable, write the name of the relevant process in the text box.  Examples of the sort of thing you might include are a CPA finding or an OFSTED report.</p>"
+    		  ],
+    		4 => [
+    		  "<p>The performance assessment in question 1 will provide the background to answering this question.  Please answer whether there are any performance issues which affect people of different faiths because of their faith.  Please record any such issues in the text box.  Any issues recorded should arise because of the user’s faith, not just a general failing of the Function to meet user needs.</p>"
+    		  ],
+    },
+    :sex => {
+      	1 => [
+        	"<p>This question asks you to assess how well the Function is performing in meeting the needs of the different groups within an Equality Strand.  The available answers are on a five point scale from 5 excellent to 1 poor.  As before Not sure if also an acceptable answer.</p>
+        	<p>Please answer the question, identifying how well the Function is meeting the particular needs of people of different sexual orientations.  It may be that the Function is meeting the needs of people of one sexual orientation very effectively but is not meeting the needs of another.</p>
+          <p>If the Function is not meeting the needs of people of different sexual orientations because of their sexual orientation then the Function is not performing well for the Sexual Oreientation Equality Strand.</p>
+          <p>If you are not sure whether the Function meets the particular needs of people of different sexual orientations please answer not sure.  This is a perfectly acceptable answer as it is not always clear whether a particular Function meets the particular needs of people of different sexual orientations.</p>"
+          ],
+    		2 => [
+    		  "<p>The performance assessment in question 1 may have been confirmed or validated by either an internal or external inspection process.  Please answer the question to indicate whether this is the case and, if applicable, write the name of the relevant process in the text box.  Examples of the sort of thing you might include are a CPA finding or an OFSTED report.</p>"
+    		  ],
+    		4 => [
+    		  "<p>The performance assessment in question 1 will provide the background to answering this question.  Please answer whether there are any performance issues which affect people of different sexual orientations because of their sexual orientation.  Please record any such issues in the text box.  Any issues recorded should arise because of the user’s sexual orientation, not just a general failing of the Function to meet user needs.</p>"
+    		  ],
+    },
+    :age => {
+      	1 => [
+        	"<p>This question asks you to assess how well the Function is performing in meeting the needs of the different groups within an Equality Strand.  The available answers are on a five point scale from 5 excellent to 1 poor.  As before Not sure if also an acceptable answer.</p>
+        	<p>Please answer the question, identifying how well the Function is meeting the particular needs of people of different ages.  It may be that the Function is meeting the needs of people of one faith very effectively but is not meeting the needs of another.</p>
+          <p>If the Function is not meeting the needs of people of different ages women because of their age then the Function is not performing well for the Age Equality Strand.</p>
+          <p>If you are not sure whether the Function meets the particular needs of people of different ages please answer not sure.  This is a perfectly acceptable answer as it is not always clear whether a particular Function meets the particular needs of people of different ages.</p>"
+          ],
+    		2 => [
+    		  "<p>The performance assessment in question 1 may have been confirmed or validated by either an internal or external inspection process.  Please answer the question to indicate whether this is the case and, if applicable, write the name of the relevant process in the text box.  Examples of the sort of thing you might include are a CPA finding or an OFSTED report.</p>"
+    		  ],
+    		4 => [
+    		  "<p>The performance assessment in question 1 will provide the background to answering this question.  Please answer whether there are any performance issues which affect people of different ages because of their age.  Please record any such issues in the text box.  Any issues recorded should arise because of the user’s age, not just a general failing of the Function to meet user needs.</p>"
+    		  ],
+    }
+  },
+  :confidence_consultation => { 
+	  :gender => {
+      	1 => [
+        	"<p>This question asks you to assess how well the Function is performing in meeting the needs of the different groups within an Equality Strand.  The available answers are on a five point scale from 5 excellent to 1 poor.  As before Not sure if also an acceptable answer.</p>
+          <p>Please answer the question, identifying how well the Function is meeting the particular needs of men and women.  It may be that the Function is meeting the needs of women very effectively but is not meeting the needs of men.</p>
+          <p>If the Function is not meeting the needs of either men or women because of their gender then the Function is not performing well for the Gender Equality Strand.</p>
+          <p>If you are not sure whether the Function meets the particular needs of men and women please answer not sure.  This is a perfectly acceptable answer as it is not always clear whether a particular Function meets the particular needs of men and women.</p>"
+          ],
+    		2 => [
+    		  "<p>The performance assessment in question 1 may have been confirmed or validated by either an internal or external inspection process.  Please answer the question to indicate whether this is the case and, if applicable, write the name of the relevant process in the text box.  Examples of the sort of thing you might include are a CPA finding or an OFSTED report.</p>"
+    		  ],
+    		4 => [
+    		  "<p>The performance assessment in question 1 will provide the background to answering this question.  Please answer whether there are any performance issues which affect men or women because of their gender.  Please record any such issues in the text box.  Any issues recorded should arise because of the user’s gender, not just a general failing of the Function to meet user needs.</p>"
+    		  ]
+    },
+    :race => {
+      	1 => [
+        	"<p>This question asks you to assess how well the Function is performing in meeting the needs of the different groups within an Equality Strand.  The available answers are on a five point scale from 5 excellent to 1 poor.  As before Not sure if also an acceptable answer.</p>
+          <p>Please answer the question, identifying how well the Function is meeting the particular needs of people from different ethnic backgrounds.  It may be that the Function is meeting the needs of one ethnic group very effectively but is not meeting the needs of another.</p>
+          <p>If the Function is not meeting the needs of any individuals from an ethnic group because of their ethnicity then the Function is not performing well for the Gender Equality Strand.</p>
+          <p>If you are not sure whether the Function meets the particular needs of people from different ethnic backgrounds please answer not sure.  This is a perfectly acceptable answer as it is not always clear whether a particular Function meets the particular needs of people from different ethnic backgrounds.</p>"
+          ],
+    		2 => [
+    		  "<p>The performance assessment in question 1 may have been confirmed or validated by either an internal or external inspection process.  Please answer the question to indicate whether this is the case and, if applicable, write the name of the relevant process in the text box.  Examples of the sort of thing you might include are a CPA finding or an OFSTED report.</p>"
+    		  ],
+    		4 => [
+    		  "<p>The performance assessment in question 1 will provide the background to answering this question.  Please answer whether there are any performance issues which affect people from different ethnic groups because of their ethnic background.  Please record any such issues in the text box.  Any issues recorded should arise because of the user’s ethnicity, not just a general failing of the Function to meet user needs.</p>"
+    		  ]
+    },
+    :disability => {
+      	1 => [
+        	"<p>This question asks you to assess how well the Function is performing in meeting the needs of the different groups within an Equality Strand.  The available answers are on a five point scale from 5 excellent to 1 poor.  As before Not sure if also an acceptable answer.</p>
+          <p>Please answer the question, identifying how well the Function is meeting the particular needs of people with different kinds of disability.  It may be that the Function is meeting the needs of people with one type of disability very effectively but is not meeting the needs of another.</p>
+          <p>If the Function is not meeting the needs of either men or women because of their disability then the Function is not performing well for the Disability Equality Strand.</p>
+          <p>If you are not sure whether the Function meets the particular needs of people with different kinds of disability please answer not sure.  This is a perfectly acceptable answer as it is not always clear whether a particular Function meets the particular needs of people with different kinds of disability.</p>"
+          ],
+    		2 => [
+    		  "<p>The performance assessment in question 1 may have been confirmed or validated by either an internal or external inspection process.  Please answer the question to indicate whether this is the case and, if applicable, write the name of the relevant process in the text box.  Examples of the sort of thing you might include are a CPA finding or an OFSTED report.</p>"
+    		  ],
+    		4 => [
+    		  "<p>The performance assessment in question 1 will provide the background to answering this question.  Please answer whether there are any performance issues which affect people with different kinds of disability because of their disability.  Please record any such issues in the text box.  Any issues recorded should arise because of the user’s disability, not just a general failing of the Function to meet user needs.</p>"
+    		  ]
+    },
+    :faith => {
+      	1 => [
+        	"<p>This question asks you to assess how well the Function is performing in meeting the needs of the different groups within an Equality Strand.  The available answers are on a five point scale from 5 excellent to 1 poor.  As before Not sure if also an acceptable answer.</p>
+        	<p>Please answer the question, identifying how well the Function is meeting the particular needs of people of different faiths.  It may be that the Function is meeting the needs of people of one faith very effectively but is not meeting the needs of another.</p>
+          <p>If the Function is not meeting the needs of people of different faiths because of their faith then the Function is not performing well for the Faith Equality Strand.</p>
+          <p>If you are not sure whether the Function meets the particular needs of people of different faiths please answer not sure.  This is a perfectly acceptable answer as it is not always clear whether a particular Function meets the particular needs of people of different faiths.</p>"
+          ],
+    		2 => [
+    		  "<p>The performance assessment in question 1 may have been confirmed or validated by either an internal or external inspection process.  Please answer the question to indicate whether this is the case and, if applicable, write the name of the relevant process in the text box.  Examples of the sort of thing you might include are a CPA finding or an OFSTED report.</p>"
+    		  ],
+    		4 => [
+    		  "<p>The performance assessment in question 1 will provide the background to answering this question.  Please answer whether there are any performance issues which affect people of different faiths because of their faith.  Please record any such issues in the text box.  Any issues recorded should arise because of the user’s faith, not just a general failing of the Function to meet user needs.</p>"
+    		  ]
+    },
+    :sex => {
+      	1 => [
+        	"<p>This question asks you to assess how well the Function is performing in meeting the needs of the different groups within an Equality Strand.  The available answers are on a five point scale from 5 excellent to 1 poor.  As before Not sure if also an acceptable answer.</p>
+        	<p>Please answer the question, identifying how well the Function is meeting the particular needs of people of different sexual orientations.  It may be that the Function is meeting the needs of people of one sexual orientation very effectively but is not meeting the needs of another.</p>
+          <p>If the Function is not meeting the needs of people of different sexual orientations because of their sexual orientation then the Function is not performing well for the Sexual Oreientation Equality Strand.</p>
+          <p>If you are not sure whether the Function meets the particular needs of people of different sexual orientations please answer not sure.  This is a perfectly acceptable answer as it is not always clear whether a particular Function meets the particular needs of people of different sexual orientations.</p>"
+          ],
+    		2 => [
+    		  "<p>The performance assessment in question 1 may have been confirmed or validated by either an internal or external inspection process.  Please answer the question to indicate whether this is the case and, if applicable, write the name of the relevant process in the text box.  Examples of the sort of thing you might include are a CPA finding or an OFSTED report.</p>"
+    		  ],
+    		4 => [
+    		  "<p>The performance assessment in question 1 will provide the background to answering this question.  Please answer whether there are any performance issues which affect people of different sexual orientations because of their sexual orientation.  Please record any such issues in the text box.  Any issues recorded should arise because of the user’s sexual orientation, not just a general failing of the Function to meet user needs.</p>"
+    		  ]
+    },
+    :age => {
+      	1 => [
+        	"<p>This question asks you to assess how well the Function is performing in meeting the needs of the different groups within an Equality Strand.  The available answers are on a five point scale from 5 excellent to 1 poor.  As before Not sure if also an acceptable answer.</p>
+        	<p>Please answer the question, identifying how well the Function is meeting the particular needs of people of different ages.  It may be that the Function is meeting the needs of people of one faith very effectively but is not meeting the needs of another.</p>
+          <p>If the Function is not meeting the needs of people of different ages women because of their age then the Function is not performing well for the Age Equality Strand.</p>
+          <p>If you are not sure whether the Function meets the particular needs of people of different ages please answer not sure.  This is a perfectly acceptable answer as it is not always clear whether a particular Function meets the particular needs of people of different ages.</p>"
+          ],
+    		2 => [
+    		  "<p>The performance assessment in question 1 may have been confirmed or validated by either an internal or external inspection process.  Please answer the question to indicate whether this is the case and, if applicable, write the name of the relevant process in the text box.  Examples of the sort of thing you might include are a CPA finding or an OFSTED report.</p>"
+    		  ],
+    		4 => [
+    		  "<p>The performance assessment in question 1 will provide the background to answering this question.  Please answer whether there are any performance issues which affect people of different ages because of their age.  Please record any such issues in the text box.  Any issues recorded should arise because of the user’s age, not just a general failing of the Function to meet user needs.</p>"
+    		  ]
+    }
+  }
+}
+

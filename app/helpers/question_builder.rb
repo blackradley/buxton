@@ -38,6 +38,10 @@ class QuestionBuilder < ActionView::Helpers::FormBuilder
 	
         
         # Show our formatted question!
-        %Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]
+        if($help[section][strand][number])
+          %Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}<img src="/images/icons/help.gif" onclick="Element.toggle('help_#{section}_#{strand}_#{number}')"></p><span id="help_#{section}_#{strand}_#{number}" class="toggleHelp" style="display:none;">#{$help[section][strand][number]}</span>]
+        else
+           %Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]   
+        end
   end
 end

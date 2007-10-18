@@ -7,10 +7,10 @@
 
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
-<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 1}, @function.id %>
-<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 2}, @function.id %>
+<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 1}, @function.id%>
+<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 2}, @function.id%>
 <%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 3}, @function.id %>
-<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 4}, @function.id %>
+<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 4}, @function.id%>
 <%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 5}, @function.id %>
 
 

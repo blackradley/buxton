@@ -553,12 +553,19 @@ text-align:center;
 }
 #questions p{
 	clear: left;
+	float:left;
 	text-align: right;
+	margin-left: 0px;
 }
 
 #questions input, #questions select, #questions textarea{
+	float:left;
 }
-
+#questions p img{
+	float:left;
+	margin-top: 4px;
+	margin-left: 6px;
+}
 
 
 /*summary page */
