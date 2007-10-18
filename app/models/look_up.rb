@@ -52,6 +52,12 @@ class LookUp < ActiveRecord::Base
     return find_all_by_look_up_type(TYPE[:existing_proposed])
   end
 #
+# Is this a function or a policy?
+#
+  def self.function_policy()
+    return find_all_by_look_up_type(TYPE[:function_policy])
+  end
+#
 # A more precise (well ish) amount of impact.
 #
   def self.impact_amount()

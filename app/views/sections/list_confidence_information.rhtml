@@ -1,22 +1,19 @@
-<h3>Impact Equality&trade; Organisation Control Page - Performance</h3>
-<p>This page shows the Organisation Manager the progress in completing
-section 2, performance, for all the identified functions and policies.
-It also lets Organisation Manger view the answers completed to date
-and send reminders to the Function Managers.</p>
+<h3>Impact Equality&trade; Organisation Control Page - Confidence Information</h3>
+<p></p>
 <table class="list">
   <tr>
     <th class="left" width="50%">Name</th>
     <th>Completed</th>
     <th>Last key sent</th>
-	<th></th>
+    <th></th>
   </tr>
   <% for function in @organisation.functions -%>
   <tr>
     <td class="left"><%=h function.name -%></td>
-    <td width="104px"><%= progress_bar(function.percentage_answered(nil, :performance), 100) -%></td>
+    <td width="104px"><%= progress_bar(function.percentage_answered(nil, :confidence_information), 100) -%></td>
     <td><%= date_or_blank(function.user.reminded_on) -%></td>
-    <td class="actions" nowrap>
-      <%= link_to image_tag('icons/view.jpg'), {:action => 'show', :id => 'performance', :f => function}, :id => 'view', :title =>"View" -%> 
+	<td class="actions" nowrap>
+      <%= link_to image_tag('icons/view.jpg'), {:action => 'show', :id => 'confidence_information', :f => function}, :id => 'view', :title =>"View" -%> 
 	  <%= link_to image_tag('icons/email'), "mailto:#{function.user.email}", :title =>"Email" -%>
       <%= link_to image_tag('icons/key'), { :controller => 'users', :action => 'remind', :id => function.user.id }, :confirm => "Send access key reminder to #{function.name}?", :method => :post, :title =>"Key" -%>
     </td>

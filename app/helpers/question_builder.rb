@@ -14,6 +14,8 @@ class QuestionBuilder < ActionView::Helpers::FormBuilder
         input_field = case function.question_wording_lookup(section, strand,number)[1]      
         when :existing_proposed
           select question, LookUp.existing_proposed.collect {|l| [ l.name, l.value ] }
+        when :function_policy
+          select question, LookUp.function_policy.collect {|l| [ l.name, l.value ] }
         when :impact_amount
           select question, LookUp.impact_amount.collect {|l| [ l.name, l.value ] }
         when :impact_level
