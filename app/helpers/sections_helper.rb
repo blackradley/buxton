@@ -11,10 +11,12 @@ module SectionsHelper
     end
   end
   
-  def header_with_help(id, text_title, text_help)
-    %Q[<h4>#{text_title} #{link_to_function image_tag("icons/help.gif"), "Element.toggle('#{id}')"}</h4>
-    <span id="#{id}" class="toggleHelp" style="display:none;">#{text_help}</span>]
-  end
+  def insert_help(section, strand, question)
+    strand = strand.to_sym
+    divId="help_#{section}_#{strand}_#{question}"
+    %Q[<div class="helper">#{link_to_function image_tag("icons/help.gif"), "Element.toggle('#{divId}')"}</div>
+      <span id="#{divId}" class="toggleHelp" style="display:none;">#{$help[section][strand][question][0]}</span>]
+   end
   
   
 end
