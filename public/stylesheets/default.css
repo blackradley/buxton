@@ -561,13 +561,27 @@ text-align:center;
 #questions input, #questions select, #questions textarea, #issues {
 	float:left;
 }
+#questions .button input {
+	float:right;
+	margin-right:30px;
+}
 #questions p img{
 	float:left;
 	margin-top: 4px;
 	margin-left: 6px;
 }
-
-
+#questions .issues{
+	float:left;
+	width: 220px;
+	border: 1px solid #fff;
+	margin-top: 4px;	
+	font-size: 1em;
+}
+#questions .issues ul{
+	padding-left:0px;
+	list-style-position: inside;
+	list-style-type: decimal-leading-zero;
+}
 /*summary page */
 #print_link{
 	float: right;
@@ -577,6 +591,7 @@ text-align:center;
 #print_link img{
 	margin-right:5px;
 	float: left;
+
 }
 #print_link a, #print_link a:visited, #print_link a:hover{
 	text-decoration:underline;
@@ -713,13 +728,34 @@ text-align:center;
 .summary fieldset.section_summary_show label{
 	width: 410px;
 }
+.summary fieldset.section_summary_show #action_planning{
+	margin-bottom:20px;
+	float:left;
+	clear: left;
+}
+.summary fieldset.section_summary_show #action_planning label{
+	width: 100px;
+	margin-left: 20px;
+	font-weight:bold;
+}
 .summary fieldset.section_summary_show .labelled{
 	float: left;
 	width: 150px;
 	line-height:20px;
 	font-weight:bold;
 }
-
+.summary .issues{
+	float:left;
+	width: 150px;
+	border: 1px solid #fff;
+	margin-top: 4px;	
+	font-size: 1em;
+}
+.summary .issues ul{
+	padding-left:0px;
+	list-style-position: inside;
+	list-style-type: decimal-leading-zero;
+}
 /*lost stlyes*/
 #lost label{
 	width: auto;
