@@ -50,9 +50,15 @@ module ApplicationHelper
 # Function and on the Organisation, hence it is here in the ApplicationHelper.
 #
   def progress_bar(percentage, width=nil, height=nil)
-    options = {:controller => 'generate', :action => 'bar', :id => percentage}
-    if width then options.store(:width, width) end
-    image_tag(url_for(options))
+    case width
+    when 100
+      image_tag("bars/small/#{percentage}.png")
+    else
+      image_tag("bars/large/#{percentage}.png")
+    end
+    # options = {:controller => 'generate', :action => 'bar', :id => percentage}
+    # if width then options.store(:width, width) end
+    # image_tag(url_for(options))
   end
 #
 # Extend the date formats to include some British styley ones
