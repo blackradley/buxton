@@ -50,17 +50,19 @@ class Function < ActiveRecord::Base
 #
   def percentage_answered(section = nil, strand = nil)
     sec_questions = []
+    issue_strand = []
     number_answered = 0
     total = 0
+    issue_strand = self.issues.clone
+    issue_strand.delete_if{|issue_name| puts issue_name.strand.to_s;  issue_name.strand != strand.to_s} if strand
     Function.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end}
-    issues = Issue.find(:all, :conditions => {:strand => strand, :function_id => self.id}) unless strand
-    issues = Issue.find(:all, :conditions => {:function_id => self.id}) unless issues
     issue_names = []
     Issue.content_columns.each{|column| issue_names.push(column.name)}
-    unless section or !(section == :action_planning) then
-	issues.each do |issue|
-		issue_names.each do |name| 
-			if check_response(issue.send(name)) then
+    issue_names.delete('strand')
+    unless section && !(section == :action_planning) then
+	issue_strand.each do |issue_name|
+		issue_names.each do |name|
+			if check_response(issue_name.send(name.to_sym)) then
 				total += 1
 				number_answered += 1
 			else 
@@ -70,7 +72,7 @@ class Function < ActiveRecord::Base
 	end
     end
     return ((Float(number_answered)/total)*100).round unless total == 0
-    return 0
+    return 100  #change to 100
   end
   
   def started(section = nil, strand = nil)  
