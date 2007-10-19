@@ -9,15 +9,15 @@
 
 
 <% if params[:equality_strand]=='overall' %>
-<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 2}, @function.id %>
-<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 5}, @function.id %>
-<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 6}, @function.id %>
-<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 7}, @function.id %>
-<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 8}, @function.id %>
-<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 9}, @function.id %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 2, :f_id => @function.id} %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 5, :f_id => @function.id} %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 6, :f_id => @function.id} %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 7, :f_id => @function.id} %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 8, :f_id => @function.id} %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 9, :f_id => @function.id} %>
 <% else -%>
-<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 3}, @function.id  %>
-<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 4}, @function.id  %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 3, :f_id => @function.id} %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 4, :f_id => @function.id} %>
 <% end -%>
 
 

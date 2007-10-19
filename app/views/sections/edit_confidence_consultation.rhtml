@@ -7,14 +7,14 @@
 	
 	<% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
-	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 1}, @function.id %>
-	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 2}, @function.id %>
-	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 3}, @function.id %>
-	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 4}, @function.id %>
-	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 5}, @function.id %>
-	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 6}, @function.id %>
-	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 7}, @function.id %>
-	<!-- <%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 8}, @function.id %> -->
+	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 1, :f_id => @function.id} %>
+	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 2, :f_id => @function.id} %>
+	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 3, :f_id => @function.id} %>
+	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 4, :f_id => @function.id} %>
+	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 5, :f_id => @function.id} %>
+	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 6, :f_id => @function.id} %>
+	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 7, :f_id => @function.id} %>
+
 	<p><label>Please record the issues identified</label>
 	        <ul id="issues">
 				<%= render :partial => 'issues/issue', :collection => @function.issues.reject{|issue| issue.strand != params[:equality_strand] } %>
