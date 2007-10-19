@@ -25,6 +25,26 @@
           <td class="number"><%= @functions.inject(0) { |started, function| started += (function.started(:performance)) ? 1 : 0 } -%></td>
           <td class="number"><%= @functions.inject(0) { |started, function| started += (function.completed(:performance)) ? 1 : 0 } -%></td>
         </tr>
+        <tr>
+          <td>3 - Confidence Information</td>
+          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.started(:confidence_information)) ? 1 : 0 } -%></td>
+          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.completed(:confidence_information)) ? 1 : 0 } -%></td>
+        </tr>
+        <tr>
+          <td>4 - Confidence Consultation</td>
+          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.started(:confidence_consultation)) ? 1 : 0 } -%></td>
+          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.completed(:confidence_consultation)) ? 1 : 0 } -%></td>
+        </tr>
+        <tr>
+          <td>5 - Additional Work</td>
+          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.started(:additional_work)) ? 1 : 0 } -%></td>
+          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.completed(:additional_work)) ? 1 : 0 } -%></td>
+        </tr>
+        <tr>
+          <td>6 - Action Planning</td>
+          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.started(:action_planning)) ? 1 : 0 } -%></td>
+          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.completed(:action_planning)) ? 1 : 0 } -%></td>
+        </tr>
       </table>
     </td>
 </div>
