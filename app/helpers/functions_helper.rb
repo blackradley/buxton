@@ -14,7 +14,7 @@ module FunctionsHelper
   # Show a tick or cross, if all the questions in the section of this function have been answered
   # TODO: Not DRY enough
   #
-    def completed_tag(function, section, strand)
+    def completed_tag(function, section=nil, strand=nil)
       complete_icon = image_tag('icons/tick.gif', :alt => "Complete", :title => "Complete")
       incomplete_icon = image_tag('icons/cross.gif', :alt => "Incomplete", :title => "Incomplete")
      (function.completed(section, strand)) ? complete_icon : incomplete_icon
