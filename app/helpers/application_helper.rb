@@ -135,24 +135,9 @@ module ApplicationHelper
                       { :text => 'Functions',
                         :url => { :controller => 'functions', :action => 'list' },
                         :title => 'Organisation Control Page - Functions' },
-                      { :text => 'Purpose',
-                        :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
-                        :title => 'Organisation Control Page - Section - Purpose' },
-                      { :text => 'Performance',
-                        :url => { :controller => 'sections', :action => 'list', :id => 'performance' },
-                        :title => 'Organisation Control Page - Section - Performance' },
-                      { :text => 'Confidence Information',
-                        :url => { :controller => 'sections', :action => 'list', :id => 'confidence_information' },
-                        :title => 'Organisation Control Page - Section - Confidence Information' },
-                      { :text => 'Confidence Consultation',
-                        :url => { :controller => 'sections', :action => 'list', :id => 'confidence_consultation' },
-                        :title => 'Organisation Control Page - Section - Confidence Consultation' },
-                      { :text => 'Additional Work',
-                        :url => { :controller => 'sections', :action => 'list', :id => 'additional_work' },
-                        :title => 'Organisation Control Page - Section - Additional Work' },
-                      { :text => 'Action Planning',
-                        :url => { :controller => 'sections', :action => 'list', :id => 'action_planning' },
-                        :title => 'Organisation Control Page - Section - Action Planning' }
+                      { :text => 'Sections',
+                        :url => { :controller => 'sections', :action => 'list' },
+                        :title => 'Organisation Control Page - Sections' }
                       ])
     elsif user.user_type == User::TYPE[:functional]
       function = user.function
@@ -262,6 +247,31 @@ def strandmenu()
 	return html
   end
 end
+
+def sections_menu
+  links = [
+  { :text => 'Purpose',
+    :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
+    :title => 'Organisation Control Page - Section - Purpose' },
+  { :text => 'Performance',
+    :url => { :controller => 'sections', :action => 'list', :id => 'performance' },
+    :title => 'Organisation Control Page - Section - Performance' },
+  { :text => 'Confidence Information',
+    :url => { :controller => 'sections', :action => 'list', :id => 'confidence_information' },
+    :title => 'Organisation Control Page - Section - Confidence Information' },
+  { :text => 'Confidence Consultation',
+    :url => { :controller => 'sections', :action => 'list', :id => 'confidence_consultation' },
+    :title => 'Organisation Control Page - Section - Confidence Consultation' },
+  { :text => 'Additional Work',
+    :url => { :controller => 'sections', :action => 'list', :id => 'additional_work' },
+    :title => 'Organisation Control Page - Section - Additional Work' },
+  { :text => 'Action Planning',
+    :url => { :controller => 'sections', :action => 'list', :id => 'action_planning' },
+    :title => 'Organisation Control Page - Section - Action Planning' }
+  ]
+  generate_menu(links)
+end
+
 # Generates all the HTML needed to display the answer to a question
 def answer(function, section, strand, number)
 

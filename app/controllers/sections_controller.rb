@@ -21,10 +21,9 @@ class SectionsController < ApplicationController
       render :template => 'sections/list_additional_work'
     when 'action_planning'
       render :template => 'sections/list_action_planning'
-    else
-      # K: TODO: catch this - we shouldn't ever be here
-      render :inline => 'Invalid section.'
     end
+    
+    # Else proceed as normal (load list.rhtml)
   end
 
   #
@@ -77,6 +76,7 @@ class SectionsController < ApplicationController
       render :template => 'sections/edit_performance'
     when 'confidence_information'
       render :template => 'sections/edit_confidence_information'
+
     when 'confidence_consultation'
       @issue = Issue.new
       render :template => 'sections/edit_confidence_consultation'

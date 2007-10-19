@@ -13,7 +13,8 @@ class IssuesController < ApplicationController
     @params[:issue].each do |index, data|
       issue = Issue.find(index)
       issue.update_attributes(data)
-    end  
+    end
+    flash[:notice] =  "Action Planning was successfully updated."
     redirect_to :back
   end
   
