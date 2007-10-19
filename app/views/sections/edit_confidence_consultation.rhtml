@@ -1,20 +1,29 @@
 <h1 id="questions">
-	<%= link_to image_tag('icons/previous.gif', :class =>'pervious'), { :action => 'edit', :id => 'confidence_information', :equalityStrand => params[:equalityStrand] }, :title =>"Previous Section" -%>
-	<%= @function.name -%> - <%= params[:equalityStrand].capitalize -%> Confidence Consultation
-	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'additional_work', :equalityStrand => params[:equalityStrand] }, :title =>"Next Section" -%>
+	<%= link_to image_tag('icons/previous.gif', :class =>'pervious'), { :action => 'edit', :id => 'confidence_information', :equality_strand => params[:equality_strand] }, :title =>"Previous Section" -%>
+	<%= @function.name -%> - <%= params[:equality_strand].capitalize -%> Confidence Consultation
+	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'additional_work', :equality_strand => params[:equality_strand] }, :title =>"Next Section" -%>
 </h1>
 <div id="questions">
 	
 	<% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
-	<%= f.question :confidence_consultation, {:equalityStrand => params[:equalityStrand], :number => 1}, @function.id %>
-	<%= f.question :confidence_consultation, {:equalityStrand => params[:equalityStrand], :number => 2}, @function.id %>
-	<%= f.question :confidence_consultation, {:equalityStrand => params[:equalityStrand], :number => 3}, @function.id %>
-	<%= f.question :confidence_consultation, {:equalityStrand => params[:equalityStrand], :number => 4}, @function.id %>
-	<%= f.question :confidence_consultation, {:equalityStrand => params[:equalityStrand], :number => 5}, @function.id %>
-	<%= f.question :confidence_consultation, {:equalityStrand => params[:equalityStrand], :number => 6}, @function.id %>
-	<%= f.question :confidence_consultation, {:equalityStrand => params[:equalityStrand], :number => 7}, @function.id %>
-	<%= f.question :confidence_consultation, {:equalityStrand => params[:equalityStrand], :number => 8}, @function.id %>
+	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 1}, @function.id %>
+	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 2}, @function.id %>
+	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 3}, @function.id %>
+	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 4}, @function.id %>
+	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 5}, @function.id %>
+	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 6}, @function.id %>
+	<%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 7}, @function.id %>
+	<!-- <%= f.question :confidence_consultation, {:equality_strand => params[:equality_strand], :number => 8}, @function.id %> -->
+	<p><label>Please record the issues identified</label>
+	        <ul id="issues">
+				<%= render :partial => 'issues/issue', :collection => @function.issues.reject{|issue| issue.strand != params[:equality_strand] } %>
+			</ul>
+	        <%= hidden_field_tag 'issue[function_id]', @function.id -%>
+	        <%= hidden_field_tag 'issue[strand]', params[:equality_strand] -%>	
+	        <%= text_field_tag 'issue[description]', '', :id => 'issue_field' -%>
+			<%= submit_to_remote("addissue", "Add", :url => {:controller => 'issues', :action => 'create'}, :failure => "alert('Please try again.');") -%>
+		</p>
 	
 <div class="clear"></div>
 <span class="button"><%= submit_tag 'Save' %></span>

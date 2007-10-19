@@ -558,7 +558,7 @@ text-align:center;
 	margin-left: 0px;
 }
 
-#questions input, #questions select, #questions textarea{
+#questions input, #questions select, #questions textarea, #issues {
 	float:left;
 }
 #questions p img{

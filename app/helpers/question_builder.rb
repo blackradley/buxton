@@ -4,12 +4,12 @@ class QuestionBuilder < ActionView::Helpers::FormBuilder
   def question(section, options={}, f_id=  nil)
     function = Function.find(f_id)
     puts function.name
-    strand=options[:equalityStrand].to_sym
+    strand=options[:equality_strand].to_sym
     number=options[:number]
     question="#{section}_#{strand}_#{number}"
     # Get the label text for this question
         label = function.question_wording_lookup(section.to_sym, strand.to_sym, number)[0]
-	puts label
+	      puts label
         # Get the answer options for this question and make an appropriate input field
         input_field = case function.question_wording_lookup(section, strand,number)[1]      
         when :existing_proposed

@@ -1,11 +1,11 @@
 <h1 id="questions">
-	<%= link_to image_tag('icons/previous.gif', :class =>'pervious'), { :action => 'edit', :id => 'performance', :equalityStrand => params[:equalityStrand] }, :title =>"Previous Section" -%>
-	<%= @function.name -%> - <%= params[:equalityStrand].capitalize -%> Confidence Information
+	<%= link_to image_tag('icons/previous.gif', :class =>'pervious'), { :action => 'edit', :id => 'performance', :equality_strand => params[:equality_strand] }, :title =>"Previous Section" -%>
+	<%= @function.name -%> - <%= params[:equality_strand].capitalize -%> Confidence Information
 	<%= 
-	if params[:equalityStrand]=='overall'	
+	if params[:equality_strand]=='overall'	
 		image_tag('icons/no_next.gif', :class =>'next') 
 	else
-		link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'confidence_consultation', :equalityStrand => params[:equalityStrand] }, :title =>"Next Section"
+		link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'confidence_consultation', :equality_strand => params[:equality_strand] }, :title =>"Next Section"
 	end
 	-%>
 
@@ -15,11 +15,11 @@
 	
 	<% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
-	<%= f.question :confidence_information, {:equalityStrand => params[:equalityStrand], :number => 1}, @function.id %>
-	<%= f.question :confidence_information, {:equalityStrand => params[:equalityStrand], :number => 2}, @function.id %>
-	<%= f.question :confidence_information, {:equalityStrand => params[:equalityStrand], :number => 3}, @function.id %>
-	<%= f.question :confidence_information, {:equalityStrand => params[:equalityStrand], :number => 4}, @function.id %>
-	<%= f.question :confidence_information, {:equalityStrand => params[:equalityStrand], :number => 5}, @function.id %>
+	<%= f.question :confidence_information, {:equality_strand => params[:equality_strand], :number => 1}, @function.id %>
+	<%= f.question :confidence_information, {:equality_strand => params[:equality_strand], :number => 2}, @function.id %>
+	<%= f.question :confidence_information, {:equality_strand => params[:equality_strand], :number => 3}, @function.id %>
+	<%= f.question :confidence_information, {:equality_strand => params[:equality_strand], :number => 4}, @function.id %>
+	<%= f.question :confidence_information, {:equality_strand => params[:equality_strand], :number => 5}, @function.id %>
 
 <div class="clear"></div>
 <span class="button"><%= submit_tag 'Save' %></span>
