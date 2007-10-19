@@ -241,6 +241,53 @@ UL#menuBar LI A:hover
 	background-color: #FFF;
 	color: #515f8d;
 }
+/* sections Menu */
+#sections_menu
+{
+	background-color: #fff;
+	height:30px;
+}
+
+#sections_menu ul#menuBar
+{
+	margin: 0 0 0 5px;
+	padding: 0;
+	list-style: none;
+}
+
+#sections_menu ul#menuBar li
+{
+	list-style: none;
+	float:left;
+	display: block;
+	margin-right: 5px;
+	margin-top: 5px;
+	border-right: 2px solid #a8afc6;
+}
+
+#sections_menu UL#menuBar LI A:link, #sections_menu UL#menuBar LI A:visited
+{
+	text-decoration: none;
+	color: #a8afc6;	
+	display: block;
+	background-color: #fff;
+	padding:0 1em;
+	line-height: 25px;
+	font-weight:normal;
+}
+
+#sections_menu UL#menuBar LI.selected A:link, #sections_menu UL#menuBar LI.selected A:visited
+{
+	background-color: #FFF;
+	color: #515f8d;
+}
+
+#sections_menu UL#menuBar LI A:hover
+{
+	color: #515f8d;
+}
+
+
 
 /* strandBar */
 #strand
