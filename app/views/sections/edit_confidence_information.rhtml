@@ -14,13 +14,11 @@
 <div id="questions">
 	
 	<% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
-
-	<%= f.question :confidence_information, {:equality_strand => params[:equality_strand], :number => 1}, @function.id %>
-	<%= f.question :confidence_information, {:equality_strand => params[:equality_strand], :number => 2}, @function.id %>
-	<%= f.question :confidence_information, {:equality_strand => params[:equality_strand], :number => 3}, @function.id %>
-	<%= f.question :confidence_information, {:equality_strand => params[:equality_strand], :number => 4}, @function.id %>
-	<%= f.question :confidence_information, {:equality_strand => params[:equality_strand], :number => 5}, @function.id %>
-
+		<%= f.question :confidence_information, {:equality_strand => params[:equality_strand], :number => 1, :f_id => @function.id} %>
+		<%= f.question :confidence_information, {:equality_strand => params[:equality_strand], :number => 2, :f_id => @function.id} %>
+		<%= f.question :confidence_information, {:equality_strand => params[:equality_strand], :number => 3, :f_id => @function.id} %>
+		<%= f.question :confidence_information, {:equality_strand => params[:equality_strand], :number => 4, :f_id => @function.id} %>
+		<%= f.question :confidence_information, {:equality_strand => params[:equality_strand], :number => 5, :f_id => @function.id} %>
 <div class="clear"></div>
 <span class="button"><%= submit_tag 'Save' %></span>
 <div class="clear"></div>
