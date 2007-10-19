@@ -644,30 +644,42 @@ text-align:center;
 	text-decoration:underline;
 	color: #515f8d;
 }
-.summary p{
-	margin-bottom: 5px;
-	float: left;
-}
+
 .summary label{
 	width: 150px;
 	margin: 0px;
+	padding:3px 0px;
 }
+
 .summary .labelled{
 	width: 200px;
-	float: left;	
+	float: left;
+	padding:3px 0px;
 }
 .summary .labelled img{
 	margin-top: 5px;
 }
+
 
 /*approval box*/
 .summary fieldset#approval{
 	float: right;
 	width: 250px;
 	border: 2px solid #F90;
-	margin-top: 0px;
+	margin-top: -40px;
 	padding: 10px;
 	margin-left: 5px;
+}
+.summary fieldset#approval{
+	float: right;
+	width: 250px;
+	border: 2px solid #F90;
+	margin-top: -40px;
+	padding: 10px;
+	margin-left: 5px;
+}
+html>body .summary fieldset#approval{
+	margin-top: -30px;
 }
 .summary fieldset#approval legend img{
 
@@ -680,12 +692,7 @@ text-align:center;
 	font-size:1.1em;
 }
 
-.summary fieldset#approval label{
-	width: 40px;
-	border: 0px solid red;
-	margin-bottom:5px;
-	margin-right:5px;
-}
+
 
 .summary fieldset#approval input{
 	width: auto;
