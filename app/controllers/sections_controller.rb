@@ -21,9 +21,10 @@ class SectionsController < ApplicationController
       render :template => 'sections/list_additional_work'
     when 'action_planning'
       render :template => 'sections/list_action_planning'
+    else
+      # Else render Purpose
+      render :template => 'sections/list_purpose'      
     end
-    
-    # Else proceed as normal (load list.rhtml)
   end
 
   #
