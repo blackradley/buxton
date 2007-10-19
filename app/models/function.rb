@@ -54,7 +54,7 @@ class Function < ActiveRecord::Base
     number_answered = 0
     total = 0
     issue_strand = self.issues.clone
-    issue_strand.delete_if{|issue_name| puts issue_name.strand.to_s;  issue_name.strand != strand.to_s} if strand
+    issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
     Function.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end}
     issue_names = []
     Issue.content_columns.each{|column| issue_names.push(column.name)}
