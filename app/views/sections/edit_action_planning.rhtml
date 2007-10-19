@@ -6,15 +6,20 @@
 
 <div id="questions">
 <% form_for(:issues, :url => {:controller => 'issues', :action => 'update'}) do |f| -%>
-	<% for issue in @function.issues.reject{|issue| issue.strand != params[:equality_strand] } -%>
-		<h3><%= issue.description -%></h3>
-		<% fields_for "issue[]", issue do |ff| %>
-			<p><label>Actions</label><%= ff.text_area :actions -%></p>
-			<p><label>Resources</label><%= ff.text_area :resources -%></p>
-			<p><label>Timescales</label><%= ff.select :timescales, LookUp.timescales.collect {|l| [ l.name, l.value ] } -%></p>
-			<p><label>Lead Officer</label><%= ff.text_area :lead_officer -%></p>
-	    <% end %>
-		<div class="clear"></div>
+	<% issues = @function.issues.reject{|issue| issue.strand != params[:equality_strand] } -%>
+	<% if issues.size > 0 -%>
+		<% for issue in issues -%>
+			<h3><%= issue.description -%></h3>
+			<% fields_for "issue[]", issue do |ff| %>
+				<p><label>Actions</label><%= ff.text_area :actions -%></p>
+				<p><label>Resources</label><%= ff.text_area :resources -%></p>
+				<p><label>Timescales</label><%= ff.select :timescales, LookUp.timescales.collect {|l| [ l.name, l.value ] } -%></p>
+				<p><label>Lead Officer</label><%= ff.text_area :lead_officer -%></p>
+		    <% end %>
+			<div class="clear"></div>
+		<% end -%>
+	<% else -%>
+		<p>No issues to plan actions for.</p>
 	<% end -%>
 	<span class="button"><%= submit_tag 'Save' -%></span>
 	<div class="clear"></div>	
