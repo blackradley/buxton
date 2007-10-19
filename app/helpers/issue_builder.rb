@@ -1,8 +1,8 @@
 class IssueBuilder < ActionView::Helpers::FormBuilder    
 
   # Generates all the HTML needed for a form question
-  def question(name, issue, f_id=  nil)
-    issues = { :description  => :text,  :actions => :text,  :resources => :text,  :timescales => :timescales,  :lead_officer => :text}
+  def question(name, issue, f_id=nil)
+    issues = {:description  => :text,  :actions => :text,  :resources => :text,  :timescales => :timescales,  :lead_officer => :text}
     
     question="Issue"
     # Get the label text for this question
@@ -31,10 +31,9 @@ class IssueBuilder < ActionView::Helpers::FormBuilder
           text_area question 
         when :string
           text_field question
-	end
+  	end
 	
-        
-        # Show our formatted question!
-        %Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]
+    # Show our formatted question!
+    %Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]
   end
 end

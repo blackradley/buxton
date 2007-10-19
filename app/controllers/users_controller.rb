@@ -184,11 +184,11 @@ class UsersController < ApplicationController
       session['logged_in_user'] = user
       case user.user_type
         when User::TYPE[:functional]
-          # if user.function.existence_status != 0 && user.function.existence_status != 0 then
+          if user.function.purpose_overall_1 != 0 && user.function.function_policy != 0 then
             redirect_to :controller => 'functions', :action => 'show'
-          # else
-          #   redirect_to :controller => 'functions', :action => 'status'
-          # end
+          else
+           redirect_to :controller => 'functions', :action => 'status'
+          end
         when User::TYPE[:organisational]
           redirect_to :controller => 'functions', :action => 'summary'
         when User::TYPE[:administrative]

@@ -1,23 +1,23 @@
 <h1 id="questions">
 	<%= image_tag('icons/no_previous.gif', :class =>'previous')-%>
-	<%= @function.name -%> - <%= params[:equalityStrand].capitalize -%> Purpose
-	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'performance', :equalityStrand => params[:equalityStrand] }, :title =>"Next Section" -%>
+	<%= @function.name -%> - <%= params[:equality_strand].capitalize -%> Purpose
+	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'performance', :equality_strand => params[:equality_strand] }, :title =>"Next Section" -%>
 </h1> 
 <div id="questions">
 
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
 
-<% if params[:equalityStrand]=='overall' %>
-<%= f.question :purpose, {:equalityStrand => params[:equalityStrand], :number => 2}, @function.id %>
-<%= f.question :purpose, {:equalityStrand => params[:equalityStrand], :number => 5}, @function.id %>
-<%= f.question :purpose, {:equalityStrand => params[:equalityStrand], :number => 6}, @function.id %>
-<%= f.question :purpose, {:equalityStrand => params[:equalityStrand], :number => 7}, @function.id %>
-<%= f.question :purpose, {:equalityStrand => params[:equalityStrand], :number => 8}, @function.id %>
-<%= f.question :purpose, {:equalityStrand => params[:equalityStrand], :number => 9}, @function.id %>
+<% if params[:equality_strand]=='overall' %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 2}, @function.id %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 5}, @function.id %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 6}, @function.id %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 7}, @function.id %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 8}, @function.id %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 9}, @function.id %>
 <% else -%>
-<%= f.question :purpose, {:equalityStrand => params[:equalityStrand], :number => 3}, @function.id  %>
-<%= f.question :purpose, {:equalityStrand => params[:equalityStrand], :number => 4}, @function.id  %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 3}, @function.id  %>
+<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 4}, @function.id  %>
 <% end -%>
 
 

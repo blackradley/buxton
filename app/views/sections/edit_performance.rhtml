@@ -1,17 +1,17 @@
 <h1 id="questions">
-	<%= link_to image_tag('icons/previous.gif', :class =>'pervious'), { :action => 'edit', :id => 'purpose', :equalityStrand => params[:equalityStrand] }, :title =>"Previous Section" -%>
-	<%= @function.name -%> - <%= params[:equalityStrand].capitalize -%> Performance
-	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'confidence_information', :equalityStrand => params[:equalityStrand] }, :title =>"Next Section" -%>
+	<%= link_to image_tag('icons/previous.gif', :class =>'pervious'), { :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title =>"Previous Section" -%>
+	<%= @function.name -%> - <%= params[:equality_strand].capitalize -%> Performance
+	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'confidence_information', :equality_strand => params[:equality_strand] }, :title =>"Next Section" -%>
 </h1> 
 <div id="questions">
 
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
-<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 1}, @function.id%>
-<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 2}, @function.id%>
-<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 3}, @function.id %>
-<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 4}, @function.id%>
-<%= f.question :performance, {:equalityStrand => params[:equalityStrand], :number => 5}, @function.id %>
+<%= f.question :performance, {:equality_strand => params[:equality_strand], :number => 1}, @function.id %>
+<%= f.question :performance, {:equality_strand => params[:equality_strand], :number => 2}, @function.id %>
+<%= f.question :performance, {:equality_strand => params[:equality_strand], :number => 3}, @function.id %>
+<%= f.question :performance, {:equality_strand => params[:equality_strand], :number => 4}, @function.id %>
+<%= f.question :performance, {:equality_strand => params[:equality_strand], :number => 5}, @function.id %>
 
 
 <div class="clear"></div>

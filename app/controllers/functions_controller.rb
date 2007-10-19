@@ -102,6 +102,21 @@ end
     flash[:notice] =  "#{@function.name} was successfully updated."
     redirect_to :back
   end
+# 
+# Update the function status and proceed, or not, accordingly
+# 
+  def update_status
+    @function = Function.find(session['logged_in_user'].function.id)
+    @function.update_attributes(params[:function])
+    
+    if @function.purpose_overall_1 != 0 && @function.function_policy != 0 then
+      flash[:notice] =  "#{@function.name} status was successfully set up."
+      redirect_to :action => 'show'
+    else
+      flash[:notice] =  "Please answer both questions before proceeding."
+      redirect_to :action => 'status'
+    end
+  end
 #
 # Get both the function and user information ready for editing, since they
 # are both edited at the same time.  The organisational manager edits these

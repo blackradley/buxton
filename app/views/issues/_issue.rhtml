@@ -1,0 +1,1 @@
+<li id="issue-<%= issue.id -%>"><%= issue.description -%> (<%= link_to_remote 'remove', :url => {:controller => 'issues', :action => 'destroy', :id => issue.id} %>)</li>

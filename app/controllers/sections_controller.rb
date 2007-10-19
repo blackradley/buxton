@@ -78,6 +78,7 @@ class SectionsController < ApplicationController
     when 'confidence_information'
       render :template => 'sections/edit_confidence_information'
     when 'confidence_consultation'
+      @issue = Issue.new
       render :template => 'sections/edit_confidence_consultation'
     when 'additional_work'
       render :template => 'sections/edit_additional_work'
