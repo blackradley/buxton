@@ -247,8 +247,10 @@ class Function < ActiveRecord::Base
 			end
 			questions = {
 				:purpose =>{
-					3  => ["If the #{fun_pol_indicator} is performed well will it affect #{wordings[strand]} differently?", :impact_level],
-					4  => ["If the #{fun_pol_indicator} is performed badly will it affect #{wordings[strand]} differently?", :impact_level]
+          # 3  => ["If the #{fun_pol_indicator} is performed well will it affect #{wordings[strand]} differently?", :impact_level],
+          # 4  => ["If the #{fun_pol_indicator} is performed badly will it affect #{wordings[strand]} differently?", :impact_level]
+					3  => ["Would it affect <strong>#{wordings[strand]}</strong> differently?", :impact_level],
+					4  => ["Would it affect <strong>#{wordings[strand]}</strong> differently?", :impact_level]
 				},
 				:performance => {
 					1 => ["How would you assess the potential performance of the #{fun_pol_indicator} in meeting #{part_need + wordings[strand]}?", :rating],

@@ -169,7 +169,7 @@ def strandmenu()
     ''
   elsif params[:equality_strand]=='overall'
        html = '<div id="strand">'
-       html << params[:equality_strand] 
+       html << params[:equality_strand].capitalize 
        html << " : " 
        
        if params[:id]=='purpose'
@@ -202,13 +202,13 @@ def strandmenu()
      html << params[:equality_strand].capitalize 
      html << " : " 
      
-     if params[:id]=='purpose'
-       html << link_to('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title => 'Edit Purpose', :class => 'selected')
-		 else
-		   html << link_to('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title => 'Edit Purpose', :class => '')
-     end
-     
-      html << ' >> '
+     #      if params[:id]=='purpose'
+     #        html << link_to('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title => 'Edit Purpose', :class => 'selected')
+     # else
+     #   html << link_to('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title => 'Edit Purpose', :class => '')
+     #      end
+     #      
+     #       html << ' >> '
       
      if params[:id]=='performance'
           html << link_to('Performance', { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => params[:equality_strand] }, :title => 'Edit Performance', :class => 'selected')

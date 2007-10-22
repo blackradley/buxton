@@ -1,5 +1,11 @@
 <h1 id="questions">
-	<%= link_to image_tag('icons/previous.gif', :class =>'pervious'), { :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title =>"Previous Section" -%>
+	<%= 
+	if params[:equality_strand]=='overall'
+		link_to image_tag('icons/previous.gif', :class =>'previous'), { :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title =>"Previous Section"
+	else
+		image_tag('icons/no_previous.gif', :class =>'previous') 
+	end
+	-%>	
 	<%= @function.name -%> - <%= params[:equality_strand].capitalize -%> Performance
 	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'confidence_information', :equality_strand => params[:equality_strand] }, :title =>"Next Section" -%>
 </h1> 
