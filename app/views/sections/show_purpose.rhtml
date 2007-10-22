@@ -4,7 +4,7 @@
 <h5>The Function/Policy helps in delivering the following strategic priorities</h5>
 	<% function_strategies = @function.function_strategies.find(:all, :conditions => "strategy_response = 1") -%>
 	<p>
-		<% if function_strategies.size > 0 -%>
+		<% if function_strategies && function_strategies.size > 0 -%>
 		<ul>
 	        <% for function_strategy in function_strategies -%>
 	        <li><%= function_strategy.strategy.name -%></li>
