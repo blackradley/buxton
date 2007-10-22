@@ -66,7 +66,7 @@ class SectionsController < ApplicationController
   #
   def edit
     @function = Function.find(session['logged_in_user'].function.id)
-    @strategies = @function.organisation.strategies
+    # @strategies = @function.organisation.strategies
     @function_responses = @function.function_strategies # could be empty
     @user = @function.user
 
