@@ -20,12 +20,18 @@
 	        <ul id="issues">
 				<%= render :partial => 'issues/issue', :collection => @function.issues.reject{|issue| issue.strand != params[:equality_strand] } %>
 			</ul>
+			<div class="clear"></div>
 	        <%= hidden_field_tag 'issue[function_id]', @function.id -%>
 	        <%= hidden_field_tag 'issue[strand]', params[:equality_strand] -%>	
 	        <%= text_field_tag 'issue[description]', '', :id => 'issue_field' -%>
+	        <span id="addissue">
 			<%= submit_to_remote("addissue", "Add", :url => {:controller => 'issues', :action => 'create'}, :failure => "alert('Please try again.');") -%>
-			</div>
-		</p>
+			</span>
+			
+			<div class="clear"></div>
+	</div>
+	<div class="clear"></div>
+	</p>
 	
 <div class="clear"></div>
 <span class="button"><%= submit_tag 'Save' %></span>
