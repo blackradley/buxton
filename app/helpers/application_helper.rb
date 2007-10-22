@@ -199,7 +199,7 @@ def strandmenu()
     
   else
      html = '<div id="strand">'
-     html << params[:equality_strand].capitalize 
+     html << params[:equality_strand].gsub("_",  " ").capitalize 
      html << " : " 
      
      #      if params[:id]=='purpose'
