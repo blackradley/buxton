@@ -108,7 +108,6 @@ class Statistics
 		end
 	end
     end
-
     #replace all the symbol references to lookups with the lookup itself, and initialize the question.
     topic_hash.each{|topic| topic.each{|question, value| topic_hash[topic][question] = StatQuestion.new(Look_up.find_by_look_up_type(value), question)}}
     #replace all the topic symbols with a StatTopic object
