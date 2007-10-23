@@ -392,7 +392,7 @@ $help = {
     		  "<p>The performance assessment in question 1 will provide the background to answering this question.  Please answer whether there are any performance issues which affect people of different faiths because of their faith.  Please record any such issues in the text box.  Any issues recorded should arise because of the user’s faith, not just a general failing of the Function to meet user needs.</p>"
     		  ],
     },
-    :sex => {
+    :sexual_orientation => {
       	1 => [
         	"<p>This question asks you to assess how well the Function is performing in meeting the needs of the different groups within an Equality Strand.  The available answers are on a five point scale from 5 excellent to 1 poor.  As before Not sure if also an acceptable answer.</p>
         	<p>Please answer the question, identifying how well the Function is meeting the particular needs of people of different sexual orientations.  It may be that the Function is meeting the needs of people of one sexual orientation very effectively but is not meeting the needs of another.</p>
@@ -446,7 +446,7 @@ $help = {
     		3 => ["<p>If there are plans to collect further information about how the Function meets the particular needs of people of different faiths what is the timescale for the information being ready to use</p>"],
     		4 => ["<p>There may be other ways to assess the performance of the Function in meeting the needs of people of different faiths.   These might be customer surveys, consultation or an analysis of complaints received.</p>"]
     },
-    :sex => {
+    :sexual_orientation => {
       	1 => ["<p>Ideally the assessment of the performance will be based upon sound quantitative information; however, there may be gaps in the information about how the Function meets the particular needs of people of different sexual orientations.  These gaps may be that relevant data is not collected, that the information is out of date or does not distinguish the performance of the function between people of different sexual orientations.</p>"],
     		2 => ["<p>There may be plans to close any gaps in information by collecting more information.</p>"],
     		3 => ["<p>If there are plans to collect further information about how the Function meets the particular needs of people of different sexual orientations what is the timescale for the information being ready to use</p>"],
@@ -496,7 +496,7 @@ $help = {
       6 => ["<p>If appropriate gender equality experts have been consulted it will be useful to record the details of the consultation.  The details do not need to be completely comprehensive but enough to provide evidence of the activity undertaken.</p>"],
       7 => ["<p>The consultations may have identified issues with the performance of the Function in meeting the particular needs of people of different faiths.</p>"]
     },
-    :sex => {
+    :sexual_orientation => {
       1 => ["<p>Groups representing the interests of people of different sexual orientations may have consulted about the potential differential impact of Function on individuals from different ethnic groups.  Such consultation may have been conducted specifically as part of the assessment process or may have had another purpose but supplied information to the assessment process.</p>"],
       2 => ["<p>If no such groups have been consulted there are a number of reasons why this may be so.  There may be no appropriate groups to consult, there may be plans to consult groups but they have not taken place or they may be no plans to consult the groups.  You might not be sure why no consultation has taken place.</p>"],
       3 => ["<p>If appropriate groups representing the interests of people of different sexual orientations have been consulted it will be useful to record the details of the consultation.  The details do not need to be completely comprehensive but enough to provide evidence of the activity undertaken.</p>"],
