@@ -526,6 +526,7 @@ font-size:20px;
 	width: 400px;
 	float: left;
 	text-align: left;
+	padding-bottom: 2px;
 }
 #questions p{
 	clear: left;
