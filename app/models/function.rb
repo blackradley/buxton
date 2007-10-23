@@ -90,7 +90,8 @@ class Function < ActiveRecord::Base
     question_hash.each do |strand_name, strand|
 	strand.each do |section_name, section|
 		section.each_key do |question|
-			questions[strand_name] = {"#{section_name.to_s}_#{topic.to_s}_#{question.to_s}".to_sym => send("#{section_name.to_s}_#{topic.to_s}_#{question.to_s}".to_sym)}
+			question_name = "#{section_name.to_s}_#{topic.to_s}_#{question.to_s}".to_sym
+			questions[strand_name] = {question_name => send(question_name)}
 		end
 	end
     end
@@ -278,17 +279,17 @@ class Function < ActiveRecord::Base
 				},
 				:additional_work =>{ 
 					5 => ["In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
-						the proposed #{fun_pol_indicator} may impact upon #{wordings[strand]}?", :yes_no_notsure],
+						the  #{fun_pol_indicator} may impact upon #{wordings[strand]}?", :yes_no_notsure],
 					6 => ["Please explain the further information required.", :text],
 					7 => ["Is there any more work you feel is necessary to complete the assessment?", :yes_no_notsure],
-					8 => ["Do you think that the proposed #{fun_pol_indicator} could have a role in preventing #{wordings[strand]} being treated differently, in an unfair way, just because they were #{wordings[strand]}", :text],
-					9 => ["Do you think that the proposed #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were not subject to 
+					8 => ["Do you think that the #{fun_pol_indicator} could have a role in preventing #{wordings[strand]} being treated differently, in an unfair way, just because they were #{wordings[strand]}", :yes_no_notsure],
+					9 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were not subject to 
 					   inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?", :yes_no_notsure],
-					10 => ["Do you think that the proposed #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were treated equally and fairly?", :yes_no_notsure],
-					11 => ["Do you think that the proposed #{fun_pol_indicator} could assist #{wordings[strand]} to get on better with each other?", :yes_no_notsure],
-					12 => ["Do you think that the proposed #{fun_pol_indicator} takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?", :yes_no_notsure],
-					13 => ["Do you think that the proposed #{fun_pol_indicator} could assist #{wordings[strand]} to participate more?", :yes_no_notsure],
-					14 => ["Do you think that the proposed#{fun_pol_indicator} could assist in promoting positive attitudes to #{wordings[strand]}?", :yes_no_notsure]
+					10 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were treated equally and fairly?", :yes_no_notsure],
+					11 => ["Do you think that the #{fun_pol_indicator} could assist #{wordings[strand]} to get on better with each other?", :yes_no_notsure],
+					12 => ["Do you think that the #{fun_pol_indicator} takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?", :yes_no_notsure],
+					13 => ["Do you think that the #{fun_pol_indicator} could assist #{wordings[strand]} to participate more?", :yes_no_notsure],
+					14 => ["Do you think that the #{fun_pol_indicator} could assist in promoting positive attitudes to #{wordings[strand]}?", :yes_no_notsure]
 				}
 			}
 			overall_questions = {
@@ -354,32 +355,26 @@ private
 			    :confidence_consultation_gender_3 => [[:confidence_consultation_gender_1, yes_value]],
 			    :confidence_consultation_gender_5 => [[:confidence_consultation_gender_4, no_value]],
 			    :confidence_consultation_gender_6 => [[:confidence_consultation_gender_4, yes_value]],
-			    :confidence_consultation_gender_8 => [[:confidence_consultation_gender_7, yes_value]],
 			    :confidence_consultation_age_2 => [[:confidence_consultation_age_1, no_value]],
 			    :confidence_consultation_age_3 => [[:confidence_consultation_age_1, yes_value]],
 			    :confidence_consultation_age_5 => [[:confidence_consultation_age_4, no_value]],
 			    :confidence_consultation_age_6 => [[:confidence_consultation_age_4, yes_value]],
-			    :confidence_consultation_age_8 => [[:confidence_consultation_age_7, yes_value]],
 			    :confidence_consultation_disability_2 => [[:confidence_consultation_disability_1, no_value]],
 			    :confidence_consultation_disability_3 => [[:confidence_consultation_disability_1, yes_value]],
 			    :confidence_consultation_disability_5 => [[:confidence_consultation_disability_4, no_value]],
 			    :confidence_consultation_disability_6 => [[:confidence_consultation_disability_4, yes_value]],
-			    :confidence_consultation_disability_8 => [[:confidence_consultation_disability_7, yes_value]],
 			    :confidence_consultation_race_2 => [[:confidence_consultation_race_1, no_value]],
 			    :confidence_consultation_race_3 => [[:confidence_consultation_race_1, yes_value]],
 			    :confidence_consultation_race_5 => [[:confidence_consultation_race_4, no_value]],
 			    :confidence_consultation_race_6 => [[:confidence_consultation_race_4, yes_value]],
-			    :confidence_consultation_race_8 => [[:confidence_consultation_race_7, yes_value]],
 			    :confidence_consultation_faith_2 => [[:confidence_consultation_faith_1, no_value]],
 			    :confidence_consultation_faith_3 => [[:confidence_consultation_faith_1, yes_value]],
 			    :confidence_consultation_faith_5 => [[:confidence_consultation_faith_4, no_value]],
 			    :confidence_consultation_faith_6 => [[:confidence_consultation_faith_4, yes_value]],
-			    :confidence_consultation_faith_8 => [[:confidence_consultation_faith_7, yes_value]],
 			    :confidence_consultation_sexual_orientation_2 => [[:confidence_consultation_sexual_orientation_1, no_value]],
 			    :confidence_consultation_sexual_orientation_3 => [[:confidence_consultation_sexual_orientation_1, yes_value]],
 			    :confidence_consultation_sexual_orientation_5 => [[:confidence_consultation_sexual_orientation_4, no_value]],
 			    :confidence_consultation_sexual_orientation_6 => [[:confidence_consultation_sexual_orientation_4, yes_value]],
-			    :confidence_consultation_sexual_orientation_8 => [[:confidence_consultation_sexual_orientation_7, yes_value]],
 			    :confidence_information_race_3 => [[:confidence_information_race_2, yes_value]],
 			    :confidence_information_disability_3 => [[:confidence_information_disability_2, yes_value]],
 			    :confidence_information_faith_3 => [[:confidence_information_faith_2, yes_value]],
