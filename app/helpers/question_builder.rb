@@ -37,7 +37,7 @@ class QuestionBuilder < ActionView::Helpers::FormBuilder
 	    
     # Show our formatted question!
 	  begin
-      %Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}<img src="/images/icons/help.gif" onclick="Element.toggle('help_#{section}_#{strand}_#{number}')"></p><span id="help_#{section}_#{strand}_#{number}" class="toggleHelp" style="display:none;">#{$help[section][strand][number]}</span>]
+      %Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}<img src="/images/icons/help.gif" onclick="Element.toggle('help_#{section}_#{strand}_#{number}')"></p><span id="help_#{section}_#{strand}_#{number}" class="toggleHelp" style="display:none;">#{$help[section][strand][number]}</span><div class="clear"></div>]
     rescue NoMethodError
        %Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]   
     end
