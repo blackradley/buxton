@@ -4,11 +4,20 @@
 	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'performance', :equality_strand => params[:equality_strand] }, :title =>"Next Section" -%>
 </h1> 
 <div id="questions">
-
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
-
+<h4> For each strategy, please decide whether it is going to be significantly aided by the function: </h4>
+<% @function.function_strategy_ids.each do |strategy_id| %>
+	<% strategy = Strategy.find(strategy_id) %>
+	<p>
+		<label for=<%= strategy.description %>">
+			<%=strategy.name %>
+		</label>
+		<%= select('function_strategies', strategy_id, LookUp.yes_no.collect {|l| [ l.name, l.value ] }, 
+			:selected => strategy_response_or_zero(@function_responses, strategy_id)) %>
+	</p>
+<%end%>
+	
 <%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 2, :f_id => @function.id} %>
-
 <h4>Which of these groups are you having an impact on? <a href="#" onclick="Element.toggle('impact_groups_help'); return false;"><img alt="Help" src="/images/icons/help.gif" /></a></h4>
 <span id="impact_groups_help" class="toggleHelp" style="display:none;">It is likely that the Function will have an impact on some individuals.  Functions may be external and affect the users of the Council services or internal and only affect staff employed by the Council. Of course staff of the Council are also probably users of Council services in their own right. The question asks you to identify which particular groups of individuals the Function affects.
 <br /><br />The question also asks you to estimate the approximate proportion each group of individuals the Function has an impact on. It is quite clearly an estimate which by their very nature are not right, they just give an idea of the relative scale.</span>
