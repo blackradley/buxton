@@ -6,7 +6,7 @@
 <% strategy_hash = {} %>
 <% LookUp.yes_no.collect{|l| strategy_hash[l.value] = l.name} %>
 <% @function.function_strategies.each do |strategy| %>
-<p><label><%= Strategy.find(strategy.id).name %>:</label> <div class = "labelled"> <%= strategy_hash[strategy.strategy_response] %> </div></p>
+<p><label><%= Strategy.find(strategy.strategy_id).name %>:</label> <div class = "labelled"> <%= strategy_hash[strategy.strategy_response] %> </div></p>
 <% end %>
 
 

@@ -24,7 +24,7 @@
   <td><label>Relevance:</label></td><td class="labelled"></td>
   </tr>
   <tr>
-  <td><label>Percentage Completed:</label></td><td class="labelled"><%= @function.percentage_answered %></td>
+  <td><label>Percentage Completed:</label></td><td class="labelled"><%= progress_bar(@function.percentage_answered, 100) -%></td>
   </tr>
 </table>
 </p>
