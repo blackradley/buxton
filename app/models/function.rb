@@ -90,11 +90,68 @@ class Function < ActiveRecord::Base
   end
   
   def started(section = nil, strand = nil)  
-    (percentage_answered(section, strand) > 0)
+    return (check_question(:purpose_overall_1) && check_question(:function_policy)) unless (section or strand)
+    started = false
+    Function.get_question_names(section, strand).each{|question| if check_question(question) then started = true; break; end}
+    unless started then
+	unless section && !(section == :action_planning) then
+	     issue_strand = self.issues.clone
+	     issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
+	     issue_names = []
+	     Issue.content_columns.each{|column| issue_names.push(column.name)}
+	     issue_names.delete('strand')
+	     issue_strand.each do |issue_name|
+		issue_names.each do |name|
+			break if started
+			if check_response(issue_name.send(name.to_sym)) then
+				started  = true
+				break
+			end
+		end
+	    end
+        end
+	unless section && !(section == :purpose) then
+		function_strategies.each do |strategy| 
+			if check_response(strategy.strategy_response) then
+				started = true
+				break
+			end
+		end
+	end      
+    end
+    return started
   end
   
   def completed(section = nil, strand = nil)
-    (percentage_answered(section, strand) == 100)    
+    completed = true
+    Function.get_question_names(section, strand).each{|question| unless check_question(question) then completed = false; break; end}
+    if completed then
+	unless section && !(section == :action_planning) then
+	     issue_strand = self.issues.clone
+	     issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
+	     issue_names = []
+	     Issue.content_columns.each{|column| issue_names.push(column.name)}
+	     issue_names.delete('strand')
+	     issue_strand.each do |issue_name|
+		issue_names.each do |name|
+			break unless completed
+			unless check_response(issue_name.send(name.to_sym)) then
+				completed = false
+				break
+			end
+		end
+	    end
+        end
+	unless section && !(section == :purpose) then
+		function_strategies.each do |strategy| 
+			unless check_response(strategy.strategy_response) then
+				completed = false
+				break
+			end
+		end
+	end      
+    end
+    return completed
   end
   
   def statistics
