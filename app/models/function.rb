@@ -45,6 +45,10 @@ class Function < ActiveRecord::Base
   has_many :function_strategies
   has_many :issues, :dependent => :destroy
   
+  
+  def strategy(strategy)
+    Strategy.find(strategy)
+  end
 # 
 #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions. 
 #
@@ -53,13 +57,13 @@ class Function < ActiveRecord::Base
     issue_strand = []
     number_answered = 0
     total = 0
-    issue_strand = self.issues.clone
-    issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
     Function.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end}
-    issue_names = []
-    Issue.content_columns.each{|column| issue_names.push(column.name)}
-    issue_names.delete('strand')
     unless section && !(section == :action_planning) then
+        issue_strand = self.issues.clone
+        issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
+        issue_names = []
+        Issue.content_columns.each{|column| issue_names.push(column.name)}
+        issue_names.delete('strand')
 	issue_strand.each do |issue_name|
 		issue_names.each do |name|
 			if check_response(issue_name.send(name.to_sym)) then
@@ -68,6 +72,16 @@ class Function < ActiveRecord::Base
 			else 
 				total += 1
 			end
+		end
+	end
+    end
+    unless section && !(section == :purpose) then
+	function_strategies.each do |strategy| 
+		if check_response(strategy.strategy_response) then
+			total += 1
+			number_answered += 1
+		else 
+			total += 1
 		end
 	end
     end

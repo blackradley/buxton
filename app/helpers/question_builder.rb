@@ -9,8 +9,9 @@ class QuestionBuilder < ActionView::Helpers::FormBuilder
     question="#{section}_#{strand}_#{number}"
     # Get the label text for this question
     label = function.question_wording_lookup(section.to_sym, strand.to_sym, number)[0]
+    type = function.question_wording_lookup(section.to_sym, strand.to_sym,number)[1] 
     # Get the answer options for this question and make an appropriate input field
-    input_field = case function.question_wording_lookup(section, strand,number)[1]      
+    input_field = case type     
     when :existing_proposed
       select question, LookUp.existing_proposed.collect {|l| [ l.name, l.value ] }
     when :function_policy
@@ -29,6 +30,8 @@ class QuestionBuilder < ActionView::Helpers::FormBuilder
       select question, LookUp.consult_groups.collect {|l| [ l.name, l.value ] }
     when :consult_experts
       select question, LookUp.consult_experts.collect {|l| [ l.name, l.value ] }
+    when :yes_no
+      select question, LookUp.yes_no.collect{|l| [l.name, l.value]}
     when :text
       text_area question 
     when :string
