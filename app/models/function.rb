@@ -194,8 +194,12 @@ class Function < ActiveRecord::Base
   #   self.with_scope(:find => { :conditions => 'deleted_on IS NULL' }) { super(*args) }
   # end
   def question_wording_lookup(section = nil, strand = nil, question = nil)
+	fun_pol_indicator = "existing"
+	existing_proposed = "proposed"
 	fun_pol_indicator = LookUp.function_policy.find{|lookUp| self.function_policy == lookUp.value}.name.downcase
 	existing_proposed = LookUp.existing_proposed.find{|lookUp| self.purpose_overall_1 == lookUp.value}.name.downcase
+	fun_pol_indicator = "function" if (fun_pol_indicator != "function") || (fun_pol_indicator != "policy")
+	existing_proposed = "existing" if (existing_proposed != "existing") || (existing_proposed != "proposed")
 	case existing_proposed
 		when "existing"
 			part_need = "the particular needs of "
