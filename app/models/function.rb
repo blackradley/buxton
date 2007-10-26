@@ -161,13 +161,30 @@ class Function < ActiveRecord::Base
     question_hash.each do |strand_name, strand|
 	strand.each do |section_name, section|
 		section.each_key do |question|
-			question_name = "#{section_name.to_s}_#{topic.to_s}_#{question.to_s}".to_sym
-			questions[strand_name] = {question_name => send(question_name)}
+			question_name = "#{section_name.to_s}_#{strand_name.to_s}_#{question.to_s}".to_sym
+			begin
+				dependency = dependent_questions(question_name)
+				if dependency then
+				      dependant_correct = true
+				      dependency.each do
+					      |dependent|
+					      if dependent[1].class == String then
+						   dependant_correct = dependant_correct && !(send(dependent[0]).to_s.length > 0)   
+					      else
+						dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1])
+					      end
+					end
+				      questions[question_name] = send(question_name) if dependant_correct
+				else
+					questions[question_name] = send(question_name)
+				end
+			rescue
+			end
 		end
 	end
     end
-    test = Statistics.new(question_hash)
-    test.score(questions, self)
+    test = Statistics.new(question_wording_lookup, self)
+    test.score(question_hash)
     test.function
   end
 
@@ -194,12 +211,8 @@ class Function < ActiveRecord::Base
   #   self.with_scope(:find => { :conditions => 'deleted_on IS NULL' }) { super(*args) }
   # end
   def question_wording_lookup(section = nil, strand = nil, question = nil)
-	fun_pol_indicator = "existing"
-	existing_proposed = "proposed"
 	fun_pol_indicator = LookUp.function_policy.find{|lookUp| self.function_policy == lookUp.value}.name.downcase
 	existing_proposed = LookUp.existing_proposed.find{|lookUp| self.purpose_overall_1 == lookUp.value}.name.downcase
-	fun_pol_indicator = "function" if (fun_pol_indicator != "function") || (fun_pol_indicator != "policy")
-	existing_proposed = "existing" if (existing_proposed != "existing") || (existing_proposed != "proposed")
 	case existing_proposed
 		when "existing"
 			part_need = "the particular needs of "
@@ -216,7 +229,8 @@ class Function < ActiveRecord::Base
 				:disability => "Disability",
 				:faith => "Faith",
 				:sexual_orientation => "Lesbian Gay Bisexual and Transgender",
-				:age => "Age"
+				:age => "Age",
+				:overall => "Overall"
 			}
 			unless strand then
 				question_hash = {}
@@ -230,27 +244,26 @@ class Function < ActiveRecord::Base
 				},
 				:performance => {
 					1 => ["How would you rate the current performance of the #{fun_pol_indicator} in meeting #{part_need + wordings[strand]}?", :rating],
-					2 => ["Has this performance assessment been confirmed?", :yes_no_notsure],
+					2 => ["Has this performance assessment been confirmed?", :yes_no_notsure_n5_0],
 					3 => ["Please note the process by which the performance was confirmed", :string],
-					4 => ["Are there any performance issues which might have implications for #{wordings[strand]}?", :yes_no_notsure],
+					4 => ["Are there any performance issues which might have implications for #{wordings[strand]}?", :yes_no_notsure_10_0],
 					5 => ["Please record any such performance issues for #{wordings[strand]}?", :text]
 				},
 				:confidence_information => {
-					1 => ["Are there any gaps in the information about the #{fun_pol_indicator} in relation to #{wordings[strand]}?", :yes_no_notsure],
-					2 => ["Are there plans to collect additional information?", :yes_no_notsure],
+					1 => ["Are there any gaps in the information about the #{fun_pol_indicator} in relation to #{wordings[strand]}?", :yes_no_notsure_15_0],
+					2 => ["Are there plans to collect additional information?", :yes_no_notsure_n5_0],
 					3 => ["If there are plans to collect more information what are the timescales?", :timescales],
-					4 => ["Are there any other ways by which performance in meeting the #{part_need + wordings[strand]} could be assessed?", :yes_no_notsure],
+					4 => ["Are there any other ways by which performance in meeting the #{part_need + wordings[strand]} could be assessed?", :yes_no_notsure_n3_0],
 					5 => ["Please record any such performance measures for #{wordings[strand]}", :text]
 				},
 				:confidence_consultation => {
-					1 => ["Have groups from the #{strands[strand]} Equality Strand been consulted on the potential impact of the #{fun_pol_indicator} on #{wordings[strand]}?", :yes_no_notsure],
+					1 => ["Have groups from the #{strands[strand]} Equality Strand been consulted on the potential impact of the #{fun_pol_indicator} on #{wordings[strand]}?", :yes_no_notsure_3_10],
 					2 => ["If no, why is this so?", :consult_groups],
 					3 => ["If yes, list groups and dates.", :text],
-					4 => ["Have experts from the #{strands[strand]} Equality Strand been consulted on the potential impact of the #{fun_pol_indicator} on #{wordings[strand]}?", :yes_no_notsure],
+					4 => ["Have experts from the #{strands[strand]} Equality Strand been consulted on the potential impact of the #{fun_pol_indicator} on #{wordings[strand]}?", :yes_no_notsure_2_5],
 					5 => ["If no, why is this so?",  :consult_experts],
 					6 => ["If yes, list groups and dates.", :text],
-					7 => ["Did the consultations identify any isues with the impact of the function on #{wordings[strand]}?", :yes_no_notsure],
-					8 => ['Please record the issues identified:', :text]
+					7 => ["Did the consultations identify any issues with the impact of the function on #{wordings[strand]}?", :yes_no_notsure_3_0],
 				},
 				:additional_work =>{ 
 					5 => ["In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
@@ -258,8 +271,7 @@ class Function < ActiveRecord::Base
 					6 => ["Please explain the further information required.", :text],
 					7 => ["Is there any more work you feel is necessary to complete the assessment?", :yes_no_notsure],
 					8 => ["Do you think that the #{fun_pol_indicator} could have a role in preventing #{wordings[strand]} being treated differently, in an unfair way, just because they were #{wordings[strand]}", :text],
-					9 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were not subject to 
-					   inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?", :yes_no_notsure],
+					9 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were not subject to inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?", :yes_no_notsure],
 					10 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were treated equally and fairly?", :yes_no_notsure],
 					11 => ["Do you think that the #{fun_pol_indicator} could assist #{wordings[strand]} to get on better with each other?", :yes_no_notsure],
 					12 => ["Do you think that the #{fun_pol_indicator} takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?", :yes_no_notsure],
@@ -269,8 +281,8 @@ class Function < ActiveRecord::Base
 			}
 			overall_questions = {
 				:purpose =>{
-					#add existence_status in here?
-					2 => ["What is the target outcome of the Function", :text],
+					1 => ["What is the existence status of the #{fun_pol_indicator}?", :existing_proposed], #This should never be displayed, but it never hurts to be sure and put some meaningful text it. It is there for the stats.
+					2 => ["What is the target outcome of the #{fun_pol_indicator}", :text],
 					5 =>['Service users', :impact_amount],
 					6 =>['Staff employed by the council', :impact_amount],
 					7 =>['Staff of supplier organisations', :impact_amount],
@@ -292,13 +304,6 @@ class Function < ActiveRecord::Base
 					5 => ['Please note any other performance measures:', :text]
 				}
 			}
-			unless section then return questions end
-			if strand && section&&!(question) then return questions[section]end
-			unless strand == :overall then
-				return questions[section][question]
-			else
-				return overall_questions[section][question]
-			end
 		when "proposed"
 			part_need = "the particular needs of "
 			wordings = {:gender =>  "men and women",
@@ -314,7 +319,8 @@ class Function < ActiveRecord::Base
 				:disability => "Disability",
 				:faith => "Faith",
 				:sexual_orientation => "Lesbian Gay Bisexual and Transgender",
-				:age => "Age"
+				:age => "Age",
+				:overall => "Overall"
 			}
 			unless strand then
 				question_hash = {}
@@ -330,27 +336,26 @@ class Function < ActiveRecord::Base
 				},
 				:performance => {
 					1 => ["How would you assess the potential performance of the #{fun_pol_indicator} in meeting #{part_need + wordings[strand]}?", :rating],
-					2 => ["Has this performance assessment been confirmed?", :yes_no_notsure],
+					2 => ["Has this performance assessment been confirmed?", :yes_no_notsure_n5_0],
 					3 => ["Please note the process by which the performance is confirmed", :string],
 					4 => ["Are there likely to be any performance issues which might have implications for #{wordings[strand]}?", :yes_no_notsure],
 					5 => ["Please record any such performance issues for #{wordings[strand]}?", :text]
 				},
 				:confidence_information => {
-					1 => ["Will information about the #{fun_pol_indicator} be collected to determine the impact on #{wordings[strand]}?", :yes_no_notsure],
-					2 => ["Are there plans to collect additional information?", :yes_no_notsure],
+					1 => ["Will information about the #{fun_pol_indicator} be collected to determine the impact on #{wordings[strand]}?", :yes_no_notsure_15_0],
+					2 => ["Are there plans to collect additional information?", :yes_no_notsure_n5_0],
 					3 => ["If there are plans to collect more information what are the timescales?", :timescales],
-					4 => ["Are there any other ways by which the impact of the #{fun_pol_indicator} on #{wordings[strand]} could be assessed?", :yes_no_notsure],
+					4 => ["Are there any other ways by which the impact of the #{fun_pol_indicator} on #{wordings[strand]} could be assessed?", :yes_no_notsure_n3_0],
 					5 => ["Please record any such impact measures for #{wordings[strand]}", :text]
 				},
 				:confidence_consultation => {
-					1 => ["Have groups from the #{strands[strand]} Equality Strand been consulted on the potential impact of the proposed #{fun_pol_indicator} on #{wordings[strand]}?", :yes_no_notsure],
+					1 => ["Have groups from the #{strands[strand]} Equality Strand been consulted on the potential impact of the proposed #{fun_pol_indicator} on #{wordings[strand]}?", :yes_no_notsure_3_10],
 					2 => ["If no, why is this so?", :consult_groups],
 					3 => ["If yes, list groups and dates.", :text],
-					4 => ["Have experts from the #{strands[strand]} Equality Strand been consulted on the potential impact of the proposed #{fun_pol_indicator} on #{wordings[strand]}?", :yes_no_notsure],
+					4 => ["Have experts from the #{strands[strand]} Equality Strand been consulted on the potential impact of the proposed #{fun_pol_indicator} on #{wordings[strand]}?", :yes_no_notsure_2_5],
 					5 => ["If no, why is this so?",  :consult_experts],
 					6 => ["If yes, list groups and dates.", :text],
-					7 => ["Did the consultations identify any isues with the impact of the function on #{wordings[strand]}?", :yes_no_notsure],
-					8 => ['Please record the issues identified:', :text]
+					7 => ["Did the consultations identify any isues with the impact of the function on #{wordings[strand]}?", :yes_no_notsure_3_0],
 				},
 				:additional_work =>{ 
 					5 => ["In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
@@ -358,8 +363,7 @@ class Function < ActiveRecord::Base
 					6 => ["Please explain the further information required.", :text],
 					7 => ["Is there any more work you feel is necessary to complete the assessment?", :yes_no_notsure],
 					8 => ["Do you think that the #{fun_pol_indicator} could have a role in preventing #{wordings[strand]} being treated differently, in an unfair way, just because they were #{wordings[strand]}", :yes_no_notsure],
-					9 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were not subject to 
-					   inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?", :yes_no_notsure],
+					9 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were not subject to inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?", :yes_no_notsure],
 					10 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were treated equally and fairly?", :yes_no_notsure],
 					11 => ["Do you think that the #{fun_pol_indicator} could assist #{wordings[strand]} to get on better with each other?", :yes_no_notsure],
 					12 => ["Do you think that the #{fun_pol_indicator} takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?", :yes_no_notsure],
@@ -369,8 +373,8 @@ class Function < ActiveRecord::Base
 			}
 			overall_questions = {
 				:purpose =>{
-					#add existence_status in here?
-					2 => ["What is the target outcome of the Function", :text],
+					1 => ["What is the existence status of the #{fun_pol_indicator}?", :existing_proposed],#This should never be displayed, but it never hurts to be sure and put some meaningful text it. It is there for the stats.
+					2 => ["What is the target outcome of the #{fun_pol_indicator}", :text],
 					5 =>['Service users', :impact_amount],
 					6 =>['Staff employed by the council', :impact_amount],
 					7 =>['Staff of supplier organisations', :impact_amount],
@@ -392,14 +396,16 @@ class Function < ActiveRecord::Base
 					5 => ['Please note any other performance measures:', :text]
 				}
 			}
-			unless section then return questions end
-			if strand && section&&!(question) then return questions[section]end
-			unless strand == :overall then
-				return questions[section][question]
-			else
-				return overall_questions[section][question]
-			end
 	end
+	unless strand == :overall then
+		return questions unless section
+		if strand && section&&!(question) then return questions[section]end
+		return questions[section][question]
+	else
+		return overall_questions unless section
+		if strand && section&&!(question) then return overall_questions[section]end		
+		return overall_questions[section][question]
+	end	
 end
 
 private
@@ -412,7 +418,42 @@ private
       yes_value = LookUp.yes_no_notsure.find{|lookUp| 'Yes' == lookUp.name}.value 
       #What does an answer of 'No' correspond to?
       no_value = LookUp.yes_no_notsure.find{|lookUp| 'No' == lookUp.name}.value 
-    @dependent_questions = { :performance_overall_3 => [[:performance_overall_2, yes_value]],
+    dependency = dependent_questions(question)
+    if dependency then
+      response = send(question)
+      dependant_correct = true
+      dependency.each do
+	      |dependent|
+	      if dependent[1].class == String then
+		   dependant_correct = dependant_correct && !(send(dependent[0]).to_s.length > 0)   
+	      else
+		dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1])
+	      end
+	end
+      if dependant_correct then
+	return true 
+      else 
+	return (check_response(response))
+      end
+    else
+      response = send(question)
+      return check_response(response)
+    end
+  end
+  
+  def check_response(response)
+    checker = !(response.to_i == 0)
+    checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
+    return checker
+  end
+  
+#This is the hash of dependent questions  
+  def dependent_questions(question = nil)
+      # What does an answer of 'Yes' correspond to?
+      yes_value = LookUp.yes_no_notsure.find{|lookUp| 'Yes' == lookUp.name}.value 
+      #What does an answer of 'No' correspond to?
+      no_value = LookUp.yes_no_notsure.find{|lookUp| 'No' == lookUp.name}.value 
+	@dependent_questions = { :performance_overall_3 => [[:performance_overall_2, yes_value]],
                             :performance_overall_5 => [[:performance_overall_4, yes_value]],
                             :performance_gender_3 => [[:performance_gender_2, yes_value ]],
                             :performance_gender_5 => [[:performance_gender_4, yes_value]],
@@ -479,33 +520,6 @@ private
 			    :additional_work_age_6 => [[:additional_work_age_5, yes_value]],
 			    :additional_work_gender_6 => [[:additional_work_gender_5, yes_value]],
                             }
-    dependency = @dependent_questions[question]
-    if dependency then
-      response = send(question)
-      dependant_correct = true
-      dependency.each do
-	      |dependent|
-	      if dependent[1].class == String then
-		   dependant_correct = dependant_correct && !(send(dependent[0]).to_s.length > 0)   
-	      else
-		dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1])
-	      end
-	end
-      if dependant_correct then
-	return true 
-      else 
-	return (check_response(response))
-      end
-    else
-      response = send(question)
-      return check_response(response)
-    end
+	if question then return @dependent_questions[question] else return @dependent_questions end
   end
-  
-  def check_response(response)
-    checker = !(response.to_i == 0)
-    checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
-    return checker
-  end
-  
 end
