@@ -32,6 +32,12 @@ class LookUp < ActiveRecord::Base
     :timescales => 8,
     :consult_groups => 9,
     :consult_experts => 10,
+    :yes_no_notsure_10_0 =>11,
+    :yes_no_notsure_n5_0 => 12,
+    :yes_no_notsure_3_10 => 13,
+    :yes_no_notsure_2_5 => 14,
+    :yes_no_notsure_15_0 => 15,
+    :yes_no_notsure_3_0 => 16
     }
 #
 # Yes or no, <tt>self</tt> makes it static
@@ -99,6 +105,54 @@ class LookUp < ActiveRecord::Base
   def self.consult_experts()
     return find_all_by_look_up_type(TYPE[:consult_experts])
   end
+#
+# Yes/no 10/0
+#
+  def self.yes_no_notsure_10_0
+    return find_all_by_look_up_type(TYPE[:yes_no_notsure_10_0])
+  end
+#
+#yes/no/ -5/0
+#
+  def self.yes_no_notsure_n5_0
+    return find_all_by_look_up_type(TYPE[:yes_no_notsure_n5_0])
+  end
 
+#
+#yes/no -3/0
+#
+  def self.yes_no_notsure_n3_0
+    return find_all_by_look_up_type(TYPE[:yes_no_notsure_n3_0])
+  end
 
+#
+#yes/no/3/10
+#
+
+  def self.yes_no_notsure_3_10
+    return find_all_by_look_up_type(TYPE[:yes_no_notsure_3_10])
+  end
+
+#
+#yes/no 2/5
+#
+
+  def self.yes_no_notsure_2_5
+    return find_all_by_look_up_type(TYPE[:yes_no_notsure_2_5])
+  end
+
+#
+#yes/no 15/0
+#
+
+  def self.yes_no_notsure_15_0
+    return find_all_by_look_up_type(TYPE[:yes_no_notsure_15_0])
+  end
+
+#
+#yes/no 3/0
+#
+  def self.yes_no_notsure_3_0
+    return find_all_by_look_up_type(TYPE[:yes_no_notsure_3_0])
+  end
 end
