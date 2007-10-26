@@ -40,24 +40,31 @@ class SectionsController < ApplicationController
     end
     
     @function = Function.find(f_id)
-
-    case params[:id]
-    when 'purpose'
-      render :template => 'sections/show_purpose'
-    when 'performance'
-      render :template => 'sections/show_performance'
-    when 'confidence_information'
-      render :template => 'sections/show_confidence_information'
-    when 'confidence_consultation'
-      render :template => 'sections/show_confidence_consultation'
-    when 'additional_work'
-      render :template => 'sections/show_additional_work'
-    when 'action_planning'
-      render :template => 'sections/show_action_planning'
+    
+    # Only display the answers if Function/Policy Existing/Proposed are answered otherwise
+    # we don't know what label text to use.
+    if ((@function.purpose_overall_1 && @function.function_policy) &&
+      (@function.purpose_overall_1 != 0 && @function.function_policy != 0)) then
+      case params[:id]
+      when 'purpose'
+        render :template => 'sections/show_purpose'
+      when 'performance'
+        render :template => 'sections/show_performance'
+      when 'confidence_information'
+        render :template => 'sections/show_confidence_information'
+      when 'confidence_consultation'
+        render :template => 'sections/show_confidence_consultation'
+      when 'additional_work'
+        render :template => 'sections/show_additional_work'
+      when 'action_planning'
+        render :template => 'sections/show_action_planning'
+      else
+        # K: TODO: catch this - we shouldn't ever be here
+        render :inline => 'Invalid section.'
+      end
     else
-      # K: TODO: catch this - we shouldn't ever be here
-      render :inline => 'Invalid section.'
-    end  
+      render :inline => 'Function/Policy not started.'
+    end
   end
 
   #
