@@ -63,7 +63,7 @@ class SectionsController < ApplicationController
         render :inline => 'Invalid section.'
       end
     else
-      render :inline => 'Function/Policy not started.'
+      render :text => 'Function/Policy not started.', :layout => true
     end
   end
 
