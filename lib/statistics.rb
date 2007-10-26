@@ -8,7 +8,11 @@ class StatFunction
     @function = function
   end
   def score(questions)
-    @topics.each{|name, topic| topic.score(questions[name], self)}
+    @topics.each do |name, topic|
+	question_hash = {}
+	questions.each_key{|key| question_hash[key] = questions[key] if key.to_s.include?(name.to_s)}
+	topic.score(question_hash, self)
+    end
   end
   def relevant(topic)
     return (@topics[topic].purpose_result.to_f > RELEVANCE)
@@ -21,18 +25,18 @@ class StatFunction
   end
   def fun_relevance
     rel = true
-    @topics.each{|name, topic| (rel = rel && (topic.purpose_result > RELEVANCE)) unless topic.topic_max == 0}
-    return rel
+    @topics.each{|name, topic| (rel = rel && (topic.purpose_result < RELEVANCE)) unless topic.topic_max == 0}
+    return !rel
   end
   def fun_priority_ranking
     total = 0
     count = 0
     @topics.each{|key, topic| (total += priority_ranking(topic.name); count +=1 ) unless topic.topic_max == 0}
-    return total/count
+    return (total.to_f/count.to_f + 0.5).to_i
   end
   def impact
 	  impact = 5
-	  @topics.each_value{|topic| puts topic.impact; impact = topic.impact if topic.impact > impact}
+	  @topics.each_value{|topic| impact = topic.impact if topic.impact > impact}
 	return numtorank(impact)
   end
   private
@@ -66,7 +70,7 @@ class StatTopic
     existence = function.topics[:overall].questions[:purpose_overall_1].scores
     total += existence
     @questions.each_value{|question| total += question.scores}
-    @result = total.to_f/@topic_max
+    @result = total.to_f/(@topic_max+15) # +15 is added to both totals to compensate for existence status.
     @questions.each_value do |question| # This checks for all purpose questions
 	name = question.name.to_s
 	if name.include?("purpose") then
@@ -77,7 +81,7 @@ class StatTopic
    end
     purpose_total = 0
     @questions.each_value{|question| purpose_total += question.scores if (question.name.to_s.include?("purpose"))}
-    @purpose_result = (purpose_total.to_f + existence)/@purpose_max    
+    @purpose_result = (purpose_total.to_f + existence)/(@purpose_max + 15)   
   end
 end
 class StatQuestion
@@ -96,7 +100,7 @@ class StatQuestion
   def score(response)
     @scores = 0
     return 0 unless @lookup
-    @lookup.each{|lookup_option| @scores = lookup_option.attributes["weight"] if lookup_option.attributes["value"] == response}    
+    @lookup.each{|lookup_option| @scores = lookup_option.attributes["weight"] if lookup_option.attributes["value"] == response}
     return @scores
   end
 end

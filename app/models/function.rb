@@ -184,7 +184,7 @@ class Function < ActiveRecord::Base
 	end
     end
     test = Statistics.new(question_wording_lookup, self)
-    test.score(question_hash)
+    test.score(questions)
     test.function
   end
 
