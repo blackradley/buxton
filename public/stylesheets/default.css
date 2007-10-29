@@ -1,4 +1,3 @@
-
 BODY
 {
 	font-family: Tahoma, Verdana, Arial, Sans-Serif;
@@ -8,6 +7,7 @@ BODY
 	margin-top: 20px;
 	color: #666;
 }
+
 .container{
 	width: 700px;
 	background-color: #FFF;
@@ -15,15 +15,19 @@ BODY
 	border:1px solid #515f8d;
 	text-align: left;	
 }
+
 .footer{
 	padding: 20px;
 }
+
 .login_status {
 	float: left;	
 }
+
 .powered_by {
 	float: right;	
 }
+
 .content .workingArea, .messageArea{
 	margin:20px;
 }
@@ -68,6 +72,7 @@ h3{
 h4{ 
 	font-size:1.1em;
 }
+
 h5{ 
 	font-size:1em;
 }
@@ -100,6 +105,7 @@ select{
 	margin-top: 4px;	
 	font-size: 1em;
 }
+
 input
 {
 	width: 220px;
@@ -136,6 +142,7 @@ a img
 }
 
 /* menuBar */
+
 #menu
 {
 	background-color: #515f8d;
@@ -180,7 +187,9 @@ UL#menuBar LI A:hover
 	background-color: #FFF;
 	color: #515f8d;
 }
+
 /* sections Menu */
+
 #sections_menu
 {
 	background-color: #fff;
@@ -226,8 +235,6 @@ UL#menuBar LI A:hover
 	color: #515f8d;
 }
 
-
-
 /* strandBar */
 #strand
 {
@@ -241,26 +248,26 @@ UL#menuBar LI A:hover
 	margin-top: 5px;
 	font-size:0.9em;
 }
+
 #strand a, #strand a:visited
 {
 	text-decoration: none;
 	color: #FFF;
 }
+
 #strand a:hover{
 	text-decoration:underline;
 }
 
- #strand a.selected
+#strand a.selected
 {
 	color: #FFF;
 	font-weight:bold;
 	text-decoration:underline;
 }
 
-
-
-
 /*Clickable Buttons*/
+
 .button input, button
 {	margin-top: 10px;
 	clear: both;
@@ -276,6 +283,7 @@ UL#menuBar LI A:hover
 	cursor: pointer;
 	
 }
+
 .button a, .button a:visited, .button a:hover
 {
 	float: left;
@@ -292,7 +300,9 @@ UL#menuBar LI A:hover
 }
 
 /*Application Specific Classes*/
+
 /*Questions
+
 .question-impact-groups
 {
 	color: #000;
@@ -314,6 +324,7 @@ UL#menuBar LI A:hover
 }
 
 /*Results Progress Bars
+
 .bar-background
 {
 	width:200px;
@@ -343,11 +354,14 @@ UL#menuBar LI A:hover
   width: 50px;
 }
 */
+
 /*Tabular Data*/
+
 table{
 	width: 100%;
 	font-size:1em;
 }
+
 th{
 	color: #515f8d;
 	font-weight: bold;
@@ -356,21 +370,24 @@ th{
 	text-align:center;
 	vertical-align:middle;
 }
+
 td{
 	padding: 5px 0px;
 	text-align:center;
 	vertical-align:middle;
 }
+
 td img{
 	margin:2px;
 }
+
 th.strandHeading{
 	text-align:left;
 	width: 40px;
 }
 
-
 /*organisation page table styles */
+
 TABLE.list CAPTION
 {
 	font-weight: bold;
@@ -400,14 +417,17 @@ table.list td
 	text-align:center;
 	vertical-align:middle;
 } 
+
 table.list table td
 {
 	text-align:left;
 }   
+
 table.list td.left
 {
 	text-align:left;
 }   
+
 table.list th.left
 {
 	text-align:left;
@@ -431,11 +451,11 @@ td.bar{
 	display: inline;
 	border: solid 3px #C00;
 }
+
 .fieldWithErrors INPUT{
 	background-color: #FFF0F0;
 	border-style:none;
 }
-
 
 #errorExplanation 
 {
@@ -463,6 +483,7 @@ td.bar{
 	margin-top:0;
 	margin-bottom:0;
 }
+
 #errorExplanation ul li 
 {
 	color: #000;
@@ -475,7 +496,6 @@ td.bar{
 	width: 310px;
 	margin: 0 5px;
 }
-
 
 /*general*/
 
@@ -493,12 +513,15 @@ td.bar{
 .labelled{
 	line-height:20px;
 }
+
 .clear{
 	clear:both;
 }
+
 .clearleft{
 	clear:left;
 }
+
 .actions a img{
 	margin:2px;
 }
@@ -508,15 +531,18 @@ td.bar{
 }
 
 /*questions styles*/
+
 h1#questions{
 text-align:center;
 font-size:20px;
 
 }
+
 .next{
 	margin-left: 10px;
 	margin-bottom: -0px;
 }
+
 .previous{
 	margin-right: 10px;
 	margin-bottom: -0px;
@@ -528,6 +554,7 @@ font-size:20px;
 	text-align: left;
 	padding-bottom: 2px;
 }
+
 #questions p{
 	clear: left;
 	width: 100%;
@@ -539,6 +566,7 @@ font-size:20px;
 #questions input, #questions select, #questions textarea{
 	float:left;
 }
+
 #questions .button input {
 	float:right;
 	margin-right:30px;
@@ -549,6 +577,7 @@ font-size:20px;
 	margin-top: 4px;
 	margin-left: 6px;
 }
+
 #questions .issues{
 	float:right;
 	width: 220px;	
@@ -559,17 +588,18 @@ font-size:20px;
 	 text-align:left;
 	margin-right: 23px;
 }
+
 #questions .issues input{
 	float:left;
 	width:120px;
 	margin-right:10px;
 	margin-left:0px;
-	
 }
+
 #questions .issues #addissue input{
 	margin-right:0px;
 	width: 40px;
-	}
+}
 
 #questions .issues ul{
 	padding: 0px;
@@ -580,6 +610,7 @@ font-size:20px;
 	margin:0px;
 	margin-left: 10px;
 }
+
 html>body #questions .issues ul{
 	padding: 0px;
 	float:left;
@@ -587,50 +618,60 @@ html>body #questions .issues ul{
 	list-style-position: inside;
 	list-style-type: decimal-leading-zero;
 	margin:0px;
-
 }
+
 #questions #issues ul li{
 	margin-top:3px;
 }
+
 /*summary page */
+
 #print_link{
 	float: right;
 	margin-top: -40px;
 	width: 50px;
 }
+
 #print_link img{
 	margin-right:5px;
 	float: left;
-
 }
+
 #print_link a, #print_link a:visited, #print_link a:hover{
 	text-decoration:underline;
 	color: #515f8d;
 }
+
 p #summarytable{
 	margin:0px;
 }
+
 #summarytable{
 	margin-bottom: 5px;
 	float: left;
 	width:370px;
 	margin:0px;
 }
+
 #summarytable td{	
 	text-align:left;
 }
+
 #summarytable label{
 	width: 150px;
 	margin: 0px;
 }
+
 #summarytable .labelled{
 	width: 200px;
 }
+
 #summarytable .labelled img{
 	margin-top: 5px;
 }
 
 /*approval box*/
+
 .summary fieldset#approval{
 	float: right;
 	width: 250px;
@@ -639,6 +680,7 @@ p #summarytable{
 	padding: 10px;
 	margin-left: 5px;
 }
+
 .summary fieldset#approval legend img{
 
 }
@@ -661,12 +703,10 @@ p #summarytable{
 	width: auto;
 	float: none;
 	border: 0px solid #515f8d;
-
-	
 }
+
 .summary fieldset#approval label#function_approver_label{
-	width: 20px;
-		
+	width: 20px;		
 }
 
 .summary fieldset#approval #function_approver{
@@ -674,8 +714,8 @@ p #summarytable{
 	border: 1px solid #979595;
 	margin: 0px;
 	margin-bottom: 10px;
-	
 }
+
 .summary fieldset#approval #approval_submit input{
 	float: right;
 	width: 100px;
@@ -689,10 +729,10 @@ p #summarytable{
 	cursor: pointer;
 }
 
-
 .summary fieldset#approval .toggleHelp{
 	margin-left: 5px;
 }
+
 /*end of approval box styles*/
 
 /*section summary styles*/
@@ -713,14 +753,17 @@ p #summarytable{
 	font-size:1.1em;
 	font-weight:bold;	
 }
+
 .summary fieldset.section_summary_show h4{
 	margin-left: 20px;
 }
+
 .summary fieldset.section_summary_show h5{
 	margin-left: 20px;
 	line-height:2em;
 	margin-bottom:-15px;	
 }
+
 .summary fieldset.section_summary_header legend.section_summary_toggles, .summary fieldset.section_summary_show legend.section_summary_toggles{
 	float:right;
 	font-size:1em;
@@ -748,22 +791,26 @@ p #summarytable{
 .summary fieldset.section_summary_show label{
 	width: 380px;
 }
+
 .summary fieldset.section_summary_show #action_planning{
 	margin-bottom:20px;
 	float:left;
 	clear: left;
 }
+
 .summary fieldset.section_summary_show #action_planning label{
 	width: 100px;
 	margin-left: 20px;
 	font-weight:bold;
 }
+
 .summary fieldset.section_summary_show .labelled{
 	float: left;
 	width: 150px;
 	line-height:20px;
 	font-weight:bold;
 }
+
 .summary .issues{
 	float:left;
 	width: 150px;
@@ -771,15 +818,19 @@ p #summarytable{
 	margin-top: 4px;	
 	font-size: 1em;
 }
+
 .summary .issues ul{
 	padding-left:0px;
 	list-style-position: inside;
 	list-style-type: decimal-leading-zero;
 }
+
 /*lost stlyes*/
+
 #lost label{
 	width: auto;
 }
+
 #lost{
 	margin-bottom: 20px;
 }
@@ -795,6 +846,7 @@ p #summarytable{
 }
 
 /*help*/
+
 .toggleHelp{
 	float:left;
 	font-weight: normal;
@@ -807,6 +859,7 @@ p #summarytable{
 	width:660px;
 	overflow:hidden;
 }
+
 p .toggleHelp{
 	text-align:left;
 	width:60%;
@@ -815,5 +868,4 @@ p .toggleHelp{
 	overflow:hidden;
 	margin:4px 0px;
 	paddding:0px 20%;
-
 }
