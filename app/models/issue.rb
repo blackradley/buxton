@@ -7,6 +7,9 @@
 # 
 # $Date: 2007-10-28 12:13:39 +0100 (Tue, 18 Oct 2007) $
 #
+# An issue is an item that requires an action plan, and is specified in confidence_consultation sections.
+# Each strand has it's own issues, and these issues get taken into account in completed tags and dependent functions.
+#
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
 
 class Issue < ActiveRecord::Base

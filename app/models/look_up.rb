@@ -126,7 +126,7 @@ class LookUp < ActiveRecord::Base
   end
 
 #
-#yes/no/3/10
+#yes/no 3/10
 #
 
   def self.yes_no_notsure_3_10
