@@ -7,20 +7,20 @@
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
 #
 require File.dirname(__FILE__) + '/../test_helper'
-require 'function_controller'
+require 'users_controller'
 
 # Re-raise errors caught by the controller.
-class FunctionController; def rescue_action(e) raise e end; end
+class UsersController; def rescue_action(e) raise e end; end
 
-class FunctionControllerTest < Test::Unit::TestCase
-  fixtures :functions
+class UsersControllerTest < Test::Unit::TestCase
+  fixtures :users
 
   def setup
-    @controller = FunctionController.new
+    @controller = UsersController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    @first_id = functions(:first).id
+    @first_id = User.find(:first).id
   end
 
   def test_index
@@ -35,7 +35,7 @@ class FunctionControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'list'
 
-    assert_not_nil assigns(:functions)
+    assert_not_nil assigns(:users)
   end
 
   def test_show
@@ -44,8 +44,8 @@ class FunctionControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'show'
 
-    assert_not_nil assigns(:function)
-    assert assigns(:function).valid?
+    assert_not_nil assigns(:user)
+    assert assigns(:user).valid?
   end
 
   def test_new
@@ -54,18 +54,18 @@ class FunctionControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'new'
 
-    assert_not_nil assigns(:function)
+    assert_not_nil assigns(:user)
   end
 
   def test_create
-    num_functions = Function.count
+    num_users = User.count
 
-    post :create, :function => {}
+    post :create, :user => {}
 
     assert_response :redirect
     assert_redirected_to :action => 'list'
 
-    assert_equal num_functions + 1, Function.count
+    assert_equal num_users + 1, User.count
   end
 
   def test_edit
@@ -74,8 +74,8 @@ class FunctionControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'edit'
 
-    assert_not_nil assigns(:function)
-    assert assigns(:function).valid?
+    assert_not_nil assigns(:user)
+    assert assigns(:user).valid?
   end
 
   def test_update
@@ -86,7 +86,7 @@ class FunctionControllerTest < Test::Unit::TestCase
 
   def test_destroy
     assert_nothing_raised {
-      Function.find(@first_id)
+      User.find(@first_id)
     }
 
     post :destroy, :id => @first_id
@@ -94,7 +94,7 @@ class FunctionControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => 'list'
 
     assert_raise(ActiveRecord::RecordNotFound) {
-      Function.find(@first_id)
+      User.find(@first_id)
     }
   end
 end
