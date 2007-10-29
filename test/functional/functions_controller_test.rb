@@ -7,20 +7,20 @@
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
 #
 require File.dirname(__FILE__) + '/../test_helper'
-require 'strategy_controller'
+require 'functions_controller'
 
 # Re-raise errors caught by the controller.
-class StrategyController; def rescue_action(e) raise e end; end
+class FunctionsController; def rescue_action(e) raise e end; end
 
-class StrategyControllerTest < Test::Unit::TestCase
-  fixtures :strategies
+class FunctionsControllerTest < Test::Unit::TestCase
+  fixtures :functions
 
   def setup
-    @controller = StrategyController.new
+    @controller = FunctionsController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    @first_id = strategies(:first).id
+    @first_id = Function.find(:first).id
   end
 
   def test_index
@@ -35,7 +35,7 @@ class StrategyControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'list'
 
-    assert_not_nil assigns(:strategies)
+    assert_not_nil assigns(:functions)
   end
 
   def test_show
@@ -44,8 +44,8 @@ class StrategyControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'show'
 
-    assert_not_nil assigns(:strategy)
-    assert assigns(:strategy).valid?
+    assert_not_nil assigns(:function)
+    assert assigns(:function).valid?
   end
 
   def test_new
@@ -54,18 +54,18 @@ class StrategyControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'new'
 
-    assert_not_nil assigns(:strategy)
+    assert_not_nil assigns(:function)
   end
 
   def test_create
-    num_strategies = Strategy.count
+    num_functions = Function.count
 
-    post :create, :strategy => {}
+    post :create, :function => {}
 
     assert_response :redirect
     assert_redirected_to :action => 'list'
 
-    assert_equal num_strategies + 1, Strategy.count
+    assert_equal num_functions + 1, Function.count
   end
 
   def test_edit
@@ -74,8 +74,8 @@ class StrategyControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'edit'
 
-    assert_not_nil assigns(:strategy)
-    assert assigns(:strategy).valid?
+    assert_not_nil assigns(:function)
+    assert assigns(:function).valid?
   end
 
   def test_update
@@ -86,7 +86,7 @@ class StrategyControllerTest < Test::Unit::TestCase
 
   def test_destroy
     assert_nothing_raised {
-      Strategy.find(@first_id)
+      Function.find(@first_id)
     }
 
     post :destroy, :id => @first_id
@@ -94,7 +94,7 @@ class StrategyControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => 'list'
 
     assert_raise(ActiveRecord::RecordNotFound) {
-      Strategy.find(@first_id)
+      Function.find(@first_id)
     }
   end
 end

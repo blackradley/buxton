@@ -7,20 +7,20 @@
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
 #
 require File.dirname(__FILE__) + '/../test_helper'
-require 'user_controller'
+require 'organisations_controller'
 
 # Re-raise errors caught by the controller.
-class UserController; def rescue_action(e) raise e end; end
+class OrganisationsController; def rescue_action(e) raise e end; end
 
-class UserControllerTest < Test::Unit::TestCase
-  fixtures :users
+class OrganisationsControllerTest < Test::Unit::TestCase
+  fixtures :organisations
 
   def setup
-    @controller = UserController.new
+    @controller = OrganisationsController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
 
-    @first_id = users(:first).id
+    @first_id = Organisation.find(:first).id
   end
 
   def test_index
@@ -35,7 +35,7 @@ class UserControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'list'
 
-    assert_not_nil assigns(:users)
+    assert_not_nil assigns(:organisations)
   end
 
   def test_show
@@ -44,8 +44,8 @@ class UserControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'show'
 
-    assert_not_nil assigns(:user)
-    assert assigns(:user).valid?
+    assert_not_nil assigns(:organisation)
+    assert assigns(:organisation).valid?
   end
 
   def test_new
@@ -54,18 +54,18 @@ class UserControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'new'
 
-    assert_not_nil assigns(:user)
+    assert_not_nil assigns(:organisation)
   end
 
   def test_create
-    num_users = User.count
+    num_organisations = Organisation.count
 
-    post :create, :user => {}
+    post :create, :organisation => {}
 
     assert_response :redirect
     assert_redirected_to :action => 'list'
 
-    assert_equal num_users + 1, User.count
+    assert_equal num_organisations + 1, Organisation.count
   end
 
   def test_edit
@@ -74,8 +74,8 @@ class UserControllerTest < Test::Unit::TestCase
     assert_response :success
     assert_template 'edit'
 
-    assert_not_nil assigns(:user)
-    assert assigns(:user).valid?
+    assert_not_nil assigns(:organisation)
+    assert assigns(:organisation).valid?
   end
 
   def test_update
@@ -86,7 +86,7 @@ class UserControllerTest < Test::Unit::TestCase
 
   def test_destroy
     assert_nothing_raised {
-      User.find(@first_id)
+      Organisation.find(@first_id)
     }
 
     post :destroy, :id => @first_id
@@ -94,7 +94,7 @@ class UserControllerTest < Test::Unit::TestCase
     assert_redirected_to :action => 'list'
 
     assert_raise(ActiveRecord::RecordNotFound) {
-      User.find(@first_id)
+      Organisation.find(@first_id)
     }
   end
 end
