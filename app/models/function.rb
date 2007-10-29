@@ -57,8 +57,11 @@ class Function < ActiveRecord::Base
     issue_strand = []
     number_answered = 0
     total = 0
-    Function.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end}
-    unless section && !(section == :action_planning) then
+    #Check whether each question is completed. If it is, add one to the amount that are completed. In both cases, add one to the total. 
+    #TODO: DRY? {|question| if check_question(question) then number_answered += 1 end; total += 1} might be better?
+    Function.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end} 
+    #If you don't specify a section, or your section is action planning, consider issues as well.
+    unless section && !(section == :action_planning) then 
         issue_strand = self.issues.clone
         issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
         issue_names = []
@@ -74,7 +77,8 @@ class Function < ActiveRecord::Base
 			end
 		end
 	end
-    end
+     end
+    #If you don't suggest a section, or your section is purpose, then consider strategies as well.
     unless section && !(section == :purpose) then
 	function_strategies.each do |strategy| 
 		if check_response(strategy.strategy_response) then
@@ -85,16 +89,20 @@ class Function < ActiveRecord::Base
 		end
 	end
     end
-    return ((Float(number_answered)/total)*100).round unless total == 0
-    return 100  #change to 100
+    return ((Float(number_answered)/total)*100).round unless total == 0  #Calculate percentage as long as there are questions.
+    return 100  #If there are no questions in a section, return complete for it. TODO: See if Iain wants this behavior.
   end
   
+   #The started tag allows you to check whether a function, section, or strand has been started. This is basically works by running check_percentage, but as 
+   #soon as it finds a true value, it breaks out of the loop and returns false. If you request a function started from it, it checks whether the 2 questions
+   #that you have to answer(function/policy and proposed/overall) have been answered or not, and if they have not been answered, then no others can be
+   # and if they have, then the function is by definition started
   def started(section = nil, strand = nil)  
     return (check_question(:purpose_overall_1) && check_question(:function_policy)) unless (section or strand)
     started = false
     Function.get_question_names(section, strand).each{|question| if check_question(question) then started = true; break; end}
-    unless started then
-	unless section && !(section == :action_planning) then
+    unless started then #If the function has already been found to be started, then there isn't any need to check further
+	unless section && !(section == :action_planning) then #This checks whether all the issues have been completed.
 	     issue_strand = self.issues.clone
 	     issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
 	     issue_names = []
@@ -110,7 +118,7 @@ class Function < ActiveRecord::Base
 		end
 	    end
         end
-	unless section && !(section == :purpose) then
+	unless section && !(section == :purpose) then #Check strategies are completed.
 		function_strategies.each do |strategy| 
 			if check_response(strategy.strategy_response) then
 				started = true
@@ -122,6 +130,12 @@ class Function < ActiveRecord::Base
     return started
   end
   
+  #This allows you to check whether a function, section or strand has been completed. It runs like started, but only breaking when it finds a question
+  #that has not been answered. Hence, it is at its slowest where there is a single unanswered question in each section. In worst case it has to run 
+  #through every question bar n where n is the number of functions, making it a O(n) algorithm.
+  #TODO: Is it possible to optimise it by setting it to flick back and forth between the end and the start, on the assumption that people
+  #will answer it logically, meaning that if they fail to answer a question, it is more likely to be either at the end or start than the middle. Such a
+  #change would make no difference to the runtime in the worst case, and could well speed it up in best case.
   def completed(section = nil, strand = nil)
     completed = true
     Function.get_question_names(section, strand).each{|question| unless check_question(question) then completed = false; break; end}
@@ -154,6 +168,9 @@ class Function < ActiveRecord::Base
     return completed
   end
   
+  #This initilises a statistics object, and scores it.
+  #TODO: Heavy amount of speed increases. No extensive comments as yet, because I'm anticipating ripping this
+  #calling method out and replacing it with a much faster version. Statistics library should remain largly unchanged though.
   def statistics
     return nil unless completed # Don't calculate stats if all the necessary questions haven't been answered
     questions = {}
@@ -189,6 +206,8 @@ class Function < ActiveRecord::Base
   end
 
 #This method recovers questions. It allows you to search by strand or by section.
+#It works by getting a list of all the columns, then removing any ones which aren't quesitons. 
+#NOTE: Should a new column be added to function that isn't a question, it should also be added here.
   def self.get_question_names(section = nil, strand = nil, number = nil)
 	  questions = []
 	  unnecessary_columns = [:name, :approved, :created_on, :updated_on, :updated_by, :deleted_on]
@@ -210,9 +229,15 @@ class Function < ActiveRecord::Base
   # def self.find(*args)
   #   self.with_scope(:find => { :conditions => 'deleted_on IS NULL' }) { super(*args) }
   # end
+  
+  #^^ Are those really required any more?
+  
+  #This function returns the wording of a particular question. It takes a section strand and question number as arguments, and returns that specific question.
+  #It can also be passed nils, and in that event, it will automatically return an array containing all the values that corresponded to the nils. Hence, to return all
+  #questions and their lookup types, just func.question_wording_lookup suffices.
   def question_wording_lookup(section = nil, strand = nil, question = nil)
-	fun_pol_indicator = LookUp.function_policy.find{|lookUp| self.function_policy == lookUp.value}.name.downcase
-	existing_proposed = LookUp.existing_proposed.find{|lookUp| self.purpose_overall_1 == lookUp.value}.name.downcase
+	fun_pol_indicator = LookUp.function_policy.find{|lookUp| self.function_policy == lookUp.value}.name.downcase #Detect whether it is a function or a policy
+	existing_proposed = LookUp.existing_proposed.find{|lookUp| self.purpose_overall_1 == lookUp.value}.name.downcase #Detect whether it is an existing function or a proposed function.
 	case existing_proposed
 		when "existing"
 			part_need = "the particular needs of "
@@ -230,13 +255,16 @@ class Function < ActiveRecord::Base
 				:faith => "Faith",
 				:sexual_orientation => "Lesbian Gay Bisexual and Transgender",
 				:age => "Age",
-				:overall => "Overall"
+				:overall => "Overall" #Again, this is inserted to ensure that when you check all strands you return every question. It should never be displayed.
 			}
+			#For every strand in the strands array, loop through them and call question_wording_lookup on each of them if strand is nil. This ensures the result is sorted by strand, meaning
+			#that the statistics are very much simpler.
 			unless strand then
 				question_hash = {}
-				strands.each_key{|strand| question_hash[strand] = question_wording_lookup(section, strand, question)}
+				strands.each_key{|strand| question_hash[strand] = question_wording_lookup(section, strand, question)} 
 				return question_hash
 			end
+			#Simply a hash to define existing questions and their lookup types.
 			questions = {
 				:purpose =>{
 					3  => ["If the #{fun_pol_indicator} was performed well does it affect #{wordings[strand]} differently?", :impact_level],
@@ -329,8 +357,6 @@ class Function < ActiveRecord::Base
 			end
 			questions = {
 				:purpose =>{
-          # 3  => ["If the #{fun_pol_indicator} is performed well will it affect #{wordings[strand]} differently?", :impact_level],
-          # 4  => ["If the #{fun_pol_indicator} is performed badly will it affect #{wordings[strand]} differently?", :impact_level]
 					3  => ["Would it affect <strong>#{wordings[strand]}</strong> differently?", :impact_level],
 					4  => ["Would it affect <strong>#{wordings[strand]}</strong> differently?", :impact_level]
 				},
@@ -409,20 +435,14 @@ class Function < ActiveRecord::Base
 end
 
 private
-#
-#27 stars Joe: Removed specific section code, turned it into a generic section format.
-#Must go back and comment code. 
 
-  def check_question(question)
-      # What does an answer of 'Yes' correspond to?
-      yes_value = LookUp.yes_no_notsure.find{|lookUp| 'Yes' == lookUp.name}.value 
-      #What does an answer of 'No' correspond to?
-      no_value = LookUp.yes_no_notsure.find{|lookUp| 'No' == lookUp.name}.value 
+#Check question takes a single question as an argument and checks if it has been completed, and that any dependent questions have been answered.
+  def check_question(question) 
     dependency = dependent_questions(question)
     if dependency then
       response = send(question)
       dependant_correct = true
-      dependency.each do
+      dependency.each do #For each dependent question, check that it has the correct value
 	      |dependent|
 	      if dependent[1].class == String then
 		   dependant_correct = dependant_correct && !(send(dependent[0]).to_s.length > 0)   
@@ -430,24 +450,24 @@ private
 		dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1])
 	      end
 	end
-      if dependant_correct then
+      if dependant_correct then #If you don't need to answer this question, automatically give it a completed status
 	return true 
       else 
-	return (check_response(response))
+	return (check_response(response)) #Else check it as normal
       end
     else
-      response = send(question)
+      response = send(question) #If it has no dependent questions, check it as normal, then return the value.
       return check_response(response)
     end
   end
   
-  def check_response(response)
+  def check_response(response) #Check response verifies whether a response to a question is correct or not.
     checker = !(response.to_i == 0)
     checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
     return checker
   end
   
-#This is the hash of dependent questions  
+#This is the hash of dependent questions, removed to a function for easy maintainability.  
   def dependent_questions(question = nil)
       # What does an answer of 'Yes' correspond to?
       yes_value = LookUp.yes_no_notsure.find{|lookUp| 'Yes' == lookUp.name}.value 
@@ -520,6 +540,6 @@ private
 			    :additional_work_age_6 => [[:additional_work_age_5, yes_value]],
 			    :additional_work_gender_6 => [[:additional_work_gender_5, yes_value]],
                             }
-	if question then return @dependent_questions[question] else return @dependent_questions end
+	if question then return @dependent_questions[question] else return @dependent_questions end # If you specify a question, return it, else return the entire hash.
   end
 end
