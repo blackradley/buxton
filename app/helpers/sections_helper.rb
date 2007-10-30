@@ -1,3 +1,11 @@
+#  
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
+#
 module SectionsHelper
   #
   # If the strategy response is not set for a function, return 0 instead.

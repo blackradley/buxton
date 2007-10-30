@@ -1,3 +1,11 @@
+#  
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
+#
 #This function simulates an actual function. The statistics is modeled as closely to the structure of the actual database as possible
 # in order so that changes are simple and intuitive.
 class StatFunction
