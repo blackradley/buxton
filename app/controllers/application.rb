@@ -22,17 +22,10 @@ require 'digest/sha1'
 #  
 class ApplicationController < ActionController::Base
   before_filter :authenticate
-  before_filter :instantiate_controller_and_action_names
     
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_buxton_session_id'
 
-  # Gives us some useful variables in the controller - needed for menu on state
-  def instantiate_controller_and_action_names
-    @current_action = action_name
-    @current_controller = controller_name
-  end
-  
   protected
   # Override in controller classes that should require authentication
   def secure?
@@ -40,12 +33,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
-#
-# Check that the user in the session is for real.
-#
+  # Check that the user in the session is for real.
   def authenticate
     if secure? && session['logged_in_user'].nil?
-      redirect_to :controller => 'welcome' 
+      redirect_to :controller => 'users' 
       return false
     end
   end
