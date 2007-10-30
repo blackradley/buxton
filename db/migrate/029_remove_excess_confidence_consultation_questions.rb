@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserve 
+#
 class RemoveExcessConfidenceConsultationQuestions < ActiveRecord::Migration
   def self.up
 	  remove_column :functions, :confidence_consultation_gender_8

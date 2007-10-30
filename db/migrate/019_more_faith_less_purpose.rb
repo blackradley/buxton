@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserve 
+#
 class MoreFaithLessPurpose < ActiveRecord::Migration
   def self.up
 	add_column :functions, :additional_work_faith_5, :integer, :default => 0

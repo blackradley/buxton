@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserve 
+#
 class AddPurpFaith < ActiveRecord::Migration
   def self.up
         add_column :functions, :purpose_faith_1, :integer, :default => 0

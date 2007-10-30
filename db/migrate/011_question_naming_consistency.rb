@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserve 
+#
 class QuestionNamingConsistency < ActiveRecord::Migration
   def self.up
     rename_column :functions, :sexual_validation_regime, :sexual_orientation_validation_regime

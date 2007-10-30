@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserve 
+#
 class AddingActionPlanningSection < ActiveRecord::Migration
   def self.up
 	add_column :functions, :action_planning_gender_1, :text

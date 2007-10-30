@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserve 
+#
 class RemovingUnneededActionPlanning < ActiveRecord::Migration
   def self.up
 	  remove_column :functions, :action_planning_gender_1
