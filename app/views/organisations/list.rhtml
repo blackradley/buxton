@@ -15,21 +15,21 @@
   <% for organisation in @organisations %>
   <tr>
     <td><%= link_to 'Login', :controller => 'users', :action => :login, :passkey => organisation.user.passkey -%></td>
-    <td><%= link_to 'View', :action => 'show', :id => organisation %></td>
-    <td><%=h organisation.name %></td>
+    <td><%= link_to 'View', :action => 'show', :id => organisation -%></td>
+    <td><%=h organisation.name -%></td>
     <td>
       <a href="<%=h "mailto:" + organisation.user.email + "?subject=" + organisation.name %>">
-        <%=h organisation.user.email %>
+        <%=h organisation.user.email -%>
       </a>
     </td>
-    <td><%= link_to 'Edit', :action => 'edit_contact', :id => organisation %></td>
-    <td><%= link_to 'Strategies', :controller => 'strategies', :action => 'list', :id => organisation %></td>
+    <td><%= link_to 'Edit', :action => 'edit_contact', :id => organisation -%></td>
+    <td><%= link_to 'Strategies', :controller => 'strategies', :action => 'list', :id => organisation -%></td>
     <td>
-      <%= link_to 'Equality', :controller => 'organisations', :action => 'edit_equality_groups_description', :id => organisation %>
+      <%= link_to 'Equality', :controller => 'organisations', :action => 'edit_equality_groups_description', :id => organisation -%>
     </td>
-    <td><%= date_or_blank(organisation.user.reminded_on) %></td>
-    <td><%= link_to 'Remind', { :controller => 'users', :action => 'remind', :id => organisation.user}, :confirm => 'Send reminder to ' + organisation.name + '?', :method => :post %></td>
-    <td><%= link_to 'Delete', { :action => 'destroy', :id => organisation }, :confirm => 'Delete ' + organisation.name + '?', :method => :post %></td>
+    <td><%= date_or_blank(organisation.user.reminded_on) -%></td>
+    <td><%= link_to 'Remind', { :controller => 'users', :action => 'remind', :id => organisation.user}, :confirm => 'Send reminder to ' + organisation.name + '?', :method => :post -%></td>
+    <td><%= link_to 'Delete', { :action => 'destroy', :id => organisation }, :confirm => 'Delete ' + organisation.name + '?', :method => :post -%></td>
   </tr>
   <% end %>
 </table>

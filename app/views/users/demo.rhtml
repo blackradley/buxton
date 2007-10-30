@@ -19,7 +19,7 @@ you to set up a new organisation, or access an organisation you have already cre
 <%= error_messages_for 'user' %>
 <% form_tag :action => 'create_demo' do %>
     <p>
-        <label>Email</label>:<%= text_field_tag :email, nil, options = {:size => 50} %>
+        <label>Email</label>:<%= text_field_tag :email, nil, options = {:size => 50} -%>
     </p>
 	<span class="button">
     <%= submit_tag 'Access Your Demonstration Organisation' %>

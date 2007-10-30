@@ -1,11 +1,11 @@
 <h2>Edit <%=h @organisation.name %> impact groups description</h2>
 
 <% form_tag :action => 'update', :id => @organisation do %>
-<p><label for="organisation_impact_groups_description">Description</label><br/>
-<%= text_area 'organisation', 'impact_groups_description', "cols" => 70, "rows" => 3  %></p>
+<p><label for="organisation_impact_groups_description">Description</label><br />
+<%= text_area 'organisation', 'impact_groups_description', 'cols' => 70, 'rows' => 3 -%></p>
 
-<p><label for="organisation_impact_groups_help">Help</label><br/>
-<%= text_area 'organisation', 'impact_groups_help', "cols" => 70, "rows" => 7  %></p>
+<p><label for="organisation_impact_groups_help">Help</label><br />
+<%= text_area 'organisation', 'impact_groups_help', 'cols' => 70, 'rows' => 7 -%></p>
 
   <span class="button">
   <%= submit_tag 'Save' %>

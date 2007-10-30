@@ -1,4 +1,4 @@
-<h1>Editing <%= @strategy.organisation.name %> strategy</h1>
+<h1>Editing <%= @strategy.organisation.name -%> strategy</h1>
 
 <% form_tag :action => 'update', :id => @strategy do %>
   <%= render :partial => 'form' %>
@@ -7,5 +7,4 @@
   </span>
 <% end %>
 
-<%= link_to 'Show', :action => 'show', :id => @strategy %> |
-<%= link_to 'Back', :action => 'list', :id => @strategy.organisation_id %>
+<%= link_to 'Show', :action => 'show', :id => @strategy -%> | <%= link_to 'Back', :action => 'list', :id => @strategy.organisation_id -%>

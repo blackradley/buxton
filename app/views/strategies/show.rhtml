@@ -1,8 +1,7 @@
 <% for column in Strategy.content_columns %>
 <p>
-  <b><%= column.human_name %>:</b> <%=h @strategy.send(column.name) %>
+  <b><%= column.human_name -%>:</b> <%=h @strategy.send(column.name) -%>
 </p>
 <% end %>
 
-<%= link_to 'Edit', :action => 'edit', :id => @strategy %> |
-<%= link_to 'Back', :action => 'list', :id => @strategy.organisation_id %>
+<%= link_to 'Edit', :action => 'edit', :id => @strategy -%> | <%= link_to 'Back', :action => 'list', :id => @strategy.organisation_id -%>
