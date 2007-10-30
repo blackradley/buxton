@@ -1,6 +1,5 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
   <meta http-equiv="content-type" content="text/html;charset=UTF-8" />
@@ -22,7 +21,7 @@
 	    <div class="mastHead">
 	        <div class="logo"></div>
 	        <h1>Impact Equality&trade;</h1>
-	        <h2 class="titleArea"><%= organisation_name(request) %></h2>
+	        <h2 class="titleArea"><%= organisation_name(request) -%></h2>
 	    </div>
 	    <div class="content">
             <div id="menu">
@@ -33,13 +32,13 @@
                 <%= yield %>
             </div>
             <div class="messageArea">
-                <p style="color: green"><%= flash[:notice] %></p>
+                <p style="color: green"><%= flash[:notice] -%></p>
             </div>
 	    </div>
 	    <div class="footer">
-		   <div class="login_status"><%= login_status() %></div>
+		   <div class="login_status"><%= login_status() -%></div>
 	    </div>
-	    <div class="clear">
+	    <div class="clear"></div>
 	</div>
 </body>
 </html>
