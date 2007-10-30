@@ -163,7 +163,7 @@ module ApplicationHelper
     
   end
   
-#generates stand nav bar
+#generates strand nav bar
 def strandmenu()
   if params[:equality_strand].nil?
     ''

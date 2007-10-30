@@ -1,12 +1,17 @@
+#This function simulates an actual function. The statistics is modeled as closely to the structure of the actual database as possible
+# in order so that changes are simple and intuitive.
 class StatFunction
-  RELEVANCE = 0.35
-  RANKING = [0.8,0.7,0.6,0.5]
-  MAXRATING = 5
-  attr_reader :topics, :function
+  RELEVANCE = 0.35 #Define the relevance boundary
+  RANKING = [0.8,0.7,0.6,0.5] #Define the boundaries for priority rankings
+  MAXRATING = 5 #Define the maximum priority ranking possible.
+  #Make the function and it's topics publically accessible. Topics COULD be referenced by .function.topic, but is used frequently 
+  #enough that it warrants a separate attrreader for readability purposes.
+  attr_reader :topics, :function 
   def initialize(topics, function)
     @topics = topics
     @function = function
   end
+  #This loops through each question, separating them out into individual topic matters, then calling score for each topic.
   def score(questions)
     @topics.each do |name, topic|
 	question_hash = {}
@@ -14,32 +19,39 @@ class StatFunction
 	topic.score(question_hash, self)
     end
   end
+  #This checks the relevance is higher than the relevance boundary
   def relevant(topic)
     return (@topics[topic].purpose_result.to_f > RELEVANCE)
   end
+  #This returns the priority ranking
   def priority_ranking(topic)
     result = @topics[topic].result
     rank = MAXRATING
     RANKING.each{|border| rank -= 1 unless result > border}
     return rank
   end
+  #This checks that every topic has its border less than the relevance boundary if it has questions in it
   def fun_relevance
     rel = true
-    @topics.each{|name, topic| (rel = rel && (topic.purpose_result < RELEVANCE)) unless topic.topic_max == 0}
+    @topics.each{|name, topic| (rel = rel && (topic.purpose_result < RELEVANCE)) unless topic.topic_max == 0}#TODO: A section with all negative responses would not be counted here.
     return !rel
   end
+  #This calculates the function priority ranking by averaging all the previous values. The +0.5 is for accurate float => int conversions.
+  #TODO: count and total should be called opposite things?
   def fun_priority_ranking
     total = 0
     count = 0
     @topics.each{|key, topic| (total += priority_ranking(topic.name); count +=1 ) unless topic.topic_max == 0}
     return (total.to_f/count.to_f + 0.5).to_i
   end
+  #This calculates what impact level a function will have (it's highest value)
   def impact
 	  impact = 5
 	  @topics.each_value{|topic| impact = topic.impact if topic.impact > impact}
 	return numtorank(impact)
   end
   private
+  #This is used to convert the impact value to a word.
   def numtorank(num)
     case num
       when 15
@@ -51,8 +63,10 @@ class StatFunction
     end
   end
 end
+#This simulates a strand.
 class StatTopic
   attr_reader :impact, :result, :name, :purpose_result, :topic_max, :questions
+  #Simply initalizes all values and calculates the maximum value for each question
   def initialize(questions, name)
     @name = name
     @questions = questions
@@ -64,6 +78,9 @@ class StatTopic
     @questions.each_value{|question| @topic_max += question.max}
     @questions.each_value{|question| @purpose_max += question.max if question.name.to_s.include?("purpose")}
   end
+  #This scores a topic. It works by scoring each question individually, and totalling them.
+  #The existence status is essentially a global variable that affects every topic, hence why it is hardcoded in.
+  #It is also necessary to calculate purpose questions separately for the impact level they have, hence why that is separate.
   def score(results, function)
     results.each{|question_name, lookup_result| if @questions[question_name] then @questions[question_name].score(lookup_result) end}
     total = 0
@@ -84,8 +101,10 @@ class StatTopic
     @purpose_result = (purpose_total.to_f + existence)/(@purpose_max + 15)   
   end
 end
+#This simulates a single question. It contains a name, the maximum value of the question, and the lookup of the question.
 class StatQuestion
   attr_reader :name, :scores, :max
+  #This sets all the values, and sets the maximum values.
   def initialize(value, name)
     @name = name
     @max = 0
@@ -97,6 +116,9 @@ class StatQuestion
 	@max = 0
     end
   end
+  #This returns the score of the question to a particular response. Text questions are automatically scored 0.
+  #Hence, this is why it is possible to have a section with a score of 0, as (for example, as action planning is) it
+  #could be full of text questions with no lookups with values.
   def score(response)
     @scores = 0
     return 0 unless @lookup
@@ -105,6 +127,8 @@ class StatQuestion
   end
 end
 
+#This is the main class. It contains the function object, which can then be referenced externally. and tested on. 
+#TODO: Make aliases that point to the function methods..so for example, def stats.impact; @function.impact; end.
 class Statistics
   attr_reader :function
   def initialize(question_wording_lookup, function)  
@@ -126,6 +150,7 @@ class Statistics
     #create a StatFunction from the hash
     @function = StatFunction.new(stat_topics, function)
   end
+  #TODO: Since it now is passed the function, it should be able to calculate the score itself. This will make the model code much simpler.
   def score(results)
     @function.score(results) if results
   end
