@@ -9,18 +9,15 @@
 	<%= @function.name -%> - <%= params[:equality_strand].gsub("_",  " ").capitalize -%> Performance
 	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'confidence_information', :equality_strand => params[:equality_strand] }, :title =>"Next Section" -%>
 </h1> 
+
 <div id="questions">
-
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
-
-<%= f.question :performance, {:equality_strand => params[:equality_strand], :number => 1, :f_id => @function.id} %>
-<%= f.question :performance, {:equality_strand => params[:equality_strand], :number => 2, :f_id => @function.id} %>
-<%= f.question :performance, {:equality_strand => params[:equality_strand], :number => 3, :f_id => @function.id} %>
-<%= f.question :performance, {:equality_strand => params[:equality_strand], :number => 4, :f_id => @function.id} %>
-<%= f.question :performance, {:equality_strand => params[:equality_strand], :number => 5, :f_id => @function.id} %>
-
-
-<div class="clear"></div>
-<span class="button"><%= submit_tag 'Save' -%></span>
-<div class="clear"></div>
+	<%= f.question :performance, {:equality_strand => params[:equality_strand], :number => 1, :f_id => @function.id} %>
+	<%= f.question :performance, {:equality_strand => params[:equality_strand], :number => 2, :f_id => @function.id} %>
+	<%= f.question :performance, {:equality_strand => params[:equality_strand], :number => 3, :f_id => @function.id} %>
+	<%= f.question :performance, {:equality_strand => params[:equality_strand], :number => 4, :f_id => @function.id} %>
+	<%= f.question :performance, {:equality_strand => params[:equality_strand], :number => 5, :f_id => @function.id} %>
+	<div class="clear"></div>
+	<span class="button"><%= submit_tag 'Save' -%></span>
+	<div class="clear"></div>
 <% end -%>
