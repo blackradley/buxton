@@ -7,6 +7,7 @@
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
 #
 class StrategiesController < ApplicationController
+
   def index
     list
     render :action => 'list'
@@ -15,9 +16,8 @@ class StrategiesController < ApplicationController
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify :method => :post, :only => [ :destroy, :create, :update ],
          :redirect_to => { :action => :list }
-#
-# Get the organisation you are considering and a list of it's strategies
-#
+
+  # Get the organisation you are considering and a list of it's strategies
   def list
     @organisation = Organisation.find(params[:id])
     @strategies = Strategy.find_all_by_organisation_id(params[:id])
@@ -31,9 +31,8 @@ class StrategiesController < ApplicationController
     @strategy = Strategy.new
     @strategy.organisation_id = params[:id]
   end
-#
-# Create a new strategy, the organisation id is derived from
-#
+
+  # Create a new strategy, the organisation id is derived from
   def create
     @strategy = Strategy.new(params[:strategy])
     if @strategy.save
@@ -47,9 +46,8 @@ class StrategiesController < ApplicationController
   def edit
     @strategy = Strategy.find(params[:id])
   end
-#
-# Update the strategy attributes
-#
+
+  # Update the strategy attributes
   def update
     @strategy = Strategy.find(params[:id])
     if @strategy.update_attributes(params[:strategy])
@@ -59,18 +57,15 @@ class StrategiesController < ApplicationController
       render :action => 'edit'
     end
   end
-#
-# TODO: Mark the strategy record with a deleted date do not destroy
-#
+
+  # Destroy this strategy
   def destroy
     Strategy.find(params[:id]).destroy
     redirect_to :action => 'list'
   end
   
 protected
-#
-# Secure the relevant methods in the controller.
-#
+  # Secure the relevant methods in the controller.
   def secure?
     true
     #["list", "add", "show"].include?(action_name)

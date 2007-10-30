@@ -8,11 +8,9 @@
 #
 class SectionsController < ApplicationController
 
-  #
   # List the section status for the different functions of an Organisation
   # but don't paginate, a long list is actually more convenient for the Organisation
   # Manager to scan down.
-  #
   def list
     @organisation = Organisation.find(session['logged_in_user'].organisation.id)
     
@@ -75,13 +73,10 @@ class SectionsController < ApplicationController
     end
   end
 
-  #
   # Get the function information ready for editing using the appropriate form.
   # These are edited by the Function manager.
-  #
   def edit
     @function = Function.find(session['logged_in_user'].function.id)
-    # @strategies = @function.organisation.strategies
     @function_responses = @function.function_strategies # could be empty
     @user = @function.user
 
@@ -92,7 +87,6 @@ class SectionsController < ApplicationController
       render :template => 'sections/edit_performance'
     when 'confidence_information'
       render :template => 'sections/edit_confidence_information'
-
     when 'confidence_consultation'
       @issue = Issue.new
       render :template => 'sections/edit_confidence_consultation'
@@ -106,16 +100,7 @@ class SectionsController < ApplicationController
     end
   end
 
-  #
-  # Update the function answers as appropriate
-  # 
-  # TODO: then redirect based on the type of user.
-  # TODO: if the user "email" of the user has changed then the "reminded_on"
-  # date should be set to null.  Because the reminder is when the user was
-  # reminded so is no longer valid if it is a new user.
-  # K: TODO: check the above are valid TODOs
-  # K: TODO: move this to the FunctionsController?
-  #
+  # Update the function answers, for this particular section, as appropriate
   def update
     # Update the answers in the function table
     @function = Function.find(session['logged_in_user'].function.id)
