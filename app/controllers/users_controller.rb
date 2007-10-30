@@ -7,8 +7,9 @@
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
 class UsersController < ApplicationController
+
   def index
-    # log out the user if they are logged in
+    # Log out the user if they are logged in
     session['logged_in_user'] = nil
   end
 
@@ -17,18 +18,16 @@ class UsersController < ApplicationController
          :redirect_to => { :action => :list }
 
   def list
-    #@user_pages, @users = paginate :users, :per_page => 10
     @users = User.find_admins
   end
 
   def new
     @user = User.new
   end
-#
-# You can only create an administrative user, the other users have
-# to be created in conjunction with the organisation or function
-# that they will be responsible for.
-#
+
+  # You can only create an administrative user, the other users have
+  # to be created in conjunction with the organisation or function
+  # that they will be responsible for.
   def create
     @user = User.new(params[:user])
     @user.user_type = User::TYPE[:administrative]
@@ -47,9 +46,9 @@ class UsersController < ApplicationController
   def edit
     @user = User.find(params[:id])
   end
-#
-# Disabled - Give the user a new key every time it is updated
-# TODO: check whether this should be enabled
+
+  # Disabled - Give the user a new key every time it is updated
+  # TODO: check whether this should be enabled
   def update
     @user = User.find(params[:id])
     # @user.passkey = User.new_passkey # TODO: check whether this should be enabled
@@ -61,20 +60,18 @@ class UsersController < ApplicationController
     end
   end
 
-#
-# Find the user and then send them a new key
-#
-# Unlike controllers from Action Pack, the mailer instance doesn't
-# have any context about the incoming request.  So the request is
-# passed in explicitly
-#
-# I should probably check that the subdomain is correct as well,
-# but who can be bothered with that.
-#
-# TODO: I am not sure that this actually works, check that if you have
-# a user that is operational user and a number of functional users, do
-# the links actually match up with the functions.
-#
+  # Find the user and then send them a new key
+  #
+  # Unlike controllers from Action Pack, the mailer instance doesn't
+  # have any context about the incoming request. So the request is
+  # passed in explicitly.
+  #
+  # I should probably check that the subdomain is correct as well,
+  # but who can be bothered with that.
+  #
+  # TODO: I am not sure that this actually works, check that if you have
+  # a user that is operational user and a number of functional users, do
+  # the links actually match up with the functions.
   def new_link
     @users = User.find_all_by_email(params[:email])
     if @users.empty?
@@ -105,32 +102,16 @@ class UsersController < ApplicationController
     redirect_to :action => 'index'
   end
 
-#
-# Send a reminder to the email of the administrator
-#
-      # def remind
-      #   @user = User.find(params[:id])
-      #   @user.passkey = User.new_passkey
-      #   @user.reminded_on = Time.now.gmtime
-      #   @user.save
-      #   email = Notifier.create_administration_key(@user)
-      #   Notifier.deliver(email)
-      #   flash[:notice] = 'New key sent to ' + @user.email
-      #   redirect_to :action => 'list'
-      # end
-#
-# TODO: Mark the function record with a deleted date do not destroy
-#
+  # Destroy the user
   def destroy
     User.find(params[:id]).destroy
     redirect_to :action => 'list'
   end
-#
-# Send a passkey reminder to the email associated with this user. Only one e-mail will be sent and
-# it will use the Organisation Manager or Function Manager template accordingly.
-# The system currently does not allow for a user to be both types of manager. If it did, this would not work.
-# TODO: check the logic associated with this, see also: User#new_link
-# 
+  
+  # Send a passkey reminder to the email associated with this user. Only one e-mail will be sent and
+  # it will use the Organisation Manager or Function Manager template accordingly.
+  # The system currently does not allow for a user to be both types of manager. If it did, this would not work.
+  # TODO: check the logic associated with this, see also: User#new_link
   def remind
     @user = User.find(params[:id])
     
@@ -158,20 +139,16 @@ class UsersController < ApplicationController
     
     redirect_to :back
   end
-#
-# Log the user in and then direct them to the right place based on the
-# user_type
-#
-# TODO: Ensure that the subdomain matches the one expected for that user.
-#
-# TODO: Monitor for repeated log ins from the same IP, block the IP if it
-# looks like some kind of brute force attack.
-#
-# TODO: Functional user should redirect to somewhere sensible, rather than
-# just the first record in the functions list.
-#
-# TODO: Expire the keys after 10 days.
-#
+
+  # Log the user in and then direct them to the right place based on the
+  # user_type
+  #
+  # TODO: Ensure that the subdomain matches the one expected for that user.
+  #
+  # TODO: Monitor for repeated log ins from the same IP, block the IP if it
+  # looks like some kind of brute force attack.
+  #
+  # TODO: Expire the keys after 10 days.
   def login
     user = User.find_by_passkey(params[:passkey])
     if user.nil? # the key is not in the user table
@@ -198,15 +175,14 @@ class UsersController < ApplicationController
     # log out the user if they are logged in
     session['logged_in_user'] = nil
   end
-#
-# Create a new user and organisation, then log the user in.  Obviously this
-# bypasses the minimal security, but it is just a demo.  If the user is already
-# an organisational user the they go straight to the login.  So we don't get
-# multiple demo organisations for the same user.
-#
-# If an admin user requests a demo then one is created for them since the
-# admin users are not sought in the first find.
-#
+
+  # Create a new user and organisation, then log the user in.  Obviously this
+  # bypasses the minimal security, but it is just a demo.  If the user is already
+  # an organisational user the they go straight to the login.  So we don't get
+  # multiple demo organisations for the same user.
+  #
+  # If an admin user requests a demo then one is created for them since the
+  # admin users are not sought in the first find.
   def create_demo
     @user = User.find(:first, :conditions => {:email => params[:email], :user_type => User::TYPE[:organisational]})
     organisational_user_passkey = nil # the passkey will have to be retained for the organisational user.
@@ -278,10 +254,9 @@ class UsersController < ApplicationController
       @user.valid?
       render :action => :demo
   end
-#
-# No methods are secured because this is an entirely public page.
-#
-  protected
+
+protected
+  # No methods are secured because this is an entirely public page.
   def secure?
     false
   end
