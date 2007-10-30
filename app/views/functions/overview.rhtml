@@ -1,92 +1,180 @@
 <h1>Overview</h1>
 
-<p>The Impact Equality Tool has six sections and there are six equality strands.&nbsp; 
-The table below shows the six sections along the first six columns of the horizontal 
-axis and the six equality strands down the vertical axis.&nbsp; The matrix shows 
-the&nbsp; level of completion of each section for each equality strand. The two 
-right hand columns show the priority scores and potential impact rating by 
-equality strand.</p>
+<p>The Impact Equality Tool has six sections and there are six equality strands. The table below shows the six sections along the first six columns of the horizontal axis and the six equality strands down the vertical axis. The matrix shows 
+the level of completion of each section for each equality strand. The two right hand columns show the priority scores and potential impact rating by equality strand.</p>
 
-<p>The Impact Equality Tool can be completed 
-section by section or equality strand by equality strand as the user wishes.</p>
+<p>The Impact Equality Tool can be completed section by section or equality strand by equality strand as the user wishes.</p>
 
 <table>
-<tr>
-<th class="strandHeading"></th>
-<th>Purpose</th>
-<th>Performance</th>
-<th>Confidence Information</th>
-<th>Confidence Consultation</th>
-<th>Additional Work</th>
-<th>Action Planning</th>
-</tr>
-<tr>
-<th class="strandHeading">Overall</th>
-<td><%= completed_tag(@function, :purpose) -%>
-	<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => 'overall' }, :title =>"Edit Purpose" -%>
-</td>
-<td><%= completed_tag(@function, :performance, :overall) -%>
-	<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => 'overall' }, :title =>"Edit Performance" -%>
-</td>
-<td><%= completed_tag(@function, :confidence_information, :overall) -%>
-	<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => 'overall' }, :title =>"Confidence Information" -%>
-</td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<th class="strandHeading">Gender</th>
-<td></td>
-<td><%= completed_tag(@function, :performance, :gender) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => 'gender' }, :title =>"Edit Performance" -%></td>
-<td><%= completed_tag(@function, :confidence_information, :gender) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => 'gender' }, :title =>"Edit Confidence Information" -%></td>
-<td><%= completed_tag(@function, :confidence_consultation, :gender) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => 'gender' }, :title =>"Edit Confidence Consultation" -%></td>
-<td><%= completed_tag(@function, :additional_work, :gender) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'gender' }, :title =>"Edit Additional Work" -%></td>
-<td><%= completed_tag(@function, :action_planning, :gender) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'gender' }, :title =>"Edit Action Planning" -%></td>
-</tr>
-<tr>
-<th class="strandHeading">Race</th>
-<td></td>
-<td><%= completed_tag(@function, :performance, :race) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => 'race' }, :title =>"Edit Performance" -%></td>
-<td><%= completed_tag(@function, :confidence_information, :race) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => 'race' }, :title =>"Edit Confidence Information" -%></td>
-<td><%= completed_tag(@function, :confidence_consultation, :race) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => 'race' }, :title =>"Edit Confidence Consultation" -%></td>
-<td><%= completed_tag(@function, :additional_work, :race) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'race' }, :title =>"Edit Additional Work" -%></td>
-<td><%= completed_tag(@function, :action_planning, :race) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'race' }, :title =>"Edit Action Planning" -%></td>
-</tr>
-<tr>
-<th class="strandHeading">Disability</th>
-<td></td>
-<td><%= completed_tag(@function, :performance, :disability) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => 'disability' }, :title =>"Edit Performance" -%></td>
-<td><%= completed_tag(@function, :confidence_information, :disability) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => 'disability' }, :title =>"Edit Confidence Information" -%></td>
-<td><%= completed_tag(@function, :confidence_consultation, :disability) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => 'disability' }, :title =>"Edit Confidence Consultation" -%></td>
-<td><%= completed_tag(@function, :additional_work, :disability) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'disability' }, :title =>"Edit Additional Work" -%></td>
-<td><%= completed_tag(@function, :action_planning, :disability) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'disability' }, :title =>"Edit Action Planning" -%></td>
-</tr>
-<tr>
-<th class="strandHeading">Faith</th>
-<td></td>
-<td><%= completed_tag(@function, :performance, :faith) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => 'faith' }, :title =>"Edit Performance" -%></td>
-<td><%= completed_tag(@function, :confidence_information, :faith) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => 'faith' }, :title =>"Edit Confidence Information" -%></td>
-<td><%= completed_tag(@function, :confidence_consultation, :faith) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => 'faith' }, :title =>"Edit Confidence Consultation" -%></td>
-<td><%= completed_tag(@function, :additional_work, :faith) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'faith' }, :title =>"Edit Additional Work" -%></td>
-<td><%= completed_tag(@function, :action_planning, :faith) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'faith' }, :title =>"Edit Action Planning" -%></td>
-</tr>
-<tr>
-<th class="strandHeading">Sex</th>
-<td></td>
-<td><%= completed_tag(@function, :performance, :sexual_orientation) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => 'sexual_orientation' }, :title =>"Edit Performance" -%></td>
-<td><%= completed_tag(@function, :confidence_information, :sexual_orientation) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => 'sexual_orientation' }, :title =>"Edit Confidence Information" -%></td>
-<td><%= completed_tag(@function, :confidence_consultation, :sexual_orientation) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => 'sexual_orientation' }, :title =>"Edit Confidence Consultation" -%></td>
-<td><%= completed_tag(@function, :additional_work, :sexual_orientation) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'sexual_orientation' }, :title =>"Edit Additional Work" -%></td>
-<td><%= completed_tag(@function, :action_planning, :sexual_orientation) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'sexual_orientation' }, :title =>"Edit Action Planning" -%></td>
-</tr>
-<tr>
-<th class="strandHeading">Age</th>
-<td></td>
-<td><%= completed_tag(@function, :performance, :age) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => 'age' }, :title =>"Edit Purpose" -%></td>
-<td><%= completed_tag(@function, :confidence_information, :age) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => 'age' }, :title =>"Edit Confidence Information" -%></td>
-<td><%= completed_tag(@function, :confidence_consultation, :age) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => 'age' }, :title =>"Edit Confidence Consultation" -%></td>
-<td><%= completed_tag(@function, :additional_work, :age) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'age' }, :title =>"Edit Additional Work" -%></td>
-<td><%= completed_tag(@function, :action_planning, :age) -%><%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'age' }, :title =>"Edit Action Planning" -%></td>
-</tr>
+	<tr>
+		<th class="strandHeading"></th>
+		<th>Purpose</th>
+		<th>Performance</th>
+		<th>Confidence Information</th>
+		<th>Confidence Consultation</th>
+		<th>Additional Work</th>
+		<th>Action Planning</th>
+	</tr>
+	<tr>
+		<th class="strandHeading">Overall</th>
+		<td>
+			<%= completed_tag(@function, :purpose) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => 'overall' }, :title =>"Edit Purpose" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :performance, :overall) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => 'overall' }, :title =>"Edit Performance" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :confidence_information, :overall) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => 'overall' }, :title =>"Confidence Information" -%>
+		</td>
+		<td></td>
+		<td></td>
+		<td></td>
+	</tr>
+	<tr>
+		<th class="strandHeading">Gender</th>
+		<td></td>
+		<td>
+			<%= completed_tag(@function, :performance, :gender) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => 'gender' }, :title =>"Edit Performance" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :confidence_information, :gender) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => 'gender' }, :title =>"Edit Confidence Information" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :confidence_consultation, :gender) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => 'gender' }, :title =>"Edit Confidence Consultation" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :additional_work, :gender) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'gender' }, :title =>"Edit Additional Work" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :action_planning, :gender) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'gender' }, :title =>"Edit Action Planning" -%>
+		</td>
+	</tr>
+	<tr>
+		<th class="strandHeading">Race</th>
+		<td></td>
+		<td>
+			<%= completed_tag(@function, :performance, :race) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => 'race' }, :title =>"Edit Performance" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :confidence_information, :race) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => 'race' }, :title =>"Edit Confidence Information" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :confidence_consultation, :race) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => 'race' }, :title =>"Edit Confidence Consultation" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :additional_work, :race) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'race' }, :title =>"Edit Additional Work" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :action_planning, :race) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'race' }, :title =>"Edit Action Planning" -%>
+		</td>
+	</tr>
+	<tr>
+		<th class="strandHeading">Disability</th>
+		<td></td>
+		<td>
+			<%= completed_tag(@function, :performance, :disability) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => 'disability' }, :title =>"Edit Performance" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :confidence_information, :disability) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => 'disability' }, :title =>"Edit Confidence Information" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :confidence_consultation, :disability) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => 'disability' }, :title =>"Edit Confidence Consultation" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :additional_work, :disability) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'disability' }, :title =>"Edit Additional Work" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :action_planning, :disability) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'disability' }, :title =>"Edit Action Planning" -%>
+		</td>
+	</tr>
+	<tr>
+		<th class="strandHeading">Faith</th>
+		<td></td>
+		<td>
+			<%= completed_tag(@function, :performance, :faith) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => 'faith' }, :title =>"Edit Performance" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :confidence_information, :faith) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => 'faith' }, :title =>"Edit Confidence Information" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :confidence_consultation, :faith) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => 'faith' }, :title =>"Edit Confidence Consultation" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :additional_work, :faith) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'faith' }, :title =>"Edit Additional Work" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :action_planning, :faith) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'faith' }, :title =>"Edit Action Planning" -%>
+		</td>
+	</tr>
+	<tr>
+		<th class="strandHeading">Sex</th>
+		<td></td>
+		<td>
+			<%= completed_tag(@function, :performance, :sexual_orientation) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => 'sexual_orientation' }, :title =>"Edit Performance" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :confidence_information, :sexual_orientation) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => 'sexual_orientation' }, :title =>"Edit Confidence Information" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :confidence_consultation, :sexual_orientation) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => 'sexual_orientation' }, :title =>"Edit Confidence Consultation" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :additional_work, :sexual_orientation) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'sexual_orientation' }, :title =>"Edit Additional Work" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :action_planning, :sexual_orientation) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'sexual_orientation' }, :title =>"Edit Action Planning" -%>
+		</td>
+	</tr>
+	<tr>
+		<th class="strandHeading">Age</th>
+		<td></td>
+		<td>
+			<%= completed_tag(@function, :performance, :age) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => 'age' }, :title =>"Edit Purpose" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :confidence_information, :age) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => 'age' }, :title =>"Edit Confidence Information" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :confidence_consultation, :age) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => 'age' }, :title =>"Edit Confidence Consultation" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :additional_work, :age) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'age' }, :title =>"Edit Additional Work" -%>
+		</td>
+		<td>
+			<%= completed_tag(@function, :action_planning, :age) -%>
+			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'age' }, :title =>"Edit Action Planning" -%>
+		</td>
+	</tr>
 </table>

@@ -1,6 +1,6 @@
 <h3>Impact Equality&trade; Organisation Summary Page</h3>
 <p>This is the headline page for the Organisation Equalities Manager. It shows how the organisation is progressing its equalities impact work, allowing monitoring and control.</p>
-<p>The Impact Equality&trade; Progress Table shows how many of the organisation’s functions and policies have started or been through the Impact Equality&trade; assessment process.</p>
+<p>The Impact Equality&trade; Progress Table shows how many of the organisation's functions and policies have started or been through the Impact Equality&trade; assessment process.</p>
 <p>The Impact Equality&trade; Results Table shows how each function/policy has scored. There are two scores per function:</p>
 <ul>
   <li>Potential impact – the effect this function could have on achieving and promoting equality (high/medium/low)</li>
@@ -8,79 +8,107 @@
 </ul>
 <p>Number of functions identified: <%= @functions.size -%></p>
 <div class="splitColumn">
-      <table class="list">
-        <caption>Impact Equality&trade; Progress Table</caption>
-        <tr>
-          <th width="55%">Section</th>
-          <th>Started</th>
-          <th>Completed</th>
-        </tr>
-        <tr>
-          <td>1 - Purpose</td>
-          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.started(:purpose)) ? 1 : 0 } -%></td>
-          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.completed(:purpose)) ? 1 : 0 } -%></td>
-        </tr>
-        <tr>
-          <td>2 - Performance</td>
-          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.started(:performance)) ? 1 : 0 } -%></td>
-          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.completed(:performance)) ? 1 : 0 } -%></td>
-        </tr>
-        <tr>
-          <td>3 - Confidence Information</td>
-          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.started(:confidence_information)) ? 1 : 0 } -%></td>
-          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.completed(:confidence_information)) ? 1 : 0 } -%></td>
-        </tr>
-        <tr>
-          <td>4 - Confidence Consultation</td>
-          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.started(:confidence_consultation)) ? 1 : 0 } -%></td>
-          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.completed(:confidence_consultation)) ? 1 : 0 } -%></td>
-        </tr>
-        <tr>
-          <td>5 - Additional Work</td>
-          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.started(:additional_work)) ? 1 : 0 } -%></td>
-          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.completed(:additional_work)) ? 1 : 0 } -%></td>
-        </tr>
-        <tr>
-          <td>6 - Action Planning</td>
-          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.started(:action_planning)) ? 1 : 0 } -%></td>
-          <td class="number"><%= @functions.inject(0) { |started, function| started += (function.completed(:action_planning)) ? 1 : 0 } -%></td>
-        </tr>
-      </table>
-    </td>
+<table class="list">
+	<caption>Impact Equality&trade; Progress Table</caption>
+	<tr>
+	    <th width="55%">Section</th>
+	    <th>Started</th>
+	    <th>Completed</th>
+	</tr>
+	<tr>
+	  	<td>1 - Purpose</td>
+	    <td class="number">
+			<%= @functions.inject(0) { |started, function| started += (function.started(:purpose)) ? 1 : 0 } -%>
+		</td>
+	    <td class="number">
+			<%= @functions.inject(0) { |started, function| started += (function.completed(:purpose)) ? 1 : 0 } -%>
+		</td>
+	</tr>
+	<tr>
+	    <td>2 - Performance</td>
+	    <td class="number">
+			<%= @functions.inject(0) { |started, function| started += (function.started(:performance)) ? 1 : 0 } -%>
+		</td>
+	    <td class="number">
+			<%= @functions.inject(0) { |started, function| started += (function.completed(:performance)) ? 1 : 0 } -%>
+		</td>
+	</tr>
+	<tr>
+	    <td>3 - Confidence Information</td>
+	    <td class="number">
+			<%= @functions.inject(0) { |started, function| started += (function.started(:confidence_information)) ? 1 : 0 } -%>
+		</td>
+	    <td class="number">
+			<%= @functions.inject(0) { |started, function| started += (function.completed(:confidence_information)) ? 1 : 0 } -%>
+		</td>
+	</tr>
+	<tr>
+    	<td>4 - Confidence Consultation</td>
+	    <td class="number">
+			<%= @functions.inject(0) { |started, function| started += (function.started(:confidence_consultation)) ? 1 : 0 } -%>
+		</td>
+	    <td class="number">
+			<%= @functions.inject(0) { |started, function| started += (function.completed(:confidence_consultation)) ? 1 : 0 } -%>
+		</td>
+	</tr>
+	<tr>
+		<td>5 - Additional Work</td>
+		<td class="number">
+			<%= @functions.inject(0) { |started, function| started += (function.started(:additional_work)) ? 1 : 0 } -%>
+		</td>
+		<td class="number">
+			<%= @functions.inject(0) { |started, function| started += (function.completed(:additional_work)) ? 1 : 0 } -%>
+		</td>
+	</tr>
+	<tr>
+		<td>6 - Action Planning</td>
+		<td class="number">
+			<%= @functions.inject(0) { |started, function| started += (function.started(:action_planning)) ? 1 : 0 } -%>
+		</td>
+		<td class="number">
+			<%= @functions.inject(0) { |started, function| started += (function.completed(:action_planning)) ? 1 : 0 } -%>
+		</td>
+	</tr>
+</table>
 </div>
-
 <div class="splitColumn">
-      <table class="list">
-        <caption>Impact Equality&trade; Results Table</caption>
-        <tr>
-          <th width="30%">
-          </th>
-          <th colspan="3">
-            Potential Impact
-          </th>
-        </tr>
-        <tr>
-          <th>
-            Priority
-          </th>
-          <th class="number">
-            Low
-          </th>
-          <th class="number">
-            Medium
-          </th>
-          <th class="number">
-            High
-          </th>
-        </tr>
-		<% 5.downto(1) do |priority| -%>
-        <tr>
-          <td><% if priority == 5 -%><%= priority -%> - High<% elsif priority == 1 -%><%= priority -%> - Low<% else -%><%= priority -%><% end %></td>
-          <td class="number"><% if @results_table[priority][:low] > 0 -%><%= @results_table[priority][:low] -%><% end -%></td>
-          <td class="number"><% if @results_table[priority][:medium] > 0 -%><%= @results_table[priority][:medium] -%><% end -%></td>
-          <td class="number"><% if @results_table[priority][:high] > 0 -%><%= @results_table[priority][:high] -%><% end -%></td>
-        </tr>
-		<% end -%>
-      </table>
+<table class="list">
+	<caption>Impact Equality&trade; Results Table</caption>
+	<tr>
+		<th width="30%"></th>
+		<th colspan="3">Potential Impact</th>
+	</tr>
+	<tr>
+		<th>Priority</th>
+		<th class="number">Low</th>
+		<th class="number">Medium</th>
+		<th class="number">High</th>
+	</tr>
+<% 5.downto(1) do |priority| -%>
+	<tr>
+		<td>
+			<% if priority == 5 -%><%= priority -%> - High
+			<% elsif priority == 1 -%><%= priority -%> - Low
+			<% else -%><%= priority -%>
+			<% end %>
+		</td>
+		<td class="number">
+			<% if @results_table[priority][:low] > 0 -%>
+				<%= @results_table[priority][:low] -%>
+			<% end -%>
+		</td>
+		<td class="number">
+			<% if @results_table[priority][:medium] > 0 -%>
+				<%= @results_table[priority][:medium] -%>
+			<% end -%>
+		</td>
+		<td class="number">
+			<% if @results_table[priority][:high] > 0 -%>
+				<%= @results_table[priority][:high] -%>
+			<% end -%>
+		</td>
+	</tr>
+<% end -%>
+</table>
 </div>
 <div class="clear"></div>
