@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserve 
+#
 class FixAdditionalWorkQuestion4 < ActiveRecord::Migration
   def self.up
 	change_column :functions, :additional_work_gender_8, :integer, :default => 0

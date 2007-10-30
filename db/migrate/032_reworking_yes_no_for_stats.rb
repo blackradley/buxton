@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserve 
+#
 class ReworkingYesNoForStats < ActiveRecord::Migration
   def self.up
     $NO_ANSWER = 'Not answered yet'  

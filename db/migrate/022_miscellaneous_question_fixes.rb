@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserve 
+#
 class MiscellaneousQuestionFixes < ActiveRecord::Migration
   def self.up
 	add_column :functions, :additional_work_disability_13,  :integer,  :default => 0
