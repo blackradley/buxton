@@ -1,3 +1,11 @@
+#  
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
+#
 # Issues are currently set in Confidence Consultation and filled in in Action Planning
 class IssuesController < ApplicationController
   
