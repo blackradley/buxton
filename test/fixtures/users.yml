@@ -8,33 +8,33 @@
 #
 # One dummy admin
 #
-administrative:
+administrator:
   id: 1
-  user_type: 0
+  user_type: User::TYPE[:administrative]
   passkey: 2981b26fccafeabbeb8c78b461fddc1a1f13ba1e
-  email: administrative_equalities@bagbatch.co.uk
+  email: administrator@27stars.co.uk
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   reminded_on: 2007-04-01 00:00:00
 #
 # One dummy organisation
 #
-organisational: 
+organisation_manager: 
   id: 2
-  user_type: 1
+  user_type: User::TYPE[:organisational]
   passkey: 5b550821be4aa80e4fefd672722c236a109e8abd
-  email: organisational_equalities@bagbatch.co.uk
+  email: organisation_manager@27stars.co.uk
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   reminded_on: 2007-04-01 00:00:00
 #
 # One dummy function user
 #
-functional:
+function_manager:
   id: 3
-  user_type: 2
+  user_type: User::TYPE[:functional]
   passkey: 158dbc032e936dc7f36939ecd80d531223e146e2
-  email: functional_equalities@bagbatch.co.uk
+  email: function_manager@27stars.co.uk
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   reminded_on: 2007-04-01 00:00:00
