@@ -34,5 +34,12 @@ class IssuesControllerTest < Test::Unit::TestCase
       end
     end
   end
+  
+  def test_should_render_okay_when_issue_is_created
+    login_as :function_manager
+    Issue.any_instance.stubs(:save).returns(true)
+    post :create
+    assert_response :success
+  end
 
 end

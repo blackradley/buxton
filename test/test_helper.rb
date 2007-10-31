@@ -9,6 +9,7 @@
 ENV["RAILS_ENV"] = "test"
 require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
 require 'test_help'
+require 'mocha'
 
 class Test::Unit::TestCase
   # Transactional fixtures accelerate your tests by wrapping each test method
@@ -36,22 +37,25 @@ class Test::Unit::TestCase
   
   # Login to the site using the passkey provided
   fixtures :users
-  def login(passkey)
+  def login_as(user_type)
     old_controller = @controller
     @controller = UsersController.new
-    post :login, :passkey => passkey
-    
-    user = User.find_by_passkey(passkey)
-    case user.user_type
-    when User::TYPE[:functional]
+    case user_type
+    when :function_manager
+      user = User.find(3)
+      post :login, :passkey => user.passkey
       if user.function.purpose_overall_1 != 0 && user.function.function_policy != 0 then
         assert_redirected_to :controller => 'functions', :action => 'show'
       else
        assert_redirected_to :controller => 'functions', :action => 'status'
       end
-    when User::TYPE[:organisational]
+    when :organisation_manager
+      user = User.find(2)
+      post :login, :passkey => user.passkey
       assert_redirected_to :controller => 'functions', :action => 'summary'
-    when User::TYPE[:administrative]
+    when :administrator
+      user = User.find(1)
+      post :login, :passkey => user.passkey      
       assert_redirected_to :controller => 'organisations', :action => 'index'
     end
     assert_not_nil session['logged_in_user']
