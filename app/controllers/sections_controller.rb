@@ -117,5 +117,10 @@ class SectionsController < ApplicationController
     flash[:notice] =  "#{@function.name} was successfully updated."
     redirect_to :back
   end
-  
+
+protected
+  # Secure the relevant methods in the controller.
+  def secure?
+    true
+  end  
 end
