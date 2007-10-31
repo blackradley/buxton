@@ -13,6 +13,8 @@ require 'issues_controller'
 class IssuesController; def rescue_action(e) raise e end; end
 
 class IssuesControllerTest < Test::Unit::TestCase
+  fixtures :issues
+  
   def setup
     @controller = IssuesController.new
     @request    = ActionController::TestRequest.new
@@ -35,10 +37,38 @@ class IssuesControllerTest < Test::Unit::TestCase
     end
   end
   
+  def test_should_create_issue
+    login_as :function_manager
+    old_count = Issue.count
+    post :create, :issue => { :description => 'An issue description.' }
+    assert_equal old_count+1, Issue.count
+    assert_response :success
+  end
+  
   def test_should_render_okay_when_issue_is_created
     login_as :function_manager
     Issue.any_instance.stubs(:save).returns(true)
     post :create
+    assert_response :success
+  end
+  
+  def test_should_update_issue
+    post :update, :issue => { 1 => {}, 2 => {} }
+    assert_response :redirect
+  end
+
+  def test_should_destroy_issue
+    login_as :function_manager
+    old_count = Issue.count
+    get :destroy, :id => 1
+    assert_equal old_count-1, Issue.count
+    assert_response :success
+  end
+  
+  def test_should_render_okay_when_issue_is_destroyed
+    login_as :function_manager
+    Issue.any_instance.stubs(:destroy).returns(true)
+    post :destroy, :id => 1
     assert_response :success
   end
 
