@@ -24,6 +24,22 @@ class FunctionsControllerTest < Test::Unit::TestCase
     @organisation_manager = User.find(2)
     @function_manager = User.find(3)
   end
+  
+  # A simple test that calls all public actions via all http actions and uses some dummy parameters.
+  # There are no assertions in this test, because we don’t know if an action should succeed or redirect.
+  # The only thing checked with in this test is that the action does not fail.
+  def test_garbage
+    ac = ApplicationController.new
+    @controller.public_methods.each do |action|
+      unless ac.respond_to?(action)
+        [:get, :post, :head, :put, :delete].each do |http_method|
+          [nil, '', 'abc'*80, '-23', '123456789012345'].each do |param|
+            method(http_method).call(action, :id => param)
+          end
+        end
+      end
+    end
+  end
 
   def test_status
     login(@function_manager.passkey)

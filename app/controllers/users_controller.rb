@@ -45,6 +45,8 @@ class UsersController < ApplicationController
 
   def edit
     @user = User.find(params[:id])
+  rescue ActiveRecord::RecordNotFound => e
+    render :inline => 'Invalid ID.'  
   end
 
   # Disabled - Give the user a new key every time it is updated
@@ -58,6 +60,8 @@ class UsersController < ApplicationController
     else
       render :action => 'edit'
     end
+  rescue ActiveRecord::RecordNotFound => e
+    render :inline => 'Invalid ID.'
   end
 
   # Find the user and then send them a new key
@@ -106,6 +110,8 @@ class UsersController < ApplicationController
   def destroy
     User.find(params[:id]).destroy
     redirect_to :action => 'list'
+  rescue ActiveRecord::RecordNotFound => e
+    render :inline => 'Invalid ID.'    
   end
   
   # Send a passkey reminder to the email associated with this user. Only one e-mail will be sent and
@@ -138,6 +144,8 @@ class UsersController < ApplicationController
     @user.save
     
     redirect_to :back
+  rescue ActiveRecord::RecordNotFound => e
+    render :inline => 'Invalid ID.'    
   end
 
   # Log the user in and then direct them to the right place based on the
@@ -256,7 +264,8 @@ class UsersController < ApplicationController
   end
 
 protected
-  # No methods are secured because this is an entirely public page.
+  # No methods are secure
+  # TODO: secure the methods that need it, or alternatively white-list them instead
   def secure?
     false
   end

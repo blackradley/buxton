@@ -23,7 +23,7 @@ class IssuesController < ApplicationController
   def update
     # Loop through all the issues, given to us after auto-indexing the form data
     # (see: http://www.railsforum.com/viewtopic.php?pid=42791)
-    @params[:issue].each do |id, data|
+    params[:issue].each do |id, data|
       issue = Issue.find(id)
       issue.update_attributes(data)
     end
@@ -33,12 +33,19 @@ class IssuesController < ApplicationController
   
   # Destroy an issue and reply with the appropriate RJS
   def destroy
-    @issue = Issue.find(@params[:id])
+    @issue = session['logged_in_user'].function.issues.find(params[:id])
     @issue.destroy
 
     respond_to do |format|
       format.js
     end
+  rescue ActiveRecord::RecordNotFound => e
+    render :inline => 'Invalid ID.'
   end
-    
+
+protected
+  # Secure the relevant methods in the controller.
+  def secure?
+    true
+  end
 end
