@@ -233,8 +233,13 @@ class Function < ActiveRecord::Base
   #It can also be passed nils, and in that event, it will automatically return an array containing all the values that corresponded to the nils. Hence, to return all
   #questions and their lookup types, just func.question_wording_lookup suffices.
   def question_wording_lookup(section = nil, strand = nil, question = nil)
+	begin  
 	fun_pol_indicator = LookUp.function_policy.find{|lookUp| self.function_policy == lookUp.value}.name.downcase #Detect whether it is a function or a policy
 	existing_proposed = LookUp.existing_proposed.find{|lookUp| self.purpose_overall_1 == lookUp.value}.name.downcase #Detect whether it is an existing function or a proposed function.
+	rescue
+	end
+	if (purpose_overall_1 == 0 || purpose_overall_1 == nil) then existing_proposed = "proposed" end
+	if function_policy == 0 then fun_pol_indicator = "------" end
 	case existing_proposed
 		when "existing"
 			part_need = "the particular needs of "
@@ -444,7 +449,7 @@ private
 	      if dependent[1].class == String then
 		   dependant_correct = dependant_correct && !(send(dependent[0]).to_s.length > 0)   
 	      else
-		dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1])
+		dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1] || send(dependent[0]) == 0)
 	      end
 	end
       if dependant_correct then #If you don't need to answer this question, automatically give it a completed status
