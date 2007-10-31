@@ -13,7 +13,7 @@ require 'functions_controller'
 class FunctionsController; def rescue_action(e) raise e end; end
 
 class FunctionsControllerTest < Test::Unit::TestCase
-  fixtures :functions, :users
+  fixtures :functions, :users, :organisations, :look_ups
 
   def setup
     @controller = FunctionsController.new
