@@ -98,7 +98,7 @@ class StatTopic
     @result = total.to_f/(@topic_max+15) # +15 is added to both totals to compensate for existence status.
     @questions.each_value do |question| # This checks for all purpose questions
 	name = question.name.to_s
-	if name.include?("purpose") then
+	if name.include?("purpose")&& name != "purpose_overall_1" then
 		unless @impact > question.scores then
 			@impact = question.scores
 		end
