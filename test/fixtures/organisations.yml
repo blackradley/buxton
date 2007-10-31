@@ -10,35 +10,35 @@
 birmingham:
   id: 1
   user_id: 2
-  name: Birmingham City Council
+  name: "Birmingham City Council"
   style: birmingham
-  strategies_description: Which of the council's ten strategic priorities (below) are you
-    helping to deliver?
-  strategies_help: The <a href="http://www.blackradley.com/" target="_blank">Anywhereshire 
-    Council Plan 2006+</a> identifies ten strategic priorities.  All council activities 
-    should contribute to delivering one or more of these priorities. 
-  impact_groups_description: Which of these groups are you having an impact on?
-  impact_groups_help: The Function will probably affect a range of different 
+  strategies_description: "Which of the council's ten strategic priorities (below) are you
+    helping to deliver?"
+  strategies_help: "The <a href=\"http://www.blackradley.com/\" target=\"_blank\">Anywhereshire 
+    Council Plan 2006</a> identifies ten strategic priorities.  All council activities 
+    should contribute to delivering one or more of these priorities." 
+  impact_groups_description: "Which of these groups are you having an impact on?"
+  impact_groups_help: "The Function will probably affect a range of different 
     individuals.  If it is a function relating to a service which the council provides 
     then the people affected will be the residents or service users, if it is an internal 
     function then the people affected will be Council staff.  Functions may also affect 
-    businesses or partner organisations.
-  good_equality_groups_description: Good equality groups description?
+    businesses or partner organisations."
+  good_equality_groups_description: "Good equality groups description?"
   good_equality_groups_help: "This question is looking at the potential impact of a function
     or policy.  It seeks to understand whether the service is more relevant to people of 
     one particular group than to people from another group.<br /><br />
     For instance, primary schooling is particularly relevant to young people between 4 
     and 11: done well, it will have a significant positive effect for this group (and done 
     badly, it will have a significant negative effect, see the next block of questions)."
-  bad_equality_groups_description: Bad equality groups description?
-  bad_equality_groups_help: This question is looking at the potential impact of a function
+  bad_equality_groups_description: "Bad equality groups description?"
+  bad_equality_groups_help: "This question is looking at the potential impact of a function
     or policy.  It seeks to understand whether the service, if it is not performed well, 
     could be more problematic or damaging for people of one particular group than for 
     people from another group.<br /><br />
     For instance, poor buildings access policy is likely to have a particularly negative
     effect on people with disabilities.  If it's done well, however,(see the previous 
-    questions) the effect should be equivalent for all.
-  approval_help: Help about the approval process and how to go about it.
+    questions) the effect should be equivalent for all."
+  approval_help: "Help about the approval process and how to go about it."
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   
