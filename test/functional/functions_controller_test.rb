@@ -42,7 +42,7 @@ class FunctionsControllerTest < Test::Unit::TestCase
   end
 
   def test_status
-    login(@function_manager.passkey)
+    login_as :function_manager
     get :status
     assert_response :success
     assert_not_nil assigns['function']
@@ -73,9 +73,10 @@ class FunctionsControllerTest < Test::Unit::TestCase
   end
   
   # def test_index
+  #   login(@organisation_manager.passkey)
   #   get :index
   #   assert_response :success
-  #   assert_template 'list'
+  #   assert_template 'summary'
   # end
 
   # def test_list
