@@ -10,7 +10,7 @@
 #
 administrator:
   id: 1
-  user_type: User::TYPE[:administrative]
+  user_type: 0
   passkey: 2981b26fccafeabbeb8c78b461fddc1a1f13ba1e
   email: administrator@27stars.co.uk
   created_on: 2007-04-01 00:00:00
@@ -21,7 +21,7 @@ administrator:
 #
 organisation_manager: 
   id: 2
-  user_type: User::TYPE[:organisational]
+  user_type: 1
   passkey: 5b550821be4aa80e4fefd672722c236a109e8abd
   email: organisation_manager@27stars.co.uk
   created_on: 2007-04-01 00:00:00
@@ -32,7 +32,7 @@ organisation_manager:
 #
 function_manager:
   id: 3
-  user_type: User::TYPE[:functional]
+  user_type: 2
   passkey: 158dbc032e936dc7f36939ecd80d531223e146e2
   email: function_manager@27stars.co.uk
   created_on: 2007-04-01 00:00:00
