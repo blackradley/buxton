@@ -61,4 +61,9 @@ class Test::Unit::TestCase
     assert_not_nil session['logged_in_user']
     @controller = old_controller    
   end
+  
+  def url_for(options)
+    url = ActionController::UrlRewriter.new(@request, nil)
+    url.rewrite(options)
+  end  
 end
