@@ -1,10 +1,7 @@
-require 'test/unit'
-require 'rubygems'
 require File.dirname(__FILE__) + '/../test_helper'
 
-
 #This suite tests that all the basic model abilities work, such as 
-class ModelBasicFunctionalityTests < Test::Unit::TestCase
+class ModelBasicFunctionalityTest < Test::Unit::TestCase
 
   def setup
     user_id = rand(10e10)
