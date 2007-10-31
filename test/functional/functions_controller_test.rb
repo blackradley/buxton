@@ -72,6 +72,12 @@ class FunctionsControllerTest < Test::Unit::TestCase
     assert_redirected_to :controller => 'users'
   end
   
+  def test_should_render_overview_okay
+    login_as :function_manager
+    get :overview
+    assert_response :success
+  end
+  
   # def test_index
   #   login(@organisation_manager.passkey)
   #   get :index
