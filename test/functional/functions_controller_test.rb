@@ -13,21 +13,49 @@ require 'functions_controller'
 class FunctionsController; def rescue_action(e) raise e end; end
 
 class FunctionsControllerTest < Test::Unit::TestCase
-  fixtures :functions
+  fixtures :functions, :users
 
   def setup
     @controller = FunctionsController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-
-    @first_id = Function.find(:first).id
+    
+    @administrator = User.find(1)
+    @organisation_manager = User.find(2)
+    @function_manager = User.find(3)
   end
 
-  # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_status
+    login(@function_manager.passkey)
+    get :status
+    assert_response :success
+    assert_not_nil assigns['function']
+    assert_equal 1, assigns['function'].id
+    assert flash.empty?
   end
 
+  def test_status_without_login
+    get :status
+    assert_response :redirect
+    assert_redirected_to :controller => 'users'
+  end
+
+  # def test_show
+  #   # This would show the function summary page, along with the approval checkbox + input field
+  #   login(@function_manager.passkey)
+  #   get :show
+  #   assert_response :success
+  #   # assert_not_nil assigns['function']
+  #   # assert_equal 1, assigns['function'].id
+  #   # assert flash.empty?
+  # end
+
+  def test_show_without_login
+    get :show
+    assert_response :redirect
+    assert_redirected_to :controller => 'users'
+  end
+  
   # def test_index
   #   get :index
   #   assert_response :success

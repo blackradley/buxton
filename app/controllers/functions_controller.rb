@@ -73,7 +73,7 @@ class FunctionsController < ApplicationController
           @user.save!          
           # Create the function and associate the user with it
           @function = Function.new(params[:function])
-          @function.organisation_id = @session['logged_in_user'].organisation.id
+          @function.organisation_id = session['logged_in_user'].organisation.id
           @function.user = @user
           @function.save!
           # Go back and list all of the functions in this organisation (now including this one)
@@ -162,7 +162,7 @@ class FunctionsController < ApplicationController
 
   # Show a printer friendly summary page
   def print
-    @function = Function.find(@session['logged_in_user'].function.id)
+    @function = Function.find(session['logged_in_user'].function.id)
     
     # Set print_only true and render the normal show action, which will check this variable and include
     # the appropriate CSS as necessary.
@@ -172,7 +172,7 @@ class FunctionsController < ApplicationController
 
   # Opening page where they must choose between Function/Policy and Existing/Proposed
   def status
-    @function = Function.find(@session['logged_in_user'].function.id)
+    @function = Function.find(session['logged_in_user'].function.id)
     
     # Set hide_menu to true which the application layout will check and hide the menu accordingly
     @hide_menu = true
