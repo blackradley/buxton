@@ -47,6 +47,7 @@ module ApplicationHelper
 # Function and on the Organisation, hence it is here in the ApplicationHelper.
 #
   def progress_bar(percentage, width=nil, height=nil)
+    if percentage > 100 then percentage = 100 end
     case width
     when 100
       image_tag("bars/small/#{percentage}.png")
