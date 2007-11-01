@@ -19,8 +19,6 @@ class UsersControllerTest < Test::Unit::TestCase
     @controller = UsersController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-
-    @first_id = User.find(:first).id
   end
 
   # A simple test that calls all public actions via all http actions and uses some dummy parameters.

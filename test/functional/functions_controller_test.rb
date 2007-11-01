@@ -19,10 +19,6 @@ class FunctionsControllerTest < Test::Unit::TestCase
     @controller = FunctionsController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-    
-    @administrator = User.find(1)
-    @organisation_manager = User.find(2)
-    @function_manager = User.find(3)
   end
   
   # A simple test that calls all public actions via all http actions and uses some dummy parameters.
