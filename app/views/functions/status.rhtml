@@ -1,6 +1,6 @@
 <h1>Impact Equality&trade;</h1>
 
-<h3><%= @function.name -%></h3>
+<h3><%= h @function.name -%></h3>
 
 <% form_for(:function, :url => {:action => 'update_status'}) do |f| %>
 	<p><label for="purpose_overall_1">Is this:</label>
