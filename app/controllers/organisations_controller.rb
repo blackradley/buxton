@@ -36,20 +36,22 @@ class OrganisationsController < ApplicationController
 
   # Create a new organisation and a new user based on the parameters on the form.
   def create
-    @organisation = Organisation.new(params[:organisation])
-    @user = User.new(params[:user])
-    @user.user_type = User::TYPE[:organisational]
     Organisation.transaction do
-      @user.organisation = @organisation
-      @user.passkey = User.generate_passkey(@user)
-      @user.save!
-      @organisation.save!
-      flash[:notice] = @organisation.name + ' was created.'
-      redirect_to :action => :list
+      User.transaction do
+        @organisation = Organisation.new(params[:organisation])
+        @user = User.new(params[:user])
+        @user.user_type = User::TYPE[:organisational]
+        @user.organisation = @organisation
+        @user.passkey = User.generate_passkey(@user)
+        @user.save!
+        @organisation.save!
+        flash[:notice] = "#{@organisation.name} was created."
+        redirect_to :action => :list
+      end
     end
-    rescue ActiveRecord::RecordInvalid => e
-      @user.valid? # force checking of errors even if function failed
-      render :action => :new
+  rescue ActiveRecord::RecordInvalid => e
+    @user.valid? # force checking of errors even if function failed
+    render :action => :new
   end
 
   # Get both the organisation and it's user since the user can also be edited
@@ -78,7 +80,7 @@ class OrganisationsController < ApplicationController
     Organisation.transaction do
       @user = @organisation.user
       @user.update_attributes(params[:user])
-      flash[:notice] =  @organisation.name + ' was successfully changed.'
+      flash[:notice] =  "#{@organisation.name} was successfully changed."
       redirect_to :action => 'show', :id => @organisation
     end
     rescue ActiveRecord::RecordInvalid => e

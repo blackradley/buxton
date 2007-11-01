@@ -77,11 +77,11 @@ class SectionsController < ApplicationController
   # These are edited by the Function manager.
   def edit
     @function = Function.find(session['logged_in_user'].function.id)
-    @function_responses = @function.function_strategies # could be empty
     @user = @function.user
 
     case params[:id]
     when 'purpose'
+      @function_responses = @function.function_strategies # could be empty
       render :template => 'sections/edit_purpose'
     when 'performance'
       render :template => 'sections/edit_performance'
