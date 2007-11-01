@@ -208,7 +208,7 @@ class Function < ActiveRecord::Base
 #NOTE: Should a new column be added to function that isn't a question, it should also be added here.
   def self.get_question_names(section = nil, strand = nil, number = nil)
 	  questions = []
-	  unnecessary_columns = [:name, :approved, :created_on, :updated_on, :updated_by, :deleted_on]
+	  unnecessary_columns = [:name, :approved, :created_on, :updated_on, :updated_by]
 	  Function.content_columns.each{|column| questions.push(column.name.to_sym)}
 	  unnecessary_columns.each{|column| questions.delete(column)}
 	  questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section
