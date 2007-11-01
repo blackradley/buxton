@@ -33,7 +33,7 @@ module ApplicationHelper
   def organisation_name(request)
     begin
       if subdomain(request) == 'www' # it is probably a demo
-        organisation_name_out = session['logged_in_user'].organisation.name
+        organisation_name_out = session[:logged_in_user].organisation.name
       else # it is a specifically set up organisation
         organisation_name_out = Organisation.find_by_style(subdomain(request)).name
       end
@@ -82,7 +82,7 @@ module ApplicationHelper
 #
   def login_status()
     html = 'Login status unknown'
-    user = session['logged_in_user']
+    user = session[:logged_in_user]
     if user.nil?
       html = ''
     else
@@ -127,7 +127,7 @@ module ApplicationHelper
 # Shows a menu bar. Different for different user types. 
 #
   def menu()
-    user = session['logged_in_user']
+    user = session[:logged_in_user]
     if user.nil?
       ' '
     elsif user.user_type == User::TYPE[:organisational]

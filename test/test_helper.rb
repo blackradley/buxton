@@ -58,7 +58,7 @@ class Test::Unit::TestCase
       post :login, :passkey => user.passkey      
       assert_redirected_to :controller => 'organisations', :action => 'index'
     end
-    assert_not_nil session['logged_in_user']
+    assert_not_nil session[:logged_in_user]
     @controller = old_controller    
   end
   

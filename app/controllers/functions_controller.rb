@@ -21,7 +21,7 @@ class FunctionsController < ApplicationController
   # Shown to the Organisation manager, these are summary statistics for all the functions
   # within this organisation.
   def summary
-    @organisation = Organisation.find(session['logged_in_user'].organisation.id)
+    @organisation = Organisation.find(session[:logged_in_user].organisation.id)
     @functions = @organisation.functions
 
     @results_table = { 1 => { :high => 0, :medium => 0, :low => 0 },
@@ -42,17 +42,17 @@ class FunctionsController < ApplicationController
 
   # Available to the Function manager. Show the summary information for a specific function.
   def show
-    @function = Function.find(session['logged_in_user'].function.id)
+    @function = Function.find(session[:logged_in_user].function.id)
   end
 
   # Available to the Function manager. Shows the section matrix state for a specific function.
   def overview
-    @function = Function.find(session['logged_in_user'].function.id)
+    @function = Function.find(session[:logged_in_user].function.id)
   end
   
   # List and provide a summary of the state of all the functions in this organisation.
   def list
-    @organisation = Organisation.find(session['logged_in_user'].organisation.id)
+    @organisation = Organisation.find(session[:logged_in_user].organisation.id)
   end
   
   # Create a new Function and a new associated user, all functions must have single a valid User.
@@ -73,7 +73,7 @@ class FunctionsController < ApplicationController
         @user.save!
         # Create the function and associate the user with it
         @function = Function.new(params[:function])
-        @function.organisation_id = session['logged_in_user'].organisation.id
+        @function.organisation_id = session[:logged_in_user].organisation.id
         @function.user = @user
         @function.save!
         # Go back and list all of the functions in this organisation (now including this one)
@@ -89,7 +89,7 @@ class FunctionsController < ApplicationController
 
   # Update the function details accordingly.
   def update
-    @function = Function.find(session['logged_in_user'].function.id)
+    @function = Function.find(session[:logged_in_user].function.id)
     @function.update_attributes(params[:function])
 
     flash[:notice] =  "#{@function.name} was successfully updated."
@@ -98,7 +98,7 @@ class FunctionsController < ApplicationController
 
   # Update the function status and proceed, or not, accordingly
   def update_status
-    @function = Function.find(session['logged_in_user'].function.id)
+    @function = Function.find(session[:logged_in_user].function.id)
     @function.update_attributes(params[:function])
     
     # Check both the Function/Policy and Existing/Proposed questions have been answered
@@ -119,7 +119,7 @@ class FunctionsController < ApplicationController
   def edit_contact
     # Only allow an organisation manager to proceed
     # TODO: catch this better
-    unless (session['logged_in_user'].user_type == User::TYPE[:organisational]) then render :inline => 'Invalid.' end
+    unless (session[:logged_in_user].user_type == User::TYPE[:organisational]) then render :inline => 'Invalid.' end
 
     # Get the Function and User details ready for the view
     @function = Function.find(params[:id])
@@ -130,7 +130,7 @@ class FunctionsController < ApplicationController
   def update_contact
     # Only allow an organisation manager to proceed
     # TODO: catch this better
-    unless (session['logged_in_user'].user_type == User::TYPE[:organisational]) then render :inline => 'Invalid.' end
+    unless (session[:logged_in_user].user_type == User::TYPE[:organisational]) then render :inline => 'Invalid.' end
 
     # Update the function
     Function.transaction do
@@ -153,7 +153,7 @@ class FunctionsController < ApplicationController
   def destroy
     # Only allow an organisation manager to proceed    
     # TODO: catch this better
-    unless (session['logged_in_user'].user_type == User::TYPE[:organisational]) then render :inline => 'Invalid.' end
+    unless (session[:logged_in_user].user_type == User::TYPE[:organisational]) then render :inline => 'Invalid.' end
     
     # Destroy the function and go back to the list of functions for this organisation
     # TODO: deal with if it doesn't delete properly
@@ -163,7 +163,7 @@ class FunctionsController < ApplicationController
 
   # Show a printer friendly summary page
   def print
-    @function = Function.find(session['logged_in_user'].function.id)
+    @function = Function.find(session[:logged_in_user].function.id)
     
     # Set print_only true and render the normal show action, which will check this variable and include
     # the appropriate CSS as necessary.
@@ -173,7 +173,7 @@ class FunctionsController < ApplicationController
 
   # Opening page where they must choose between Function/Policy and Existing/Proposed
   def status
-    @function = Function.find(session['logged_in_user'].function.id)
+    @function = Function.find(session[:logged_in_user].function.id)
     
     # Set hide_menu to true which the application layout will check and hide the menu accordingly
     @hide_menu = true
