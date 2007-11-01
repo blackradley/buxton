@@ -133,14 +133,16 @@ class FunctionsController < ApplicationController
     unless (session['logged_in_user'].user_type == User::TYPE[:organisational]) then render :inline => 'Invalid.' end
 
     # Update the function
-    @function = Function.find(params[:id])
-    @function.update_attributes(params[:function])
     Function.transaction do
-      # Update the user
-      @user = @function.user
-      @user.update_attributes(params[:user])
-      flash[:notice] =  @function.name + ' was successfully changed.'
-      redirect_to :action => 'list'
+      User.transaction do
+        @function = Function.find(params[:id])
+        @function.update_attributes(params[:function])
+        # Update the user
+        @user = @function.user
+        @user.update_attributes(params[:user])
+        flash[:notice] =  @function.name + ' was successfully changed.'
+        redirect_to :action => 'list'
+      end
     end
     # Something went wrong
     rescue ActiveRecord::RecordInvalid => e
