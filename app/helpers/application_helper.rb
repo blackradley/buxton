@@ -313,7 +313,7 @@ def answer(function, section, strand, number)
     answer = ''
   end
 
-  %Q[<p><label title="#{label}">#{label}</label><div class="labelled">#{answer}</div></p>]
+  %Q[<p><label title="#{label}">#{label}</label><div class="labelled">#{h answer}</div></p>]
 end
 
   def summary_answer(function, section, strand, number)

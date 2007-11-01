@@ -38,7 +38,7 @@ class ModelBasicFunctionalityTest < Test::Unit::TestCase
       columns.each do |column|
         sample_data = case column.type
           when :text
-	    "Sample Text"
+	    "<script>alert(/"Hi!/")</script>"
           when :integer
             1
           when :string
