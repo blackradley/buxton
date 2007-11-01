@@ -34,7 +34,7 @@ class OrganisationsController < ApplicationController
     @user = User.new
   end
 
-  # Create a new organiation and a new user based on the parameters on the form.
+  # Create a new organisation and a new user based on the parameters on the form.
   def create
     @organisation = Organisation.new(params[:organisation])
     @user = User.new(params[:user])

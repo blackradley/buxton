@@ -70,7 +70,7 @@ class FunctionsController < ApplicationController
           @user = User.new(params[:user])
           @user.user_type = User::TYPE[:functional]
           @user.passkey = User.generate_passkey(@user)
-          @user.save!          
+          @user.save!
           # Create the function and associate the user with it
           @function = Function.new(params[:function])
           @function.organisation_id = session['logged_in_user'].organisation.id

@@ -19,8 +19,6 @@ class OrganisationsControllerTest < Test::Unit::TestCase
     @controller = OrganisationsController.new
     @request    = ActionController::TestRequest.new
     @response   = ActionController::TestResponse.new
-
-    @first_id = Organisation.find(:first).id
   end
 
   # A simple test that calls all public actions via all http actions and uses some dummy parameters.
