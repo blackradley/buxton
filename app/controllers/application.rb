@@ -12,6 +12,8 @@
 require 'digest/sha1'
 
 class ApplicationController < ActionController::Base
+  include ExceptionNotifiable
+    
   before_filter :authenticate
     
   # Pick a unique cookie name to distinguish our session data from others'
