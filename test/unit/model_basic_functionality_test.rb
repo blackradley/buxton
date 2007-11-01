@@ -3,7 +3,8 @@ require File.dirname(__FILE__) + '/../test_helper'
 #This suite tests that all the basic model abilities work, and all the tag calculations and statistics are right 
 class ModelBasicFunctionalityTest < Test::Unit::TestCase
 	
-	fixtures :look_ups
+   fixtures :look_ups
+  
   def setup
     user_id = rand(10e10)
     user_email = "#{rand(10e10)}@bob.com"
@@ -121,4 +122,28 @@ class ModelBasicFunctionalityTest < Test::Unit::TestCase
 	assert stats.fun_relevance == true
 	assert stats.fun_priority_ranking == 2
   end
+ 
+  def test_percentage_completed_when_completed
+	set_function_variables_correctly
+	@models[2].question_wording_lookup.each do |strand, sections|
+		assert(@models[2].percentage_answered(strand) == 100)
+		sections.each do |section, questions|
+			assert(@models[2].percentage_answered(nil, section) == 100)
+			assert(@models[2].percentage_answered(strand, section) == 100)
+		end
+	end
+	assert (@models[2].percentage_answered == 100)	
+  end
+
+  def test_percentage_completed_when_not_started
+	@models[2].question_wording_lookup.each do |strand, sections|
+		assert(@models[2].percentage_answered(strand) == 0)
+		sections.each do |section, questions|
+			assert(@models[2].percentage_answered(nil, section) == 0)
+			assert(@models[2].percentage_answered(strand, section) == 0)
+		end
+	end
+	assert (@models[2].percentage_answered == 0)	
+  end
+
 end
