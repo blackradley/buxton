@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
   private
   # Check that the user in the session is for real.
   def authenticate
-    if secure? && session['logged_in_user'].nil?
+    if secure? && session[:logged_in_user].nil?
       redirect_to :controller => 'users'
     end
   end
