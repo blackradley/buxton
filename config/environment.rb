@@ -35,9 +35,7 @@ end
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register "application/x-mobile", :mobile
  
-#  
 # Configuration for the SMTP server.
-#  
 ActionMailer::Base.smtp_settings = {
   :address  => "mail.protectedservice.net",
   :port  => 25, 
@@ -46,3 +44,6 @@ ActionMailer::Base.smtp_settings = {
   :password  => 'callustu',
   :authentication  => :login
 }
+
+# Configuration to state who to send exception notifications to
+ExceptionNotifier.exception_recipients = %w(karl@27stars.co.uk joe@27stars.co.uk heather@27stars.co.uk)
