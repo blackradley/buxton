@@ -8,13 +8,14 @@
 #
 class FunctionsController < ApplicationController
 
-  # By default list the functions.
+  # By default, show the summary page.
   def index
+    summary
     render :action => 'summary'
   end
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update ],
+  verify :method => :post, :only => [ :destroy, :create, :update, :update_status, :update_contact ],
          :redirect_to => { :action => :list }
 
   # Shown to the Organisation manager, these are summary statistics for all the functions
@@ -63,23 +64,21 @@ class FunctionsController < ApplicationController
   # Create a new function and a new user based on the parameters on the form.
   def create
     # Use transactions to ensure if one action on a model fails, they all do.
-    FunctionStrategy.transaction do
-      Function.transaction do
-        User.transaction do
-          # Create the user
-          @user = User.new(params[:user])
-          @user.user_type = User::TYPE[:functional]
-          @user.passkey = User.generate_passkey(@user)
-          @user.save!
-          # Create the function and associate the user with it
-          @function = Function.new(params[:function])
-          @function.organisation_id = session['logged_in_user'].organisation.id
-          @function.user = @user
-          @function.save!
-          # Go back and list all of the functions in this organisation (now including this one)
-          flash[:notice] = @function.name + ' was created.'
-          redirect_to :action => :list
-        end
+    Function.transaction do
+      User.transaction do
+        # Create the user
+        @user = User.new(params[:user])
+        @user.user_type = User::TYPE[:functional]
+        @user.passkey = User.generate_passkey(@user)
+        @user.save!
+        # Create the function and associate the user with it
+        @function = Function.new(params[:function])
+        @function.organisation_id = session['logged_in_user'].organisation.id
+        @function.user = @user
+        @function.save!
+        # Go back and list all of the functions in this organisation (now including this one)
+        flash[:notice] = @function.name + ' was created.'
+        redirect_to :action => :list
       end
     end
     # Something went wrong
