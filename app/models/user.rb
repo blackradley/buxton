@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
 #
 # A user may be one of three types. 
 # 
-# * Administrative - the user has now function or organisation
+# * Administrative - the user has no function or organisation
 # * Organisational - the user controls an organisation
 # * Functional - the user controls a function
 # 
