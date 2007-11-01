@@ -4,7 +4,7 @@
 # $Author$
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Systems Limited. All rights reserve 
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
 class ChangeYesNoNotsureScores < ActiveRecord::Migration
   def self.up
