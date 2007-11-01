@@ -168,7 +168,7 @@ class Function < ActiveRecord::Base
   
   #This initialises a statistics object, and scores it.
   #TODO: Heavy amount of speed increases. No extensive comments as yet, because I'm anticipating ripping this
-  #calling method out and replacing it with a much faster version. Statistics library should remain largly unchanged though.
+  #calling method out and replacing it with a much faster version. Statistics library should remain largely unchanged though.
   def statistics
     return nil unless completed # Don't calculate stats if all the necessary questions haven't been answered
     questions = {}
@@ -216,19 +216,6 @@ class Function < ActiveRecord::Base
 	  questions.delete_if{ |question| !(question.to_s.include?(number.to_s))} if number
 	  return questions
   end
-  
-  # K: TODO
-  # def destroy
-  #   deleted_on = Time.now
-  #   save
-  # end
-  
-  # K: TODO
-  # def self.find(*args)
-  #   self.with_scope(:find => { :conditions => 'deleted_on IS NULL' }) { super(*args) }
-  # end
-  
-  #^^ Are those really required any more?
   
   #This function returns the wording of a particular question. It takes a section strand and question number as arguments, and returns that specific question.
   #It can also be passed nils, and in that event, it will automatically return an array containing all the values that corresponded to the nils. Hence, to return all
