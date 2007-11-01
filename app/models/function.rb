@@ -1,7 +1,10 @@
 # 
 # $URL$ 
+# 
 # $Rev$
+# 
 # $Author$
+# 
 # $Date$
 #
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
@@ -233,7 +236,7 @@ class Function < ActiveRecord::Base
   #It can also be passed nils, and in that event, it will automatically return an array containing all the values that corresponded to the nils. Hence, to return all
   #questions and their lookup types, just func.question_wording_lookup suffices.
   def question_wording_lookup(section = nil, strand = nil, question = nil)
-	begin  
+	begin 
 	fun_pol_indicator = LookUp.function_policy.find{|lookUp| self.function_policy == lookUp.value}.name.downcase #Detect whether it is a function or a policy
 	existing_proposed = LookUp.existing_proposed.find{|lookUp| self.purpose_overall_1 == lookUp.value}.name.downcase #Detect whether it is an existing function or a proposed function.
 	rescue

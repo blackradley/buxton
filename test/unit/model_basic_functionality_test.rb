@@ -1,8 +1,9 @@
 require File.dirname(__FILE__) + '/../test_helper'
 
-#This suite tests that all the basic model abilities work, such as 
+#This suite tests that all the basic model abilities work, and all the tag calculations and statistics are right 
 class ModelBasicFunctionalityTest < Test::Unit::TestCase
-
+	
+	fixtures :look_ups
   def setup
     user_id = rand(10e10)
     user_email = "#{rand(10e10)}@bob.com"
