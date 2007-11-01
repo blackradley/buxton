@@ -8,15 +8,15 @@
 #
 class FunctionsController < ApplicationController
 
+  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
+  verify :method => :post, :only => [ :destroy, :create, :update, :update_status, :update_contact ],
+         :redirect_to => { :action => :list }
+
   # By default, show the summary page.
   def index
     summary
     render :action => 'summary'
   end
-
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :destroy, :create, :update, :update_status, :update_contact ],
-         :redirect_to => { :action => :list }
 
   # Shown to the Organisation manager, these are summary statistics for all the functions
   # within this organisation.
