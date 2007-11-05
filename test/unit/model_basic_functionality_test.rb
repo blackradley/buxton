@@ -38,11 +38,11 @@ class ModelBasicFunctionalityTest < Test::Unit::TestCase
       columns.each do |column|
         sample_data = case column.type
           when :text
-	    "<script>alert(/"Hi!/")</script>"
+	    "<script>alert(\"Hi!\")</script>"
           when :integer
             1
           when :string
-            "Sample String"
+            "<script>alert(\"Hi!\")</script>"
           when :datetime
             Date.today()
         end

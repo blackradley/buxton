@@ -44,6 +44,8 @@ class QuestionBuilder < ActionView::Helpers::FormBuilder
       text_area question 
     when :string
       text_field question
+    else
+      select question, LookUp.yes_no_notsure.collect {|l| [ l.name, l.value ] }	    
     end
 	    
     # Show our formatted question!
