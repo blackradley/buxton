@@ -92,8 +92,9 @@ class Function < ActiveRecord::Base
    #soon as it finds a true value, it breaks out of the loop and returns false. If you request a function started from it, it checks whether the 2 questions
    #that you have to answer(function/policy and proposed/overall) have been answered or not, and if they have not been answered, then no others can be
    # and if they have, then the function is by definition started
-  def started(section = nil, strand = nil)  
-    return (check_question(:purpose_overall_1) && check_question(:function_policy)) unless (section or strand)
+  def started(section = nil, strand = nil)
+    return false unless (check_question(:purpose_overall_1) && check_question(:function_policy))
+    
     started = false
     Function.get_question_names(section, strand).each{|question| if check_question(question) then started = true; break; end}
     unless started then #If the function has already been found to be started, then there isn't any need to check further
@@ -132,6 +133,8 @@ class Function < ActiveRecord::Base
   #will answer it logically, meaning that if they fail to answer a question, it is more likely to be either at the end or start than the middle. Such a
   #change would make no difference to the runtime in the worst case, and could well speed it up in best case.
   def completed(section = nil, strand = nil)
+    return false unless (check_question(:purpose_overall_1) && check_question(:function_policy))
+
     completed = true
     Function.get_question_names(section, strand).each{|question| unless check_question(question) then completed = false; break; end}
     if completed then
