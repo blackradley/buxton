@@ -138,30 +138,37 @@ class Function < ActiveRecord::Base
     completed = true
     Function.get_question_names(section, strand).each{|question| unless check_question(question) then completed = false; break; end}
     if completed then
-	unless section && !(section == :action_planning) then
-	     issue_strand = self.issues.clone
-	     issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
-	     issue_names = []
-	     Issue.content_columns.each{|column| issue_names.push(column.name)}
-	     issue_names.delete('strand')
-	     issue_strand.each do |issue_name|
-		issue_names.each do |name|
-			break unless completed
-			unless check_response(issue_name.send(name.to_sym)) then
-				completed = false
-				break
-			end
-		end
-	    end
-        end
-	unless section && !(section == :purpose) then
-		function_strategies.each do |strategy| 
-			unless check_response(strategy.strategy_response) then
-				completed = false
-				break
-			end
-		end
-	end      
+    	unless section && !(section == :action_planning) then
+    	     issue_strand = self.issues.clone
+    	     issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
+
+           # If we have no issues, we're not completed - you must have at least one issue to be
+           # considered complete
+    	     if issue_strand.length == 0 then
+    	       completed = false
+  	       end
+  	       
+    	     issue_names = []
+    	     Issue.content_columns.each{|column| issue_names.push(column.name)}
+    	     issue_names.delete('strand')
+    	     issue_strand.each do |issue_name|
+    		     issue_names.each do |name|
+    			     break unless completed
+    			     unless check_response(issue_name.send(name.to_sym)) then
+    				     completed = false
+    				     break
+    			     end
+    		     end
+    	     end
+         end
+    	   unless section && !(section == :purpose) then
+    		   function_strategies.each do |strategy| 
+    			   unless check_response(strategy.strategy_response) then
+    				 completed = false
+    			  break
+    			end
+    		end
+    	end      
     end
     return completed
   end
