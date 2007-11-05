@@ -42,9 +42,6 @@ class Function < ActiveRecord::Base
   has_many :function_strategies
   has_many :issues, :dependent => :destroy
   
-  def strategy(strategy)
-    Strategy.find(strategy)
-  end
 # 
 #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions. 
 #

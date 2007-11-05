@@ -308,9 +308,11 @@ def answer(function, section, strand, number)
       function.send(question)
     when :string
       function.send(question)
+    else
+      LookUp.yes_no_notsure.find{|lookUp| function.send(question) == lookUp.value}.name
     end
   else
-    answer = ''
+    answer = 'Not answered yet'
   end
 
   %Q[<p><label title="#{label}">#{label}</label><div class="labelled">#{h answer}</div></p>]
