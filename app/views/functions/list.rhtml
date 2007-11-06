@@ -4,8 +4,8 @@
 <table class="list">
   <tr>
     <th class="left">Name</th>
-    <th>Purpose</th>
-    <th>Performance</th>
+    <th>Completed</th>
+    <th>Relevance</th>
     <th>Impact</th>
     <th>Priority</th>
     <th>Approved</th>
@@ -16,8 +16,8 @@
   <% for function in @organisation.functions -%>
   <tr>
     <td class="left"><%=h function.name -%></td>
-    <td><%= completed_tag(function, :purpose) -%></td>
-    <td><%= completed_tag(function, :performance) -%></td>
+    <td><%= completed_tag(function) -%></td>
+    <td>-</td>
     <td><%= impact_tag(function) -%></td>
     <td><%= priority_tag(function) -%></td>
     <td><%= approved_tag(function.approved?) -%></td>
