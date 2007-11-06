@@ -33,7 +33,7 @@ class IssuesController < ApplicationController
   
   # Destroy an issue and reply with the appropriate RJS
   def destroy
-    @issue = session[:logged_in_user].function.issues.find(params[:id])
+    @issue = @current_user.function.issues.find(params[:id])
     @issue.destroy
 
     respond_to do |format|

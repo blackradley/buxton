@@ -55,21 +55,20 @@ module ApplicationHelper
 # Show the logged in user type.
 #
   def login_status()
-    html = 'Login status unknown'
-    user = session[:logged_in_user]
-    if user.nil?
-      html = ''
+    if @current_user.nil?
+      ''
     else
-      case user.user_type
+      case @current_user.user_type
         when User::TYPE[:functional]
-          html = 'Logged in as a Function Manager'
+          'Logged in as a Function Manager'
         when User::TYPE[:organisational]
-          html = 'Logged in as an Organisation Manager'
+          'Logged in as an Organisation Manager'
         when User::TYPE[:administrative]
-          html = 'Logged in as an Administration Manager'
+          'Logged in as an Administration Manager'
+        else
+          'Login status unknown'
       end
     end
-    return html
   end
 #   
 # Takes a list of links and generates a menu accordingly.
@@ -101,11 +100,9 @@ module ApplicationHelper
 # Shows a menu bar. Different for different user types. 
 #
   def menu()
-    user = session[:logged_in_user]
-    if user.nil?
+    if @current_user.nil?
       ' '
-    elsif user.user_type == User::TYPE[:organisational]
-      organisation = user.organisation
+    elsif @current_user.user_type == User::TYPE[:organisational]
       generate_menu( [
                       { :text => 'Summary',
                         :url => { :controller => 'functions', :action => 'summary' },
@@ -117,8 +114,7 @@ module ApplicationHelper
                         :url => { :controller => 'sections', :action => 'list' },
                         :title => 'Organisation Control Page - Sections' }
                       ])
-    elsif user.user_type == User::TYPE[:functional]
-      function = user.function
+    elsif @current_user.user_type == User::TYPE[:functional]
       generate_menu( [
                       { :text => 'Overview',
                         :url => { :controller => 'functions', :action => 'overview'},

@@ -12,7 +12,7 @@ class SectionsController < ApplicationController
   # but don't paginate, a long list is actually more convenient for the Organisation
   # Manager to scan down.
   def list
-    @organisation = Organisation.find(session[:logged_in_user].organisation.id)
+    @organisation = Organisation.find(@current_user.organisation.id)
     
     case params[:id]
     when 'purpose'
@@ -39,10 +39,10 @@ class SectionsController < ApplicationController
   #
   def show
     # TODO: improve this - all a bit ugly
-    f_id = if (session[:logged_in_user].user_type == User::TYPE[:organisational])
+    f_id = if (@current_user.user_type == User::TYPE[:organisational])
       params[:f]
     else
-      session[:logged_in_user].function.id
+      @current_user.function.id
     end
     
     @function = Function.find(f_id)
@@ -76,7 +76,7 @@ class SectionsController < ApplicationController
   # Get the function information ready for editing using the appropriate form.
   # These are edited by the Function manager.
   def edit
-    @function = Function.find(session[:logged_in_user].function.id)
+    @function = Function.find(@current_user.function.id)
     @user = @function.user
 
     case params[:id]
@@ -103,7 +103,7 @@ class SectionsController < ApplicationController
   # Update the function answers, for this particular section, as appropriate
   def update
     # Update the answers in the function table
-    @function = Function.find(session[:logged_in_user].function.id)
+    @function = Function.find(@current_user.function.id)
     @function.update_attributes(params[:function])
     
     # Update the function strategy answers if we have any (currently only in the Purpose section)
