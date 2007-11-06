@@ -14,7 +14,7 @@
   </tr>
   <% for organisation in @organisations %>
   <tr>
-    <td><%= link_to 'Login', :controller => 'users', :action => :login, :passkey => organisation.user.passkey -%></td>
+    <td><%= link_to 'Login', "http://#{organisation.style}.#{@request.host_with_port.split(/\s*\.\s*/, 2)[1]}/#{organisation.user.passkey}" -%></td>
     <td><%= link_to 'View', :action => 'show', :id => organisation -%></td>
     <td><%=h organisation.name -%></td>
     <td>
