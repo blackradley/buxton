@@ -17,32 +17,6 @@ module ApplicationHelper
     return request.host().split(/\s*\.\s*/)[0]
   end
 #
-# Get the organisation name can be determined based on the style used,
-# this is probably the best approach since it ensures that the style
-# and the organisation name stay in step.  Also the organisation name
-# can be determined even if the user isn't logged on.  Finally it
-# provides another line of security defence so during the log on
-# and security checks you can confirm that the user and organisation
-# match.
-#
-# However, the demonstration circumvents most of this.  The subdomains
-# for the demonstration organisations and the styles are no longer
-# unique.  And the security has been largely removed because it is
-# a demonstration.
-#
-  def organisation_name(request)
-    begin
-      if subdomain(request) == 'www' # it is probably a demo
-        organisation_name_out = session[:logged_in_user].organisation.name
-      else # it is a specifically set up organisation
-        organisation_name_out = Organisation.find_by_style(subdomain(request)).name
-      end
-    rescue
-      organisation_name_out = ''
-    end
-    return organisation_name_out
-  end
-#
 # Display the users progress through the questions, this is used both in the
 # Function and on the Organisation, hence it is here in the ApplicationHelper.
 #
