@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
     :message => 'Please provide an email'
   validates_format_of :email,
     :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,
-    :message => 'Email must be valid'
+    :message => 'E-mail must be valid'
 #
 # A user may be one of three types. 
 # 
