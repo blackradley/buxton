@@ -1,34 +1,28 @@
 <h2>Organisations</h2>
 <table>
   <tr>
-    <th></th>
-    <th></th>
     <th>Name</th>
     <th>Editor</th>
-    <th></th>
-    <th></th>
-    <th></th>
     <th>Last Reminder</th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
+    <th></th>
     <th></th>
     <th></th>
   </tr>
   <% for organisation in @organisations %>
   <tr>
-    <td><%= link_to 'Login', "http://#{organisation.style}.#{@request.host_with_port.split(/\s*\.\s*/, 2)[1]}/#{organisation.user.passkey}" -%></td>
-    <td><%= link_to 'View', :action => 'show', :id => organisation -%></td>
     <td><%=h organisation.name -%></td>
-    <td>
-      <a href="<%=h "mailto:" + organisation.user.email + "?subject=" + organisation.name %>">
-        <%=h organisation.user.email -%>
-      </a>
-    </td>
-    <td><%= link_to 'Edit', :action => 'edit_contact', :id => organisation -%></td>
-    <td><%= link_to 'Strategies', :controller => 'strategies', :action => 'list', :id => organisation -%></td>
-    <td>
-      <%= link_to 'Equality', :controller => 'organisations', :action => 'edit_equality_groups_description', :id => organisation -%>
-    </td>
+    <td><%= link_to organisation.user.email, "mailto:#{organisation.user.email}?subject=#{organisation.name}", :title =>"Email" -%></td>
     <td><%= date_or_blank(organisation.user.reminded_on) -%></td>
+    <td><%= link_to 'Login', "http://#{organisation.style}.#{@request.host_with_port}/#{organisation.user.passkey}" -%></td>
+    <td><%= link_to 'Strategies', :controller => 'strategies', :action => 'list', :id => organisation -%></td>
+    <td><%= link_to 'View', :action => 'show', :id => organisation -%></td>
+    <!-- <td><%= link_to 'Equality', :controller => 'organisations', :action => 'edit_equality_groups_description', :id => organisation -%></td> -->
     <td><%= link_to 'Remind', { :controller => 'users', :action => 'remind', :id => organisation.user}, :confirm => 'Send reminder to ' + organisation.name + '?', :method => :post -%></td>
+    <td><%= link_to 'Edit', :action => 'edit_contact', :id => organisation -%></td>
     <td><%= link_to 'Delete', { :action => 'destroy', :id => organisation }, :confirm => 'Delete ' + organisation.name + '?', :method => :post -%></td>
   </tr>
   <% end %>
