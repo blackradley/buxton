@@ -59,6 +59,7 @@ class Function < ActiveRecord::Base
     unless section && !(section == :action_planning) then 
         issue_strand = self.issues.clone
         issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
+	return 0 if (section == :action_planning && issue_strand.length == 0)
         issue_names = []
         Issue.content_columns.each{|column| issue_names.push(column.name)}
         issue_names.delete('strand')
