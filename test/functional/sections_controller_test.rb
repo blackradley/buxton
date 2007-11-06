@@ -75,7 +75,7 @@ class SectionsControllerTest < Test::Unit::TestCase
 
     es_sections = [ :purpose, :performance, :confidence_information, :confidence_consultation, :additional_work, :action_planning ]
 
-    for function in session[:logged_in_user].organisation.functions
+    for function in User.find(session[:user_id]).organisation.functions
       for section in es_sections
         get :show, { :id => section, :f => function.id }
         assert_response :success

@@ -15,21 +15,28 @@ class ApplicationController < ActionController::Base
   include ExceptionNotifiable
     
   before_filter :authenticate
+  before_filter :set_current_user
     
   # Pick a unique cookie name to distinguish our session data from others'
   session :session_key => '_buxton_session_id'
 
-  protected
+protected
   # Override in controller classes that should require authentication
   def secure?
     false
   end
 
-  private
+private
   # Check that the user in the session is for real.
   def authenticate
-    if secure? && session[:logged_in_user].nil?
+    if secure? && session[:user_id].nil?
       redirect_to :controller => 'users'
     end
+  end
+  
+  # If the user_id session variable exists, grab this user from the database and store
+  # in @current_user available to the action of any controller.
+  def set_current_user
+    @current_user = User.find(session[:user_id]) unless session[:user_id].nil?
   end
 end

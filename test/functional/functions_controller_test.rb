@@ -71,7 +71,7 @@ class FunctionsControllerTest < Test::Unit::TestCase
   def test_should_render_overview_okay
     login_as :function_manager
     get :overview
-    assert_response :success
+    assert_response :success  
   end
   
   # def test_index

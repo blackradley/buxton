@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
   def index
     # Log out the user if they are logged in
-    session[:logged_in_user] = nil
+    session[:user_id] = nil
   end
 
   def list
@@ -164,7 +164,7 @@ class UsersController < ApplicationController
       flash[:notice] = 'Out of date link, enter your email to receive a new one'
       redirect_to :action => 'index'
     else # the key is in the table so stash the user
-      session[:logged_in_user] = user
+      session[:user_id] = user.id
       case user.user_type
         when User::TYPE[:functional]
           if user.function.purpose_overall_1 != 0 && user.function.function_policy != 0 then
@@ -181,8 +181,8 @@ class UsersController < ApplicationController
   end
 
   def demo
-    # log out the user if they are logged in
-    session[:logged_in_user] = nil
+    # Log out the user if they are logged in
+    session[:user_id] = nil
   end
 
   # Create a new user and organisation, then log the user in.  Obviously this
