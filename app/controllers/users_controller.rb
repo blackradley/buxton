@@ -15,7 +15,7 @@ class UsersController < ApplicationController
 
   def index
     # Log out the user if they are logged in
-    session[:user_id] = nil
+    logout()
   end
 
   def list
@@ -182,7 +182,7 @@ class UsersController < ApplicationController
 
   def demo
     # Log out the user if they are logged in
-    session[:user_id] = nil
+    logout()
   end
 
   # Create a new user and organisation, then log the user in.  Obviously this
@@ -270,4 +270,9 @@ protected
   def secure?
     false
   end
+  
+  # Log the user out of the system by killing the session parameter that identifies them as being logged in
+  def logout
+    session[:user_id] = nil    
+  end  
 end

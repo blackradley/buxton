@@ -9,17 +9,14 @@
 # Methods added to this helper will be available to all templates in the application.
 #
 module ApplicationHelper
-#
-# I could use <tt>request.subdomains(0).first</tt> but it throws a wobbly if in
-# the development environment because there is no subdomain on http://localhost:3000/
-#
+  # I could use <tt>request.subdomains(0).first</tt> but it throws a wobbly if in
+  # the development environment because there is no subdomain on http://localhost:3000/
   def subdomain(request)
     return request.host().split(/\s*\.\s*/)[0]
   end
-#
-# Display the users progress through the questions, this is used both in the
-# Function and on the Organisation, hence it is here in the ApplicationHelper.
-#
+
+  # Display the users progress through the questions, this is used both in the
+  # Function and on the Organisation, hence it is here in the ApplicationHelper.
   def progress_bar(percentage, width=nil, height=nil)
     if percentage > 100 then percentage = 100 end
     case width
@@ -32,18 +29,16 @@ module ApplicationHelper
     # if width then options.store(:width, width) end
     # image_tag(url_for(options))
   end
-#
-# Extend the date formats to include some British styley ones
-#
+  
+  # Extend the date formats to include some British styley ones
   ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
     :default => "%m/%d/%Y %H:%M",
     :date_time12 => "%d %b %Y %I:%M%p",
     :date_time24 => "%d %b %Y %H:%M"
   )
-#
-# Format the date or say there is nothing, rather than just outputting
-# a blank or the date from the begining of the epoch.
-#
+
+  # Format the date or say there is nothing, rather than just outputting
+  # a blank or the date from the begining of the epoch.
   def date_or_blank(date)
     if date.nil?
       return 'no date'
@@ -51,9 +46,8 @@ module ApplicationHelper
       return date.to_formatted_s(:date_time12)
     end
   end
-#
-# Show the logged in user type.
-#
+
+  # Show the logged in user type.
   def login_status()
     if @current_user.nil?
       ''
@@ -70,10 +64,9 @@ module ApplicationHelper
       end
     end
   end
-#   
-# Takes a list of links and generates a menu accordingly.
-# On state provided by introduction of class="selected"
-#   
+  
+  # Takes a list of links and generates a menu accordingly.
+  # On state provided by introduction of class="selected"
   def generate_menu(links)
     link_html = ''
     links.each do |link|
@@ -83,10 +76,9 @@ module ApplicationHelper
     end
     content_tag('ul', link_html, :id => 'menuBar')
   end
-#
-# Display a coloured bar showing the level selected, produced 
-# entirely via div's courtessy of Sam.
-# 
+
+  # Display a coloured bar showing the level selected, produced 
+  # entirely via div's courtessy of Sam.
   def level_bar(value, out_of, css_class)
     html = 'Not answered yet'
     if value != 0
@@ -96,9 +88,8 @@ module ApplicationHelper
     end
     return html
   end
-#
-# Shows a menu bar. Different for different user types. 
-#
+
+  # Shows a menu bar. Different for different user types. 
   def menu()
     if @current_user.nil?
       ' '
@@ -126,9 +117,6 @@ module ApplicationHelper
     else
       'Menu Fail'
     end
-    
-
-    
   end
   
 #generates strand nav bar
