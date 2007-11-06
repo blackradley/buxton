@@ -57,33 +57,33 @@ class Function < ActiveRecord::Base
     Function.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end} 
     #If you don't specify a section, or your section is action planning, consider issues as well.
     unless section && !(section == :action_planning) then 
-        issue_strand = self.issues.clone
-        issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
-	return 0 if (section == :action_planning && issue_strand.length == 0)
-        issue_names = []
-        Issue.content_columns.each{|column| issue_names.push(column.name)}
-        issue_names.delete('strand')
-	issue_strand.each do |issue_name|
-		issue_names.each do |name|
-			if check_response(issue_name.send(name.to_sym)) then
-				total += 1
-				number_answered += 1
-			else 
-				total += 1
-			end
-		end
-	end
+       issue_strand = self.issues.clone
+       issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
+       return 0 if (section == :action_planning && issue_strand.length == 0)
+       issue_names = []
+       Issue.content_columns.each{|column| issue_names.push(column.name)}
+       issue_names.delete('strand')
+       issue_strand.each do |issue_name|
+          issue_names.each do |name|
+            if check_response(issue_name.send(name.to_sym)) then
+              total += 1
+              number_answered += 1
+            else 
+              total += 1
+            end
+          end
+       end
      end
     #If you don't suggest a section, or your section is purpose, then consider strategies as well.
     unless section && !(section == :purpose) then
-	function_strategies.each do |strategy| 
-		if check_response(strategy.strategy_response) then
-			total += 1
-			number_answered += 1
-		else 
-			total += 1
-		end
-	end
+      function_strategies.each do |strategy| 
+        if check_response(strategy.strategy_response) then
+          total += 1
+          number_answered += 1
+        else 
+          total += 1
+        end
+      end
     end
     return ((Float(number_answered)/total)*100).round unless total == 0  #Calculate percentage as long as there are questions.
     return 100  #If there are no questions in a section, return complete for it. TODO: See if Iain wants this behavior.
@@ -99,30 +99,30 @@ class Function < ActiveRecord::Base
     started = false
     Function.get_question_names(section, strand).each{|question| if check_question(question) then started = true; break; end}
     unless started then #If the function has already been found to be started, then there isn't any need to check further
-	unless section && !(section == :action_planning) then #This checks whether all the issues have been completed.
-	     issue_strand = self.issues.clone
-	     issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
-	     issue_names = []
-	     Issue.content_columns.each{|column| issue_names.push(column.name)}
-	     issue_names.delete('strand')
-	     issue_strand.each do |issue_name|
-		issue_names.each do |name|
-			break if started
-			if check_response(issue_name.send(name.to_sym)) then
-				started  = true
-				break
-			end
-		end
-	    end
+      unless section && !(section == :action_planning) then #This checks whether all the issues have been completed.
+        issue_strand = self.issues.clone
+        issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
+        issue_names = []
+        Issue.content_columns.each{|column| issue_names.push(column.name)}
+        issue_names.delete('strand')
+        issue_strand.each do |issue_name|
+          issue_names.each do |name|
+            break if started
+            if check_response(issue_name.send(name.to_sym)) then
+              started  = true
+              break
+            end
+          end
         end
-	unless section && !(section == :purpose) then #Check strategies are completed.
-		function_strategies.each do |strategy| 
-			if check_response(strategy.strategy_response) then
-				started = true
-				break
-			end
-		end
-	end      
+      end
+      unless section && !(section == :purpose) then #Check strategies are completed.
+        function_strategies.each do |strategy| 
+          if check_response(strategy.strategy_response) then
+            started = true
+            break
+          end
+        end
+      end      
     end
     return started
   end
@@ -148,7 +148,7 @@ class Function < ActiveRecord::Base
         if issue_strand.length == 0 then
           completed = false
         end
-  	        
+            
         issue_names = []
         Issue.content_columns.each{|column| issue_names.push(column.name)}
         issue_names.delete('strand')
@@ -166,13 +166,14 @@ class Function < ActiveRecord::Base
         function_strategies.each do |strategy| 
           unless check_response(strategy.strategy_response) then
             completed = false
-    			  break
+            break
           end
         end
-    	end      
+      end      
     end
     return completed
   end
+  
   
   #This initialises a statistics object, and scores it.
   #TODO: Heavy amount of speed increases. No extensive comments as yet, because I'm anticipating ripping this
