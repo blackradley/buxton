@@ -36,7 +36,7 @@
                 <%= yield %>
             </div>
             <div class="messageArea">
-                <p style="color: green"><%= flash[:notice] -%></p>
+                <p style="color: green"><%=h flash[:notice] -%></p>
             </div>
 	    </div>
 	    <div class="footer">
