@@ -38,7 +38,6 @@ class Function < ActiveRecord::Base
   validates_associated :user
   belongs_to :organisation
   validates_presence_of :organisation
-  validates_associated :organisation
   has_many :function_strategies
   has_many :issues, :dependent => :destroy
   attr_reader :stat_function

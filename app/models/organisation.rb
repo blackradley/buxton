@@ -29,9 +29,14 @@ class Organisation < ActiveRecord::Base
   belongs_to :user, :dependent => :destroy
   validates_presence_of :user
   validates_associated :user
+
   has_many :functions, :dependent => :destroy
+  validates_associated :functions
+
   has_many :strategies, :dependent => :destroy
-  validates_presence_of :name,
+  validates_associated :strategies
+
+  validates_presence_of :name, 
     :message => 'All organisations must have a name'
   validates_presence_of :style,
     :message => 'Please provide an css style name, all organisations must have a style'
