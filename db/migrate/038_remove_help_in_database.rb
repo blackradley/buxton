@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
+#
 class RemoveHelpInDatabase < ActiveRecord::Migration
   def self.up
     remove_column :organisations, "strategies_description"
