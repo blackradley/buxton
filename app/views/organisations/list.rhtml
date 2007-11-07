@@ -22,8 +22,8 @@
     <td><%= link_to 'View', :action => 'show', :id => organisation -%></td>
     <!-- <td><%= link_to 'Equality', :controller => 'organisations', :action => 'edit_equality_groups_description', :id => organisation -%></td> -->
     <td><%= link_to 'Remind', { :controller => 'users', :action => 'remind', :id => organisation.user}, :confirm => 'Send reminder to ' + organisation.name + '?', :method => :post -%></td>
-    <td><%= link_to 'Edit', :action => 'edit_contact', :id => organisation -%></td>
-    <td><%= link_to 'Delete', { :action => 'destroy', :id => organisation }, :confirm => 'Delete ' + organisation.name + '?', :method => :post -%></td>
+    <td><%= link_to 'Edit', :action => 'edit', :id => organisation.id -%></td>
+    <td><%= link_to 'Delete', { :action => 'destroy', :id => organisation.id }, :confirm => 'Delete ' + organisation.name + '?', :method => :post -%></td>
   </tr>
   <% end %>
 </table>

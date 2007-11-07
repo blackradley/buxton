@@ -1,24 +1,15 @@
 <h1><%= @organisation.name -%> strategies</h1>
 <table>
   <tr>
-    <th>Strategy Description</th>
-  </tr>
-  <tr>
-    <td><%= @organisation.strategies_description -%></td>
-    <td><%= link_to 'Edit', :controller => 'organisations', :action => 'edit_strategies_description', :id => @organisation -%></td>
-  </tr>
-  
-</table>
-
-<table>
-  <tr>
-    <th></th>
     <th>Name</th>
+    <th></th>
+	<th></th>
+	<th></th>	
   </tr>
   <% for strategy in @strategies -%>
   <tr>
-    <td><%= link_to 'View', :action => 'show', :id => strategy -%></td>
     <td title="<%=h strategy.description %>"><%=h strategy.name -%></td>
+    <td><%= link_to 'View', :action => 'show', :id => strategy -%></td>
     <td><%= link_to 'Edit', :action => 'edit', :id => strategy -%></td>
     <td><%= link_to 'Delete', { :action => 'destroy', :id => strategy }, :confirm => 'Delete ' + strategy.name + '?', :method => :post -%></td>
   </tr>

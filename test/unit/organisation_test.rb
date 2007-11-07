@@ -19,7 +19,6 @@ class OrganisationTest < Test::Unit::TestCase
     organisation = user.organisation
     assert_equal organisations(:birmingham).name, organisation.name
     assert_equal organisations(:birmingham).style, organisation.style
-    assert_equal organisations(:birmingham).strategies_description, organisation.strategies_description
   end
 #
 # Ensure the validation works
