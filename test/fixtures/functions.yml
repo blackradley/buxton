@@ -14,5 +14,5 @@ meals_on_wheels:
   name: "Meals on Wheels"
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
-  purpose_overall_1: 1
+  existing_proposed: 1
   function_policy: 1
