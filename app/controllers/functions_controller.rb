@@ -94,7 +94,7 @@ class FunctionsController < ApplicationController
     @function.update_attributes(params[:function])
     
     # Check both the Function/Policy and Existing/Proposed questions have been answered
-    if @function.purpose_overall_1 != 0 && @function.function_policy != 0 then
+    if @function.started then
       # If so, proceed
       flash[:notice] =  "#{@function.name} status was successfully set up."
       redirect_to :action => 'show'
