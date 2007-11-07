@@ -49,8 +49,7 @@ class SectionsController < ApplicationController
     
     # Only display the answers if Function/Policy Existing/Proposed are answered otherwise
     # we don't know what label text to use.
-    if ((@function.purpose_overall_1 && @function.function_policy) &&
-      (@function.purpose_overall_1 != 0 && @function.function_policy != 0)) then
+    if @function.started then
       case params[:id]
       when 'purpose'
         render :template => 'sections/show_purpose'

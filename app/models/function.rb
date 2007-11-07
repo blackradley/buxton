@@ -95,6 +95,7 @@ class Function < ActiveRecord::Base
    # and if they have, then the function is by definition started
   def started(section = nil, strand = nil)
     return false unless (check_question(:purpose_overall_1) && check_question(:function_policy))
+    return false unless (purpose_overall_1 + function_policy) > 0
     
     started = false
     Function.get_question_names(section, strand).each{|question| if check_question(question) then started = true; break; end}
