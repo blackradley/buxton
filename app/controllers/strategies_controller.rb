@@ -60,8 +60,13 @@ class StrategiesController < ApplicationController
 
   # Destroy this strategy
   def destroy
-    Strategy.find(params[:id]).destroy
+    @strategy = Strategy.find(params[:id])
+    @strategy.destroy
+    
+    flash[:notice] = 'Strategy successfully deleted.'
     redirect_to :action => 'list'
+  rescue ActiveRecord::RecordNotFound => e  
+    render :inline => 'Invalid ID.'
   end
   
 protected

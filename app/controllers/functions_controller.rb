@@ -148,9 +148,13 @@ class FunctionsController < ApplicationController
     unless (@current_user.user_type == User::TYPE[:organisational]) then render :inline => 'Invalid.' end
     
     # Destroy the function and go back to the list of functions for this organisation
-    # TODO: deal with if it doesn't delete properly
-    Function.find(params[:id]).destroy
-    redirect_to :action => :list
+    @function = Function.find(params[:id])
+    @function.destroy
+
+    flash[:notice] = 'Function successfully deleted.'
+    redirect_to :action => 'list'
+  rescue ActiveRecord::RecordNotFound => e  
+    render :inline => 'Invalid ID.'    
   end
 
   # Show a printer friendly summary page

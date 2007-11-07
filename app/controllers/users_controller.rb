@@ -109,9 +109,12 @@ class UsersController < ApplicationController
 
   # Destroy the user
   def destroy
-    User.find(params[:id]).destroy
+    @user = User.find(params[:id])
+    @user.destroy
+    
+    flash[:notice] = 'User successfully deleted.'
     redirect_to :action => 'list'
-  rescue ActiveRecord::RecordNotFound => e
+  rescue ActiveRecord::RecordNotFound => e  
     render :inline => 'Invalid ID.'    
   end
   

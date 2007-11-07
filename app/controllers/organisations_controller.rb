@@ -88,8 +88,13 @@ class OrganisationsController < ApplicationController
   
   # Destroy the organisation
   def destroy
-    Organisation.find(params[:id]).destroy
+    @organisation = Organisation.find(params[:id])
+    @organisation.destroy
+
+    flash[:notice] = 'Organisation successfully deleted.'
     redirect_to :action => 'list'
+  rescue ActiveRecord::RecordNotFound => e  
+    render :inline => 'Invalid ID.'    
   end
 
 protected
