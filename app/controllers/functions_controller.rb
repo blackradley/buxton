@@ -42,7 +42,7 @@ class FunctionsController < ApplicationController
 
   # Available to the Function manager. Show the summary information for a specific function.
   def show
-    @function = Function.find(session[@current_user.function.id].function.id)
+    @function = Function.find(@current_user.function.id)
   end
 
   # Available to the Function manager. Shows the section matrix state for a specific function.
