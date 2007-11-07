@@ -3,9 +3,9 @@
 <h3><%=h @function.name -%></h3>
 
 <% form_for(:function, :url => {:action => 'update_status'}) do |f| %>
-	<p><label for="purpose_overall_1">Is this:</label>
-	<%= f.select :purpose_overall_1, LookUp.existing_proposed.collect {|l| [ l.name, l.value ] } -%></p>
-	<p><label for="purpose_overall_1">Is this a:</label>
+	<p><label for="existing_proposed">Is this:</label>
+	<%= f.select :existing_proposed, LookUp.existing_proposed.collect {|l| [ l.name, l.value ] } -%></p>
+	<p><label for="function_policy">Is this a:</label>
 	<%= f.select :function_policy, LookUp.function_policy.collect {|l| [ l.name, l.value ] } -%></p>
 	<p><%= submit_tag -%></p>
 <% end %>
