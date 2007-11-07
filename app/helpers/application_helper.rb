@@ -9,12 +9,6 @@
 # Methods added to this helper will be available to all templates in the application.
 #
 module ApplicationHelper
-  # I could use <tt>request.subdomains(0).first</tt> but it throws a wobbly if in
-  # the development environment because there is no subdomain on http://localhost:3000/
-  def subdomain(request)
-    return request.host().split(/\s*\.\s*/)[0]
-  end
-
   # Display the users progress through the questions, this is used both in the
   # Function and on the Organisation, hence it is here in the ApplicationHelper.
   def progress_bar(percentage, width=nil, height=nil)
@@ -120,7 +114,7 @@ module ApplicationHelper
   end
   
 #generates strand nav bar
-def strandmenu()
+def strand_menu()
   if params[:equality_strand].nil?
     ''
   elsif params[:equality_strand]=='overall'
@@ -155,7 +149,7 @@ def strandmenu()
     
   else
      html = '<div id="strand">'
-     html << params[:equality_strand].gsub("_",  " ").capitalize 
+     html << params[:equality_strand].titleize 
      html << " : " 
      
      #      if params[:id]=='purpose'

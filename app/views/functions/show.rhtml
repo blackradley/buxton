@@ -1,7 +1,7 @@
 <h3>Impact Equality&trade; Function Summary Page</h3>
 <span id="print_link"><%= link_to "#{image_tag('icons/printer.jpg')} Print", {:action => 'print', :id => @function.id}, :target => '_blank', :title => 'Print' %></span>
 <div class="summary">
-<h4><%= h @function.name %></h4>
+<h4><%=h @function.name %></h4>
 
 <% form_for(:function, :url => {:action => 'update'}) do |f| %>
 <fieldset id="approval">

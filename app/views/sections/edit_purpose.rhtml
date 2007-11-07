@@ -1,6 +1,6 @@
 <h1 id="questions">
 	<%= image_tag('icons/no_previous.gif', :class =>'previous')-%>
-	<%= h @function.name -%> - <%= params[:equality_strand].gsub("_",  " ").capitalize -%> Purpose
+	<%=h @function.name -%> - <%= params[:equality_strand].titleize -%> Purpose
 	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'performance', :equality_strand => params[:equality_strand] }, :title =>"Next Section" -%>
 </h1> 
 
