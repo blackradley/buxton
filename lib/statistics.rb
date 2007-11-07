@@ -18,9 +18,12 @@ class StatFunction
   def initialize(topics, function)
     @topics = topics
     @function = function
+    existing_proposed = StatQuestion.new(:existing_proposed, "existing_proposed")
+    @topics[:overall].questions[:existing_proposed] = existing_proposed
   end
   #This loops through each question, separating them out into individual topic matters, then calling score for each topic.
   def score(questions)
+    @topics[:overall].questions[:existing_proposed].score(@function.send(:existing_proposed))
     @topics.each do |name, topic|
 	question_hash = {}
 	questions.each_key{|key| question_hash[key] = questions[key] if key.to_s.include?(name.to_s)}

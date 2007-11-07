@@ -57,21 +57,32 @@ class Function < ActiveRecord::Base
     Function.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end} 
     #If you don't specify a section, or your section is action planning, consider issues as well.
     unless section && !(section == :action_planning) then 
-       issue_strand = self.issues.clone
-       issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
-       return 0 if (section == :action_planning && issue_strand.length == 0)
-       issue_names = []
-       Issue.content_columns.each{|column| issue_names.push(column.name)}
-       issue_names.delete('strand')
-       issue_strand.each do |issue_name|
-          issue_names.each do |name|
-            if check_response(issue_name.send(name.to_sym)) then
-              total += 1
-              number_answered += 1
-            else 
-              total += 1
-            end
-          end
+       #First we calculate all the questions, in case there is a nil.
+       questions = Function.get_question_names(:confidence_consultation, strand, 7)
+       questions.each do |question|
+         strand = question.to_s.split("_")
+         strand.delete_at(1)
+         strand.delete_at(0)
+         strand.pop
+         lookups_required = (self.send(question) != 2)
+         if lookups_required then
+           issue_strand = self.issues.clone
+           issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
+           return 0 if (section == :action_planning && issue_strand.length == 0)
+           issue_names = []
+           Issue.content_columns.each{|column| issue_names.push(column.name)}
+           issue_names.delete('strand')
+           issue_strand.each do |issue_name|
+              issue_names.each do |name|
+                if check_response(issue_name.send(name.to_sym)) then
+                  total += 1
+                  number_answered += 1
+                else 
+                  total += 1
+                end
+              end
+           end
+         end
        end
      end
     #If you don't suggest a section, or your section is purpose, then consider strategies as well.
@@ -96,26 +107,11 @@ class Function < ActiveRecord::Base
   def started(section = nil, strand = nil)
     return false unless (check_question(:existing_proposed) && check_question(:function_policy))
     return false unless (existing_proposed + function_policy) > 0
-    
     started = false
+    unless started then
     Function.get_question_names(section, strand).each{|question| if check_question(question) then started = true; break; end}
-    unless started then #If the function has already been found to be started, then there isn't any need to check further
-      unless section && !(section == :action_planning) then #This checks whether all the issues have been completed.
-        issue_strand = self.issues.clone
-        issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
-        issue_names = []
-        Issue.content_columns.each{|column| issue_names.push(column.name)}
-        issue_names.delete('strand')
-        issue_strand.each do |issue_name|
-          issue_names.each do |name|
-            break if started
-            if check_response(issue_name.send(name.to_sym)) then
-              started  = true
-              break
-            end
-          end
-        end
-      end
+    #There is no need to check issues, because if the dependent question has been answered, then by definition they are started
+    #, and if it is not answered, they do not need to be filled in, so should not be taken account of.
       unless section && !(section == :purpose) then #Check strategies are completed.
         function_strategies.each do |strategy| 
           if check_response(strategy.strategy_response) then
@@ -136,33 +132,36 @@ class Function < ActiveRecord::Base
   #change would make no difference to the runtime in the worst case, and could well speed it up in best case.
   def completed(section = nil, strand = nil)
     return false unless (check_question(:existing_proposed) && check_question(:function_policy))
-
     completed = true
     Function.get_question_names(section, strand).each{|question| unless check_question(question) then completed = false; break; end}
     if completed then
-      unless section && !(section == :action_planning) then
-        issue_strand = self.issues.clone
-        issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
-       
-        # If we have no issues, we're not completed - you must have at least one issue to be
-        # considered complete
-        if issue_strand.length == 0 then
-          completed = false
-        end
-            
-        issue_names = []
-        Issue.content_columns.each{|column| issue_names.push(column.name)}
-        issue_names.delete('strand')
-        issue_strand.each do |issue_name|
-          issue_names.each do |name|
-            break unless completed
-            unless check_response(issue_name.send(name.to_sym)) then
-              completed = false
-              break
-            end
-          end
-        end
-      end
+    unless section && !(section == :action_planning) then 
+       #First we calculate all the questions, in case there is a nil.
+       questions = Function.get_question_names(:confidence_consultation, strand, 7)
+       questions.each do |question|
+         strand = question.to_s.split("_")
+         strand.delete_at(1)
+         strand.delete_at(0)
+         strand.pop
+         lookups_required = (self.send(question) != 2)
+         if lookups_required then
+           issue_strand = self.issues.clone
+           issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s}
+           return false if (section == :action_planning && issue_strand.length == 0)
+           issue_names = []
+           Issue.content_columns.each{|column| issue_names.push(column.name)}
+           issue_names.delete('strand')
+           issue_strand.each do |issue_name|
+              issue_names.each do |name|
+                unless check_response(issue_name.send(name.to_sym)) then
+                  completed = false
+                  break
+                end
+              end
+           end
+         end
+       end
+     end
       unless section && !(section == :purpose) then
         function_strategies.each do |strategy| 
           unless check_response(strategy.strategy_response) then
@@ -226,7 +225,8 @@ class Function < ActiveRecord::Base
 	  questions.delete_if{ |question| !(question.to_s.include?(number.to_s))} if number
 	  return questions
   end
-  
+  #TODO: Needs fixing. It currently makes a start at the display, but is not finished by any means. Won't throw any bugs though.
+  # do NOT use this yet, except as a very crude demo. Question 7 wording is wrong, and other questions wordings not confirmed.
   def action_planning_text_lookup(strand, question)
     begin 
       fun_pol_indicator = LookUp.function_policy.find{|lookUp| self.function_policy == lookUp.value}.name.downcase #Detect whether it is a function or a policy
@@ -236,7 +236,74 @@ class Function < ActiveRecord::Base
     if (existing_proposed == 0 || existing_proposed == nil) then existing_proposed_name = "proposed" end
     if function_policy == 0 then fun_pol_indicator = "------" end
     
-    LookUp.send(question_wording_lookup(:purpose, strand, question)[1]).description
+    wordings = {:gender =>  "men and women",
+      :race => "individuals from different ethnic backgrounds",
+      :disability => "individuals with different kinds of disability",
+      :faith => "individuals of different faiths",
+      :sexual_orientation => "individuals of different sexual orientations",
+      :age => "individuals of different ages"
+    }
+    
+    strands =  {:gender =>  "Gender",
+        :race => "Race",
+        :disability => "Disability",
+        :faith => "Faith",
+        :sexual_orientation => "Lesbian Gay Bisexual and Transgender",
+        :age => "Age"
+    }
+    response = ""
+    case question
+      when 1
+        response = "If the #{fun_pol_indicator} were performed well"
+        case send("purpose_#{strand}_3".to_sym)
+          when 1
+            response += "it would not affect #{wordings} differently."
+          when 2
+            response += "it would affect #{wordings} differently to a limited extent"
+          when 3
+            response += "it would affect #{wordings} differently to a significant extent"
+          else
+            response += "it would affect #{wordings} differently to a significant extent"
+        end
+      when 2
+        response = "If the #{fun_pol_indicator} were performed badly"
+        case send("purpose_#{strand}_4".to_sym)
+          when 1
+            response += "it would not affect #{wordings} differently."
+          when 2
+            response += "it would affect #{wordings} differently to a limited extent"
+          when 3
+            response += "it would affect #{wordings} differently to a significant extent"
+          else
+            response += "it would affect #{wordings} differently to a significant extent"
+        end
+      when 3
+        response = "The performance of the Function in meeting the different needs of #{wordings} is"
+        response += LookUp.rating.find{|lookUp| send("performance_#{strand}_1".to_sym) == lookUp.value}.name.downcase
+        response += "\n"
+        is_validated = (self.send("performance_#{strand}_1".to_sym) == 1)
+        response += "This performance assessment has #{"not " unless is_validated}been validated."
+      when 4
+        issues_present = (self.send("performance_#{strand}_4".to_sym) == 1)
+        response += "There are #{"no " unless issues_present}performance issues that might have different implications for #{wordings}"
+      when 5
+        information_present = (self.send("confidence_information_#{strand}_1".to_sym) == 2)
+        response = "There is information to monitor the performance of the function in meeting the needs of #{wordings}."
+        response += "There are #{"no " if information_present}gaps in this information"
+      when 6
+        consulted_groups = (self.send("confidence_consultation_#{strand}_1".to_sym) == 1)
+        consulted_experts = (self.send("confidence_consultation_#{strand}_4".to_sym) == 1)
+        response += "Groups representing #{wordings[strand]} have #{"not " unless consulted_groups}been consulted and"
+        response += " experts have #{"not" unless consulted_experts}been consulted."
+        response += "\n"
+        issues_identified = (self.send("confidence_consultation_#{strand}_7".to_sym) == 1)
+        response += "The consultations did not identify any issues with the impact of the #{fun_pol_indicator} upon #{wordings[strand]}."
+      when 7
+        response =  "The Function does not have a role in eliminating unlawful discrimination on 
+          the grounds of #{strands[strand]} or promoting equality of opportunity between #{wordings[strand]}."
+    end
+    
+    return response
   end
   #This function returns the wording of a particular question. It takes a section strand and question number as arguments, and returns that specific question.
   #It can also be passed nils, and in that event, it will automatically return an array containing all the values that corresponded to the nils. Hence, to return all
