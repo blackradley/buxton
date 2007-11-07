@@ -49,7 +49,7 @@ private
     @body         = {"user" => user, "request" => request}
     @recipients   = user.email
     @from         = FROM
-    @sent_on      = Time.now
+    @sent_on      = Time.now.gmtime
     @headers      = {}
     # @content_type = "text/html"
   end
