@@ -44,7 +44,7 @@ class Test::Unit::TestCase
     when :function_manager
       user = User.find(3)
       post :login, :passkey => user.passkey
-      if user.function.purpose_overall_1 != 0 && user.function.function_policy != 0 then
+      if user.function.started then
         assert_redirected_to :controller => 'functions', :action => 'show'
       else
        assert_redirected_to :controller => 'functions', :action => 'status'

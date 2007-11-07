@@ -170,7 +170,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       case user.user_type
         when User::TYPE[:functional]
-          if user.function.purpose_overall_1 != 0 && user.function.function_policy != 0 then
+          if user.function.started then
             redirect_to :controller => 'functions', :action => 'show'
           else
            redirect_to :controller => 'functions', :action => 'status'

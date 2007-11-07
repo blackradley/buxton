@@ -94,8 +94,8 @@ class Function < ActiveRecord::Base
    #that you have to answer(function/policy and proposed/overall) have been answered or not, and if they have not been answered, then no others can be
    # and if they have, then the function is by definition started
   def started(section = nil, strand = nil)
-    return false unless (check_question(:purpose_overall_1) && check_question(:function_policy))
-    return false unless (purpose_overall_1 + function_policy) > 0
+    return false unless (check_question(:existing_proposed) && check_question(:function_policy))
+    return false unless (existing_proposed + function_policy) > 0
     
     started = false
     Function.get_question_names(section, strand).each{|question| if check_question(question) then started = true; break; end}
@@ -135,7 +135,7 @@ class Function < ActiveRecord::Base
   #will answer it logically, meaning that if they fail to answer a question, it is more likely to be either at the end or start than the middle. Such a
   #change would make no difference to the runtime in the worst case, and could well speed it up in best case.
   def completed(section = nil, strand = nil)
-    return false unless (check_question(:purpose_overall_1) && check_question(:function_policy))
+    return false unless (check_question(:existing_proposed) && check_question(:function_policy))
 
     completed = true
     Function.get_question_names(section, strand).each{|question| unless check_question(question) then completed = false; break; end}
@@ -227,18 +227,29 @@ class Function < ActiveRecord::Base
 	  return questions
   end
   
+  def action_planning_text_lookup(strand, question)
+    begin 
+      fun_pol_indicator = LookUp.function_policy.find{|lookUp| self.function_policy == lookUp.value}.name.downcase #Detect whether it is a function or a policy
+      existing_proposed_name = LookUp.existing_proposed.find{|lookUp| self.existing_proposed == lookUp.value}.name.downcase #Detect whether it is an existing function or a proposed function.
+    rescue
+    end
+    if (existing_proposed == 0 || existing_proposed == nil) then existing_proposed_name = "proposed" end
+    if function_policy == 0 then fun_pol_indicator = "------" end
+    
+    LookUp.send(question_wording_lookup(:purpose, strand, question)[1]).description
+  end
   #This function returns the wording of a particular question. It takes a section strand and question number as arguments, and returns that specific question.
   #It can also be passed nils, and in that event, it will automatically return an array containing all the values that corresponded to the nils. Hence, to return all
   #questions and their lookup types, just func.question_wording_lookup suffices.
   def question_wording_lookup(section = nil, strand = nil, question = nil)
 	begin 
 	fun_pol_indicator = LookUp.function_policy.find{|lookUp| self.function_policy == lookUp.value}.name.downcase #Detect whether it is a function or a policy
-	existing_proposed = LookUp.existing_proposed.find{|lookUp| self.purpose_overall_1 == lookUp.value}.name.downcase #Detect whether it is an existing function or a proposed function.
+	existing_proposed_name = LookUp.existing_proposed.find{|lookUp| self.existing_proposed == lookUp.value}.name.downcase #Detect whether it is an existing function or a proposed function.
 	rescue
 	end
-	if (purpose_overall_1 == 0 || purpose_overall_1 == nil) then existing_proposed = "proposed" end
+	if (existing_proposed == 0 || existing_proposed == nil) then existing_proposed_name = "proposed" end
 	if function_policy == 0 then fun_pol_indicator = "------" end
-	case existing_proposed
+	case existing_proposed_name
 		when "existing"
 			part_need = "the particular needs of "
 			wordings = {:gender =>  "men and women",
