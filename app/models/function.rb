@@ -33,7 +33,7 @@
 class Function < ActiveRecord::Base
   validates_presence_of :name,
     :message => 'All functions must have a name'
-  belongs_to :user
+  belongs_to :user, :dependent => :destroy
   validates_presence_of :user
   validates_associated :user
   belongs_to :organisation

@@ -26,7 +26,7 @@
 # in the system.
 # 
 class Organisation < ActiveRecord::Base
-  belongs_to :user
+  belongs_to :user, :dependent => :destroy
   validates_presence_of :user
   validates_associated :user
   has_many :functions, :dependent => :destroy
