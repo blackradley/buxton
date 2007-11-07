@@ -13,15 +13,15 @@ their own functions.</p>
 </ul>
 <p>This is a demonstration version of Impact Equality&trade;. Only the performance section is functional.
 To start the demonstration version, input your email address below. This will enable
-you to set up a new organisation, or access an organisation you have already created.
-</p>
+you to set up a new organisation, or access an organisation you have already created.</p>
 
 <%= error_messages_for 'user' %>
-<% form_tag :action => 'create_demo' do %>
+
+<% form_tag :action => 'create' do %>
     <p>
-        <label>Email</label>:<%= text_field_tag :email, nil, options = {:size => 50} -%>
+        <label>Email</label>:<%= text_field :user, :email, :size => 50 -%>
     </p>
 	<span class="button">
-    <%= submit_tag 'Access Your Demonstration Organisation' %>
+    	<%= submit_tag 'Access Your Demonstration Organisation' %>
 	</span>
 <% end %>
