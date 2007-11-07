@@ -297,7 +297,7 @@ class Function < ActiveRecord::Base
 						the #{fun_pol_indicator} impacts, or may impact, upon #{wordings[strand]}?", :yes_no_notsure],
 					6 => ["Please explain the further information required.", :text],
 					7 => ["Is there any more work you feel is necessary to complete the assessment?", :yes_no_notsure],
-					8 => ["Do you think that the #{fun_pol_indicator} could have a role in preventing #{wordings[strand]} being treated differently, in an unfair way, just because they were #{wordings[strand]}", :text],
+					8 => ["Do you think that the #{fun_pol_indicator} could have a role in preventing #{wordings[strand]} being treated differently, in an unfair way, just because they were #{wordings[strand]}", :yes_no_notsure],
 					9 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were not subject to inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?", :yes_no_notsure],
 					10 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were treated equally and fairly?", :yes_no_notsure],
 					11 => ["Do you think that the #{fun_pol_indicator} could assist #{wordings[strand]} to get on better with each other?", :yes_no_notsure],
