@@ -61,30 +61,22 @@ class FunctionsController < ApplicationController
     @user = User.new
   end
 
-  # Create a new function and a new user based on the parameters on the form.
+  # Create a new function and a new user based on the parameters in the form data.
   def create
-    # Use transactions to ensure if one action on a model fails, they all do.
-    Function.transaction do
-      User.transaction do
-        # Create the user
-        @user = User.new(params[:user])
-        @user.user_type = User::TYPE[:functional]
-        @user.passkey = User.generate_passkey(@user)
-        @user.save!
-        # Create the function and associate the user with it
-        @function = Function.new(params[:function])
-        @function.organisation_id = @current_user.organisation.id
-        @function.user = @user
+    @function = @current_user.organisation.functions.build(params[:function])
+    @user = @function.build_user(params[:user])
+    @user.user_type = User::TYPE[:functional]
+    @user.passkey = User.generate_passkey(@user)
+
+    begin
+      Function.transaction do
         @function.save!
-        # Go back and list all of the functions in this organisation (now including this one)
-        flash[:notice] = @function.name + ' was created.'
+        flash[:notice] = "#{@function.name} was created."
         redirect_to :action => :list
       end
-    end
-    # Something went wrong
-    rescue ActiveRecord::RecordInvalid => e
-      @user.valid? # force checking of errors even if function failed
+    rescue
       render :action => :new
+    end
   end
 
   # Update the function details accordingly.
