@@ -41,6 +41,7 @@ class Function < ActiveRecord::Base
   validates_associated :organisation
   has_many :function_strategies
   has_many :issues, :dependent => :destroy
+  attr_reader :stat_function
   
 # 
 #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions. 
@@ -180,6 +181,7 @@ class Function < ActiveRecord::Base
   #calling method out and replacing it with a much faster version. Statistics library should remain largely unchanged though.
   def statistics
     return nil unless completed # Don't calculate stats if all the necessary questions haven't been answered
+    return @stat_function if @stat_function
     questions = {}
     question_hash = question_wording_lookup
     question_hash.each do |strand_name, strand|
@@ -209,7 +211,7 @@ class Function < ActiveRecord::Base
     end
     test = Statistics.new(question_wording_lookup, self)
     test.score(questions)
-    test.function
+    @stat_function = test.function
   end
 
 #This method recovers questions. It allows you to search by strand or by section.
