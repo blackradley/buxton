@@ -215,11 +215,6 @@ class UsersController < ApplicationController
               @organisation.user = @user
               @organisation.name = 'Demo Council'
               @organisation.style = 'www'
-              @organisation.strategies_help = 'Help for Demo Council strategies required'
-              @organisation.impact_groups_help = 'Help for Demo Council impact groups required'
-              @organisation.good_equality_groups_help = 'Help for Demo Council good equality groups required'
-              @organisation.bad_equality_groups_help = 'Help for Demo Council bad equality groups required'
-              @organisation.approval_help = 'Help for Demo Council approval required'
               @organisation.save!
               # Give the organisation some strategies
               strategy_names = ['Manage resources effectively, flexibly and responsively',
