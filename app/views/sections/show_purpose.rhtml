@@ -2,11 +2,13 @@
 <p><label>Function/Policy is </label><div class="labelled"><%= LookUp.existing_proposed.find{|lookUp| @function.existing_proposed == lookUp.value}.name %></div></p>
 <br />
 
+<% unless @function_responses.nil? || @function_responses.length > 0 then -%>
 <h5>Which strategies does "<%=h @function.name %> implement? </h5>
 <% strategy_hash = {} -%>
 <% LookUp.yes_no.collect{|l| strategy_hash[l.value] = l.name} -%>
 <% @function_responses.each do |function_response| -%>
 	<p><label><%= function_response.strategy.name -%>:<%= function_response.strategy.position -%></label><div class="labelled"><%= strategy_hash[function_response.strategy_response] -%></div></p>
+<% end -%>
 <% end -%>
 
 <h5>What proportion of these groups does "<%=h @function.name %>" impact?</h5>
