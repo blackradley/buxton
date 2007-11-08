@@ -42,10 +42,8 @@ class Function < ActiveRecord::Base
   has_many :function_strategies
   has_many :issues, :dependent => :destroy
   attr_reader :stat_function
-  
-# 
-#27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions. 
-#
+
+  #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions. 
   def percentage_answered(section = nil, strand = nil)
     sec_questions = []
     issue_strand = []

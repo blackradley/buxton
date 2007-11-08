@@ -8,7 +8,7 @@
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
 	<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 2, :f_id => @function.id} %>
-
+	<% unless @function_responses.nil? || @function_responses.length > 0 then -%>
 	<h4>For each strategy, please decide whether it is going to be significantly aided by the function:</h4>
 	<% @function_responses.each do |function_strategy| -%>
 		<p>
@@ -16,6 +16,7 @@
 			<%= select('function_strategies', function_strategy.strategy_id, LookUp.yes_no.collect {|l| [ l.name, l.value ] }, 
 				:selected => strategy_response_or_zero(@function_responses, function_strategy.strategy_id)) -%>
 		</p>
+	<% end -%>
 	<% end -%>
 
 	<h4>Which of these groups are you having an impact on? <a href="#" onclick="Element.toggle('impact_groups_help'); return false;"><img alt="Help" src="/images/icons/help.gif" /></a></h4>
