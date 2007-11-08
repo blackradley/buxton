@@ -155,13 +155,6 @@ class UsersController < ApplicationController
 
   # Log the user in and then direct them to the right place based on the
   # user_type
-  #
-  # TODO: Ensure that the subdomain matches the one expected for that user.
-  #
-  # TODO: Monitor for repeated log ins from the same IP, block the IP if it
-  # looks like some kind of brute force attack.
-  #
-  # TODO: Expire the keys after 10 days.
   def login
     user = User.find_by_passkey(params[:passkey])
     if user.nil? # the key is not in the user table
