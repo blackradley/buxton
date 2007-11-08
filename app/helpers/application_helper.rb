@@ -115,84 +115,35 @@ module ApplicationHelper
   
 #generates strand nav bar
 def strand_menu()
-  if params[:equality_strand].nil?
-    ''
-  elsif params[:equality_strand]=='overall'
+  id = params[:id] 
+  if params[:equality_strand]
+    purpose_sel = "#{'selected' if (id == 'purpose')}"
+    perf_sel = "#{'selected' if (id == 'performance')}"
+    ci_sel = "#{'selected' if (id == 'confidence_information')}"
+    cc_sel = "#{'selected' if (id == 'confidence_consultation')}"
+    aw_sel = "#{'selected' if (id == 'additional_work')}"
+    ap_sel = "#{'selected' if (id == 'action_planning')}"
+    
     html = '<div id="strand">'
-    html << params[:equality_strand].capitalize 
-    html << " : " 
-       
-    if params[:id]=='purpose'
-      html << link_to('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title => 'Edit Purpose', :class => 'selected')
-    else
-      html << link_to('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title => 'Edit Purpose', :class => '')
-    end
-       
-    html << ' >> '
-        
-    if params[:id]=='performance'
-      html << link_to('Performance', { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => params[:equality_strand] }, :title => 'Edit Performance', :class => 'selected')
-    else
-   	  html << link_to('Performance', { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => params[:equality_strand] }, :title => 'Edit Performance', :class => '')
-    end
-       
-    html << ' >> '
-        
-    if params[:id]=='confidence_information'
-      html << link_to('Confidence Information', { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => params[:equality_strand] }, :title => 'Edit Confidence Information', :class => 'selected')
-    else
-      html << link_to('Confidence Information', { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => params[:equality_strand] }, :title => 'Edit Confidence Information', :class => '')
-    end 
-        
-		html << "</div>"
-		return html
-    
-  else
-    html = '<div id="strand">'
-    html << params[:equality_strand].titleize 
-    html << " : " 
-      
-    if params[:id]=='performance'
-      html << link_to('Performance', { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => params[:equality_strand] }, :title => 'Edit Performance', :class => 'selected')
- 		else
-      html << link_to('Performance', { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => params[:equality_strand] }, :title => 'Edit Performance', :class => '')
-    end
-     
-    html << ' >> '
-      
-    if params[:id]=='confidence_information'
-      html << link_to('Confidence Information', { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => params[:equality_strand] }, :title => 'Edit Confidence Information', :class => 'selected')
-   	else
-   	  html << link_to('Confidence Information', { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => params[:equality_strand] }, :title => 'Edit Confidence Information', :class => '')
-    end 
-    
-    html << ' >> '
-      
-    if params[:id]=='confidence_consultation'
-      html << link_to('Confidence Consultation', { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => params[:equality_strand] }, :title => 'Edit Confidence Consultation', :class => 'selected')
-   	else
-   	  html << link_to('Confidence Consultation', { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => params[:equality_strand] }, :title => 'Edit Confidence Consultation', :class => '')
-    end
-    
-    html << ' >> '
-    
-    if params[:id]=='additional_work'
-      html << link_to('Additional Work', { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => params[:equality_strand] }, :title => 'Additional Work', :class => 'selected')
- 		else
- 			html << link_to('Additional Work', { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => params[:equality_strand] }, :title => 'Additional Work', :class => '')
-    end
- 
-    html << ' >> '
-    
-    if params[:id]=='action_planning'
-      html << link_to('Action Planning', { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => params[:equality_strand] }, :title => 'Action Planning', :class => 'selected')
- 		else
- 			html << link_to('Action Planning', { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => params[:equality_strand] }, :title => 'Action Planning', :class => '')
-    end   
-    
-    html << "</div>"
-			
+      html << params[:equality_strand].titleize 
+      html << " : " 
+      html << link_to('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title => 'Edit Purpose', :class => purpose_sel)      
+      html << ' >> '
+      html << link_to('Performance', { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => params[:equality_strand] }, :title => 'Edit Performance', :class => perf_sel)   
+      html << ' >> '
+      html << link_to('Confidence Information', { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => params[:equality_strand] }, :title => 'Edit Confidence Information', :class => ci_sel)    
+      unless params[:equality_strand] == 'overall'
+        html << ' >> '
+        html << link_to('Confidence Consultation', { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => params[:equality_strand] }, :title => 'Edit Confidence Consultation', :class => cc_sel)
+        html << ' >> '
+        html << link_to('Additional Work', { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => params[:equality_strand] }, :title => 'Additional Work', :class => aw_sel)
+        html << ' >> '
+        html << link_to('Action Planning', { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => params[:equality_strand] }, :title => 'Action Planning', :class => ap_sel) 
+      end
+    html << "</div>"		
     return html
+  else
+    return ''
   end
 end
 
