@@ -57,6 +57,11 @@ class User < ActiveRecord::Base
     email = user.email
     date = user.created_on.nil? ? DateTime::now() : user.created_on
     number = rand(999999)
-    return Digest::SHA1.hexdigest(email.to_s + date.to_s + number.to_s)
+    passkey = Digest::SHA1.hexdigest(email.to_s + date.to_s + number.to_s)
+    if User.find_by_passkey(passkey) then 
+      User.generate_passkey(user)
+    else
+      return passkey
+    end
   end
 end
