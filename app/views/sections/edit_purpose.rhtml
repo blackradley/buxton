@@ -1,13 +1,13 @@
 <h1 id="questions">
 	<%= image_tag('icons/no_previous.gif', :class =>'previous')-%>
-	<%=h @function.name -%> - <%= params[:equality_strand].titleize -%> Purpose
-	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'performance', :equality_strand => params[:equality_strand] }, :title =>"Next Section" -%>
+	<%=h @function.name -%> - <%= @equality_strand.titleize -%> Purpose
+	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'performance', :equality_strand => @equality_strand }, :title =>"Next Section" -%>
 </h1> 
 
 <div id="questions">
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
-	<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 2, :f_id => @function.id} %>
+	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 2, :f_id => @function.id} %>
 	<% unless @function_responses.nil? || @function_responses.length > 0 then -%>
 	<h4>For each strategy, please decide whether it is going to be significantly aided by the function:</h4>
 	<% @function_responses.each do |function_strategy| -%>
@@ -22,11 +22,11 @@
 	<h4>Which of these groups are you having an impact on? <a href="#" onclick="Element.toggle('impact_groups_help'); return false;"><img alt="Help" src="/images/icons/help.gif" /></a></h4>
 	<span id="impact_groups_help" class="toggleHelp" style="display:none;">It is likely that the Function will have an impact on some individuals.  Functions may be external and affect the users of the Council services or internal and only affect staff employed by the Council. Of course staff of the Council are also probably users of Council services in their own right. The question asks you to identify which particular groups of individuals the Function affects.
 	<br /><br />The question also asks you to estimate the approximate proportion each group of individuals the Function has an impact on. It is quite clearly an estimate which by their very nature are not right, they just give an idea of the relative scale.</span>
-	<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 5, :f_id => @function.id} %>
-	<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 6, :f_id => @function.id} %>
-	<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 7, :f_id => @function.id} %>
-	<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 8, :f_id => @function.id} %>
-	<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 9, :f_id => @function.id} %>
+	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 5, :f_id => @function.id} %>
+	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 6, :f_id => @function.id} %>
+	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 7, :f_id => @function.id} %>
+	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 8, :f_id => @function.id} %>
+	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 9, :f_id => @function.id} %>
 
 	<h4>If the function were performed well... <a href="#" onclick="Element.toggle('good_equality_groups_help'); return false;"><img alt="Help" src="/images/icons/help.gif?1191325091" /></a></h4>
 	<span id="good_equality_groups_help" class="toggleHelp" style="display:none;">Everybody belongs to all the six equality strands; we all have a gender, an ethnic background and an age etc.  If the Function affects anyone it will probably affect people who belong to different elements of the Equality Strand, people of different ages, faiths and ethnic background for example. Does the Function affect both men and women, if it does and it is performed well, might it affect men and women differently.<br /><br />The question asks you to identify the scale of any differential impact on different individuals within each Equality Strand if the Function is performing well.</span>
