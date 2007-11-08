@@ -873,3 +873,16 @@ p .toggleHelp{
 	margin:4px 0px;
 	paddding:0px 20%;
 }
+
+/* show styles*/
+
+#show label{
+	width: 380px;
+}
+
+#show .labelled{
+	float: left;
+	width: 150px;
+	line-height:20px;
+	font-weight:bold;
+}
