@@ -10,7 +10,7 @@
 	<%= f.question :purpose, {:equality_strand => params[:equality_strand], :number => 2, :f_id => @function.id} %>
 
 	<h4>For each strategy, please decide whether it is going to be significantly aided by the function:</h4>
-	<% @function.function_strategies.each do |function_strategy| -%>
+	<% @function_responses.each do |function_strategy| -%>
 		<p>
 			<label for="<%= function_strategy.strategy.description -%>"><%= function_strategy.strategy.name -%></label>
 			<%= select('function_strategies', function_strategy.strategy_id, LookUp.yes_no.collect {|l| [ l.name, l.value ] }, 

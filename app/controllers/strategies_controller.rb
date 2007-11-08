@@ -21,8 +21,21 @@ class StrategiesController < ApplicationController
   # Get the organisation you are considering and a list of it's strategies
   def list
     @organisation = Organisation.find(params[:id])
-    @strategies = Strategy.find_all_by_organisation_id(params[:id])
+    @strategies = @organisation.strategies.find(:all, :order => :position)
   end
+  
+  def reorder
+    @organisation = Organisation.find(params[:id])
+    @strategies = @organisation.strategies.find(:all, :order => :position)
+  end
+  
+  def update_strategy_order
+    params[:sortable_strategies].each_with_index do |id, position|
+      # Updates the strategy order - note each_with_index starts at 0 where as
+      # acts_as_list expects position 1 to be first. Thus the +1 here to keep it all happy.
+      Strategy.update(id, :position => position+1)
+    end
+  end  
 
   def show
     @strategy = Strategy.find(params[:id])

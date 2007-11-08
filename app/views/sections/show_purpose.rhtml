@@ -5,8 +5,8 @@
 <h5>Which strategies does "<%=h @function.name %> implement? </h5>
 <% strategy_hash = {} -%>
 <% LookUp.yes_no.collect{|l| strategy_hash[l.value] = l.name} -%>
-<% @function.function_strategies.each do |strategy| -%>
-	<p><label><%= Strategy.find(strategy.strategy_id).name -%>:</label><div class="labelled"><%= strategy_hash[strategy.strategy_response] -%></div></p>
+<% @function_responses.each do |function_response| -%>
+	<p><label><%= function_response.strategy.name -%>:<%= function_response.strategy.position -%></label><div class="labelled"><%= strategy_hash[function_response.strategy_response] -%></div></p>
 <% end -%>
 
 <h5>What proportion of these groups does "<%=h @function.name %>" impact?</h5>
