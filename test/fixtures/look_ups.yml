@@ -6,7 +6,7 @@ look_ups_016:
   id: "16"
   description: None at all
   value: "1"
-  display_order: "1"
+  position: "1"
 look_ups_037: 
   name: "Yes"
   look_up_type: "12"
@@ -14,7 +14,7 @@ look_ups_037:
   id: "53"
   description: "Yes"
   value: "1"
-  display_order: "1"
+  position: "1"
 look_ups_058: 
   name: "No"
   look_up_type: "16"
@@ -22,7 +22,7 @@ look_ups_058:
   id: "74"
   description: "No"
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_017: 
   name: Limited
   look_up_type: "4"
@@ -30,7 +30,7 @@ look_ups_017:
   id: "17"
   description: Some impact
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_038: 
   name: "No"
   look_up_type: "12"
@@ -38,7 +38,7 @@ look_ups_038:
   id: "54"
   description: "No"
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_060: 
   name: Not answered yet
   look_up_type: "9"
@@ -46,7 +46,7 @@ look_ups_060:
   id: "76"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_059: 
   name: Not sure
   look_up_type: "16"
@@ -54,7 +54,7 @@ look_ups_059:
   id: "75"
   description: Not sure
   value: "3"
-  display_order: "3"
+  position: "3"
 look_ups_018: 
   name: Significant
   look_up_type: "4"
@@ -62,7 +62,7 @@ look_ups_018:
   id: "18"
   description: Significant impact
   value: "3"
-  display_order: "3"
+  position: "3"
 look_ups_040: 
   name: Not answered yet
   look_up_type: 
@@ -70,7 +70,7 @@ look_ups_040:
   id: "56"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_039: 
   name: Not sure
   look_up_type: "12"
@@ -78,7 +78,7 @@ look_ups_039:
   id: "55"
   description: Not sure
   value: "3"
-  display_order: "3"
+  position: "3"
 look_ups_061: 
   name: No relevant groups
   look_up_type: "9"
@@ -86,7 +86,7 @@ look_ups_061:
   id: "77"
   description: No relevant groups
   value: "1"
-  display_order: "1"
+  position: "1"
 look_ups_020: 
   name: 5 - excellent
   look_up_type: "6"
@@ -94,7 +94,7 @@ look_ups_020:
   id: "20"
   description: 5 - excellent
   value: "5"
-  display_order: "1"
+  position: "1"
 look_ups_019: 
   name: Not answered yet
   look_up_type: "6"
@@ -102,7 +102,7 @@ look_ups_019:
   id: "19"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_041: 
   name: "Yes"
   look_up_type: 
@@ -110,7 +110,7 @@ look_ups_041:
   id: "57"
   description: "Yes"
   value: "1"
-  display_order: "1"
+  position: "1"
 look_ups_062: 
   name: Plans to consult
   look_up_type: "9"
@@ -118,7 +118,7 @@ look_ups_062:
   id: "78"
   description: Plans to consult
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_021: 
   name: 4 - good
   look_up_type: "6"
@@ -126,7 +126,7 @@ look_ups_021:
   id: "21"
   description: 4 - good
   value: "4"
-  display_order: "2"
+  position: "2"
 look_ups_042: 
   name: "No"
   look_up_type: 
@@ -134,7 +134,7 @@ look_ups_042:
   id: "58"
   description: "No"
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_063: 
   name: No plans to consult
   look_up_type: "9"
@@ -142,7 +142,7 @@ look_ups_063:
   id: "79"
   description: No plans to consult
   value: "3"
-  display_order: "3"
+  position: "3"
 look_ups_001: 
   name: Not answered yet
   look_up_type: "2"
@@ -150,7 +150,7 @@ look_ups_001:
   id: "1"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_022: 
   name: 3 - at expectations
   look_up_type: "6"
@@ -158,7 +158,7 @@ look_ups_022:
   id: "22"
   description: 3 - at expectations
   value: "3"
-  display_order: "3"
+  position: "3"
 look_ups_043: 
   name: Not sure
   look_up_type: 
@@ -166,7 +166,7 @@ look_ups_043:
   id: "59"
   description: Not sure
   value: "3"
-  display_order: "3"
+  position: "3"
 look_ups_064: 
   name: Not sure
   look_up_type: "9"
@@ -174,7 +174,7 @@ look_ups_064:
   id: "80"
   description: Not sure
   value: "4"
-  display_order: "4"
+  position: "4"
 look_ups_023: 
   name: 2 - below expectations
   look_up_type: "6"
@@ -182,7 +182,7 @@ look_ups_023:
   id: "23"
   description: 2 - below expectations
   value: "2"
-  display_order: "4"
+  position: "4"
 look_ups_044: 
   name: Not answered yet
   look_up_type: "13"
@@ -190,7 +190,7 @@ look_ups_044:
   id: "60"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_065: 
   name: Not applicable
   look_up_type: "9"
@@ -198,7 +198,7 @@ look_ups_065:
   id: "81"
   description: Not applicable
   value: "5"
-  display_order: "5"
+  position: "5"
 look_ups_002: 
   name: Proposed
   look_up_type: "2"
@@ -206,7 +206,7 @@ look_ups_002:
   id: "2"
   description: Proposed
   value: "1"
-  display_order: "1"
+  position: "1"
 look_ups_045: 
   name: "Yes"
   look_up_type: "13"
@@ -214,7 +214,7 @@ look_ups_045:
   id: "61"
   description: "Yes"
   value: "1"
-  display_order: "1"
+  position: "1"
 look_ups_066: 
   name: Not answered yet
   look_up_type: "10"
@@ -222,7 +222,7 @@ look_ups_066:
   id: "82"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_003: 
   name: Existing
   look_up_type: "2"
@@ -230,7 +230,7 @@ look_ups_003:
   id: "3"
   description: Existing
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_024: 
   name: 1 - poor
   look_up_type: "6"
@@ -238,7 +238,7 @@ look_ups_024:
   id: "24"
   description: 1 - poor
   value: "1"
-  display_order: "5"
+  position: "5"
 look_ups_067: 
   name: No relevant experts
   look_up_type: "10"
@@ -246,7 +246,7 @@ look_ups_067:
   id: "83"
   description: No relevant experts
   value: "1"
-  display_order: "1"
+  position: "1"
 look_ups_004: 
   name: Not answered yet
   look_up_type: "0"
@@ -254,7 +254,7 @@ look_ups_004:
   id: "4"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_025: 
   name: Not answered yet
   look_up_type: "8"
@@ -262,7 +262,7 @@ look_ups_025:
   id: "29"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_046: 
   name: "No"
   look_up_type: "13"
@@ -270,7 +270,7 @@ look_ups_046:
   id: "62"
   description: "No"
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_068: 
   name: Plans to consult
   look_up_type: "10"
@@ -278,7 +278,7 @@ look_ups_068:
   id: "84"
   description: Plans to consult
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_005: 
   name: "Yes"
   look_up_type: "0"
@@ -286,7 +286,7 @@ look_ups_005:
   id: "5"
   description: "Yes"
   value: "1"
-  display_order: "1"
+  position: "1"
 look_ups_026: 
   name: Less than six months
   look_up_type: "8"
@@ -294,7 +294,7 @@ look_ups_026:
   id: "30"
   description: Less than six months
   value: "1"
-  display_order: "1"
+  position: "1"
 look_ups_047: 
   name: Not sure
   look_up_type: "13"
@@ -302,7 +302,7 @@ look_ups_047:
   id: "63"
   description: Not sure
   value: "3"
-  display_order: "3"
+  position: "3"
 look_ups_070: 
   name: Not sure
   look_up_type: "10"
@@ -310,7 +310,7 @@ look_ups_070:
   id: "86"
   description: Not sure
   value: "4"
-  display_order: "4"
+  position: "4"
 look_ups_069: 
   name: No plans to consult
   look_up_type: "10"
@@ -318,7 +318,7 @@ look_ups_069:
   id: "85"
   description: No plans to consult
   value: "3"
-  display_order: "3"
+  position: "3"
 look_ups_006: 
   name: "No"
   look_up_type: "0"
@@ -326,7 +326,7 @@ look_ups_006:
   id: "6"
   description: "No"
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_027: 
   name: Six months to a year
   look_up_type: "8"
@@ -334,7 +334,7 @@ look_ups_027:
   id: "31"
   description: Six months to a year
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_048: 
   name: Not answered yet
   look_up_type: "14"
@@ -342,7 +342,7 @@ look_ups_048:
   id: "64"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_071: 
   name: Not applicable
   look_up_type: "10"
@@ -350,7 +350,7 @@ look_ups_071:
   id: "87"
   description: Not applicable
   value: "5"
-  display_order: "5"
+  position: "5"
 look_ups_007: 
   name: Not answered yet
   look_up_type: "3"
@@ -358,7 +358,7 @@ look_ups_007:
   id: "7"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_028: 
   name: Over a year
   look_up_type: "8"
@@ -366,7 +366,7 @@ look_ups_028:
   id: "32"
   description: Over a year
   value: "3"
-  display_order: "3"
+  position: "3"
 look_ups_050: 
   name: "No"
   look_up_type: "14"
@@ -374,7 +374,7 @@ look_ups_050:
   id: "66"
   description: "No"
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_049: 
   name: "Yes"
   look_up_type: "14"
@@ -382,7 +382,7 @@ look_ups_049:
   id: "65"
   description: "Yes"
   value: "1"
-  display_order: "1"
+  position: "1"
 look_ups_072: 
   name: Not answered yet
   look_up_type: "7"
@@ -390,7 +390,7 @@ look_ups_072:
   id: "88"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_008: 
   name: None
   look_up_type: "3"
@@ -398,7 +398,7 @@ look_ups_008:
   id: "8"
   description: None
   value: "1"
-  display_order: "1"
+  position: "1"
 look_ups_030: 
   name: Function
   look_up_type: 
@@ -406,7 +406,7 @@ look_ups_030:
   id: "45"
   description: Function
   value: "1"
-  display_order: "1"
+  position: "1"
 look_ups_029: 
   name: Not answered yet
   look_up_type: 
@@ -414,7 +414,7 @@ look_ups_029:
   id: "44"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_051: 
   name: Not sure
   look_up_type: "14"
@@ -422,7 +422,7 @@ look_ups_051:
   id: "67"
   description: Not sure
   value: "3"
-  display_order: "3"
+  position: "3"
 look_ups_073: 
   name: "Yes"
   look_up_type: "7"
@@ -430,7 +430,7 @@ look_ups_073:
   id: "89"
   description: "Yes"
   value: "1"
-  display_order: "1"
+  position: "1"
 look_ups_010: 
   name: Significant minority
   look_up_type: "3"
@@ -438,7 +438,7 @@ look_ups_010:
   id: "10"
   description: Significant minority
   value: "3"
-  display_order: "3"
+  position: "3"
 look_ups_009: 
   name: Small minority
   look_up_type: "3"
@@ -446,7 +446,7 @@ look_ups_009:
   id: "9"
   description: Small minority
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_031: 
   name: Policy
   look_up_type: 
@@ -454,7 +454,7 @@ look_ups_031:
   id: "46"
   description: Policy
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_052: 
   name: Not answered yet
   look_up_type: "15"
@@ -462,7 +462,7 @@ look_ups_052:
   id: "68"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_074: 
   name: "No"
   look_up_type: "7"
@@ -470,7 +470,7 @@ look_ups_074:
   id: "90"
   description: "No"
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_011: 
   name: About half
   look_up_type: "3"
@@ -478,7 +478,7 @@ look_ups_011:
   id: "11"
   description: About half
   value: "4"
-  display_order: "4"
+  position: "4"
 look_ups_032: 
   name: Not answered yet
   look_up_type: "11"
@@ -486,7 +486,7 @@ look_ups_032:
   id: "48"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_053: 
   name: "Yes"
   look_up_type: "15"
@@ -494,7 +494,7 @@ look_ups_053:
   id: "69"
   description: "Yes"
   value: "1"
-  display_order: "1"
+  position: "1"
 look_ups_075: 
   name: Not sure
   look_up_type: "7"
@@ -502,7 +502,7 @@ look_ups_075:
   id: "91"
   description: Not sure
   value: "3"
-  display_order: "3"
+  position: "3"
 look_ups_012: 
   name: Majority
   look_up_type: "3"
@@ -510,7 +510,7 @@ look_ups_012:
   id: "12"
   description: Majority
   value: "5"
-  display_order: "5"
+  position: "5"
 look_ups_033: 
   name: "Yes"
   look_up_type: "11"
@@ -518,7 +518,7 @@ look_ups_033:
   id: "49"
   description: "Yes"
   value: "1"
-  display_order: "1"
+  position: "1"
 look_ups_054: 
   name: "No"
   look_up_type: "15"
@@ -526,7 +526,7 @@ look_ups_054:
   id: "70"
   description: "No"
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_034: 
   name: "No"
   look_up_type: "11"
@@ -534,7 +534,7 @@ look_ups_034:
   id: "50"
   description: "No"
   value: "2"
-  display_order: "2"
+  position: "2"
 look_ups_055: 
   name: Not sure
   look_up_type: "15"
@@ -542,7 +542,7 @@ look_ups_055:
   id: "71"
   description: Not sure
   value: "3"
-  display_order: "3"
+  position: "3"
 look_ups_013: 
   name: Substantial majority
   look_up_type: "3"
@@ -550,7 +550,7 @@ look_ups_013:
   id: "13"
   description: Substantial majority
   value: "6"
-  display_order: "6"
+  position: "6"
 look_ups_056: 
   name: Not answered yet
   look_up_type: "16"
@@ -558,7 +558,7 @@ look_ups_056:
   id: "72"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_014: 
   name: All
   look_up_type: "3"
@@ -566,7 +566,7 @@ look_ups_014:
   id: "14"
   description: All
   value: "7"
-  display_order: "7"
+  position: "7"
 look_ups_035: 
   name: Not sure
   look_up_type: "11"
@@ -574,7 +574,7 @@ look_ups_035:
   id: "51"
   description: Not sure
   value: "3"
-  display_order: "3"
+  position: "3"
 look_ups_015: 
   name: Not answered yet
   look_up_type: "4"
@@ -582,7 +582,7 @@ look_ups_015:
   id: "15"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_036: 
   name: Not answered yet
   look_up_type: "12"
@@ -590,7 +590,7 @@ look_ups_036:
   id: "52"
   description: Not answered yet
   value: "0"
-  display_order: "0"
+  position: "0"
 look_ups_057: 
   name: "Yes"
   look_up_type: "16"
@@ -598,4 +598,4 @@ look_ups_057:
   id: "73"
   description: "Yes"
   value: "1"
-  display_order: "1"
+  position: "1"

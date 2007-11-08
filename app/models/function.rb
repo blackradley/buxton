@@ -55,7 +55,7 @@ class Function < ActiveRecord::Base
     return 0 unless started
     #Check whether each question is completed. If it is, add one to the amount that are completed. In both cases, add one to the total. 
     #TODO: DRY? {|question| if check_question(question) then number_answered += 1 end; total += 1} might be better?
-    Function.get_question_names(section, strand).each{|question| puts question;if check_question(question) then puts 'b0rkb0rk';number_answered += 1; total += 1 else total += 1 end} 
+    Function.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end} 
     #If you don't specify a section, or your section is action planning, consider issues as well.
     unless section && !(section == :action_planning) then 
        #First we calculate all the questions, in case there is a nil.
