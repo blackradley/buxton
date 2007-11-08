@@ -107,7 +107,7 @@ class Function < ActiveRecord::Base
    # and if they have, then the function is by definition started
   def started(section = nil, strand = nil)
     return false unless (check_question(:existing_proposed) && check_question(:function_policy))
-    return false unless (existing_proposed + function_policy) > 0
+    return false unless (self.existing_proposed + self.function_policy) > 0
     started = false
     unless started then
     Function.get_question_names(section, strand).each{|question| if check_question(question) then started = true; break; end}
@@ -235,8 +235,8 @@ class Function < ActiveRecord::Base
       existing_proposed_name = LookUp.existing_proposed.find{|lookUp| self.existing_proposed == lookUp.value}.name.downcase #Detect whether it is an existing function or a proposed function.
     rescue
     end
-    if (existing_proposed == 0 || existing_proposed == nil) then existing_proposed_name = "proposed" end
-    if function_policy == 0 then fun_pol_indicator = "------" end
+    if (self.existing_proposed == 0 || self.existing_proposed == nil) then existing_proposed_name = "proposed" end
+    if (self.function_policy == 0 || self.function_policy == nil) then fun_pol_indicator = "------" end
     
     wordings = {:gender =>  "men and women",
       :race => "individuals from different ethnic backgrounds",
@@ -316,8 +316,8 @@ class Function < ActiveRecord::Base
 	existing_proposed_name = LookUp.existing_proposed.find{|lookUp| self.existing_proposed == lookUp.value}.name.downcase #Detect whether it is an existing function or a proposed function.
 	rescue
 	end
-	if (existing_proposed == 0 || existing_proposed == nil) then existing_proposed_name = "proposed" end
-	if function_policy == 0 then fun_pol_indicator = "------" end
+  if (self.existing_proposed == 0 || self.existing_proposed == nil) then existing_proposed_name = "proposed" end
+  if (self.function_policy == 0 || self.function_policy == nil) then fun_pol_indicator = "------" end
 	case existing_proposed_name
 		when "existing"
 			part_need = "the particular needs of "
