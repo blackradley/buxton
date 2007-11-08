@@ -126,9 +126,11 @@ def strand_menu()
     
     html = '<div id="strand">'
       html << params[:equality_strand].titleize 
-      html << " : " 
-      html << link_to('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title => 'Edit Purpose', :class => purpose_sel)      
-      html << ' >> '
+      html << " : "
+      if params[:equality_strand] == 'overall' then
+        html << link_to('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title => 'Edit Purpose', :class => purpose_sel)      
+        html << ' >> '
+      end
       html << link_to('Performance', { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => params[:equality_strand] }, :title => 'Edit Performance', :class => perf_sel)   
       html << ' >> '
       html << link_to('Confidence Information', { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => params[:equality_strand] }, :title => 'Edit Confidence Information', :class => ci_sel)    
@@ -146,7 +148,7 @@ def strand_menu()
     return ''
   end
 end
-
+#This generates the menu bar at the top in the list sections pages.
 def sections_menu
   links = [
   { :text => 'Purpose',
@@ -212,7 +214,7 @@ def answer(function, section, strand, number)
 
   %Q[<p><label title="#{label}">#{label}</label><div class="labelled">#{h answer}</div></p>]
 end
-
+  #This method produces an answer bar for the summary sections
   def summary_answer(function, section, strand, number)
      label = function.question_wording_lookup(section, strand,number)[0]
      question="#{section}_#{strand}_#{number}"
