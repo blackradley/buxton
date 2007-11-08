@@ -103,7 +103,7 @@ class UsersController < ApplicationController
             @user.save
         end
       end
-      flash[:notice] = 'New link' + (@users.length >= 2 ? 's' :'') + ' sent to ' + @user.email
+      flash[:notice] = "New link#{@users.length >= 2 ? 's' : ''} sent to #{@user.email}"
     end
     redirect_to :action => 'index'
   end

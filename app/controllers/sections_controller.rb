@@ -33,8 +33,8 @@ class SectionsController < ApplicationController
     when 'action_planning'
       render :template => 'sections/list_action_planning'
     else
-      # Else render Purpose
-      render :template => 'sections/list_purpose'      
+      # Else redirect to Purpose
+      redirect_to :id => 'purpose'
     end
   end
 
