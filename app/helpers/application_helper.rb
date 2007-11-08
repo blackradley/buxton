@@ -96,7 +96,7 @@ module ApplicationHelper
                         :url => { :controller => 'functions', :action => 'list' },
                         :title => 'Organisation Control Page - Functions' },
                       { :text => 'Sections',
-                        :url => { :controller => 'sections', :action => 'list' },
+                        :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
                         :title => 'Organisation Control Page - Sections' }
                       ])
     elsif @current_user.user_type == User::TYPE[:functional]
