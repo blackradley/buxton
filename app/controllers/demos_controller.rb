@@ -51,7 +51,6 @@ class DemosController < ApplicationController
         strategy = @organisation.strategies.build
         strategy.name = strategy_name
         strategy.description = strategy_name
-        strategy.display_order = 0
       }
       
       # Give the organisation three functions which are owned by the same user

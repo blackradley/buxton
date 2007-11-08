@@ -16,8 +16,8 @@ class ModelBasicFunctionalityTest < Test::Unit::TestCase
       Function.new({:id => fun_id, :name => "Function Name"}),
       FunctionStrategy.new,
       Issue.new(:description => 'A description.'),
-      LookUp.new({:name => "Test Lookup"}),
-      Strategy.new({:name=> "A strategy", :display_order => 1})
+      LookUp.new({:name => "Test Lookup", :look_up_type => LookUp::TYPE[:yes_no]}),
+      Strategy.new(:name=> "A strategy")
     ]
     @models[1].user = @models[0]
     @models[2].user = @models[0]

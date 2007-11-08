@@ -15,9 +15,9 @@
 #  
 class LookUp < ActiveRecord::Base
   validates_presence_of :name
-# 
-# Constants to be used for the different types of look ups.
-#  
+  acts_as_list :scope => 'look_up_type = #{look_up_type}'
+
+  # Constants to be used for the different types of look ups.
   TYPE = {:yes_no => 0, 
     :agree_disagree => 1, 
     :existing_proposed => 2, 
@@ -36,119 +36,93 @@ class LookUp < ActiveRecord::Base
     :yes_no_notsure_15_0 => 15,
     :yes_no_notsure_3_0 => 16
     }
-#
-# Yes or no, <tt>self</tt> makes it static
-# 
+
+  # Yes or no, <tt>self</tt> makes it static
   def self.yes_no()
     return find_all_by_look_up_type(TYPE[:yes_no])
   end
-#
-# Levels of agreement.
-#
+
+  # Levels of agreement.
   def self.agree_disagree()
     return find_all_by_look_up_type(TYPE[:agree_disagree])
   end
-#
-# Is the function exisiting or proposed.
-#
+
+  # Is the function exisiting or proposed.
   def self.existing_proposed()
     return find_all_by_look_up_type(TYPE[:existing_proposed])
   end
-#
-# Is this a function or a policy?
-#
+
+  # Is this a function or a policy?
   def self.function_policy()
     return find_all_by_look_up_type(TYPE[:function_policy])
   end
-#
-# A more precise (well ish) amount of impact.
-#
+
+  # A more precise (well ish) amount of impact.
   def self.impact_amount()
     return find_all_by_look_up_type(TYPE[:impact_amount])
   end
-#
-# Gross levels of impact, like is it in or out.
-#
+
+  # Gross levels of impact, like is it in or out.
   def self.impact_level()
     return find_all_by_look_up_type(TYPE[:impact_level])
   end
-#
-# Rating from 5 (excellent) to 1 (poor)
-#
+
+  # Rating from 5 (excellent) to 1 (poor)
   def self.rating()
     return find_all_by_look_up_type(TYPE[:rating])
   end
-#
-# Yes / no / not sure
-# 
+
+  # Yes / no / not sure
   def self.yes_no_notsure()
     return find_all_by_look_up_type(TYPE[:yes_no_notsure])
   end
-#
-# Timescales
-# 
+
+  # Timescales
   def self.timescales()
     return find_all_by_look_up_type(TYPE[:timescales])
   end
-#
-# Groups
-# 
+
+  # Groups
   def self.consult_groups()
     return find_all_by_look_up_type(TYPE[:consult_groups])
   end
-#
-# Experts
-# 
+
+  # Experts
   def self.consult_experts()
     return find_all_by_look_up_type(TYPE[:consult_experts])
   end
-#
-# Yes/no 10/0
-#
+
+  # Yes/no 10/0
   def self.yes_no_notsure_10_0
     return find_all_by_look_up_type(TYPE[:yes_no_notsure_10_0])
   end
-#
-#yes/no/ -5/0
-#
+
+  #yes/no/ -5/0
   def self.yes_no_notsure_n5_0
     return find_all_by_look_up_type(TYPE[:yes_no_notsure_n5_0])
   end
 
-#
-#yes/no -3/0
-#
+  #yes/no -3/0
   def self.yes_no_notsure_n3_0
     return find_all_by_look_up_type(TYPE[:yes_no_notsure_n3_0])
   end
 
-#
-#yes/no 3/10
-#
-
+  #yes/no 3/10
   def self.yes_no_notsure_3_10
     return find_all_by_look_up_type(TYPE[:yes_no_notsure_3_10])
   end
 
-#
-#yes/no 2/5
-#
-
+  #yes/no 2/5
   def self.yes_no_notsure_2_5
     return find_all_by_look_up_type(TYPE[:yes_no_notsure_2_5])
   end
 
-#
-#yes/no 15/0
-#
-
+  #yes/no 15/0
   def self.yes_no_notsure_15_0
     return find_all_by_look_up_type(TYPE[:yes_no_notsure_15_0])
   end
 
-#
-#yes/no 3/0
-#
+  #yes/no 3/0
   def self.yes_no_notsure_3_0
     return find_all_by_look_up_type(TYPE[:yes_no_notsure_3_0])
   end
