@@ -33,12 +33,13 @@
                <%= menu() unless @hide_menu %>
             </div>
 			<%= strand_menu() %>
+			<div class="messageArea">
+          <p style="color: green"><%=h flash[:notice] -%></p>
+      </div>
 			<div class="workingArea">
                 <%= yield %>
             </div>
-            <div class="messageArea">
-                <p style="color: green"><%=h flash[:notice] -%></p>
-            </div>
+            
 	    </div>
 	    <div class="footer">
 		   <div class="login_status"><%= login_status() -%></div>

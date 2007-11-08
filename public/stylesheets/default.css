@@ -886,3 +886,10 @@ p .toggleHelp{
 	line-height:20px;
 	font-weight:bold;
 }
+
+.dialog{
+	text-align:center;
+}
+.dialog h1{
+	color: red;
+}
