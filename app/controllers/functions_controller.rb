@@ -75,7 +75,8 @@ class FunctionsController < ApplicationController
         redirect_to :action => :list
       end
     rescue
-      render :action => :new
+        flash[:notice] = "Function creation failed. Please try again, and if it continues to fail, contact an administrator."
+        render :action => :new    
     end
   end
 
