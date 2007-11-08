@@ -83,6 +83,25 @@ class SectionsController < ApplicationController
   def edit
     @function = Function.find(@current_user.function.id)
     @user = @function.user
+    @equality_strand = ''
+    case params[:equality_strand]
+    when 'overall'
+      @equality_strand = 'overall'
+    when 'gender'
+      @equality_strand = 'gender'
+    when 'race'
+      @equality_strand = 'race'
+    when 'sexual_orientation'
+      @equality_strand = 'sexual_orientation'
+    when 'disability'
+      @equality_strand = 'disability'
+    when 'faith'
+      @equality_strand = 'faith'
+    when 'age'
+      @equality_strand = 'age'
+    else
+      # K: TODO: catch this - we shouldn't ever be here
+    end
 
     case params[:id]
     when 'purpose'
