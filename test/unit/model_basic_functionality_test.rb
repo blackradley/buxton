@@ -15,7 +15,7 @@ class ModelBasicFunctionalityTest < Test::Unit::TestCase
       Organisation.new({:name => "Organisation Name", :style => "Test", :id => org_id}),
       Function.new({:id => fun_id, :name => "Function Name"}),
       FunctionStrategy.new,
-      Issue.new,
+      Issue.new(:description => 'A description.'),
       LookUp.new({:name => "Test Lookup"}),
       Strategy.new({:name=> "A strategy", :display_order => 1})
     ]

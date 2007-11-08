@@ -40,7 +40,7 @@ class IssuesControllerTest < Test::Unit::TestCase
   def test_should_create_issue
     login_as :function_manager
     old_count = Issue.count
-    post :create, :issue => { :description => 'An issue description.' }
+    xhr(:post, :create, :issue => { :description => 'An issue description.' })
     assert_equal old_count+1, Issue.count
     assert_response :success
   end
@@ -60,7 +60,7 @@ class IssuesControllerTest < Test::Unit::TestCase
   def test_should_destroy_issue
     login_as :function_manager
     old_count = Issue.count
-    get :destroy, :id => 1
+    xhr(:post, :destroy, :id => 1)
     assert_equal old_count-1, Issue.count
     assert_response :success
   end
@@ -68,7 +68,7 @@ class IssuesControllerTest < Test::Unit::TestCase
   def test_should_render_okay_when_issue_is_destroyed
     login_as :function_manager
     Issue.any_instance.stubs(:destroy).returns(true)
-    post :destroy, :id => 1
+    xhr(:post, :destroy, :id => 1)
     assert_response :success
   end
 
