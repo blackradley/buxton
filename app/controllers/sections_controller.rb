@@ -8,6 +8,11 @@
 #
 class SectionsController < ApplicationController
 
+  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
+  verify  :method => :post,
+          :only => [ :update ],
+          :render => { :inline => 'Invalid request.' }
+         
   # List the section status for the different functions of an Organisation
   # but don't paginate, a long list is actually more convenient for the Organisation
   # Manager to scan down.

@@ -8,6 +8,16 @@
 #
 # Issues are currently set in Confidence Consultation and filled in in Action Planning
 class IssuesController < ApplicationController
+
+  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
+  # Ensure create/destroy are only accessible via POST && XMLHttpRequest
+  verify  :method => :post,
+          :xhr => true,
+          :only => [ :create, :destroy ],
+          :render => { :inline => 'Invalid request.' }
+  verify  :method => :post,
+          :only => [ :update ],
+          :render => { :inline => 'Invalid request.' }
   
   # Create a new issue and reply with the appropriate RJS
   def create

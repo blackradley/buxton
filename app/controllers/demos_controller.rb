@@ -9,8 +9,9 @@
 class DemosController < ApplicationController
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify :method => :post, :only => [ :create ],
-         :redirect_to => { :action => :new }
+  verify  :method => :post,
+          :only => [ :create ],
+          :redirect_to => { :action => :new }
 
   def new
     logout()

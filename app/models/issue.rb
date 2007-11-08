@@ -10,4 +10,5 @@
 # Each strand has it's own issues, and these issues get taken into account in completed tags and dependent functions.
 class Issue < ActiveRecord::Base
 	belongs_to :function
+  validates_presence_of :description  	
 end
