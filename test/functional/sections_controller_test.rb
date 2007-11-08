@@ -86,7 +86,7 @@ class SectionsControllerTest < Test::Unit::TestCase
   def test_should_render_all_list_sections_okay
     login_as :organisation_manager
 
-    es_sections = [ :purpose, :performance, :confidence_information, :confidence_consultation, :additional_work, :action_planning ]
+    es_sections = [ 'purpose', 'performance', 'confidence_information', 'confidence_consultation', 'additional_work', 'action_planning' ]
 
     for section in es_sections
       get :list, :id => section
