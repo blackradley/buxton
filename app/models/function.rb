@@ -55,7 +55,7 @@ class Function < ActiveRecord::Base
     return 0 unless started
     #Check whether each question is completed. If it is, add one to the amount that are completed. In both cases, add one to the total. 
     #TODO: DRY? {|question| if check_question(question) then number_answered += 1 end; total += 1} might be better?
-    Function.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end} 
+    Function.get_question_names(section, strand).each{|question| puts question;if check_question(question) then puts 'b0rkb0rk';number_answered += 1; total += 1 else total += 1 end} 
     #If you don't specify a section, or your section is action planning, consider issues as well.
     unless section && !(section == :action_planning) then 
        #First we calculate all the questions, in case there is a nil.
@@ -525,20 +525,20 @@ private
       dependency.each do #For each dependent question, check that it has the correct value
 	      |dependent|
 	      if dependent[1].class == String then
-		   dependant_correct = dependant_correct && !(send(dependent[0]).to_s.length > 0)   
+          dependant_correct = dependant_correct && !(send(dependent[0]).to_s.length > 0)   
 	      else
-		dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1] || send(dependent[0]) == 0)
+		      dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1] || send(dependent[0]) == 0 ||send(dependent[0]).nil?)
 	      end
-	end
+	    end
       if dependant_correct then #If you don't need to answer this question, automatically give it a completed status
-	return true 
+        return true 
       else 
-	return (check_response(response)) #Else check it as normal
+        return check_response(response) #Else check it as normal
       end
-    else
-      response = send(question) #If it has no dependent questions, check it as normal, then return the value.
-      return check_response(response)
-    end
+     else
+       response = send(question) #If it has no dependent questions, check it as normal, then return the value.
+       return check_response(response)
+     end
   end
   
   def check_response(response) #Check response verifies whether a response to a question is correct or not.
