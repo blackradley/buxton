@@ -19,8 +19,9 @@ class OrganisationsController < ApplicationController
   end
 
   # List the organisation for the administrative User.
+  # Paginate with 10 organisations listed per page.
   def list
-    @organisation_pages, @organisations = paginate :organisations, :per_page => 10
+    @organisations = Organisation.paginate(:page => params[:page], :per_page => 10)  
   end
 
   # Show a view of an individual Organisation
