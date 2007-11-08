@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+case $1 in
+	"test" )
+	ssh buxton@buxton.test.27stars.co.uk
+	;;
+	"production" )
+	ssh serveradmin@impactengine.org.uk@ftp.s21552.gridserver.com
+	;;
+esac
