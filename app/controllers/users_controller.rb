@@ -190,8 +190,4 @@ protected
     false
   end
   
-  # Log the user out of the system by killing the session parameter that identifies them as being logged in
-  def logout
-    session[:user_id] = nil    
-  end  
 end

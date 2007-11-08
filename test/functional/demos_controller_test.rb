@@ -20,7 +20,8 @@ class DemosControllerTest < Test::Unit::TestCase
   end
 
   # Replace this with your real tests.
-  def test_truth
-    assert true
+  def test_get_new_page
+    get :new
+    assert_response :success
   end
 end
