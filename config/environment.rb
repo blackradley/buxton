@@ -14,9 +14,6 @@ RAILS_GEM_VERSION = '1.2.3' unless defined? RAILS_GEM_VERSION
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
 
-# Configuration for the SMTP server.
-require 'load_email_configuration'
-
 Rails::Initializer.run do |config|
   # Settings in config/environments/* take precedence over those specified here
   
@@ -33,6 +30,9 @@ end
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
 # Mime::Type.register "application/x-mobile", :mobile
+
+# Configuration for the SMTP server.
+require 'load_email_configuration'
  
 # Configuration to state who to send exception notifications to
 ExceptionNotifier.exception_recipients = %w(karl@27stars.co.uk joe@27stars.co.uk heather@27stars.co.uk)
