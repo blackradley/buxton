@@ -110,8 +110,17 @@ module ApplicationHelper
                         :url => { :controller => 'functions', :action => 'show' },
                         :title => 'Function Control Page - Summary' }
                       ])
+    elsif @current_user.user_type == User::TYPE[:administrative]
+      generate_menu( [
+                      { :text => 'Organisations',
+                        :url => { :controller => 'organisations', :action => 'list'},
+                        :title => 'Organisations - Overview' },
+                      { :text => 'New Demo',
+                        :url => { :controller => 'demos', :action => 'new' },
+                        :title => 'New Demo' }
+                      ])
     else
-      'Menu Fail'
+      'Menu Fail (admin test)'
     end
   end
   

@@ -12,7 +12,7 @@
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
-  	<% for issue in issues -%>
+  		<% issues.each do |issue| -%>
   	<li><%=h  issue.description -%></li>
   	<% end -%>
   </ul>
@@ -29,7 +29,7 @@
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
-  	<% for issue in issues -%>
+  		<% issues.each do |issue| -%>
   	<li><%=h issue.description -%></li>
   	<% end -%>
   </ul>
@@ -46,7 +46,7 @@
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
-  	<% for issue in issues -%>
+  		<% issues.each do |issue| -%>
   	<li><%=h  issue.description -%></li>
   	<% end -%>
   </ul>
@@ -63,9 +63,11 @@
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
-  	<% for issue in issues -%>
+  	<% issues.each do |issue| -%>
   	<li><%=h issue.description -%></li>
+  	
   	<% end -%>
+  	
   </ul>
   </div>
 </p>
@@ -79,11 +81,13 @@
 <% issues = @function.issues.reject{|issue| issue.strand != 'sexual_orientation' } -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
+    
   <ul>
-  	<% for issue in issues -%>
+  	<% issues.each do |issue| -%>
   	<li><%=h issue.description -%></li>
   	<% end -%>
   </ul>
+ 
   </div>
 </p>
 
@@ -97,7 +101,7 @@
 <p><label>Please record the issues identified</label>
 <div class="issues">
 <ul>
-	<% for issue in issues -%>
+		<% issues.each do |issue| -%>
 	<li><%=h issue.description -%></li>
 	<% end -%>
 </ul>
