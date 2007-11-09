@@ -41,5 +41,6 @@ class Organisation < ActiveRecord::Base
   validates_presence_of :style,
     :message => 'Please provide an css style name, all organisations must have a style'
   validates_format_of :style,
-    :with => /^[\w\s\'\-]*$/i
+    :with => /^[\w]*$/
+
 end
