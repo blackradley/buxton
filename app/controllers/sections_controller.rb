@@ -90,8 +90,9 @@ class SectionsController < ApplicationController
       @equality_strand = params[:equality_strand]
     else
       # throw error
+      render :inline => 'Invalid section.'
+      return
     end
-    
     
     case params[:id]
     when 'purpose'
