@@ -83,26 +83,16 @@ class SectionsController < ApplicationController
   def edit
     @function = Function.find(@current_user.function.id)
     @user = @function.user
-    @equality_strand = ''
-    case params[:equality_strand]
-    when 'overall'
-      @equality_strand = 'overall'
-    when 'gender'
-      @equality_strand = 'gender'
-    when 'race'
-      @equality_strand = 'race'
-    when 'sexual_orientation'
-      @equality_strand = 'sexual_orientation'
-    when 'disability'
-      @equality_strand = 'disability'
-    when 'faith'
-      @equality_strand = 'faith'
-    when 'age'
-      @equality_strand = 'age'
+    
+    @equality_strand = ''    
+    valid_equality_strands = ['overall','gender','race','sexual_orientation','disability','faith','age']
+    if valid_equality_strands.include? params[:equality_strand]
+      @equality_strand = params[:equality_strand]
     else
-      # K: TODO: catch this - we shouldn't ever be here
+      # throw error
     end
-
+    
+    
     case params[:id]
     when 'purpose'
       @function_responses = @function.function_strategies.sort_by {|fr| fr.strategy.position } # sort by position
