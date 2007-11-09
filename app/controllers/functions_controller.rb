@@ -16,7 +16,6 @@ class FunctionsController < ApplicationController
   # By default, show the summary page.
   def index
     summary
-    render :action => 'summary'
   end
 
   # Shown to the Organisation manager, these are summary statistics for all the functions
