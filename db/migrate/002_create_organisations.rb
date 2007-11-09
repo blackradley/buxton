@@ -25,19 +25,6 @@ class CreateOrganisations < ActiveRecord::Migration
       t.column :updated_on,                       :timestamp
       t.column :deleted_on,                       :timestamp
     end
-    
-    # Create birmingham as an organisation attached to 
-    # Birmingham user
-    organisational_user = User.create(:user_type => User::TYPE[:organisational],
-      :email => 'Peter_Latchford@blackradley.com')
-    Organisation.create(:user_id => organisational_user.id,
-    :name => 'Birmingham City Council',
-    :style => 'birmingham',
-    :strategies_help => 'Help for Birmingham strategies required',
-    :impact_groups_help => 'Help for Birmingham impact groups required',
-    :good_equality_groups_help => 'Help for Birmingham good equality groups required',
-    :bad_equality_groups_help => 'Help for Birmingham bad equality groups required',
-    :approval_help => 'Help for Birmingham approval required')
   end
 
   def self.down

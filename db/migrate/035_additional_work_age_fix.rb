@@ -19,6 +19,5 @@ class AdditionalWorkAgeFix < ActiveRecord::Migration
 	add_column :functions, :additional_work_age_2, :text
 	add_column :functions, :additional_work_age_3, :text
 	add_column :functions, :additional_work_age_4, :text
-	
   end
 end
