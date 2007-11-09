@@ -887,6 +887,20 @@ p .toggleHelp{
 	font-weight:bold;
 }
 
+#show .issues{
+	float:left;
+	width: 150px;
+	border: 1px solid #fff;
+	margin-top: 4px;	
+	font-size: 1em;
+}
+
+#show .issues ul{
+	padding-left:0px;
+	list-style-position: inside;
+	list-style-type: decimal-leading-zero;
+}
+
 .dialog{
 	text-align:center;
 }
