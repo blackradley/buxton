@@ -11,13 +11,15 @@
 module ApplicationHelper
   # Display the users progress through the questions, this is used both in the
   # Function and on the Organisation, hence it is here in the ApplicationHelper.
-  def progress_bar(percentage, width=nil, height=nil)
+  def progress_bar(percentage, width=100)
     if percentage > 100 then percentage = 100 end
     case width
     when 100
       image_tag("bars/small/#{percentage}.png")
-    else
+    when 200
       image_tag("bars/large/#{percentage}.png")
+    else
+      "A progress bar of this size doesn't exist. Please contact an administrator"
     end
     # options = {:controller => 'generate', :action => 'bar', :id => percentage}
     # if width then options.store(:width, width) end
