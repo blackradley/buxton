@@ -2,6 +2,14 @@
 	
 <h4>Action Planning by equality group</h4>
 <% issues = @function.issues.group_by(&:strand) -%>
+<% issues.each do |key, issue_array| %>
+	<% issue_array.each do |issue| %>
+		<% issue.attributes.each do |attribute| %>
+			<% issues[key][(issues[key].index(issue))][attribute]; issues[key][(issues[key].index(issue))][attribute] = "Not answered yet" unless (attribute.to_s == "") %>
+		<% end %>
+	<% end %>	
+<% end %>
+
 
 <h5>Men and Women</h5>
 <% if strand_issues = issues["gender"] -%>
