@@ -96,6 +96,15 @@ class FunctionsController < ApplicationController
     redirect_to :back
   end
 
+  # Opening page where they must choose between Function/Policy and Existing/Proposed
+  # Available to: Function Manager
+  def status
+    @function = Function.find(@current_user.function.id)
+    
+    # Set hide_menu to true which the application layout will check and hide the menu accordingly
+    @hide_menu = true
+  end
+
   # Update the function status and proceed, or not, accordingly
   # Available to: Function Manager  
   def update_status
@@ -179,15 +188,6 @@ class FunctionsController < ApplicationController
     # the appropriate CSS as necessary.
     @print_only = true
     render :action => 'show'
-  end
-
-  # Opening page where they must choose between Function/Policy and Existing/Proposed
-  # Available to: Function Manager
-  def status
-    @function = Function.find(@current_user.function.id)
-    
-    # Set hide_menu to true which the application layout will check and hide the menu accordingly
-    @hide_menu = true
   end
 
 protected

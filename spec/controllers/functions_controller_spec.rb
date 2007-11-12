@@ -33,6 +33,10 @@ describe FunctionsController, "#route_for" do
   it "should map { :controller => 'functions', :action => 'update' } to /functions/update" do
     route_for(:controller => 'functions', :action => 'update').should == '/functions/update'
   end
+
+  it "should map { :controller => 'functions', :action => 'status' } to /functions/status" do
+    route_for(:controller => 'functions', :action => 'status').should == '/functions/status'
+  end
   
   it "should map { :controller => 'functions', :action => 'update_status' } to /functions/update_status" do
     route_for(:controller => 'functions', :action => 'update_status').should == '/functions/update_status'
@@ -52,10 +56,6 @@ describe FunctionsController, "#route_for" do
   
   it "should map { :controller => 'functions', :action => 'print' } to /functions/print" do
     route_for(:controller => 'functions', :action => 'print').should == '/functions/print'
-  end
-
-  it "should map { :controller => 'functions', :action => 'status' } to /functions/status" do
-    route_for(:controller => 'functions', :action => 'status').should == '/functions/status'
   end
 
 end
@@ -88,6 +88,36 @@ describe FunctionsController, "handling GET /functions/show" do
   
 end
 
+describe FunctionsController, "handling GET /functions/overview" do
+
+  it "should be successful"
+  
+end
+
+describe FunctionsController, "handling GET /functions/list" do
+
+  it "should be successful"
+  
+end
+
+describe FunctionsController, "handling GET /functions/new" do
+
+  it "should be successful"
+  
+end
+
+describe FunctionsController, "handling POST /functions/create" do
+
+  it "should be successful"
+  
+end
+
+describe FunctionsController, "handling POST /functions/update" do
+
+  it "should be successful"
+  
+end
+
 describe FunctionsController, "handling GET /functions/status" do
   
   it "should be successful"
@@ -97,5 +127,35 @@ describe FunctionsController, "handling GET /functions/status" do
   it "should not allow access to an organisation manager"
   
   it "should not allow access to an administrator"
+  
+end
+
+describe FunctionsController, "handling POST /functions/update_status" do
+
+  it "should be successful"
+  
+end
+
+describe FunctionsController, "handling GET /functions/edit_contact/:id" do
+
+  it "should be successful"
+  
+end
+
+describe FunctionsController, "handling POST /functions/update_contact/:id" do
+
+  it "should be successful"
+  
+end
+
+describe FunctionsController, "handling POST /functions/destroy/:id" do
+
+  it "should be successful"
+  
+end
+
+describe FunctionsController, "handling GET /functions/print" do
+
+  it "should be successful"
   
 end
