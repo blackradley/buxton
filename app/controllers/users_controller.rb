@@ -167,7 +167,7 @@ class UsersController < ApplicationController
   end
 
   # Log the user in and then direct them to the right place based on the user_type
-  # Available to: anybody  
+  # Available to: anybody
   def login
     user = User.find_by_passkey(params[:passkey])
     if user.nil? # the key is not in the user table

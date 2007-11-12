@@ -6,12 +6,12 @@ describe IssuesController, 'routes' do
     route_for(:controller => 'issues', :action => 'create').should == '/issues/create'
   end
   
-  it "should map { :controller => 'issues', :action => 'update' } to /issues/update" do
-    route_for(:controller => 'issues', :action => 'update').should == '/issues/update'
+  it "should map { :controller => 'issues', :action => 'update', :id => 1 } to /issues/update/1" do
+    route_for(:controller => 'issues', :action => 'update', :id => 1).should == '/issues/update/1'
   end
   
-  it "should map { :controller => 'issues', :action => 'destroy' } to /issues/destroy" do
-    route_for(:controller => 'issues', :action => 'destroy').should == '/issues/destroy'
+  it "should map { :controller => 'issues', :action => 'destroy', :id => 1 } to /issues/destroy/1" do
+    route_for(:controller => 'issues', :action => 'destroy', :id => 1).should == '/issues/destroy/1'
   end
 
 end
