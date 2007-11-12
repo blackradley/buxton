@@ -16,6 +16,7 @@ class SectionsController < ApplicationController
   # List the section status for the different functions of an Organisation
   # but don't paginate, a long list is actually more convenient for the Organisation
   # Manager to scan down.
+  # Available to: Organisation Manager
   def list
     @organisation = Organisation.find(@current_user.organisation.id)
     
@@ -38,10 +39,9 @@ class SectionsController < ApplicationController
     end
   end
 
-  #
   # Show the summary information for a function's section
-  # Available to both the Function and Organisation managers.
-  #
+  # Available to: Organisation Manager
+  #               Function Manager
   def show
     # TODO: improve this - all a bit ugly
     f_id = if (@current_user.user_type == User::TYPE[:organisational])
@@ -79,7 +79,7 @@ class SectionsController < ApplicationController
   end
 
   # Get the function information ready for editing using the appropriate form.
-  # These are edited by the Function manager.
+  # Available to: Function Manager
   def edit
     @function = Function.find(@current_user.function.id)
     @user = @function.user
@@ -116,6 +116,7 @@ class SectionsController < ApplicationController
   end
 
   # Update the function answers, for this particular section, as appropriate
+  # Available to: Function Manager
   def update
     # Update the answers in the function table
     @function = Function.find(@current_user.function.id)

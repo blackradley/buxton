@@ -13,6 +13,7 @@ class DemosController < ApplicationController
           :only => [ :create ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
+  # Available to: anybody
   def new
   end
 
@@ -23,6 +24,8 @@ class DemosController < ApplicationController
   #
   # If an admin user requests a demo then one is created for them since the
   # admin users are not sought in the first find.
+  # 
+  # Available to: anybody
   def create
     @user = User.find(:first, :conditions => { :email => params[:user][:email], :user_type => User::TYPE[:organisational] })
 

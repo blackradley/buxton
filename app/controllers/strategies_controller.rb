@@ -13,22 +13,27 @@ class StrategiesController < ApplicationController
           :only => [ :destroy, :create, :update ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
+  # Available to: Administrator
   def index
     list
-    render :action => 'list'
   end
 
-  # Get the organisation you are considering and a list of it's strategies
+  # Get the organisation you are considering and a list of it's strategies.
+  # Available to: Administrator  
   def list
     @organisation = Organisation.find(params[:id])
     @strategies = @organisation.strategies.find(:all, :order => :position)
   end
-  
+
+  # Drag-and-drop view to re-order the list of strategies for an organisation.
+  # Available to: Administrator  
   def reorder
     @organisation = Organisation.find(params[:id])
     @strategies = @organisation.strategies.find(:all, :order => :position)
   end
-  
+
+  # Re-order the strategies for an organisation.
+  # Available to: Administrator  
   def update_strategy_order
     params[:sortable_strategies].each_with_index do |id, position|
       # Updates the strategy order - note each_with_index starts at 0 where as
@@ -37,16 +42,21 @@ class StrategiesController < ApplicationController
     end
   end  
 
+  # Show a strategy's details.
+  # Available to: Administrator
   def show
     @strategy = Strategy.find(params[:id])
   end
 
+  # New screen for a strategy.
+  # Available to: Administrator
   def new
     @strategy = Strategy.new
     @strategy.organisation_id = params[:id]
   end
 
-  # Create a new strategy, the organisation id is derived from
+  # Create a new strategy, the organisation id is derived from.
+  # Available to: Administrator  
   def create
     @strategy = Strategy.new(params[:strategy])
     if @strategy.save
@@ -57,11 +67,14 @@ class StrategiesController < ApplicationController
     end
   end
 
+  # Edit screen for a strategy.
+  # Available to: Administrator
   def edit
     @strategy = Strategy.find(params[:id])
   end
 
-  # Update the strategy attributes
+  # Update the strategy attributes.
+  # Available to: Administrator  
   def update
     @strategy = Strategy.find(params[:id])
     if @strategy.update_attributes(params[:strategy])
@@ -72,7 +85,8 @@ class StrategiesController < ApplicationController
     end
   end
 
-  # Destroy this strategy
+  # Destroy this strategy.
+  # Available to: Administrator  
   def destroy
     @strategy = Strategy.find(params[:id])
     @strategy.destroy
@@ -87,6 +101,5 @@ protected
   # Secure the relevant methods in the controller.
   def secure?
     true
-    #["list", "add", "show"].include?(action_name)
   end
 end

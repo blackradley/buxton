@@ -14,15 +14,21 @@ class UsersController < ApplicationController
           :only => [ :destroy, :create, :update ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
+  # Present a form to request a lost passkey by entering your e-mail address.
+  # Available to: anybody
   def index
     # Log out the user if they are logged in
     logout()
   end
 
+  # List all admins.
+  # Available to: Administrator
   def list
     @users = User.find_admins
   end
 
+  # New screen for a user.
+  # Available to: Administrator
   def new
     @user = User.new
   end
@@ -30,6 +36,7 @@ class UsersController < ApplicationController
   # You can only create an administrative user, the other users have
   # to be created in conjunction with the organisation or function
   # that they will be responsible for.
+  # Available to: Administrator  
   def create
     @user = User.new(params[:user])
     @user.user_type = User::TYPE[:administrative]
@@ -45,19 +52,23 @@ class UsersController < ApplicationController
       render :action => :new
   end
 
+  # Edit screen for a user.
+  # Available to: Administrator  
   def edit
     @user = User.find(params[:id])
   rescue ActiveRecord::RecordNotFound => e
     render :inline => 'Invalid ID.'  
   end
 
-  # Disabled - Give the user a new key every time it is updated
+  # Update a user's details.
+  # [Disabled] Give the user a new key every time it is updated
   # TODO: check whether this should be enabled
+  # Available to: Administrator
   def update
     @user = User.find(params[:id])
     # @user.passkey = User.new_passkey # TODO: check whether this should be enabled
     if @user.update_attributes(params[:user])
-      flash[:notice] = @user.email + ' was successfully updated.'
+      flash[:notice] = "#{@user.email} was successfully updated."
       redirect_to :action => 'list'
     else
       render :action => 'edit'
@@ -72,12 +83,11 @@ class UsersController < ApplicationController
   # have any context about the incoming request. So the request is
   # passed in explicitly.
   #
-  # I should probably check that the subdomain is correct as well,
-  # but who can be bothered with that.
-  #
   # TODO: I am not sure that this actually works, check that if you have
   # a user that is operational user and a number of functional users, do
   # the links actually match up with the functions.
+  # 
+  # Available to: anybody
   def new_link
     @users = User.find_all_by_email(params[:email])
     if @users.empty?
@@ -109,6 +119,7 @@ class UsersController < ApplicationController
   end
 
   # Destroy the user
+  # Available to: Administrator
   def destroy
     @user = User.find(params[:id])
     @user.destroy
@@ -123,6 +134,8 @@ class UsersController < ApplicationController
   # it will use the Organisation Manager or Function Manager template accordingly.
   # The system currently does not allow for a user to be both types of manager. If it did, this would not work.
   # TODO: check the logic associated with this, see also: User#new_link
+  # Available to: Administrator
+  #               Organisation Manager
   def remind
     @user = User.find(params[:id])
     
@@ -153,8 +166,8 @@ class UsersController < ApplicationController
     render :inline => 'Invalid ID.'    
   end
 
-  # Log the user in and then direct them to the right place based on the
-  # user_type
+  # Log the user in and then direct them to the right place based on the user_type
+  # Available to: anybody  
   def login
     user = User.find_by_passkey(params[:passkey])
     if user.nil? # the key is not in the user table
@@ -179,7 +192,6 @@ class UsersController < ApplicationController
 
 protected
   # No methods are secure
-  # TODO: secure the methods that need it, or alternatively white-list them instead
   def secure?
     false
   end

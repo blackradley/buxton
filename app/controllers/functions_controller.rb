@@ -13,13 +13,14 @@ class FunctionsController < ApplicationController
           :only => [ :destroy, :create, :update, :update_status, :update_contact ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
-  # By default, show the summary page.
+  # By default, show the summary page. Not presently referenced anywhere.
+  # Available to: Organisation Manager
   def index
     summary
   end
 
-  # Shown to the Organisation manager, these are summary statistics for all the functions
-  # within this organisation.
+  # These are summary statistics for all the functions within this organisation.
+  # Available to: Organisation Manager
   def summary
     @organisation = Organisation.find(@current_user.organisation.id)
     @functions = @organisation.functions
@@ -40,28 +41,33 @@ class FunctionsController < ApplicationController
     end
   end
 
-  # Available to the Function manager. Show the summary information for a specific function.
+  # Show the summary information for a specific function.
+  # Available to: Function Manager
   def show
     @function = Function.find(@current_user.function.id)
   end
 
-  # Available to the Function manager. Shows the section matrix state for a specific function.
+  # Shows the section matrix state for a specific function.
+  # Available to: Function Manager
   def overview
     @function = Function.find(@current_user.function.id)
   end
   
   # List and provide a summary of the state of all the functions in this organisation.
+  # Available to: Organisation Manager
   def list
     @organisation = Organisation.find(@current_user.organisation.id)
   end
   
   # Create a new Function and a new associated user, all functions must have single a valid User.
+  # Available to: Organisation Manager
   def new
     @function = Function.new
     @user = User.new
   end
 
   # Create a new function and a new user based on the parameters in the form data.
+  # Available to: Organisation Manager  
   def create
     @function = @current_user.organisation.functions.build(params[:function])
     @user = @function.build_user(params[:user])
@@ -81,6 +87,7 @@ class FunctionsController < ApplicationController
   end
 
   # Update the function details accordingly.
+  # Available to: Function Manager  
   def update
     @function = Function.find(@current_user.function.id)
     @function.update_attributes(params[:function])
@@ -90,6 +97,7 @@ class FunctionsController < ApplicationController
   end
 
   # Update the function status and proceed, or not, accordingly
+  # Available to: Function Manager  
   def update_status
     @function = Function.find(@current_user.function.id)
     @function.update_attributes(params[:function])
@@ -109,6 +117,7 @@ class FunctionsController < ApplicationController
   # Get both the function and user information ready for editing, since they
   # are both edited at the same time. The organisational manager edits these
   # not the functional manager.
+  # Available to: Organisation Manager  
   def edit_contact
     # Only allow an organisation manager to proceed
     # TODO: catch this better
@@ -120,6 +129,7 @@ class FunctionsController < ApplicationController
   end
 
   # Update the contact email and function name
+  # Available to: Organisation Manager  
   def update_contact
     # Only allow an organisation manager to proceed
     # TODO: catch this better
@@ -143,6 +153,8 @@ class FunctionsController < ApplicationController
       render :action => :new
   end
 
+  # Delete the function (and any associated records as stated in the Function model)
+  # Available to: Organisation Manager
   def destroy
     # Only allow an organisation manager to proceed    
     # TODO: catch this better
@@ -159,6 +171,7 @@ class FunctionsController < ApplicationController
   end
 
   # Show a printer friendly summary page
+  # Available to: Function Manager
   def print
     @function = Function.find(@current_user.function.id)
     
@@ -169,6 +182,7 @@ class FunctionsController < ApplicationController
   end
 
   # Opening page where they must choose between Function/Policy and Existing/Proposed
+  # Available to: Function Manager
   def status
     @function = Function.find(@current_user.function.id)
     
@@ -180,6 +194,5 @@ protected
   # Secure the relevant methods in the controller.
   def secure?
     true
-    #["list", "add", "show"].include?(action_name)
   end
 end

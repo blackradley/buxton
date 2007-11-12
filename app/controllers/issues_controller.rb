@@ -20,6 +20,7 @@ class IssuesController < ApplicationController
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
   
   # Create a new issue and reply with the appropriate RJS
+  # Available to: Function Manager
   def create
     @issue = Issue.new(params[:issue])
     @issue.save
@@ -30,6 +31,7 @@ class IssuesController < ApplicationController
   end
   
   # Update issue(s)
+  # Available to: Function Manager  
   def update
     # Loop through all the issues, given to us after auto-indexing the form data
     # (see: http://www.railsforum.com/viewtopic.php?pid=42791)
@@ -42,6 +44,7 @@ class IssuesController < ApplicationController
   end
   
   # Destroy an issue and reply with the appropriate RJS
+  # Available to: Function Manager  
   def destroy
     @issue = @current_user.function.issues.find(params[:id])
     @issue.destroy
