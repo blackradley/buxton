@@ -1,0 +1,8 @@
+/* $Rev: 451 $
+ * $Date: 2007-10-30 14:40:53 +0000 (Tue, 30 Oct 2007) $
+ * Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. */
+
+.mastHead .logo
+{	
+	background: #292c4b url(../images/error.png) no-repeat top left;
+}

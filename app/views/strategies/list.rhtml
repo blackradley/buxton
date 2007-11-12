@@ -1,17 +1,16 @@
 <h1><%= @organisation.name -%> strategies</h1>
 <table>
   <tr>
-    <th>Name</th>
+    <th class="left" style="width:90%;">Name</th>
     <th></th>
-	<th></th>
-	<th></th>	
   </tr>
   <% for strategy in @strategies -%>
   <tr>
-    <td title="<%=h strategy.description %>"><%=h strategy.name -%></td>
-    <td><%= link_to 'View', :action => 'show', :id => strategy -%></td>
-    <td><%= link_to 'Edit', :action => 'edit', :id => strategy -%></td>
-    <td><%= link_to 'Delete', { :action => 'destroy', :id => strategy }, :confirm => 'Delete ' + strategy.name + '?', :method => :post -%></td>
+    <td title="<%=h strategy.description %>" class="left"><%=h strategy.name -%></td>
+    <td class="actions" nowrap>
+    <%= link_to image_tag('icons/view.jpg'), {:action => 'show', :id => strategy}, :title =>"View" -%>
+    <%= link_to image_tag('icons/edit.jpg'), { :action => 'edit', :id => strategy}, :title =>"Edit" -%>
+    <%= link_to image_tag('icons/delete.png'), { :action => 'destroy', :id => strategy }, :confirm => 'Delete ' + strategy.name + '?', :method => :post, :title =>"Delete" -%></td>
   </tr>
   <% end -%>
 </table> 
