@@ -1,13 +1,8 @@
 Project Buxton
+==============
 
 1. Check out from <http://svn3.cvsdude.com/BlackRadley/buxton/trunk>.
 
 2. Run db:migrate to create the database.
 
-3. The subdomain determines the CSS style so set up these aliases for localhost*:
-	birmingham.localhost
-	www.localhost
-	buxton.local (for 27stars development)
-	* This will be in /etc/hosts for Mac/Linux and C:\Windows\System32\Drivers\Etc\HOSTS for Windows
-
-4. To receive a reminder email visit <http://www.localhost:3000/user> and enter your email address.
+3. To receive a reminder e-mail visit <http://localhost:3000/user> and enter your e-mail address.
