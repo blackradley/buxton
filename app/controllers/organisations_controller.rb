@@ -13,30 +13,33 @@ class OrganisationsController < ApplicationController
           :only => [ :destroy, :create, :update ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
+  # Available to: Administrator
   def index
     list
-    render :action => 'list'
   end
 
-  # List the organisation for the administrative User.
-  # Paginate with 10 organisations listed per page.
+  # List the organisation for the administrative User. Paginate with 10 organisations listed per page.
+  # Available to: Administrator  
   def list
     @organisations = Organisation.paginate(:page => params[:page], :per_page => 10)  
   end
 
   # Show a view of an individual Organisation
+  # Available to: Administrator  
   def show
     @organisation = Organisation.find(params[:id])
     @user = @organisation.user
   end
 
   # Create a new Organisation and a new associated User
+  # Available to: Administrator  
   def new
     @organisation = Organisation.new
     @user = User.new
   end
 
   # Create a new organisation and a new user based on the parameters on the form.
+  # Available to: Administrator  
   def create
     @organisation = Organisation.new(params[:organisation])
     @user = @organisation.build_user(params[:user])
@@ -56,12 +59,14 @@ class OrganisationsController < ApplicationController
 
   # Get both the organisation and it's user since the user can also be edited
   # by the administrator.
+  # Available to: Administrator  
   def edit
     @organisation = Organisation.find(params[:id])
     @user = @organisation.user
   end
 
   # Update the organisation and all of its attributes
+  # Available to: Administrator  
   def update
     @organisation = Organisation.find(params[:id])
     @organisation.update_attributes(params[:organisation])
@@ -77,6 +82,7 @@ class OrganisationsController < ApplicationController
   end
   
   # Destroy the organisation
+  # Available to: Administrator  
   def destroy
     @organisation = Organisation.find(params[:id])
     @organisation.destroy
@@ -91,6 +97,5 @@ protected
   # Secure the relevant methods in the controller.
   def secure?
     true
-    #["list", "add", "show"].include?(action_name)
   end
 end
