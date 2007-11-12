@@ -294,7 +294,7 @@ class Function < ActiveRecord::Base
         consulted_groups = (self.send("confidence_consultation_#{strand}_1".to_sym) == 1)
         consulted_experts = (self.send("confidence_consultation_#{strand}_4".to_sym) == 1)
         response += "Groups representing #{wordings[strand]} have #{"not " unless consulted_groups}been consulted and"
-        response += " experts have #{"not" unless consulted_experts}been consulted."
+        response += " experts have #{"not " unless consulted_experts}been consulted."
         response += "\n"
         issues_identified = (self.send("confidence_consultation_#{strand}_7".to_sym) == 1)
         response += "The consultations did not identify any issues with the impact of the #{fun_pol_indicator} upon #{wordings[strand]}."
