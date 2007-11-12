@@ -131,9 +131,7 @@ class Function < ActiveRecord::Base
   #change would make no difference to the runtime in the worst case, and could well speed it up in best case.
   def completed(section = nil, strand = nil)
     return false unless (check_question(:existing_proposed) && check_question(:function_policy))
-    completed = true
-    Function.get_question_names(section, strand).each{|question| unless check_question(question) then completed = false; break; end}
-    if completed then
+    Function.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
     unless section && !(section == :action_planning) then 
        #First we calculate all the questions, in case there is a nil.
        questions = Function.get_question_names(:confidence_consultation, strand, 7)
@@ -142,7 +140,11 @@ class Function < ActiveRecord::Base
          strand.delete_at(1)
          strand.delete_at(0)
          strand.pop
-         lookups_required = (self.send(question) != 2)
+         if section
+          lookups_required = (self.send(question) == 1 ||self.send(question) == 0) 
+         else
+          lookups_required = (self.send(question) == 2)
+         end
          if lookups_required then
            issue_strand = self.issues.clone
            issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s}
@@ -153,14 +155,12 @@ class Function < ActiveRecord::Base
            issue_strand.each do |issue_name|
               issue_names.each do |name|
                 unless check_response(issue_name.send(name.to_sym)) then
-                  completed = false
-                  break
+                  return false
                 end
               end
            end
          end
        end
-     end
       unless section && !(section == :purpose) then
         function_strategies.each do |strategy| 
           unless check_response(strategy.strategy_response) then
@@ -170,7 +170,7 @@ class Function < ActiveRecord::Base
         end
       end      
     end
-    return completed
+    return true
   end
   
   
@@ -227,7 +227,8 @@ class Function < ActiveRecord::Base
   end
   #TODO: Needs fixing. It currently makes a start at the display, but is not finished by any means. Won't throw any bugs though.
   # do NOT use this yet, except as a very crude demo. Question 7 wording is wrong, and other questions wordings not confirmed.
-  def action_planning_text_lookup(strand, question)
+  def additonal_work_text_lookup(strand, question)
+    strand = strand.to_sym
     begin 
       fun_pol_indicator = LookUp.function_policy.find{|lookUp| self.function_policy == lookUp.value}.name.downcase #Detect whether it is a function or a policy
       existing_proposed_name = LookUp.existing_proposed.find{|lookUp| self.existing_proposed == lookUp.value}.name.downcase #Detect whether it is an existing function or a proposed function.
@@ -254,42 +255,41 @@ class Function < ActiveRecord::Base
     response = ""
     case question
       when 1
-        response = "If the #{fun_pol_indicator} were performed well"
+        response = "If the #{fun_pol_indicator} were performed well "
         case send("purpose_#{strand}_3".to_sym)
           when 1
-            response += "it would not affect #{wordings} differently."
+            response += "it would not affect #{wordings[strand]} differently."
           when 2
-            response += "it would affect #{wordings} differently to a limited extent"
+            response += "it would affect #{wordings[strand]} differently to a limited extent"
           when 3
-            response += "it would affect #{wordings} differently to a significant extent"
+            response += "it would affect #{wordings[strand]} differently to a significant extent"
           else
-            response += "it would affect #{wordings} differently to a significant extent"
+            response += "it would affect #{wordings[strand]} differently to a significant extent"
         end
       when 2
-        response = "If the #{fun_pol_indicator} were performed badly"
+        response = "If the #{fun_pol_indicator} were performed badly "
         case send("purpose_#{strand}_4".to_sym)
           when 1
-            response += "it would not affect #{wordings} differently."
+            response += "it would not affect #{wordings[strand]} differently."
           when 2
-            response += "it would affect #{wordings} differently to a limited extent"
+            response += "it would affect #{wordings[strand]} differently to a limited extent"
           when 3
-            response += "it would affect #{wordings} differently to a significant extent"
+            response += "it would affect #{wordings[strand]} differently to a significant extent"
           else
-            response += "it would affect #{wordings} differently to a significant extent"
+            response += "it would affect #{wordings[strand]} differently to a significant extent"
         end
       when 3
-        response = "The performance of the Function in meeting the different needs of #{wordings} is"
-        response += LookUp.rating.find{|lookUp| send("performance_#{strand}_1".to_sym) == lookUp.value}.name.downcase
-        response += "\n"
+        response = "The performance of the Function in meeting the different needs of #{wordings[strand]} is "
+        response += LookUp.rating.find{|lookUp| send("performance_#{strand}_1".to_sym) == lookUp.value}.name.split(" - ")[1].downcase
+        response += ".\n"
         is_validated = (self.send("performance_#{strand}_1".to_sym) == 1)
         response += "This performance assessment has #{"not " unless is_validated}been validated."
       when 4
         issues_present = (self.send("performance_#{strand}_4".to_sym) == 1)
-        response += "There are #{"no " unless issues_present}performance issues that might have different implications for #{wordings}"
+        response += "There are #{"no " unless issues_present}performance issues that might have different implications for #{wordings[strand]}"
       when 5
         information_present = (self.send("confidence_information_#{strand}_1".to_sym) == 2)
-        response = "There is information to monitor the performance of the function in meeting the needs of #{wordings}."
-        response += "There are #{"no " if information_present}gaps in this information"
+        response = "There are #{"no " if information_present}gaps in the information to monitor the performance of the function in meeting the needs of #{wordings[strand]}"
       when 6
         consulted_groups = (self.send("confidence_consultation_#{strand}_1".to_sym) == 1)
         consulted_experts = (self.send("confidence_consultation_#{strand}_4".to_sym) == 1)
@@ -299,8 +299,7 @@ class Function < ActiveRecord::Base
         issues_identified = (self.send("confidence_consultation_#{strand}_7".to_sym) == 1)
         response += "The consultations did not identify any issues with the impact of the #{fun_pol_indicator} upon #{wordings[strand]}."
       when 7
-        response =  "The Function does not have a role in eliminating unlawful discrimination on 
-          the grounds of #{strands[strand]} or promoting equality of opportunity between #{wordings[strand]}."
+        response =  "The Function does not have a role in eliminating unlawful discrimination on the grounds of #{strands[strand]} or promoting equality of opportunity between #{wordings[strand]}."
     end
     
     return response
