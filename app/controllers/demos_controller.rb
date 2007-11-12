@@ -11,10 +11,9 @@ class DemosController < ApplicationController
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify  :method => :post,
           :only => [ :create ],
-          :redirect_to => { :action => :new }
+          :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
   def new
-    logout()
   end
 
   # Create a new user and organisation, then log the user in.  Obviously this
@@ -25,13 +24,11 @@ class DemosController < ApplicationController
   # If an admin user requests a demo then one is created for them since the
   # admin users are not sought in the first find.
   def create
-    @user = User.find(:first, :conditions => {:email => params[:user][:email], :user_type => User::TYPE[:organisational]})
+    @user = User.find(:first, :conditions => { :email => params[:user][:email], :user_type => User::TYPE[:organisational] })
 
     if @user.nil? then
       # Create an organisation
-      @organisation = Organisation.new
-      @organisation.name = 'Demo Council'
-      @organisation.style = 'www'
+      @organisation = Organisation.new({ :name => 'Demo Council', :style => 'www' })
       
       # Create a new organisation manager with the e-mail address we were given
       @user = @organisation.build_user(params[:user])

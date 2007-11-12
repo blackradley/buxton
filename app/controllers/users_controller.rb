@@ -12,7 +12,7 @@ class UsersController < ApplicationController
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify  :method => :post,
           :only => [ :destroy, :create, :update ],
-          :redirect_to => { :action => :list }
+          :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
   def index
     # Log out the user if they are logged in

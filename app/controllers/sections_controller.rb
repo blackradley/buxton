@@ -11,7 +11,7 @@ class SectionsController < ApplicationController
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify  :method => :post,
           :only => [ :update ],
-          :render => { :inline => 'Invalid request.' }
+          :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
          
   # List the section status for the different functions of an Organisation
   # but don't paginate, a long list is actually more convenient for the Organisation
