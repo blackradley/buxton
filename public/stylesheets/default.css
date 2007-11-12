@@ -536,10 +536,15 @@ td.bar{
 
 /*questions styles*/
 
+#questiontext p{
+	margin-left: 0px;
+	padding-left: 0px;
+	color: #a92c1c;
+}	
 h1#questions{
 text-align:center;
 font-size:20px;
-
+color: #515f8d;
 }
 
 .next{
