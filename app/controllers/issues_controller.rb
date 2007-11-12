@@ -14,10 +14,10 @@ class IssuesController < ApplicationController
   verify  :method => :post,
           :xhr => true,
           :only => [ :create, :destroy ],
-          :render => { :inline => 'Invalid request.' }
+          :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
   verify  :method => :post,
           :only => [ :update ],
-          :render => { :inline => 'Invalid request.' }
+          :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
   
   # Create a new issue and reply with the appropriate RJS
   def create

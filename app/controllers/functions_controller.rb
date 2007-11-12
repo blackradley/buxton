@@ -11,7 +11,7 @@ class FunctionsController < ApplicationController
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify  :method => :post,
           :only => [ :destroy, :create, :update, :update_status, :update_contact ],
-          :redirect_to => { :action => :list }
+          :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
   # By default, show the summary page.
   def index
