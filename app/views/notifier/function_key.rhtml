@@ -1,13 +1,12 @@
-This email is from the Impact Equality™ assessment tool.
+This e-mail is from the Impact Equality™ assessment tool.
 
-You have received this email as you have been identified as the relevant manager for completing the equalities impact assessment for the activity: <%=h @user.function.name %>.
+You have received this e-mail as you have been identified as the relevant manager for completing the equalities impact assessment for the activity: <%=h @user.function.name -%>.
 
 The Equalities Team should have already notified you of this  If you are not the relevant manager please contact the Equalities Team.
 
-The link below will take you to the Activity summary page for <%=h @user.function.name %>.
+The link below will take you to the Activity summary page for <%=h @user.function.name -%>.
 
-http://<%= @user.function.organisation.style %>.<%= @request.host_with_port.split(/\s*\.\s*/, 2)[1] + 
-  (@request.domain.include?('34sp') ? '/public' : '') %>/<%=h @user.passkey %>
+http://<%= @user.function.organisation.style %>.<%= request.host_with_port.split(/\s*\.\s*/, 2)[1] -%>/<%=h @user.passkey %>
 
 Thank you
 
