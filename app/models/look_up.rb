@@ -34,7 +34,8 @@ class LookUp < ActiveRecord::Base
     :yes_no_notsure_3_10 => 13,
     :yes_no_notsure_2_5 => 14,
     :yes_no_notsure_15_0 => 15,
-    :yes_no_notsure_3_0 => 16
+    :yes_no_notsure_3_0 => 16,
+    :function_policy => 17,
     }
 
   # Yes or no, <tt>self</tt> makes it static
