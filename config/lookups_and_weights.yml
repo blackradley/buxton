@@ -1,0 +1,80 @@
+yes_value: 1
+no_value: 2
+choices:
+  1:
+    - 'None at all'
+    - 'Some impact'
+    - 'Significant impact'
+  2:
+    - '1 - poor'
+    - '2 - below expectations'
+    - '3 - at expectations'
+    - '4 - good'
+    - '5 - excellent'
+  3:
+    - 'Yes'
+    - 'No'
+    - 'Not sure'
+  4:
+    - 'Less than six months'
+    - 'Six months to a year'
+    - 'Over a year'
+  5:
+    - 'No relevant groups'
+    - 'Plans to consult'
+    - 'No plans to consult'
+    - 'Not sure'
+    - 'Not applicable'
+  6:
+    - 'No relevant experts'
+    - 'Plans to consult'
+    - 'No plans to consult'
+    - 'Not sure'
+    - 'Not applicable'
+
+weights:
+  0:
+    - 0
+    - 0
+    - 0
+  1:
+    - 5
+    - 10
+    - 15
+  2:
+    - 30
+    - 25
+    - 20
+    - 15
+    - 10
+  3:
+    - '-5'
+    - 0
+  4:  
+    - 10
+    - 0
+  5:
+    - 15
+    - 0
+  6:
+    - '-3'
+    - 0
+  7:
+    - 3
+    -10
+  8:
+    - 3
+    - 0
+    - 0
+    - 0
+    - 0
+  9:
+    - '-2'
+    - 0
+    - 0
+    - 0
+    - 0
+  10:
+    - 3
+    - 0
+  
