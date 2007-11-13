@@ -178,7 +178,10 @@ class Function < ActiveRecord::Base
   #TODO: Heavy amount of speed increases. No extensive comments as yet, because I'm anticipating ripping this
   #calling method out and replacing it with a much faster version. Statistics library should remain largely unchanged though.
   def statistics
-    return nil unless completed # Don't calculate stats if all the necessary questions haven't been answered
+    statistics_sections = [:purpose, :performance, :confidence_information, :confidence_consulation]
+    statistics_completed = true
+    statistics_sections.each{|section| statistics_completed = statistics_completed && completed(section)}
+    return nil unless statistics_completed # Don't calculate stats if all the necessary questions haven't been answered
     return @stat_function if @stat_function
     questions = {}
     question_hash = question_wording_lookup
@@ -279,8 +282,13 @@ class Function < ActiveRecord::Base
             response += "it would affect #{wordings[strand]} differently to a significant extent"
         end
       when 3
-        response = "The performance of the Function in meeting the different needs of #{wordings[strand]} is "
-        response += LookUp.rating.find{|lookUp| send("performance_#{strand}_1".to_sym) == lookUp.value}.name.split(" - ")[1].downcase
+        response = "The performance of the #{fun_pol_indicator} in meeting the different needs of #{wordings[strand]} is "
+        begin
+          response += LookUp.rating.find{|lookUp| send("performance_#{strand}_1".to_sym) == lookUp.value}.name.split(" - ")[1].downcase
+        rescue
+          #if it gets here, then response threw an error, meaning that the answer is "Not Answered"
+          response += "not yet determined"
+        end
         response += ".\n"
         is_validated = (self.send("performance_#{strand}_1".to_sym) == 1)
         response += "This performance assessment has #{"not " unless is_validated}been validated."
@@ -289,7 +297,7 @@ class Function < ActiveRecord::Base
         response += "There are #{"no " unless issues_present}performance issues that might have different implications for #{wordings[strand]}"
       when 5
         information_present = (self.send("confidence_information_#{strand}_1".to_sym) == 2)
-        response = "There are #{"no " if information_present}gaps in the information to monitor the performance of the function in meeting the needs of #{wordings[strand]}"
+        response = "There are #{"no " if information_present}gaps in the information to monitor the performance of the #{fun_pol_indicator} in meeting the needs of #{wordings[strand]}"
       when 6
         consulted_groups = (self.send("confidence_consultation_#{strand}_1".to_sym) == 1)
         consulted_experts = (self.send("confidence_consultation_#{strand}_4".to_sym) == 1)
@@ -299,7 +307,12 @@ class Function < ActiveRecord::Base
         issues_identified = (self.send("confidence_consultation_#{strand}_7".to_sym) == 1)
         response += "The consultations did not identify any issues with the impact of the #{fun_pol_indicator} upon #{wordings[strand]}."
       when 7
-        response =  "The Function does not have a role in eliminating unlawful discrimination on the grounds of #{strands[strand]} or promoting equality of opportunity between #{wordings[strand]}."
+        response =  "The #{fun_pol_indicator} does not have a role in eliminating unlawful discrimination on the grounds of #{strands[strand]} or promoting equality of opportunity between #{wordings[strand]}."
+      when 8
+        stats_object = statistics
+        return "The #{fun_pol_indicator} has not yet been completed sufficiently to warrant calculation of impact level and the priority ranking." unless statistics
+        strand = "" unless strand
+        response = "For the #{strand.to_s.downcase} equality strand the Function has an overall priority ranking of #{stats_object.fun_priority_ranking} and a Potential Impact rating of #{stats_object.impact.to_s.capitalize}."
     end
     
     return response
