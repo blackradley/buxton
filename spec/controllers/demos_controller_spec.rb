@@ -12,20 +12,31 @@ describe DemosController, 'routes' do
 
 end
 
+describe DemosController, 'should not allow GET requests to dangerous actions' do
+  
+  it "#create should not be successful" do
+    get :create
+    response.should_not be_success
+  end
+
+end
+
+describe DemosController, "should allow access to unsecured actions when not logged in" do
+
+  it "#new should be successful" do
+    get :new
+    response.should be_success
+  end
+
+  it "#create should be successful"
+
+end
+
 describe DemosController, 'handling GET /demos/new' do
   
   it "should be successful" do
     get :new
     response.should be_success
-  end
-
-end
-
-describe DemosController, 'should not allow GET requests to dangerous actions' do
-  
-  it "should not be successful" do
-    get :create
-    response.should_not be_success
   end
 
 end

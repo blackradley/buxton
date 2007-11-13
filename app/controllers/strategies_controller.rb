@@ -10,7 +10,11 @@ class StrategiesController < ApplicationController
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify  :method => :post,
-          :only => [ :destroy, :create, :update ],
+          :xhr => true,
+          :only => [ :update_strategy_order ],
+          :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
+  verify  :method => :post,
+          :only => [ :create, :update, :destroy ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
   # Available to: Administrator

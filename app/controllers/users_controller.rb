@@ -11,7 +11,7 @@ class UsersController < ApplicationController
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify  :method => :post,
-          :only => [ :destroy, :create, :update ],
+          :only => [ :create, :update, :destroy, :new_link, :remind ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
   # Present a form to request a lost passkey by entering your e-mail address.

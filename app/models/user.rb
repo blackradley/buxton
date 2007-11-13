@@ -30,29 +30,26 @@ class User < ActiveRecord::Base
   validates_format_of :email,
     :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,
     :message => 'E-mail must be valid'
-#
-# A user may be one of three types. 
-# 
-# * Administrative - the user has no function or organisation
-# * Organisational - the user controls an organisation
-# * Functional - the user controls a function
-# 
-# These groups are mutually exclusive.
-# 
+
+  # A user may be one of three types. 
+  # 
+  # * Administrative - the user has no function or organisation
+  # * Organisational - the user controls an organisation
+  # * Functional - the user controls a function
+  # 
+  # These groups are mutually exclusive.
   TYPE = {:administrative => 0, 
     :organisational => 1, 
     :functional => 2}
-#
-# Administrative users have no organisation or function to control. 
-# 
+
+  # Administrative users have no organisation or function to control. 
   def self.find_admins
     find(:all, :conditions => {:user_type => User::TYPE[:administrative]})
   end  
-# 
-# Generate a new pass key.
-# There is no built in method for creating a GUID in Ruby so I have knocked
-# one up from the email, date and a random number.
-# 
+
+  # Generate a new pass key.
+  # There is no built in method for creating a GUID in Ruby so I have knocked
+  # one up from the email, date and a random number.
   def self.generate_passkey(user)
     email = user.email
     date = user.created_on.nil? ? DateTime::now() : user.created_on
@@ -64,4 +61,5 @@ class User < ActiveRecord::Base
       return passkey
     end
   end
+  
 end

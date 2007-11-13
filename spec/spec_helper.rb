@@ -30,7 +30,14 @@ def login_as(user)
                                       })
       User.should_receive(:find).with(@mock_user.id).any_number_of_times.and_return(@mock_user)
       Organisation.should_receive(:find).with(@mock_organisation.id).any_number_of_times.and_return(@mock_organisation)
-      request.session[:user_id] = @mock_user.id      
+      request.session[:user_id] = @mock_user.id
+    when :administrator
+      @mock_user = mock_model(User, { :to_param => '1',
+                                      :function => @mock_function,
+                                      :user_type => User::TYPE['administrative']
+                                      })
+      User.should_receive(:find).with(@mock_user.id).any_number_of_times.and_return(@mock_user)
+      request.session[:user_id] = @mock_user.id
     else
       request.session[:user_id] = nil
   end

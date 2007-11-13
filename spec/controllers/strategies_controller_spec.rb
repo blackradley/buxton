@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe StrategiesController, "#route_for" do
+describe StrategiesController, 'routes' do
 
   it "should map { :controller => 'strategies', :action => 'index' } to /strategies" do
     route_for(:controller => 'strategies', :action => 'index').should == '/strategies'
@@ -45,9 +45,143 @@ describe StrategiesController, "#route_for" do
 end
 
 describe StrategiesController, "should not allow GET requests to dangerous actions" do
-    
+
+  before(:each) do
+    login_as :administrator
+  end
+
+  it "#create should not be successful" do
+    get :create
+    response.should_not be_success
+  end
+  
+  it "#update should not be successful" do
+    get :update
+    response.should_not be_success
+  end
+
+  it "#update_strategy_order should not be successful" do
+    get :update_strategy_order
+    response.should_not be_success
+  end
+  
+  it "#destroy should not be successful" do
+    get :destroy
+    response.should_not be_success
+  end
+      
 end
 
 describe StrategiesController, "should not allow access to secured actions when not logged in" do
     
+  it "#index should not be successful" do
+    get :index
+    response.should be_redirect
+  end
+  
+  it "#list should not be successful" do
+    get :list
+    response.should be_redirect
+  end
+  
+  it "#reorder should not be successful" do
+    get :reorder
+    response.should be_redirect
+  end
+  
+  it "#update_strategy_order should not be successful" do
+    xhr(:post, :update_strategy_order)
+    response.should be_redirect
+  end
+  
+  it "#show should not be successful" do
+    get :show
+    response.should be_redirect
+  end
+  
+  it "#new should not be successful" do
+    get :new
+    response.should be_redirect
+  end
+  
+  it "#create should not be successful" do
+    post :create
+    response.should be_redirect
+  end
+  
+  it "#edit should not be successful" do
+    get :edit
+    response.should be_redirect
+  end
+  
+  it "#update should not be successful" do
+    post :update
+    response.should be_redirect
+  end
+  
+  it "#destroy should not be successful" do
+    post :destroy
+    response.should be_redirect
+  end
+    
+end
+
+describe StrategiesController, 'handling GET /strategies' do
+  
+  it "should be successful"
+
+end
+
+describe StrategiesController, 'handling GET /strategies/list/:id' do
+  
+  it "should be successful"
+
+end
+
+describe StrategiesController, 'handling GET /strategies/reorder/:id' do
+  
+  it "should be successful"
+
+end
+
+describe StrategiesController, 'handling XHR POST /strategies/update_strategy_order' do
+  
+  it "should be successful"
+
+end
+
+describe StrategiesController, 'handling GET /strategies/show/:id' do
+  
+  it "should be successful"
+
+end
+
+describe StrategiesController, 'handling GET /strategies/new/:id' do
+  
+  it "should be successful"
+
+end
+
+describe StrategiesController, 'handling POST /strategies/create' do
+  
+  it "should be successful"
+
+end
+
+describe StrategiesController, 'handling GET /strategies/edit/:id' do
+  
+  it "should be successful"
+
+end
+
+describe StrategiesController, 'handling POST /strategies/update/:id' do
+  
+  it "should be successful"
+
+end
+
+describe StrategiesController, 'handling POST /strategies/destroy/:id' do
+  
+  it "should be successful"
+
 end
