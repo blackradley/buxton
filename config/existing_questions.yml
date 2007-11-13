@@ -3,14 +3,14 @@ questions:
     3:
       label: 'If the #{fun_pol_indicator} was performed well does it affect #{wordings[strand]} differently?'
       help: ''
-      type: Lookup
+      type: select
       choices: 1
       weights: 1
       dependent_questions: ''
     4:
        label: 'Would it affect <strong>#{wordings[strand]}</strong> differently?'
        help: ''
-       type: Lookup
+       type: select
        choices: 1
        weights: 1
        dependent_questions: ''
@@ -84,7 +84,7 @@ questions:
       type: select
       choices: 4
       weights: 0
-      dependent_questions: 'confidence_information_#{strand}_2 yes_value
+      dependent_questions: 'confidence_information_#{strand}_2 yes_value'
     4:
       label: 'Are there any other ways by which performance in meeting the #{part_need + wordings[strand]} could be assessed?'
       help: '<p>There may be other ways to assess the performance of the #{fun_pol_indicator} in meeting the needs of #{wordings[strand]}. These
@@ -97,8 +97,8 @@ questions:
       label: 'Please record any such performance measures for #{wordings[strand]}'
       help: ''
       type: text
-      dependent_questions: 'confidence_information_#{strand}_4 yes_value
-  :confidence_consultation
+      dependent_questions: 'confidence_information_#{strand}_4 yes_value'
+  confidence_consultation:
     1:
       label: 'Have groups from the #{strands[strand]} Equality Strand been consulted on the potential impact of the #{fun_pol_indicator}
              on #{wordings[strand]}?'
