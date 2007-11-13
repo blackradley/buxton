@@ -44,7 +44,7 @@ BODY
 }
 
 .mastHead .logo{
-	border-bottom: solid 10px #cccce5;
+	border-bottom: solid 0px #cccce5;
 	background: #292c4b url(../images/default_banner.png) no-repeat top left;
 	height: 120px;
 	width: 700px;
