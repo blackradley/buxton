@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe SectionsController, "#route_for" do
+describe SectionsController, 'routes' do
 
   it "should map { :controller => 'sections', :action => 'list', :id => 'purpose' } to /sections/list/purpose" do
     route_for(:controller => 'sections', :action => 'list', :id => 'purpose').should == '/sections/list/purpose'
@@ -83,9 +83,59 @@ describe SectionsController, "#route_for" do
 end
 
 describe SectionsController, "should not allow GET requests to dangerous actions" do
+
+  it "#update should not be successful" do
+    login_as :function_manager
+    get :update
+    response.should_not be_success
+  end
     
 end
 
 describe SectionsController, "should not allow access to secured actions when not logged in" do
+
+  it "#list should not be successful" do
+    get :list
+    response.should be_redirect
+  end
   
+  it "#show should not be successful" do
+    get :show
+    response.should be_redirect
+  end
+  
+  it "#edit should not be successful" do
+    get :edit
+    response.should be_redirect
+  end
+  
+  it "#update should not be successful" do
+    post :update
+    response.should be_redirect
+  end
+        
+end
+
+describe SectionsController, 'handling GET /sections/list/:id' do
+  
+  it "should be successful"
+
+end
+
+describe SectionsController, 'handling GET /sections/show/:id' do
+  
+  it "should be successful"
+
+end
+
+describe SectionsController, 'handling GET /sections/edit/:id/:equality_strand' do
+  
+  it "should be successful"
+
+end
+
+describe SectionsController, 'handling POST /sections/update' do
+  
+  it "should be successful"
+
 end

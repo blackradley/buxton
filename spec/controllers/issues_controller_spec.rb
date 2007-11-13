@@ -40,7 +40,7 @@ describe IssuesController, 'should not allow GET requests to dangerous actions' 
 end
 
 describe IssuesController, 'should not allow access to secured actions when not logged in' do
-  
+    
   it "#create should not be successful" do
     xhr(:post, :create)
     response.should be_redirect
@@ -58,7 +58,7 @@ describe IssuesController, 'should not allow access to secured actions when not 
 
 end
 
-describe IssuesController, 'handling POST /issues/create' do
+describe IssuesController, 'handling XHR POST /issues/create' do
   
   before(:each) do
     login_as :function_manager
@@ -99,7 +99,7 @@ describe IssuesController, 'handling POST /issues/update/:id' do
 
 end
 
-describe IssuesController, 'handling POST /issues/destroy/:id' do
+describe IssuesController, 'handling XHR POST /issues/destroy/:id' do
 
   it "should find the issue requested"
   

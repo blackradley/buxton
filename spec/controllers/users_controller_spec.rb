@@ -1,6 +1,6 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe UsersController, "#route_for" do
+describe UsersController, 'routes' do
 
   it "should map { :controller => 'users', :action => 'index' } to /users" do
     route_for(:controller => 'users', :action => 'index').should == '/users'
@@ -40,15 +40,71 @@ describe UsersController, "#route_for" do
   
   it "should map { :controller => 'users', :action => 'login' } to /users/login" do
     route_for(:controller => 'users', :action => 'login').should == '/users/login'
+  end
+  
+  it "should map { :controller => 'users', :action => 'login', :passkey => 'f0488f7dc3f2bbb333641d6282b72fe15b3d0515' } to /f0488f7dc3f2bbb333641d6282b72fe15b3d0515" do
+    route_for(:controller => 'users', :action => 'login', :passkey => 'f0488f7dc3f2bbb333641d6282b72fe15b3d0515').should == '/f0488f7dc3f2bbb333641d6282b72fe15b3d0515'
   end  
 
 end
 
 describe UsersController, "should not allow GET requests to dangerous actions" do
+
+  before(:each) do
+    login_as :administrator
+  end
+
+  it "#create should not be successful" do
+    get :create
+    response.should_not be_success
+  end
+  
+  it "#update should not be successful" do
+    get :update
+    response.should_not be_success
+  end
+  
+  it "#destroy should not be successful" do
+    get :destroy
+    response.should_not be_success
+  end
     
 end
 
+describe UsersController, "should allow access to unsecured actions when not logged in" do
+
+  it "#index should be successful" do
+    get :index
+    response.should be_success
+  end
+
+  it "#new_link should be successful" do
+    post :new_link
+    response.should be_redirect
+  end
+  
+  it "#login should be successful" do
+    get :login
+    response.should be_redirect
+  end
+
+end
+
 describe UsersController, "should not allow access to secured actions when not logged in" do
+  
+  it "#list should not be successful"
+  
+  it "#new should not be successful"
+  
+  it "#create should not be successful"
+  
+  it "#edit should not be successful"
+  
+  it "#update should not be successful"
+  
+  it "#destroy should not be successful"
+  
+  it "#remind should not be successful"
   
 end
 
@@ -58,5 +114,53 @@ describe UsersController, "handling GET /users/" do
     get :index
     response.should be_success
   end
+
+end
+
+describe UsersController, 'handling GET /users/list' do
+  
+  it "should be successful"
+
+end
+
+describe UsersController, 'handling GET /users/new' do
+  
+  it "should be successful"
+
+end
+
+describe UsersController, 'handling POST /users/create' do
+  
+  it "should be successful"
+
+end
+
+describe UsersController, 'handling GET /users/edit/:id' do
+  
+  it "should be successful"
+
+end
+
+describe UsersController, 'handling POST /users/update/:id' do
+  
+  it "should be successful"
+
+end
+
+describe UsersController, 'handling POST /users/new_link' do
+  
+  it "should be successful"
+
+end
+
+describe UsersController, 'handling POST /users/destroy/:id' do
+  
+  it "should be successful"
+
+end
+
+describe UsersController, 'login procedure' do
+  
+  it "should be successful"
 
 end
