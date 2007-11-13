@@ -35,6 +35,9 @@ BODY
 .content .workingArea, .messageArea{
 	margin:20px;
 }
+.messageArea p{
+	color: green;
+}
 
 .mastHead{
 	border-bottom: solid 2px #ff9900;
