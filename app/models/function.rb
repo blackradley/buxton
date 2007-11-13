@@ -104,23 +104,22 @@ class Function < ActiveRecord::Base
    #that you have to answer(function/policy and proposed/overall) have been answered or not, and if they have not been answered, then no others can be
    # and if they have, then the function is by definition started
   def started(section = nil, strand = nil)
-    return false unless (check_question(:existing_proposed) && check_question(:function_policy))
-    return false unless (self.existing_proposed + self.function_policy) > 0
-    started = false
-    unless started then
-    Function.get_question_names(section, strand).each{|question| if check_question(question) then started = true; break; end}
+    unless (section || strand) then
+      return true if (check_question(:existing_proposed) && check_question(:function_policy))
+    else
+      return false unless (check_question(:existing_proposed) && check_question(:function_policy))
+    end
+    Function.get_question_names(section, strand).each{|question| if check_question(question) then return true end}
     #There is no need to check issues, because if the dependent question has been answered, then by definition they are started
     #, and if it is not answered, they do not need to be filled in, so should not be taken account of.
       unless section && !(section == :purpose) then #Check strategies are completed.
         function_strategies.each do |strategy| 
           if check_response(strategy.strategy_response) then
-            started = true
-            break
+            return true
           end
         end
       end      
-    end
-    return started
+    return false
   end
   
   #This allows you to check whether a function, section or strand has been completed. It runs like started, but only breaking when it finds a question
@@ -220,7 +219,7 @@ class Function < ActiveRecord::Base
 #NOTE: Should a new column be added to function that isn't a question, it should also be added here.
   def self.get_question_names(section = nil, strand = nil, number = nil)
 	  questions = []
-	  unnecessary_columns = [:name, :approved, :created_on, :updated_on, :updated_by]
+	  unnecessary_columns = [:name, :approved, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed]
 	  Function.content_columns.each{|column| questions.push(column.name.to_sym)}
 	  unnecessary_columns.each{|column| questions.delete(column)}
 	  questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section
@@ -307,8 +306,6 @@ class Function < ActiveRecord::Base
         issues_identified = (self.send("confidence_consultation_#{strand}_7".to_sym) == 1)
         response += "The consultations did not identify any issues with the impact of the #{fun_pol_indicator} upon #{wordings[strand]}."
       when 7
-        response =  "The #{fun_pol_indicator} does not have a role in eliminating unlawful discrimination on the grounds of #{strands[strand]} or promoting equality of opportunity between #{wordings[strand]}."
-      when 8
         stats_object = statistics
         return "The #{fun_pol_indicator} has not yet been completed sufficiently to warrant calculation of impact level and the priority ranking." unless statistics
         strand = "" unless strand
