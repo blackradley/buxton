@@ -181,7 +181,7 @@ class UsersController < ApplicationController
         when 'OrganisationManager'
           redirect_to :controller => 'functions', :action => 'summary'
         when 'Administrator'
-          redirect_to :controller => 'organisations', :action => 'index'
+          redirect_to :controller => 'organisations', :action => 'list'
       end
     end
   end

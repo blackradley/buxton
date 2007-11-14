@@ -44,7 +44,7 @@ class SectionsController < ApplicationController
   #               Function Manager
   def show
     # TODO: improve this - all a bit ugly
-    f_id = if (@current_user.class.name == 'FunctionManager')
+    f_id = if (@current_user.class.name == 'OrganisationManager')
       params[:f]
     else
       @current_user.function.id

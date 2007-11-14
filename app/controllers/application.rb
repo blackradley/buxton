@@ -63,6 +63,7 @@ protected
   end
 
   def render_invalid_record(record)
+    puts record.new_record?
     render :action => (record.new_record? ? 'new' : 'edit')
   end  
   
