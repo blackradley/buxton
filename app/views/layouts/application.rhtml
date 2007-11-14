@@ -11,9 +11,9 @@
 		<%= stylesheet_link_tag 'default' %>
 		<%= stylesheet_link_tag 'print', :media => 'print' %>
 		<% unless @current_user.nil? then -%>
-			<% if @current_user.type == 'FunctionManager' -%>
+			<% if @current_user.class.name == 'FunctionManager' -%>
 		<%= stylesheet_link_tag @current_user.function.organisation.style %>
-			<% elsif @current_user.type == 'OrganisationManager' -%>
+			<% elsif @current_user.class.name == 'OrganisationManager' -%>
 		<%= stylesheet_link_tag @current_user.organisation.style %>
 			<% end -%>
 		<% end -%>

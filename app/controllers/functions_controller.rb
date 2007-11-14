@@ -89,7 +89,7 @@ class FunctionsController < ApplicationController
   # Available to: Function Manager  
   def update
     @function = Function.find(@current_user.function.id)
-    @function.update_attributes(params[:function])
+    @function.update_attributes!(params[:function])
 
     flash[:notice] =  "#{@function.name} was successfully updated."
     redirect_to :back
@@ -129,7 +129,7 @@ class FunctionsController < ApplicationController
   def edit_contact
     # Only allow an organisation manager to proceed
     # TODO: catch this better
-    unless (@current_user.type == 'OrganisationManager') then render :inline => 'Invalid.' end
+    unless (@current_user.class.name == 'OrganisationManager') then render :inline => 'Invalid.' end
 
     # Get the Function and User details ready for the view
     @function = Function.find(params[:id])
@@ -141,15 +141,15 @@ class FunctionsController < ApplicationController
   def update_contact
     # Only allow an organisation manager to proceed
     # TODO: catch this better
-    unless (@current_user.type == 'OrganisationManager') then render :inline => 'Invalid.' end
+    unless (@current_user.class.name == 'OrganisationManager') then render :inline => 'Invalid.' end
 
     # Update the function
     Function.transaction do
       @function = Function.find(params[:id])
-      @function.update_attributes(params[:function])
+      @function.update_attributes!(params[:function])
       # Update the user
       @function_manager = @function.function_manager
-      @function_manager.update_attributes(params[:function_manager])
+      @function_manager.update_attributes!(params[:function_manager])
       flash[:notice] =  @function.name + ' was successfully changed.'
       redirect_to :action => 'list'
     end
@@ -164,7 +164,7 @@ class FunctionsController < ApplicationController
   def destroy
     # Only allow an organisation manager to proceed    
     # TODO: catch this better
-    unless (@current_user.type == 'OrganisationManager') then render :inline => 'Invalid.' end
+    unless (@current_user.class.name == 'OrganisationManager') then render :inline => 'Invalid.' end
     
     # Destroy the function and go back to the list of functions for this organisation
     @function = Function.find(params[:id])
