@@ -70,7 +70,7 @@ class DemosController < ApplicationController
           @organisation.save!
           flash[:notice] = 'Demonstration organisation was created.'
         end
-      rescue
+      rescue ActiveRecord::RecordNotSaved
         render :action => 'new' and return
       end
     end

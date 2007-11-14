@@ -206,43 +206,36 @@ end
 
 describe OrganisationsController, 'handling POST /organisations/create' do
   
-  # TODO: fill these out
-  valid_organisation_attributes = { }
-  
   before(:each) do
     # Prep data
-    @mock_organisation = mock_model(Organisation)
-    @mock_organisation.stub!(:name).and_return('City Council')
-    @mock_user = mock_model(User)
-    Organisation.stub!(:new).and_return(@mock_organisation)
-    @mock_organisation.stub!(:build_user).and_return(@mock_user)
-    @mock_user.stub!(:user_type=).and_return(User::TYPE[:organisational])
-    User.stub!(:generate_passkey).and_return('f0488f7dc3f2bbb333641d6282b72fe15b3d0515')
-    @mock_user.stub!(:passkey=).and_return('f0488f7dc3f2bbb333641d6282b72fe15b3d0515')
-    @mock_organisation.stub!(:save!)
-    
+    @organisation = mock(:organisation, :null_object => true)
+    @user = mock(:user, :null_object => true)
+    Organisation.stub!(:new).and_return(@organisation)
+    @organisation.stub!(:build_user).and_return(@user)
     # Authenticate
     login_as :administrator
   end
   
   it "should tell the Organisation model to create a new organisation" do
-    Organisation.should_receive(:new).with(valid_organisation_attributes).and_return(@mock_organisation)
-    post :create, :organisation => valid_organisation_attributes
+    Organisation.should_receive(:new).and_return(@organisation)
+    post :create
   end
   
   it "should tell the new organisation to create a new user associated with itself" do
-    # @mock_organisation.should_receive(:build_user).and_return(@mock_user)
-    # post :create, :organisation => valid_organisation_attributes
+    @organisation.should_receive(:build_user).and_return(@user)
+    post :create
   end
   
   it "with a valid organisation should redirect to 'organisations/list'" do
-    # post :create, :organisation => valid_organisation_attributes
-    # response.should be_redirect    
+    @organisation.stub!(:save!).and_return(nil)
+    post :create
+    response.should be_redirect
   end
   
   it "with an invalid organisation should re-render 'organisations/new'" do
-    # post :create
-    # response.should render_template(:new)
+    @organisation.stub!(:save!).and_raise(ActiveRecord::RecordNotSaved)
+    post :create
+    response.should render_template(:new)
   end
   
 end

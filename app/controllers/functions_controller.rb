@@ -80,7 +80,7 @@ class FunctionsController < ApplicationController
         flash[:notice] = "#{@function.name} was created."
         redirect_to :action => :list
       end
-    rescue
+    rescue ActiveRecord::RecordNotSaved
         flash[:notice] = "Function creation failed. Please try again, and if it continues to fail, contact an administrator."
         render :action => :new    
     end
@@ -157,7 +157,7 @@ class FunctionsController < ApplicationController
       end
     end
     # Something went wrong
-    rescue ActiveRecord::RecordInvalid => e
+    rescue ActiveRecord::RecordInvalid
       @user.valid? # force checking of errors even if function failed
       render :action => :new
   end
@@ -175,7 +175,7 @@ class FunctionsController < ApplicationController
 
     flash[:notice] = 'Function successfully deleted.'
     redirect_to :action => 'list'
-  rescue ActiveRecord::RecordNotFound => e  
+  rescue ActiveRecord::RecordNotFound  
     render :inline => 'Invalid ID.'    
   end
 

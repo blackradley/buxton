@@ -52,7 +52,7 @@ class OrganisationsController < ApplicationController
         flash[:notice] = "#{@organisation.name} was created."
         redirect_to :action => :list
       end
-    rescue
+    rescue ActiveRecord::RecordNotSaved
       render :action => 'new'
     end
   end
@@ -76,7 +76,7 @@ class OrganisationsController < ApplicationController
       flash[:notice] =  "#{@organisation.name} was successfully changed."
       redirect_to :action => 'show', :id => @organisation
     end
-    rescue ActiveRecord::RecordInvalid => e
+    rescue ActiveRecord::RecordInvalid
       @user.valid? # force checking of errors even if function failed
       render :action => :new
   end
@@ -89,7 +89,7 @@ class OrganisationsController < ApplicationController
 
     flash[:notice] = 'Organisation successfully deleted.'
     redirect_to :action => 'list'
-  rescue ActiveRecord::RecordNotFound => e  
+  rescue ActiveRecord::RecordNotFound  
     render :inline => 'Invalid ID.'    
   end
 

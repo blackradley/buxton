@@ -47,7 +47,7 @@ class UsersController < ApplicationController
     else
       render :action => :new
     end
-    rescue ActiveRecord::RecordInvalid => e
+    rescue ActiveRecord::RecordInvalid
       @user.valid? # force checking of errors even if function failed
       render :action => :new
   end
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
   # Available to: Administrator  
   def edit
     @user = User.find(params[:id])
-  rescue ActiveRecord::RecordNotFound => e
+  rescue ActiveRecord::RecordNotFound
     render :inline => 'Invalid ID.'  
   end
 
@@ -73,7 +73,7 @@ class UsersController < ApplicationController
     else
       render :action => 'edit'
     end
-  rescue ActiveRecord::RecordNotFound => e
+  rescue ActiveRecord::RecordNotFound
     render :inline => 'Invalid ID.'
   end
 
@@ -126,7 +126,7 @@ class UsersController < ApplicationController
     
     flash[:notice] = 'User successfully deleted.'
     redirect_to :action => 'list'
-  rescue ActiveRecord::RecordNotFound => e  
+  rescue ActiveRecord::RecordNotFound  
     render :inline => 'Invalid ID.'    
   end
   
@@ -162,7 +162,7 @@ class UsersController < ApplicationController
     @user.save
     
     redirect_to :back
-  rescue ActiveRecord::RecordNotFound => e
+  rescue ActiveRecord::RecordNotFound
     render :inline => 'Invalid ID.'    
   end
 

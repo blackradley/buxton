@@ -97,7 +97,7 @@ class StrategiesController < ApplicationController
     
     flash[:notice] = 'Strategy successfully deleted.'
     redirect_to :action => 'list'
-  rescue ActiveRecord::RecordNotFound => e  
+  rescue ActiveRecord::RecordNotFound  
     render :inline => 'Invalid ID.'
   end
   
