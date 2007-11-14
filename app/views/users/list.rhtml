@@ -8,7 +8,7 @@
     <th></th>
     <th></th>
   </tr>
-<% for user in @users -%>
+<% for user in @admins -%>
   <tr>
     <td><%= link_to 'Email Reminder', {:action => 'remind', :id => user}, :confirm => 'Send new key?', :method => :post -%></td>
     <td><%=h user.email -%></td>

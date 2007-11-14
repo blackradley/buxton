@@ -24,13 +24,13 @@ class UsersController < ApplicationController
   # List all admins.
   # Available to: Administrator
   def list
-    @users = User.find_admins
+    @admins = Administrator.find(:all)
   end
 
   # New screen for a user.
   # Available to: Administrator
   def new
-    @user = User.new
+    @admin = Administrator.new
   end
 
   # You can only create an administrative user, the other users have
@@ -38,24 +38,23 @@ class UsersController < ApplicationController
   # that they will be responsible for.
   # Available to: Administrator  
   def create
-    @user = User.new(params[:user])
-    @user.user_type = User::TYPE[:administrative]
-    @user.passkey = User.generate_passkey(@user)
-    if @user.save
-      flash[:notice] = 'User was successfully created.'
+    @admin = Administrator.new(params[:admin])
+    @admin.passkey = Administrator.generate_passkey(@admin)
+    if @admin.save
+      flash[:notice] = 'Admin was successfully created.'
       redirect_to :action => 'list'
     else
       render :action => :new
     end
     rescue ActiveRecord::RecordInvalid
-      @user.valid? # force checking of errors even if function failed
+      @admin.valid? # force checking of errors even if function failed
       render :action => :new
   end
 
   # Edit screen for a user.
   # Available to: Administrator  
   def edit
-    @user = User.find(params[:id])
+    @admin = Administrator.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render :inline => 'Invalid ID.'  
   end
@@ -65,10 +64,10 @@ class UsersController < ApplicationController
   # TODO: check whether this should be enabled
   # Available to: Administrator
   def update
-    @user = User.find(params[:id])
+    @admin = Administrator.find(params[:id])
     # @user.passkey = User.new_passkey # TODO: check whether this should be enabled
-    if @user.update_attributes(params[:user])
-      flash[:notice] = "#{@user.email} was successfully updated."
+    if @admin.update_attributes(params[:admin])
+      flash[:notice] = "#{@admin.email} was successfully updated."
       redirect_to :action => 'list'
     else
       render :action => 'edit'
@@ -95,18 +94,18 @@ class UsersController < ApplicationController
     else
       for @user in @users
         # new_passkey(@user)
-        case @user.user_type
-          when User::TYPE[:functional]
+        case @user.type
+          when 'FunctionManager'
             email = Notifier.create_function_key(@user, request)
             Notifier.deliver(email)
             @user.reminded_on = Time.now.gmtime
             @user.save
-           when User::TYPE[:organisational]
+           when 'OrganisationManager'
             email = Notifier.create_organisation_key(@user, request)
             Notifier.deliver(email)
             @user.reminded_on = Time.now.gmtime
             @user.save
-          when User::TYPE[:administrative]
+          when 'Administrator'
             email = Notifier.create_administration_key(@user, request)
             Notifier.deliver(email)
             @user.reminded_on = Time.now.gmtime
@@ -121,8 +120,8 @@ class UsersController < ApplicationController
   # Destroy the user
   # Available to: Administrator
   def destroy
-    @user = User.find(params[:id])
-    @user.destroy
+    @admin = Administrator.find(params[:id])
+    @admin.destroy
     
     flash[:notice] = 'User successfully deleted.'
     redirect_to :action => 'list'
@@ -140,11 +139,12 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     
     # Are they a function manager?
-    if @user.function then
+    case @user.type
+    when 'FunctionManager'
       email = Notifier.create_function_key(@user, request)
       flash[:notice] = 'Reminder for ' + @user.function.name + ' sent to ' + @user.email
     # Nope, are they an organisation manager?
-    elsif @user.organisation then
+    when 'OrganisationManager'
       email = Notifier.create_organisation_key(@user, request)
       flash[:notice] = 'Reminder for ' + @user.organisation.name + ' sent to ' + @user.email
     # Nope. Well do nothing then.
@@ -166,7 +166,7 @@ class UsersController < ApplicationController
     render :inline => 'Invalid ID.'    
   end
 
-  # Log the user in and then direct them to the right place based on the user_type
+  # Log the user in and then direct them to the right place based on the user type
   # Available to: anybody
   def login
     user = User.find_by_passkey(params[:passkey])
@@ -175,16 +175,16 @@ class UsersController < ApplicationController
       redirect_to :action => 'index'
     else # the key is in the table so stash the user
       session[:user_id] = user.id
-      case user.user_type
-        when User::TYPE[:functional]
+      case user.type
+        when 'FunctionManager'
           if user.function.started then
             redirect_to :controller => 'functions', :action => 'show'
           else
            redirect_to :controller => 'functions', :action => 'status'
           end
-        when User::TYPE[:organisational]
+        when 'OrganisationManager'
           redirect_to :controller => 'functions', :action => 'summary'
-        when User::TYPE[:administrative]
+        when 'Administrator'
           redirect_to :controller => 'organisations', :action => 'index'
       end
     end

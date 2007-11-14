@@ -29,7 +29,7 @@ protected
   end
 
   # If the user_id session variable exists, grab this user from the database and store
-  # in @current_user available to the action of any controller.
+  # in @current_user making it available to the action of any controller.
   def set_current_user
     @current_user = User.find(session[:user_id]) unless session[:user_id].nil?
   end
@@ -38,10 +38,46 @@ protected
   def secure?
     false
   end
+  
+  # To reduce code duplication in the controllers, we override rescue_action to catch RecordInvalid and RecordNotFound 
+  # errors and handle them here instead. Admittedly we are using exceptions here for something that could be considered
+  # normal code execution but Rails 2.0 will handle this nicer with rescue_from which this approach will also prep for.
+  # http://api.rubyonrails.org/classes/ActionController/Rescue.html#M000086
+  # Of note, only find() actually raises the RecordNotFound exception. If you want this to be handled with any
+  # other queries you must throw one yourself.
+  # e.g. @person = Person.find_by_name(params[:name]) or raise ActiveRecord::RecordNotFound
+  # @first = Person.find(:first) or raise ActiveRecord::RecordNotFound
+  # @people = Person.find(:all) or raise ActiveRecord::RecordNotFound
+  # http://api.rubyonrails.com/classes/ActiveRecord/Base.html#M001005
+  def rescue_action(exception)
+    case exception
+    when ActiveRecord::RecordInvalid
+      render_invalid_record(exception.record)
+    when ActiveRecord::RecordNotSaved
+      render_invalid_record(exception.record)      
+    when ActiveRecord::RecordNotFound
+      render_not_found_record()  
+    else 
+      super
+    end
+  end
+
+  def render_invalid_record(record)
+    render :action => (record.new_record? ? 'new' : 'edit')
+  end  
+  
+  def render_not_found_record()
+    respond_to do |format|
+      format.html { render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 }
+    end
+  end
 
 private
   # Log the user out of the system by killing the session parameter that identifies them as being logged in
+  # Kill the @current_user variable as well as this is collected before any call to logout() can be made
+  # resulting in a page, on that one occasion, which thinks you are logged in even after logout() is called.
   def logout
-    session[:user_id] = nil    
+    session[:user_id] = nil
+    @current_user = nil
   end  
 end

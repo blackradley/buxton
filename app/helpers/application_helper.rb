@@ -48,12 +48,12 @@ module ApplicationHelper
     if @current_user.nil?
       ''
     else
-      case @current_user.user_type
-        when User::TYPE[:functional]
+      case @current_user.type
+        when 'FunctionManager'
           'Logged in as a Function Manager'
-        when User::TYPE[:organisational]
+        when 'OrganisationManager'
           'Logged in as an Organisation Manager'
-        when User::TYPE[:administrative]
+        when 'Administrator'
           'Logged in as an Administration Manager'
         else
           'Login status unknown'
@@ -89,38 +89,41 @@ module ApplicationHelper
   def menu()
     if @current_user.nil?
       ' '
-    elsif @current_user.user_type == User::TYPE[:organisational]
-      generate_menu( [
-                      { :text => 'Summary',
-                        :url => { :controller => 'functions', :action => 'summary' },
-                        :title => 'Organisation Control Page - Summary' },
-                      { :text => 'Functions',
-                        :url => { :controller => 'functions', :action => 'list' },
-                        :title => 'Organisation Control Page - Functions' },
-                      { :text => 'Sections',
-                        :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
-                        :title => 'Organisation Control Page - Sections' }
-                      ])
-    elsif @current_user.user_type == User::TYPE[:functional]
-      generate_menu( [
-                      { :text => 'Overview',
-                        :url => { :controller => 'functions', :action => 'overview'},
-                        :title => 'Function Control Page - Overview' },
-                      { :text => 'Summary',
-                        :url => { :controller => 'functions', :action => 'show' },
-                        :title => 'Function Control Page - Summary' }
-                      ])
-    elsif @current_user.user_type == User::TYPE[:administrative]
-      generate_menu( [
-                      { :text => 'Organisations',
-                        :url => { :controller => 'organisations', :action => 'list'},
-                        :title => 'Organisations - Overview' },
-                      { :text => 'New Demo',
-                        :url => { :controller => 'demos', :action => 'new' },
-                        :title => 'New Demo' }
-                      ])
     else
-      'Menu Fail (admin test)'
+      case @current_user.type
+      when 'OrganisationManager'
+        generate_menu( [
+                        { :text => 'Summary',
+                          :url => { :controller => 'functions', :action => 'summary' },
+                          :title => 'Organisation Control Page - Summary' },
+                        { :text => 'Functions',
+                          :url => { :controller => 'functions', :action => 'list' },
+                          :title => 'Organisation Control Page - Functions' },
+                        { :text => 'Sections',
+                          :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
+                          :title => 'Organisation Control Page - Sections' }
+                        ])
+      when 'FunctionManager'    
+        generate_menu( [
+                        { :text => 'Overview',
+                          :url => { :controller => 'functions', :action => 'overview'},
+                          :title => 'Function Control Page - Overview' },
+                        { :text => 'Summary',
+                          :url => { :controller => 'functions', :action => 'show' },
+                          :title => 'Function Control Page - Summary' }
+                        ])
+      when 'Administrator'
+        generate_menu( [
+                        { :text => 'Organisations',
+                          :url => { :controller => 'organisations', :action => 'list'},
+                          :title => 'Organisations - Overview' },
+                        { :text => 'New Demo',
+                          :url => { :controller => 'demos', :action => 'new' },
+                          :title => 'New Demo' }
+                        ])
+      else
+        'Menu Fail (admin test)'
+      end
     end
   end
   

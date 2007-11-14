@@ -63,16 +63,15 @@ class FunctionsController < ApplicationController
   # Available to: Organisation Manager
   def new
     @function = Function.new
-    @user = User.new
+    @function_manager = @function.build_function_manager
   end
 
   # Create a new function and a new user based on the parameters in the form data.
   # Available to: Organisation Manager  
   def create
     @function = @current_user.organisation.functions.build(params[:function])
-    @user = @function.build_user(params[:user])
-    @user.user_type = User::TYPE[:functional]
-    @user.passkey = User.generate_passkey(@user)
+    @function_manager = @function.build_function_manager(params[:function_manager])
+    @function_manager.passkey = FunctionManager.generate_passkey(@function_manager)
 
     begin
       Function.transaction do
@@ -130,11 +129,11 @@ class FunctionsController < ApplicationController
   def edit_contact
     # Only allow an organisation manager to proceed
     # TODO: catch this better
-    unless (@current_user.user_type == User::TYPE[:organisational]) then render :inline => 'Invalid.' end
+    unless (@current_user.type == 'OrganisationManager') then render :inline => 'Invalid.' end
 
     # Get the Function and User details ready for the view
     @function = Function.find(params[:id])
-    @user = @function.user    
+    @function_manager = @function.function_manager    
   end
 
   # Update the contact email and function name
@@ -142,23 +141,21 @@ class FunctionsController < ApplicationController
   def update_contact
     # Only allow an organisation manager to proceed
     # TODO: catch this better
-    unless (@current_user.user_type == User::TYPE[:organisational]) then render :inline => 'Invalid.' end
+    unless (@current_user.type == 'OrganisationManager') then render :inline => 'Invalid.' end
 
     # Update the function
     Function.transaction do
-      User.transaction do
-        @function = Function.find(params[:id])
-        @function.update_attributes(params[:function])
-        # Update the user
-        @user = @function.user
-        @user.update_attributes(params[:user])
-        flash[:notice] =  @function.name + ' was successfully changed.'
-        redirect_to :action => 'list'
-      end
+      @function = Function.find(params[:id])
+      @function.update_attributes(params[:function])
+      # Update the user
+      @function_manager = @function.function_manager
+      @function_manager.update_attributes(params[:function_manager])
+      flash[:notice] =  @function.name + ' was successfully changed.'
+      redirect_to :action => 'list'
     end
     # Something went wrong
     rescue ActiveRecord::RecordInvalid
-      @user.valid? # force checking of errors even if function failed
+      @function_manager.valid? # force checking of errors even if function failed
       render :action => :new
   end
 
@@ -167,7 +164,7 @@ class FunctionsController < ApplicationController
   def destroy
     # Only allow an organisation manager to proceed    
     # TODO: catch this better
-    unless (@current_user.user_type == User::TYPE[:organisational]) then render :inline => 'Invalid.' end
+    unless (@current_user.type == 'OrganisationManager') then render :inline => 'Invalid.' end
     
     # Destroy the function and go back to the list of functions for this organisation
     @function = Function.find(params[:id])

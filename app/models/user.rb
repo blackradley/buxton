@@ -21,31 +21,13 @@
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
-  has_one :organisation, :dependent => :destroy
-  has_one :function, :dependent => :destroy
-  validates_presence_of :user_type,
-    :message => 'User type is required'    
+  validates_presence_of :type,
+    :message => 'User type is required'
   validates_presence_of :email, 
     :message => 'Please provide an email'
   validates_format_of :email,
     :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,
     :message => 'E-mail must be valid'
-
-  # A user may be one of three types. 
-  # 
-  # * Administrative - the user has no function or organisation
-  # * Organisational - the user controls an organisation
-  # * Functional - the user controls a function
-  # 
-  # These groups are mutually exclusive.
-  TYPE = {:administrative => 0, 
-    :organisational => 1, 
-    :functional => 2}
-
-  # Administrative users have no organisation or function to control. 
-  def self.find_admins
-    find(:all, :conditions => {:user_type => User::TYPE[:administrative]})
-  end  
 
   # Generate a new pass key.
   # There is no built in method for creating a GUID in Ruby so I have knocked

@@ -42,7 +42,7 @@ class Test::Unit::TestCase
     @controller = UsersController.new
     case user_type
     when :function_manager
-      user = User.find(3)
+      user = FunctionManager.find(3)
       post :login, :passkey => user.passkey
       if user.function.started then
         assert_redirected_to :controller => 'functions', :action => 'show'
@@ -50,11 +50,11 @@ class Test::Unit::TestCase
        assert_redirected_to :controller => 'functions', :action => 'status'
       end
     when :organisation_manager
-      user = User.find(2)
+      user = OrganisationManager.find(2)
       post :login, :passkey => user.passkey
       assert_redirected_to :controller => 'functions', :action => 'summary'
     when :administrator
-      user = User.find(1)
+      user = Administrator.find(1)
       post :login, :passkey => user.passkey      
       assert_redirected_to :controller => 'organisations', :action => 'index'
     end

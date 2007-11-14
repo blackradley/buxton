@@ -1,8 +1,6 @@
 #
 # $URL$
-# $Rev$
 # $Author$
-# $Date$
 #
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
@@ -28,32 +26,27 @@ class OrganisationsController < ApplicationController
   # Available to: Administrator  
   def show
     @organisation = Organisation.find(params[:id])
-    @user = @organisation.user
+    @organisation_manager = @organisation.organisation_manager
   end
 
   # Create a new Organisation and a new associated User
   # Available to: Administrator  
   def new
     @organisation = Organisation.new
-    @user = User.new
+    @organisation_manager = @organisation.build_organisation_manager
   end
 
   # Create a new organisation and a new user based on the parameters on the form.
   # Available to: Administrator  
   def create
     @organisation = Organisation.new(params[:organisation])
-    @user = @organisation.build_user(params[:user])
-    @user.user_type = User::TYPE[:organisational]
-    @user.passkey = User.generate_passkey(@user)
+    @organisation_manager = @organisation.build_organisation_manager(params[:organisation_manager])
+    @organisation_manager.passkey = OrganisationManager.generate_passkey(@organisation_manager)
 
-    begin
-      Organisation.transaction do
-        @organisation.save!
-        flash[:notice] = "#{@organisation.name} was created."
-        redirect_to :action => :list
-      end
-    rescue ActiveRecord::RecordNotSaved
-      render :action => 'new'
+    Organisation.transaction do
+      @organisation.save!
+      flash[:notice] = "#{@organisation.name} was created."
+      redirect_to :action => :list
     end
   end
 
@@ -62,7 +55,7 @@ class OrganisationsController < ApplicationController
   # Available to: Administrator  
   def edit
     @organisation = Organisation.find(params[:id])
-    @user = @organisation.user
+    @organisation_manager = @organisation.organisation_manager
   end
 
   # Update the organisation and all of its attributes
@@ -71,14 +64,11 @@ class OrganisationsController < ApplicationController
     @organisation = Organisation.find(params[:id])
     @organisation.update_attributes(params[:organisation])
     Organisation.transaction do
-      @user = @organisation.user
-      @user.update_attributes(params[:user])
+      @organisation_manager = @organisation.organisation_manager
+      @organisation_manager.update_attributes(params[:organisation_manager])
       flash[:notice] =  "#{@organisation.name} was successfully changed."
       redirect_to :action => 'show', :id => @organisation
     end
-    rescue ActiveRecord::RecordInvalid
-      @user.valid? # force checking of errors even if function failed
-      render :action => :new
   end
   
   # Destroy the organisation
@@ -89,8 +79,6 @@ class OrganisationsController < ApplicationController
 
     flash[:notice] = 'Organisation successfully deleted.'
     redirect_to :action => 'list'
-  rescue ActiveRecord::RecordNotFound  
-    render :inline => 'Invalid ID.'    
   end
 
 protected

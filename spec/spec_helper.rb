@@ -14,30 +14,26 @@ def login_as(user)
   case user
     when :function_manager
       @mock_function = mock_model(Function, :to_param => '1')
-      @mock_user = mock_model(User, { :to_param => '1',
-                                      :function => @mock_function,
-                                      :user_type => User::TYPE['functional']
-                                      })
-      User.should_receive(:find).with(@mock_user.id).any_number_of_times.and_return(@mock_user)
-      request.session[:user_id] = @mock_user.id
+      @mock_function_manager = mock_model(FunctionManager, {  :to_param => '1',
+                                                              :function => @mock_function,
+                                                              })
+      User.should_receive(:find).with(@mock_function_manager.id).any_number_of_times.and_return(@mock_function_manager)
+      Function.should_receive(:find).with(@mock_function.id).any_number_of_times.and_return(@mock_function)
+      request.session[:user_id] = @mock_function_manager.id
     when :organisation_manager
       @mock_organisation = mock_model(Organisation, { :to_param => '1',
                                                       :functions => []
                                                       })
-      @mock_user = mock_model(User, { :to_param => '1',
-                                      :organisation => @mock_organisation,
-                                      :user_type => User::TYPE['functional']
-                                      })
-      User.should_receive(:find).with(@mock_user.id).any_number_of_times.and_return(@mock_user)
+      @mock_organisation_manager = mock_model(OrganisationManager, {  :to_param => '1',
+                                                                      :organisation => @mock_organisation,
+                                                                      })
+      User.should_receive(:find).with(@mock_organisation_manager.id).any_number_of_times.and_return(@mock_organisation_manager)
       Organisation.should_receive(:find).with(@mock_organisation.id).any_number_of_times.and_return(@mock_organisation)
-      request.session[:user_id] = @mock_user.id
+      request.session[:user_id] = @mock_organisation_manager.id
     when :administrator
-      @mock_user = mock_model(User, { :to_param => '1',
-                                      :function => @mock_function,
-                                      :user_type => User::TYPE['administrative']
-                                      })
-      User.should_receive(:find).with(@mock_user.id).any_number_of_times.and_return(@mock_user)
-      request.session[:user_id] = @mock_user.id
+      @mock_administrator = mock_model(Administrator, { :to_param => '1' })
+      User.should_receive(:find).with(@mock_administrator.id).any_number_of_times.and_return(@mock_administrator)
+      request.session[:user_id] = @mock_administrator.id
     else
       request.session[:user_id] = nil
   end
