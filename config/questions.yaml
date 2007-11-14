@@ -229,14 +229,14 @@ questions:
     4:
       label:
         - 'Do you think that the #{fun_pol_indicator} could have a role in preventing #{wordings[strand]} being treated differently, in an
-          unfair way, just because they were #{wordings[strand]}'
+           unfair way, just because they were #{wordings[strand]}'
         - 'Do you think that the #{fun_pol_indicator} could have a role in preventing #{wordings[strand]} being treated differently, in an
-          unfair way, just because they were #{wordings[strand]}'
-        help: ''
-        type: select
-        choices: 3
-        weights: 0
-        dependent_questions: 'additional_work_#{strand}_3 yes_value'
+           unfair way, just because they were #{wordings[strand]}'
+      help: ''
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: 'additional_work_#{strand}_3 yes_value'
     5:
       label:
         - 'Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were not subject to 
