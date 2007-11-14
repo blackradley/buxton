@@ -52,7 +52,7 @@ class IssuesController < ApplicationController
     respond_to do |format|
       format.js
     end
-  rescue ActiveRecord::RecordNotFound => e
+  rescue ActiveRecord::RecordNotFound
     render :inline => 'Invalid ID.'
   end
 
