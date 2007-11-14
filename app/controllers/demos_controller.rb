@@ -1,8 +1,6 @@
 # 
 # $URL$ 
-# $Rev$
 # $Author$
-# $Date$
 #
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.  
 # 
@@ -27,16 +25,15 @@ class DemosController < ApplicationController
   # 
   # Available to: anybody
   def create
-    @user = User.find(:first, :conditions => { :email => params[:user][:email], :user_type => User::TYPE[:organisational] })
+    @organisation_manager = OrganisationManager.find(:first, :conditions => { :email => params[:organisation_manager][:email] })
 
-    if @user.nil? then
+    if @organisation_manager.nil? then
       # Create an organisation
       @organisation = Organisation.new({ :name => 'Demo Council', :style => 'www' })
       
       # Create a new organisation manager with the e-mail address we were given
-      @user = @organisation.build_user(params[:user])
-      @user.user_type = User::TYPE[:organisational]
-      @user.passkey = User.generate_passkey(@user)
+      @organisation_manager = @organisation.build_organisation_manager(params[:organisation_manager])
+      @organisation_manager.passkey = OrganisationManager.generate_passkey(@organisation_manager)
 
       # Give the organisation some strategies
       strategy_names = ['Manage resources effectively, flexibly and responsively',
@@ -60,24 +57,19 @@ class DemosController < ApplicationController
         function = @organisation.functions.build(:name => function_name)
         function.organisation = @organisation #this should be filled in directly above, don't know why not
         # Create a function manager
-        function_manager = function.build_user(params[:user])
-        function_manager.user_type = User::TYPE[:functional]
-        function_manager.passkey = User.generate_passkey(function_manager)
+        function_manager = function.build_function_manager(params[:organisation_manager])
+        function_manager.passkey = FunctionManager.generate_passkey(function_manager)
       }
 
-      begin
-        Organisation.transaction do
-          @organisation.save!
-          flash[:notice] = 'Demonstration organisation was created.'
-        end
-      rescue ActiveRecord::RecordNotSaved
-        render :action => 'new' and return
+      Organisation.transaction do
+        @organisation.save!
+        flash[:notice] = 'Demonstration organisation was created.'
       end
     end
 
     # If we made it here then all of the above was successful.
     # Log in the organisational manager (be they new or old).
-    redirect_to :controller => 'users', :action => :login, :passkey => @user.passkey
+    redirect_to :controller => 'users', :action => :login, :passkey => @organisation_manager.passkey
   end
 
 end

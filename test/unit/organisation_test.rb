@@ -15,7 +15,7 @@ class OrganisationTest < Test::Unit::TestCase
 # Check the properties of the organisation
 # 
   def test_organisation_from_user
-    user = User.find(2)
+    user = OrganisationManager.find(2)
     organisation = user.organisation
     assert_equal organisations(:birmingham).name, organisation.name
     assert_equal organisations(:birmingham).style, organisation.style

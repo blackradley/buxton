@@ -44,7 +44,7 @@ class SectionsController < ApplicationController
   #               Function Manager
   def show
     # TODO: improve this - all a bit ugly
-    f_id = if (@current_user.user_type == User::TYPE[:organisational])
+    f_id = if (@current_user.type == 'FunctionManager')
       params[:f]
     else
       @current_user.function.id
@@ -82,7 +82,7 @@ class SectionsController < ApplicationController
   # Available to: Function Manager
   def edit
     @function = Function.find(@current_user.function.id)
-    @user = @function.user
+    @function_manager = @function.function_manager
     
     @equality_strand = ''    
     valid_equality_strands = ['overall','gender','race','sexual_orientation','disability','faith','age']

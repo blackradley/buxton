@@ -11,7 +11,7 @@ class ModelBasicFunctionalityTest < Test::Unit::TestCase
     org_id = rand(10e10)
     fun_id = rand(10e10)
     @models = [
-      User.new({:email => user_email, :id => user_id}),
+      FunctionManager.new({:email => user_email, :id => user_id}),
       Organisation.new({:name => "Organisation Name", :style => "Test", :id => org_id}),
       Function.new({:id => fun_id, :name => "Function Name"}),
       FunctionStrategy.new,

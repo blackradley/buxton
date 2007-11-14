@@ -10,13 +10,13 @@
   <% for organisation in @organisations %>
   <tr>
     <td nowrap class="left"><%=h organisation.name -%></td>
-    <td><%= link_to organisation.user.email, "mailto:#{organisation.user.email}?subject=#{organisation.name}", :title =>"Email" -%></td>
-    <td><%= date_or_blank(organisation.user.reminded_on) -%></td>
+    <td><%= link_to organisation.organisation_manager.email, "mailto:#{organisation.organisation_manager.email}?subject=#{organisation.name}", :title =>"Email" -%></td>
+    <td><%= date_or_blank(organisation.organisation_manager.reminded_on) -%></td>
     <td class="actions" nowrap>
-    <%= link_to image_tag('icons/login.gif'), "http://#{organisation.style}.#{@request.host_with_port.split(/\s*\.\s*/, 2)[1]}/#{organisation.user.passkey}" , :title =>"Login"-%>
+    <%= link_to image_tag('icons/login.gif'), "http://#{organisation.style}.#{@request.host_with_port.split(/\s*\.\s*/, 2)[1]}/#{organisation.organisation_manager.passkey}" , :title =>"Login"-%>
     <%= link_to image_tag('icons/strategies.gif'), { :controller => 'strategies', :action => 'list', :id => organisation}, :title =>"Strategies" -%>
     <%= link_to image_tag('icons/view.jpg'), { :action => 'show', :id => organisation}, :title =>"View"  -%>
-    <%= link_to image_tag('icons/remind.gif'), { :controller => 'users', :action => 'remind', :id => organisation.user}, :confirm => 'Send reminder to ' + organisation.name + '?', :method => :post, :title =>"Remind"  -%>
+    <%= link_to image_tag('icons/remind.gif'), { :controller => 'users', :action => 'remind', :id => organisation.organisation_manager}, :confirm => 'Send reminder to ' + organisation.name + '?', :method => :post, :title =>"Remind"  -%>
     <%= link_to image_tag('icons/edit.jpg'), { :action => 'edit', :id => organisation.id }, :id => 'edit', :title =>"Edit" -%>
     <%= link_to image_tag('icons/delete.png'), { :action => 'destroy', :id => organisation.id }, :confirm => 'Delete ' + organisation.name + '?', :method => :post, :title =>"Delete" -%></td>
   </tr>

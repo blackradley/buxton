@@ -1,16 +1,16 @@
-<%= error_messages_for 'user' %>
+<%= error_messages_for 'administrator' %>
 
-<p><label for="user_email">Email</label><br />
-<%= text_field 'user', 'email' -%></p>
+<p><label for="administrator_email">Email</label><br />
+<%= text_field 'administrator', 'email' -%></p>
 
-<p><label for="user_created_on">Created on</label><br />
-<%=h date_or_blank(@user.created_on) -%></p>
+<p><label for="administrator_created_on">Created on</label><br />
+<%=h date_or_blank(@admin.created_on) -%></p>
 
-<p><label for="user_updated_on">Updated on</label><br />
-<%=h date_or_blank(@user.updated_on) -%></p>
+<p><label for="administrator_updated_on">Updated on</label><br />
+<%=h date_or_blank(@admin.updated_on) -%></p>
 
-<p><label for="user_reminded_on">Reminded on</label><br />
-<%=h date_or_blank(@user.reminded_on) -%></p>
+<p><label for="administrator_reminded_on">Reminded on</label><br />
+<%=h date_or_blank(@admin.reminded_on) -%></p>
 
 
 

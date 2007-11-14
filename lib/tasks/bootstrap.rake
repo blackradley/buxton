@@ -3,17 +3,13 @@ namespace :db do
   task :bootstrap => :environment do
 
     # Three admin users
-    User.create(:user_type => User::TYPE[:administrative],
-    :email => 'Peter_Latchford@blackradley.com')
-    User.create(:user_type => User::TYPE[:administrative],
-    :email => 'Iain_Wilkinson@blackradley.com')
-    User.create(:user_type => User::TYPE[:administrative],
-    :email => 'drbollins@hotmail.com')
+    Administrator.create(:email => 'Peter_Latchford@blackradley.com')
+    Administrator.create(:email => 'Iain_Wilkinson@blackradley.com')
+    Administrator.create(:email => 'drbollins@hotmail.com')
 
     # Create birmingham as an organisation attached to Birmingham user
-    organisational_user = User.create(:user_type => User::TYPE[:organisational],
-      :email => 'Peter_Latchford@blackradley.com')
-    Organisation.create(:user_id => organisational_user.id,
+    organisational_manager = OrganisationManager.create(:email => 'Peter_Latchford@blackradley.com')
+    Organisation.create(:user_id => organisational_manager.id,
     :name => 'Birmingham City Council',
     :style => 'birmingham',
     :strategies_help => 'Help for Birmingham strategies required',
@@ -25,8 +21,7 @@ namespace :db do
     # Five functions for birmingham
     birmingham = Organisation.find(:first, :conditions => "style = 'birmingham'")
     # Community Strategy
-    user = User.create(:user_type => User::TYPE[:functional],
-      :email => 'Peter_Latchford@blackradley.com')
+    user = FunctionManager.create(:email => 'Peter_Latchford@blackradley.com')
     Function.create(:user_id => user.id,
       :organisation_id => birmingham.id,
       :name => 'Community Strategy',
@@ -50,8 +45,7 @@ namespace :db do
       :bad_age => 1,
       :approved => 1,
       :approver => 'Iain Wilkinson') 
-    user = User.create(:user_type => User::TYPE[:functional],
-      :email => 'Iain_Wilkinson@blackradley.com')
+    user = FunctionManager.create(:email => 'Iain_Wilkinson@blackradley.com')
     # Publications
     Function.create(:user_id => user.id,
       :organisation_id => birmingham.id,
@@ -77,8 +71,7 @@ namespace :db do
       :approved => 0,
       :approver => 'Peter Latchford')   
     # Meals on Wheels
-    user = User.create(:user_type => User::TYPE[:functional],
-      :email => 'Joe_Collins@blackradley.com')
+    user = FunctionManager.create(:email => 'Joe_Collins@blackradley.com')
     Function.create(:user_id => user.id,
       :organisation_id => birmingham.id,
       :name => 'Meals on Wheels',
@@ -102,8 +95,7 @@ namespace :db do
       :bad_age => 0,
       :approved => 0,
       :approver => 'Iain Wilkinson')
-    user = User.create(:user_type => User::TYPE[:functional],
-      :email => 'drbollins@hotmail.com')
+    user = FunctionManager.create(:email => 'drbollins@hotmail.com')
     Function.create(:user_id => user.id,
       :organisation_id => birmingham.id,
       :name => 'Drugs and Alcohol',
@@ -127,8 +119,7 @@ namespace :db do
       :bad_age => 0,
       :approved => 0,
       :approver => '')
-    user = User.create(:user_type => User::TYPE[:functional],
-      :email => 'Peter_Latchford@blackradley.com')
+    user = FunctionManager.create(:email => 'Peter_Latchford@blackradley.com')
     Function.create(:user_id => user.id,
       :organisation_id => birmingham.id,
       :name => 'Occupational Therapy',

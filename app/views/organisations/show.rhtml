@@ -1,7 +1,7 @@
 <h2><%=h @organisation.name %></h2>
 
-<p><strong>Email:</strong> <%= @user.email -%></p>
-<p><strong>Reminded:</strong> <%= date_or_blank(@user.reminded_on) -%></p>
+<p><strong>Email:</strong> <%= @organisation_manager.email -%></p>
+<p><strong>Reminded:</strong> <%= date_or_blank(@organisation_manager.reminded_on) -%></p>
 <% for column in Organisation.content_columns -%>
 <p>
   <strong><%= column.human_name -%>:</strong> <%=h @organisation.send(column.name) -%>
