@@ -1,14 +1,18 @@
 questions:
   purpose:
     3:
-      label: 'If the #{fun_pol_indicator} was performed well does it affect #{wordings[strand]} differently?'
+      label:
+        - 'If the #{fun_pol_indicator} was performed well does it affect #{wordings[strand]} differently?'
+        - 'Would it affect <strong>#{wordings[strand]}</strong> differently?'
       help: ''
       type: select
       choices: 1
       weights: 1
       dependent_questions: ''
     4:
-       label: 'Would it affect <strong>#{wordings[strand]}</strong> differently?'
+       label:
+         - 'If the #{fun_pol_indicator} was performed badly does it affect #{wordings[strand]} differently?'
+         - 'Would it affect <strong>#{wordings[strand]}</strong> differently?'
        help: ''
        type: select
        choices: 1
@@ -16,7 +20,9 @@ questions:
        dependent_questions: ''
   performance:
     1:
-      label: 'How would you assess the potential performance of the #{fun_pol_indicator} in meeting #{part_need + wordings[strand]}?'
+      label:
+        - 'How would you assess the potential performance of the #{fun_pol_indicator} in meeting #{part_need + wordings[strand]}?'
+        - 'How would you rate the current performance of the #{fun_pol_indicator} in meeting #{part_need + wordings[strand]}?'
       help: '<p>This question asks you to assess how well the #{fun_pol_indicator} is performing in meeting the needs of the different groups within
             an Equality Strand.  The available answers are on a five point scale from 5 excellent to 1 poor.  As before "Not Sure" is also an acceptable answer.</p>
             <p>Please answer the question, identifying how well the #{fun_pol_indicator} is meeting the particular needs of #{wordings[strand]}.  It may be that the #{fun_pol_indicator} is
@@ -29,7 +35,9 @@ questions:
       weights: 2
       dependent_questions: ''
     2:
-      label: 'Has this performance assessment been confirmed?'
+      label:
+        - 'Has this performance assessment been confirmed?'
+        - 'Has this performance assessment been confirmed?'
       help: '<p>The performance assessment in question 1 may have been confirmed or validated by either an internal
             or external inspection process.  Please answer the question to indicate whether this is the case and, if
             applicable, write the name of the relevant process in the text box.  Examples of the sort of thing you 
@@ -39,12 +47,16 @@ questions:
       weights: 3
       dependent_questions: ''
     3:
-      label: 'Please note the process by which the performance is confirmed'
+      label:
+        - 'Please note the process by which the performance is confirmed.'
+        - 'Please note the process by which the performance was confirmed.'
       help: ''
       type: string
       dependent_questions: 'performance_#{strand}_2 yes_value'
     4:
-      label: 'Are there any performance issues which might have implications for #{wordings[strand]}?'
+      label:
+        - 'Are there likely to be any performance issues which might have implications for #{wordings[strand]}?'
+        - 'Are there any performance issues which might have implications for #{wordings[strand]}?'
       help: '<p>The performance assessment in question 1 will provide the background to answering this
             question.  Please answer whether there are any performance issues which affect #{wordings[strand]}
             because of their #{strands[strand]}.  Please record any such issues in the text box.  Any issues recorded
@@ -55,13 +67,17 @@ questions:
       weights: 4
       dependent_questions: ''
     5:
-      label: 'Please record any such performance issues for #{wordings[strand]}?'
+      label:
+        - 'Please record any such performance issues for #{wordings[strand]}?'
+        - 'Please record any such performance issues for #{wordings[strand]}?'
       help: ''
       type: text
       dependent_questions: 'performance_#{strand}_4 yes_value'
   confidence_information:
     1:
-      label: 'Are there any gaps in the information about the #{fun_pol_indicator} in relation to #{wordings[strand]}?'
+      label: 
+        - 'Will information about the #{fun_pol_indicator} be collected to determine the impact on #{wordings[strand]}?'
+        - 'Are there any gaps in the information about the #{fun_pol_indicator} in relation to #{wordings[strand]}?'
       help: '<p>Ideally the assessment of the performance will be based upon sound quantitative information; however
             , there may be gaps in the information about how the #{fun_pol_indicator} meets the particular needs of #{wordings[strand]}.
             These gaps may be that relevant data is not collected, that the information is out of date or does not 
@@ -71,14 +87,18 @@ questions:
       weights: 5
       dependent_questions: ''
     2:
-      label: 'Are there plans to collect additional information?'
+      label:
+        - 'Are there plans to collect additional information?'
+        - 'Are there plans to collect additional information?'
       help: '<p>There may be plans to close any gaps in information by collecting more information.</p>'
       type: select
       choices: 3
       weights: 3
       dependent_questions: ''
     3:
-      label: 'If there are plans to collect more information what are the timescales?'
+      label:
+        - 'If there are plans to collect more information what are the timescales?'
+        - 'If there are plans to collect more information what are the timescales?'
       help: '<p>If there are plans to collect further information about how the #{fun_pol_indicator} meets the particular needs 
              of #{wordings[strand]} what is the timescale for the information being ready to use?</p>'
       type: select
@@ -86,7 +106,9 @@ questions:
       weights: 0
       dependent_questions: 'confidence_information_#{strand}_2 yes_value'
     4:
-      label: 'Are there any other ways by which performance in meeting the #{part_need + wordings[strand]} could be assessed?'
+      label:
+        - 'Are there any other ways by which the impact of the #{fun_pol_indicator} on #{wordings[strand]} could be assessed?'
+        - 'Are there any other ways by which performance in meeting the #{part_need + wordings[strand]} could be assessed?'
       help: '<p>There may be other ways to assess the performance of the #{fun_pol_indicator} in meeting the needs of #{wordings[strand]}. These
             might be customer surveys, consultation or an analysis of complaints received.</p>'
       type: select
@@ -94,14 +116,19 @@ questions:
       weights: 6
       dependent_questions: ''
     5:
-      label: 'Please record any such performance measures for #{wordings[strand]}'
+      label:
+        - 'Please record any such impact measures for #{wordings[strand]}'
+        - 'Please record any such performance measures for #{wordings[strand]}'
       help: ''
       type: text
       dependent_questions: 'confidence_information_#{strand}_4 yes_value'
   confidence_consultation:
     1:
-      label: 'Have groups from the #{strands[strand]} Equality Strand been consulted on the potential impact of the #{fun_pol_indicator}
-             on #{wordings[strand]}?'
+      label: 
+        - 'Have groups from the #{strands[strand]} Equality Strand been consulted on the potential impact of the proposed #{fun_pol_indicator}
+          on #{wordings[strand]}?'
+        - 'Have groups from the #{strands[strand]} Equality Strand been consulted on the potential impact of the #{fun_pol_indicator}
+          on #{wordings[strand]}?'
       help: '<p>Groups representing the interests of #{wordings[strand]} may have consulted about the potential differential impact of #{fun_pol_indicator} 
             on the either #{wordings[strand]}.  Such consultation may have been conducted specifically as part of the assessment process or may 
             have had another purpose but supplied information to the assessment process.</p>'
@@ -110,7 +137,9 @@ questions:
       weights: 7
       dependent_questions: ''
     2:
-      label: 'If no, why is this so?'
+      label: 
+       - 'If no, why is this so?'
+       - 'If no, why is this so?'
       help: '<p>If no such groups have been consulted there are a number of reasons why this may be so.  There may be no appropriate groups
             to consult, there may be plans to consult groups but they have not taken place or they may be no plans to consult the groups.
             You might not be sure why no consultation has taken place.</p>'
@@ -119,15 +148,20 @@ questions:
       weights: 8
       dependent_questions: ':confidence_consultation_#{strand}_1 no_value'
     3:
-      label: 'If yes, list groups and dates.'
+      label: 
+        - 'If yes, list groups and dates.'
+        - 'If yes, list groups and dates.'
       help: '<p>If appropriate groups representing the interests of #{wordings[strand]} have been consulted it will be useful to record the details
             of the consultation.  The details do not need to be completely comprehensive but enough to provide evidence of the activity
             undertaken.</p>'
       type: text
       dependent_questions: ':confidence_consultation_#{strand}_1 yes_value'
     4:
-      label: 'Have experts from the #{strands[strand]} Equality Strand been consulted on the potential impact of the #{fun_pol_indicator}
-              on #{wordings[strand]}?'
+      label: 
+        - 'Have experts from the #{strands[strand]} Equality Strand been consulted on the potential impact of the proposed
+          #{fun_pol_indicator} on #{wordings[strand]}?'
+        - 'Have experts from the #{strands[strand]} Equality Strand been consulted on the potential impact of the #{fun_pol_indicator}
+          on #{wordings[strand]}?'
       help: '<p>Experts in the field of #{strands[strand]} equality may have consulted about the potential differential impact of #{fun_pol_indicator} on the either
             #{wordings[strand]}.  Such consultation may have been conducted specifically as part of the assessment process or may have had another
             purpose but supplied information to the assessment process.</p>'
@@ -136,7 +170,9 @@ questions:
       weights: 9
       dependent_questions: ''
     5:
-      label: 'If no, why is this so?'
+      label:
+        - 'If no, why is this so?'
+        - 'If no, why is this so?'
       help: '<p>If no such experts have been consulted there are a number of reasons why this may be so.  There may be no appropriate experts
             to consult, there may be plans to consult experts but they have not taken place or there may be no plans to consult the experts.
             You might not be sure why no consultation has taken place.</p>'
@@ -145,17 +181,252 @@ questions:
       weights: 8
       dependent_questions: ':confidence_consultation_#{strand}_4 no_value'
     6:
-      label: 'If yes, list experts and dates.'
+      label:
+        - 'If yes, list experts and dates.'
+        - 'If yes, list experts and dates.'
       help: '<p>If appropriate experts representing the interests of #{wordings[strand]} have been consulted it will be useful to record the details
             of the consultation.  The details do not need to be completely comprehensive but enough to provide evidence of the activity
             undertaken.</p>'
       type: text
       dependent_questions: ':confidence_consultation_#{strand}_4 yes_value'
     7:
-      label: 'Did the consultations identify any issues with the impact of the #{fun_pol_indicator} on #{wordings[strand]}?'
+      label:
+        - 'Did the consultations identify any isues with the impact of the #{fun_pol_indicator} on #{wordings[strand]}?'
+        - 'Did the consultations identify any issues with the impact of the #{fun_pol_indicator} on #{wordings[strand]}?'
       help: '<p>The consultations may have identified issues with the performance of the #{fun_pol_indicator} in meeting the particular needs of #{wordings[strand]}.</p>'
       type: select
       choices: 3
       weights: 10
       dependent_questions: ''
-      
+  additional_work:
+    1:
+      label: 
+        - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
+		  the #{fun_pol_indicator} impacts, or may impact, upon #{wordings[strand]}?'
+        - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
+		  the #{fun_pol_indicator} impacts, or may impact, upon #{wordings[strand]}?'  
+      help: ''
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: ''
+    2:
+      label:
+        - 'Please explain the further information required.'
+        - 'Please explain the further information required.'
+      help: ''
+      type: text
+      dependent_questions: 'additional_work_#{strand}_1 yes_value'
+    3:
+      label: 
+        - 'Is there any more work you feel is necessary to complete the assessment?'
+        - 'Is there any more work you feel is necessary to complete the assessment?'
+      help: ''
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: ''
+    4:
+      label:
+        - 'Do you think that the #{fun_pol_indicator} could have a role in preventing #{wordings[strand]} being treated differently, in an
+          unfair way, just because they were #{wordings[strand]}'
+        - 'Do you think that the #{fun_pol_indicator} could have a role in preventing #{wordings[strand]} being treated differently, in an
+          unfair way, just because they were #{wordings[strand]}'
+        help: ''
+        type: select
+        choices: 3
+        weights: 0
+        dependent_questions: 'additional_work_#{strand}_3 yes_value'
+    5:
+      label:
+        - 'Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were not subject to 
+           inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?'
+        - 'Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were not subject to 
+           inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?'
+      help: ''
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: ''
+    6:
+      label:
+        - 'Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
+        - 'Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
+      help: ''
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: ''
+    7:
+      label:
+        - 'Do you think that the #{fun_pol_indicator} could assist #{wordings[strand]} to get on better with each other?'
+        - 'Do you think that the #{fun_pol_indicator} could assist #{wordings[strand]} to get on better with each other?'
+      help: ''
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: ''
+    8:
+      label:
+        - 'Do you think that the #{fun_pol_indicator} takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?'
+        - 'Do you think that the #{fun_pol_indicator} takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?'
+      help: ''
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: ''
+    9:
+      label:
+        - 'Do you think that the #{fun_pol_indicator} could assist #{wordings[strand]} to participate more?'
+        - 'Do you think that the #{fun_pol_indicator} could assist #{wordings[strand]} to participate more?'
+      help: ''
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: ''
+    10:
+      label:
+        - 'Do you think that the #{fun_pol_indicator} could assist in promoting positive attitudes to #{wordings[strand]}?'
+        - 'Do you think that the #{fun_pol_indicator} could assist in promoting positive attitudes to #{wordings[strand]}?'
+      help: ''
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: ''
+
+overall_questions:
+  purpose:
+    2: 
+      label:
+        - 'What is the target outcome of the #{fun_pol_indicator}'  
+        - 'What is the target outcome of the #{fun_pol_indicator}'
+      help: ''
+      type: text
+      dependent_questions: ''
+    5:
+      label:
+        - 'Service users'
+        - 'Service users'
+      help: ''
+      type : select
+      choices: 7
+      weights: 11
+      dependent_questions: ''
+    6:
+      label:
+        - 'Staff employed by the council'
+        - 'Staff employed by the council'
+      help: ''
+      type: select
+      choices: 7
+      weights: 11
+      dependent_questions: ''
+    7:
+      label:
+        - 'Staff of supplier organisations'
+        - 'Staff of supplier organisations'
+      help: ''
+      type: select
+      choices: 7
+      weights: 11
+      dependent_questions: ''
+    8:
+      label:
+        - 'Staff of partner organisations'
+        - 'Staff of partner organisations'
+      help: ''
+      type: select
+      choices: 7
+      weights: 11
+      dependent_questions: ''
+  performance:
+    1:
+      label:
+       - 'How would you rate the potential performance of the Function?'
+       - 'How would you rate the current performance of the Function?'
+      help: ''
+      type: select
+      choices: 2
+      weights: 2
+      dependent_questions: ''
+    2:
+      label:
+        - 'Has this performance been validated?'
+        - 'Has this performance been validated?'
+      help: ''
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: ''
+    3:
+      label:
+        - 'Please note the validation regime:'
+        - 'Please note the validation regime:'
+      help: ''
+      type: string
+      dependent_questions: 'performance_overall_2 yes_value'
+    4:
+      label:
+        - 'Are there any performance issues which might have implications for different individuals within the equality group?'
+        - 'Are there any performance issues which might have implications for different individuals within the equality group?'
+      help: ''
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: ''
+    5:
+      label:
+        - 'Please note any such performance issues:'
+        - 'Please note any such performance issues:'
+      help: ''
+      type: text
+      dependent_questions: 'performance_overall_4 yes_value'
+  confidence_information:
+    1:
+      label: 
+        - 'Will information about the #{fun_pol_indicator} be collected to determine the impact on #{wordings[strand]}?'
+        - 'Are there any gaps in the information about the #{fun_pol_indicator} in relation to #{wordings[strand]}?'
+      help: '<p>Ideally the assessment of the performance will be based upon sound quantitative information; however
+            , there may be gaps in the information about how the #{fun_pol_indicator} meets the particular needs of #{wordings[strand]}.
+            These gaps may be that relevant data is not collected, that the information is out of date or does not 
+            distinguish the performance of the #{fun_pol_indicator} between #{wordings[strand]}.</p>'
+      type: select
+      choices: 3
+      weights: 5
+      dependent_questions: ''
+    2:
+      label:
+        - 'Are there plans to collect additional information?'
+        - 'Are there plans to collect additional information?'
+      help: '<p>There may be plans to close any gaps in information by collecting more information.</p>'
+      type: select
+      choices: 3
+      weights: 3
+      dependent_questions: ''
+    3:
+      label:
+        - 'If there are plans to collect more information what are the timescales?'
+        - 'If there are plans to collect more information what are the timescales?'
+      help: '<p>If there are plans to collect further information about how the #{fun_pol_indicator} meets the particular needs 
+             of #{wordings[strand]} what is the timescale for the information being ready to use?</p>'
+      type: select
+      choices: 4
+      weights: 0
+      dependent_questions: 'confidence_information_overall_2 yes_value'
+    4:
+      label:
+        - 'Are there any other ways by which the impact of the #{fun_pol_indicator} on #{wordings[strand]} could be assessed?'
+        - 'Are there any other ways by which performance in meeting the #{part_need + wordings[strand]} could be assessed?'
+      help: '<p>There may be other ways to assess the performance of the #{fun_pol_indicator} in meeting the needs of #{wordings[strand]}. These
+            might be customer surveys, consultation or an analysis of complaints received.</p>'
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: ''
+    5:
+      label:
+        - 'Please record any such impact measures for #{wordings[strand]}'
+        - 'Please record any such performance measures for #{wordings[strand]}'
+      help: ''
+      type: text
+      dependent_questions: 'confidence_information_overall_4 yes_value'
