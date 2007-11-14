@@ -147,16 +147,15 @@ class FunctionsController < ApplicationController
     Function.transaction do
       @function = Function.find(params[:id])
       @function.update_attributes!(params[:function])
-      # Update the user
-      @function_manager = @function.function_manager
-      @function_manager.update_attributes!(params[:function_manager])
-      flash[:notice] =  @function.name + ' was successfully changed.'
+      # # Update the user
+      # @function_manager = @function.function_manager
+      # @function_manager.update_attributes!(params[:function_manager])
+      flash[:notice] =  "#{@function.name} was successfully changed."
       redirect_to :action => 'list'
     end
     # Something went wrong
-    rescue ActiveRecord::RecordInvalid
-      @function_manager.valid? # force checking of errors even if function failed
-      render :action => :new
+    rescue ActiveRecord::RecordInvalid || ActiveRecord::RecordNotSaved
+      render :action => :edit_contact
   end
 
   # Delete the function (and any associated records as stated in the Function model)

@@ -55,8 +55,8 @@ class StrategiesController < ApplicationController
   # New screen for a strategy.
   # Available to: Administrator
   def new
-    @strategy = Strategy.new
-    @strategy.organisation_id = params[:id]
+    @organisation = Organisation.find(params[:id])
+    @strategy = @organisation.strategies.build
   end
 
   # Create a new strategy, the organisation id is derived from.
