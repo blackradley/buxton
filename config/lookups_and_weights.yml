@@ -31,6 +31,14 @@ choices:
     - 'No plans to consult'
     - 'Not sure'
     - 'Not applicable'
+  7: 
+    - 'None'
+    - 'Small minority'
+    - 'Significant minority'
+    - 'About half'
+    - 'Majority'
+    - 'Substantial majority'
+    - 'All'
 
 weights:
   0:
@@ -77,4 +85,12 @@ weights:
   10:
     - 3
     - 0
+  11:
+    - 1
+    - 5
+    - 5
+    - 5
+    - 5
+    - 5
+    - 5
   
