@@ -81,12 +81,10 @@ class StrategiesController < ApplicationController
   # Available to: Administrator  
   def update
     @strategy = Strategy.find(params[:id])
-    if @strategy.update_attributes(params[:strategy])
-      flash[:notice] = 'Strategy was successfully updated.'
-      redirect_to :action => 'show', :id => @strategy
-    else
-      render :action => 'edit'
-    end
+    @strategy.update_attributes!(params[:strategy])
+
+    flash[:notice] = 'Strategy was successfully updated.'
+    redirect_to :action => 'show', :id => @strategy
   end
 
   # Destroy this strategy.
@@ -97,8 +95,6 @@ class StrategiesController < ApplicationController
     
     flash[:notice] = 'Strategy successfully deleted.'
     redirect_to :action => 'list'
-  rescue ActiveRecord::RecordNotFound  
-    render :inline => 'Invalid ID.'
   end
   
 protected

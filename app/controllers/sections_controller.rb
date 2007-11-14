@@ -44,7 +44,7 @@ class SectionsController < ApplicationController
   #               Function Manager
   def show
     # TODO: improve this - all a bit ugly
-    f_id = if (@current_user.type == 'FunctionManager')
+    f_id = if (@current_user.class.name == 'FunctionManager')
       params[:f]
     else
       @current_user.function.id
@@ -120,7 +120,7 @@ class SectionsController < ApplicationController
   def update
     # Update the answers in the function table
     @function = Function.find(@current_user.function.id)
-    @function.update_attributes(params[:function])
+    @function.update_attributes!(params[:function])
     
     # Update the function strategy answers if we have any (currently only in the Purpose section)
     if params[:function_strategies] then

@@ -62,10 +62,10 @@ class OrganisationsController < ApplicationController
   # Available to: Administrator  
   def update
     @organisation = Organisation.find(params[:id])
-    @organisation.update_attributes(params[:organisation])
     Organisation.transaction do
+      @organisation.update_attributes!(params[:organisation])
       @organisation_manager = @organisation.organisation_manager
-      @organisation_manager.update_attributes(params[:organisation_manager])
+      @organisation_manager.update_attributes!(params[:organisation_manager])
       flash[:notice] =  "#{@organisation.name} was successfully changed."
       redirect_to :action => 'show', :id => @organisation
     end

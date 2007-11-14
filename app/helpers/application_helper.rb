@@ -48,7 +48,7 @@ module ApplicationHelper
     if @current_user.nil?
       ''
     else
-      case @current_user.type
+      case @current_user.class.name
         when 'FunctionManager'
           'Logged in as a Function Manager'
         when 'OrganisationManager'
@@ -90,7 +90,7 @@ module ApplicationHelper
     if @current_user.nil?
       ' '
     else
-      case @current_user.type
+      case @current_user.class.name
       when 'OrganisationManager'
         generate_menu( [
                         { :text => 'Summary',

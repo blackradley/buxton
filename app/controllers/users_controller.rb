@@ -66,14 +66,10 @@ class UsersController < ApplicationController
   def update
     @admin = Administrator.find(params[:id])
     # @user.passkey = User.new_passkey # TODO: check whether this should be enabled
-    if @admin.update_attributes(params[:admin])
-      flash[:notice] = "#{@admin.email} was successfully updated."
-      redirect_to :action => 'list'
-    else
-      render :action => 'edit'
-    end
-  rescue ActiveRecord::RecordNotFound
-    render :inline => 'Invalid ID.'
+    @admin.update_attributes!(params[:admin])
+
+    flash[:notice] = "#{@admin.email} was successfully updated."
+    redirect_to :action => 'list'
   end
 
   # Find the user and then send them a new key
@@ -94,7 +90,7 @@ class UsersController < ApplicationController
     else
       for @user in @users
         # new_passkey(@user)
-        case @user.type
+        case @user.class.name
           when 'FunctionManager'
             email = Notifier.create_function_key(@user, request)
             Notifier.deliver(email)
@@ -139,7 +135,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     
     # Are they a function manager?
-    case @user.type
+    case @user.class.name
     when 'FunctionManager'
       email = Notifier.create_function_key(@user, request)
       flash[:notice] = 'Reminder for ' + @user.function.name + ' sent to ' + @user.email
@@ -175,7 +171,7 @@ class UsersController < ApplicationController
       redirect_to :action => 'index'
     else # the key is in the table so stash the user
       session[:user_id] = user.id
-      case user.type
+      case user.class.name
         when 'FunctionManager'
           if user.function.started then
             redirect_to :controller => 'functions', :action => 'show'

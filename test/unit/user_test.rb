@@ -39,7 +39,7 @@ class UserTest < Test::Unit::TestCase
     assert_equal users.length, 1
     user = users.first
     assert_equal users(:function_manager).email, user.email
-    assert_equal 'FunctionManager', user.type
+    assert_equal 'FunctionManager', user.class.name
   end
 #
 # Get the admin users
