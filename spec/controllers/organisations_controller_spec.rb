@@ -277,6 +277,8 @@ end
 describe OrganisationsController, 'handling POST /organisations/update/:id' do
   
   it "should be successful"
+  
+  it "should fail when given an invalid ID"  
 
 end
 

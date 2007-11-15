@@ -148,11 +148,15 @@ describe UsersController, 'handling GET /users/edit/:id' do
     response.should be_success
   end
 
+  it "should fail when given an invalid ID"
+
 end
 
 describe UsersController, 'handling POST /users/update/:id' do
   
   it "should be successful"
+
+  it "should fail when given an invalid ID"
 
 end
 
