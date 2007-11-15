@@ -142,7 +142,7 @@ class UsersController < ApplicationController
     # Nope, are they an organisation manager?
     when 'OrganisationManager'
       email = Notifier.create_organisation_key(@user, request)
-      flash[:notice] = 'Reminder for ' + @user.organisation.name + ' sent to ' + @user.email
+      flash[:notice] = "Reminder for #{@user.organisation.name} sent to #{@user.email}"
     # Nope. Well do nothing then.
     else
       # Shouldn't get here - but let them know what happened anyway
@@ -185,7 +185,7 @@ class UsersController < ApplicationController
       end
     end
   end
-
+  
 protected
   # No methods are secure
   def secure?
