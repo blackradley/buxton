@@ -118,13 +118,85 @@ end
 
 describe SectionsController, 'handling GET /sections/list/:id' do
   
-  it "should be successful"
+  before(:each) do
+    login_as :organisation_manager
+  end
+
+  it "should be successful with 'purpose'" do
+    get :list, :id => 'purpose'
+    response.should be_success
+  end
+  
+  it "should be successful with 'performance'" do
+    get :list, :id => 'performance'
+    response.should be_success
+  end
+
+  it "should be successful with 'confidence_information'" do
+    get :list, :id => 'confidence_information'
+    response.should be_success
+  end
+  
+  it "should be successful with 'confidence_consultation'" do
+    get :list, :id => 'confidence_consultation'
+    response.should be_success
+  end
+  
+  it "should be successful with 'additional_work'" do
+    get :list, :id => 'additional_work'
+    response.should be_success
+  end
+  
+  it "should be successful with 'action_planning'" do
+    get :list, :id => 'action_planning'
+    response.should be_success
+  end
+
+  it "should be unsuccessful with an invalid section" do
+    get :list, :id => 'asdasdaadas'
+    response.should_not be_success
+  end
 
 end
 
 describe SectionsController, 'handling GET /sections/show/:id' do
   
-  it "should be successful"
+  before(:each) do
+    login_as :function_manager
+    @function = @current_user.function
+    @function.stub!(:started).and_return(true)
+    @function.stub!(:function_strategies).and_return([])    
+  end
+
+  it "should be successful with 'purpose'" do
+    get :show, :id => 'purpose'
+    response.should be_success
+  end
+  
+  it "should be successful with 'performance'" do
+    get :show, :id => 'performance'
+    response.should be_success
+  end
+
+  it "should be successful with 'confidence_information'" do
+    get :show, :id => 'confidence_information'
+    response.should be_success
+  end
+  
+  it "should be successful with 'confidence_consultation'" do
+    get :show, :id => 'confidence_consultation'
+    response.should be_success
+  end
+  
+  it "should be successful with 'additional_work'" do
+    get :show, :id => 'additional_work'
+    response.should be_success
+  end
+  
+  it "should be successful with 'action_planning'" do
+    get :show, :id => 'action_planning'
+    response.should be_success
+  end
 
 end
 

@@ -119,13 +119,19 @@ end
 
 describe UsersController, 'handling GET /users/list' do
   
-  it "should be successful"
+  it "should be successful" do
+    get :list
+    response.should be_success
+  end
 
 end
 
 describe UsersController, 'handling GET /users/new' do
   
-  it "should be successful"
+  it "should be successful" do
+    get :new
+    response.should be_success
+  end
 
 end
 
@@ -137,7 +143,10 @@ end
 
 describe UsersController, 'handling GET /users/edit/:id' do
   
-  it "should be successful"
+  it "should be successful" do
+    get :edit, :id => 2
+    response.should be_success
+  end
 
 end
 
@@ -155,7 +164,23 @@ end
 
 describe UsersController, 'handling POST /users/destroy/:id' do
   
-  it "should be successful"
+  before(:each) do
+    @admin = mock_model(Administrator, :to_param => 2)
+    Administrator.stub!(:find).and_return(@admin)
+    @admin.stub!(:destroy).and_return(true)
+  end
+  
+  it "should be successful" do
+    post :destroy, :id => 2
+    response.should be_redirect
+  end
+  
+  it "should destroy the organisation" do
+    @admin.should_receive(:destroy)
+    post :destroy, :id => 2
+  end
+  
+  it "should fail when given an invalid ID"
 
 end
 

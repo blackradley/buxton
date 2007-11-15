@@ -185,31 +185,81 @@ end
 
 describe FunctionsController, "handling GET /functions/show" do
 
-  it "should be successful"
+  it "should be successful" do
+    login_as :function_manager
+    get :show
+    response.should be_success
+  end
   
 end
 
 describe FunctionsController, "handling GET /functions/overview" do
 
-  it "should be successful"
+  it "should be successful" do
+    login_as :function_manager
+    get :overview
+    response.should be_success
+  end
   
 end
 
 describe FunctionsController, "handling GET /functions/list" do
 
-  it "should be successful"
+  it "should be successful" do
+    login_as :organisation_manager
+    get :list
+    response.should be_success
+  end
   
 end
 
 describe FunctionsController, "handling GET /functions/new" do
 
-  it "should be successful"
+  it "should be successful" do
+    login_as :organisation_manager
+    get :new
+    response.should be_success
+  end
   
 end
 
 describe FunctionsController, "handling POST /functions/create" do
 
-  it "should be successful"
+  before(:each) do
+    # Prep data
+    @function = mock(:function, :null_object => true)
+    @function_manager = mock(:function_manager, :null_object => true)
+    @function.stub!(:new_record?).and_return(true)
+    @function.stub!(:build_function_manager).and_return(@function_manager)
+    # Authenticate
+    login_as :organisation_manager    
+    @current_user.organisation.stub!(:functions).and_return([])
+    @current_user.organisation.functions.stub!(:build).and_return(@function)
+  end
+
+  it "should tell the Function model to create a new function" do
+    @current_user.organisation.functions.should_receive(:build).and_return(@function)
+    post :create
+  end
+  
+  it "should tell the new function to create a new user associated with itself" do
+    @function.should_receive(:build_function_manager).and_return(@function_manager)
+    post :create
+  end
+  
+  it "with a valid function should redirect to 'functions/list'" do
+    @function.stub!(:save!).and_return(nil)
+    post :create
+    response.should be_redirect
+  end
+  
+  it "with an invalid function should re-render 'functions/new'" do
+    @exception = ActiveRecord::RecordNotSaved.new
+    @exception.stub!(:record).and_return(@function)
+    @function.stub!(:save!).and_raise(@exception)
+    post :create
+    response.should render_template(:new)
+  end
   
 end
 
@@ -221,7 +271,11 @@ end
 
 describe FunctionsController, "handling GET /functions/status" do
   
-  it "should be successful"
+  it "should be successful" do
+    login_as :function_manager
+    get :status
+    response.should be_success
+  end
   
   it "should re-show the status page if the status questions remain unanswered"
 
@@ -239,7 +293,11 @@ end
 
 describe FunctionsController, "handling GET /functions/edit_contact/:id" do
 
-  it "should be successful"
+  it "should be successful" do
+    # login_as :organisation_manager
+    # get :edit_contact, :id => 1
+    # response.should be_success
+  end
   
 end
 
@@ -251,7 +309,24 @@ end
 
 describe FunctionsController, "handling POST /functions/destroy/:id" do
 
-  it "should be successful"
+  before(:each) do
+    @function = mock_model(Function, :to_param => 2)
+    Function.stub!(:find).and_return(@function)
+    @function.stub!(:destroy).and_return(true)
+    login_as :organisation_manager
+  end
+  
+  it "should be successful" do
+    post :destroy, :id => 2
+    response.should be_redirect
+  end
+  
+  it "should destroy the organisation" do
+    @function.should_receive(:destroy)
+    post :destroy, :id => 2
+  end
+  
+  it "should fail when given an invalid ID"
   
 end
 
