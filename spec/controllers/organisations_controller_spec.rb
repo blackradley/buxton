@@ -116,12 +116,12 @@ end
 describe OrganisationsController, 'handling GET /organisations/list' do
   
   before(:each) do
-    @mock_organisation_1 = mock_model(Organisation)
-    @mock_organisation_1.stub!(:name).and_return('Meals on Wheels')
-    @mock_organisation_2 = mock_model(Organisation)
-    @mock_organisation_2.stub!(:name).and_return('Drugs and Alcohol')
-    @mock_organisations = [@mock_organisation_1, @mock_organisation_2]
-    Organisation.stub!(:find).and_return(@mock_organisations)
+    @organisation_1 = mock_model(Organisation)
+    @organisation_1.stub!(:name).and_return('Meals on Wheels')
+    @organisation_2 = mock_model(Organisation)
+    @organisation_2.stub!(:name).and_return('Drugs and Alcohol')
+    @organisations = [@organisation_1, @organisation_2]
+    Organisation.stub!(:find).and_return(@organisations)
     login_as :administrator
   end
   
@@ -136,9 +136,9 @@ describe OrganisationsController, 'handling GET /organisations/list' do
   end
   
   it "should find all organisations and assign them to a variable" do
-    Organisation.should_receive(:find).and_return(@mock_organisations)
+    Organisation.should_receive(:find).and_return(@organisations)
     get :list
-    assigns[:organisations].should eql(@mock_organisations)
+    assigns[:organisations].should eql(@organisations)
   end
 
 end
@@ -146,10 +146,10 @@ end
 describe OrganisationsController, 'handling GET /organisations/show/:id' do
   
   before(:each) do
-    @mock_organisation = mock_model(Organisation, :to_param => 1)
-    @mock_organisation_manager = mock_model(OrganisationManager)
-    Organisation.stub!(:find).and_return(@mock_organisation)
-    @mock_organisation.stub!(:organisation_manager).and_return(@mock_organisation_manager)
+    @organisation = mock_model(Organisation, :to_param => 1)
+    @organisation_manager = mock_model(OrganisationManager)
+    Organisation.stub!(:find).and_return(@organisation)
+    @organisation.stub!(:organisation_manager).and_return(@organisation_manager)
     login_as :administrator
   end
   
@@ -164,10 +164,10 @@ describe OrganisationsController, 'handling GET /organisations/show/:id' do
   end
   
   it "should get organisation and assign it and its user" do
-    Organisation.should_receive(:find).and_return(@mock_organisation)
+    Organisation.should_receive(:find).and_return(@organisation)
     get :show, :id => 1
-    assigns[:organisation].should equal(@mock_organisation)
-    assigns[:organisation_manager].should equal(@mock_organisation.organisation_manager)
+    assigns[:organisation].should equal(@organisation)
+    assigns[:organisation_manager].should equal(@organisation.organisation_manager)
   end
   
   it "should fail when given an invalid ID"
@@ -177,10 +177,10 @@ end
 describe OrganisationsController, 'handling GET /organisations/new' do
   
   before(:each) do
-    @mock_organisation = mock_model(Organisation)
-    @mock_organisation_manager = mock_model(OrganisationManager)
-    Organisation.stub!(:new).and_return(@mock_organisation)
-    @mock_organisation.stub!(:build_organisation_manager).and_return(@mock_organisation_manager)
+    @organisation = mock_model(Organisation)
+    @organisation_manager = mock_model(OrganisationManager)
+    Organisation.stub!(:new).and_return(@organisation)
+    @organisation.stub!(:build_organisation_manager).and_return(@organisation_manager)
     login_as :administrator
   end
   
@@ -195,11 +195,11 @@ describe OrganisationsController, 'handling GET /organisations/new' do
   end
   
   it "should assign a new user and organisation for the view" do
-    Organisation.should_receive(:new).and_return(@mock_organisation)
-    @mock_organisation.should_receive(:build_organisation_manager).and_return(@mock_organisation_manager)    
+    Organisation.should_receive(:new).and_return(@organisation)
+    @organisation.should_receive(:build_organisation_manager).and_return(@organisation_manager)    
     get :new    
-    assigns[:organisation].should eql(@mock_organisation)
-    assigns[:organisation_manager].should eql(@mock_organisation_manager)
+    assigns[:organisation].should eql(@organisation)
+    assigns[:organisation_manager].should eql(@organisation_manager)
   end
 
 end
@@ -246,10 +246,10 @@ end
 describe OrganisationsController, 'handling GET /organisations/edit/:id' do
   
   before(:each) do
-    @mock_organisation = mock_model(Organisation)
-    @mock_organisation_manager = mock_model(OrganisationManager)
-    Organisation.stub!(:find).and_return(@mock_organisation)
-    @mock_organisation.stub!(:organisation_manager).and_return(@mock_organisation_manager)
+    @organisation = mock_model(Organisation)
+    @organisation_manager = mock_model(OrganisationManager)
+    Organisation.stub!(:find).and_return(@organisation)
+    @organisation.stub!(:organisation_manager).and_return(@organisation_manager)
     login_as :administrator
   end
 
@@ -264,10 +264,10 @@ describe OrganisationsController, 'handling GET /organisations/edit/:id' do
   end
   
   it "should assign an existing user and organisation for the view" do
-    Organisation.should_receive(:find).and_return(@mock_organisation)
+    Organisation.should_receive(:find).and_return(@organisation)
     get :edit
-    assigns[:organisation].should eql(@mock_organisation)
-    assigns[:organisation_manager].should eql(@mock_organisation.organisation_manager)
+    assigns[:organisation].should eql(@organisation)
+    assigns[:organisation_manager].should eql(@organisation.organisation_manager)
   end
 
   it "should fail when given an invalid ID"
@@ -283,20 +283,20 @@ end
 describe OrganisationsController, 'handling POST /organisations/destroy/:id' do
   
   before(:each) do
-    @mock_organisation = mock_model(Organisation, :to_param => 1)
-    Organisation.stub!(:find).and_return(@mock_organisation)
-    @mock_organisation.stub!(:destroy).and_return(true)
+    @organisation = mock_model(Organisation, :to_param => 2)
+    Organisation.stub!(:find).and_return(@organisation)
+    @organisation.stub!(:destroy).and_return(true)
     login_as :administrator
   end
   
   it "should be successful" do
-    post :destroy, :id => 1
+    post :destroy, :id => 2
     response.should be_redirect
   end
   
   it "should destroy the organisation" do
-    @mock_organisation.should_receive(:destroy)
-    post :destroy, :id => 1
+    @organisation.should_receive(:destroy)
+    post :destroy, :id => 2
   end
   
   it "should fail when given an invalid ID"

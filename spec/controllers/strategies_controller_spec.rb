@@ -182,6 +182,23 @@ end
 
 describe StrategiesController, 'handling POST /strategies/destroy/:id' do
   
-  it "should be successful"
+  before(:each) do
+    @strategy = mock_model(Strategy, :to_param => 2)
+    Strategy.stub!(:find).and_return(@strategy)
+    @strategy.stub!(:destroy).and_return(true)
+    login_as :administrator
+  end
+  
+  it "should be successful" do
+    post :destroy, :id => 2
+    response.should be_redirect
+  end
+  
+  it "should destroy the organisation" do
+    @strategy.should_receive(:destroy)
+    post :destroy, :id => 2
+  end
+  
+  it "should fail when given an invalid ID"
 
 end
