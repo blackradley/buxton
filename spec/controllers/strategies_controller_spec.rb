@@ -135,12 +135,16 @@ end
 describe StrategiesController, 'handling GET /strategies/list/:id' do
   
   it "should be successful"
+  
+  it "should fail when given an invalid ID"  
 
 end
 
 describe StrategiesController, 'handling GET /strategies/reorder/:id' do
   
   it "should be successful"
+  
+  it "should fail when given an invalid ID"  
 
 end
 
@@ -153,12 +157,16 @@ end
 describe StrategiesController, 'handling GET /strategies/show/:id' do
   
   it "should be successful"
+  
+  it "should fail when given an invalid ID"  
 
 end
 
 describe StrategiesController, 'handling GET /strategies/new/:id' do
   
   it "should be successful"
+  
+  it "should fail when given an invalid ID"  
 
 end
 
@@ -171,12 +179,16 @@ end
 describe StrategiesController, 'handling GET /strategies/edit/:id' do
   
   it "should be successful"
+  
+  it "should fail when given an invalid ID"  
 
 end
 
 describe StrategiesController, 'handling POST /strategies/update/:id' do
   
   it "should be successful"
+  
+  it "should fail when given an invalid ID"  
 
 end
 

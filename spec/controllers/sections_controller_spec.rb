@@ -156,7 +156,7 @@ describe SectionsController, 'handling GET /sections/list/:id' do
     get :list, :id => 'asdasdaadas'
     response.should_not be_success
   end
-
+  
 end
 
 describe SectionsController, 'handling GET /sections/show/:id' do
@@ -197,6 +197,8 @@ describe SectionsController, 'handling GET /sections/show/:id' do
     get :show, :id => 'action_planning'
     response.should be_success
   end
+  
+  it "should be unsuccessful with an invalid section"
 
 end
 
