@@ -3,12 +3,12 @@
 class StatQuestion
   attr_reader :name, :scores, :max
   #This sets all the values, and sets the maximum values.
-  def initialize(value, name, function)
+  def initialize(value, name, hashes)
     @name = name
     @max = 0
     @scores = 0
-    hash_weights = function.hashes['weights']
-    unless (value[0] == 'text' || value[0] == 'string') then
+    hash_weights = hashes['weights']
+    if (value[0] == 'select') then
       @weights = hash_weights[value[1]]
       @weights.each{|weight| @max = weight.to_i unless @max >= weight.to_i}
     else

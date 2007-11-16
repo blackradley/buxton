@@ -30,8 +30,6 @@
 # each of the strategies.  The strategy list for each function within an organisation
 # is always the same, and the response is stored in the function_strategy table.
 # 
-require 'yaml'
-
 class Function < ActiveRecord::Base
   validates_presence_of :name,
     :message => 'All functions must have a name'
@@ -221,9 +219,9 @@ class Function < ActiveRecord::Base
   		  end
 	    end
     end
-    test = Statistics.new(question_wording_lookup, self)
-    test.score(questions)
-    @stat_function = test.function
+    statistics = @@Statistics.clone
+    statistics.score(questions, self)
+    @stat_function = statistics.function
   end
 
 #This method recovers questions. It allows you to search by strand or by section.

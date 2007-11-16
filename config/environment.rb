@@ -29,7 +29,7 @@ end
 
 #load entire question hash into memory
 @@Hashes = YAML.load_file("#{RAILS_ROOT}/config/hashes.yaml")
-
+@@Statistics = Statistics.new
 
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf

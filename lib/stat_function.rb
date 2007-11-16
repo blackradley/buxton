@@ -5,21 +5,20 @@ class StatFunction
   RANKING = [0.8,0.7,0.6,0.5] #Define the boundaries for priority rankings
   MAXRATING = 5 #Define the maximum priority ranking possible.
   #Make the function and it's topics publically accessible.
-  attr_reader :topics, :function 
-  def initialize(topics, function)
+  attr_reader :topics, :hashes 
+  def initialize(topics, hashes)
     @topics = topics
-    @function = function
-    hashes = function.hashes
-    existing_proposed = StatQuestion.new([hashes['existing_proposed']['type'],hashes['existing_proposed']['weight']], "existing_proposed", function)
+    @hashes = hashes
+    existing_proposed = StatQuestion.new([@hashes['existing_proposed']['type'], @hashes['existing_proposed']['weight']], "existing_proposed", hashes)
     @topics['overall'].questions[:existing_proposed] = existing_proposed
   end
   #This loops through each question, separating them out into individual topic matters, then calling score for each topic.
-  def score(questions)
-    @topics['overall'].questions[:existing_proposed].score(@function.send(:existing_proposed))
+  def score(questions, function)
+    @topics['overall'].questions[:existing_proposed].score(function.send(:existing_proposed))
     @topics.each do |name, topic|
-  question_hash = {}
-  questions.each_key{|key| question_hash[key] = questions[key] if key.to_s.include?(name.to_s)}
-  topic.score(question_hash, self)
+    question_hash = {}
+    questions.each_key{|key| question_hash[key] = questions[key] if key.to_s.include?(name.to_s)}
+    topic.score(question_hash, self)
     end
   end
   #This checks the relevance is higher than the relevance boundary
