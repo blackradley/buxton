@@ -19,15 +19,15 @@ class Statistics
     topic_hash = {}
     questions = question_wording_lookup
     questions.each do |strand_name, strand|
-	strand.each do |section_name, section|
-		section.each do |question, value|
-			topic_hash[strand_name] = {} unless topic_hash[strand_name]
-			topic_hash[strand_name] ["#{section_name.to_s}_#{strand_name.to_s}_#{question.to_s}".to_sym] = value[1]
-		end
-	end
+	    strand.each do |section_name, section|
+		    section.each do |question, value|
+			    topic_hash[strand_name] = {} unless topic_hash[strand_name]
+			    topic_hash[strand_name] ["#{section_name.to_s}_#{strand_name.to_s}_#{question.to_s}".to_sym] = [value[1], value[4]]
+		    end
+	    end
     end
     #replace all the symbol references to lookups with the lookup itself, and initialize the question.
-    topic_hash.each{|topic_name, topic| topic.each{|question, value| topic_hash[topic_name][question] = StatQuestion.new(value, question)}}
+    topic_hash.each{|topic_name, topic| topic.each{|question, value| topic_hash[topic_name][question] = StatQuestion.new(value, question, function)}}
     #replace all the topic symbols with a StatTopic object
     stat_topics = {}
     questions.each_key{|strand_name| stat_topics[strand_name] = StatTopic.new(topic_hash[strand_name], strand_name)} 

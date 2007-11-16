@@ -16,19 +16,19 @@
 
 <div id="questions">
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 1, :f_id => @function.id} %>
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 2, :f_id => @function.id} %>
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 3, :f_id => @function.id} %>
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 4, :f_id => @function.id} %>
 	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 5, :f_id => @function.id} %>
 	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 6, :f_id => @function.id} %>
+	<% unless @equality_strand == 'gender' then %>
 	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 7, :f_id => @function.id} %>
+	<% end %>
+	<% if @equality_strand=='disability' then %>	
 	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 8, :f_id => @function.id} %>
 	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 9, :f_id => @function.id} %>
 	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 10, :f_id => @function.id} %>
-	<% unless @equality_strand == 'gender' then %>
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 11, :f_id => @function.id} %>
-	<% end %>
-	<% if @equality_strand=='disability' then %>	
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 12, :f_id => @function.id} %>
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 13, :f_id => @function.id} %>
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 14, :f_id => @function.id} %>
 <% end -%>
 <div class="clear"></div>
 <span class="button"><%= submit_tag 'Save' -%></span>

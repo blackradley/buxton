@@ -19,7 +19,7 @@ class StatTopic
   def score(results, function)
     results.each{|question_name, lookup_result| if @questions[question_name] then @questions[question_name].score(lookup_result) end}
     total = 0
-    existence = function.topics[:overall].questions[:existing_proposed].scores
+    existence = function.topics['overall'].questions[:existing_proposed].scores
     total += existence
     @questions.each_value{|question| total += question.scores}
     @result = total.to_f/(@topic_max+15) # +15 is added to both totals to compensate for existence status.

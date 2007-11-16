@@ -22,10 +22,14 @@ Rails::Initializer.run do |config|
 
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
-
+  
   # Make Active Record use UTC-base instead of local time
   # config.active_record.default_timezone = :utc
-end
+end  
+
+#load entire question hash into memory
+@@Hashes = YAML.load_file("#{RAILS_ROOT}/config/hashes.yaml")
+
 
 # Add new mime types for use in respond_to blocks:
 # Mime::Type.register "text/richtext", :rtf
@@ -33,6 +37,5 @@ end
 
 # Configuration for the SMTP server.
 require 'load_email_configuration'
- 
 # Configuration to state who to send exception notifications to
 ExceptionNotifier.exception_recipients = %w(karl@27stars.co.uk joe@27stars.co.uk heather@27stars.co.uk)

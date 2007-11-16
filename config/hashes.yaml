@@ -1,3 +1,19 @@
+existing_proposed:
+  label: 'Not appropriate'
+  help: ''
+  type: select
+  choices: 8
+  weight: 9
+  dependent_questions: ''
+
+function_policy:
+  label: 'N/A'
+  help: ''
+  type: select
+  choices: 9
+  weight: 0
+  dependent_questions: ''
+  
 questions:
   purpose:
     3:
@@ -146,7 +162,7 @@ questions:
       type: select
       choices: 5
       weights: 8
-      dependent_questions: ':confidence_consultation_#{strand}_1 no_value'
+      dependent_questions: 'confidence_consultation_#{strand}_1 no_value'
     3:
       label: 
         - 'If yes, list groups and dates.'
@@ -155,7 +171,7 @@ questions:
             of the consultation.  The details do not need to be completely comprehensive but enough to provide evidence of the activity
             undertaken.</p>'
       type: text
-      dependent_questions: ':confidence_consultation_#{strand}_1 yes_value'
+      dependent_questions: 'confidence_consultation_#{strand}_1 yes_value'
     4:
       label: 
         - 'Have experts from the #{strands[strand]} Equality Strand been consulted on the potential impact of the proposed
@@ -179,7 +195,7 @@ questions:
       type: select
       choices: 5
       weights: 8
-      dependent_questions: ':confidence_consultation_#{strand}_4 no_value'
+      dependent_questions: 'confidence_consultation_#{strand}_4 no_value'
     6:
       label:
         - 'If yes, list experts and dates.'
@@ -188,7 +204,7 @@ questions:
             of the consultation.  The details do not need to be completely comprehensive but enough to provide evidence of the activity
             undertaken.</p>'
       type: text
-      dependent_questions: ':confidence_consultation_#{strand}_4 yes_value'
+      dependent_questions: 'confidence_consultation_#{strand}_4 yes_value'
     7:
       label:
         - 'Did the consultations identify any isues with the impact of the #{fun_pol_indicator} on #{wordings[strand]}?'
@@ -339,6 +355,15 @@ overall_questions:
       choices: 7
       weights: 11
       dependent_questions: ''
+    9:
+      label:
+        - 'Employees of businesses'
+        - 'Employees of businesses'
+      help: ''
+      type: select
+      choices: 7
+      weights: 11
+      dependent_questions: ''
   performance:
     1:
       label:
@@ -452,36 +477,43 @@ yes_value: 1
 no_value: 2
 choices:
   1:
+    - 'Not Answered Yet'
     - 'None at all'
     - 'Some impact'
     - 'Significant impact'
   2:
+    - 'Not Answered Yet'
     - '1 - poor'
     - '2 - below expectations'
     - '3 - at expectations'
     - '4 - good'
     - '5 - excellent'
   3:
+    - 'Not Answered Yet'
     - 'Yes'
     - 'No'
     - 'Not sure'
   4:
+    - 'Not Answered Yet'
     - 'Less than six months'
     - 'Six months to a year'
     - 'Over a year'
   5:
+    - 'Not Answered Yet'
     - 'No relevant groups'
     - 'Plans to consult'
     - 'No plans to consult'
     - 'Not sure'
     - 'Not applicable'
   6:
+    - 'Not Answered Yet'
     - 'No relevant experts'
     - 'Plans to consult'
     - 'No plans to consult'
     - 'Not sure'
     - 'Not applicable'
-  7: 
+  7:
+    - 'Not Answered Yet' 
     - 'None'
     - 'Small minority'
     - 'Significant minority'
@@ -489,44 +521,62 @@ choices:
     - 'Majority'
     - 'Substantial majority'
     - 'All'
+  8:
+    - 'Not Answered Yet'
+    - 'Existing'
+    - 'Proposed'
+  9:
+    - 'Not Answered Yet'
+    - 'Function'
+    - 'Policy'
 
 weights:
   0:
     - 0
     - 0
     - 0
+    - 0
   1:
+    - 15
     - 5
     - 10
     - 15
   2:
+    - 30
     - 30
     - 25
     - 20
     - 15
     - 10
   3:
+    - 0
     - '-5'
     - 0
   4:  
     - 10
+    - 10
     - 0
   5:
     - 15
+    - 15
     - 0
   6:
+    - 0
     - '-3'
     - 0
   7:
+    - 10
     - 3
     - 10
   8:
+    - 3
     - 3
     - 0
     - 0
     - 0
     - 0
   9:
+    - 0
     - '-2'
     - 0
     - 0
@@ -534,12 +584,17 @@ weights:
     - 0
   10:
     - 3
+    - 3
     - 0
   11:
+    - 5
     - 1
     - 5
     - 5
     - 5
     - 5
     - 5
+    - 5
+  12:
+    - 15
     - 5
