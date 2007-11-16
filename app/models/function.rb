@@ -30,6 +30,8 @@
 # each of the strategies.  The strategy list for each function within an organisation
 # is always the same, and the response is stored in the function_strategy table.
 # 
+require 'yaml'
+
 class Function < ActiveRecord::Base
   validates_presence_of :name,
     :message => 'All functions must have a name'
@@ -43,6 +45,17 @@ class Function < ActiveRecord::Base
   has_many :issues, :dependent => :destroy
   attr_reader :stat_function
 
+  def existing_proposed?
+    hashes['choices'][8][self.existing_proposed]
+  end
+  
+  def hashes
+    @@Hashes
+  end
+  
+  def function_policy?
+    hashes['choices'][9][self.function_policy]
+  end
   #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions. 
   def percentage_answered(section = nil, strand = nil)
     sec_questions = []
@@ -52,8 +65,7 @@ class Function < ActiveRecord::Base
     #A section can't be completed unless the function is started.
     return 0 unless started
     #Check whether each question is completed. If it is, add one to the amount that are completed. In both cases, add one to the total. 
-    #TODO: DRY? {|question| if check_question(question) then number_answered += 1 end; total += 1} might be better?
-    Function.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1; total += 1 else total += 1 end} 
+    Function.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1 end; total += 1} 
     #If you don't specify a section, or your section is action planning, consider issues as well.
     unless section && !(section == :action_planning) then 
        #First we calculate all the questions, in case there is a nil.
@@ -185,29 +197,29 @@ class Function < ActiveRecord::Base
     questions = {}
     question_hash = question_wording_lookup
     question_hash.each do |strand_name, strand|
-	strand.each do |section_name, section|
-		section.each_key do |question|
-			question_name = "#{section_name.to_s}_#{strand_name.to_s}_#{question.to_s}".to_sym
-			begin
-				dependency = dependent_questions(question_name)
-				if dependency then
-				      dependant_correct = true
-				      dependency.each do
-					      |dependent|
-					      if dependent[1].class == String then
-						   dependant_correct = dependant_correct && !(send(dependent[0]).to_s.length > 0)   
-					      else
-						dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1])
-					      end
-					end
-				      questions[question_name] = send(question_name) if dependant_correct
-				else
-					questions[question_name] = send(question_name)
-				end
-			rescue
-			end
-		end
-	end
+  	  strand.each do |section_name, section|
+  		  section.each_key do |question|
+  			  question_name = "#{section_name.to_s}_#{strand_name.to_s}_#{question.to_s}".to_sym
+  			  begin
+  				  dependency = dependent_questions(question_name)
+  				  if dependency then
+  				    dependant_correct = true
+  				    dependency.each do
+  					    |dependent|
+  					    if dependent[1].class == String then
+  						    dependant_correct = dependant_correct && !(send(dependent[0]).to_s.length > 0)   
+  					    else
+  						    dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1])
+  					    end
+  					  end
+  				    questions[question_name] = send(question_name) if dependant_correct
+  				  else
+  					questions[question_name] = send(question_name)
+  				end
+  			  rescue
+  			  end
+  		  end
+	    end
     end
     test = Statistics.new(question_wording_lookup, self)
     test.score(questions)
@@ -228,33 +240,19 @@ class Function < ActiveRecord::Base
 	  return questions
   end
   #TODO: Needs fixing. It currently makes a start at the display, but is not finished by any means. Won't throw any bugs though.
-  # do NOT use this yet, except as a very crude demo. Question 7 wording is wrong, and other questions wordings not confirmed.
   def additonal_work_text_lookup(strand, question)
-    strand = strand.to_sym
+    strand = strand.to_s
+    fun_pol_indicator = ""
+    existing_proposed_name = ""
     begin 
-      fun_pol_indicator = LookUp.function_policy.find{|lookUp| self.function_policy == lookUp.value}.name.downcase #Detect whether it is a function or a policy
-      existing_proposed_name = LookUp.existing_proposed.find{|lookUp| self.existing_proposed == lookUp.value}.name.downcase #Detect whether it is an existing function or a proposed function.
+      fun_pol_indicator = function_policy?.downcase #Detect whether it is a function or a policy
+      existing_proposed_name = existing_proposed?.downcase #Detect whether it is an existing function or a proposed function.
     rescue
-    end
-    if (self.existing_proposed == 0 || self.existing_proposed == nil) then existing_proposed_name = "proposed" end
-    if (self.function_policy == 0 || self.function_policy == nil) then fun_pol_indicator = "------" end
-    
-    wordings = {:gender =>  "men and women",
-      :race => "individuals from different ethnic backgrounds",
-      :disability => "individuals with different kinds of disability",
-      :faith => "individuals of different faiths",
-      :sexual_orientation => "individuals of different sexual orientations",
-      :age => "individuals of different ages"
-    }
-    
-    strands =  {:gender =>  "Gender",
-        :race => "Race",
-        :disability => "Disability",
-        :faith => "Faith",
-        :sexual_orientation => "Lesbian Gay Bisexual and Transgender",
-        :age => "Age"
-    }
+    end 
+    wordings = hashes['wordings']
+    strands = hashes['strands']
     response = ""
+    choices = hashes['choices']
     case question
       when 1
         response = "If the #{fun_pol_indicator} were performed well "
@@ -283,7 +281,7 @@ class Function < ActiveRecord::Base
       when 3
         response = "The performance of the #{fun_pol_indicator} in meeting the different needs of #{wordings[strand]} is "
         begin
-          response += LookUp.rating.find{|lookUp| send("performance_#{strand}_1".to_sym) == lookUp.value}.name.split(" - ")[1].downcase
+          response += choices[2][send("performance_#{strand}_1".to_sym)].split(" - ")[1].downcase
         rescue
           #if it gets here, then response threw an error, meaning that the answer is "Not Answered"
           response += "not yet determined"
@@ -309,7 +307,7 @@ class Function < ActiveRecord::Base
         stats_object = statistics
         return "The #{fun_pol_indicator} has not yet been completed sufficiently to warrant calculation of impact level and the priority ranking." unless statistics
         strand = "" unless strand
-        response = "For the #{strand.to_s.downcase} equality strand the Function has an overall priority ranking of #{stats_object.fun_priority_ranking} and a Potential Impact rating of #{stats_object.impact.to_s.capitalize}."
+        response = "For the #{strand.to_s.downcase} equality strand the Function has an overall priority ranking of #{stats_object.priority_ranking(strand)} and a Potential Impact rating of #{stats_object.topic_impact(strand).to_s.capitalize}."
     end
     
     return response
@@ -318,213 +316,74 @@ class Function < ActiveRecord::Base
   #It can also be passed nils, and in that event, it will automatically return an array containing all the values that corresponded to the nils. Hence, to return all
   #questions and their lookup types, just func.question_wording_lookup suffices.
   def question_wording_lookup(section = nil, strand = nil, question = nil)
-	begin 
-	fun_pol_indicator = LookUp.function_policy.find{|lookUp| self.function_policy == lookUp.value}.name.downcase #Detect whether it is a function or a policy
-	existing_proposed_name = LookUp.existing_proposed.find{|lookUp| self.existing_proposed == lookUp.value}.name.downcase #Detect whether it is an existing function or a proposed function.
-	rescue
-	end
-  if (self.existing_proposed == 0 || self.existing_proposed == nil) then existing_proposed_name = "proposed" end
-  if (self.function_policy == 0 || self.function_policy == nil) then fun_pol_indicator = "------" end
-	case existing_proposed_name
-		when "existing"
-			part_need = "the particular needs of "
-			wordings = {:gender =>  "men and women",
-				:race => "individuals from different ethnic backgrounds",
-				:disability => "individuals with different kinds of disability",
-				:faith => "individuals of different faiths",
-				:sexual_orientation => "individuals of different sexual orientations",
-				:age => "individuals of different ages",
-				:overall => "" #This line is needed, so that when the hash is evaluated it doesn't throw an error. It will never be displayed though.
-			}
-			strands = {:gender =>  "Gender",
-				:race => "Race",
-				:disability => "Disability",
-				:faith => "Faith",
-				:sexual_orientation => "Lesbian Gay Bisexual and Transgender",
-				:age => "Age",
-				:overall => "Overall" #Again, this is inserted to ensure that when you check all strands you return every question. It should never be displayed.
-			}
-			#For every strand in the strands array, loop through them and call question_wording_lookup on each of them if strand is nil. This ensures the result is sorted by strand, meaning
-			#that the statistics are very much simpler.
-			unless strand then
-				question_hash = {}
-				strands.each_key{|strand| question_hash[strand] = question_wording_lookup(section, strand, question)} 
-				return question_hash
-			end
-			#Simply a hash to define existing questions and their lookup types.
-			questions = {
-				:purpose =>{
-					3  => ["If the #{fun_pol_indicator} was performed well does it affect #{wordings[strand]} differently?", :impact_level],
-					4  => ["If the #{fun_pol_indicator} was performed badly does it affect #{wordings[strand]} differently?", :impact_level]
-				},
-				:performance => {
-					1 => ["How would you rate the current performance of the #{fun_pol_indicator} in meeting #{part_need + wordings[strand]}?", :rating],
-					2 => ["Has this performance assessment been confirmed?", :yes_no_notsure_n5_0],
-					3 => ["Please note the process by which the performance was confirmed", :string],
-					4 => ["Are there any performance issues which might have implications for #{wordings[strand]}?", :yes_no_notsure_10_0],
-					5 => ["Please record any such performance issues for #{wordings[strand]}?", :text]
-				},
-				:confidence_information => {
-					1 => ["Are there any gaps in the information about the #{fun_pol_indicator} in relation to #{wordings[strand]}?", :yes_no_notsure_15_0],
-					2 => ["Are there plans to collect additional information?", :yes_no_notsure_n5_0],
-					3 => ["If there are plans to collect more information what are the timescales?", :timescales],
-					4 => ["Are there any other ways by which performance in meeting the #{part_need + wordings[strand]} could be assessed?", :yes_no_notsure_n3_0],
-					5 => ["Please record any such performance measures for #{wordings[strand]}", :text]
-				},
-				:confidence_consultation => {
-					1 => ["Have groups from the #{strands[strand]} Equality Strand been consulted on the potential impact of the #{fun_pol_indicator} on #{wordings[strand]}?", :yes_no_notsure_3_10],
-					2 => ["If no, why is this so?", :consult_groups],
-					3 => ["If yes, list groups and dates.", :text],
-					4 => ["Have experts from the #{strands[strand]} Equality Strand been consulted on the potential impact of the #{fun_pol_indicator} on #{wordings[strand]}?", :yes_no_notsure_2_5],
-					5 => ["If no, why is this so?",  :consult_experts],
-					6 => ["If yes, list groups and dates.", :text],
-					7 => ["Did the consultations identify any issues with the impact of the function on #{wordings[strand]}?", :yes_no_notsure_3_0],
-				},
-				:additional_work =>{ 
-					5 => ["In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
-						the #{fun_pol_indicator} impacts, or may impact, upon #{wordings[strand]}?", :yes_no_notsure],
-					6 => ["Please explain the further information required.", :text],
-					7 => ["Is there any more work you feel is necessary to complete the assessment?", :yes_no_notsure],
-					8 => ["Do you think that the #{fun_pol_indicator} could have a role in preventing #{wordings[strand]} being treated differently, in an unfair way, just because they were #{wordings[strand]}", :yes_no_notsure],
-					9 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were not subject to inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?", :yes_no_notsure],
-					10 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were treated equally and fairly?", :yes_no_notsure],
-					11 => ["Do you think that the #{fun_pol_indicator} could assist #{wordings[strand]} to get on better with each other?", :yes_no_notsure],
-					12 => ["Do you think that the #{fun_pol_indicator} takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?", :yes_no_notsure],
-					13 => ["Do you think that the #{fun_pol_indicator} could assist #{wordings[strand]} to participate more?", :yes_no_notsure],
-					14 => ["Do you think that the #{fun_pol_indicator} could assist in promoting positive attitudes to #{wordings[strand]}?", :yes_no_notsure]
-				}
-			}
-			overall_questions = {
-				:purpose =>{
-					1 => ["What is the existence status of the #{fun_pol_indicator}?", :existing_proposed], #This should never be displayed, but it never hurts to be sure and put some meaningful text it. It is there for the stats.
-					2 => ["What is the target outcome of the #{fun_pol_indicator}", :text],
-					5 =>['Service users', :impact_amount],
-					6 =>['Staff employed by the council', :impact_amount],
-					7 =>['Staff of supplier organisations', :impact_amount],
-					8 =>['Staff of partner organisations', :impact_amount],
-					9 =>['Employees of businesses', :impact_amount]
-				},
-				:performance => { 
-					1 =>['How would you rate the current performance of the Function?', :rating], 
-					2 =>['Has this performance been validated?', :yes_no_notsure],
-					3 =>['Please note the validation regime:', :string],
-					4 =>['Are there any performance issues which might have implications for different individuals within the equality group?', :yes_no_notsure],
-					5 =>['Please note any such performance issues:', :text]
-				},
-				:confidence_information => {
-					1 => ['Are there any gaps in the information about the Function?', :yes_no_notsure],
-					2 => ['Are there plans to collect additional information?', :yes_no_notsure],
-					3 => ['If there are plans to collect more information, what are the timescales?', :timescales],
-					4 => ['Are there any others ways by which performance could be assessed?', :yes_no_notsure],
-					5 => ['Please note any other performance measures:', :text]
-				}
-			}
-		when "proposed"
-			part_need = "the particular needs of "
-			wordings = {:gender =>  "men and women",
-				:race => "individuals from different ethnic backgrounds",
-				:disability => "individuals with different kinds of disability",
-				:faith => "individuals of different faiths",
-				:sexual_orientation => "individuals of different sexual orientations",
-				:age => "individuals of different ages",
-				:overall => "" #This line is needed, so that when the hash is evaluated it doesn't throw an error. It will never be displayed though.
-			}
-			strands = {:gender =>  "Gender",
-				:race => "Race",
-				:disability => "Disability",
-				:faith => "Faith",
-				:sexual_orientation => "Lesbian Gay Bisexual and Transgender",
-				:age => "Age",
-				:overall => "Overall"
-			}
-			unless strand then
-				question_hash = {}
-				strands.each_key{|strand| question_hash[strand] = question_wording_lookup(section, strand, question)}
-				return question_hash
-			end
-			questions = {
-				:purpose =>{
-					3  => ["Would it affect <strong>#{wordings[strand]}</strong> differently?", :impact_level],
-					4  => ["Would it affect <strong>#{wordings[strand]}</strong> differently?", :impact_level]
-				},
-				:performance => {
-					1 => ["How would you assess the potential performance of the #{fun_pol_indicator} in meeting #{part_need + wordings[strand]}?", :rating],
-					2 => ["Has this performance assessment been confirmed?", :yes_no_notsure_n5_0],
-					3 => ["Please note the process by which the performance is confirmed", :string],
-					4 => ["Are there likely to be any performance issues which might have implications for #{wordings[strand]}?", :yes_no_notsure],
-					5 => ["Please record any such performance issues for #{wordings[strand]}?", :text]
-				},
-				:confidence_information => {
-					1 => ["Will information about the #{fun_pol_indicator} be collected to determine the impact on #{wordings[strand]}?", :yes_no_notsure_15_0],
-					2 => ["Are there plans to collect additional information?", :yes_no_notsure_n5_0],
-					3 => ["If there are plans to collect more information what are the timescales?", :timescales],
-					4 => ["Are there any other ways by which the impact of the #{fun_pol_indicator} on #{wordings[strand]} could be assessed?", :yes_no_notsure_n3_0],
-					5 => ["Please record any such impact measures for #{wordings[strand]}", :text]
-				},
-				:confidence_consultation => {
-					1 => ["Have groups from the #{strands[strand]} Equality Strand been consulted on the potential impact of the proposed #{fun_pol_indicator} on #{wordings[strand]}?", :yes_no_notsure_3_10],
-					2 => ["If no, why is this so?", :consult_groups],
-					3 => ["If yes, list groups and dates.", :text],
-					4 => ["Have experts from the #{strands[strand]} Equality Strand been consulted on the potential impact of the proposed #{fun_pol_indicator} on #{wordings[strand]}?", :yes_no_notsure_2_5],
-					5 => ["If no, why is this so?",  :consult_experts],
-					6 => ["If yes, list groups and dates.", :text],
-					7 => ["Did the consultations identify any isues with the impact of the function on #{wordings[strand]}?", :yes_no_notsure_3_0],
-				},
-				:additional_work =>{ 
-					5 => ["In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
-						the  #{fun_pol_indicator} may impact upon #{wordings[strand]}?", :yes_no_notsure],
-					6 => ["Please explain the further information required.", :text],
-					7 => ["Is there any more work you feel is necessary to complete the assessment?", :yes_no_notsure],
-					8 => ["Do you think that the #{fun_pol_indicator} could have a role in preventing #{wordings[strand]} being treated differently, in an unfair way, just because they were #{wordings[strand]}", :yes_no_notsure],
-					9 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were not subject to inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?", :yes_no_notsure],
-					10 => ["Do you think that the #{fun_pol_indicator} could have a role in making sure that #{wordings[strand]} were treated equally and fairly?", :yes_no_notsure],
-					11 => ["Do you think that the #{fun_pol_indicator} could assist #{wordings[strand]} to get on better with each other?", :yes_no_notsure],
-					12 => ["Do you think that the #{fun_pol_indicator} takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?", :yes_no_notsure],
-					13 => ["Do you think that the #{fun_pol_indicator} could assist #{wordings[strand]} to participate more?", :yes_no_notsure],
-					14 => ["Do you think that the #{fun_pol_indicator} could assist in promoting positive attitudes to #{wordings[strand]}?", :yes_no_notsure]
-				}
-			}
-			overall_questions = {
-				:purpose =>{
-					1 => ["What is the existence status of the #{fun_pol_indicator}?", :existing_proposed],#This should never be displayed, but it never hurts to be sure and put some meaningful text it. It is there for the stats.
-					2 => ["What is the target outcome of the #{fun_pol_indicator}", :text],
-					5 =>['Service users', :impact_amount],
-					6 =>['Staff employed by the council', :impact_amount],
-					7 =>['Staff of supplier organisations', :impact_amount],
-					8 =>['Staff of partner organisations', :impact_amount],
-					9 =>['Employees of businesses', :impact_amount]
-				},
-				:performance => { 
-					1 =>['How would you rate the current performance of the Function?', :rating], 
-					2 =>['Has this performance been validated?', :yes_no_notsure],
-					3 =>['Please note the validation regime:', :string],
-					4 =>['Are there any performance issues which might have implications for different individuals within the equality group?', :yes_no_notsure],
-					5 =>['Please note any such performance issues:', :text]
-				},
-				:confidence_information => {
-					1 => ['Are there any gaps in the information about the Function?', :yes_no_notsure],
-					2 => ['Are there plans to collect additional information?', :yes_no_notsure],
-					3 => ['If there are plans to collect more information, what are the timescales?', :timescales],
-					4 => ['Are there any others ways by which performance could be assessed?', :yes_no_notsure],
-					5 => ['Please note any other performance measures:', :text]
-				}
-			}
-	end
-	unless strand == :overall then
-		return questions unless section
-		if strand && section&&!(question) then return questions[section]end
-		return questions[section][question]
-	else
-		return overall_questions unless section
-		if strand && section&&!(question) then return overall_questions[section]end		
-		return overall_questions[section][question]
-	end	
-end
+    fun_pol = self.function_policy
+    exist_prop = self.existing_proposed
+    exist_prop -= 1
+    exist_prop = 0 if exist_prop < 0
+    fun_pol_indicator = case fun_pol
+      when 1 
+        "function"
+      when 2
+        "policy"
+      else
+        "---------"
+    end
+    section = section.to_s
+    strand = strand.to_s
+  	strands = hashes['strands']
+    wordings = hashes['wordings']
+    questions = hashes['questions']
+    overall_questions = hashes['overall_questions']
+    response = {}
+    #First recursively decide on all the strands
+    unless strand != "" then
+      strands.each_key{|new_strand| response[new_strand] = (question_wording_lookup(section, new_strand, question))[new_strand]}
+      return response
+    end
+    #Then decide which hash to use
+    if strand.downcase == 'overall' then
+      query_hash = overall_questions
+    else
+      query_hash = questions
+    end
+    #then recursively sort by section
+    unless section != "" then
+      query_hash.each_key do |new_section|
+        if response[strand] then
+          response[strand][new_section] = question_wording_lookup(new_section, strand, question)[strand][new_section] 
+        else
+          response[strand] = {new_section => question_wording_lookup(new_section, strand, question)[strand][new_section]}
+        end
+      end
+      return response
+    end
+    #finally, recursively find all the questions
+    unless question then
+      query_hash[section].each_key do |question_name|
+        if response[strand] then
+          response[strand][section][question_name] = question_wording_lookup(section, strand, question_name)
+        else
+          response[strand] = {section => {question_name => question_wording_lookup(section, strand, question_name)}}
+        end
+      end
+      return response
+    end
+    label = query_hash[section][question]['label'][exist_prop]
+    type = query_hash[section][question]['type']
+    choices = query_hash[section][question]['choices']
+    help = query_hash[section][question]['help']
+    weights = query_hash[section][question]['weights']
+    label = eval(%Q{<<"DELIM"\n} + label + "\nDELIM\n")
+    help = eval(%Q{<<"DELIM"\n} + help + "\nDELIM\n")
+    label.chop!
+    help.chop!
+    return [label, type, choices, help, weights]
+  end
 
 private
 
 #Check question takes a single question as an argument and checks if it has been completed, and that any dependent questions have been answered.
-  def check_question(question) 
+  def check_question(question)
     dependency = dependent_questions(question)
     if dependency then
       response = send(question)
@@ -548,85 +407,58 @@ private
      end
   end
   
+  #This takes a method in the form of :section_strand_number and turns it into an array [section, strand, number]
+  def question_separation(question)
+    question = question.to_s
+    if question.include?("overall") then
+      query_hash = hashes['overall_questions']
+    else
+      query_hash = hashes['questions']
+    end
+    section = ""
+    question_number = ""
+    query_hash.each_key{|section_name| section = section_name.to_sym if question.include?(section_name.to_s)}
+    question.gsub!(section.to_s, "")
+    question = question.split("_")
+    question_number = question.pop
+    strand = question.inject(""){|init_name, parts_name| init_name += "#{parts_name} "}
+    strand.strip!
+    strand.gsub!(" ", "_")
+    return [section.to_sym, strand.to_sym, question_number] if (!section.blank? && !strand.blank? && question_number)
+    return nil
+  end
+  
   def check_response(response) #Check response verifies whether a response to a question is correct or not.
     checker = !(response.to_i == 0)
     checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
     return checker
   end
   
-#This is the hash of dependent questions, removed to a function for easy maintainability.  
-  def dependent_questions(question = nil)
-      # What does an answer of 'Yes' correspond to?
-      yes_value = LookUp.yes_no_notsure.find{|lookUp| 'Yes' == lookUp.name}.value 
-      #What does an answer of 'No' correspond to?
-      no_value = LookUp.yes_no_notsure.find{|lookUp| 'No' == lookUp.name}.value 
-	@dependent_questions = { :performance_overall_3 => [[:performance_overall_2, yes_value]],
-                            :performance_overall_5 => [[:performance_overall_4, yes_value]],
-                            :performance_gender_3 => [[:performance_gender_2, yes_value ]],
-                            :performance_gender_5 => [[:performance_gender_4, yes_value]],
-                            :performance_race_3 => [[:performance_race_2, yes_value]],
-                            :performance_race_5 => [[:performance_race_4,  yes_value]],
-                            :performance_disability_3 => [[:performance_disability_2, yes_value]],
-                            :performance_disability_5 => [[:performance_disability_4,  yes_value]],
-                            :performance_faith_3 => [[:performance_faith_2, yes_value]],
-                            :performance_faith_5 => [[:performance_faith_4, yes_value]],
-                            :performance_sexual_orientation_3 => [[:performance_sexual_orientation_2, yes_value]],
-                            :performance_sexual_orientation_5 => [[:performance_sexual_orientation_4, yes_value]],
-                            :performance_age_3 => [[:performance_age_2, yes_value]],
-                            :performance_age_5 => [[:performance_age_4, yes_value]],
-			    :confidence_consultation_gender_2 => [[:confidence_consultation_gender_1, no_value]],
-			    :confidence_consultation_gender_3 => [[:confidence_consultation_gender_1, yes_value]],
-			    :confidence_consultation_gender_5 => [[:confidence_consultation_gender_4, no_value]],
-			    :confidence_consultation_gender_6 => [[:confidence_consultation_gender_4, yes_value]],
-			    :confidence_consultation_age_2 => [[:confidence_consultation_age_1, no_value]],
-			    :confidence_consultation_age_3 => [[:confidence_consultation_age_1, yes_value]],
-			    :confidence_consultation_age_5 => [[:confidence_consultation_age_4, no_value]],
-			    :confidence_consultation_age_6 => [[:confidence_consultation_age_4, yes_value]],
-			    :confidence_consultation_disability_2 => [[:confidence_consultation_disability_1, no_value]],
-			    :confidence_consultation_disability_3 => [[:confidence_consultation_disability_1, yes_value]],
-			    :confidence_consultation_disability_5 => [[:confidence_consultation_disability_4, no_value]],
-			    :confidence_consultation_disability_6 => [[:confidence_consultation_disability_4, yes_value]],
-			    :confidence_consultation_race_2 => [[:confidence_consultation_race_1, no_value]],
-			    :confidence_consultation_race_3 => [[:confidence_consultation_race_1, yes_value]],
-			    :confidence_consultation_race_5 => [[:confidence_consultation_race_4, no_value]],
-			    :confidence_consultation_race_6 => [[:confidence_consultation_race_4, yes_value]],
-			    :confidence_consultation_faith_2 => [[:confidence_consultation_faith_1, no_value]],
-			    :confidence_consultation_faith_3 => [[:confidence_consultation_faith_1, yes_value]],
-			    :confidence_consultation_faith_5 => [[:confidence_consultation_faith_4, no_value]],
-			    :confidence_consultation_faith_6 => [[:confidence_consultation_faith_4, yes_value]],
-			    :confidence_consultation_sexual_orientation_2 => [[:confidence_consultation_sexual_orientation_1, no_value]],
-			    :confidence_consultation_sexual_orientation_3 => [[:confidence_consultation_sexual_orientation_1, yes_value]],
-			    :confidence_consultation_sexual_orientation_5 => [[:confidence_consultation_sexual_orientation_4, no_value]],
-			    :confidence_consultation_sexual_orientation_6 => [[:confidence_consultation_sexual_orientation_4, yes_value]],
-			    :confidence_information_race_3 => [[:confidence_information_race_2, yes_value]],
-			    :confidence_information_disability_3 => [[:confidence_information_disability_2, yes_value]],
-			    :confidence_information_faith_3 => [[:confidence_information_faith_2, yes_value]],
-			    :confidence_information_overall_3 => [[:confidence_information_overall_2, yes_value]],
-			    :confidence_information_sexual_orientation_3 => [[:confidence_information_sexual_orientation_2, yes_value]],
-			    :confidence_information_age_3 => [[:confidence_information_age_2, yes_value]],
-			    :confidence_information_gender_3 => [[:confidence_information_gender_2, yes_value]],
-			    :confidence_information_race_5 => [[:confidence_information_race_4, yes_value]],
-			    :confidence_information_disability_5 => [[:confidence_information_disability_4, yes_value]],
-			    :confidence_information_faith_5 => [[:confidence_information_faith_4, yes_value]],
-			    :confidence_information_overall_5 => [[:confidence_information_overall_4, yes_value]],
-			    :confidence_information_sexual_orientation_5 => [[:confidence_information_sexual_orientation_4, yes_value]],
-			    :confidence_information_age_5 => [[:confidence_information_age_4, yes_value]],
-			    :confidence_information_gender_5 => [[:confidence_information_gender_4, yes_value]],
-			    :additional_work_race_8 => [[:additional_work_race_7, yes_value]],
-			    :additional_work_disability_8 => [[:additional_work_disability_7, yes_value]],
-			    :additional_work_faith_8 => [[:additional_work_faith_7, yes_value]],
-			    :additional_work_overall_8 => [[:additional_work_overall_7, yes_value]],
-			    :additional_work_sexual_orientation_8 => [[:additional_work_sexual_orientation_7, yes_value]],
-			    :additional_work_age_8 => [[:additional_work_age_7, yes_value]],
-			    :additional_work_gender_8 => [[:additional_work_gender_7, yes_value]],
-			    :additional_work_race_6 => [[:additional_work_race_5, yes_value]],
-			    :additional_work_disability_6 => [[:additional_work_disability_5, yes_value]],
-			    :additional_work_faith_6 => [[:additional_work_faith_5, yes_value]],
-			    :additional_work_overall_6 => [[:additional_work_overall_5, yes_value]],
-			    :additional_work_sexual_orientation_6 => [[:additional_work_sexual_orientation_5, yes_value]],
-			    :additional_work_age_6 => [[:additional_work_age_5, yes_value]],
-			    :additional_work_gender_6 => [[:additional_work_gender_5, yes_value]],
-                            }
-	if question then return @dependent_questions[question] else return @dependent_questions end # If you specify a question, return it, else return the entire hash.
-  end
+#This returns any dependencies of a question  
+  def dependent_questions(question)
+    question = question.to_s
+    yes_value = hashes['yes_value']
+    no_value = hashes['no_value']
+    if question.include?("overall") then
+      query_hash = hashes['overall_questions']
+    else
+      query_hash = hashes['questions']
+    end
+    segments = question_separation(question)
+    if segments then
+      section = segments[0]
+      strand = segments[1]
+      question_name = segments[2]
+      dependencies = query_hash[section.to_s][question_name.to_i]['dependent_questions']
+      dependencies.gsub!("yes_value", yes_value.to_s)
+      dependencies.gsub!("no_value", no_value.to_s)
+      dependencies = dependencies.split(" ")
+      return nil if dependencies == []
+      dependencies[0] = question = eval(%Q{<<"DELIM"\n} + dependencies[0] + "\nDELIM\n")
+      dependencies[0].chop!
+      return [dependencies]
+    else
+      return nil
+    end
+  end  
 end

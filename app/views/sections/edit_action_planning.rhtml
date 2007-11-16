@@ -4,6 +4,8 @@
 	<%= image_tag('icons/no_next.gif', :class =>'next') -%>
 </h1>
 
+<% hashes = @function.hashes -%>
+
 <div id="questions">
 <% form_for(:issues, :url => {:controller => 'issues', :action => 'update'}) do |f| -%>
 	<% issues = @function.issues.reject{|issue| issue.strand != @equality_strand } -%>
@@ -13,7 +15,7 @@
 			<% fields_for "issue[]", issue do |ff| %>
 				<p><label>Actions</label><%= ff.text_area :actions -%></p>
 				<p><label>Resources</label><%= ff.text_area :resources -%></p>
-				<p><label>Timescales</label><%= ff.select :timescales, LookUp.timescales.collect {|l| [ l.name, l.value ] } -%></p>
+				<p><label>Timescales</label><%= ff.select :timescales, hashes['choices'][4].collect{|l| [l, hashes['choices'][4].index(l)]}-%></p>
 				<p><label>Lead Officer</label><%= ff.text_area :lead_officer -%></p>
 		    <% end %>
 			<div class="clear"></div>

@@ -3,15 +3,16 @@
 class StatQuestion
   attr_reader :name, :scores, :max
   #This sets all the values, and sets the maximum values.
-  def initialize(value, name)
+  def initialize(value, name, function)
     @name = name
     @max = 0
     @scores = 0
-    unless value == :text || value == :string then
-  @lookup = LookUp.send(value)
-  @lookup.each{|lookup| @max = lookup.attributes["weight"] unless (@max >= lookup.attributes["weight"])}
+    hash_weights = function.hashes['weights']
+    unless (value[0] == 'text' || value[0] == 'string') then
+      @weights = hash_weights[value[1]]
+      @weights.each{|weight| @max = weight.to_i unless @max >= weight.to_i}
     else
-  @max = 0
+      @max = 0
     end
   end
   #This returns the score of the question to a particular response. Text questions are automatically scored 0.
@@ -19,8 +20,8 @@ class StatQuestion
   #could be full of text questions with no lookups with values.
   def score(response)
     @scores = 0
-    return 0 unless @lookup
-    @lookup.each{|lookup_option| @scores = lookup_option.attributes["weight"] if lookup_option.attributes["value"] == response}
+    return 0 unless @weights
+    @scores = @weights[response].to_i
     return @scores
   end
 end
