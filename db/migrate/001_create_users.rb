@@ -25,7 +25,7 @@
 class CreateUsers < ActiveRecord::Migration
   def self.up
     create_table :users, :force => true do |t|
-      t.column :user_type,     :integer,  :default =>  User::TYPE[:functional]
+      t.column :user_type,     :integer,  :default => 3
       t.column :passkey,       :string
       t.column :email,         :string
       t.column :created_on,    :timestamp
