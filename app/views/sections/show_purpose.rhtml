@@ -1,13 +1,13 @@
 <div id="show">
 <p><label>Function/Policy is </label><div class="labelled"><%= @function.existing_proposed?%></div></p>
 <br />
-
-<% unless @function_responses.nil? || @function_responses.length > 0 then -%>
+<% @function_responses = @function.function_strategies.sort_by {|fr| fr.strategy.position } -%>
+<% unless @function_responses.nil? || !(@function_responses.length > 0) then -%>
 <h5>Which strategies does "<%=h @function.name %> implement? </h5>
 <% strategy_hash = {} -%>
-<% LookUp.yes_no.collect{|l| strategy_hash[l.value] = l.name} -%>
+<% @function.hashes['choices'][3].collect{|key| strategy_hash[@function.hashes['choices'][3].index(key)] = key} -%>
 <% @function_responses.each do |function_response| -%>
-	<p><label><%= function_response.strategy.name -%>:<%= function_response.strategy.position -%></label><div class="labelled"><%= strategy_hash[function_response.strategy_response] -%></div></p>
+	<p><label><%= function_response.strategy.position + 1 -%>: <%= function_response.strategy.name -%></label><div class="labelled"><%= strategy_hash[function_response.strategy_response] -%></div></p>
 <% end -%>
 <% end -%>
 
