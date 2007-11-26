@@ -57,7 +57,6 @@ class SectionsController < ApplicationController
     if @function.started then
       case params[:id]
       when 'purpose'
-        @function_responses = @function.function_strategies.sort_by {|fr| fr.strategy.position } # sort by position
         render :template => 'sections/show_purpose'
       when 'performance'
         render :template => 'sections/show_performance'

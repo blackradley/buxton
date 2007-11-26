@@ -8,13 +8,15 @@
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
 	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 2, :f_id => @function.id} %>
-	<% unless @function_responses.nil? || @function_responses.length > 0 then -%>
+	<% unless @function_responses.nil? || !(@function_responses.length > 0) then -%>
 	<h4>For each strategy, please decide whether it is going to be significantly aided by the function:</h4>
+	<% yes_no = @function.hashes['choices'][3] -%>
 	<% @function_responses.each do |function_strategy| -%>
+		<% if function_strategy then response = function_strategy.strategy_response else response = 0 end -%>
 		<p>
 			<label for="<%= function_strategy.strategy.description -%>"><%= function_strategy.strategy.name -%></label>
-			<%= select('function_strategies', function_strategy.strategy_id, LookUp.yes_no.collect {|l| [ l.name, l.value ] }, 
-				:selected => strategy_response_or_zero(@function_responses, function_strategy.strategy_id)) -%>
+			<%= select('function_strategies', function_strategy.strategy_id, yes_no.collect{|key| [key, yes_no.index(key)]},
+			 :selected => response) -%>
 		</p>
 	<% end -%>
 	<% end -%>
