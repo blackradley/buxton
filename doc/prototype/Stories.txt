@@ -1,0 +1,14 @@
+HERTFORDSHIRE DEMO
+------------------
+
+InstantRails - Iain is going to do the demo using InstantRails.  On December 11, Joe will install Instant Rails and a clean copy of the application on Iain's laptop.  Iain should only require the "Administrator" to be installed so he can set up a demo organisation and some demo activities.
+
+Directorates 1 - Administrators have to give a list of directorates for the organisation when the organisation is set up.  The appearance of the interface should be similar to the strategy input.  Like the strategies the Administrator can provide a localised term for the dectorate which makes sense to members of the organisation.
+
+Directorates 2 - Organisation managers when creating an new activity must assign it to a particular directorate (newfunction.htm).  
+
+Activities - All functions are now called activities.
+
+New Activity Manager - The activity manager gets a key for the first time and clicks on the link.  Initially the manager sees the home page (index.htm).  The only option is then to got to status, via next or the menubar.  The overview and summary links are visible but greyed out.  Once the status has been completed the overview and summary links are available.
+
+Old Activity Manager - The activity manager gets a key for the first time and clicks on the link.  Since the status has been completed all four links are available in the menubar.  If the activity manager has made a mistake on the status page, the details can be changed.  If the changes return to "not answered yet" then the overview and summary links greyed out. 
