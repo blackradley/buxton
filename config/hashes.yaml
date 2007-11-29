@@ -325,8 +325,8 @@ overall_questions:
         - 'Service users'
       help: ''
       type : select
-      choices: 7
-      weights: 11
+      choices: 3
+      weights: 0
       dependent_questions: ''
     6:
       label:
@@ -334,8 +334,8 @@ overall_questions:
         - 'Staff employed by the council'
       help: ''
       type: select
-      choices: 7
-      weights: 11
+      choices: 3
+      weights: 0
       dependent_questions: ''
     7:
       label:
@@ -343,8 +343,8 @@ overall_questions:
         - 'Staff of supplier organisations'
       help: ''
       type: select
-      choices: 7
-      weights: 11
+      choices: 3
+      weights: 0
       dependent_questions: ''
     8:
       label:
@@ -352,8 +352,8 @@ overall_questions:
         - 'Staff of partner organisations'
       help: ''
       type: select
-      choices: 7
-      weights: 11
+      choices: 3
+      weights: 0
       dependent_questions: ''
     9:
       label:
@@ -361,8 +361,8 @@ overall_questions:
         - 'Employees of businesses'
       help: ''
       type: select
-      choices: 7
-      weights: 11
+      choices: 3
+      weights: 0
       dependent_questions: ''
   performance:
     1:
@@ -590,11 +590,7 @@ weights:
     - 5
     - 1
     - 5
-    - 5
-    - 5
-    - 5
-    - 5
-    - 5
+
   12:
     - 15
     - 5

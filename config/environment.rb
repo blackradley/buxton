@@ -27,6 +27,8 @@ Rails::Initializer.run do |config|
   # config.active_record.default_timezone = :utc
 end  
 
+#load pdf reporting tools
+
 #load entire question hash into memory
 @@Hashes = YAML.load_file("#{RAILS_ROOT}/config/hashes.yaml")
 @@Statistics = Statistics.new
