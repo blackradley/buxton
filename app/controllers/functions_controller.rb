@@ -72,7 +72,8 @@ class FunctionsController < ApplicationController
   # Available to: Organisation Manager  
   def create
     @directorate = Directorate.find_by_id(params[:directorate][:directorate_id])
-    @function = @directorate.functions.build(params[:function])
+    org_id = @directorate.organisation.id
+    @function = @directorate.functions.build(params[:function].merge(:organisation_id => org_id))
     @function_manager = @function.build_function_manager(params[:function_manager])
     @function_manager.passkey = FunctionManager.generate_passkey(@function_manager)
 
