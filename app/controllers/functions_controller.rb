@@ -107,7 +107,7 @@ class FunctionsController < ApplicationController
 
   # Update the function status and proceed, or not, accordingly
   # Available to: Function Manager  
-  def update_status
+  def update_activity_type
     @function = Function.find(@current_user.function.id)
     @function.update_attributes(params[:function])
     
@@ -119,7 +119,7 @@ class FunctionsController < ApplicationController
     else
       # If not, take them back and give them a chance to answer again
       flash[:notice] =  "Please answer both questions before proceeding."
-      redirect_to :action => 'status'
+      redirect_to :action => 'activity_type'
     end
   end
 
