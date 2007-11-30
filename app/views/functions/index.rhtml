@@ -1,0 +1,18 @@
+<h3>Welcome to the Impact Equality&trade; Tool</h3>
+<div class="summary">
+<p><label><strong>Activity Name:</strong></label><div class="labelled"><%=h @function.name %></div></p>
+<p><label><strong>Activity Type:</strong></label><div class="labelled">Activity Type</div></p>
+<p>You are logged in as the Activity Manager who is responsible for completing a self-assessment of a activity identified above.  This assessment a number of sections as follows:</p>
+<p>
+  <ul>
+    <li><strong>Purpose</strong> - what is the purpose of the function/policy</li>
+    <li><strong>Impact</strong> - how well is the activity performing for each of the equality strands</li>
+    <li><strong>Confidence</strong> - what information is available to support the performance assessment</li>
+    <li> <strong>Additional Work</strong> - what additional work is required to complete the impact assessment</li>
+    <li><strong>Action Planning</strong> - what are the necessary actions to address the issues identified by the assessment process</li>
+  </ul>
+</p>
+<p>Each of the sections asks questions about the activity which you will be able answer by way of a drop down menu or a text box.  The <%= image_tag("icons/help.gif", :alt => 'help', :style => "margin-bottom:-3px;") -%> icon is the help facility.</p>
+<p>There are three pages to the tool.  This Home page.  The 'Overview' page gives access to a progress tracking matrix.  The 'Summary' page shows the overall level of completion of the tool for the activity.</p>
+<p>Click on next to begin using the tool.  The first screen you come to will ask you whether the activity is a Function or a Policy and whether it is an Existing activity or a Proposed activity.</p>
+<span class='button right'><%= link_to 'next', { :action => 'activity_type'}, :title =>"Next" -%></span>

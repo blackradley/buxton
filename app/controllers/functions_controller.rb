@@ -97,7 +97,7 @@ class FunctionsController < ApplicationController
 
   # Opening page where they must choose between Function/Policy and Existing/Proposed
   # Available to: Function Manager
-  def status
+  def activity_type
     @function = Function.find(@current_user.function.id)
   end
 
