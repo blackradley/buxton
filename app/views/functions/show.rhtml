@@ -54,34 +54,18 @@
 </div>
 
 
-<div id="performance_top" style="display:block;">
+<div id="impact_top" style="display:block;">
 	<fieldset class="section_summary_header">
-		<legend>Performance</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary ', "Element.toggle('show_performance'); Element.toggle('performance_top')", :title => 'View Summary' -%></legend>
+		<legend>Impact</legend>
+		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary ', "Element.toggle('show_impact'); Element.toggle('impact_top')", :title => 'View Summary' -%></legend>
 	</fieldset>
 </div>
 
-<div id="show_performance" <%= %Q[style="display:none;"] unless @print_only -%>>
+<div id="show_impact" <%= %Q[style="display:none;"] unless @print_only -%>>
 	<fieldset class="section_summary_show">
-		<legend>Performance</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_performance'); Element.toggle('performance_top')", :title => 'Close Summary View' -%></legend>
-		<%= render 'sections/show_performance' -%>	
-	</fieldset>
-</div>
-
-
-<div id="confidence_information_top" style="display:block;">
-	<fieldset class="section_summary_header">
-		<legend>Confidence Information</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_confidence_information'); Element.toggle('confidence_information_top')", :title => 'View Summary' -%></legend>
-	</fieldset>
-</div>
-
-<div id="show_confidence_information" <%= %Q[style="display:none;"] unless @print_only -%>>
-	<fieldset class="section_summary_show">
-		<legend>Confidence Information</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_confidence_information'); Element.toggle('confidence_information_top')", :title => 'Close Summary View' -%></legend>
-		<%= render 'sections/show_confidence_information' -%>	
+		<legend>Impact</legend>
+		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_impact'); Element.toggle('impact_top')", :title => 'Close Summary View' -%></legend>
+		<%= render 'sections/show_impact' -%>	
 	</fieldset>
 </div>
 
