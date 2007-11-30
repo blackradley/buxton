@@ -2,7 +2,7 @@
 
 <div id="sections_menu"><%= sections_menu -%></div>
 
-<h3>Confidence Consultation</h3>
+<h3>Confidence</h3>
 <p></p>
 <table class="list">
   <tr>
@@ -17,7 +17,7 @@
     <td width="104px"><%= progress_bar(function.percentage_answered(:confidence_consultation)) -%></td>
     <td><%= date_or_blank(function.function_manager.reminded_on) -%></td>
 	<td class="actions" nowrap>
-      <%= link_to image_tag('icons/view.jpg'), {:action => 'show', :id => 'confidence_consultation', :f => function}, :id => 'view', :title =>"View" -%> 
+      <%= link_to image_tag('icons/view.jpg'), {:action => 'show', :id => 'confidence', :f => function}, :id => 'view', :title =>"View" -%> 
 	  <%= link_to image_tag('icons/email.png'), "mailto:#{h function.function_manager.email}", :title =>"Email" -%>
       <%= link_to image_tag('icons/key.png'), { :controller => 'users', :action => 'remind', :id => function.function_manager.id }, :confirm => "Send access key reminder to #{h function.name}?", :method => :post, :title =>"Key" -%>
     </td>

@@ -67,7 +67,7 @@ class Function < ActiveRecord::Base
     #If you don't specify a section, or your section is action planning, consider issues as well.
     unless section && !(section == :action_planning) then 
        #First we calculate all the questions, in case there is a nil.
-       questions = Function.get_question_names(:confidence_consultation, strand, 7)
+       questions = Function.get_question_names(:consultation, strand, 7)
        questions.each do |question|
          strand = question.to_s.split("_")
          strand.delete_at(1)
@@ -144,7 +144,7 @@ class Function < ActiveRecord::Base
     Function.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
     unless section && !(section == :action_planning) then 
        #First we calculate all the questions, in case there is a nil.
-       questions = Function.get_question_names(:confidence_consultation, strand, 7)
+       questions = Function.get_question_names(:consultation, strand, 7)
        questions.each do |question|
          strand = question.to_s.split("_")
          strand.delete_at(1)
@@ -188,7 +188,7 @@ class Function < ActiveRecord::Base
   #TODO: Heavy amount of speed increases. No extensive comments as yet, because I'm anticipating ripping this
   #calling method out and replacing it with a much faster version. Statistics library should remain largely unchanged though.
   def statistics
-    statistics_sections = [:purpose, :performance, :confidence_information, :confidence_consulation]
+    statistics_sections = [:purpose, :performance, :confidence_information, :consulation]
     statistics_completed = true
     statistics_sections.each{|section| statistics_completed = statistics_completed && completed(section)}
     return nil unless statistics_completed # Don't calculate stats if all the necessary questions haven't been answered
@@ -292,15 +292,15 @@ class Function < ActiveRecord::Base
         issues_present = (self.send("performance_#{strand}_4".to_sym) == 1)
         response += "There are #{"no " unless issues_present}performance issues that might have different implications for #{wordings[strand]}"
       when 5
-        information_present = (self.send("confidence_information_#{strand}_1".to_sym) == 2)
+        information_present = (self.send("consultation_information_#{strand}_1".to_sym) == 2)
         response = "There are #{"no " if information_present}gaps in the information to monitor the performance of the #{fun_pol_indicator} in meeting the needs of #{wordings[strand]}"
       when 6
-        consulted_groups = (self.send("confidence_consultation_#{strand}_1".to_sym) == 1)
-        consulted_experts = (self.send("confidence_consultation_#{strand}_4".to_sym) == 1)
+        consulted_groups = (self.send("consultation_#{strand}_1".to_sym) == 1)
+        consulted_experts = (self.send("consultation_#{strand}_4".to_sym) == 1)
         response += "Groups representing #{wordings[strand]} have #{"not " unless consulted_groups}been consulted and"
         response += " experts have #{"not " unless consulted_experts}been consulted."
         response += "\n"
-        issues_identified = (self.send("confidence_consultation_#{strand}_7".to_sym) == 1)
+        issues_identified = (self.send("consultation_#{strand}_7".to_sym) == 1)
         response += "The consultations did not identify any issues with the impact of the #{fun_pol_indicator} upon #{wordings[strand]}."
       when 7
         stats_object = statistics

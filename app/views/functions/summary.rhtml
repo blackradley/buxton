@@ -43,12 +43,12 @@
 		</td>
 	</tr>
 	<tr>
-    	<td>4 - Confidence Consultation</td>
+    	<td>4 - Consultation</td>
 	    <td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.started(:confidence_consultation)) ? 1 : 0 } -%>
+			<%= @functions.inject(0) { |started, function| started += (function.started(:consultation)) ? 1 : 0 } -%>
 		</td>
 	    <td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.completed(:confidence_consultation)) ? 1 : 0 } -%>
+			<%= @functions.inject(0) { |started, function| started += (function.completed(:consultation)) ? 1 : 0 } -%>
 		</td>
 	</tr>
 	<tr>

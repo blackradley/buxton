@@ -171,7 +171,7 @@ def strand_menu()
   if params[:equality_strand]
     purpose_sel = "#{'selected' if (id == 'purpose')}"
     impact_sel = "#{'selected' if (id == 'impact')}"
-    cc_sel = "#{'selected' if (id == 'confidence_consultation')}"
+    cc_sel = "#{'selected' if (id == 'consultation')}"
     aw_sel = "#{'selected' if (id == 'additional_work')}"
     ap_sel = "#{'selected' if (id == 'action_planning')}"
     
@@ -185,7 +185,7 @@ def strand_menu()
       html << link_to('Impact', { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => params[:equality_strand] }, :title => 'Edit Impact', :class => impact_sel)   
       unless params[:equality_strand] == 'overall'
         html << ' >> '
-        html << link_to('Confidence Consultation', { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => params[:equality_strand] }, :title => 'Edit Confidence Consultation', :class => cc_sel)
+        html << link_to('Consultation', { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => params[:equality_strand] }, :title => 'Edit Consultation', :class => cc_sel)
         html << ' >> '
         html << link_to('Additional Work', { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => params[:equality_strand] }, :title => 'Additional Work', :class => aw_sel)
         html << ' >> '
@@ -206,9 +206,9 @@ def sections_menu
   { :text => 'Performance',
     :url => { :controller => 'sections', :action => 'list', :id => 'impact' },
     :title => 'Organisation Control Page - Section - Impact' },
-  { :text => 'Confidence Consultation',
-    :url => { :controller => 'sections', :action => 'list', :id => 'confidence_consultation' },
-    :title => 'Organisation Control Page - Section - Confidence Consultation' },
+  { :text => 'Consultation',
+    :url => { :controller => 'sections', :action => 'list', :id => 'consultation' },
+    :title => 'Organisation Control Page - Section - Consultation' },
   { :text => 'Additional Work',
     :url => { :controller => 'sections', :action => 'list', :id => 'additional_work' },
     :title => 'Organisation Control Page - Section - Additional Work' },

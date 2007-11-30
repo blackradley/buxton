@@ -6,7 +6,7 @@
 #
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
 #
-# An issue is an item that requires an action plan, and is specified in confidence_consultation sections.
+# An issue is an item that requires an action plan, and is specified in consultation sections.
 # Each strand has it's own issues, and these issues get taken into account in completed tags and dependent functions.
 class Issue < ActiveRecord::Base
 	belongs_to :function
