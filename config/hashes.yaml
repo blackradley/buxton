@@ -138,7 +138,7 @@ questions:
       help: ''
       type: text
       dependent_questions: 'confidence_information_#{strand}_4 yes_value'
-  confidence_consultation:
+  consultation:
     1:
       label: 
         - 'Have groups from the #{strands[strand]} Equality Strand been consulted on the potential impact of the proposed #{fun_pol_indicator}
@@ -162,7 +162,7 @@ questions:
       type: select
       choices: 5
       weights: 8
-      dependent_questions: 'confidence_consultation_#{strand}_1 no_value'
+      dependent_questions: 'consultation_#{strand}_1 no_value'
     3:
       label: 
         - 'If yes, list groups and dates.'
@@ -171,7 +171,7 @@ questions:
             of the consultation.  The details do not need to be completely comprehensive but enough to provide evidence of the activity
             undertaken.</p>'
       type: text
-      dependent_questions: 'confidence_consultation_#{strand}_1 yes_value'
+      dependent_questions: 'consultation_#{strand}_1 yes_value'
     4:
       label: 
         - 'Have experts from the #{strands[strand]} Equality Strand been consulted on the potential impact of the proposed
@@ -195,7 +195,7 @@ questions:
       type: select
       choices: 5
       weights: 8
-      dependent_questions: 'confidence_consultation_#{strand}_4 no_value'
+      dependent_questions: 'consultation_#{strand}_4 no_value'
     6:
       label:
         - 'If yes, list experts and dates.'
@@ -204,7 +204,7 @@ questions:
             of the consultation.  The details do not need to be completely comprehensive but enough to provide evidence of the activity
             undertaken.</p>'
       type: text
-      dependent_questions: 'confidence_consultation_#{strand}_4 yes_value'
+      dependent_questions: 'consultation_#{strand}_4 yes_value'
     7:
       label:
         - 'Did the consultations identify any isues with the impact of the #{fun_pol_indicator} on #{wordings[strand]}?'

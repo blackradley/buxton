@@ -70,18 +70,18 @@
 </div>
 
 
-<div id="confidence_consultation_top" style="display:block;">
+<div id="consultation_top" style="display:block;">
 	<fieldset class="section_summary_header">
-		<legend>Confidence Consultation</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_confidence_consultation'); Element.toggle('confidence_consultation_top')", :title => 'View Summary' -%></legend>
+		<legend>Consultation</legend>
+		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_consultation'); Element.toggle('consultation_top')", :title => 'View Summary' -%></legend>
 	</fieldset>
 </div>
 
-<div id="show_confidence_consultation" <%= %Q[style="display:none;"] unless @print_only -%>>
+<div id="show_consultation" <%= %Q[style="display:none;"] unless @print_only -%>>
 	<fieldset class="section_summary_show">
 		<legend>Confidence Consultation</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_confidence_consultation'); Element.toggle('confidence_consultation_top')", :title => 'Close Summary View' -%></legend>
-		<%= render 'sections/show_confidence_consultation' -%>	
+		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_consultation'); Element.toggle('consultation_top')", :title => 'Close Summary View' -%></legend>
+		<%= render 'sections/show_consultation' -%>	
 	</fieldset>
 </div>
 

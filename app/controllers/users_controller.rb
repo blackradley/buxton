@@ -173,11 +173,7 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       case user.class.name
         when 'FunctionManager'
-          if user.function.started then
-            redirect_to :controller => 'functions', :action => 'index'
-          else
-           redirect_to :controller => 'functions', :action => 'index'
-          end
+          redirect_to :controller => 'functions', :action => 'index'
         when 'OrganisationManager'
           redirect_to :controller => 'functions', :action => 'summary'
         when 'Administrator'

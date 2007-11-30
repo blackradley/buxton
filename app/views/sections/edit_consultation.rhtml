@@ -1,18 +1,18 @@
 <h1 id="questions">
 	<%= link_to image_tag('icons/previous.gif', :class =>'previous'), { :action => 'edit', :id => 'impact', :equality_strand => @equality_strand }, :title =>"Previous Section" -%>
-	<%=h @function.name -%> - <%= @equality_strand.titleize -%> Confidence Consultation
+	<%=h @function.name -%> - <%= @equality_strand.titleize -%> Consultation
 	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'additional_work', :equality_strand => @equality_strand }, :title =>"Next Section" -%>
 </h1>
 
 <div id="questions">
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
-	<%= f.question :confidence_consultation, {:equality_strand => @equality_strand, :number => 1, :f_id => @function.id} %>
-	<%= f.question :confidence_consultation, {:equality_strand => @equality_strand, :number => 2, :f_id => @function.id} %>
-	<%= f.question :confidence_consultation, {:equality_strand => @equality_strand, :number => 3, :f_id => @function.id} %>
-	<%= f.question :confidence_consultation, {:equality_strand => @equality_strand, :number => 4, :f_id => @function.id} %>
-	<%= f.question :confidence_consultation, {:equality_strand => @equality_strand, :number => 5, :f_id => @function.id} %>
-	<%= f.question :confidence_consultation, {:equality_strand => @equality_strand, :number => 6, :f_id => @function.id} %>
-	<%= f.question :confidence_consultation, {:equality_strand => @equality_strand, :number => 7, :f_id => @function.id} %>
+	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 1, :f_id => @function.id} %>
+	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 2, :f_id => @function.id} %>
+	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 3, :f_id => @function.id} %>
+	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 4, :f_id => @function.id} %>
+	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 5, :f_id => @function.id} %>
+	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 6, :f_id => @function.id} %>
+	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 7, :f_id => @function.id} %>
 	<p><label>Please record the issues identified</label>
 	<div class="issues">
 	        <ul id="issues">
