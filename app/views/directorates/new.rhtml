@@ -1,0 +1,10 @@
+<h2>New Directorate</h2>
+
+<% form_tag :action => 'create' do %>
+  <%= render :partial => 'contact' -%> 
+  <span class="button">
+  <%= submit_tag "Create" %>
+  </span>
+<% end %>
+
+<%= link_to 'Back', :action => 'list', :id => @current_user.organisation.id, :controller => 'organisations' %>
