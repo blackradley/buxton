@@ -67,8 +67,13 @@ module ApplicationHelper
     link_html = ''
     links.each do |link|
       class_name = (current_page?(link[:url])) ? 'selected' : ''
-      link_html << content_tag('li', link_to(link[:text], link[:url], :title => link[:title]),
-        { :class => class_name })
+      if link[:status] == 'disabled'
+        link_html << content_tag('li', link_to(link[:text], link['#'], :title => link[:title]),
+          { :class => class_name + ' disabled' })
+      else
+        link_html << content_tag('li', link_to(link[:text], link[:url], :title => link[:title]),
+          { :class => class_name })
+      end
     end
     content_tag('ul', link_html, :id => 'menuBar')
   end
@@ -95,23 +100,56 @@ module ApplicationHelper
         generate_menu( [
                         { :text => 'Summary',
                           :url => { :controller => 'functions', :action => 'summary' },
-                          :title => 'Organisation Control Page - Summary' },
+                          :title => 'Organisation Control Page - Summary',
+                          :status => '' },
                         { :text => 'Functions',
                           :url => { :controller => 'functions', :action => 'list' },
-                          :title => 'Organisation Control Page - Functions' },
+                          :title => 'Organisation Control Page - Functions' ,
+                          :status => '' },
                         { :text => 'Sections',
                           :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
-                          :title => 'Organisation Control Page - Sections' }
+                          :title => 'Organisation Control Page - Sections',
+                          :status => '' }
                         ])
-      when 'FunctionManager'    
-        generate_menu( [
-                        { :text => 'Overview',
-                          :url => { :controller => 'functions', :action => 'overview'},
-                          :title => 'Function Control Page - Overview' },
-                        { :text => 'Summary',
-                          :url => { :controller => 'functions', :action => 'show' },
-                          :title => 'Function Control Page - Summary' }
-                        ])
+      when 'FunctionManager'
+          puts @current_user.function.function_policy
+         links = [
+                    { :text => 'Home',
+                      :url => { :controller => 'functions', :action => 'index'},
+                      :title => 'Function Control Page - Home' ,
+                      :status => '' },
+                    { :text => 'Activity Type',
+                      :url => { :controller => 'functions', :action => 'status'},
+                      :title => 'Function Control Page - Activity Type' ,
+                      :status => '' }
+                  ]
+        if @current_user.function.started
+          links2 = [    
+                      { :text => 'Overview',
+                        :url => { :controller => 'functions', :action => 'overview'},
+                        :title => 'Function Control Page - Overview',
+                        :status => '' },
+                      { :text => 'Summary',
+                        :url => { :controller => 'functions', :action => 'show' },
+                        :title => 'Function Control Page - Summary' ,
+                        :status => '' }
+                    ]
+        else
+          puts "hellllllllllllo!"
+          links2 = [    
+                      { :text => 'Overview',
+                        :url => { :controller => 'functions', :action => 'overview'},
+                        :title => 'Function Control Page - Overview',
+                        :status => 'disabled' },
+                      { :text => 'Summary',
+                        :url => { :controller => 'functions', :action => 'show' },
+                        :title => 'Function Control Page - Summary' ,
+                        :status => 'disabled' }
+                    ]
+        end
+        
+        generate_menu(links + links2)  
+                    
       when 'Administrator'
         generate_menu( [
                         { :text => 'Organisations',

@@ -3,11 +3,13 @@
 <h3><%=h @function.name -%></h3>
 
 <% form_for(:function, :url => {:action => 'update_status'}) do |f| %>
-	<p><label for="existing_proposed">Is this:</label>
+<fieldset id="status">
+	<p><label for="existing_proposed">Is this:</label><div class="labelled">
 	<% ep_options = @function.hashes['existing_proposed']['choices'] %>
-	<%= f.select :existing_proposed, @function.hashes['choices'][ep_options].collect {|option| option , @function.hashes['choices'][ep_options].index(option)] } -%></p>
-	<p><label for="function_policy">Is this a:</label>
+	<%= f.select :existing_proposed, @function.hashes['choices'][ep_options].collect {|option| [option , @function.hashes['choices'][ep_options].index(option)] } -%></div></p>
+	<p><label for="function_policy">Is this a:</label><div class="labelled">
 	<% fp_options = @function.hashes['function_policy']['choices'] %>
-	<%= f.select :function_policy, @function.hashes['choices'][fp_options].collect {|option| option , @function.hashes['choices'][fp_options].index(option)] } -%></p>
-	<p><%= submit_tag -%></p>
+	<%= f.select :function_policy, @function.hashes['choices'][fp_options].collect {|option| [option , @function.hashes['choices'][fp_options].index(option)] } -%></div></p>
+	<span class='button right'><%= submit_tag -%></span>
+</fieldset>
 <% end %>
