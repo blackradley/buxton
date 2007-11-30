@@ -44,7 +44,7 @@ class Function < ActiveRecord::Base
   attr_reader :stat_function
 
   def existing_proposed?
-    hashes['choices'][8][self.existing_proposed]
+    hashes['choices'][8][self.existing_proposed.to_i]
   end
   
   def hashes
@@ -52,7 +52,7 @@ class Function < ActiveRecord::Base
   end
   
   def function_policy?
-    hashes['choices'][9][self.function_policy]
+    hashes['choices'][9][self.function_policy.to_i]
   end
   #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions. 
   def percentage_answered(section = nil, strand = nil)
@@ -114,8 +114,9 @@ class Function < ActiveRecord::Base
    #that you have to answer(function/policy and proposed/overall) have been answered or not, and if they have not been answered, then no others can be
    # and if they have, then the function is by definition started
   def started(section = nil, strand = nil)
-    unless (section || strand) then
+    unless (section || strand) then      
       return true if (check_question(:existing_proposed) && check_question(:function_policy))
+      return false
     else
       return false unless (check_question(:existing_proposed) && check_question(:function_policy))
     end
@@ -428,7 +429,7 @@ private
   
   def check_response(response) #Check response verifies whether a response to a question is correct or not.
     checker = !(response.to_i == 0)
-    checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
+    checker = ((response.to_s.length > 0)&&response.to_s != "0") if checker.nil?
     return checker
   end
   

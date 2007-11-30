@@ -91,6 +91,8 @@ li{
 p{	
 	margin-bottom: 10px;
 	margin-left:20px;
+	margin-right:20px;
+
 }
 
 fieldset{
@@ -181,18 +183,39 @@ UL#menuBar LI A:link, UL#menuBar LI A:visited
 	padding:0 1em;
 	line-height: 25px;
 	font-weight:bold;
+	cursor: pointer;
 }
+
+UL#menuBar LI.disabled A:link, UL#menuBar LI.disabled A:visited
+{
+	text-decoration: none;
+	color: #FFF;
+	display: block;
+	background-color: #aeb1ab;
+	padding:0 1em;
+	line-height: 25px;
+	font-weight:bold;
+	cursor: default;
+}
+
 
 UL#menuBar LI.selected A:link, UL#menuBar LI.selected A:visited
 {
 	background-color: #FFF;
 	color: #515f8d;
+	cursor: pointer;
 }
 
 UL#menuBar LI A:hover
 {
 	background-color: #FFF;
 	color: #515f8d;
+}
+
+UL#menuBar LI.disabled A:hover
+{
+	background-color:#aeb1ab;
+	color: #fff;
 }
 
 /* sections Menu */
@@ -872,7 +895,7 @@ p #summarytable{
 	overflow:hidden;
 }
 
-p .toggleHelp{
+.toggleHelp p{
 	text-align:left;
 	width:60%;
 	margin:0px;
@@ -880,6 +903,29 @@ p .toggleHelp{
 	overflow:hidden;
 	margin:4px 0px;
 	paddding:0px 20%;
+}
+
+#questions .toggleHelp{
+	float:left;
+	font-weight: normal;
+	color:#515f8d;
+	font-size:1em;
+	padding:0px;
+	margin-bottom:10px;
+	background-color: #f9fdd0;
+	border: 1px solid #fff3a4;
+	width:660px;
+	overflow:hidden;
+}
+
+#questions .toggleHelp p{
+	text-align:left;
+	margin:5px 0px;
+	margin-left: 2%;
+	margin-right:2%;
+	padding:0px;
+	overflow:hidden;
+	width:96%;
 }
 
 /* show styles*/
@@ -914,4 +960,28 @@ p .toggleHelp{
 }
 .dialog h1{
 	color: red;
+}
+
+.right {
+	float:right;
+}
+fieldset#status{
+	width: 300px;
+	margin-left: 0px;
+	border:0px solid red;
+	padding: 0px;
+}
+#status label{
+	width: 100px;
+	margin: 0px;
+	float: left;
+}
+
+#status .labelled{
+	width: 180px;
+	float: left;
+}
+#status .labelled select{
+	width: 180px;
+	margin-right:0px;
 }

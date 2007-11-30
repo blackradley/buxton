@@ -174,7 +174,7 @@ class UsersController < ApplicationController
       case user.class.name
         when 'FunctionManager'
           if user.function.started then
-            redirect_to :controller => 'functions', :action => 'show'
+            redirect_to :controller => 'functions', :action => 'index'
           else
            redirect_to :controller => 'functions', :action => 'status'
           end
