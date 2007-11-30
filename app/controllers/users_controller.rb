@@ -176,7 +176,7 @@ class UsersController < ApplicationController
           if user.function.started then
             redirect_to :controller => 'functions', :action => 'index'
           else
-           redirect_to :controller => 'functions', :action => 'status'
+           redirect_to :controller => 'functions', :action => 'index'
           end
         when 'OrganisationManager'
           redirect_to :controller => 'functions', :action => 'summary'
