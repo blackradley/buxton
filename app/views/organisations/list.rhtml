@@ -23,7 +23,7 @@
   <% end %>
 </table>
 <br />
-<%= will_paginate @organisations -%>
+<%= (will_paginate @organisations) unless @organisations.blank? -%>
 <br />
 <%= link_to 'New organisation', :action => 'new' %>
 <br />

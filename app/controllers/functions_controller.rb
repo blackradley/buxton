@@ -57,6 +57,7 @@ class FunctionsController < ApplicationController
   # Available to: Organisation Manager
   def list
     @organisation = Organisation.find(@current_user.organisation.id)
+    @directorates = @organisation.directorates
   end
   
   # Create a new Function and a new associated user, all functions must have single a valid User.
@@ -64,12 +65,14 @@ class FunctionsController < ApplicationController
   def new
     @function = Function.new
     @function_manager = @function.build_function_manager
+    @directorates = @current_user.organisation.directorates
   end
 
   # Create a new function and a new user based on the parameters in the form data.
   # Available to: Organisation Manager  
   def create
-    @function = @current_user.organisation.functions.build(params[:function])
+    @directorate = Directorate.find_by_id(params[:directorate][:directorate_id])
+    @function = @directorate.functions.build(params[:function])
     @function_manager = @function.build_function_manager(params[:function_manager])
     @function_manager.passkey = FunctionManager.generate_passkey(@function_manager)
 

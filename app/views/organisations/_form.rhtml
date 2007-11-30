@@ -1,5 +1,12 @@
 <%= error_messages_for 'organisation_manager' %>
 <%= error_messages_for 'organisation' %>
+
+<script type="text/javascript">
+function addListItem() {
+	var list = document.getElementById('directorates_list');
+	list.innerHTML = list.innerHTML + "<li><input id=\"directorates[]\" type=\"text\" name=\"directorates[]\"/></li>";
+}
+</script>
     
 <p><label for="organisation_manager_email">Email</label><br />
 <%= text_field 'organisation_manager', 'email', 'size' => 50 -%></p>
@@ -9,3 +16,17 @@
 
 <p><label for="organisation_style">Style</label><br />
 <%= text_field 'organisation', 'style' -%></p>
+
+<p><label for "directorates">Directorates</label><br/>
+<% fields_for :directorate do |directorate_fields|%>
+	<div class="directorates">
+		<ul id="directorates_list">
+			<li><%= text_field_tag 'directorates[]'-%></li>
+		</ul>
+		<div class="clear"></div>
+		<span id="addissue">
+		<%= link_to_function "Add New Directorate", 'addListItem()' -%>
+		</span>
+		<div class="clear"></div>
+	</div>
+<% end %>
