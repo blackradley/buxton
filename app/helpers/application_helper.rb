@@ -119,7 +119,7 @@ module ApplicationHelper
                       :title => 'Function Control Page - Home' ,
                       :status => '' },
                     { :text => 'Activity Type',
-                      :url => { :controller => 'functions', :action => 'status'},
+                      :url => { :controller => 'functions', :action => 'activity_type'},
                       :title => 'Function Control Page - Activity Type' ,
                       :status => '' }
                   ]
