@@ -2,7 +2,7 @@
 
 <h3><%=h @function.name -%></h3>
 
-<% form_for(:function, :url => {:action => 'update_status'}) do |f| %>
+<% form_for(:function, :url => {:action => 'update_activity_type'}) do |f| %>
 <fieldset id="status">
 	<p><label for="existing_proposed">Is this:</label><div class="labelled">
 	<% ep_options = @function.hashes['existing_proposed']['choices'] %>
