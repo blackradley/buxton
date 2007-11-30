@@ -30,9 +30,10 @@ class Organisation < ActiveRecord::Base
   validates_presence_of :organisation_manager
   validates_associated :organisation_manager
 
-  has_many :functions, :dependent => :destroy
-  validates_associated :functions
-
+  has_many :directorates, :dependent => :destroy
+  validates_associated :directorates
+  
+  has_many :functions, :through => :directorates
   has_many :strategies, :dependent => :destroy
   validates_associated :strategies
 

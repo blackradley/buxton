@@ -40,11 +40,14 @@ class OrganisationsController < ApplicationController
   # Available to: Administrator  
   def create
     @organisation = Organisation.new(params[:organisation])
+    @directorates = []
+    params[:directorates].each{|name| @directorates.push(@organisation.directorates.build(:name => name))}
     @organisation_manager = @organisation.build_organisation_manager(params[:organisation_manager])
     @organisation_manager.passkey = OrganisationManager.generate_passkey(@organisation_manager)
 
     Organisation.transaction do
       @organisation.save!
+      @directorates.each{|directorate| directorate.save!}
       flash[:notice] = "#{@organisation.name} was created."
       redirect_to :action => :list
     end

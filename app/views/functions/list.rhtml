@@ -1,6 +1,9 @@
 <h3>Impact Equality&trade; Organisation Control Page - Functions</h3>
-<div id="print_link"><%= link_to "#{image_tag('icons/add.png')} Add New", :action => 'new' -%></div>
+<div id="print_link"><%= link_to "#{image_tag('icons/add.png')} Add New Function", :action => 'new' -%></div>
 <p>This page shows the Organisation Equalities Manager how each function is progressing through Impact Equality&trade;. It also lets the manager add new functions, amend existing functions and delete functions.</p>
+<strong><%= "No directorates created" if @directorates.blank? -%></strong>
+<% @directorates.each do|directorate| -%>
+<h4><%=h directorate.name -%></h4>
 <table class="list">
   <tr>
     <th class="left">Name</th>
@@ -13,7 +16,7 @@
     <th>Last key sent</th>
     <th></th>
   </tr>
-  <% for function in @organisation.functions -%>
+  <% for function in directorate.functions -%>
   <tr>
     <td class="left"><%=h function.name -%></td>
     <td><%= completed_tag(function) -%></td>
@@ -32,4 +35,4 @@
   </tr>
   <% end -%>
 </table>
-
+<% end -%>

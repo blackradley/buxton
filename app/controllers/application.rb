@@ -31,6 +31,7 @@ protected
   # If the user_id session variable exists, grab this user from the database and store
   # in @current_user making it available to the action of any controller.
   def set_current_user
+    @current_user = nil
     @current_user = User.find(session[:user_id]) unless session[:user_id].nil?
   end
 
@@ -49,6 +50,7 @@ protected
   # @first = Person.find(:first) or raise ActiveRecord::RecordNotFound
   # @people = Person.find(:all) or raise ActiveRecord::RecordNotFound
   # http://api.rubyonrails.com/classes/ActiveRecord/Base.html#M001005
+=begin
   def rescue_action(exception)
     case exception
     when ActiveRecord::RecordInvalid
@@ -61,7 +63,7 @@ protected
       super
     end
   end
-
+=end
   def render_invalid_record(record)
     render :action => (record.new_record? ? 'new' : 'edit')
   end  
