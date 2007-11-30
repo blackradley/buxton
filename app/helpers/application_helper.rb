@@ -170,8 +170,7 @@ def strand_menu()
   id = params[:id] 
   if params[:equality_strand]
     purpose_sel = "#{'selected' if (id == 'purpose')}"
-    perf_sel = "#{'selected' if (id == 'performance')}"
-    ci_sel = "#{'selected' if (id == 'confidence_information')}"
+    impact_sel = "#{'selected' if (id == 'impact')}"
     cc_sel = "#{'selected' if (id == 'confidence_consultation')}"
     aw_sel = "#{'selected' if (id == 'additional_work')}"
     ap_sel = "#{'selected' if (id == 'action_planning')}"
@@ -183,9 +182,7 @@ def strand_menu()
         html << link_to('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title => 'Edit Purpose', :class => purpose_sel)      
         html << ' >> '
       end
-      html << link_to('Performance', { :controller => 'sections', :action => 'edit', :id => 'performance', :equality_strand => params[:equality_strand] }, :title => 'Edit Performance', :class => perf_sel)   
-      html << ' >> '
-      html << link_to('Confidence Information', { :controller => 'sections', :action => 'edit', :id => 'confidence_information', :equality_strand => params[:equality_strand] }, :title => 'Edit Confidence Information', :class => ci_sel)    
+      html << link_to('Impact', { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => params[:equality_strand] }, :title => 'Edit Impact', :class => impact_sel)   
       unless params[:equality_strand] == 'overall'
         html << ' >> '
         html << link_to('Confidence Consultation', { :controller => 'sections', :action => 'edit', :id => 'confidence_consultation', :equality_strand => params[:equality_strand] }, :title => 'Edit Confidence Consultation', :class => cc_sel)
@@ -207,11 +204,8 @@ def sections_menu
     :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
     :title => 'Organisation Control Page - Section - Purpose' },
   { :text => 'Performance',
-    :url => { :controller => 'sections', :action => 'list', :id => 'performance' },
-    :title => 'Organisation Control Page - Section - Performance' },
-  { :text => 'Confidence Information',
-    :url => { :controller => 'sections', :action => 'list', :id => 'confidence_information' },
-    :title => 'Organisation Control Page - Section - Confidence Information' },
+    :url => { :controller => 'sections', :action => 'list', :id => 'impact' },
+    :title => 'Organisation Control Page - Section - Impact' },
   { :text => 'Confidence Consultation',
     :url => { :controller => 'sections', :action => 'list', :id => 'confidence_consultation' },
     :title => 'Organisation Control Page - Section - Confidence Consultation' },

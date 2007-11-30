@@ -1,5 +1,5 @@
 <h1 id="questions">
-	<%= link_to image_tag('icons/previous.gif', :class =>'previous'), { :action => 'edit', :id => 'confidence_information', :equality_strand => @equality_strand }, :title =>"Previous Section" -%>
+	<%= link_to image_tag('icons/previous.gif', :class =>'previous'), { :action => 'edit', :id => 'impact', :equality_strand => @equality_strand }, :title =>"Previous Section" -%>
 	<%=h @function.name -%> - <%= @equality_strand.titleize -%> Confidence Consultation
 	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'additional_work', :equality_strand => @equality_strand }, :title =>"Next Section" -%>
 </h1>

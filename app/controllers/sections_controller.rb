@@ -23,10 +23,8 @@ class SectionsController < ApplicationController
     case params[:id]
     when 'purpose'
       render :template => 'sections/list_purpose'
-    when 'performance'
-      render :template => 'sections/list_performance'
-    when 'confidence_information'
-      render :template => 'sections/list_confidence_information'
+    when 'impact'
+      render :template => 'sections/list_impact'
     when 'confidence_consultation'
       render :template => 'sections/list_confidence_consultation'
     when 'additional_work'
@@ -58,10 +56,8 @@ class SectionsController < ApplicationController
       case params[:id]
       when 'purpose'
         render :template => 'sections/show_purpose'
-      when 'performance'
-        render :template => 'sections/show_performance'
-      when 'confidence_information'
-        render :template => 'sections/show_confidence_information'
+      when 'impact'
+        render :template => 'sections/show_impact'
       when 'confidence_consultation'
         render :template => 'sections/show_confidence_consultation'
       when 'additional_work'
@@ -97,10 +93,8 @@ class SectionsController < ApplicationController
     when 'purpose'
       @function_responses = @function.function_strategies.sort_by {|fr| fr.strategy.position } # sort by position
       render :template => 'sections/edit_purpose'
-    when 'performance'
-      render :template => 'sections/edit_performance'
-    when 'confidence_information'
-      render :template => 'sections/edit_confidence_information'
+    when 'impact'
+      render :template => 'sections/edit_impact'
     when 'confidence_consultation'
       @issue = Issue.new
       render :template => 'sections/edit_confidence_consultation'

@@ -1,0 +1,26 @@
+<h3>Impact Equality&trade; Organisation Control Page - Sections</h3>
+
+<div id="sections_menu"><%= sections_menu -%></div>
+
+<h3>Impact</h3>
+<p></p>
+<table class="list">
+  <tr>
+    <th class="left" width="50%">Name</th>
+    <th>Completed</th>
+    <th>Last key sent</th>
+	<th></th>
+  </tr>
+  <% for function in @organisation.functions -%>
+  <tr>
+    <td class="left"><%=h function.name -%></td>
+    <td width="104px"><%= progress_bar(function.percentage_answered(:impact)) -%></td>
+    <td><%= date_or_blank(function.function_manager.reminded_on) -%></td>
+    <td class="actions" nowrap>
+      <%= link_to image_tag('icons/view.jpg'), {:action => 'show', :id => 'impact', :f => function}, :id => 'view', :title =>"View" -%> 
+	  <%= link_to image_tag('icons/email.png'), "mailto:#{h function.function_manager.email}", :title =>"Email" -%>
+      <%= link_to image_tag('icons/key.png'), { :controller => 'users', :action => 'remind', :id => function.function_manager.id }, :confirm => "Send access key reminder to #{h function.name}?", :method => :post, :title =>"Key" -%>
+    </td>
+  </tr>
+  <% end -%>
+</table>
