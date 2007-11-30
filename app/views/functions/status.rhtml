@@ -1,0 +1,13 @@
+<h1>Impact Equality&trade;</h1>
+
+<h3><%=h @function.name -%></h3>
+
+<% form_for(:function, :url => {:action => 'update_status'}) do |f| %>
+	<p><label for="existing_proposed">Is this:</label>
+	<% ep_options = @function.hashes['existing_proposed']['choices'] %>
+	<%= f.select :existing_proposed, @function.hashes['choices'][ep_options].collect {|option| [option , @function.hashes['choices'][ep_options].index(option)] } -%></p>
+	<p><label for="function_policy">Is this a:</label>
+	<% fp_options = @function.hashes['function_policy']['choices'] %>
+	<%= f.select :function_policy, @function.hashes['choices'][fp_options].collect {|option| [option , @function.hashes['choices'][fp_options].index(option)] } -%></p>
+	<p><%= submit_tag -%></p>
+<% end %>
