@@ -41,7 +41,7 @@ class SectionsControllerTest < Test::Unit::TestCase
     login_as :function_manager
     
     equality_strands = [ :gender, :race, :disability, :faith, :sexual_orientation, :age ]
-    all_es_sections = [ :performance, :confidence_information, :confidence, :additional_work, :action_planning ]
+    all_es_sections = [ :impact, :confidence, :additional_work, :action_planning ]
     
     for section in all_es_sections
       for es in equality_strands
@@ -53,16 +53,14 @@ class SectionsControllerTest < Test::Unit::TestCase
     # Stragglers
     get :edit, {:id => 'purpose', :equality_strand => 'overall' }
     assert_response :success
-    get :edit, {:id => 'performance', :equality_strand => 'overall' }
+    get :edit, {:id => 'impact', :equality_strand => 'overall' }
     assert_response :success
-    get :edit, {:id => 'confidence_information', :equality_strand => 'overall' }
-    assert_response :success    
   end
   
   def test_should_render_all_show_sections_okay_for_function_manager
     login_as :function_manager
 
-    es_sections = [ :purpose, :performance, :confidence_information, :confidence, :additional_work, :action_planning ]
+    es_sections = [ :purpose, :impact, :confidence, :additional_work, :action_planning ]
 
     for section in es_sections
       get :show, :id => section
@@ -73,7 +71,7 @@ class SectionsControllerTest < Test::Unit::TestCase
   def test_should_render_all_show_sections_okay_for_organisation_manager
     login_as :organisation_manager
 
-    es_sections = [ :purpose, :performance, :confidence_information, :confidence, :additional_work, :action_planning ]
+    es_sections = [ :purpose, :impact, :confidence, :additional_work, :action_planning ]
 
     for function in OrganisationManager.find(session[:user_id]).organisation.functions
       for section in es_sections
@@ -86,7 +84,7 @@ class SectionsControllerTest < Test::Unit::TestCase
   def test_should_render_all_list_sections_okay
     login_as :organisation_manager
 
-    es_sections = [ 'purpose', 'performance', 'confidence_information', 'confidence', 'additional_work', 'action_planning' ]
+    es_sections = [ 'purpose', 'impact', 'confidence', 'additional_work', 'action_planning' ]
 
     for section in es_sections
       get :list, :id => section

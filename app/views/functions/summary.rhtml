@@ -25,25 +25,16 @@
 		</td>
 	</tr>
 	<tr>
-	    <td>2 - Performance</td>
+	    <td>2 - Impact</td>
 	    <td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.started(:performance)) ? 1 : 0 } -%>
+			<%= @functions.inject(0) { |started, function| started += (function.started(:impact)) ? 1 : 0 } -%>
 		</td>
 	    <td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.completed(:performance)) ? 1 : 0 } -%>
-		</td>
-	</tr>
-	<tr>
-	    <td>3 - Confidence Information</td>
-	    <td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.started(:confidence_information)) ? 1 : 0 } -%>
-		</td>
-	    <td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.completed(:confidence_information)) ? 1 : 0 } -%>
+			<%= @functions.inject(0) { |started, function| started += (function.completed(:impact)) ? 1 : 0 } -%>
 		</td>
 	</tr>
 	<tr>
-    	<td>4 - Consultation</td>
+    	<td>3 - Consultation</td>
 	    <td class="number">
 			<%= @functions.inject(0) { |started, function| started += (function.started(:consultation)) ? 1 : 0 } -%>
 		</td>
@@ -52,7 +43,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>5 - Additional Work</td>
+		<td>4 - Additional Work</td>
 		<td class="number">
 			<%= @functions.inject(0) { |started, function| started += (function.started(:additional_work)) ? 1 : 0 } -%>
 		</td>
@@ -61,7 +52,7 @@
 		</td>
 	</tr>
 	<tr>
-		<td>6 - Action Planning</td>
+		<td>5 - Action Planning</td>
 		<td class="number">
 			<%= @functions.inject(0) { |started, function| started += (function.started(:action_planning)) ? 1 : 0 } -%>
 		</td>

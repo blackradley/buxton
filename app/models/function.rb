@@ -188,7 +188,7 @@ class Function < ActiveRecord::Base
   #TODO: Heavy amount of speed increases. No extensive comments as yet, because I'm anticipating ripping this
   #calling method out and replacing it with a much faster version. Statistics library should remain largely unchanged though.
   def statistics
-    statistics_sections = [:purpose, :performance, :confidence_information, :consulation]
+    statistics_sections = [:purpose, :impact, :consulation]
     statistics_completed = true
     statistics_sections.each{|section| statistics_completed = statistics_completed && completed(section)}
     return nil unless statistics_completed # Don't calculate stats if all the necessary questions haven't been answered
@@ -280,19 +280,19 @@ class Function < ActiveRecord::Base
       when 3
         response = "The performance of the #{fun_pol_indicator} in meeting the different needs of #{wordings[strand]} is "
         begin
-          response += choices[2][send("performance_#{strand}_1".to_sym)].split(" - ")[1].downcase
+          response += choices[2][send("impact_#{strand}_1".to_sym)].split(" - ")[1].downcase
         rescue
           #if it gets here, then response threw an error, meaning that the answer is "Not Answered"
           response += "not yet determined"
         end
         response += ".\n"
-        is_validated = (self.send("performance_#{strand}_1".to_sym) == 1)
+        is_validated = (self.send("impact_#{strand}_1".to_sym) == 1)
         response += "This performance assessment has #{"not " unless is_validated}been validated."
       when 4
-        issues_present = (self.send("performance_#{strand}_4".to_sym) == 1)
+        issues_present = (self.send("impact_#{strand}_4".to_sym) == 1)
         response += "There are #{"no " unless issues_present}performance issues that might have different implications for #{wordings[strand]}"
       when 5
-        information_present = (self.send("consultation_information_#{strand}_1".to_sym) == 2)
+        information_present = (self.send("impact_#{strand}_1".to_sym) == 2)
         response = "There are #{"no " if information_present}gaps in the information to monitor the performance of the #{fun_pol_indicator} in meeting the needs of #{wordings[strand]}"
       when 6
         consulted_groups = (self.send("consultation_#{strand}_1".to_sym) == 1)
@@ -429,7 +429,7 @@ private
   
   def check_response(response) #Check response verifies whether a response to a question is correct or not.
     checker = !(response.to_i == 0)
-    checker = ((response.to_s.length > 0)&&response.to_s != "0") if checker.nil?
+    checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
     return checker
   end
   

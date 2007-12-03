@@ -135,7 +135,6 @@ module ApplicationHelper
                         :status => '' }
                     ]
         else
-          puts "hellllllllllllo!"
           links2 = [    
                       { :text => 'Overview',
                         :url => { :controller => 'functions', :action => 'overview'},

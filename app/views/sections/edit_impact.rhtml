@@ -11,30 +11,23 @@
   	if @equality_strand=='overall'	
   		image_tag('icons/no_next.gif', :class =>'next') 
   	else
-  		link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'confidence_consultation', :equality_strand => @equality_strand }, :title =>"Next Section"
+  		link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'consultation', :equality_strand => @equality_strand }, :title =>"Next Section"
   	end
   	-%>
   </h1>
 
 <div id="questions">
 <% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
-	<%= f.question :performance, {:equality_strand => @equality_strand, :number => 1, :f_id => @function.id} %>
-	<%= f.question :performance, {:equality_strand => @equality_strand, :number => 2, :f_id => @function.id} %>
-	<%= f.question :performance, {:equality_strand => @equality_strand, :number => 3, :f_id => @function.id} %>
-	<%= f.question :performance, {:equality_strand => @equality_strand, :number => 4, :f_id => @function.id} %>
-	<%= f.question :performance, {:equality_strand => @equality_strand, :number => 5, :f_id => @function.id} %>
-	<div class="clear"></div>
-	<span class="button"><%= submit_tag 'Save' -%></span>
-	<div class="clear"></div>
-<% end -%>
-
-<div id="questions">
-<% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
-	<%= f.question :confidence_information, {:equality_strand => @equality_strand, :number => 1, :f_id => @function.id} %>
-	<%= f.question :confidence_information, {:equality_strand => @equality_strand, :number => 2, :f_id => @function.id} %>
-	<%= f.question :confidence_information, {:equality_strand => @equality_strand, :number => 3, :f_id => @function.id} %>
-	<%= f.question :confidence_information, {:equality_strand => @equality_strand, :number => 4, :f_id => @function.id} %>
-	<%= f.question :confidence_information, {:equality_strand => @equality_strand, :number => 5, :f_id => @function.id} %>
+	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 1, :f_id => @function.id} %>
+	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 2, :f_id => @function.id} %>
+	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 3, :f_id => @function.id} %>
+	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 4, :f_id => @function.id} %>
+	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 5, :f_id => @function.id} %>
+	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 6, :f_id => @function.id} %>
+	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 7, :f_id => @function.id} %>
+	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 8, :f_id => @function.id} %>
+	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 9, :f_id => @function.id} %>
+	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 10, :f_id => @function.id} %>
 	<div class="clear"></div>
 	<span class="button"><%= submit_tag 'Save' %></span>
 	<div class="clear"></div>
