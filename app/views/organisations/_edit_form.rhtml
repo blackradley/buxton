@@ -16,11 +16,11 @@ function addListItem() {
 <fieldset class="organisation_customisation">
 	<legend>Customisation</legend>
 	<p><label for="organisation_style">Style:</label><div class="labelled"><%= text_field 'organisation', 'style' -%></div></p>
-	<p><label for="organisation_directorate_term">Localised term for 'Directorate':</label><div class="labelled"><input type="text" name="organisation_directorate_term" value="Department"></div></p>
+	<p><label for="organisation_directorate_term">Localised term for 'Directorate':</label><div class="labelled"><%= text_field 'organisation', 'directorate_term' -%></div></p>
 	<p><label for="organisation_strategies_text" class="long">Text to be used when asking about an Activities strategies:</label><br />
   	<div class="labelled long">
-  	  <input type="radio" name="organisation_strategies_text" value="1">"How do you contribute to our goals?"<br />
-  	  <input type="radio" name="organisation_strategies_text" value="2">"For each strategy, please decide whether it is going to be significantly aided by the function"	    
+  	<%= radio_button :organisation, :strategy_text_selection, 0 %> "How do you contribute to our goals?" <br/>
+  	<%= radio_button :organisation, :strategy_text_selection, 1 %> "For each strategy, please decide whether it is going to be significantly aided by the function" <br/>		    
   	</div>
 	</p>
 </fieldset>

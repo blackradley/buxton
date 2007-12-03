@@ -11,10 +11,11 @@
 <fieldset class="organisation_customisation">
 	<legend>Customisation</legend>
 	<p><label for="organisation_style">Style:</label><div class="labelled"><%= @organisation.style -%></div></p>
-	<p><label for="organisation_directorate_term">Localised term for 'Directorate':</label><div class="labelled">Department</div></p>
-	<p><label for="organisation_strategies_text" class="long">Text to be used when asking about an Activities strategies:</label><br />
+	<p><label for="organisation_directorate_term">Localised term for 'Directorate':</label>
+		<div class="labelled"><%=h @organisation.directorate_term -%></div></label><br /></p>
+	<p><label for="organisation_strategies_text" class="long">Text to be used when asking about an Activities strategies:
   	<div class="labelled long indent">
-  	  "For each strategy, please decide whether it is going to be significantly aided by the function"	    
+  	  <%=h @organisation.strategy_text -%>    
   	</div>
 	</p>
 </fieldset>
