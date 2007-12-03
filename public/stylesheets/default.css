@@ -662,18 +662,18 @@ html>body #questions .issues ul{
 
 /*summary page */
 
-#print_link{
+#pdf_link{
 	float: right;
 	margin-top: -40px;
-	width: 50px;
+	width: 105px;
 }
 
-#print_link img{
+#pdf_link img{
 	margin-right:5px;
 	float: left;
 }
 
-#print_link a, #print_link a:visited, #print_link a:hover{
+#pdf_link a, #pdf_link a:visited, #pdf_link a:hover{
 	text-decoration:underline;
 	color: #515f8d;
 }
