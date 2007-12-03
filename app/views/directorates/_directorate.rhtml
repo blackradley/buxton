@@ -1,0 +1,3 @@
+<li id="directorate-<%= directorate.id -%>">
+	<%= directorate.name -%> (<%= link_to_remote 'remove', :url => {:controller => 'directorates', :action => 'destroy', :id => directorate.id} %>)
+</li>

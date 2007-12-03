@@ -26,6 +26,7 @@ class OrganisationsController < ApplicationController
   # Available to: Administrator  
   def show
     @organisation = Organisation.find(params[:id])
+    @directorates = @organisation.directorates
     @organisation_manager = @organisation.organisation_manager
   end
 
