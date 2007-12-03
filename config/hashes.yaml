@@ -34,7 +34,7 @@ questions:
        choices: 1
        weights: 1
        dependent_questions: ''
-  performance:
+  impact:
     1:
       label:
         - 'How would you assess the potential performance of the #{fun_pol_indicator} in meeting the particular needs of #{wordings[strand]}?'
@@ -53,14 +53,12 @@ questions:
     2:
       label:
         - 'Has this performance assessment been confirmed?'
-        - 'Has this performance assessment been confirmed?'
+        - 'Has this performance assessment been validated?'
       help: '<p>The performance assessment in question 1 may have been confirmed or validated by either an internal
             or external inspection process.  Please answer the question to indicate whether this is the case and, if
             applicable, write the name of the relevant process in the text box.  Examples of the sort of thing you 
             might include are a CPA finding or an OFSTED report.</p>'
-      type: select
-      choices: 3
-      weights: 3
+      type: text
       dependent_questions: ''
     3:
       label:
@@ -68,7 +66,7 @@ questions:
         - 'Please note the process by which the performance was confirmed.'
       help: ''
       type: string
-      dependent_questions: 'performance_#{strand}_2 yes_value'
+      dependent_questions: 'impact_#{strand}_2 yes_value'
     4:
       label:
         - 'Are there likely to be any performance issues which might have implications for #{wordings[strand]}?'
@@ -88,9 +86,8 @@ questions:
         - 'Please record any such performance issues for #{wordings[strand]}?'
       help: ''
       type: text
-      dependent_questions: 'performance_#{strand}_4 yes_value'
-  confidence_information:
-    1:
+      dependent_questions: 'impact_#{strand}_4 yes_value'
+    6:
       label: 
         - 'Will information about the #{fun_pol_indicator} be collected to determine the impact on #{wordings[strand]}?'
         - 'Are there any gaps in the information about the #{fun_pol_indicator} in relation to #{wordings[strand]}?'
@@ -102,7 +99,7 @@ questions:
       choices: 3
       weights: 5
       dependent_questions: ''
-    2:
+    7:
       label:
         - 'Are there plans to collect additional information?'
         - 'Are there plans to collect additional information?'
@@ -111,7 +108,7 @@ questions:
       choices: 3
       weights: 3
       dependent_questions: ''
-    3:
+    8:
       label:
         - 'If there are plans to collect more information what are the timescales?'
         - 'If there are plans to collect more information what are the timescales?'
@@ -120,8 +117,8 @@ questions:
       type: select
       choices: 4
       weights: 0
-      dependent_questions: 'confidence_information_#{strand}_2 yes_value'
-    4:
+      dependent_questions: 'impact_#{strand}_7 yes_value'
+    9:
       label:
         - 'Are there any other ways by which the impact of the #{fun_pol_indicator} on #{wordings[strand]} could be assessed?'
         - 'Are there any other ways by which performance in meeting the the particular needs of #{wordings[strand]} could be assessed?'
@@ -131,13 +128,13 @@ questions:
       choices: 3
       weights: 6
       dependent_questions: ''
-    5:
+    10:
       label:
         - 'Please record any such impact measures for #{wordings[strand]}'
         - 'Please record any such performance measures for #{wordings[strand]}'
       help: ''
       type: text
-      dependent_questions: 'confidence_information_#{strand}_4 yes_value'
+      dependent_questions: 'impact_#{strand}_9 yes_value'
   consultation:
     1:
       label: 
@@ -364,7 +361,7 @@ overall_questions:
       choices: 3
       weights: 0
       dependent_questions: ''
-  performance:
+  impact:
     1:
       label:
        - 'How would you rate the potential performance of the Function?'
@@ -389,7 +386,7 @@ overall_questions:
         - 'Please note the validation regime:'
       help: ''
       type: string
-      dependent_questions: 'performance_overall_2 yes_value'
+      dependent_questions: 'impact_overall_2 yes_value'
     4:
       label:
         - 'Are there any performance issues which might have implications for different individuals within the equality group?'
@@ -405,9 +402,8 @@ overall_questions:
         - 'Please note any such performance issues:'
       help: ''
       type: text
-      dependent_questions: 'performance_overall_4 yes_value'
-  confidence_information:
-    1:
+      dependent_questions: 'impact_overall_4 yes_value'
+    6:
       label: 
         - 'Will information about the #{fun_pol_indicator} be collected to determine the impact on #{wordings[strand]}?'
         - 'Are there any gaps in the information about the #{fun_pol_indicator} in relation to #{wordings[strand]}?'
@@ -419,7 +415,7 @@ overall_questions:
       choices: 3
       weights: 5
       dependent_questions: ''
-    2:
+    7:
       label:
         - 'Are there plans to collect additional information?'
         - 'Are there plans to collect additional information?'
@@ -428,7 +424,7 @@ overall_questions:
       choices: 3
       weights: 3
       dependent_questions: ''
-    3:
+    8:
       label:
         - 'If there are plans to collect more information what are the timescales?'
         - 'If there are plans to collect more information what are the timescales?'
@@ -437,8 +433,8 @@ overall_questions:
       type: select
       choices: 4
       weights: 0
-      dependent_questions: 'confidence_information_overall_2 yes_value'
-    4:
+      dependent_questions: 'impact_overall_7 yes_value'
+    9:
       label:
         - 'Are there any other ways by which the impact of the #{fun_pol_indicator} on #{wordings[strand]} could be assessed?'
         - 'Are there any other ways by which performance in meeting the particular needs of #{wordings[strand]} could be assessed?'
@@ -448,13 +444,13 @@ overall_questions:
       choices: 3
       weights: 0
       dependent_questions: ''
-    5:
+    10:
       label:
         - 'Please record any such impact measures for #{wordings[strand]}'
         - 'Please record any such performance measures for #{wordings[strand]}'
       help: ''
       type: text
-      dependent_questions: 'confidence_information_overall_4 yes_value'
+      dependent_questions: 'impact_overall_9 yes_value'
       
 wordings:
   gender: 'men and women'

@@ -6,16 +6,12 @@ describe SectionsController, 'routes' do
     route_for(:controller => 'sections', :action => 'list', :id => 'purpose').should == '/sections/list/purpose'
   end
 
-  it "should map { :controller => 'sections', :action => 'list', :id => 'performance' } to /sections/list/performance" do
-    route_for(:controller => 'sections', :action => 'list', :id => 'performance').should == '/sections/list/performance'
+  it "should map { :controller => 'sections', :action => 'list', :id => 'impact' } to /sections/list/impact" do
+    route_for(:controller => 'sections', :action => 'list', :id => 'impact').should == '/sections/list/impact'
   end
-  
-  it "should map { :controller => 'sections', :action => 'list', :id => 'confidence_information' } to /sections/list/confidence_information" do
-    route_for(:controller => 'sections', :action => 'list', :id => 'confidence_information').should == '/sections/list/confidence_information'
-  end  
 
-  it "should map { :controller => 'sections', :action => 'list', :id => 'confidence_consultation' } to /sections/list/confidence_consultation" do
-    route_for(:controller => 'sections', :action => 'list', :id => 'confidence_consultation').should == '/sections/list/confidence_consultation'
+  it "should map { :controller => 'sections', :action => 'list', :id => 'consultation' } to /sections/list/consultation" do
+    route_for(:controller => 'sections', :action => 'list', :id => 'consultation').should == '/sections/list/consultation'
   end
 
   it "should map { :controller => 'sections', :action => 'list', :id => 'additional_work' } to /sections/list/additional_work" do
@@ -30,16 +26,16 @@ describe SectionsController, 'routes' do
     route_for(:controller => 'sections', :action => 'show', :id => 'purpose').should == '/sections/show/purpose'
   end
 
-  it "should map { :controller => 'sections', :action => 'show', :id => 'performance' } to /sections/show/performance" do
-    route_for(:controller => 'sections', :action => 'show', :id => 'performance').should == '/sections/show/performance'
+  it "should map { :controller => 'sections', :action => 'show', :id => 'impact' } to /sections/show/impact" do
+    route_for(:controller => 'sections', :action => 'show', :id => 'impact').should == '/sections/show/impact'
   end
   
-  it "should map { :controller => 'sections', :action => 'show', :id => 'confidence_information' } to /sections/show/confidence_information" do
-    route_for(:controller => 'sections', :action => 'show', :id => 'confidence_information').should == '/sections/show/confidence_information'
+  it "should map { :controller => 'sections', :action => 'show', :id => 'consultation_information' } to /sections/show/consultation_information" do
+    route_for(:controller => 'sections', :action => 'show', :id => 'consultation_information').should == '/sections/show/consultation_information'
   end  
 
-  it "should map { :controller => 'sections', :action => 'show', :id => 'confidence_consultation' } to /sections/show/confidence_consultation" do
-    route_for(:controller => 'sections', :action => 'show', :id => 'confidence_consultation').should == '/sections/show/confidence_consultation'
+  it "should map { :controller => 'sections', :action => 'show', :id => 'consultation' } to /sections/show/consultation" do
+    route_for(:controller => 'sections', :action => 'show', :id => 'consultation').should == '/sections/show/consultation'
   end
 
   it "should map { :controller => 'sections', :action => 'show', :id => 'additional_work' } to /sections/show/additional_work" do
@@ -54,16 +50,12 @@ describe SectionsController, 'routes' do
     route_for(:controller => 'sections', :action => 'show', :id => 'purpose', :f => 1).should == '/sections/show/purpose?f=1'
   end
 
-  it "should map { :controller => 'sections', :action => 'show', :id => 'performance', :f => 1 } to /sections/show/performance?f=1" do
-    route_for(:controller => 'sections', :action => 'show', :id => 'performance', :f => 1).should == '/sections/show/performance?f=1'
+  it "should map { :controller => 'sections', :action => 'show', :id => 'impact', :f => 1 } to /sections/show/impact?f=1" do
+    route_for(:controller => 'sections', :action => 'show', :id => 'impact', :f => 1).should == '/sections/show/impact?f=1'
   end
-  
-  it "should map { :controller => 'sections', :action => 'show', :id => 'confidence_information', :f => 1 } to /sections/show/confidence_information?f=1" do
-    route_for(:controller => 'sections', :action => 'show', :id => 'confidence_information', :f => 1).should == '/sections/show/confidence_information?f=1'
-  end  
 
-  it "should map { :controller => 'sections', :action => 'show', :id => 'confidence_consultation', :f => 1 } to /sections/show/confidence_consultation?f=1" do
-    route_for(:controller => 'sections', :action => 'show', :id => 'confidence_consultation', :f => 1).should == '/sections/show/confidence_consultation?f=1'
+  it "should map { :controller => 'sections', :action => 'show', :id => 'consultation', :f => 1 } to /sections/show/consultation?f=1" do
+    route_for(:controller => 'sections', :action => 'show', :id => 'consultation', :f => 1).should == '/sections/show/consultation?f=1'
   end
 
   it "should map { :controller => 'sections', :action => 'show', :id => 'additional_work', :f => 1 } to /sections/show/additional_work?f=1" do
@@ -127,18 +119,13 @@ describe SectionsController, 'handling GET /sections/list/:id' do
     response.should be_success
   end
   
-  it "should be successful with 'performance'" do
-    get :list, :id => 'performance'
-    response.should be_success
-  end
-
-  it "should be successful with 'confidence_information'" do
-    get :list, :id => 'confidence_information'
+  it "should be successful with 'impact'" do
+    get :list, :id => 'impact'
     response.should be_success
   end
   
-  it "should be successful with 'confidence_consultation'" do
-    get :list, :id => 'confidence_consultation'
+  it "should be successful with 'consultation'" do
+    get :list, :id => 'consultation'
     response.should be_success
   end
   
@@ -173,18 +160,13 @@ describe SectionsController, 'handling GET /sections/show/:id' do
     response.should be_success
   end
   
-  it "should be successful with 'performance'" do
-    get :show, :id => 'performance'
-    response.should be_success
-  end
-
-  it "should be successful with 'confidence_information'" do
-    get :show, :id => 'confidence_information'
+  it "should be successful with 'impact'" do
+    get :show, :id => 'impact'
     response.should be_success
   end
   
-  it "should be successful with 'confidence_consultation'" do
-    get :show, :id => 'confidence_consultation'
+  it "should be successful with 'consultation'" do
+    get :show, :id => 'consultation'
     response.should be_success
   end
   
