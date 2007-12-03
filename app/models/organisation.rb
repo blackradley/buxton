@@ -44,4 +44,14 @@ class Organisation < ActiveRecord::Base
   validates_format_of :style,
     :with => /^[\w]*$/
 
+  def strategy_text
+    button_selected = self.strategy_text_selection
+    button_selected = 0 unless button_selected
+    case button_selected
+      when 0
+        return "How do you contribute to our goals?"
+      when 1
+        return "For each strategy, please decide whether it is going to be significantly aided by the function"
+    end
+  end
 end
