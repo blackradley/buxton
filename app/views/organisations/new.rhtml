@@ -2,11 +2,12 @@
 
 <% form_tag ({:action => 'create'}, :id => 'new_organisation') do%>
   <%= render :partial => 'form' %>
-<% end %>
+
 
 <span class="button" style="float:none;">
 <%= submit_tag "Create" %>
 </span>
+<% end %>
 <span class="button">
 <%= link_to 'Back', {:action => 'list'}  %>
 </span>

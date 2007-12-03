@@ -1,11 +1,38 @@
 <h2><%=h @organisation.name %></h2>
+<div id='show_organisation'>
+<p><label for="organisation_manager_email">Email</label><div class="labelled"><%= @organisation_manager.email -%></div></p>
+    
+<p><label for="organisation_name">Last Reminded</label><div class="labelled"><%= date_or_blank(@organisation_manager.reminded_on) -%></div></p>
 
-<p><strong>Email:</strong> <%= @organisation_manager.email -%></p>
-<p><strong>Reminded:</strong> <%= date_or_blank(@organisation_manager.reminded_on) -%></p>
-<% for column in Organisation.content_columns -%>
-<p>
-  <strong><%= column.human_name -%>:</strong> <%=h @organisation.send(column.name) -%>
-</p>
-<% end -%>
+<p><label for="organisation_name">Created</label><div class="labelled"><%= date_or_blank(@organisation.created_on) -%></div></p>
 
-<%= link_to 'Edit', :action => 'edit', :id => @organisation -%> | <%= link_to 'Back', :action => 'list' -%>
+<p><label for="organisation_name">Last Updated</label><div class="labelled"><%= date_or_blank(@organisation.updated_on) -%></div></p>
+
+<fieldset class="organisation_customisation">
+	<legend>Customisation</legend>
+	<p><label for="organisation_style">Style:</label><div class="labelled"><%= @organisation.style -%></div></p>
+	<p><label for="organisation_directorate_term">Localised term for 'Directorate':</label><div class="labelled">Department</div></p>
+	<p><label for="organisation_strategies_text" class="long">Text to be used when asking about an Activities strategies:</label><br />
+  	<div class="labelled long indent">
+  	  "For each strategy, please decide whether it is going to be significantly aided by the function"	    
+  	</div>
+	</p>
+</fieldset>
+<fieldset class="organisation_directorates">
+  <legend>Directorates</legend>
+  <div class="directorates">
+		<ul id="directorates_list">
+		  <% for directorate in @directorates -%>
+			<li><%= directorate.name %> </li>
+			<% end -%>
+		</ul>
+		<div class="clear"></div>
+	</div>
+</fieldset>
+</div>
+<span class="button" style="float:right;">
+<%= link_to 'Edit', {:action => 'edit', :id => @organisation}  %>
+</span>
+<span class="button">
+<%= link_to 'Back', {:action => 'list'}  %>
+</span>

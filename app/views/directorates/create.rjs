@@ -1,0 +1,3 @@
+page.insert_html :bottom, "directorates_list", {:partial=> "directorate", :locals=>{:directorate=>@directorate}}
+page[:directorate_field].value = ''
+page[:directorate_field].focus

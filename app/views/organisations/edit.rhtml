@@ -1,8 +1,13 @@
 <h2>Edit organisation</h2>
 
-<% form_tag :action => 'update', :id => @organisation.id do %>
-  <%= render :partial => 'form' %>
-  <%= submit_tag "Update" %>
-<% end %>
+<% form_tag ({:action => 'update', :id => @organisation.id}, :id => 'new_organisation') do %>
+  <%= render :partial => 'edit_form' %>
 
-<%= link_to 'Back', :action => 'list' %>
+
+<span class="button" style="float:none;">
+<%= submit_tag "Update" %>
+</span>
+<% end %>
+<span class="button">
+<%= link_to 'Back', {:action => 'list'}  %>
+</span>

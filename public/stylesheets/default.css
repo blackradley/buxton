@@ -987,38 +987,50 @@ fieldset#status{
 	margin-right:0px;
 }
 /*new organisation styles*/
-form#new_organisation fieldset{
+form#new_organisation fieldset, #show_organisation fieldset{
 	border-top:2px solid #F90;
 	padding-left:0px;
 }
-form#new_organisation legend{
+form#new_organisation legend, #show_organisation legend{
 	color:#F90;
 	font-weight:bold;
 	background-color:#fff;
 	font-size:1.1em;
 }
-form#new_organisation label{
+form#new_organisation label, #show_organisation label{
 	width: 200px;
 }
 
-form#new_organisation .labelled{
+form#new_organisation .labelled, #show_organisation .labelled{
 	float: left;
 	width: 150px;
 	line-height:20px;
 	font-weight:bold;
 }
-form#new_organisation label.long, form#new_organisation .labelled.long{
+form#new_organisation label.long, form#new_organisation .labelled.long, #show_organisation label.long, #show_organisation .labelled.long{
 	width: 100%;
 }
 form#new_organisation .labelled.long input{
 	width: auto;
-	margin-left: 20px;
+	margin-left:20px;
+
 }
 form#new_organisation .directorates ul{
 	list-style: none;
 	padding:0px;
 	margin-left:20px;
 }
+#show_organisation .directorates ul{
+	font-weight:bold;
+	padding:0px;
+	margin-left:20px;
+	list-style-type: lower-roman;
+	list-style-position:inside;
+}
+
 form#new_organisation .directorates .sub_button{
 	margin-left:20px;
+}
+.indent{
+	margin-left: 20px;
 }
