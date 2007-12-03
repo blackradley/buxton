@@ -1,8 +1,12 @@
 <h2>New organisation</h2>
 
-<% form_tag :action => 'create' do %>
+<% form_tag ({:action => 'create'}, :id => 'new_organisation') do%>
   <%= render :partial => 'form' %>
-  <%= submit_tag "Create" %>
 <% end %>
 
-<%= link_to 'Back', :action => 'list' %>
+<span class="button" style="float:none;">
+<%= submit_tag "Create" %>
+</span>
+<span class="button">
+<%= link_to 'Back', {:action => 'list'}  %>
+</span>

@@ -317,10 +317,11 @@ UL#menuBar LI.disabled A:hover
 .button a, .button a:visited, .button a:hover
 {
 	float: left;
+	margin-top: 10px;
 	width: auto;
 	font-family: Tahoma, Verdana, Arial, Sans-Serif;
 	font-size: 1em;
-	padding: 4px 20px;
+	padding: 5px 20px;
 	font-weight: bold;
 	color: #FFF;
 	background-color: #515f8d;
@@ -984,4 +985,40 @@ fieldset#status{
 #status .labelled select{
 	width: 180px;
 	margin-right:0px;
+}
+/*new organisation styles*/
+form#new_organisation fieldset{
+	border-top:2px solid #F90;
+	padding-left:0px;
+}
+form#new_organisation legend{
+	color:#F90;
+	font-weight:bold;
+	background-color:#fff;
+	font-size:1.1em;
+}
+form#new_organisation label{
+	width: 200px;
+}
+
+form#new_organisation .labelled{
+	float: left;
+	width: 150px;
+	line-height:20px;
+	font-weight:bold;
+}
+form#new_organisation label.long, form#new_organisation .labelled.long{
+	width: 100%;
+}
+form#new_organisation .labelled.long input{
+	width: auto;
+	margin-left: 20px;
+}
+form#new_organisation .directorates ul{
+	list-style: none;
+	padding:0px;
+	margin-left:20px;
+}
+form#new_organisation .directorates .sub_button{
+	margin-left:20px;
 }
