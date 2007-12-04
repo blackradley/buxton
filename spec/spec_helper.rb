@@ -13,16 +13,16 @@ end
 def login_as(user)  
   case user
     when :function_manager
-      @function = mock_model(Function, :to_param => '1')
+      @activity = mock_model(Activity, :to_param => '1')
       @current_user = mock_model(FunctionManager, {  :to_param => '1',
-                                                     :function => @function,
+                                                     :activity => @activity,
                                                      })
       User.should_receive(:find).with(@current_user.id).any_number_of_times.and_return(@current_user)
-      Function.should_receive(:find).with(@current_user.function.id).any_number_of_times.and_return(@function)      
+      Activity.should_receive(:find).with(@current_user.activity.id).any_number_of_times.and_return(@activity)      
       request.session[:user_id] = @current_user.id
     when :organisation_manager
       @organisation = mock_model(Organisation, { :to_param => '1',
-                                                 :functions => []
+                                                 :activities => []
                                                  })
       @current_user = mock_model(OrganisationManager, {  :to_param => '1',
                                                          :organisation => @organisation,
@@ -30,7 +30,6 @@ def login_as(user)
       User.should_receive(:find).with(@current_user.id).any_number_of_times.and_return(@current_user)
       Organisation.should_receive(:find).with(@current_user.organisation.id).any_number_of_times.and_return(@organisation)      
       request.session[:user_id] = @current_user.id
-    when :administrator
       @current_user = mock_model(Administrator, { :to_param => '1' })
       User.should_receive(:find).with(@current_user.id).any_number_of_times.and_return(@current_user)
       request.session[:user_id] = @current_user.id
