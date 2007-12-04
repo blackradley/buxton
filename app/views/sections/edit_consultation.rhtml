@@ -1,25 +1,25 @@
 <h1 id="questions">
 	<%= link_to image_tag('icons/previous.gif', :class =>'previous'), { :action => 'edit', :id => 'impact', :equality_strand => @equality_strand }, :title =>"Previous Section" -%>
-	<%=h @function.name -%> - <%= @equality_strand.titleize -%> Consultation
+	<%=h @activity.name -%> - <%= @equality_strand.titleize -%> Consultation
 	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'additional_work', :equality_strand => @equality_strand }, :title =>"Next Section" -%>
 </h1>
 
 <div id="questions">
-<% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
-	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 1, :f_id => @function.id} %>
-	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 2, :f_id => @function.id} %>
-	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 3, :f_id => @function.id} %>
-	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 4, :f_id => @function.id} %>
-	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 5, :f_id => @function.id} %>
-	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 6, :f_id => @function.id} %>
-	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 7, :f_id => @function.id} %>
+<% form_for(:activity, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
+	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 1, :f_id => @activity.id} %>
+	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 2, :f_id => @activity.id} %>
+	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 3, :f_id => @activity.id} %>
+	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 4, :f_id => @activity.id} %>
+	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 5, :f_id => @activity.id} %>
+	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 6, :f_id => @activity.id} %>
+	<%= f.question :consultation, {:equality_strand => @equality_strand, :number => 7, :f_id => @activity.id} %>
 	<p><label>Please record the issues identified</label>
 	<div class="issues">
 	        <ul id="issues">
-				<%= render :partial => 'issues/issue', :collection => @function.issues.reject{|issue| issue.strand != @equality_strand } %>
+				<%= render :partial => 'issues/issue', :collection => @activity.issues.reject{|issue| issue.strand != @equality_strand } %>
 			</ul>
 			<div class="clear"></div>
-	        <%= hidden_field_tag 'issue[function_id]', @function.id -%>
+	        <%= hidden_field_tag 'issue[activity_id]', @activity.id -%>
 	        <%= hidden_field_tag 'issue[strand]', @equality_strand -%>	
 	        <%= text_field_tag 'issue[description]', '', :id => 'issue_field' -%>
 	        <span id="addissue">

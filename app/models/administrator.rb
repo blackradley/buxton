@@ -7,5 +7,5 @@
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
 class Administrator < User
-  # The user has no function or organisation.
+  # The user has no activity or organisation.
 end

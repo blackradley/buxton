@@ -34,7 +34,7 @@ class UsersController < ApplicationController
   end
 
   # You can only create an administrative user, the other users have
-  # to be created in conjunction with the organisation or function
+  # to be created in conjunction with the organisation or activity
   # that they will be responsible for.
   # Available to: Administrator  
   def create
@@ -47,7 +47,7 @@ class UsersController < ApplicationController
       render :action => :new
     end
     rescue ActiveRecord::RecordInvalid
-      @admin.valid? # force checking of errors even if function failed
+      @admin.valid? # force checking of errors even if activity failed
       render :action => :new
   end
 
@@ -79,8 +79,8 @@ class UsersController < ApplicationController
   # passed in explicitly.
   #
   # TODO: I am not sure that this actually works, check that if you have
-  # a user that is operational user and a number of functional users, do
-  # the links actually match up with the functions.
+  # a user that is operational user and a number of activityal users, do
+  # the links actually match up with the activities.
   # 
   # Available to: anybody
   def new_link
@@ -92,7 +92,7 @@ class UsersController < ApplicationController
         # new_passkey(@user)
         case @user.class.name
           when 'FunctionManager'
-            email = Notifier.create_function_key(@user, request)
+            email = Notifier.create_activity_key(@user, request)
             Notifier.deliver(email)
             @user.reminded_on = Time.now.gmtime
             @user.save
@@ -126,7 +126,7 @@ class UsersController < ApplicationController
   end
   
   # Send a passkey reminder to the email associated with this user. Only one e-mail will be sent and
-  # it will use the Organisation Manager or Function Manager template accordingly.
+  # it will use the Organisation Manager or Activity Manager template accordingly.
   # The system currently does not allow for a user to be both types of manager. If it did, this would not work.
   # TODO: check the logic associated with this, see also: User#new_link
   # Available to: Administrator
@@ -134,11 +134,11 @@ class UsersController < ApplicationController
   def remind
     @user = User.find(params[:id])
     
-    # Are they a function manager?
+    # Are they a activity manager?
     case @user.class.name
     when 'FunctionManager'
-      email = Notifier.create_function_key(@user, request)
-      flash[:notice] = 'Reminder for ' + @user.function.name + ' sent to ' + @user.email
+      email = Notifier.create_activity_key(@user, request)
+      flash[:notice] = 'Reminder for ' + @user.activity.name + ' sent to ' + @user.email
     # Nope, are they an organisation manager?
     when 'OrganisationManager'
       email = Notifier.create_organisation_key(@user, request)
@@ -173,9 +173,9 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       case user.class.name
         when 'FunctionManager'
-          redirect_to :controller => 'functions', :action => 'index'
+          redirect_to :controller => 'activities', :action => 'index'
         when 'OrganisationManager'
-          redirect_to :controller => 'functions', :action => 'summary'
+          redirect_to :controller => 'activities', :action => 'summary'
         when 'Administrator'
           redirect_to :controller => 'organisations', :action => 'list'
       end

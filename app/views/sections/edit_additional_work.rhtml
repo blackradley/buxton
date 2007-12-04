@@ -1,34 +1,34 @@
 <h1 id="questions">
 	<%= link_to image_tag('icons/previous.gif', :class =>'previous'), { :action => 'edit', :id => 'confidence_consultation', :equality_strand => @equality_strand }, :title =>"Previous Section" -%>
-	<%=h @function.name -%> - <%= @equality_strand.titleize -%> Additional Work
+	<%=h @activity.name -%> - <%= @equality_strand.titleize -%> Additional Work
 	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'action_planning', :equality_strand => @equality_strand }, :title =>"Next Section" -%>
 </h1>
 <div id="questiontext">
-	<p><%=h @function.additonal_work_text_lookup(@equality_strand, 1) %></p>
-	<p><%=h @function.additonal_work_text_lookup(@equality_strand, 2) %></p>
-	<p><%=h @function.additonal_work_text_lookup(@equality_strand, 3) %></p>
-	<p><%=h @function.additonal_work_text_lookup(@equality_strand, 4) %></p>
-	<p><%=h @function.additonal_work_text_lookup(@equality_strand, 5) %></p>
-	<p><%=h @function.additonal_work_text_lookup(@equality_strand, 6) %></p>
-	<p><%=h @function.additonal_work_text_lookup(@equality_strand, 7) %></p>
+	<p><%=h @activity.additonal_work_text_lookup(@equality_strand, 1) %></p>
+	<p><%=h @activity.additonal_work_text_lookup(@equality_strand, 2) %></p>
+	<p><%=h @activity.additonal_work_text_lookup(@equality_strand, 3) %></p>
+	<p><%=h @activity.additonal_work_text_lookup(@equality_strand, 4) %></p>
+	<p><%=h @activity.additonal_work_text_lookup(@equality_strand, 5) %></p>
+	<p><%=h @activity.additonal_work_text_lookup(@equality_strand, 6) %></p>
+	<p><%=h @activity.additonal_work_text_lookup(@equality_strand, 7) %></p>
 </div>
 
 
 <div id="questions">
-<% form_for(:function, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 1, :f_id => @function.id} %>
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 2, :f_id => @function.id} %>
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 3, :f_id => @function.id} %>
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 4, :f_id => @function.id} %>
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 5, :f_id => @function.id} %>
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 6, :f_id => @function.id} %>
+<% form_for(:activity, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 1, :f_id => @activity.id} %>
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 2, :f_id => @activity.id} %>
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 3, :f_id => @activity.id} %>
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 4, :f_id => @activity.id} %>
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 5, :f_id => @activity.id} %>
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 6, :f_id => @activity.id} %>
 	<% unless @equality_strand == 'gender' then %>
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 7, :f_id => @function.id} %>
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 7, :f_id => @activity.id} %>
 	<% end %>
 	<% if @equality_strand=='disability' then %>	
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 8, :f_id => @function.id} %>
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 9, :f_id => @function.id} %>
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 10, :f_id => @function.id} %>
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 8, :f_id => @activity.id} %>
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 9, :f_id => @activity.id} %>
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 10, :f_id => @activity.id} %>
 <% end -%>
 <div class="clear"></div>
 <span class="button"><%= submit_tag 'Save' -%></span>

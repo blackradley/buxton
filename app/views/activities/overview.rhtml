@@ -17,11 +17,11 @@ the level of completion of each section for each equality strand. The two right 
 	<tr>
 		<th class="strandHeading">Overall</th>
 		<td>
-			<%= completed_tag(@function, :purpose) -%>
+			<%= completed_tag(@activity, :purpose) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => 'overall' }, :title =>"Edit Purpose" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :impact, :overall) -%>
+			<%= completed_tag(@activity, :impact, :overall) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => 'overall' }, :title =>"Edit Impact" -%>
 		</td>
 		<td></td>
@@ -32,19 +32,19 @@ the level of completion of each section for each equality strand. The two right 
 		<th class="strandHeading">Gender</th>
 		<td></td>
 		<td>
-			<%= completed_tag(@function, :impact, :gender) -%>
+			<%= completed_tag(@activity, :impact, :gender) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => 'gender' }, :title =>"Edit Impact" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :consultation, :gender) -%>
+			<%= completed_tag(@activity, :consultation, :gender) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => 'gender' }, :title =>"Edit Consultation" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :additional_work, :gender) -%>
+			<%= completed_tag(@activity, :additional_work, :gender) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'gender' }, :title =>"Edit Additional Work" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :action_planning, :gender) -%>
+			<%= completed_tag(@activity, :action_planning, :gender) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'gender' }, :title =>"Edit Action Planning" -%>
 		</td>
 	</tr>
@@ -52,19 +52,19 @@ the level of completion of each section for each equality strand. The two right 
 		<th class="strandHeading">Race</th>
 		<td></td>
 		<td>
-			<%= completed_tag(@function, :impact, :race) -%>
+			<%= completed_tag(@activity, :impact, :race) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => 'race' }, :title =>"Edit Impact" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :consultation, :race) -%>
+			<%= completed_tag(@activity, :consultation, :race) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => 'race' }, :title =>"Edit Consultation" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :additional_work, :race) -%>
+			<%= completed_tag(@activity, :additional_work, :race) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'race' }, :title =>"Edit Additional Work" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :action_planning, :race) -%>
+			<%= completed_tag(@activity, :action_planning, :race) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'race' }, :title =>"Edit Action Planning" -%>
 		</td>
 	</tr>
@@ -72,19 +72,19 @@ the level of completion of each section for each equality strand. The two right 
 		<th class="strandHeading">Disability</th>
 		<td></td>
 		<td>
-			<%= completed_tag(@function, :impact, :disability) -%>
+			<%= completed_tag(@activity, :impact, :disability) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => 'disability' }, :title =>"Edit Impact" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :consultation, :disability) -%>
+			<%= completed_tag(@activity, :consultation, :disability) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => 'disability' }, :title =>"Edit Consultation" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :additional_work, :disability) -%>
+			<%= completed_tag(@activity, :additional_work, :disability) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'disability' }, :title =>"Edit Additional Work" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :action_planning, :disability) -%>
+			<%= completed_tag(@activity, :action_planning, :disability) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'disability' }, :title =>"Edit Action Planning" -%>
 		</td>
 	</tr>
@@ -92,19 +92,19 @@ the level of completion of each section for each equality strand. The two right 
 		<th class="strandHeading">Faith</th>
 		<td></td>
 		<td>
-			<%= completed_tag(@function, :impact, :faith) -%>
+			<%= completed_tag(@activity, :impact, :faith) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => 'faith' }, :title =>"Edit Impact" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :consultation, :faith) -%>
+			<%= completed_tag(@activity, :consultation, :faith) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => 'faith' }, :title =>"Edit Consultation" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :additional_work, :faith) -%>
+			<%= completed_tag(@activity, :additional_work, :faith) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'faith' }, :title =>"Edit Additional Work" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :action_planning, :faith) -%>
+			<%= completed_tag(@activity, :action_planning, :faith) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'faith' }, :title =>"Edit Action Planning" -%>
 		</td>
 	</tr>
@@ -112,19 +112,19 @@ the level of completion of each section for each equality strand. The two right 
 		<th class="strandHeading">Sex</th>
 		<td></td>
 		<td>
-			<%= completed_tag(@function, :impact, :sexual_orientation) -%>
+			<%= completed_tag(@activity, :impact, :sexual_orientation) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => 'sexual_orientation' }, :title =>"Edit Impact" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :consultation, :sexual_orientation) -%>
+			<%= completed_tag(@activity, :consultation, :sexual_orientation) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => 'sexual_orientation' }, :title =>"Edit Consultation" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :additional_work, :sexual_orientation) -%>
+			<%= completed_tag(@activity, :additional_work, :sexual_orientation) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'sexual_orientation' }, :title =>"Edit Additional Work" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :action_planning, :sexual_orientation) -%>
+			<%= completed_tag(@activity, :action_planning, :sexual_orientation) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'sexual_orientation' }, :title =>"Edit Action Planning" -%>
 		</td>
 	</tr>
@@ -132,19 +132,19 @@ the level of completion of each section for each equality strand. The two right 
 		<th class="strandHeading">Age</th>
 		<td></td>
 		<td>
-			<%= completed_tag(@function, :impact, :age) -%>
+			<%= completed_tag(@activity, :impact, :age) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => 'age' }, :title =>"Edit Purpose" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :consultation, :age) -%>
+			<%= completed_tag(@activity, :consultation, :age) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => 'age' }, :title =>"Edit Consultation" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :additional_work, :age) -%>
+			<%= completed_tag(@activity, :additional_work, :age) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => 'age' }, :title =>"Edit Additional Work" -%>
 		</td>
 		<td>
-			<%= completed_tag(@function, :action_planning, :age) -%>
+			<%= completed_tag(@activity, :action_planning, :age) -%>
 			<%= link_to image_tag('icons/edit.jpg'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => 'age' }, :title =>"Edit Action Planning" -%>
 		</td>
 	</tr>

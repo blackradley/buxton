@@ -9,37 +9,37 @@
 #
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
 #
-# Functions are identifed by their name, which does not have to be unique but
+# Activitys are identifed by their name, which does not have to be unique but
 # it might be a good idea since the Organisation manager will use the name
-# to identify the function.
+# to identify the activity.
 # 
-# When a function is created a single User is created for it at the same time,
+# When a activity is created a single User is created for it at the same time,
 # who is listed in the user table.  If the same person (as identified by their
-# email address) is the function manager for a number of functions then they
+# email address) is the activity manager for a number of activitys then they
 # are entered many time into the User table.
 # 
-# The functions are supposed to contribute to organisational goals or
-# strategies hence they link to a FunctionStrategy.  This is not a "has many 
+# The activitys are supposed to contribute to organisational goals or
+# strategies hence they link to a ActivityStrategy.  This is not a "has many 
 # and belongs to" where the intervening table would be transparent, because we 
-# want to store a value in the function_strategy table of how much of a contribution
+# want to store a value in the activity_strategy table of how much of a contribution
 # is being made to the strategy.
 # 
 # Neither is a "has many: through" used because like the "has many and belongs to"
 # it is not really a many to many relationship. Each Strategy is owned by 
-# the Organisation, and each Function then contributes (or doesn't contribute) to
-# each of the strategies.  The strategy list for each function within an organisation
-# is always the same, and the response is stored in the function_strategy table.
+# the Organisation, and each Activity then contributes (or doesn't contribute) to
+# each of the strategies.  The strategy list for each activity within an organisation
+# is always the same, and the response is stored in the activity_strategy table.
 # 
-class Function < ActiveRecord::Base
+class Activity < ActiveRecord::Base
   validates_presence_of :name,
-    :message => 'All functions must have a name'
+    :message => 'All activities must have a name'
   belongs_to :function_manager, :dependent => :destroy
   validates_presence_of :function_manager
   validates_associated :function_manager
   belongs_to :organisation
   validates_presence_of :organisation
   validates_uniqueness_of :name, :scope => :organisation_id
-  has_many :function_strategies
+  has_many :activity_strategies
   has_many :issues, :dependent => :destroy
   attr_reader :stat_function
 
@@ -60,14 +60,14 @@ class Function < ActiveRecord::Base
     issue_strand = []
     number_answered = 0
     total = 0
-    #A section can't be completed unless the function is started.
+    #A section can't be completed unless the activity is started.
     return 0 unless started
     #Check whether each question is completed. If it is, add one to the amount that are completed. In both cases, add one to the total. 
-    Function.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1 end; total += 1} 
+    Activity.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1 end; total += 1} 
     #If you don't specify a section, or your section is action planning, consider issues as well.
     unless section && !(section == :action_planning) then 
        #First we calculate all the questions, in case there is a nil.
-       questions = Function.get_question_names(:consultation, strand, 7)
+       questions = Activity.get_question_names(:consultation, strand, 7)
        questions.each do |question|
          strand = question.to_s.split("_")
          strand.delete_at(1)
@@ -96,7 +96,7 @@ class Function < ActiveRecord::Base
      end
     #If you don't suggest a section, or your section is purpose, then consider strategies as well.
     unless section && !(section == :purpose) then
-      function_strategies.each do |strategy| 
+      self.activity_strategies.each do |strategy| 
         if check_response(strategy.strategy_response) then
           total += 1
           number_answered += 1
@@ -109,10 +109,10 @@ class Function < ActiveRecord::Base
     return 100  #If there are no questions in a section, return complete for it. TODO: See if Iain wants this behavior.
   end
   
-   #The started tag allows you to check whether a function, section, or strand has been started. This is basically works by running check_percentage, but as 
-   #soon as it finds a true value, it breaks out of the loop and returns false. If you request a function started from it, it checks whether the 2 questions
-   #that you have to answer(function/policy and proposed/overall) have been answered or not, and if they have not been answered, then no others can be
-   # and if they have, then the function is by definition started
+   #The started tag allows you to check whether a activity, section, or strand has been started. This is basically works by running check_percentage, but as 
+   #soon as it finds a true value, it breaks out of the loop and returns false. If you request a activity started from it, it checks whether the 2 questions
+   #that you have to answer(activity/policy and proposed/overall) have been answered or not, and if they have not been answered, then no others can be
+   # and if they have, then the activity is by definition started
   def started(section = nil, strand = nil)
     unless (section || strand) then      
       return true if (check_question(:existing_proposed) && check_question(:function_policy))
@@ -120,11 +120,11 @@ class Function < ActiveRecord::Base
     else
       return false unless (check_question(:existing_proposed) && check_question(:function_policy))
     end
-    Function.get_question_names(section, strand).each{|question| if check_question(question) then return true end}
+    Activity.get_question_names(section, strand).each{|question| if check_question(question) then return true end}
     #There is no need to check issues, because if the dependent question has been answered, then by definition they are started
     #, and if it is not answered, they do not need to be filled in, so should not be taken account of.
       unless section && !(section == :purpose) then #Check strategies are completed.
-        function_strategies.each do |strategy| 
+        self.activity_strategies.each do |strategy| 
           if check_response(strategy.strategy_response) then
             return true
           end
@@ -133,18 +133,18 @@ class Function < ActiveRecord::Base
     return false
   end
   
-  #This allows you to check whether a function, section or strand has been completed. It runs like started, but only breaking when it finds a question
+  #This allows you to check whether a activity, section or strand has been completed. It runs like started, but only breaking when it finds a question
   #that has not been answered. Hence, it is at its slowest where there is a single unanswered question in each section. In worst case it has to run 
-  #through every question bar n where n is the number of functions, making it a O(n) algorithm.
+  #through every question bar n where n is the number of activitys, making it a O(n) algorithm.
   #TODO: Is it possible to optimise it by setting it to flick back and forth between the end and the start, on the assumption that people
   #will answer it logically, meaning that if they fail to answer a question, it is more likely to be either at the end or start than the middle. Such a
   #change would make no difference to the runtime in the worst case, and could well speed it up in best case.
   def completed(section = nil, strand = nil)
     return false unless (check_question(:existing_proposed) && check_question(:function_policy))
-    Function.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
+    Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
     unless section && !(section == :action_planning) then 
        #First we calculate all the questions, in case there is a nil.
-       questions = Function.get_question_names(:consultation, strand, 7)
+       questions = Activity.get_question_names(:consultation, strand, 7)
        questions.each do |question|
          strand = question.to_s.split("_")
          strand.delete_at(1)
@@ -172,7 +172,7 @@ class Function < ActiveRecord::Base
          end
        end
       unless section && !(section == :purpose) then
-        function_strategies.each do |strategy| 
+        self.activity_strategies.each do |strategy| 
           unless check_response(strategy.strategy_response) then
             completed = false
             break
@@ -227,11 +227,11 @@ class Function < ActiveRecord::Base
 
 #This method recovers questions. It allows you to search by strand or by section.
 #It works by getting a list of all the columns, then removing any ones which aren't quesitons. 
-#NOTE: Should a new column be added to function that isn't a question, it should also be added here.
+#NOTE: Should a new column be added to activity that isn't a question, it should also be added here.
   def self.get_question_names(section = nil, strand = nil, number = nil)
 	  questions = []
 	  unnecessary_columns = [:name, :approved, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed]
-	  Function.content_columns.each{|column| questions.push(column.name.to_sym)}
+	  Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
 	  unnecessary_columns.each{|column| questions.delete(column)}
 	  questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section
 	  questions.delete_if{ |question| !(question.to_s.include?(strand.to_s))}if strand
@@ -244,8 +244,8 @@ class Function < ActiveRecord::Base
     fun_pol_indicator = ""
     existing_proposed_name = ""
     begin 
-      fun_pol_indicator = function_policy?.downcase #Detect whether it is a function or a policy
-      existing_proposed_name = existing_proposed?.downcase #Detect whether it is an existing function or a proposed function.
+      fun_pol_indicator = function_policy?.downcase #Detect whether it is a activity or a policy
+      existing_proposed_name = existing_proposed?.downcase #Detect whether it is an existing activity or a proposed activity.
     rescue
     end 
     wordings = hashes['wordings']
@@ -306,12 +306,12 @@ class Function < ActiveRecord::Base
         stats_object = statistics
         return "The #{fun_pol_indicator} has not yet been completed sufficiently to warrant calculation of impact level and the priority ranking." unless statistics
         strand = "" unless strand
-        response = "For the #{strand.to_s.downcase} equality strand the Function has an overall priority ranking of #{stats_object.priority_ranking(strand)} and a Potential Impact rating of #{stats_object.topic_impact(strand).to_s.capitalize}."
+        response = "For the #{strand.to_s.downcase} equality strand the Activity has an overall priority ranking of #{stats_object.priority_ranking(strand)} and a Potential Impact rating of #{stats_object.topic_impact(strand).to_s.capitalize}."
     end
     
     return response
   end
-  #This function returns the wording of a particular question. It takes a section strand and question number as arguments, and returns that specific question.
+  #This activity returns the wording of a particular question. It takes a section strand and question number as arguments, and returns that specific question.
   #It can also be passed nils, and in that event, it will automatically return an array containing all the values that corresponded to the nils. Hence, to return all
   #questions and their lookup types, just func.question_wording_lookup suffices.
   def question_wording_lookup(section = nil, strand = nil, question = nil)

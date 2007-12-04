@@ -12,7 +12,7 @@
 #
 class Strategy < ActiveRecord::Base
   belongs_to :organisation
-  has_many :function_strategies
+  has_many :activity_strategies
   validates_presence_of :name
   acts_as_list :scope => :organisation
 end

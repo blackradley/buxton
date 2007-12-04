@@ -741,11 +741,11 @@ p #summarytable{
 	border: 0px solid #515f8d;
 }
 
-.summary fieldset#approval label#function_approver_label{
+.summary fieldset#approval label#activity_approver_label{
 	width: 20px;		
 }
 
-.summary fieldset#approval #function_approver{
+.summary fieldset#approval #activity_approver{
 	width: 213px;
 	border: 1px solid #979595;
 	margin: 0px;

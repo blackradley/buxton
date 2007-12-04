@@ -13,7 +13,7 @@ class SectionsController < ApplicationController
           :only => [ :update ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
          
-  # List the section status for the different functions of an Organisation
+  # List the section status for the different activities of an Organisation
   # but don't paginate, a long list is actually more convenient for the Organisation
   # Manager to scan down.
   # Available to: Organisation Manager
@@ -37,22 +37,22 @@ class SectionsController < ApplicationController
     end
   end
 
-  # Show the summary information for a function's section
+  # Show the summary information for a activity's section
   # Available to: Organisation Manager
-  #               Function Manager
+  #               Activity Manager
   def show
     # TODO: improve this - all a bit ugly
     f_id = if (@current_user.class.name == 'OrganisationManager')
       params[:f]
     else
-      @current_user.function.id
+      @current_user.activity.id
     end
     
-    @function = Function.find(f_id)
+    @activity = Activity.find(f_id)
     
-    # Only display the answers if Function/Policy Existing/Proposed are answered otherwise
+    # Only display the answers if Activity/Policy Existing/Proposed are answered otherwise
     # we don't know what label text to use.
-    if @function.started then
+    if @activity.started then
       case params[:id]
       when 'purpose'
         render :template => 'sections/show_purpose'
@@ -69,15 +69,15 @@ class SectionsController < ApplicationController
         render :inline => 'Invalid section.'
       end
     else
-      render :text => 'Function/Policy not started.', :layout => true
+      render :text => 'Activity/Policy not started.', :layout => true
     end
   end
 
-  # Get the function information ready for editing using the appropriate form.
-  # Available to: Function Manager
+  # Get the activity information ready for editing using the appropriate form.
+  # Available to: Activity Manager
   def edit
-    @function = Function.find(@current_user.function.id)
-    @function_manager = @function.function_manager
+    @activity = Activity.find(@current_user.activity.id)
+    @function_manager = @activity.function_manager
     
     @equality_strand = ''    
     valid_equality_strands = ['overall','gender','race','sexual_orientation','disability','faith','age']
@@ -91,7 +91,7 @@ class SectionsController < ApplicationController
     
     case params[:id]
     when 'purpose'
-      @function_responses = @function.function_strategies.sort_by {|fr| fr.strategy.position } # sort by position
+      @activity_responses = @activity.activity_strategies.sort_by {|fr| fr.strategy.position } # sort by position
       render :template => 'sections/edit_purpose'
     when 'impact'
       render :template => 'sections/edit_impact'
@@ -108,22 +108,22 @@ class SectionsController < ApplicationController
     end
   end
 
-  # Update the function answers, for this particular section, as appropriate
-  # Available to: Function Manager
+  # Update the activity answers, for this particular section, as appropriate
+  # Available to: Activity Manager
   def update
-    # Update the answers in the function table
-    @function = Function.find(@current_user.function.id)
-    @function.update_attributes!(params[:function])
+    # Update the answers in the activity table
+    @activity = Activity.find(@current_user.activity.id)
+    @activity.update_attributes!(params[:activity])
     
-    # Update the function strategy answers if we have any (currently only in the Purpose section)
-    if params[:function_strategies] then
-      params[:function_strategies].each do |function_strategy|
-        function_response = @function.function_strategies.find_or_create_by_strategy_id(function_strategy[0])
-        function_response.strategy_response = function_strategy[1]
-        function_response.save
+    # Update the activity strategy answers if we have any (currently only in the Purpose section)
+    if params[:activity_strategies] then
+      params[:activity_strategies].each do |activity_strategy|
+        activity_response = @activity.activity_strategies.find_or_create_by_strategy_id(activity_strategy[0])
+        activity_response.strategy_response = activity_strategy[1]
+        activity_response.save
       end
     end
-    flash[:notice] =  "#{@function.name} was successfully updated."
+    flash[:notice] =  "#{@activity.name} was successfully updated."
     redirect_to :back
   end
 

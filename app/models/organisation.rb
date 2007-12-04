@@ -33,7 +33,7 @@ class Organisation < ActiveRecord::Base
   has_many :directorates, :dependent => :destroy
   validates_associated :directorates
   
-  has_many :functions, :through => :directorates
+  has_many :activities, :through => :directorates
   has_many :strategies, :dependent => :destroy
   validates_associated :strategies
 

@@ -1,11 +1,11 @@
 <%= error_messages_for 'function_manager' %>
-<%= error_messages_for 'function' %>
+<%= error_messages_for 'activity' %>
 
 <p><label for="function_manager_email">Email</label><br />
 <div class = 'labelled'><%= text_field 'function_manager', 'email', 'size' => 50 -%></div></p>
 
-<p><label for="function_name">Name</label><br />
-<div class = 'labelled'><%= text_field 'function', 'name', 'size' => 50 -%></div></p>
+<p><label for="activity_name">Name</label><br />
+<div class = 'labelled'><%= text_field 'activity', 'name', 'size' => 50 -%></div></p>
 
 <p><label for="directorate_id">Directorate</label><br />
 <div class = 'labelled'><%= select('directorate', 'directorate_id', @directorates.collect{|directorate| [directorate.name, directorate.id]}) -%><div></p>

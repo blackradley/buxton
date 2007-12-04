@@ -1,14 +1,14 @@
 <h1 id="questions">
 	<%= link_to image_tag('icons/previous.gif', :class =>'previous'), { :action => 'edit', :id => 'additional_work', :equality_strand => @equality_strand }, :title =>"Previous Section" -%>
-	<%=h @function.name -%> - <%= @equality_strand.titleize -%> Action Planning
+	<%=h @activity.name -%> - <%= @equality_strand.titleize -%> Action Planning
 	<%= image_tag('icons/no_next.gif', :class =>'next') -%>
 </h1>
 
-<% hashes = @function.hashes -%>
+<% hashes = @activity.hashes -%>
 
 <div id="questions">
 <% form_for(:issues, :url => {:controller => 'issues', :action => 'update'}) do |f| -%>
-	<% issues = @function.issues.reject{|issue| issue.strand != @equality_strand } -%>
+	<% issues = @activity.issues.reject{|issue| issue.strand != @equality_strand } -%>
 	<% if issues.size > 0 -%>
 		<% for issue in issues -%>
 			<h3><%= issue.description -%></h3>

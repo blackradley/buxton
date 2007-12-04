@@ -10,7 +10,7 @@
 #
 module ApplicationHelper
   # Display the users progress through the questions, this is used both in the
-  # Function and on the Organisation, hence it is here in the ApplicationHelper.
+  # Activity and on the Organisation, hence it is here in the ApplicationHelper.
   def progress_bar(percentage, width=100)
     if percentage > 100 then percentage = 100 end
     case width
@@ -50,7 +50,7 @@ module ApplicationHelper
     else
       case @current_user.class.name
         when 'FunctionManager'
-          'Logged in as a Function Manager'
+          'Logged in as a Activity Manager'
         when 'OrganisationManager'
           'Logged in as an Organisation Manager'
         when 'Administrator'
@@ -99,12 +99,12 @@ module ApplicationHelper
       when 'OrganisationManager'
         generate_menu( [
                         { :text => 'Summary',
-                          :url => { :controller => 'functions', :action => 'summary' },
+                          :url => { :controller => 'activities', :action => 'summary' },
                           :title => 'Organisation Control Page - Summary',
                           :status => '' },
-                        { :text => 'Functions',
-                          :url => { :controller => 'functions', :action => 'list' },
-                          :title => 'Organisation Control Page - Functions' ,
+                        { :text => 'Activities',
+                          :url => { :controller => 'activities', :action => 'list' },
+                          :title => 'Organisation Control Page - Activities' ,
                           :status => '' },
                         { :text => 'Sections',
                           :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
@@ -112,37 +112,37 @@ module ApplicationHelper
                           :status => '' }
                         ])
       when 'FunctionManager'
-          puts @current_user.function.function_policy
+          puts @current_user.activity.function_policy
          links = [
                     { :text => 'Home',
-                      :url => { :controller => 'functions', :action => 'index'},
-                      :title => 'Function Control Page - Home' ,
+                      :url => { :controller => 'activities', :action => 'index'},
+                      :title => 'Activity Control Page - Home' ,
                       :status => '' },
                     { :text => 'Activity Type',
-                      :url => { :controller => 'functions', :action => 'activity_type'},
-                      :title => 'Function Control Page - Activity Type' ,
+                      :url => { :controller => 'activities', :action => 'activity_type'},
+                      :title => 'Activity Control Page - Activity Type' ,
                       :status => '' }
                   ]
-        if @current_user.function.started
+        if @current_user.activity.started
           links2 = [    
                       { :text => 'Overview',
-                        :url => { :controller => 'functions', :action => 'overview'},
-                        :title => 'Function Control Page - Overview',
+                        :url => { :controller => 'activities', :action => 'overview'},
+                        :title => 'Activity Control Page - Overview',
                         :status => '' },
                       { :text => 'Summary',
-                        :url => { :controller => 'functions', :action => 'show' },
-                        :title => 'Function Control Page - Summary' ,
+                        :url => { :controller => 'activities', :action => 'show' },
+                        :title => 'Activity Control Page - Summary' ,
                         :status => '' }
                     ]
         else
           links2 = [    
                       { :text => 'Overview',
-                        :url => { :controller => 'functions', :action => 'overview'},
-                        :title => 'Function Control Page - Overview',
+                        :url => { :controller => 'activities', :action => 'overview'},
+                        :title => 'Activity Control Page - Overview',
                         :status => 'disabled' },
                       { :text => 'Summary',
-                        :url => { :controller => 'functions', :action => 'show' },
-                        :title => 'Function Control Page - Summary' ,
+                        :url => { :controller => 'activities', :action => 'show' },
+                        :title => 'Activity Control Page - Summary' ,
                         :status => 'disabled' }
                     ]
         end
@@ -219,23 +219,23 @@ def sections_menu
 end
 
 # Generates all the HTML needed to display the answer to a question
-def answer(function, section, strand, number)
+def answer(activity, section, strand, number)
 
   # Get the label text and details for this question
-  query = function.question_wording_lookup(section, strand,number)
+  query = activity.question_wording_lookup(section, strand,number)
   question="#{section}_#{strand}_#{number}"
   label = query[0]
-  choices = function.hashes['choices'][query[2]]
+  choices = activity.hashes['choices'][query[2]]
   # Get the answer options for this question and make an appropriate input field
-  question_answer = function.send(question)
+  question_answer = activity.send(question)
   unless question_answer.nil?
     answer = case query[1].to_sym
     when :select
       choices[question_answer]
     when :text
-      function.send(question)
+      activity.send(question)
     when :string
-      function.send(question)
+      activity.send(question)
     end
   else
     answer = 'Not answered yet'
@@ -244,11 +244,11 @@ def answer(function, section, strand, number)
   %Q[<p><label title="#{label}">#{label}</label><div class="labelled">#{h answer}</div></p>]
 end
   #This method produces an answer bar for the summary sections
-  def summary_answer(function, section, strand, number)
-     label = function.question_wording_lookup(section, strand,number)[0]
+  def summary_answer(activity, section, strand, number)
+     label = activity.question_wording_lookup(section, strand,number)[0]
      question="#{section}_#{strand}_#{number}"
 
-     barImage = level_bar(function.send(question), function.hashes['choices'][7], 'bar-impact-groups')
+     barImage = level_bar(activity.send(question), activity.hashes['choices'][7], 'bar-impact-groups')
 
          # Show our formatted question!
          %Q[<p>

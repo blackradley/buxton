@@ -495,12 +495,12 @@ td.bar{
 	border: 0px solid #979595;
 
 }
-.summary fieldset label#function_approver_label{
+.summary fieldset label#activity_approver_label{
 	width: 150px;
 		
 }
 
-.summary #function_approver{
+.summary #activity_approver{
 	width: 213px;
 	border: 0px solid #979595;
 	margin: 0px;
