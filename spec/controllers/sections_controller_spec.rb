@@ -29,10 +29,6 @@ describe SectionsController, 'routes' do
   it "should map { :controller => 'sections', :action => 'show', :id => 'impact' } to /sections/show/impact" do
     route_for(:controller => 'sections', :action => 'show', :id => 'impact').should == '/sections/show/impact'
   end
-  
-  it "should map { :controller => 'sections', :action => 'show', :id => 'consultation_information' } to /sections/show/consultation_information" do
-    route_for(:controller => 'sections', :action => 'show', :id => 'consultation_information').should == '/sections/show/consultation_information'
-  end  
 
   it "should map { :controller => 'sections', :action => 'show', :id => 'consultation' } to /sections/show/consultation" do
     route_for(:controller => 'sections', :action => 'show', :id => 'consultation').should == '/sections/show/consultation'
