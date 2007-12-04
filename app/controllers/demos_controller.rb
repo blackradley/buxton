@@ -50,14 +50,14 @@ class DemosController < ApplicationController
         strategy.description = strategy_name
       }
       
-      # Give the organisation three functions which are owned by the same user
-      function_names = ['Community Strategy', 'Publications', 'Meals on Wheels']
-      function_names.each {|function_name|
-        # Create a function
-        function = @organisation.functions.build(:name => function_name)
-        function.organisation = @organisation #this should be filled in directly above, don't know why not
-        # Create a function manager
-        function_manager = function.build_function_manager(params[:organisation_manager])
+      # Give the organisation three activities which are owned by the same user
+      activity_names = ['Community Strategy', 'Publications', 'Meals on Wheels']
+      activity_names.each {|activity_name|
+        # Create a activity
+        activity = @organisation.activities.build(:name => activity_name)
+        activity.organisation = @organisation #this should be filled in directly above, don't know why not
+        # Create a activity manager
+        function_manager = activity.build_function_manager(params[:organisation_manager])
         function_manager.passkey = FunctionManager.generate_passkey(function_manager)
       }
 

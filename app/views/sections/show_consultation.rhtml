@@ -3,12 +3,12 @@
 <h4>Consultation by equality group</h4>
 
 <h5>Men and Women</h5>
-<%= answer(@function, :consultation, :gender, 1) %>
-<%= answer(@function, :consultation, :gender, 2) %>
-<%= answer(@function, :consultation, :gender, 3) %>
-<%= answer(@function, :consultation, :gender, 4) %>
-<%= answer(@function, :consultation, :gender, 5) %>
-<% issues = @function.issues.reject{|issue| issue.strand != 'gender' } -%>
+<%= answer(@activity, :consultation, :gender, 1) %>
+<%= answer(@activity, :consultation, :gender, 2) %>
+<%= answer(@activity, :consultation, :gender, 3) %>
+<%= answer(@activity, :consultation, :gender, 4) %>
+<%= answer(@activity, :consultation, :gender, 5) %>
+<% issues = @activity.issues.reject{|issue| issue.strand != 'gender' } -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
@@ -20,12 +20,12 @@
 </p>
 
 <h5>People from different ethnic backgrounds</h5>
-<%= answer(@function, :consultation, :race, 1) %>
-<%= answer(@function, :consultation, :race, 2) %>
-<%= answer(@function, :consultation, :race, 3) %>
-<%= answer(@function, :consultation, :race, 4) %>
-<%= answer(@function, :consultation, :race, 5) %>
-<% issues = @function.issues.reject{|issue| issue.strand != 'race' } -%>
+<%= answer(@activity, :consultation, :race, 1) %>
+<%= answer(@activity, :consultation, :race, 2) %>
+<%= answer(@activity, :consultation, :race, 3) %>
+<%= answer(@activity, :consultation, :race, 4) %>
+<%= answer(@activity, :consultation, :race, 5) %>
+<% issues = @activity.issues.reject{|issue| issue.strand != 'race' } -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
@@ -37,12 +37,12 @@
 </p>
 
 <h5>People with different kinds of disability</h5>
-<%= answer(@function, :consultation, :disability, 1) %>
-<%= answer(@function, :consultation, :disability, 2) %>
-<%= answer(@function, :consultation, :disability, 3) %>
-<%= answer(@function, :consultation, :disability, 4) %>
-<%= answer(@function, :consultation, :disability, 5) %>
-<% issues = @function.issues.reject{|issue| issue.strand != 'disability' } -%>
+<%= answer(@activity, :consultation, :disability, 1) %>
+<%= answer(@activity, :consultation, :disability, 2) %>
+<%= answer(@activity, :consultation, :disability, 3) %>
+<%= answer(@activity, :consultation, :disability, 4) %>
+<%= answer(@activity, :consultation, :disability, 5) %>
+<% issues = @activity.issues.reject{|issue| issue.strand != 'disability' } -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
@@ -54,12 +54,12 @@
 </p>
 
 <h5>People from different faith groups</h5>
-<%= answer(@function, :consultation, :faith, 1) %>
-<%= answer(@function, :consultation, :faith, 2) %>
-<%= answer(@function, :consultation, :faith, 3) %>
-<%= answer(@function, :consultation, :faith, 4) %>
-<%= answer(@function, :consultation, :faith, 5) %>
-<% issues = @function.issues.reject{|issue| issue.strand != 'faith' } -%>
+<%= answer(@activity, :consultation, :faith, 1) %>
+<%= answer(@activity, :consultation, :faith, 2) %>
+<%= answer(@activity, :consultation, :faith, 3) %>
+<%= answer(@activity, :consultation, :faith, 4) %>
+<%= answer(@activity, :consultation, :faith, 5) %>
+<% issues = @activity.issues.reject{|issue| issue.strand != 'faith' } -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
@@ -73,12 +73,12 @@
 </p>
 
 <h5>People of different sexual orientations</h5>          
-<%= answer(@function, :consultation, :sexual_orientation, 1) %>
-<%= answer(@function, :consultation, :sexual_orientation, 2) %>
-<%= answer(@function, :consultation, :sexual_orientation, 3) %>
-<%= answer(@function, :consultation, :sexual_orientation, 4) %>
-<%= answer(@function, :consultation, :sexual_orientation, 5) %>
-<% issues = @function.issues.reject{|issue| issue.strand != 'sexual_orientation' } -%>
+<%= answer(@activity, :consultation, :sexual_orientation, 1) %>
+<%= answer(@activity, :consultation, :sexual_orientation, 2) %>
+<%= answer(@activity, :consultation, :sexual_orientation, 3) %>
+<%= answer(@activity, :consultation, :sexual_orientation, 4) %>
+<%= answer(@activity, :consultation, :sexual_orientation, 5) %>
+<% issues = @activity.issues.reject{|issue| issue.strand != 'sexual_orientation' } -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
     
@@ -92,12 +92,12 @@
 </p>
 
 <h5>People of different ages</h5>
-<%= answer(@function, :consultation, :age, 1) %>
-<%= answer(@function, :consultation, :age, 2) %>
-<%= answer(@function, :consultation, :age, 3) %>
-<%= answer(@function, :consultation, :age, 4) %>
-<%= answer(@function, :consultation, :age, 5) %>
-<% issues = @function.issues.reject{|issue| issue.strand != 'age' } -%>
+<%= answer(@activity, :consultation, :age, 1) %>
+<%= answer(@activity, :consultation, :age, 2) %>
+<%= answer(@activity, :consultation, :age, 3) %>
+<%= answer(@activity, :consultation, :age, 4) %>
+<%= answer(@activity, :consultation, :age, 5) %>
+<% issues = @activity.issues.reject{|issue| issue.strand != 'age' } -%>
 <p><label>Please record the issues identified</label>
 <div class="issues">
 <ul>

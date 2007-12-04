@@ -364,8 +364,8 @@ overall_questions:
   impact:
     1:
       label:
-       - 'How would you rate the potential performance of the Function?'
-       - 'How would you rate the current performance of the Function?'
+       - 'How would you rate the potential performance of the #{fun_pol_indicator}?'
+       - 'How would you rate the current performance of the #{fun_pol_indicator}?'
       help: ''
       type: select
       choices: 2

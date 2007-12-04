@@ -35,10 +35,10 @@ class Notifier < ActionMailer::Base
     email_details(user, request)
   end
 #
-# Request a new key for the function manager
+# Request a new key for the activity manager
 #
-  def function_key(user, request)
-    @subject      = 'New Function Key for ' + user.function.name
+  def activity_key(user, request)
+    @subject      = 'New Activity Key for ' + user.activity.name
     email_details(user, request)
   end
 #

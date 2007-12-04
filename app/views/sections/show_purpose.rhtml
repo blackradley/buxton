@@ -1,34 +1,34 @@
 <div id="show">
-<p><label>Function/Policy is </label><div class="labelled"><%= @function.existing_proposed?%></div></p>
+<p><label>Function/Policy is </label><div class="labelled"><%= @activity.existing_proposed?%></div></p>
 <br />
-<% @function_responses = @function.function_strategies.sort_by {|fr| fr.strategy.position } -%>
-<% unless @function_responses.nil? || !(@function_responses.length > 0) then -%>
-<h5>Which strategies does "<%=h @function.name %> implement? </h5>
+<% @activity_responses = @activity.activity_strategies.sort_by {|fr| fr.strategy.position } -%>
+<% unless @activity_responses.nil? || !(@activity_responses.length > 0) then -%>
+<h5>Which strategies does "<%=h @activity.name %> implement? </h5>
 <% strategy_hash = {} -%>
-<% @function.hashes['choices'][3].collect{|key| strategy_hash[@function.hashes['choices'][3].index(key)] = key} -%>
-<% @function_responses.each do |function_response| -%>
-	<p><label><%= function_response.strategy.position + 1 -%>: <%= function_response.strategy.name -%></label><div class="labelled"><%= strategy_hash[function_response.strategy_response] -%></div></p>
+<% @activity.hashes['choices'][3].collect{|key| strategy_hash[@activity.hashes['choices'][3].index(key)] = key} -%>
+<% @activity_responses.each do |activity_response| -%>
+	<p><label><%= activity_response.strategy.position + 1 -%>: <%= activity_response.strategy.name -%></label><div class="labelled"><%= strategy_hash[activity_response.strategy_response] -%></div></p>
 <% end -%>
 <% end -%>
 
-<h5>What proportion of these groups does "<%=h @function.name %>" impact?</h5>
-<%= summary_answer(@function, :purpose, :overall, 5) %>
-<%= summary_answer(@function, :purpose, :overall, 6) %>
-<%= summary_answer(@function, :purpose, :overall, 7) %>
-<%= summary_answer(@function, :purpose, :overall, 8) %>
-<%= summary_answer(@function, :purpose, :overall, 9) %>
+<h5>What proportion of these groups does "<%=h @activity.name %>" impact?</h5>
+<%= summary_answer(@activity, :purpose, :overall, 5) %>
+<%= summary_answer(@activity, :purpose, :overall, 6) %>
+<%= summary_answer(@activity, :purpose, :overall, 7) %>
+<%= summary_answer(@activity, :purpose, :overall, 8) %>
+<%= summary_answer(@activity, :purpose, :overall, 9) %>
 
 <h5>The Function/Policy may have the following differential positive impact on these equality groups</h5>
-<%= summary_answer(@function, :purpose, :gender, 3) %>
-<%= summary_answer(@function, :purpose, :race, 3) %>
-<%= summary_answer(@function, :purpose, :disability, 3) %>
-<%= summary_answer(@function, :purpose, :sexual_orientation, 3) %>
-<%= summary_answer(@function, :purpose, :age, 3) %>
+<%= summary_answer(@activity, :purpose, :gender, 3) %>
+<%= summary_answer(@activity, :purpose, :race, 3) %>
+<%= summary_answer(@activity, :purpose, :disability, 3) %>
+<%= summary_answer(@activity, :purpose, :sexual_orientation, 3) %>
+<%= summary_answer(@activity, :purpose, :age, 3) %>
 
 <h5>The Function/Policy may have the following differential negative impact on these equality groups</h5>
-<%= summary_answer(@function, :purpose, :gender, 4) %>
-<%= summary_answer(@function, :purpose, :race, 4) %>
-<%= summary_answer(@function, :purpose, :disability, 4) %>
-<%= summary_answer(@function, :purpose, :sexual_orientation, 4) %>
-<%= summary_answer(@function, :purpose, :age, 4) %>
+<%= summary_answer(@activity, :purpose, :gender, 4) %>
+<%= summary_answer(@activity, :purpose, :race, 4) %>
+<%= summary_answer(@activity, :purpose, :disability, 4) %>
+<%= summary_answer(@activity, :purpose, :sexual_orientation, 4) %>
+<%= summary_answer(@activity, :purpose, :age, 4) %>
 </div>

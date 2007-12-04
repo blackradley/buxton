@@ -1,0 +1,38 @@
+<h3>Impact Equality&trade; Organisation Control Page - Activities</h3>
+<div id="print_link"><%= link_to "#{image_tag('icons/add.png')} Add New Activity", :action => 'new' -%></div>
+<p>This page shows the Organisation Equalities Manager how each activity is progressing through Impact Equality&trade;. It also lets the manager add new activities, amend existing activities and delete activities.</p>
+<strong><%= "No directorates created" if @directorates.blank? -%></strong>
+<% @directorates.each do|directorate| -%>
+<h4><%=h directorate.name -%></h4>
+<table class="list">
+  <tr>
+    <th class="left">Name</th>
+    <th>Completed</th>
+    <th>Relevant</th>
+    <th>Impact</th>
+    <th>Priority</th>
+    <th>Approved</th>
+    <th>Approver</th>
+    <th>Last key sent</th>
+    <th></th>
+  </tr>
+  <% for activity in directorate.activities -%>
+  <tr>
+    <td class="left"><%=h activity.name -%></td>
+    <td><%= completed_tag(activity) -%></td>
+    <td><%= relevance_tag(activity) -%></td>
+    <td><%= impact_tag(activity) -%></td>
+    <td><%= priority_tag(activity) -%></td>
+    <td><%= approved_tag(activity.approved?) -%></td>
+    <td><%=h approver_or_blank(activity.approver) -%></td>
+    <td><%= date_or_blank(activity.function_manager.reminded_on) -%></td>
+    <td class="actions" nowrap>
+	  <%= link_to image_tag('icons/email.png'), "mailto:#{h activity.function_manager.email}", :title =>"Email" -%>
+      <%= link_to image_tag('icons/key.png'), { :controller => 'users', :action => 'remind', :id => activity.function_manager.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.function_manager.email}?", :method => :post, :title =>"Key"  -%>
+      <%= link_to image_tag('icons/edit.jpg'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend" -%>
+      <%= link_to image_tag('icons/delete.png'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete" -%>
+    </td>
+  </tr>
+  <% end -%>
+</table>
+<% end -%>

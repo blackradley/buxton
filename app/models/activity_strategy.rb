@@ -13,7 +13,7 @@
 # Function manager) has to say how much they contribute to each of the strategies.
 # So it is not really a many to many relationship.
 # 
-class FunctionStrategy < ActiveRecord::Base
-  belongs_to :function
+class ActivityStrategy < ActiveRecord::Base
+  belongs_to :activity
   belongs_to :strategy
 end

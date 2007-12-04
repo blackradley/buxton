@@ -1,13 +1,13 @@
 <h3>Impact Equality&trade; Organisation Summary Page</h3>
 <span id="pdf_link"><%= link_to "#{image_tag('icons/pdf.gif')} View PDF report", {:action => 'view_pdf', :id => @organisation.id}, :target => '_blank', :title => 'PDF Report' %></span>
 <p>This is the headline page for the Organisation Equalities Manager. It shows how the organisation is progressing its equalities impact work, allowing monitoring and control.</p>
-<p>The Impact Equality&trade; Progress Table shows how many of the organisation's functions and policies have started or been through the Impact Equality&trade; assessment process.</p>
-<p>The Impact Equality&trade; Results Table shows how each function/policy has scored. There are two scores per function:</p>
+<p>The Impact Equality&trade; Progress Table shows how many of the organisation's activities and policies have started or been through the Impact Equality&trade; assessment process.</p>
+<p>The Impact Equality&trade; Results Table shows how each activity/policy has scored. There are two scores per activity:</p>
 <ul>
-  <li>Potential impact – the effect this function could have on achieving and promoting equality (high/medium/low)</li>
-  <li>Priority – a measure of how urgent it is that this function undertake a full action planning assessment exercise - from 5 (high priority) to 1 (low priority).</li>
+  <li>Potential impact – the effect this activity could have on achieving and promoting equality (high/medium/low)</li>
+  <li>Priority – a measure of how urgent it is that this activity undertake a full action planning assessment exercise - from 5 (high priority) to 1 (low priority).</li>
 </ul>
-<p>Number of functions identified: <%= @functions.size -%></p>
+<p>Number of activities identified: <%= @activities.size -%></p>
 <div class="splitColumn">
 <table class="list">
 	<caption>Impact Equality&trade; Progress Table</caption>
@@ -19,46 +19,46 @@
 	<tr>
 	  	<td>1 - Purpose</td>
 	    <td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.started(:purpose)) ? 1 : 0 } -%>
+			<%= @activities.inject(0) { |started, activity| started += (activity.started(:purpose)) ? 1 : 0 } -%>
 		</td>
 	    <td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.completed(:purpose)) ? 1 : 0 } -%>
+			<%= @activities.inject(0) { |started, activity| started += (activity.completed(:purpose)) ? 1 : 0 } -%>
 		</td>
 	</tr>
 	<tr>
 	    <td>2 - Impact</td>
 	    <td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.started(:impact)) ? 1 : 0 } -%>
+			<%= @activities.inject(0) { |started, activity| started += (activity.started(:impact)) ? 1 : 0 } -%>
 		</td>
 	    <td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.completed(:impact)) ? 1 : 0 } -%>
+			<%= @activities.inject(0) { |started, activity| started += (activity.completed(:impact)) ? 1 : 0 } -%>
 		</td>
 	</tr>
 	<tr>
     	<td>3 - Consultation</td>
 	    <td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.started(:consultation)) ? 1 : 0 } -%>
+			<%= @activities.inject(0) { |started, activity| started += (activity.started(:consultation)) ? 1 : 0 } -%>
 		</td>
 	    <td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.completed(:consultation)) ? 1 : 0 } -%>
+			<%= @activities.inject(0) { |started, activity| started += (activity.completed(:consultation)) ? 1 : 0 } -%>
 		</td>
 	</tr>
 	<tr>
 		<td>4 - Additional Work</td>
 		<td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.started(:additional_work)) ? 1 : 0 } -%>
+			<%= @activities.inject(0) { |started, activity| started += (activity.started(:additional_work)) ? 1 : 0 } -%>
 		</td>
 		<td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.completed(:additional_work)) ? 1 : 0 } -%>
+			<%= @activities.inject(0) { |started, activity| started += (activity.completed(:additional_work)) ? 1 : 0 } -%>
 		</td>
 	</tr>
 	<tr>
 		<td>5 - Action Planning</td>
 		<td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.started(:action_planning)) ? 1 : 0 } -%>
+			<%= @activities.inject(0) { |started, activity| started += (activity.started(:action_planning)) ? 1 : 0 } -%>
 		</td>
 		<td class="number">
-			<%= @functions.inject(0) { |started, function| started += (function.completed(:action_planning)) ? 1 : 0 } -%>
+			<%= @activities.inject(0) { |started, activity| started += (activity.completed(:action_planning)) ? 1 : 0 } -%>
 		</td>
 	</tr>
 </table>

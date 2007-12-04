@@ -11,17 +11,17 @@ class QuestionBuilder < ActionView::Helpers::FormBuilder
   # Generates all the HTML needed for a form question
   def question(section, options={})
     f_id = options[:f_id]
-    function = Function.find(f_id)
+    activity = Activity.find(f_id)
     strand=options[:equality_strand].to_sym
     number=options[:number].to_i
     question="#{section}_#{strand}_#{number}"
     # Get the label text for this question
-    query = function.question_wording_lookup(section.to_sym, strand.to_sym, number)
+    query = activity.question_wording_lookup(section.to_sym, strand.to_sym, number)
     label = query[0]
     type = query[1].to_sym
     choices = query[2]
     help = query[3]
-    look_up_choices = function.hashes['choices']
+    look_up_choices = activity.hashes['choices']
     # Get the answer options for this question and make an appropriate input field
     input_field = case type     
     when :text

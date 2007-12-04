@@ -1,0 +1,15 @@
+<h1>Impact Equality&trade;</h1>
+
+<h3><%=h @activity.name -%></h3>
+
+<% form_for(:activity, :url => {:action => 'update_activity_type'}) do |f| %>
+<fieldset id="status">
+	<p><label for="existing_proposed">Is this:</label><div class="labelled">
+	<% ep_options = @activity.hashes['existing_proposed']['choices'] %>
+	<%= f.select :existing_proposed, @activity.hashes['choices'][ep_options].collect {|option| [option , @activity.hashes['choices'][ep_options].index(option)] } -%></div></p>
+	<p><label for="function_policy">Is this a:</label><div class="labelled">
+	<% fp_options = @activity.hashes['function_policy']['choices'] %>
+	<%= f.select :function_policy, @activity.hashes['choices'][fp_options].collect {|option| [option , @activity.hashes['choices'][fp_options].index(option)] } -%></div></p>
+	<span class='button right'><%= submit_tag -%></span>
+</fieldset>
+<% end %>
