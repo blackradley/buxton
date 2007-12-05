@@ -115,7 +115,7 @@ questions:
       help: '<p>If there are plans to collect further information about how the #{fun_pol_indicator} meets the particular needs 
              of #{wordings[strand]} what is the timescale for the information being ready to use?</p>'
       type: select
-      choices: 4
+      choices: 0
       weights: 0
       dependent_questions: 'impact_#{strand}_7 yes_value'
     9:
@@ -179,8 +179,8 @@ questions:
             #{wordings[strand]}.  Such consultation may have been conducted specifically as part of the assessment process or may have had another
             purpose but supplied information to the assessment process.</p>'
       type: select
-      choices: 6
-      weights: 9
+      choices: 3
+      weights: 14
       dependent_questions: ''
     5:
       label:
@@ -190,8 +190,8 @@ questions:
             to consult, there may be plans to consult experts but they have not taken place or there may be no plans to consult the experts.
             You might not be sure why no consultation has taken place.</p>'
       type: select
-      choices: 5
-      weights: 8
+      choices: 6
+      weights: 13
       dependent_questions: 'consultation_#{strand}_4 no_value'
     6:
       label:
@@ -209,7 +209,7 @@ questions:
       help: '<p>The consultations may have identified issues with the performance of the #{fun_pol_indicator} in meeting the particular needs of #{wordings[strand]}.</p>'
       type: select
       choices: 3
-      weights: 10
+      weights: 0
       dependent_questions: ''
   additional_work:
     1:
@@ -538,12 +538,12 @@ weights:
     - 10
     - 15
   2:
+    - 50
+    - 50
+    - 45
+    - 40
+    - 35
     - 30
-    - 30
-    - 25
-    - 20
-    - 15
-    - 10
   3:
     - 0
     - '-5'
@@ -561,12 +561,12 @@ weights:
     - '-3'
     - 0
   7:
+    - 30
     - 10
-    - 3
-    - 10
+    - 30
   8:
-    - 3
-    - 3
+    - 0
+    - -5
     - 0
     - 0
     - 0
@@ -588,5 +588,16 @@ weights:
     - 5
 
   12:
-    - 15
+    - 20
     - 5
+  13:
+    - 0
+    - -3
+    - 0
+    - 0
+    - 0
+    - 0
+  14:
+    - 20
+    - 10
+    - 20 	
