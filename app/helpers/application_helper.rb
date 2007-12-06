@@ -222,12 +222,14 @@ end
 def answer(activity, section, strand, number)
 
   # Get the label text and details for this question
-  query = activity.question_wording_lookup(section, strand,number)
+  query = activity.question_wording_lookup(section, strand, number)
   question="#{section}_#{strand}_#{number}"
+  puts query
   label = query[0]
   choices = activity.hashes['choices'][query[2]]
   # Get the answer options for this question and make an appropriate input field
   question_answer = activity.send(question)
+  puts question_answer
   unless question_answer.nil?
     answer = case query[1].to_sym
     when :select
