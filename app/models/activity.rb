@@ -40,7 +40,9 @@ class Activity < ActiveRecord::Base
   validates_presence_of :organisation
   validates_uniqueness_of :name, :scope => :organisation_id
   has_many :activity_strategies
+  belongs_to :directorate
   has_many :issues, :dependent => :destroy
+  acts_as_reportable
   attr_reader :stat_function
 
   def existing_proposed?
@@ -53,6 +55,25 @@ class Activity < ActiveRecord::Base
   
   def function_policy?
     hashes['choices'][9][self.function_policy.to_i]
+  end
+  
+  def generate_pdf_data
+    data = []
+    data << self.name
+    data << case self.approved
+      when 0
+       "UNAPPROVED"
+      when 1
+       ""
+    end
+    data << self.directorate.name
+    data << self.function_policy?
+    data << self.function_manager.email
+    data << self.approver
+    statistics
+    data << self.stat_function.relevance
+    return data
+    priority = [data.stat_function.function.topic_impact()]
   end
   #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions. 
   def percentage_answered(section = nil, strand = nil)
@@ -192,7 +213,7 @@ class Activity < ActiveRecord::Base
     statistics_completed = true
     statistics_sections.each{|section| statistics_completed = statistics_completed && completed(section)}
     return nil unless statistics_completed # Don't calculate stats if all the necessary questions haven't been answered
-    return @stat_function if @stat_function
+    #return @stat_function if @stat_function
     questions = {}
     question_hash = question_wording_lookup
     question_hash.each do |strand_name, strand|
@@ -222,7 +243,7 @@ class Activity < ActiveRecord::Base
     end
     statistics = @@Statistics.clone
     statistics.score(questions, self)
-    @stat_function = statistics.function
+    @stat_function = statistics
   end
 
 #This method recovers questions. It allows you to search by strand or by section.
@@ -239,7 +260,7 @@ class Activity < ActiveRecord::Base
 	  return questions
   end
   #TODO: Needs fixing. It currently makes a start at the display, but is not finished by any means. Won't throw any bugs though.
-  def additonal_work_text_lookup(strand, question)
+  def additional_work_text_lookup(strand, question)
     strand = strand.to_s
     fun_pol_indicator = ""
     existing_proposed_name = ""
@@ -306,7 +327,7 @@ class Activity < ActiveRecord::Base
         stats_object = statistics
         return "The #{fun_pol_indicator} has not yet been completed sufficiently to warrant calculation of impact level and the priority ranking." unless statistics
         strand = "" unless strand
-        response = "For the #{strand.to_s.downcase} equality strand the Activity has an overall priority ranking of #{stats_object.priority_ranking(strand)} and a Potential Impact rating of #{stats_object.topic_impact(strand).to_s.capitalize}."
+        response = "For the #{strand.to_s.downcase} equality strand the Activity has an overall priority ranking of #{stats_object.function.priority_ranking(strand)} and a Potential Impact rating of #{stats_object.function.topic_impact(strand).to_s.capitalize}."
     end
     
     return response
@@ -317,8 +338,8 @@ class Activity < ActiveRecord::Base
   def question_wording_lookup(section = nil, strand = nil, question = nil)
     fun_pol = self.function_policy
     exist_prop = self.existing_proposed
-    exist_prop -= 1
-    exist_prop = 0 if exist_prop < 0
+    exist_prop = 0 if exist_prop == 2
+    exist_prop = 0 unless exist_prop
     fun_pol_indicator = case fun_pol
       when 1 
         "function"

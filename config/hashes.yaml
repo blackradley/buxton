@@ -3,7 +3,7 @@ existing_proposed:
   help: ''
   type: select
   choices: 8
-  weight: 9
+  weight: 12
   dependent_questions: ''
 
 function_policy:
@@ -114,9 +114,7 @@ questions:
         - 'If there are plans to collect more information what are the timescales?'
       help: '<p>If there are plans to collect further information about how the #{fun_pol_indicator} meets the particular needs 
              of #{wordings[strand]} what is the timescale for the information being ready to use?</p>'
-      type: select
-      choices: 0
-      weights: 0
+      type: text
       dependent_questions: 'impact_#{strand}_7 yes_value'
     9:
       label:

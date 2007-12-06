@@ -28,7 +28,7 @@ Rails::Initializer.run do |config|
 end  
 
 #load pdf reporting tools
-
+require "ruport"
 #load entire question hash into memory
 @@Hashes = YAML.load_file("#{RAILS_ROOT}/config/hashes.yaml")
 @@Statistics = Statistics.new

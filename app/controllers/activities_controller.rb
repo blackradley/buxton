@@ -187,6 +187,14 @@ class ActivitiesController < ApplicationController
     render :action => 'show'
   end
 
+  def view_pdf
+    @activity = Activity.find(@current_user.activity.id)
+    send_data  PDFRenderer.render_pdf(:data => @activity.generate_pdf_data),
+      :type         => "application/pdf",
+      :disposition  => "inline",
+      :filename     => "report.pdf" 
+  end
+
 protected
   # Secure the relevant methods in the controller.
   def secure?
