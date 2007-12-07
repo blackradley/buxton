@@ -11,4 +11,5 @@
 class Issue < ActiveRecord::Base
 	belongs_to :activity
   validates_presence_of :description  	
+  acts_as_reportable
 end
