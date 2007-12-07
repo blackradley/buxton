@@ -10,7 +10,7 @@ class PDFRenderer < Ruport::Renderer
       #This creates the grey Unapproved background.
       colour = 'Gainsboro'
       pdf_writer.fill_color Color::RGB.const_get(colour)
-      pdf_writer.add_text(pdf_writer.margin_x_middle-150, pdf_writer.margin_y_middle-150, data[1], 72, 45)
+      pdf_writer.add_text(pdf_writer.margin_x_middle-150, pdf_writer.margin_y_middle-150, data[1].to_s, 72, 45)
       pdf_writer.restore_state
       render_pdf
     end
@@ -20,7 +20,7 @@ class PDFRenderer < Ruport::Renderer
       pdf_writer.text "<b>#{data[3]}</b>", :justification => :center, :font_size => 18
       pdf_writer.text "Impact Equality Activity Report", :justification => :center, :font_size => 12
       add_text " " #Serves as a new line character. Is this more readable than moving the cursor manually?
-      add_text "<b>Directorate</b>: #{data[2]}"
+      add_text "<b>Directorate</b>: #{data[2].to_s}"
       add_text " "
       add_text "<b>Activity</b>"
       move_cursor_to(cursor - 7)
@@ -28,10 +28,10 @@ class PDFRenderer < Ruport::Renderer
       hr
       pdf_writer.restore_state
       table = Table("description", "volatile_data")
-      table << ["<b>Name</b>:", data[0]]
-      table << ["<b>Type</b>:", data[4]]
-      table << ["<b>Managers email</b>:", data[5]]
-      table << ["<b>Approver</b>:", data[6]]    
+      table << ["<b>Name</b>:", data[0].to_s]
+      table << ["<b>Type</b>:", data[4].to_s]
+      table << ["<b>Managers email</b>:", data[5].to_s]
+      table << ["<b>Approver</b>:", data[6].to_s]    
       draw_table(table, :position=> :left, :orientation => 2, :shade_rows => :none, :show_lines => :none, :show_headings => false)
       add_text " "
       add_text "<b>Activity Target Outcome</b>"
@@ -39,7 +39,7 @@ class PDFRenderer < Ruport::Renderer
       pdf_writer.stroke_color! Color::Black
       pdf_writer.stroke_style! pdf_writer.class::StrokeStyle.new(1, :dash => { :pattern => [2, 1], :phase => 2 })
       hr
-      add_text data[7]
+      add_text data[7].to_s
       add_text " "
    end
    
