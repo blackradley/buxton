@@ -42,7 +42,6 @@ class Activity < ActiveRecord::Base
   has_many :activity_strategies
   belongs_to :directorate
   has_many :issues, :dependent => :destroy
-  acts_as_reportable
   attr_reader :stat_function
 
   def existing_proposed?
@@ -67,13 +66,14 @@ class Activity < ActiveRecord::Base
        ""
     end
     data << self.directorate.name
+    data << self.organisation.name
     data << self.function_policy?
     data << self.function_manager.email
     data << self.approver
+    data << self.purpose_overall_2
     statistics
-    data << self.stat_function.relevance
-    return data
-    priority = [data.stat_function.function.topic_impact()]
+    data << self.stat_function
+    data << self.id
   end
   #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions. 
   def percentage_answered(section = nil, strand = nil)

@@ -23,17 +23,17 @@ class StatFunction
   end
   #This checks the relevance is higher than the relevance boundary
   def relevant(topic)
-    return (@topics[topic].purpose_result.to_f > RELEVANCE)
+    return (@topics[topic.to_s].purpose_result.to_f > RELEVANCE)
   end
   #This returns the priority ranking
   def priority_ranking(topic)
-    result = @topics[topic].result
+    result = @topics[topic.to_s].result
     rank = MAXRATING
     RANKING.each{|border| rank -= 1 unless result > border}
     return rank
   end
   def topic_impact(topic)
-    return numtorank(@topics[topic].impact)
+    return numtorank(@topics[topic.to_s].impact)
   end
   #This checks that every topic has its border less than the relevance boundary if it has questions in it
   def fun_relevance
