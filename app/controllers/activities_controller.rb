@@ -188,6 +188,7 @@ class ActivitiesController < ApplicationController
   end
 
   def view_pdf
+    load "#{RAILS_ROOT}/lib/pdf_writer_extensions.rb"
     @activity = Activity.find(@current_user.activity.id)
     send_data  PDFRenderer.render_pdf(:data => @activity.generate_pdf_data),
       :type         => "application/pdf",
