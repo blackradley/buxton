@@ -6,7 +6,7 @@ class PDFRenderer < Ruport::Renderer
     def build_pre_processed
       pdf_writer.save_state
       #The page numbers are started at the top, so that they will always hit the first page, but they appear at the bottom
-      pdf_writer.start_page_numbering(pdf_writer.absolute_left_margin, pdf_writer.absolute_bottom_margin, 12, :left)
+      pdf_writer.start_page_numbering(pdf_writer.absolute_left_margin, pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(12) * 1.01), 12, :left)
       #This creates the grey Unapproved background.
       colour = 'Gainsboro'
       pdf_writer.fill_color Color::RGB.const_get(colour)
@@ -17,6 +17,7 @@ class PDFRenderer < Ruport::Renderer
     def build_body
       pdf_writer.save_state
       pdf_writer.fill_color Color::RGB.const_get('Black')
+      pdf_writer.image( "#{RAILS_ROOT}/public/images/pdf_logo.png", :justification => :center, :resize => 0.5)
       pdf_writer.text "<b>#{data[3]}</b>", :justification => :center, :font_size => 18
       pdf_writer.text "Impact Equality Activity Report", :justification => :center, :font_size => 12
       add_text " " #Serves as a new line character. Is this more readable than moving the cursor manually?
@@ -89,7 +90,39 @@ class PDFRenderer < Ruport::Renderer
     end
     
     def build_issues
-
+      add_text "<b>Issues</b>"
+      move_cursor_to(cursor - 7)
+      pdf_writer.stroke_color! Color::Black
+      pdf_writer.stroke_style! pdf_writer.class::StrokeStyle.new(1, :dash => { :pattern => [2, 1], :phase => 2 })
+      hr      
+      activity_id = data[9]
+      issues_table = Issue.report_table(
+        :all,
+        :conditions => {:activity_id => activity_id},
+        :except => %w(id activity_id)
+        )
+      columns = issues_table.column_names
+      no_strand_cols = columns.clone.to_a
+      no_strand_cols.delete('strand')
+      wordings = Activity.find(activity_id).hashes['wordings']
+      pdf_writer.stroke_color! Color::RGB::Black
+      pdf_writer.stroke_style! pdf_writer.class::StrokeStyle::DEFAULT      
+      wordings.each do |strand_name, wording|
+        unless issues_table.sub_table(columns){|row| row.strand.to_s == strand_name.to_s}.to_a == [] then
+          add_text " "
+          add_text "Issues pertaining to #{wording}"
+          add_text " "
+          issue_table = issues_table.sub_table(columns){|row|row.strand.to_s == strand_name.to_s}.sub_table(no_strand_cols)
+          issue_table_renamed_columns = []
+          issue_table.column_names.each do |column|
+            issue_table_renamed_columns << column.titleize if column
+          end
+          issue_table.rename_columns(issue_table.column_names, issue_table_renamed_columns)
+          draw_table(issue_table, :shade_rows => :none, :show_lines => :all)
+          issue_table = nil
+        end
+      end
+     render_pdf
     end
     def build_footer
       pdf_writer.open_object do |footer|
@@ -98,13 +131,13 @@ class PDFRenderer < Ruport::Renderer
         pdf_writer.stroke_style! pdf_writer.class::StrokeStyle::DEFAULT
         font_size = 12
         text = "Report Produced: #{Time.now}"
-        y = pdf_writer.absolute_bottom_margin
+        y = pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(font_size) * 1.01)
         width = pdf_writer.text_width(text, font_size)
         margin = pdf_writer.absolute_right_margin
         pdf_writer.add_text(margin - width, y, text, font_size)
         left_margin = pdf_writer.absolute_left_margin
         right_margin = pdf_writer.absolute_right_margin
-        y += (pdf_writer.font_height(font_size) * 1.01)
+        y = pdf_writer.absolute_bottom_margin
         pdf_writer.line(left_margin, y, right_margin, y).stroke
         pdf_writer.restore_state
         pdf_writer.close_object
