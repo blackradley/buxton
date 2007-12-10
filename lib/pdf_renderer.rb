@@ -1,18 +1,23 @@
 class PDFRenderer < Ruport::Renderer
-  stage :pre_processed, :body, :statistics, :issues, :footer
+  stage :page_numbers, :pre_processed, :body, :statistics, :issues, :footer
 
   class PDF < Ruport::Formatter::PDF
     renders :pdf, :for => PDFRenderer
+    def build_page_numbers
+      pdf_writer.start_page_numbering(pdf_writer.absolute_left_margin,
+        pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(12) * 1.01),
+        12,
+        :left)
+    end
     def build_pre_processed
-      pdf_writer.save_state
+      pdf_writer.unapproved_status = data[1] 
       #The page numbers are started at the top, so that they will always hit the first page, but they appear at the bottom
-      pdf_writer.start_page_numbering(pdf_writer.absolute_left_margin, pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(12) * 1.01), 12, :left)
       #This creates the grey Unapproved background.
       colour = 'Gainsboro'
+      pdf_writer.save_state
       pdf_writer.fill_color Color::RGB.const_get(colour)
       pdf_writer.add_text(pdf_writer.margin_x_middle-150, pdf_writer.margin_y_middle-150, data[1].to_s, 72, 45)
       pdf_writer.restore_state
-      render_pdf
     end
     def build_body
       pdf_writer.save_state
@@ -37,7 +42,7 @@ class PDFRenderer < Ruport::Renderer
       add_text " "
       add_text "<b>Activity Target Outcome</b>"
       move_cursor_to(cursor - 7)
-      pdf_writer.stroke_color! Color::Black
+      pdf_writer.stroke_color! Color::RGB::Black
       pdf_writer.stroke_style! pdf_writer.class::StrokeStyle.new(1, :dash => { :pattern => [2, 1], :phase => 2 })
       hr
       add_text data[7].to_s
@@ -86,13 +91,12 @@ class PDFRenderer < Ruport::Renderer
         add_text "Project details have not yet calculated as the Activity has not been completed."
         add_text " "
       end
-      render_pdf 
     end
     
     def build_issues
       add_text "<b>Issues</b>"
       move_cursor_to(cursor - 7)
-      pdf_writer.stroke_color! Color::Black
+      pdf_writer.stroke_color! Color::RGB::Black
       pdf_writer.stroke_style! pdf_writer.class::StrokeStyle.new(1, :dash => { :pattern => [2, 1], :phase => 2 })
       hr      
       activity_id = data[9]
@@ -122,8 +126,8 @@ class PDFRenderer < Ruport::Renderer
           issue_table = nil
         end
       end
-     render_pdf
     end
+    
     def build_footer
       pdf_writer.open_object do |footer|
         pdf_writer.save_state
@@ -143,6 +147,8 @@ class PDFRenderer < Ruport::Renderer
         pdf_writer.close_object
         pdf_writer.add_object(footer, :all_pages)
       end
+      puts pdf_writer.pageset.size
+      pdf_writer.stop_page_numbering(true)
       render_pdf 
     end
   end
