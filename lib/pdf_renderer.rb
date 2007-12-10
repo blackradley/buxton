@@ -24,7 +24,7 @@ class PDFRenderer < Ruport::Renderer
       pdf_writer.fill_color Color::RGB.const_get('Black')
       pdf_writer.image( "#{RAILS_ROOT}/public/images/pdf_logo.png", :justification => :center, :resize => 0.5)
       pdf_writer.text "<b>#{data[3]}</b>", :justification => :center, :font_size => 18
-      pdf_writer.text "Impact Equality Activity Report", :justification => :center, :font_size => 12
+      pdf_writer.text "Impact Equality#{153.chr} Activity Report", :justification => :center, :font_size => 12
       add_text " " #Serves as a new line character. Is this more readable than moving the cursor manually?
       add_text "<b>Directorate</b>: #{data[2].to_s}"
       add_text " "
