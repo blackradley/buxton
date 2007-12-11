@@ -51,7 +51,7 @@ module ActivitiesHelper
 
   def priority_tag(activity)
     if activity.completed then
-      activity.statistics.fun_priority_ranking
+      activity.statistics.priority_ranking
     else
       '-'
     end
@@ -59,7 +59,7 @@ module ActivitiesHelper
   
   def relevance_tag(activity)
     if activity.completed then
-      (activity.statistics.fun_relevance) ? 'Yes' : 'No'
+      (activity.statistics.relevance) ? 'Yes' : 'No'
     else
       '-'
     end    
