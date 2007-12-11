@@ -347,6 +347,8 @@ class Activity < ActiveRecord::Base
   #questions and their lookup types, just func.question_wording_lookup suffices.
   def question_wording_lookup(section = nil, strand = nil, question = nil)
     fun_pol = self.function_policy
+    fun_pol -= 1
+    fun_pol = 0 if fun_pol == -1
     exist_prop = self.existing_proposed
     exist_prop = 0 if exist_prop == 2
     exist_prop = 0 unless exist_prop

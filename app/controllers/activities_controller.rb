@@ -178,13 +178,13 @@ class ActivitiesController < ApplicationController
     # potentially be important, as if we want to do multipage unapproved, then they will also be
     # affected by the application wide change to extensions. Hence, it loads what is essentially a 
     # self.up library, and then a self.down library to undo the changes it made to PDF::Writer
-    load "#{RAILS_ROOT}/lib/pdf_writer_extensions.rb"
-    @activity = Activity.find(@current_user.activity.id)
-    send_data  ActivityPDFRenderer.render_pdf(:data => @activity.generate_pdf_data),
-      :type         => "application/pdf",
-      :disposition  => "inline",
-      :filename     => "report.pdf"
-    load "#{RAILS_ROOT}/lib/pdf_writer_restorer.rb"
+    pdf_writer do
+      @activity = Activity.find(@current_user.activity.id)
+      send_data  ActivityPDFRenderer.render_pdf(:data => @activity.generate_pdf_data),
+        :type         => "application/pdf",
+        :disposition  => "inline",
+        :filename     => "report.pdf"
+    end
   end
 
 protected
