@@ -34,8 +34,8 @@ describe ActivitiesController, 'routes' do
     route_for(:controller => 'activities', :action => 'update').should == '/activities/update'
   end
 
-  it "should map { :controller => 'activities', :action => 'status' } to /activities/status" do
-    route_for(:controller => 'activities', :action => 'status').should == '/activities/status'
+  it "should map { :controller => 'activities', :action => 'activity_type' } to /activities/activity_type" do
+    route_for(:controller => 'activities', :action => 'activity_type').should == '/activities/activity_type'
   end
   
   it "should map { :controller => 'activities', :action => 'update_status' } to /activities/update_status" do
@@ -69,7 +69,7 @@ describe ActivitiesController, "should not allow GET requests to dangerous actio
   end
 
   it "#update should not be successful" do
-    login_as :activities_manager
+    login_as :function_manager
     get :update
     response.should_not be_success
   end
@@ -81,7 +81,7 @@ describe ActivitiesController, "should not allow GET requests to dangerous actio
   end
   
   it "#update_status should not be successful" do
-    login_as :activities_manager
+    login_as :function_manager
     get :update_status
     response.should_not be_success
   end
@@ -186,7 +186,7 @@ end
 describe ActivitiesController, "handling GET /activities/show" do
 
   it "should be successful" do
-    login_as :activities_manager
+    login_as :function_manager
     get :show
     response.should be_success
   end
@@ -196,7 +196,7 @@ end
 describe ActivitiesController, "handling GET /activities/overview" do
 
   it "should be successful" do
-    login_as :activities_manager
+    login_as :function_manager
     get :overview
     response.should be_success
   end
@@ -228,16 +228,18 @@ describe ActivitiesController, "handling POST /activities/create" do
   before(:each) do
     # Prep data
     @activities = mock(:activities, :null_object => true)
-    @activities_manager = mock(:activities_manager, :null_object => true)
+    @activities_manager = mock(:function_manager, :null_object => true)
+    # @directorate = mock(:directorate, :null_object => true)
     @activities.stub!(:new_record?).and_return(true)
     @activities.stub!(:build_activities_manager).and_return(@activities_manager)
     # Authenticate
     login_as :organisation_manager    
     @current_user.organisation.stub!(:activities).and_return([])
     @current_user.organisation.activities.stub!(:build).and_return(@activities)
+    # Directorate.stub!(:find).and_return(@directorate)
   end
 
-  it "should tell the Function model to create a new activities" do
+  it "should tell the Activity model to create a new activities" do
     @current_user.organisation.activities.should_receive(:build).and_return(@activities)
     post :create
   end
@@ -269,15 +271,15 @@ describe ActivitiesController, "handling POST /activities/update" do
   
 end
 
-describe ActivitiesController, "handling GET /activities/status" do
+describe ActivitiesController, "handling GET /activities/activity_type" do
   
   it "should be successful" do
-    login_as :activities_manager
-    get :status
+    login_as :function_manager
+    get :activity_type
     response.should be_success
   end
   
-  it "should re-show the status page if the status questions remain unanswered"
+  it "should re-show the activity_type page if the status questions remain unanswered"
 
   it "should not allow access to an organisation manager"
   
@@ -314,8 +316,8 @@ end
 describe ActivitiesController, "handling POST /activities/destroy/:id" do
 
   before(:each) do
-    @activities = mock_model(Function, :to_param => 2)
-    Function.stub!(:find).and_return(@activities)
+    @activities = mock_model(Activity, :to_param => 2)
+    Activity.stub!(:find).and_return(@activities)
     @activities.stub!(:destroy).and_return(true)
     login_as :organisation_manager
   end

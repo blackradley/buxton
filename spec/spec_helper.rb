@@ -15,21 +15,23 @@ def login_as(user)
     when :function_manager
       @activity = mock_model(Activity, :to_param => '1')
       @current_user = mock_model(FunctionManager, {  :to_param => '1',
-                                                     :activity => @activity,
+                                                     :activity => @activity
                                                      })
       User.should_receive(:find).with(@current_user.id).any_number_of_times.and_return(@current_user)
-      Activity.should_receive(:find).with(@current_user.activity.id).any_number_of_times.and_return(@activity)      
+      Activity.should_receive(:find).with(@current_user.activity.id).any_number_of_times.and_return(@activity)
       request.session[:user_id] = @current_user.id
     when :organisation_manager
       @organisation = mock_model(Organisation, { :to_param => '1',
-                                                 :activities => []
+                                                 :activities => [],
+                                                 :null_object => true
                                                  })
       @current_user = mock_model(OrganisationManager, {  :to_param => '1',
-                                                         :organisation => @organisation,
+                                                         :organisation => @organisation
                                                          })
       User.should_receive(:find).with(@current_user.id).any_number_of_times.and_return(@current_user)
-      Organisation.should_receive(:find).with(@current_user.organisation.id).any_number_of_times.and_return(@organisation)      
+      Organisation.should_receive(:find).with(@current_user.organisation.id).any_number_of_times.and_return(@organisation)
       request.session[:user_id] = @current_user.id
+    when :administrator
       @current_user = mock_model(Administrator, { :to_param => '1' })
       User.should_receive(:find).with(@current_user.id).any_number_of_times.and_return(@current_user)
       request.session[:user_id] = @current_user.id
