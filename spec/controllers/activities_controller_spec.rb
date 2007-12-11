@@ -38,8 +38,8 @@ describe ActivitiesController, 'routes' do
     route_for(:controller => 'activities', :action => 'activity_type').should == '/activities/activity_type'
   end
   
-  it "should map { :controller => 'activities', :action => 'update_status' } to /activities/update_status" do
-    route_for(:controller => 'activities', :action => 'update_status').should == '/activities/update_status'
+  it "should map { :controller => 'activities', :action => 'update_activity_type' } to /activities/update_activity_type" do
+    route_for(:controller => 'activities', :action => 'update_activity_type').should == '/activities/update_activity_type'
   end
   
   it "should map { :controller => 'activities', :action => 'edit_contact', :id => 1 } to /activities/edit_contact/1" do
@@ -80,9 +80,9 @@ describe ActivitiesController, "should not allow GET requests to dangerous actio
     response.should_not be_success
   end
   
-  it "#update_status should not be successful" do
+  it "#update_activity_type should not be successful" do
     login_as :function_manager
-    get :update_status
+    get :update_activity_type
     response.should_not be_success
   end
   
@@ -136,8 +136,8 @@ describe ActivitiesController, "should not allow access to secured actions when 
     response.should be_redirect
   end
   
-  it "#update_status should not be successful" do
-    post :update_status
+  it "#update_activity_type should not be successful" do
+    post :update_activity_type
     response.should be_redirect
   end
   
@@ -255,7 +255,7 @@ describe ActivitiesController, "handling POST /activities/create" do
     @activity.stub!(:build_function_manager).and_return(@activity_manager)
 
     # Authenticate
-    login_as :organisation_manager    
+    login_as :organisation_manager
   end
 
   it "should tell the Activity model to create a new activities" do
@@ -268,25 +268,54 @@ describe ActivitiesController, "handling POST /activities/create" do
     post :create
   end
   
-  it "with a valid activities should redirect to 'activities/list'" do
+  it "should redirect to 'activities/list' with a valid activity" do
     @activity.stub!(:save!).and_return(nil)
     post :create
     response.should be_redirect
   end
   
-  it "with an invalid activities should re-render 'activities/new'" do
+  it "should assign a flash message with a valid activity"
+  
+  it "should re-render 'activities/new' with an invalid activity" do
     @exception = ActiveRecord::RecordNotSaved.new
     @exception.stub!(:record).and_return(@activity)
     @activity.stub!(:save!).and_raise(@exception)
     post :create
     response.should render_template(:new)
   end
+
+  it "should assign a flash message with an invalid activity"
   
 end
 
 describe ActivitiesController, "handling POST /activities/update" do
 
-  it "should be successful"
+  before(:each) do
+    # Prep data
+    @activity = mock_model(Activity, :null_object => true)
+    @activity_manager = mock_model(FunctionManager, :null_object => true)
+    @activity_manager.stub!(:activity).and_return(@activity)
+    # Authenticate
+    login_as :activity_manager
+  end
+
+  it "should redirect to 'activities/list' with a valid activity" do
+    @activity.stub!(:update_attributes!).and_return(nil)
+    post :update
+    response.should be_redirect
+  end
+
+  it "should assign a flash message with a valid activity"
+  
+  it "should re-render 'activities/show/:id' with an invalid activity" do
+    @exception = ActiveRecord::RecordNotSaved.new
+    @exception.stub!(:record).and_return(@activity)
+    @activity.stub!(:update_attributes!).and_raise(@exception)
+    post :update
+    response.should render_template(:show)
+  end
+  
+  it "should assign a flash message with an invalid activity"  
   
 end
 
@@ -306,9 +335,41 @@ describe ActivitiesController, "handling GET /activities/activity_type" do
   
 end
 
-describe ActivitiesController, "handling POST /activities/update_status" do
+describe ActivitiesController, "handling POST /activities/update_activity_type" do
 
-  it "should be successful"
+  before(:each) do
+    # Authenticate
+    login_as :function_manager
+    @activity = @current_user.activity
+  end
+
+  it "should redirect to 'activities/show/:id' with a valid activity and all activity_type questions answered" do
+    @activity.stub!(:update_attributes!).and_return(nil)
+    @activity.stub!(:started).and_return(true)
+    post :update_activity_type
+    response.should redirect_to(route_for(:controller => 'activities', :action => 'show'))
+  end
+
+  it "should redirect to 'activities/activity_type' with a valid activity but not all activity_type questions answered" do
+    @activity.stub!(:update_attributes!).and_return(nil)
+    @activity.stub!(:started).and_return(false)
+    post :update_activity_type
+    response.should redirect_to(route_for(:controller => 'activities', :action => 'activity_type'))
+  end
+
+  it "should assign a flash message with a valid activity and all activity_type questions answered"
+  
+  it "should assign a flash message with a valid activity but not all activity_type questions answered"  
+  
+  it "should re-render 'activities/activity_type' with an invalid activity" do
+    @exception = ActiveRecord::RecordNotSaved.new
+    @exception.stub!(:record).and_return(@activity)
+    @activity.stub!(:update_attributes!).and_raise(@exception)
+    post :update_activity_type
+    response.should render_template(:activity_type)
+  end
+  
+  it "should assign a flash message with an invalid activity"  
   
 end
 
@@ -326,29 +387,51 @@ end
 
 describe ActivitiesController, "handling POST /activities/update_contact/:id" do
 
-  it "should be successful"
+  before(:each) do
+    @activity = mock_model(Activity, :null_object => true)
+    Activity.stub!(:find).and_return(@activity)
+    
+    # Authenticate
+    login_as :organisation_manager
+  end
+
+  it "should redirect to 'activities/list' with a valid activity" do
+    @activity.stub!(:update_attributes!).and_return(nil)
+    post :update_contact
+    response.should redirect_to(route_for(:controller => 'activities', :action => 'list'))
+  end
+
+  it "should assign a flash message with a valid activity"
   
-  it "should fail when given an invalid ID"  
+  it "should re-render 'activities/edit_contact' with an invalid activity" do
+    @exception = ActiveRecord::RecordNotSaved.new
+    @exception.stub!(:record).and_return(@activity)
+    @activity.stub!(:update_attributes!).and_raise(@exception)
+    post :update_contact
+    response.should render_template(:edit_contact)
+  end
+  
+  it "should assign a flash message with an invalid activity"  
   
 end
 
 describe ActivitiesController, "handling POST /activities/destroy/:id" do
 
   before(:each) do
-    @activities = mock_model(Activity, :to_param => 2)
-    Activity.stub!(:find).and_return(@activities)
-    @activities.stub!(:destroy).and_return(true)
+    @activity = mock_model(Activity)
+    Activity.stub!(:find).and_return(@activity)
+    @activity.stub!(:destroy).and_return(true)
     login_as :organisation_manager
   end
   
   it "should be successful" do
-    post :destroy, :id => 2
+    post :destroy, :id => @activity.id
     response.should be_redirect
   end
   
   it "should destroy the organisation" do
-    @activities.should_receive(:destroy)
-    post :destroy, :id => 2
+    @activity.should_receive(:destroy)
+    post :destroy, :id => @activity.id
   end
   
   it "should fail when given an invalid ID"

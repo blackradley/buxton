@@ -13,7 +13,9 @@ end
 def login_as(user)  
   case user
     when :function_manager
-      @activity = mock_model(Activity, :to_param => '1')
+      @activity = mock_model(Activity, {  :to_param => '1',
+                                          :name => 'Test activity'
+                                          })
       @current_user = mock_model(FunctionManager, {  :to_param => '1',
                                                      :activity => @activity
                                                      })
