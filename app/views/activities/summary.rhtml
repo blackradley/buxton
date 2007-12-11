@@ -16,51 +16,17 @@
 	    <th>Started</th>
 	    <th>Completed</th>
 	</tr>
-	<tr>
-	  	<td>1 - Purpose</td>
-	    <td class="number">
-			<%= @activities.inject(0) { |started, activity| started += (activity.started(:purpose)) ? 1 : 0 } -%>
-		</td>
-	    <td class="number">
-			<%= @activities.inject(0) { |started, activity| started += (activity.completed(:purpose)) ? 1 : 0 } -%>
-		</td>
-	</tr>
-	<tr>
-	    <td>2 - Impact</td>
-	    <td class="number">
-			<%= @activities.inject(0) { |started, activity| started += (activity.started(:impact)) ? 1 : 0 } -%>
-		</td>
-	    <td class="number">
-			<%= @activities.inject(0) { |started, activity| started += (activity.completed(:impact)) ? 1 : 0 } -%>
-		</td>
-	</tr>
-	<tr>
-    	<td>3 - Consultation</td>
-	    <td class="number">
-			<%= @activities.inject(0) { |started, activity| started += (activity.started(:consultation)) ? 1 : 0 } -%>
-		</td>
-	    <td class="number">
-			<%= @activities.inject(0) { |started, activity| started += (activity.completed(:consultation)) ? 1 : 0 } -%>
-		</td>
-	</tr>
-	<tr>
-		<td>4 - Additional Work</td>
-		<td class="number">
-			<%= @activities.inject(0) { |started, activity| started += (activity.started(:additional_work)) ? 1 : 0 } -%>
-		</td>
-		<td class="number">
-			<%= @activities.inject(0) { |started, activity| started += (activity.completed(:additional_work)) ? 1 : 0 } -%>
-		</td>
-	</tr>
-	<tr>
-		<td>5 - Action Planning</td>
-		<td class="number">
-			<%= @activities.inject(0) { |started, activity| started += (activity.started(:action_planning)) ? 1 : 0 } -%>
-		</td>
-		<td class="number">
-			<%= @activities.inject(0) { |started, activity| started += (activity.completed(:action_planning)) ? 1 : 0 } -%>
-		</td>
-	</tr>
+	<% @organisation.progress_table.each do |row| -%>
+		<tr>
+			<td><%=h row[0].to_s.titleize %></td>
+			<td class = "number">
+				<%=h row[1][0] -%>
+			</td>
+			<td class = "number">
+				<%=h row[1][1] -%>
+			</td>
+		</tr>
+	<% end -%>
 </table>
 </div>
 <div class="splitColumn">

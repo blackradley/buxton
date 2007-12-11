@@ -16,13 +16,13 @@ class OrganisationPDFRenderer < Ruport::Renderer
       pdf_writer.image( "#{RAILS_ROOT}/public/images/pdf_logo.png", :justification => :center, :resize => 0.5)
       pdf_writer.text "<b>#{data[0]}</b>", :justification => :center, :font_size => 18
       pdf_writer.text "Impact Equality#{153.chr} Organisation Report", :justification => :center, :font_size => 12
-      pdf_writer.text "", :justification => :center, :font_size => 10 #Serves as a new line character. Is this more readable than moving the cursor manually?
+      pdf_writer.text "" #Serves as a new line character. Is this more readable than moving the cursor manually?
       add_text " "
       add_text " "
     end
     
     def build_activities_table
-      pdf_writer.text "<b>Activity Type</b>", :justification => :left, :font_size => 12
+      pdf_writer.text "<b>Activity Type</b>", :justification => :left
       add_text " "
       table = Table("Types", "Number")
       table << ["Existing Function", data[1]]
@@ -37,7 +37,7 @@ class OrganisationPDFRenderer < Ruport::Renderer
     def build_progress_table
       add_text "<b>Progress</b>"
       add_text " "
-      table = Table("", "Started", "Completed", "Approved")
+      table = Table("", "Started", "Completed")
       data[6].each do |section, value|
         table << [section.to_s.titleize, value].flatten
       end
@@ -48,7 +48,7 @@ class OrganisationPDFRenderer < Ruport::Renderer
     def build_results_table
       add_text "<b>Results</b>"
       add_text " "
-      table = Table("Priority Level", "Low Impact", "Medium Impact", "High Impact")
+      table = Table("", "Low Impact", "Medium Impact", "High Impact")
       data[7].each do |priority_ranking, value|
         table << ["Priority #{priority_ranking}", value[:low], value[:medium], value[:high]]
       end

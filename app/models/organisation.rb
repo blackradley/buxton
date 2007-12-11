@@ -60,14 +60,13 @@ class Organisation < ActiveRecord::Base
   end
   
   def progress_table
-    table = {}
+    table = []
     section_names = self.hashes['section_names']
     section_names.each do |section|
       section_data = []
       section_data << self.activities.inject(0) { |started, activity| started += (activity.started(section.to_sym)) ? 1 : 0 }
       section_data << self.activities.inject(0) { |completed, activity| completed += (activity.completed(section.to_sym)) ? 1 : 0 }
-      section_data << self.activities.inject(0) { |approved, activity| approved += (activity.approved) ? 1 : 0 }
-      table[section.to_sym] = section_data
+      table << [section, section_data.to_a]
     end
     return table
   end
