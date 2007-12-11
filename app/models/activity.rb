@@ -46,6 +46,7 @@ class Activity < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :organisation_id
 
   attr_accessor :stat_function
+  before_save :clear_statistics
 
   def existing_proposed?
     hashes['choices'][8][self.existing_proposed.to_i]
@@ -53,6 +54,10 @@ class Activity < ActiveRecord::Base
   
   def hashes
     @@Hashes
+  end
+  
+  def clear_statistics
+    @stat_function = nil
   end
   
   def function_policy?
@@ -254,7 +259,7 @@ class Activity < ActiveRecord::Base
 #It works by getting a list of all the columns, then removing any ones which aren't quesitons. 
 #NOTE: Should a new column be added to activity that isn't a question, it should also be added here.
   def self.get_question_names(section = nil, strand = nil, number = nil)
-	  return "#{section}_#{strand}_#{number}".to_sym if section && strand && number
+	  return ["#{section}_#{strand}_#{number}".to_sym] if section && strand && number
     questions = []
 	  unnecessary_columns = [:name, :approved, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on]
 	  Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
