@@ -1,3 +1,4 @@
+# Configuration for the SMTP server.
 if RAILS_ENV != 'test'
   c = YAML::load(File.open("#{RAILS_ROOT}/config/email.yml"))
   ActionMailer::Base.smtp_settings = {
