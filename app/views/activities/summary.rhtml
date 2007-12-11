@@ -1,5 +1,5 @@
 <h3>Impact Equality&trade; Organisation Summary Page</h3>
-<span id="pdf_link"><%= link_to "#{image_tag('icons/pdf.gif')} View PDF report", {:action => 'view_pdf', :id => @organisation.id}, :target => '_blank', :title => 'PDF Report' %></span>
+<span id="pdf_link"><%= link_to "#{image_tag('icons/pdf.gif')} View PDF report", {:action => 'view_pdf', :id => @organisation.id, :controller => 'organisations'}, :target => '_blank', :title => 'PDF Report' %></span>
 <p>This is the headline page for the Organisation Equalities Manager. It shows how the organisation is progressing its equalities impact work, allowing monitoring and control.</p>
 <p>The Impact Equality&trade; Progress Table shows how many of the organisation's activities and policies have started or been through the Impact Equality&trade; assessment process.</p>
 <p>The Impact Equality&trade; Results Table shows how each activity/policy has scored. There are two scores per activity:</p>
