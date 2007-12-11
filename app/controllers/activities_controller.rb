@@ -71,7 +71,7 @@ class ActivitiesController < ApplicationController
   # Create a new activity and a new user based on the parameters in the form data.
   # Available to: Organisation Manager  
   def create
-    @directorate = Directorate.find_by_id(params[:directorate][:directorate_id])
+    @directorate = Directorate.find(params[:directorate][:directorate_id])
     org_id = @directorate.organisation.id
     @activity = @directorate.activities.build(params[:activity].merge(:organisation_id => org_id))
     @function_manager = @activity.build_function_manager(params[:function_manager])
