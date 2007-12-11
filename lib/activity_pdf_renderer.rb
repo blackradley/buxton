@@ -1,6 +1,6 @@
 class ActivityPDFRenderer < Ruport::Renderer
-  stage :page_numbers, :build_unapproved_logo_on_first_page, :header, :body, :statistics, :issues, :footer
-
+  stage :page_numbers, :unapproved_logo_on_first_page, :header, :body, :statistics, :issues, :footer
+ 
   class ActivityPDF < Ruport::Formatter::PDF
     renders :pdf, :for => ActivityPDFRenderer
     def build_page_numbers
