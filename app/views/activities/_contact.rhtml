@@ -8,4 +8,5 @@
 <div class = 'labelled'><%= text_field 'activity', 'name', 'size' => 50 -%></div></p>
 
 <p><label for="directorate_id">Directorate</label><br />
-<div class = 'labelled'><%= select('directorate', 'directorate_id', @directorates.collect{|directorate| [directorate.name, directorate.id]}) -%><div></p>
+<div class = 'labelled'><%= select('activity', 'directorate_id', @directorates -%><div>
+</p>
