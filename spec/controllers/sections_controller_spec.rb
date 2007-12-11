@@ -146,9 +146,9 @@ describe SectionsController, 'handling GET /sections/show/:id' do
   
   before(:each) do
     login_as :function_manager
-    @function = @current_user.function
-    @function.stub!(:started).and_return(true)
-    @function.stub!(:function_strategies).and_return([])    
+    @activity = @current_user.activity
+    @activity.stub!(:started).and_return(true)
+    @activity.stub!(:function_strategies).and_return([])    
   end
 
   it "should be successful with 'purpose'" do
