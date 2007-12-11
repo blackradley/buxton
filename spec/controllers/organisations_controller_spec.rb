@@ -150,6 +150,7 @@ describe OrganisationsController, 'handling GET /organisations/show/:id' do
     @organisation_manager = mock_model(OrganisationManager)
     Organisation.stub!(:find).and_return(@organisation)
     @organisation.stub!(:organisation_manager).and_return(@organisation_manager)
+    @organisation.stub!(:directorates).and_return([])
     login_as :administrator
   end
   

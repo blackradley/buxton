@@ -3,7 +3,7 @@ require File.dirname(__FILE__) + '/../spec_helper'
 describe UsersController, 'routes' do
 
   it "should map { :controller => 'users', :action => 'index' } to /users" do
-    route_for(:controller => 'users', :action => 'index').should == '/users'
+    route_for(:controller => 'users', :action => 'index').should == '/'
   end
   
   it "should map { :controller => 'users', :action => 'list' } to /users/list" do
