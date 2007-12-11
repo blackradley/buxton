@@ -137,16 +137,40 @@ end
 
 describe UsersController, 'handling POST /users/create' do
   
-  it "should be successful"
+  before(:each) do
+    # Prep data
+    @administrator = mock_model(Administrator, :null_object => true)
+    Administrator.stub!(:new).and_return(@administrator)    
+    # Authenticate
+    login_as :administrator
+  end
+
+  it "should redirect to 'users/list' with a valid user" do
+    @administrator.stub!(:save!).and_return(nil)
+    post :create
+    response.should redirect_to(:action => 'list')
+  end
+
+  it "should assign a flash message with a valid user"
+  
+  it "should render 'users/new' with an invalid user" do
+    @exception = ActiveRecord::RecordNotSaved.new
+    @exception.stub!(:record).and_return(@administrator)
+    @administrator.stub!(:save!).and_raise(@exception)
+    post :create
+    response.should render_template(:new)
+  end
+  
+  it "should assign a flash message with an invalid user"  
 
 end
 
 describe UsersController, 'handling GET /users/edit/:id' do
   
-  it "should be successful" do
-    get :edit, :id => 2
-    response.should be_success
-  end
+  # it "should be successful" do
+  #   get :edit, :id => 2
+  #   response.should be_success
+  # end
 
   it "should fail when given an invalid ID"
 
@@ -154,7 +178,31 @@ end
 
 describe UsersController, 'handling POST /users/update/:id' do
   
-  it "should be successful"
+  before(:each) do
+    # Prep data
+    @administrator = mock_model(Administrator, :null_object => true)
+    Administrator.stub!(:find).and_return(@administrator)    
+    # Authenticate
+    login_as :administrator
+  end
+
+  it "should redirect to 'user/list' with a valid activity" do
+    @administrator.stub!(:update_attributes!).and_return(nil)
+    post :update
+    response.should redirect_to(:action => 'list')
+  end
+
+  it "should assign a flash message with a valid activity"
+  
+  it "should re-render 'user/edit/:id' with an invalid activity" do
+    @exception = ActiveRecord::RecordNotSaved.new
+    @exception.stub!(:record).and_return(@administrator)
+    @administrator.stub!(:update_attributes!).and_raise(@exception)
+    post :update
+    response.should render_template(:edit)
+  end
+  
+  it "should assign a flash message with an invalid activity"  
 
   it "should fail when given an invalid ID"
 
@@ -169,19 +217,19 @@ end
 describe UsersController, 'handling POST /users/destroy/:id' do
   
   before(:each) do
-    @admin = mock_model(Administrator, :to_param => 2)
-    Administrator.stub!(:find).and_return(@admin)
-    @admin.stub!(:destroy).and_return(true)
+    @administrator = mock_model(Administrator)
+    Administrator.stub!(:find).and_return(@administrator)
+    @administrator.stub!(:destroy).and_return(true)
   end
   
   it "should be successful" do
-    post :destroy, :id => 2
+    post :destroy, :id => @administrator.id
     response.should be_redirect
   end
   
   it "should destroy the organisation" do
-    @admin.should_receive(:destroy)
-    post :destroy, :id => 2
+    @administrator.should_receive(:destroy)
+    post :destroy, :id => @administrator.id
   end
   
   it "should fail when given an invalid ID"

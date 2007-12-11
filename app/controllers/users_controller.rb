@@ -40,23 +40,15 @@ class UsersController < ApplicationController
   def create
     @admin = Administrator.new(params[:admin])
     @admin.passkey = Administrator.generate_passkey(@admin)
-    if @admin.save
-      flash[:notice] = 'Admin was successfully created.'
-      redirect_to :action => 'list'
-    else
-      render :action => :new
-    end
-    rescue ActiveRecord::RecordInvalid
-      @admin.valid? # force checking of errors even if activity failed
-      render :action => :new
+    @admin.save!
+    flash[:notice] = 'Admin was successfully created.'
+    redirect_to :action => 'list'
   end
 
   # Edit screen for a user.
   # Available to: Administrator  
   def edit
     @admin = Administrator.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render :inline => 'Invalid ID.'  
   end
 
   # Update a user's details.

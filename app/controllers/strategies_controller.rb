@@ -63,12 +63,9 @@ class StrategiesController < ApplicationController
   # Available to: Administrator  
   def create
     @strategy = Strategy.new(params[:strategy])
-    if @strategy.save
-      flash[:notice] = 'Strategy was successfully created.'
-      redirect_to :action => 'list', :id => @strategy.organisation_id
-    else
-      render :action => 'new'
-    end
+    @strategy.save!
+    flash[:notice] = 'Strategy was successfully created.'
+    redirect_to :action => 'list', :id => @strategy.organisation.id
   end
 
   # Edit screen for a strategy.
