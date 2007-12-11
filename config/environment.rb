@@ -39,21 +39,4 @@ Rails::Initializer.run do |config|
     :secret      => '2132aaf9c4f4f6fbab01a6daa24b33e9d1066adddc24e92528b27629d69f48c8c446d7275041f6ade07dff8b80fd04f408ccb4f006ac298fcf80d9a89820922a'
   }
 
-end  
-
-
-#load pdf reporting tools
-require 'rubygems'
-require "ruport"
-#load entire question hash into memory
-@@Hashes = YAML.load_file("#{RAILS_ROOT}/config/hashes.yaml")
-@@Statistics = Statistics.new
-
-# Add new mime types for use in respond_to blocks:
-# Mime::Type.register "text/richtext", :rtf
-# Mime::Type.register "application/x-mobile", :mobile
-
-# Configuration for the SMTP server.
-require 'load_email_configuration'
-# Configuration to state who to send exception notifications to
-ExceptionNotifier.exception_recipients = %w(karl@27stars.co.uk joe@27stars.co.uk heather@27stars.co.uk)
+end
