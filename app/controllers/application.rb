@@ -17,9 +17,6 @@ class ApplicationController < ActionController::Base
   before_filter :authenticate
   before_filter :set_current_user
     
-  # Pick a unique cookie name to distinguish our session data from others'
-  session :session_key => '_buxton_session_id'
-
 protected
   # Check that the user in the session is for real.
   def authenticate
