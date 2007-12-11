@@ -46,7 +46,7 @@ class Activity < ActiveRecord::Base
   validates_uniqueness_of :name, :scope => :organisation_id
 
   attr_accessor :stat_function
-  before_save :clear_statistics
+  before_save :clear_statistics, :set_approved
 
   def existing_proposed?
     hashes['choices'][8][self.existing_proposed.to_i]
@@ -58,6 +58,12 @@ class Activity < ActiveRecord::Base
   
   def clear_statistics
     @stat_function = nil
+  end
+  
+  def set_approved
+    if self.approved && !self.approved_on then
+      self.approved_on = Time.now.gmtime
+    end
   end
   
   def function_policy?

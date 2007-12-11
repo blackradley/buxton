@@ -10,7 +10,7 @@ class ActivitiesController < ApplicationController
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify  :method => :post,
-          :only => [ :destroy, :create, :update, :update_status, :update_contact ],
+          :only => [ :destroy, :create, :update, :update_activity_type, :update_contact ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
   # By default, show the summary page. Not presently referenced anywhere.
@@ -25,7 +25,6 @@ class ActivitiesController < ApplicationController
     @organisation = Organisation.find(@current_user.organisation.id)
     @activities = @organisation.activities
     @results_table = @organisation.activity_summary_table
-    
   end
 
   # Show the summary information for a specific activity.
@@ -62,24 +61,18 @@ class ActivitiesController < ApplicationController
     @function_manager = @activity.build_function_manager(params[:function_manager])
     @function_manager.passkey = FunctionManager.generate_passkey(@function_manager)
 
-    begin
-      Activity.transaction do
-        @activity.save!
-        flash[:notice] = "#{@activity.name} was created."
-        redirect_to :action => :list
-      end
-    rescue ActiveRecord::RecordNotSaved
-        flash[:notice] = "Activity creation failed. Please try again, and if it continues to fail, contact an administrator."
-        render :action => :new    
+    Activity.transaction do
+      @activity.save!
+      flash[:notice] = "#{@activity.name} was created."
+      redirect_to :action => :list
     end
   end
 
   # Update the activity details accordingly.
   # Available to: Activity Manager  
   def update
-    @activity = Activity.find(@current_user.activity.id)
-    @activity.update_attributes!(:approved_on => Time.now.gmtime) if params[:approved] == 1
-    @activity.update_attributes!(params[:activity])
+    #TODO: Add rescue, this cannot be abstracted.
+    @current_user.activity.update_attributes!(params[:activity])
     flash[:notice] =  "#{@activity.name} was successfully updated."
     redirect_to :back
   end
@@ -93,8 +86,9 @@ class ActivitiesController < ApplicationController
   # Update the activity status and proceed, or not, accordingly
   # Available to: Activity Manager  
   def update_activity_type
-    @activity = Activity.find(@current_user.activity.id)
-    @activity.update_attributes(params[:activity])
+    #TODO: Add rescue, this cannot be abstracted.
+    @activity = @current_user.activity
+    @activity.update_attributes!(params[:activity])
     
     # Check both the Activity/Policy and Existing/Proposed questions have been answered
     if @activity.started then
@@ -118,6 +112,7 @@ class ActivitiesController < ApplicationController
     unless (@current_user.class.name == 'OrganisationManager') then render :inline => 'Invalid.' end
 
     # Get the Activity and User details ready for the view
+    #TODO: Test the exception handling here.
     @activity = Activity.find(params[:id])
     @function_manager = @activity.function_manager
     @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] }
@@ -130,8 +125,11 @@ class ActivitiesController < ApplicationController
     # TODO: catch this better
     unless (@current_user.class.name == 'OrganisationManager') then render :inline => 'Invalid.' end
 
+    #TODO: Don't remove rescue, this cannot be abstracted.
+
     # Update the activity
     Activity.transaction do
+      #TODO: Test the exception handling here.
       @activity = Activity.find(params[:id])
       @activity.update_attributes!(params[:activity])
       # # Update the user
@@ -141,13 +139,15 @@ class ActivitiesController < ApplicationController
       redirect_to :action => 'list'
     end
     # Something went wrong
-    rescue ActiveRecord::RecordInvalid || ActiveRecord::RecordNotSaved
+    rescue ActiveRecord::RecordNotSaved
       render :action => :edit_contact
   end
 
   # Delete the activity (and any associated records as stated in the Activity model)
   # Available to: Organisation Manager
   def destroy
+    #TODO: Test the exception handling here.
+
     # Only allow an organisation manager to proceed    
     # TODO: catch this better
     unless (@current_user.class.name == 'OrganisationManager') then render :inline => 'Invalid.' end

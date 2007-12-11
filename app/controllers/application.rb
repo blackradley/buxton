@@ -60,7 +60,7 @@ protected
       super
     end
   end
-=end
+
   def render_invalid_record(record)
     render :action => (record.new_record? ? 'new' : 'edit')
   end  
@@ -70,7 +70,7 @@ protected
       format.html { render :file => "#{RAILS_ROOT}/public/404.html", :status => 404 }
     end
   end
-
+=end
 private
   # Log the user out of the system by killing the session parameter that identifies them as being logged in
   # Kill the @current_user variable as well as this is collected before any call to logout() can be made
