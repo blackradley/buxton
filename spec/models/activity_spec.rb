@@ -163,8 +163,7 @@ describe Activity do
       @activity.stub!(:function_policy).and_return(1)   
     end
     
-    it "should have the correct additional work prelude text" do
-      
+    it "should have the correct additional work prelude text" do      
       correct_question_1_answer = "If the function were performed well it would not affect men and women differently."
       correct_question_2_answer = "If the function were performed badly it would not affect men and women differently."
       correct_question_3_answer = "The performance of the function in meeting the different needs of men and women is poor. This performance assessment has been validated."
