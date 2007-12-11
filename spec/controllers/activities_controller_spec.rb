@@ -215,8 +215,29 @@ end
 
 describe ActivitiesController, "handling GET /activities/new" do
 
+  before(:each) do
+    # Prep data
+    @activity = mock_model(Activity, :null_object => true)
+    @activity_manager = mock_model(FunctionManager, :null_object => true)
+    
+    Activity.stub!(:new).and_return(@activity)
+    @activity.stub!(:build_function_manager).and_return(@activity_manager)
+
+    # Authenticate
+    login_as :organisation_manager    
+  end
+  
+  it "should provide a new Activity for the view" do
+    Activity.should_receive(:new).and_return(@activity)
+    get :new
+  end
+
+  it "should provide a new FunctionManager for the view" do
+    @activity.should_receive(:build_function_manager).and_return(@activity_manager)
+    get :new
+  end
+
   it "should be successful" do
-    login_as :organisation_manager
     get :new
     response.should be_success
   end
@@ -227,38 +248,36 @@ describe ActivitiesController, "handling POST /activities/create" do
 
   before(:each) do
     # Prep data
-    @activities = mock(:activities, :null_object => true)
-    @activities_manager = mock(:function_manager, :null_object => true)
-    # @directorate = mock(:directorate, :null_object => true)
-    @activities.stub!(:new_record?).and_return(true)
-    @activities.stub!(:build_activities_manager).and_return(@activities_manager)
+    @activity = mock_model(Activity, :null_object => true)
+    @activity_manager = mock_model(FunctionManager, :null_object => true)
+    
+    Activity.stub!(:new).and_return(@activity)
+    @activity.stub!(:build_function_manager).and_return(@activity_manager)
+
     # Authenticate
     login_as :organisation_manager    
-    @current_user.organisation.stub!(:activities).and_return([])
-    @current_user.organisation.activities.stub!(:build).and_return(@activities)
-    # Directorate.stub!(:find).and_return(@directorate)
   end
 
   it "should tell the Activity model to create a new activities" do
-    @current_user.organisation.activities.should_receive(:build).and_return(@activities)
+    Activity.should_receive(:new).and_return(@activity)
     post :create
   end
   
   it "should tell the new activities to create a new user associated with itself" do
-    @activities.should_receive(:build_activities_manager).and_return(@activities_manager)
+    @activity.should_receive(:build_function_manager).and_return(@activity_manager)
     post :create
   end
   
   it "with a valid activities should redirect to 'activities/list'" do
-    @activities.stub!(:save!).and_return(nil)
+    @activity.stub!(:save!).and_return(nil)
     post :create
     response.should be_redirect
   end
   
   it "with an invalid activities should re-render 'activities/new'" do
     @exception = ActiveRecord::RecordNotSaved.new
-    @exception.stub!(:record).and_return(@activities)
-    @activities.stub!(:save!).and_raise(@exception)
+    @exception.stub!(:record).and_return(@activity)
+    @activity.stub!(:save!).and_raise(@exception)
     post :create
     response.should render_template(:new)
   end

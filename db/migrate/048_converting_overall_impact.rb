@@ -13,7 +13,6 @@ class ConvertingOverallImpact < ActiveRecord::Migration
   end
 
   def self.down
-
     rename_column :functions, :impact_overall_1, :performance_overall_1
     rename_column :functions, :impact_overall_2, :performance_overall_2
     rename_column :functions, :impact_overall_3, :performance_overall_3
@@ -24,6 +23,5 @@ class ConvertingOverallImpact < ActiveRecord::Migration
     rename_column :functions, :impact_overall_3, :confidence_information_overall_8
     rename_column :functions, :impact_overall_4, :confidence_information_overall_9
     rename_column :functions, :impact_overall_5, :confidence_information_overall_10
-    
   end
 end

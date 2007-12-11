@@ -52,15 +52,13 @@ class ActivitiesController < ApplicationController
   def new
     @activity = Activity.new
     @function_manager = @activity.build_function_manager
-    @directorates = @current_user.organisation.directorates
+    @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] }
   end
 
   # Create a new activity and a new user based on the parameters in the form data.
   # Available to: Organisation Manager  
   def create
-    @directorate = Directorate.find(params[:directorate][:directorate_id])
-    org_id = @directorate.organisation.id
-    @activity = @directorate.activities.build(params[:activity].merge(:organisation_id => org_id))
+    @activity = Activity.new(params[:activity])
     @function_manager = @activity.build_function_manager(params[:function_manager])
     @function_manager.passkey = FunctionManager.generate_passkey(@function_manager)
 
@@ -80,9 +78,8 @@ class ActivitiesController < ApplicationController
   # Available to: Activity Manager  
   def update
     @activity = Activity.find(@current_user.activity.id)
-    @activity.update_attributes!(:approved_on => Time.now) if params[:approved] = 1
+    @activity.update_attributes!(:approved_on => Time.now.gmtime) if params[:approved] == 1
     @activity.update_attributes!(params[:activity])
-    puts @activity.approved_on
     flash[:notice] =  "#{@activity.name} was successfully updated."
     redirect_to :back
   end
@@ -122,7 +119,8 @@ class ActivitiesController < ApplicationController
 
     # Get the Activity and User details ready for the view
     @activity = Activity.find(params[:id])
-    @function_manager = @activity.function_manager    
+    @function_manager = @activity.function_manager
+    @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] }
   end
 
   # Update the contact email and activity name

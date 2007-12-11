@@ -31,17 +31,20 @@
 # is always the same, and the response is stored in the activity_strategy table.
 # 
 class Activity < ActiveRecord::Base
-  validates_presence_of :name,
-    :message => 'All activities must have a name'
   belongs_to :function_manager, :dependent => :destroy
+  belongs_to :directorate
+  # Fake belongs_to :organisation, :through => :directorate
+  delegate :organisation, :organisation=, :to => :directorate
+
+  has_many :activity_strategies, :dependent => :destroy
+  has_many :issues, :dependent => :destroy
+
+  validates_presence_of :name, :message => 'All activities must have a name'
   validates_presence_of :function_manager
   validates_associated :function_manager
-  belongs_to :organisation
   validates_presence_of :organisation
   validates_uniqueness_of :name, :scope => :organisation_id
-  has_many :activity_strategies
-  belongs_to :directorate
-  has_many :issues, :dependent => :destroy
+
   attr_accessor :stat_function
 
   def existing_proposed?
