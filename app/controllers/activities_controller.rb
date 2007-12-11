@@ -24,21 +24,8 @@ class ActivitiesController < ApplicationController
   def summary
     @organisation = Organisation.find(@current_user.organisation.id)
     @activities = @organisation.activities
-
-    @results_table = { 1 => { :high => 0, :medium => 0, :low => 0 },
-                      2 => { :high => 0, :medium => 0, :low => 0 }, 
-                      3 => { :high => 0, :medium => 0, :low => 0 }, 
-                      4 => { :high => 0, :medium => 0, :low => 0 }, 
-                      5 => { :high => 0, :medium => 0, :low => 0 } }
-
-    # Loop through all the activities this organisation has, generate statistics for
-    # the completed ones and fill in the results table accordingly.
-    for activity in @activities
-      if activity.completed then
-        stats = activity.statistics
-        @results_table[stats.fun_priority_ranking][stats.impact] += 1
-      end
-    end
+    @results_table = @organisation.activity_summary_table
+    
   end
 
   # Show the summary information for a specific activity.
@@ -191,7 +178,7 @@ class ActivitiesController < ApplicationController
   def view_pdf
     load "#{RAILS_ROOT}/lib/pdf_writer_extensions.rb"
     @activity = Activity.find(@current_user.activity.id)
-    send_data  PDFRenderer.render_pdf(:data => @activity.generate_pdf_data),
+    send_data  ActivityPDFRenderer.render_pdf(:data => @activity.generate_pdf_data),
       :type         => "application/pdf",
       :disposition  => "inline",
       :filename     => "report.pdf" 

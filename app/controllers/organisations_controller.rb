@@ -85,6 +85,13 @@ class OrganisationsController < ApplicationController
     redirect_to :action => 'list'
   end
 
+  def view_pdf
+    @organisation = Organisation.find(@current_user.organisation.id)
+    send_data  OrganisationPDFRenderer.render_pdf(:data => @organisation.generate_pdf_data),
+      :type         => "application/pdf",
+      :disposition  => "inline",
+      :filename     => "report.pdf" 
+  end
 protected
   # Secure the relevant methods in the controller.
   def secure?

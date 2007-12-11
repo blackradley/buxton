@@ -54,4 +54,67 @@ class Organisation < ActiveRecord::Base
         return "For each strategy, please decide whether it is going to be significantly aided by the function"
     end
   end
+  
+  def hashes
+    @@Hashes
+  end
+  
+  def progress_table
+    table = {}
+    section_names = self.hashes['section_names']
+    section_names.each do |section|
+      section_data = []
+      section_data << self.activities.inject(0) { |started, activity| started += (activity.started(section.to_sym)) ? 1 : 0 }
+      section_data << self.activities.inject(0) { |completed, activity| completed += (activity.completed(section.to_sym)) ? 1 : 0 }
+      section_data << self.activities.inject(0) { |approved, activity| approved += (activity.approved) ? 1 : 0 }
+      table[section.to_sym] = section_data
+    end
+    return table
+  end
+  
+  def activity_summary_table
+    results_table = { 1 => { :high => 0, :medium => 0, :low => 0 },
+                      2 => { :high => 0, :medium => 0, :low => 0 }, 
+                      3 => { :high => 0, :medium => 0, :low => 0 }, 
+                      4 => { :high => 0, :medium => 0, :low => 0 }, 
+                      5 => { :high => 0, :medium => 0, :low => 0 } }
+
+    # Loop through all the activities this organisation has, generate statistics for
+    # the completed ones and fill in the results table accordingly.
+    for activity in self.activities
+      if activity.completed then
+        stats = activity.statistics
+        results_table[stats.priority_ranking][stats.impact] += 1
+      end
+    end
+    return results_table
+  end
+  
+  def generate_pdf_data
+    data = [self.name, 0,0,0,0]
+    self.activities.each do |activity|
+      case activity.function_policy
+        when 0
+          case activity.existing_proposed
+            when 0
+              data[1] += 1
+            when 1
+              data[2] += 1
+          end
+        when 1
+          case activity.existing_proposed
+            when 0
+              data[3] += 1
+            when 1
+              data[4] += 1
+          end
+       end
+    end
+    data << self.activities.length
+    data << self.progress_table
+    summary_table = self.activity_summary_table.to_a
+    summary_table.sort!
+    puts summary_table
+    data << summary_table
+  end
 end

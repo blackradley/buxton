@@ -467,6 +467,13 @@ strands:
   age: Age
   overall: Overall
 
+section_names:
+  - purpose
+  - impact
+  - consultation
+  - additional_work
+  - action_planning
+  
 yes_value: 1
 no_value: 2
 choices:
