@@ -24,15 +24,15 @@ describe OrganisationsController, 'routes' do
   
   it "should map { :controller => 'organisations', :action => 'edit', :id => 1 } to /organisations/edit/1" do
     route_for(:controller => 'organisations', :action => 'edit', :id => 1).should == '/organisations/edit/1'
-  end          
+  end
 
   it "should map { :controller => 'organisations', :action => 'update', :id => 1 } to /organisations/update/1" do
     route_for(:controller => 'organisations', :action => 'update', :id => 1).should == '/organisations/update/1'
-  end          
+  end
 
   it "should map { :controller => 'organisations', :action => 'destroy', :id => 1 } to /organisations/destroy/1" do
     route_for(:controller => 'organisations', :action => 'destroy', :id => 1).should == '/organisations/destroy/1'
-  end          
+  end
 
 end
 
@@ -116,11 +116,9 @@ end
 describe OrganisationsController, 'handling GET /organisations/list' do
   
   before(:each) do
-    @organisation_1 = mock_model(Organisation)
-    @organisation_1.stub!(:name).and_return('Meals on Wheels')
-    @organisation_2 = mock_model(Organisation)
-    @organisation_2.stub!(:name).and_return('Drugs and Alcohol')
-    @organisations = [@organisation_1, @organisation_2]
+    @organisations = [  mock_model(Organisation, :name => 'Meals on Wheels'),
+                        mock_model(Organisation, :name => 'Drugs and Alcohol')
+                        ]
     Organisation.stub!(:find).and_return(@organisations)
     login_as :administrator
   end
@@ -146,7 +144,7 @@ end
 describe OrganisationsController, 'handling GET /organisations/show/:id' do
   
   before(:each) do
-    @organisation = mock_model(Organisation, :to_param => 1)
+    @organisation = mock_model(Organisation)
     @organisation_manager = mock_model(OrganisationManager)
     Organisation.stub!(:find).and_return(@organisation)
     @organisation.stub!(:organisation_manager).and_return(@organisation_manager)
@@ -155,18 +153,18 @@ describe OrganisationsController, 'handling GET /organisations/show/:id' do
   end
   
   it "should be successful" do
-    get :show, :id => 1    
+    get :show, :id => @organisation.id
     response.should be_success
   end
 
   it "should render 'show'" do
-    get :show, :id => 1
+    get :show, :id => @organisation.id
     response.should render_template(:show)
   end
   
   it "should get organisation and assign it and its user" do
     Organisation.should_receive(:find).and_return(@organisation)
-    get :show, :id => 1
+    get :show, :id => @organisation.id
     assigns[:organisation].should equal(@organisation)
     assigns[:organisation_manager].should equal(@organisation.organisation_manager)
   end
@@ -286,20 +284,20 @@ end
 describe OrganisationsController, 'handling POST /organisations/destroy/:id' do
   
   before(:each) do
-    @organisation = mock_model(Organisation, :to_param => 2)
+    @organisation = mock_model(Organisation)
     Organisation.stub!(:find).and_return(@organisation)
     @organisation.stub!(:destroy).and_return(true)
     login_as :administrator
   end
   
   it "should be successful" do
-    post :destroy, :id => 2
+    post :destroy, :id => @organisation.id
     response.should be_redirect
   end
   
   it "should destroy the organisation" do
     @organisation.should_receive(:destroy)
-    post :destroy, :id => 2
+    post :destroy, :id => @organisation.id
   end
   
   it "should fail when given an invalid ID"

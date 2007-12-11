@@ -343,18 +343,18 @@ describe ActivitiesController, "handling POST /activities/update_activity_type" 
     @activity = @current_user.activity
   end
 
-  it "should redirect to 'activities/show/:id' with a valid activity and all activity_type questions answered" do
+  it "should redirect to 'activities/show' with a valid activity and all activity_type questions answered" do
     @activity.stub!(:update_attributes!).and_return(nil)
     @activity.stub!(:started).and_return(true)
     post :update_activity_type
-    response.should redirect_to(route_for(:controller => 'activities', :action => 'show'))
+    response.should redirect_to(:action => 'show')
   end
 
   it "should redirect to 'activities/activity_type' with a valid activity but not all activity_type questions answered" do
     @activity.stub!(:update_attributes!).and_return(nil)
     @activity.stub!(:started).and_return(false)
     post :update_activity_type
-    response.should redirect_to(route_for(:controller => 'activities', :action => 'activity_type'))
+    response.should redirect_to(:action => 'activity_type')
   end
 
   it "should assign a flash message with a valid activity and all activity_type questions answered"
@@ -398,7 +398,7 @@ describe ActivitiesController, "handling POST /activities/update_contact/:id" do
   it "should redirect to 'activities/list' with a valid activity" do
     @activity.stub!(:update_attributes!).and_return(nil)
     post :update_contact
-    response.should redirect_to(route_for(:controller => 'activities', :action => 'list'))
+    response.should redirect_to(:action => 'list')
   end
 
   it "should assign a flash message with a valid activity"

@@ -172,7 +172,32 @@ end
 
 describe StrategiesController, 'handling POST /strategies/create' do
   
-  it "should be successful"
+  before(:each) do
+    # Prep data
+    @organisation = mock_model(Organisation)
+    @strategy = mock_model(Strategy, { :null_object => true, :organisation => @organisation })
+    Strategy.stub!(:new).and_return(@strategy)
+    # Authenticate
+    login_as :administrator
+  end
+
+  it "should redirect to 'strategies/list/:id' with a valid strategy" do
+    @strategy.stub!(:save!).and_return(nil)
+    post :create
+    response.should redirect_to(:action => 'list', :id => @organisation.id)
+  end
+
+  it "should assign a flash message with a valid strategy"
+  
+  it "should render 'strategies/new' with an invalid strategy" do
+    @exception = ActiveRecord::RecordNotSaved.new
+    @exception.stub!(:record).and_return(@strategy)
+    @strategy.stub!(:save!).and_raise(@exception)
+    post :create
+    response.should render_template(:new)
+  end
+  
+  it "should assign a flash message with an invalid strategy"
 
 end
 
@@ -186,29 +211,53 @@ end
 
 describe StrategiesController, 'handling POST /strategies/update/:id' do
   
-  it "should be successful"
+  before(:each) do
+    # Prep data
+    @strategy = mock_model(Strategy, :null_object => true)
+    Strategy.stub!(:find).and_return(@strategy)    
+    # Authenticate
+    login_as :administrator
+  end
+
+  it "should redirect to 'strategy/show/:id' with a valid strategy" do
+    @strategy.stub!(:update_attributes!).and_return(nil)
+    post :update
+    response.should redirect_to(:action => 'show', :id => @strategy.id)
+  end
+
+  it "should assign a flash message with a valid strategy"
   
-  it "should fail when given an invalid ID"  
+  it "should re-render 'user/edit/:id' with an invalid strategy" do
+    @exception = ActiveRecord::RecordNotSaved.new
+    @exception.stub!(:record).and_return(@strategy)
+    @strategy.stub!(:update_attributes!).and_raise(@exception)
+    post :update
+    response.should render_template(:edit)
+  end
+  
+  it "should assign a flash message with an invalid strategy"  
+
+  it "should fail when given an invalid ID"
 
 end
 
 describe StrategiesController, 'handling POST /strategies/destroy/:id' do
   
   before(:each) do
-    @strategy = mock_model(Strategy, :to_param => 2)
+    @strategy = mock_model(Strategy)
     Strategy.stub!(:find).and_return(@strategy)
     @strategy.stub!(:destroy).and_return(true)
     login_as :administrator
   end
   
   it "should be successful" do
-    post :destroy, :id => 2
+    post :destroy, :id => @strategy.id
     response.should be_redirect
   end
   
   it "should destroy the organisation" do
     @strategy.should_receive(:destroy)
-    post :destroy, :id => 2
+    post :destroy, :id => @strategy.id
   end
   
   it "should fail when given an invalid ID"
