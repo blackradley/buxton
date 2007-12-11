@@ -42,7 +42,7 @@ class Activity < ActiveRecord::Base
   has_many :activity_strategies
   belongs_to :directorate
   has_many :issues, :dependent => :destroy
-  attr_reader :stat_function
+  attr_accessor :stat_function
 
   def existing_proposed?
     hashes['choices'][8][self.existing_proposed.to_i]
@@ -71,6 +71,7 @@ class Activity < ActiveRecord::Base
     data << self.function_manager.email
     data << self.approver
     data << self.purpose_overall_2
+    data << self.approved_on
     statistics
     data << self.stat_function
     data << self.id
@@ -213,7 +214,7 @@ class Activity < ActiveRecord::Base
     statistics_completed = true
     statistics_sections.each{|section| statistics_completed = statistics_completed && completed(section)}
     return nil unless statistics_completed # Don't calculate stats if all the necessary questions haven't been answered
-    #return @stat_function if @stat_function
+    return @stat_function if @stat_function
     questions = {}
     question_hash = question_wording_lookup
     question_hash.each do |strand_name, strand|
@@ -250,8 +251,9 @@ class Activity < ActiveRecord::Base
 #It works by getting a list of all the columns, then removing any ones which aren't quesitons. 
 #NOTE: Should a new column be added to activity that isn't a question, it should also be added here.
   def self.get_question_names(section = nil, strand = nil, number = nil)
-	  questions = []
-	  unnecessary_columns = [:name, :approved, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed]
+	  return "#{section}_#{strand}_#{number}".to_sym if section && strand && number
+    questions = []
+	  unnecessary_columns = [:name, :approved, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on]
 	  Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
 	  unnecessary_columns.each{|column| questions.delete(column)}
 	  questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section

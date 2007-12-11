@@ -93,8 +93,9 @@ class ActivitiesController < ApplicationController
   # Available to: Activity Manager  
   def update
     @activity = Activity.find(@current_user.activity.id)
+    @activity.update_attributes!(:approved_on => Time.now) if params[:approved] = 1
     @activity.update_attributes!(params[:activity])
-
+    puts @activity.approved_on
     flash[:notice] =  "#{@activity.name} was successfully updated."
     redirect_to :back
   end

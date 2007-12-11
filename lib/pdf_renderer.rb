@@ -1,5 +1,5 @@
 class PDFRenderer < Ruport::Renderer
-  stage :page_numbers, :pre_processed, :body, :statistics, :issues, :footer
+  stage :page_numbers, :build_unapproved_logo_on_first_page, :body, :statistics, :issues, :footer
 
   class PDF < Ruport::Formatter::PDF
     renders :pdf, :for => PDFRenderer
@@ -9,7 +9,7 @@ class PDFRenderer < Ruport::Renderer
         12,
         :left)
     end
-    def build_pre_processed
+    def build_unapproved_logo_on_first_page
       pdf_writer.unapproved_status = data[1] 
       #The page numbers are started at the top, so that they will always hit the first page, but they appear at the bottom
       #This creates the grey Unapproved background.
@@ -25,10 +25,11 @@ class PDFRenderer < Ruport::Renderer
       pdf_writer.image( "#{RAILS_ROOT}/public/images/pdf_logo.png", :justification => :center, :resize => 0.5)
       pdf_writer.text "<b>#{data[3]}</b>", :justification => :center, :font_size => 18
       pdf_writer.text "Impact Equality#{153.chr} Activity Report", :justification => :center, :font_size => 12
-      add_text " " #Serves as a new line character. Is this more readable than moving the cursor manually?
+      pdf_writer.text "", :justification => :center, :font_size => 10 #Serves as a new line character. Is this more readable than moving the cursor manually?
+      add_text " "
       add_text "<b>Directorate</b>: #{data[2].to_s}"
       add_text " "
-      add_text "<b>Activity</b>"
+      pdf_writer.text "<b>Activity</b>", :justification => :left, :font_size => 12
       move_cursor_to(cursor - 7)
       pdf_writer.stroke_style! pdf_writer.class::StrokeStyle.new(1, :dash => { :pattern => [2, 1], :phase => 2 })
       hr
@@ -37,21 +38,17 @@ class PDFRenderer < Ruport::Renderer
       table << ["<b>Name</b>:", data[0].to_s]
       table << ["<b>Type</b>:", data[4].to_s]
       table << ["<b>Managers email</b>:", data[5].to_s]
-      table << ["<b>Approver</b>:", data[6].to_s]    
+      table << ["<b>Approver</b>:", data[6].to_s] if data[1].blank?
+      table << ["<b>Approved on:</b>", data[8].to_s] if data[1].blank?
+      table << ["<b>Activity Target Outcome</b>", ""]
       draw_table(table, :position=> :left, :orientation => 2, :shade_rows => :none, :show_lines => :none, :show_headings => false)
-      add_text " "
-      add_text "<b>Activity Target Outcome</b>"
-      move_cursor_to(cursor - 7)
-      pdf_writer.stroke_color! Color::RGB::Black
-      pdf_writer.stroke_style! pdf_writer.class::StrokeStyle.new(1, :dash => { :pattern => [2, 1], :phase => 2 })
-      hr
-      add_text data[7].to_s
+      pdf_writer.text data[7].to_s, :justification => :left, :font_size => 10
       add_text " "
    end
    
     def build_statistics
-      if data[8]
-        statistics = data[8]
+      if data[9]
+        statistics = data[9]
         relevance = statistics.relevance
         stat_fun = statistics.function
         priority_table = []
@@ -69,7 +66,8 @@ class PDFRenderer < Ruport::Renderer
         pdf_writer.stroke_style! pdf_writer.class::StrokeStyle::DEFAULT        
         statistics_table = Table(['Gender', 'Race', 'Disability', 'Faith', 'Sexual Orientation', 'Age'])
         statistics_table << priority_table
-        draw_table(statistics_table, :shade_rows => :none, :show_lines => :all)
+        draw_table(statistics_table, :shade_rows => :none,
+          :font_size => 10, :heading_font_size => 10, :show_lines => :all)
         pdf_writer.text "(Priority is rated 1 to 5, with 5 representing the highest priority level)", :justification => :center
         pdf_writer.text " ", :justification => :left
         add_text "<b>Impact</b>: (High, Medium, Low)"
@@ -85,7 +83,8 @@ class PDFRenderer < Ruport::Renderer
         pdf_writer.stroke_style! pdf_writer.class::StrokeStyle::DEFAULT        
         statistics_impact_table = Table(['Gender', 'Race', 'Disability', 'Faith', 'Sexual Orientation', 'Age'])
         statistics_impact_table << impact_table
-        draw_table(statistics_impact_table, :shade_rows => :none, :show_lines => :all)        
+        draw_table(statistics_impact_table, :shade_rows => :none,
+          :font_size => 10, :heading_font_size => 10, :show_lines => :all)        
       else
         add_text " "
         add_text "Project details have not yet calculated as the Activity has not been completed."
@@ -94,12 +93,12 @@ class PDFRenderer < Ruport::Renderer
     end
     
     def build_issues
-      add_text "<b>Issues</b>"
+      pdf_writer.text "<b>Issues</b>", :justification => :left, :font_size => 12
       move_cursor_to(cursor - 7)
       pdf_writer.stroke_color! Color::RGB::Black
       pdf_writer.stroke_style! pdf_writer.class::StrokeStyle.new(1, :dash => { :pattern => [2, 1], :phase => 2 })
       hr      
-      activity_id = data[9]
+      activity_id = data[10]
       issues_table = Issue.report_table(
         :all,
         :conditions => {:activity_id => activity_id},
@@ -114,7 +113,7 @@ class PDFRenderer < Ruport::Renderer
       wordings.each do |strand_name, wording|
         unless issues_table.sub_table(columns){|row| row.strand.to_s == strand_name.to_s}.to_a == [] then
           add_text " "
-          add_text "Issues pertaining to #{wording}"
+          pdf_writer.text "<b>Issues pertaining to #{wording}</b>", :justification => :left, :font_size => 10
           add_text " "
           issue_table = issues_table.sub_table(columns){|row|row.strand.to_s == strand_name.to_s}.sub_table(no_strand_cols)
           issue_table_renamed_columns = []
@@ -122,7 +121,7 @@ class PDFRenderer < Ruport::Renderer
             issue_table_renamed_columns << column.titleize if column
           end
           issue_table.rename_columns(issue_table.column_names, issue_table_renamed_columns)
-          draw_table(issue_table, :shade_rows => :none, :show_lines => :all)
+          draw_table(issue_table, :shade_rows => :none, :show_lines => :all, :font_size => 10, :heading_font_size => 10)
           issue_table = nil
         end
       end
@@ -147,7 +146,6 @@ class PDFRenderer < Ruport::Renderer
         pdf_writer.close_object
         pdf_writer.add_object(footer, :all_pages)
       end
-      puts pdf_writer.pageset.size
       pdf_writer.stop_page_numbering(true)
       render_pdf 
     end
