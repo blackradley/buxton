@@ -10,7 +10,7 @@
 # contributes to the Organisation strategies.  
 # 
 # Each Organisation has a set of strategies and each Function (well really the
-# Function manager) has to say how much they contribute to each of the strategies.
+# Activity manager) has to say how much they contribute to each of the strategies.
 # So it is not really a many to many relationship.
 # 
 class ActivityStrategy < ActiveRecord::Base

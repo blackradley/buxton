@@ -73,7 +73,7 @@ end
 describe SectionsController, "should not allow GET requests to dangerous actions" do
 
   it "#update should not be successful" do
-    login_as :function_manager
+    login_as :activity_manager
     get :update
     response.should_not be_success
   end
@@ -145,7 +145,7 @@ end
 describe SectionsController, 'handling GET /sections/show/:id' do
   
   before(:each) do
-    login_as :function_manager
+    login_as :activity_manager
     @activity = @current_user.activity
     @activity.stub!(:started).and_return(true)
     @activity.stub!(:function_strategies).and_return([])    
@@ -192,7 +192,7 @@ describe SectionsController, 'handling POST /sections/update' do
     @activity = mock_model(Activity, :null_object => true)
     Activity.stub!(:find).and_return(@activity)
     # Authenticate
-    login_as :function_manager
+    login_as :activity_manager
     set_referrer('/') # this isn't a legitimate source but I don't
                       # know the syntax needed here and it's not checked
                       # against. It just needs something.

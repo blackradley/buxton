@@ -50,7 +50,7 @@ class ActivitiesController < ApplicationController
   # Available to: Organisation Manager
   def new
     @activity = Activity.new
-    @function_manager = @activity.build_function_manager
+    @activity_manager = @activity.build_activity_manager
     @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] }
   end
 
@@ -58,8 +58,8 @@ class ActivitiesController < ApplicationController
   # Available to: Organisation Manager  
   def create
     @activity = Activity.new(params[:activity])
-    @function_manager = @activity.build_function_manager(params[:function_manager])
-    @function_manager.passkey = FunctionManager.generate_passkey(@function_manager)
+    @activity_manager = @activity.build_activity_manager(params[:activity_manager])
+    @activity_manager.passkey = ActivityManager.generate_passkey(@activity_manager)
 
     Activity.transaction do
       @activity.save!
@@ -72,7 +72,8 @@ class ActivitiesController < ApplicationController
   # Available to: Activity Manager  
   def update
     #TODO: Add rescue, this cannot be abstracted.
-    @current_user.activity.update_attributes!(params[:activity])
+    @activity = @current_user.activity
+    @activity.update_attributes!(params[:activity])
     flash[:notice] =  "#{@activity.name} was successfully updated."
     redirect_to :back
   end
@@ -104,7 +105,7 @@ class ActivitiesController < ApplicationController
 
   # Get both the activity and user information ready for editing, since they
   # are both edited at the same time. The organisational manager edits these
-  # not the functional manager.
+  # not the Activity manager.
   # Available to: Organisation Manager  
   def edit_contact
     # Only allow an organisation manager to proceed
@@ -114,7 +115,7 @@ class ActivitiesController < ApplicationController
     # Get the Activity and User details ready for the view
     #TODO: Test the exception handling here.
     @activity = Activity.find(params[:id])
-    @function_manager = @activity.function_manager
+    @activity_manager = @activity.activity_manager
     @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] }
   end
 
@@ -133,8 +134,8 @@ class ActivitiesController < ApplicationController
       @activity = Activity.find(params[:id])
       @activity.update_attributes!(params[:activity])
       # # Update the user
-      # @function_manager = @activity.function_manager
-      # @function_manager.update_attributes!(params[:function_manager])
+      # @activity_manager = @activity.activity_manager
+      # @activity_manager.update_attributes!(params[:activity_manager])
       flash[:notice] =  "#{@activity.name} was successfully changed."
       redirect_to :action => 'list'
     end

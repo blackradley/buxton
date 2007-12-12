@@ -30,11 +30,11 @@ organisation_manager:
 #
 # One dummy function user
 #
-function_manager:
+activity_manager:
   id: 3
-  type: 'FunctionManager'
+  type: 'ActivityManager'
   passkey: 158dbc032e936dc7f36939ecd80d531223e146e2
-  email: function_manager@27stars.co.uk
+  email: activity_manager@27stars.co.uk
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   reminded_on: 2007-04-01 00:00:00

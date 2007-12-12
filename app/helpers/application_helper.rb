@@ -49,7 +49,7 @@ module ApplicationHelper
       ''
     else
       case @current_user.class.name
-        when 'FunctionManager'
+        when 'ActivityManager'
           'Logged in as a Activity Manager'
         when 'OrganisationManager'
           'Logged in as an Organisation Manager'
@@ -111,7 +111,7 @@ module ApplicationHelper
                           :title => 'Organisation Control Page - Sections',
                           :status => '' }
                         ])
-      when 'FunctionManager'
+      when 'ActivityManager'
          links = [
                     { :text => 'Home',
                       :url => { :controller => 'activities', :action => 'index'},

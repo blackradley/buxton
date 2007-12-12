@@ -16,12 +16,11 @@ end
 
 def login_as(user)  
   case user
-    when :function_manager
+    when :activity_manager
       @activity = mock_model(Activity, {  :null_object => true,
                                           :name => 'Test activity'
                                           })
-      @current_user = mock_model(FunctionManager, {  :to_param => '1',
-                                                     :activity => @activity
+      @current_user = mock_model(ActivityManager, {  :activity => @activity
                                                      })
       User.should_receive(:find).with(@current_user.id).any_number_of_times.and_return(@current_user)
       Activity.should_receive(:find).with(@current_user.activity.id).any_number_of_times.and_return(@activity)

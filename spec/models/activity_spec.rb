@@ -5,17 +5,17 @@ describe Activity do
     before(:each) do
       @organisation = mock_model(Organisation)
       Organisation.stub!(:find).and_return(@organisation)
-      @function_manager = mock_model(FunctionManager)
-      FunctionManager.stub!(:find).and_return(@function_manager)
-      @function_manager.stub!(:valid?).and_return(true)
-      @function_manager.stub!(:class).and_return(FunctionManager)
+      @activity_manager = mock_model(ActivityManager)
+      ActivityManager.stub!(:find).and_return(@activity_manager)
+      @activity_manager.stub!(:valid?).and_return(true)
+      @activity_manager.stub!(:class).and_return(ActivityManager)
       @organisation.stub!(:valid?).and_return(true)
       @activity = Activity.new(:name => "Testing Activity")
     end
   
     it "should be only be valid with correct dependencies" do
       @activity.should_not be_valid
-      @activity.function_manager = @function_manager
+      @activity.activity_manager = @activity_manager
       @activity.should_not be_valid
       @activity.organisation = @organisation   
       @activity.should be_valid
@@ -26,13 +26,13 @@ describe Activity do
     setup do
       @organisation = mock_model(Organisation)
       Organisation.stub!(:find).and_return(@organisation)
-      @function_manager = mock_model(FunctionManager)
-      FunctionManager.stub!(:find).and_return(@function_manager)
-      @function_manager.stub!(:valid?).and_return(true)
-      @function_manager.stub!(:class).and_return(FunctionManager)
+      @activity_manager = mock_model(ActivityManager)
+      ActivityManager.stub!(:find).and_return(@activity_manager)
+      @activity_manager.stub!(:valid?).and_return(true)
+      @activity_manager.stub!(:class).and_return(ActivityManager)
       @organisation.stub!(:valid?).and_return(true)
       @activity = Activity.new(:name => "Testing Activity")
-      @activity.function_manager = @function_manager
+      @activity.activity_manager = @activity_manager
       @activity.organisation = @organisation
       @strands = [:age, :gender, :race, :disability, :sexual_orientation, :faith]
       @sections = [:purpose, :impact, :consulation, :additional_work, :action_planning]     
@@ -84,13 +84,13 @@ describe Activity do
     setup do
       @organisation = mock_model(Organisation)
       Organisation.stub!(:find).and_return(@organisation)
-      @function_manager = mock_model(FunctionManager)
-      FunctionManager.stub!(:find).and_return(@function_manager)
-      @function_manager.stub!(:valid?).and_return(true)
-      @function_manager.stub!(:class).and_return(FunctionManager)
+      @activity_manager = mock_model(ActivityManager)
+      ActivityManager.stub!(:find).and_return(@activity_manager)
+      @activity_manager.stub!(:valid?).and_return(true)
+      @activity_manager.stub!(:class).and_return(ActivityManager)
       @organisation.stub!(:valid?).and_return(true)
       @activity = Activity.new(:name => "Testing Activity")
-      @activity.function_manager = @function_manager
+      @activity.activity_manager = @activity_manager
       @activity.organisation = @organisation
       @strands = [:age, :gender, :race, :disability, :sexual_orientation, :faith]
       @sections = [:purpose, :impact, :consulation, :additional_work, :action_planning]
@@ -188,13 +188,13 @@ describe Activity do
       @activity = nil
       @organisation = mock_model(Organisation)
       Organisation.stub!(:find).and_return(@organisation)
-      @function_manager = mock_model(FunctionManager)
-      FunctionManager.stub!(:find).and_return(@function_manager)
-      @function_manager.stub!(:valid?).and_return(true)
-      @function_manager.stub!(:class).and_return(FunctionManager)
+      @activity_manager = mock_model(ActivityManager)
+      ActivityManager.stub!(:find).and_return(@activity_manager)
+      @activity_manager.stub!(:valid?).and_return(true)
+      @activity_manager.stub!(:class).and_return(ActivityManager)
       @organisation.stub!(:valid?).and_return(true)
       @activity = Activity.new(:name => "Testing Activity")
-      @activity.function_manager = @function_manager
+      @activity.activity_manager = @activity_manager
       @activity.organisation = @organisation
       @strands = [:age, :gender, :race, :disability, :sexual_orientation, :faith]
       @sections = [:purpose, :impact, :consulation, :additional_work, :action_planning]

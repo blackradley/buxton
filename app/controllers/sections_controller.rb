@@ -77,7 +77,7 @@ class SectionsController < ApplicationController
   # Available to: Activity Manager
   def edit
     @activity = Activity.find(@current_user.activity.id)
-    @function_manager = @activity.function_manager
+    @activity_manager = @activity.activity_manager
     
     @equality_strand = ''    
     valid_equality_strands = ['overall','gender','race','sexual_orientation','disability','faith','age']

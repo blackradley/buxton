@@ -19,7 +19,7 @@ end
 describe IssuesController, 'should not allow GET requests to dangerous actions' do
 
   before(:each) do
-    login_as :function_manager    
+    login_as :activity_manager    
   end
 
   it "#create should not be successful" do
@@ -61,7 +61,7 @@ end
 describe IssuesController, 'handling XHR POST /issues/create' do
   
   before(:each) do
-    login_as :function_manager
+    login_as :activity_manager
     @issue = mock_model(Issue)
     Issue.stub!(:new).and_return(@issue)
   end

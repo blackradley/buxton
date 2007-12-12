@@ -41,8 +41,8 @@ class Test::Unit::TestCase
     old_controller = @controller
     @controller = UsersController.new
     case user_type
-    when :function_manager
-      user = FunctionManager.find(3)
+    when :activity_manager
+      user = ActivityManager.find(3)
       post :login, :passkey => user.passkey
       if user.function.started then
         assert_redirected_to :controller => 'functions', :action => 'show'

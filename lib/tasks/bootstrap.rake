@@ -28,7 +28,7 @@ namespace :db do
     #     # Five functions for birmingham
     #     birmingham = Organisation.find(:first, :conditions => "style = 'birmingham'")
     #     # Community Strategy
-    #     user = FunctionManager.create(:email => 'Peter_Latchford@blackradley.com')
+    #     user = ActivityManager.create(:email => 'Peter_Latchford@blackradley.com')
     #     Function.create(:user_id => user.id,
     #       :organisation_id => birmingham.id,
     #       :name => 'Community Strategy',
@@ -52,7 +52,7 @@ namespace :db do
     #       :bad_age => 1,
     #       :approved => 1,
     #       :approver => 'Iain Wilkinson') 
-    #     user = FunctionManager.create(:email => 'Iain_Wilkinson@blackradley.com')
+    #     user = ActivityManager.create(:email => 'Iain_Wilkinson@blackradley.com')
     #     # Publications
     #     Function.create(:user_id => user.id,
     #       :organisation_id => birmingham.id,
@@ -78,7 +78,7 @@ namespace :db do
     #       :approved => 0,
     #       :approver => 'Peter Latchford')   
     #     # Meals on Wheels
-    #     user = FunctionManager.create(:email => 'Joe_Collins@blackradley.com')
+    #     user = ActivityManager.create(:email => 'Joe_Collins@blackradley.com')
     #     Function.create(:user_id => user.id,
     #       :organisation_id => birmingham.id,
     #       :name => 'Meals on Wheels',
@@ -102,7 +102,7 @@ namespace :db do
     #       :bad_age => 0,
     #       :approved => 0,
     #       :approver => 'Iain Wilkinson')
-    #     user = FunctionManager.create(:email => 'drbollins@hotmail.com')
+    #     user = ActivityManager.create(:email => 'drbollins@hotmail.com')
     #     Function.create(:user_id => user.id,
     #       :organisation_id => birmingham.id,
     #       :name => 'Drugs and Alcohol',
@@ -126,7 +126,7 @@ namespace :db do
     #       :bad_age => 0,
     #       :approved => 0,
     #       :approver => '')
-    #     user = FunctionManager.create(:email => 'Peter_Latchford@blackradley.com')
+    #     user = ActivityManager.create(:email => 'Peter_Latchford@blackradley.com')
     #     Function.create(:user_id => user.id,
     #       :organisation_id => birmingham.id,
     #       :name => 'Occupational Therapy',

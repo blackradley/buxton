@@ -6,7 +6,7 @@ The application has are three types of ser:
 
 1. Administrators, who can create organisations (local authorities).
 2. Organisation managers, who create the list of functions the organisation performs.
-3. Function managers, who provide information about the impact of their function.
+3. Activity managers, who provide information about the impact of their function.
 
 Users do not log on but are emailed a "unique" url, which takes them to
 the appropriate page.

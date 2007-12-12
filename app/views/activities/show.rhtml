@@ -17,7 +17,7 @@
 <table id="summarytable" cellpadding="0" cellspacing="0">
 	<tr>
 		<td><label>Contact:</label></td>
-		<td class="labelled"><%= link_to @activity.function_manager.email, "mailto:#{h @activity.function_manager.email}?subject=#{ h @activity.name}"-%></td>
+		<td class="labelled"><%= link_to @activity.activity_manager.email, "mailto:#{h @activity.activity_manager.email}?subject=#{ h @activity.name}"-%></td>
 	</tr>
 	<tr>
 		<td><label>Last changed:</label></td>

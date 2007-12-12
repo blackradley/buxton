@@ -38,7 +38,7 @@ class SectionsControllerTest < Test::Unit::TestCase
   end
   
   def test_should_render_all_edit_sections_okay
-    login_as :function_manager
+    login_as :activity_manager
     
     equality_strands = [ :gender, :race, :disability, :faith, :sexual_orientation, :age ]
     all_es_sections = [ :impact, :confidence, :additional_work, :action_planning ]
@@ -57,8 +57,8 @@ class SectionsControllerTest < Test::Unit::TestCase
     assert_response :success
   end
   
-  def test_should_render_all_show_sections_okay_for_function_manager
-    login_as :function_manager
+  def test_should_render_all_show_sections_okay_for_activity_manager
+    login_as :activity_manager
 
     es_sections = [ :purpose, :impact, :confidence, :additional_work, :action_planning ]
 
@@ -93,7 +93,7 @@ class SectionsControllerTest < Test::Unit::TestCase
   end
   
   def test_should_update_section
-    login_as :function_manager
+    login_as :activity_manager
     get :edit #hack, see: http://blog.readum.com/2007/10/2/rails-2-0-nil-rewrite-error
     location = url_for(:action => 'edit', :id => 'purpose', :section => 'overall')
     @request.env['HTTP_REFERER'] = location

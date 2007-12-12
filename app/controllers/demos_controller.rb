@@ -57,8 +57,8 @@ class DemosController < ApplicationController
         activity = @organisation.activities.build(:name => activity_name)
         activity.organisation = @organisation #this should be filled in directly above, don't know why not
         # Create a activity manager
-        function_manager = activity.build_function_manager(params[:organisation_manager])
-        function_manager.passkey = FunctionManager.generate_passkey(function_manager)
+        activity_manager = activity.build_activity_manager(params[:organisation_manager])
+        activity_manager.passkey = ActivityManager.generate_passkey(activity_manager)
       }
 
       Organisation.transaction do
