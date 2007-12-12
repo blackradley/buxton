@@ -10,10 +10,14 @@ Spec::Runner.configure do |config|
   config.fixture_path = RAILS_ROOT + '/spec/fixtures'
 end
 
+def set_referrer(url)
+  request.env["HTTP_REFERER"] = url
+end
+
 def login_as(user)  
   case user
     when :function_manager
-      @activity = mock_model(Activity, {  :to_param => '1',
+      @activity = mock_model(Activity, {  :null_object => true,
                                           :name => 'Test activity'
                                           })
       @current_user = mock_model(FunctionManager, {  :to_param => '1',
@@ -23,18 +27,16 @@ def login_as(user)
       Activity.should_receive(:find).with(@current_user.activity.id).any_number_of_times.and_return(@activity)
       request.session[:user_id] = @current_user.id
     when :organisation_manager
-      @organisation = mock_model(Organisation, { :to_param => '1',
-                                                 :activities => [],
-                                                 :null_object => true
+      @organisation = mock_model(Organisation, { :null_object => true,
+                                                 :activities => []
                                                  })
-      @current_user = mock_model(OrganisationManager, {  :to_param => '1',
-                                                         :organisation => @organisation
+      @current_user = mock_model(OrganisationManager, {  :organisation => @organisation
                                                          })
       User.should_receive(:find).with(@current_user.id).any_number_of_times.and_return(@current_user)
       Organisation.should_receive(:find).with(@current_user.organisation.id).any_number_of_times.and_return(@organisation)
       request.session[:user_id] = @current_user.id
     when :administrator
-      @current_user = mock_model(Administrator, { :to_param => '1' })
+      @current_user = mock_model(Administrator)
       User.should_receive(:find).with(@current_user.id).any_number_of_times.and_return(@current_user)
       request.session[:user_id] = @current_user.id
     else
