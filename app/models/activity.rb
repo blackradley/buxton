@@ -52,6 +52,21 @@ class Activity < ActiveRecord::Base
     hashes['choices'][8][self.existing_proposed.to_i]
   end
   
+  def existing?
+   self.existing_proposed == 1 
+  end
+  
+  def proposed?
+    self.existing_proposed == 2
+  end
+  
+  def function?
+    self.function_policy == 1
+  end
+  
+  def policy?
+    self.function_policy == 2
+  end
   def hashes
     @@Hashes
   end
@@ -356,8 +371,8 @@ class Activity < ActiveRecord::Base
     fun_pol -= 1
     fun_pol = 0 if fun_pol == -1
     exist_prop = self.existing_proposed
-    exist_prop = 0 if exist_prop == 2
-    exist_prop = 0 unless exist_prop
+    exist_prop -= 1
+    exist_prop = 0 if exist_prop == -1
     fun_pol_indicator = case fun_pol
       when 1 
         "function"
@@ -406,10 +421,10 @@ class Activity < ActiveRecord::Base
       end
       return response
     end
-    label = query_hash[section][question]['label'][exist_prop]
+    label = query_hash[section][question]['label'][fun_pol][exist_prop].to_s
     type = query_hash[section][question]['type']
     choices = query_hash[section][question]['choices']
-    help = query_hash[section][question]['help']
+    help = query_hash[section][question]['help'].to_s
     weights = query_hash[section][question]['weights']
     label = eval(%Q{<<"DELIM"\n} + label + "\nDELIM\n")
     help = eval(%Q{<<"DELIM"\n} + help + "\nDELIM\n")
@@ -429,7 +444,7 @@ private
       dependency.each do #For each dependent question, check that it has the correct value
 	      |dependent|
 	      if dependent[1].class == String then
-          dependant_correct = dependant_correct && !(send(dependent[0]).to_s.length > 0)   
+          dependant_correct = dependant_correct && !(send(dependent[0]).to_s.blank?)   
 	      else
 		      dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1] || send(dependent[0]) == 0 ||send(dependent[0]).nil?)
 	      end
@@ -487,6 +502,7 @@ private
       section = segments[0]
       strand = segments[1]
       question_name = segments[2]
+      puts query_hash[section.to_s][question_name.to_i]
       dependencies = query_hash[section.to_s][question_name.to_i]['dependent_questions']
       dependencies.gsub!("yes_value", yes_value.to_s)
       dependencies.gsub!("no_value", no_value.to_s)
