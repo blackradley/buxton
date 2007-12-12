@@ -1,0 +1,27 @@
+#  
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
+#
+directorate_1:
+  name: "Adult, Community and Housing Services"
+  organisation: demo_council
+
+directorate_2:
+  name: "Childrens Services"
+  organisation: demo_council
+
+directorate_3:
+  name: "Finance, ICT and Procurement"
+  organisation: demo_council
+
+directorate_4:
+  name: "Law and Property"
+  organisation: demo_council
+    
+directorate_5:
+  name: "Urban Environment"
+  organisation: demo_council
