@@ -1,0 +1,22 @@
+#  
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
+#
+admin_iain:
+  email: "iain_wilkinson@blackradley.com"
+  type: "Administrator"
+  passkey: "0957d847989f52f0d4bae60f8b413c8d0e924b47"
+
+orgman_iain:
+  email: "iain_wilkinson@blackradley.com"
+  type: "OrganisationManager"
+  passkey: "f1c9cbdf475cd41e99cb71adde9ee8dcf46ff9d9"
+
+actman_iain:
+  email: "iain_wilkinson@blackradley.com"
+  type: "ActivityManager"
+  passkey: "8e1655e3718988341b82fba857e8f13f37eccdaf"

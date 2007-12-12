@@ -1,0 +1,67 @@
+#
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
+#
+strategy_1:
+  organisation: demo_council
+  name: "Manage resources effectively, flexibly and responsively"
+  description: "Manage resources effectively, flexibly and responsively"
+  position: 1
+
+strategy_2:
+  organisation: demo_council
+  name: "Investing in our staff to build an organisation that is fit for its purpose"
+  description: "Investing in our staff to build an organisation that is fit for its purpose"
+  position: 2
+
+strategy_3:
+  organisation: demo_council
+  name: "Raising performance in our services for children, young people, families and adult"
+  description: "Raising performance in our services for children, young people, families and adult"
+  position: 3
+
+strategy_4:
+  organisation: demo_council
+  name: "Raising performance in our housing services"
+  description: "Raising performance in our housing services"
+  position: 4
+
+strategy_5:
+  organisation: demo_council
+  name: "Cleaner, greener and safer city"
+  description: "Cleaner, greener and safer city"
+  position: 5
+  
+strategy_6:
+  organisation: demo_council
+  name: "Investing in regeneration"
+  description: "Investing in regeneration"
+  position: 6
+  
+strategy_7:
+  organisation: demo_council
+  name: "Improving the city's transport and tackling congestion"
+  description: "Improving the city's transport and tackling congestion"
+  position: 7
+  
+strategy_8:
+  organisation: demo_council
+  name: "A fair and welcoming city"
+  description: "A fair and welcoming city"
+  position: 8
+  
+strategy_9:
+  organisation: demo_council
+  name: "Providing more effective education and leisure opportunities"
+  description: "Providing more effective education and leisure opportunities"
+  position: 9
+  
+strategy_10:
+  organisation: demo_council
+  name: "Promoting us as a great International city"
+  description: "Promoting us as a great International city"
+  position: 10

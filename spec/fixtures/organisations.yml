@@ -6,7 +6,7 @@
 #
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
 #
-one:
-  id: 1
-  description: "Description"
-  function_id: 1
+demo_council:
+  name: "Demo Council"
+  style: "default"
+  organisation_manager: orgman_iain

@@ -43,7 +43,7 @@ class Activity < ActiveRecord::Base
   validates_presence_of :activity_manager
   validates_associated :activity_manager
   validates_presence_of :organisation
-  validates_uniqueness_of :name, :scope => :organisation_id
+  validates_uniqueness_of :name, :scope => :directorate_id
 
   attr_accessor :stat_function
   before_save :clear_statistics, :set_approved

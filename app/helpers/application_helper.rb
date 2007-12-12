@@ -67,9 +67,8 @@ module ApplicationHelper
     link_html = ''
     links.each do |link|
       class_name = (current_page?(link[:url])) ? 'selected' : ''
-      if link[:status] == 'disabled'
-        link_html << content_tag('li', link_to(link[:text], link['#'], :title => link[:title]),
-          { :class => class_name + ' disabled' })
+      if link[:status] == 'disabled' then
+        link_html << content_tag('li', link[:text], { :class => 'disabled' })
       else
         link_html << content_tag('li', link_to(link[:text], link[:url], :title => link[:title]),
           { :class => class_name })
@@ -146,7 +145,7 @@ module ApplicationHelper
                     ]
         end
         
-        generate_menu(links + links2)  
+        generate_menu(links + links2)
                     
       when 'Administrator'
         generate_menu( [
