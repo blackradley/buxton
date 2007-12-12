@@ -21,13 +21,16 @@
 	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 1, :f_id => @activity.id} %>
 	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 2, :f_id => @activity.id} %>
 	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 3, :f_id => @activity.id} %>
-	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 4, :f_id => @activity.id} %>
-	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 5, :f_id => @activity.id} %>
-	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 6, :f_id => @activity.id} %>
-	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 7, :f_id => @activity.id} %>
-	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 8, :f_id => @activity.id} %>
-	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 9, :f_id => @activity.id} %>
-	<%= f.question :impact, {:equality_strand => @equality_strand, :number => 10, :f_id => @activity.id} %>
+	<% unless @equality_strand =='overall' then %>
+		<% if @activity.existing? then -%>
+			<%= f.question :impact, {:equality_strand => @equality_strand, :number => 4, :f_id => @activity.id} %>
+			<%= f.question :impact, {:equality_strand => @equality_strand, :number => 5, :f_id => @activity.id} %>
+		<% end -%>
+		<%= f.question :impact, {:equality_strand => @equality_strand, :number => 6, :f_id => @activity.id} %>
+		<%= f.question :impact, {:equality_strand => @equality_strand, :number => 7, :f_id => @activity.id} %>
+		<%= f.question :impact, {:equality_strand => @equality_strand, :number => 8, :f_id => @activity.id} if @activity.existing? %>
+		<%= f.question :impact, {:equality_strand => @equality_strand, :number => 9, :f_id => @activity.id} %>
+	<% end %>
 	<div class="clear"></div>
 	<span class="button"><%= submit_tag 'Save' %></span>
 	<div class="clear"></div>
