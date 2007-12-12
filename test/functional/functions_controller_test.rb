@@ -38,7 +38,7 @@ class FunctionsControllerTest < Test::Unit::TestCase
   end
 
   def test_status
-    login_as :function_manager
+    login_as :activity_manager
     get :status
     assert_response :success
     assert_not_nil assigns['function']
@@ -54,7 +54,7 @@ class FunctionsControllerTest < Test::Unit::TestCase
 
   # def test_show
   #   # This would show the function summary page, along with the approval checkbox + input field
-  #   login(@function_manager.passkey)
+  #   login(@activity_manager.passkey)
   #   get :show
   #   assert_response :success
   #   # assert_not_nil assigns['function']
@@ -69,7 +69,7 @@ class FunctionsControllerTest < Test::Unit::TestCase
   end
   
   def test_should_render_overview_okay
-    login_as :function_manager
+    login_as :activity_manager
     get :overview
     assert_response :success  
   end

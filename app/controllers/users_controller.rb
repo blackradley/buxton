@@ -83,7 +83,7 @@ class UsersController < ApplicationController
       for @user in @users
         # new_passkey(@user)
         case @user.class.name
-          when 'FunctionManager'
+          when 'ActivityManager'
             email = Notifier.create_activity_key(@user, request)
             Notifier.deliver(email)
             @user.reminded_on = Time.now.gmtime
@@ -128,7 +128,7 @@ class UsersController < ApplicationController
     
     # Are they a activity manager?
     case @user.class.name
-    when 'FunctionManager'
+    when 'ActivityManager'
       email = Notifier.create_activity_key(@user, request)
       flash[:notice] = 'Reminder for ' + @user.activity.name + ' sent to ' + @user.email
     # Nope, are they an organisation manager?
@@ -164,7 +164,7 @@ class UsersController < ApplicationController
     else # the key is in the table so stash the user
       session[:user_id] = user.id
       case user.class.name
-        when 'FunctionManager'
+        when 'ActivityManager'
           redirect_to :controller => 'activities', :action => 'index'
         when 'OrganisationManager'
           redirect_to :controller => 'activities', :action => 'summary'

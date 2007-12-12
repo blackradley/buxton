@@ -28,18 +28,18 @@ class UserTest < Test::Unit::TestCase
 # Check the properties of the functional user.
 #  
   def test_functional
-    user = FunctionManager.find(3)
-    assert_equal users(:function_manager).email, user.email
+    user = ActivityManager.find(3)
+    assert_equal users(:activity_manager).email, user.email
   end
 #
 # Find by functional users by email 
 #
   def test_find_all_by_email
-    users = User.find_all_by_email(users(:function_manager).email)
+    users = User.find_all_by_email(users(:activity_manager).email)
     assert_equal users.length, 1
     user = users.first
-    assert_equal users(:function_manager).email, user.email
-    assert_equal 'FunctionManager', user.class.name
+    assert_equal users(:activity_manager).email, user.email
+    assert_equal 'ActivityManager', user.class.name
   end
 #
 # Get the admin users

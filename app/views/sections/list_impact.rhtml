@@ -15,11 +15,11 @@
   <tr>
     <td class="left"><%=h activity.name -%></td>
     <td width="104px"><%= progress_bar(activity.percentage_answered(:impact)) -%></td>
-    <td><%= date_or_blank(activity.function_manager.reminded_on) -%></td>
+    <td><%= date_or_blank(activity.activity_manager.reminded_on) -%></td>
     <td class="actions" nowrap>
       <%= link_to image_tag('icons/view.jpg'), {:action => 'show', :id => 'impact', :f => activity}, :id => 'view', :title =>"View" -%> 
-	  <%= link_to image_tag('icons/email.png'), "mailto:#{h activity.function_manager.email}", :title =>"Email" -%>
-      <%= link_to image_tag('icons/key.png'), { :controller => 'users', :action => 'remind', :id => activity.function_manager.id }, :confirm => "Send access key reminder to #{h activity.name}?", :method => :post, :title =>"Key" -%>
+	  <%= link_to image_tag('icons/email.png'), "mailto:#{h activity.activity_manager.email}", :title =>"Email" -%>
+      <%= link_to image_tag('icons/key.png'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name}?", :method => :post, :title =>"Key" -%>
     </td>
   </tr>
   <% end -%>

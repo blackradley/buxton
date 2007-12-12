@@ -69,7 +69,7 @@ describe ActivitiesController, "should not allow GET requests to dangerous actio
   end
 
   it "#update should not be successful" do
-    login_as :function_manager
+    login_as :activity_manager
     get :update
     response.should_not be_success
   end
@@ -81,7 +81,7 @@ describe ActivitiesController, "should not allow GET requests to dangerous actio
   end
   
   it "#update_activity_type should not be successful" do
-    login_as :function_manager
+    login_as :activity_manager
     get :update_activity_type
     response.should_not be_success
   end
@@ -186,7 +186,7 @@ end
 describe ActivitiesController, "handling GET /activities/show" do
 
   it "should be successful" do
-    login_as :function_manager
+    login_as :activity_manager
     get :show
     response.should be_success
   end
@@ -196,7 +196,7 @@ end
 describe ActivitiesController, "handling GET /activities/overview" do
 
   it "should be successful" do
-    login_as :function_manager
+    login_as :activity_manager
     get :overview
     response.should be_success
   end
@@ -218,10 +218,10 @@ describe ActivitiesController, "handling GET /activities/new" do
   before(:each) do
     # Prep data
     @activity = mock_model(Activity, :null_object => true)
-    @activity_manager = mock_model(FunctionManager, :null_object => true)
+    @activity_manager = mock_model(ActivityManager, :null_object => true)
     
     Activity.stub!(:new).and_return(@activity)
-    @activity.stub!(:build_function_manager).and_return(@activity_manager)
+    @activity.stub!(:build_activity_manager).and_return(@activity_manager)
 
     # Authenticate
     login_as :organisation_manager    
@@ -232,8 +232,8 @@ describe ActivitiesController, "handling GET /activities/new" do
     get :new
   end
 
-  it "should provide a new FunctionManager for the view" do
-    @activity.should_receive(:build_function_manager).and_return(@activity_manager)
+  it "should provide a new ActivityManager for the view" do
+    @activity.should_receive(:build_activity_manager).and_return(@activity_manager)
     get :new
   end
 
@@ -249,10 +249,10 @@ describe ActivitiesController, "handling POST /activities/create" do
   before(:each) do
     # Prep data
     @activity = mock_model(Activity, :null_object => true)
-    @activity_manager = mock_model(FunctionManager, :null_object => true)
+    @activity_manager = mock_model(ActivityManager, :null_object => true)
     
     Activity.stub!(:new).and_return(@activity)
-    @activity.stub!(:build_function_manager).and_return(@activity_manager)
+    @activity.stub!(:build_activity_manager).and_return(@activity_manager)
 
     # Authenticate
     login_as :organisation_manager
@@ -264,7 +264,7 @@ describe ActivitiesController, "handling POST /activities/create" do
   end
   
   it "should tell the new activities to create a new user associated with itself" do
-    @activity.should_receive(:build_function_manager).and_return(@activity_manager)
+    @activity.should_receive(:build_activity_manager).and_return(@activity_manager)
     post :create
   end
   
@@ -291,12 +291,12 @@ end
 describe ActivitiesController, "handling POST /activities/update" do
 
   before(:each) do
-    # Prep data
-    @activity = mock_model(Activity, :null_object => true)
-    @activity_manager = mock_model(FunctionManager, :null_object => true)
-    @activity_manager.stub!(:activity).and_return(@activity)
     # Authenticate
     login_as :activity_manager
+    @activity = @current_user.activity
+    set_referrer('/') # this isn't a legitimate source but I don't
+                      # know the syntax needed here and it's not checked
+                      # against. It just needs something.
   end
 
   it "should redirect to 'activities/list' with a valid activity" do
@@ -322,7 +322,7 @@ end
 describe ActivitiesController, "handling GET /activities/activity_type" do
   
   it "should be successful" do
-    login_as :function_manager
+    login_as :activity_manager
     get :activity_type
     response.should be_success
   end
@@ -339,7 +339,7 @@ describe ActivitiesController, "handling POST /activities/update_activity_type" 
 
   before(:each) do
     # Authenticate
-    login_as :function_manager
+    login_as :activity_manager
     @activity = @current_user.activity
   end
 

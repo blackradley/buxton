@@ -31,7 +31,7 @@
 # is always the same, and the response is stored in the activity_strategy table.
 # 
 class Activity < ActiveRecord::Base
-  belongs_to :function_manager, :dependent => :destroy
+  belongs_to :activity_manager, :dependent => :destroy
   belongs_to :directorate
   # Fake belongs_to :organisation, :through => :directorate
   delegate :organisation, :organisation=, :to => :directorate
@@ -40,8 +40,8 @@ class Activity < ActiveRecord::Base
   has_many :issues, :dependent => :destroy
 
   validates_presence_of :name, :message => 'All activities must have a name'
-  validates_presence_of :function_manager
-  validates_associated :function_manager
+  validates_presence_of :activity_manager
+  validates_associated :activity_manager
   validates_presence_of :organisation
   validates_uniqueness_of :name, :scope => :organisation_id
 
@@ -82,7 +82,7 @@ class Activity < ActiveRecord::Base
     data << self.directorate.name
     data << self.organisation.name
     data << self.function_policy?
-    data << self.function_manager.email
+    data << self.activity_manager.email
     data << self.approver
     data << self.purpose_overall_2
     data << self.approved_on
