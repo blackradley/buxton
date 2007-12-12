@@ -112,7 +112,7 @@ class SectionsController < ApplicationController
   # Available to: Activity Manager
   def update
     # Update the answers in the activity table
-    @activity = Activity.find(@current_user.activity.id)
+    @activity = @current_user.activity
     @activity.update_attributes!(params[:activity])
     # Since answers have changed, force recalculation of statistics
     @activity.stat_function = nil

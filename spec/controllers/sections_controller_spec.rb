@@ -188,6 +188,32 @@ end
 
 describe SectionsController, 'handling POST /sections/update' do
   
-  it "should be successful"
+  before(:each) do
+    @activity = mock_model(Activity, :null_object => true)
+    Activity.stub!(:find).and_return(@activity)
+    # Authenticate
+    login_as :function_manager
+    set_referrer('/') # this isn't a legitimate source but I don't
+                      # know the syntax needed here and it's not checked
+                      # against. It just needs something.
+  end
+
+  it "should redirect with a valid activity" do
+    @activity.stub!(:update_attributes!).and_return(nil)
+    post :update
+    response.should be_redirect
+  end
+
+  it "should assign a flash message with a valid activity"
+  
+  it "should re-render the section show page with an invalid activity" do
+    @exception = ActiveRecord::RecordNotSaved.new
+    @exception.stub!(:record).and_return(@activity)
+    @activity.stub!(:update_attributes!).and_raise(@exception)
+    post :update
+    response.should render_template(:show)
+  end
+  
+  it "should assign a flash message with an invalid activity"
 
 end
