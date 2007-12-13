@@ -43,6 +43,8 @@ class Organisation < ActiveRecord::Base
     :message => 'Please provide an css style name, all organisations must have a style'
   validates_format_of :style,
     :with => /^[\w]*$/
+    
+  after_update :save_directorates
 
   def strategy_text
     button_selected = self.strategy_text_selection
@@ -116,4 +118,29 @@ class Organisation < ActiveRecord::Base
     puts summary_table
     data << summary_table
   end
+  
+  
+  def directorate_attributes=(directorate_attributes)
+    directorate_attributes.each do |attributes|
+      if attributes[:id].blank?
+        directorates.build(attributes)
+      else
+        directorate = directorates.detect { |d| d.id == attributes[:id].to_i }
+        directorate.attributes = attributes
+      end
+    end
+  end
+
+  def save_directorates
+    directorates.each do |d|
+      if d.should_destroy?
+          d.destroy
+      else
+        d.save(false)
+      end
+    end
+  end
+  
+  
+  
 end
