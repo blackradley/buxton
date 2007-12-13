@@ -139,7 +139,9 @@ describe UsersController, 'handling POST /users/create' do
   
   before(:each) do
     # Prep data
-    @administrator = mock_model(Administrator, :null_object => true)
+    @administrator = mock_model(Administrator, {  :null_object => true,
+                                                  :new_record? => true
+                                                  })
     Administrator.stub!(:new).and_return(@administrator)    
     # Authenticate
     login_as :administrator

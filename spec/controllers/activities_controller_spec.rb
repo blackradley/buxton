@@ -248,7 +248,9 @@ describe ActivitiesController, "handling POST /activities/create" do
 
   before(:each) do
     # Prep data
-    @activity = mock_model(Activity, :null_object => true)
+    @activity = mock_model(Activity, {  :null_object => true,
+                                        :new_record? => true
+                                        })
     @activity_manager = mock_model(ActivityManager, :null_object => true)
     
     Activity.stub!(:new).and_return(@activity)

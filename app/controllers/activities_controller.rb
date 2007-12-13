@@ -12,6 +12,9 @@ class ActivitiesController < ApplicationController
   verify  :method => :post,
           :only => [ :destroy, :create, :update, :update_activity_type, :update_contact ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
+          
+  rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
+  rescue_from ActiveRecord::RecordInvalid, :with => :show_errors  
 
   # By default, show the summary page. Not presently referenced anywhere.
   # Available to: Organisation Manager
@@ -71,11 +74,14 @@ class ActivitiesController < ApplicationController
   # Update the activity details accordingly.
   # Available to: Activity Manager  
   def update
-    #TODO: Add rescue, this cannot be abstracted.
     @activity = @current_user.activity
     @activity.update_attributes!(params[:activity])
     flash[:notice] =  "#{@activity.name} was successfully updated."
     redirect_to :back
+    
+  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+    flash[:notice] =  "Could not update the activity."
+    render :action => :show
   end
 
   # Opening page where they must choose between Activity/Policy and Existing/Proposed
@@ -87,7 +93,6 @@ class ActivitiesController < ApplicationController
   # Update the activity status and proceed, or not, accordingly
   # Available to: Activity Manager  
   def update_activity_type
-    #TODO: Add rescue, this cannot be abstracted.
     @activity = @current_user.activity
     @activity.update_attributes!(params[:activity])
     
@@ -101,6 +106,10 @@ class ActivitiesController < ApplicationController
       flash[:notice] =  "Please answer both questions before proceeding."
       redirect_to :action => 'activity_type'
     end
+
+  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+    flash[:notice] =  "Could not update the activity."
+    render :action => :activity_type
   end
 
   # Get both the activity and user information ready for editing, since they
@@ -126,11 +135,8 @@ class ActivitiesController < ApplicationController
     # TODO: catch this better
     unless (@current_user.class.name == 'OrganisationManager') then render :inline => 'Invalid.' end
 
-    #TODO: Don't remove rescue, this cannot be abstracted.
-
     # Update the activity
     Activity.transaction do
-      #TODO: Test the exception handling here.
       @activity = Activity.find(params[:id])
       @activity.update_attributes!(params[:activity])
       # # Update the user
@@ -140,8 +146,8 @@ class ActivitiesController < ApplicationController
       redirect_to :action => 'list'
     end
     # Something went wrong
-    rescue ActiveRecord::RecordNotSaved
-      render :action => :edit_contact
+  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+    render :action => :edit_contact
   end
 
   # Delete the activity (and any associated records as stated in the Activity model)
@@ -192,5 +198,10 @@ protected
   # Secure the relevant methods in the controller.
   def secure?
     true
+  end
+  
+  def show_errors(exception)
+    flash[:notice] = 'Activity could not be updated.'    
+    render :action => (exception.record.new_record? ? :new : :edit) 
   end
 end

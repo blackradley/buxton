@@ -126,6 +126,10 @@ class SectionsController < ApplicationController
     end
     flash[:notice] =  "#{@activity.name} was successfully updated."
     redirect_to :back
+    
+  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+    flash[:notice] =  "Could not update the activity."
+    # TODO: re-render the show template and update the spec to be more accurate
   end
 
 protected
