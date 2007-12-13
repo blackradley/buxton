@@ -44,7 +44,6 @@ class OrganisationsController < ApplicationController
   # Available to: Administrator  
   def create
     @organisation = Organisation.new(params[:organisation])
-    params[:directorates].each{ |name| @organisation.directorates.build(:name => name) }
     @organisation_manager = @organisation.build_organisation_manager(params[:organisation_manager])
     @organisation_manager.passkey = OrganisationManager.generate_passkey(@organisation_manager)
 

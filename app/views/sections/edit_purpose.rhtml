@@ -1,3 +1,4 @@
+
 <h1 id="questions">
 	<%= image_tag('icons/no_previous.gif', :class =>'previous')-%>
 	<%=h @activity.name -%> - <%= @equality_strand.titleize -%> Purpose
@@ -47,6 +48,7 @@
 	<%= f.question :purpose, {:equality_strand => 'faith', :number => 4, :f_id => @activity.id} %>
 	<%= f.question :purpose, {:equality_strand => 'sexual_orientation', :number => 4, :f_id => @activity.id} %>
 	<%= f.question :purpose, {:equality_strand => 'age', :number => 4, :f_id => @activity.id} %>
+
 
 	<div class="clear"></div>
 	<span class="button"><%= submit_tag 'Save' -%></span>

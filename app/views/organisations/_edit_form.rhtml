@@ -28,16 +28,12 @@ function addListItem() {
   <legend>Directorates</legend>
   <% fields_for :directorate do |directorate_fields|%>
 	<div class="directorates">
-		<ul id="directorates_list">
+		<div id="directorates_list">
 			<%= render :partial => 'directorates/directorate', :collection => @organisation.directorates %>
-		</ul>
-		<ul>
-		  	<li><%= text_field_tag 'directorate[name]', '', :id => 'directorate_field' -%></li>
-		</ul>
-		<div class="clear"></div>
-		<span id="add_directorate" class="sub_button">
-			<%= submit_to_remote("add_directorate", "Add", :url => {:controller => 'directorates', :org_id =>@organisation.id, :action => 'create'}, :failure => "alert('Please try again.');") -%>
-		</span>
+		</div>
+		<%= link_to_function "Add a Directorate" do |page|
+		    page.insert_html :bottom, :directorates_list, :partial => 'directorates/directorate', :object => Directorate.new
+		end %>
 		<div class="clear"></div>
 	</div>
 </fieldset>

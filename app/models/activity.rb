@@ -47,6 +47,8 @@ class Activity < ActiveRecord::Base
 
   attr_accessor :stat_function
   before_save :clear_statistics, :set_approved
+  
+  after_update :save_issues
 
   def existing_proposed?
     hashes['choices'][8][self.existing_proposed.to_i]
@@ -233,6 +235,33 @@ class Activity < ActiveRecord::Base
     end
     return true
   end
+  
+  def issues_by_section(section)
+    issues.reject{|issue| issue.section != section }
+  end
+  
+  
+  def issue_attributes=(issue_attributes)
+    issue_attributes.each do |attributes|
+      if attributes[:id].blank?
+        issues.build(attributes)
+      else
+        issue = issues.detect { |d| d.id == attributes[:id].to_i }
+        issue.attributes = attributes
+      end
+    end
+  end
+
+  def save_issues
+    issues.each do |d|
+      if d.issue_destroy?
+          d.destroy
+      else
+        d.save(false)
+      end
+    end
+  end 
+  
   
   
   #This initialises a statistics object, and scores it.
@@ -515,4 +544,6 @@ private
       return nil
     end
   end  
+  
+  
 end
