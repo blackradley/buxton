@@ -278,14 +278,16 @@ questions:
   additional_work:
     1:
       label: 
-        - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
-		  the Function impacts, or may impact, upon #{wordings[strand]}?'
-        - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
-		  the Function impacts, or may impact, upon #{wordings[strand]}?'
-        - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
-		  the Policy impacts, or may impact, upon #{wordings[strand]}?'
-        - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
-		  the Policy impacts, or may impact, upon #{wordings[strand]}?'  
+        -
+          - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
+		    the Function impacts, or may impact, upon #{wordings[strand]}?'
+          - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
+		     the Function impacts, or may impact, upon #{wordings[strand]}?'
+        -
+          - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
+		     the Policy impacts, or may impact, upon #{wordings[strand]}?'
+          - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
+		     the Policy impacts, or may impact, upon #{wordings[strand]}?'  
       help: ''
       type: select
       choices: 3
@@ -293,19 +295,23 @@ questions:
       dependent_questions: ''
     2:
       label:
-        - 'Please explain the further information required.'
-        - 'Please explain the further information required.'
-        - 'Please explain the further information required.'
-        - 'Please explain the further information required.'
+        -
+          - 'Please explain the further information required.'
+          - 'Please explain the further information required.'
+        -
+          - 'Please explain the further information required.'
+          - 'Please explain the further information required.'
       help: ''
       type: text
       dependent_questions: 'additional_work_#{strand}_1 yes_value'
     3:
       label:
-        - 'Is there any more work you feel is necessary to complete the assessment?'
-        - 'Is there any more work you feel is necessary to complete the assessment?' 
-        - 'Is there any more work you feel is necessary to complete the assessment?'
-        - 'Is there any more work you feel is necessary to complete the assessment?'
+        -
+          - 'Is there any more work you feel is necessary to complete the assessment?'
+          - 'Is there any more work you feel is necessary to complete the assessment?' 
+        -
+          - 'Is there any more work you feel is necessary to complete the assessment?'
+          - 'Is there any more work you feel is necessary to complete the assessment?'
       help: ''
       type: select
       choices: 3
@@ -313,14 +319,16 @@ questions:
       dependent_questions: ''
     4:
       label:
-        - 'Do you think that the Function could have a role in preventing #{wordings[strand]} being treated differently, in an
-           unfair way, just because they were #{wordings[strand]}'
-        - 'Do you think that the Function could have a role in preventing #{wordings[strand]} being treated differently, in an
-           unfair way, just because they were #{wordings[strand]}'
-        - 'Do you think that the Policy could have a role in preventing #{wordings[strand]} being treated differently, in an
-           unfair way, just because they were #{wordings[strand]}'
-        - 'Do you think that the Policy could have a role in preventing #{wordings[strand]} being treated differently, in an
-           unfair way, just because they were #{wordings[strand]}'
+        -
+          - 'Do you think that the Function could have a role in preventing #{wordings[strand]} being treated differently, in an
+             unfair way, just because they were #{wordings[strand]}'
+          - 'Do you think that the Function could have a role in preventing #{wordings[strand]} being treated differently, in an
+             unfair way, just because they were #{wordings[strand]}'
+        -
+          - 'Do you think that the Policy could have a role in preventing #{wordings[strand]} being treated differently, in an
+             unfair way, just because they were #{wordings[strand]}'
+          - 'Do you think that the Policy could have a role in preventing #{wordings[strand]} being treated differently, in an
+             unfair way, just because they were #{wordings[strand]}'
       help: ''
       type: select
       choices: 3
@@ -328,14 +336,17 @@ questions:
       dependent_questions: 'additional_work_#{strand}_3 yes_value'
     5:
       label:
-        - 'Do you think that the Function could have a role in making sure that #{wordings[strand]} were not subject to 
-           inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?'
-        - 'Do you think that the Function could have a role in making sure that #{wordings[strand]} were not subject to 
-           inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?'
-        - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were not subject to 
-           inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?'
-        - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were not subject to 
-           inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?'
+        -
+          - 'Do you think that the Function could have a role in making sure that #{wordings[strand]} were not subject to 
+             inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?'
+          - 'Do you think that the Function could have a role in making sure that #{wordings[strand]} were not subject to 
+             inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?'
+        
+        -
+          - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were not subject to 
+             inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?'
+          - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were not subject to 
+             inappropriate treatment as a result of their #{strand.to_s.gsub("_"," ")}?'
       help: ''
       type: select
       choices: 3
@@ -343,10 +354,12 @@ questions:
       dependent_questions: ''
     6:
       label:
-        - 'Do you think that the Function could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
-        - 'Do you think that the Function could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
-        - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
-        - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
+        -
+          - 'Do you think that the Function could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
+          - 'Do you think that the Function could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
+        -
+          - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
+         - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
       help: ''
       type: select
       choices: 3
@@ -354,10 +367,12 @@ questions:
       dependent_questions: ''
     7:
       label:
-        - 'Do you think that the Function could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
-        - 'Do you think that the Function could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
-        - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
-        - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
+        -
+          - 'Do you think that the Function could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
+          - 'Do you think that the Function could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
+        -
+          - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
+          - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
       help: ''
       type: select
       choices: 3
@@ -365,10 +380,12 @@ questions:
       dependent_questions: ''
     8:
       label:
-        - 'Do you think that the Function takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?'
-        - 'Do you think that the Function takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?'
-        - 'Do you think that the Policy takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?'
-        - 'Do you think that the Policy takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?'
+        -
+          - 'Do you think that the Function takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?'
+          - 'Do you think that the Function takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?'
+        -
+          - 'Do you think that the Policy takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?'
+          - 'Do you think that the Policy takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?'
       help: ''
       type: select
       choices: 3
@@ -376,10 +393,12 @@ questions:
       dependent_questions: ''
     9:
       label:
-        - 'Do you think that the Function could assist #{wordings[strand]} to participate more?'
-        - 'Do you think that the Function could assist #{wordings[strand]} to participate more?'
-        - 'Do you think that the Policy could assist #{wordings[strand]} to participate more?'
-        - 'Do you think that the Policy could assist #{wordings[strand]} to participate more?'
+        -
+          - 'Do you think that the Function could assist #{wordings[strand]} to participate more?'
+          - 'Do you think that the Function could assist #{wordings[strand]} to participate more?'
+        -  
+          - 'Do you think that the Policy could assist #{wordings[strand]} to participate more?'
+          - 'Do you think that the Policy could assist #{wordings[strand]} to participate more?'
       help: ''
       type: select
       choices: 3
@@ -387,10 +406,12 @@ questions:
       dependent_questions: ''
     10:
       label:
-        - 'Do you think that the Function could assist in promoting positive attitudes to #{wordings[strand]}?'
-        - 'Do you think that the Function could assist in promoting positive attitudes to #{wordings[strand]}?'
-        - 'Do you think that the Policy could assist in promoting positive attitudes to #{wordings[strand]}?'
-        - 'Do you think that the Policy could assist in promoting positive attitudes to #{wordings[strand]}?'
+        -
+          - 'Do you think that the Function could assist in promoting positive attitudes to #{wordings[strand]}?'
+          - 'Do you think that the Function could assist in promoting positive attitudes to #{wordings[strand]}?'
+        -  
+          - 'Do you think that the Policy could assist in promoting positive attitudes to #{wordings[strand]}?'
+          - 'Do you think that the Policy could assist in promoting positive attitudes to #{wordings[strand]}?'
       help: ''
       type: select
       choices: 3
