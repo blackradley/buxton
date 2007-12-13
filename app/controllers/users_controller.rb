@@ -14,6 +14,9 @@ class UsersController < ApplicationController
           :only => [ :create, :update, :destroy, :new_link, :remind ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
+  rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
+  rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
+
   # Present a form to request a lost passkey by entering your e-mail address.
   # Available to: anybody
   def index
@@ -179,5 +182,9 @@ protected
   def secure?
     false
   end
-  
+
+  def show_errors(exception)
+    flash[:notice] = 'User could not be updated.'
+    render :action => (exception.record.new_record? ? :new : :edit) 
+  end
 end

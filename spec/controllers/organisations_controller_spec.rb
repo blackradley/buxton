@@ -207,10 +207,11 @@ describe OrganisationsController, 'handling POST /organisations/create' do
   
   before(:each) do
     # Prep data
-    @organisation = mock(:organisation, :null_object => true)
-    @user = mock(:user, :null_object => true)
+    @organisation = mock_model(Organisation, {  :null_object => true,
+                                                :new_record? => true
+                                                })
+    @user = mock_model(User, :null_object => true)
     Organisation.stub!(:new).and_return(@organisation)
-    @organisation.stub!(:new_record?).and_return(true)
     @organisation.stub!(:build_organisation_manager).and_return(@user)
     # Authenticate
     login_as :administrator
@@ -275,9 +276,33 @@ end
 
 describe OrganisationsController, 'handling POST /organisations/update/:id' do
   
-  it "should be successful"
+  before(:each) do
+    # Prep data
+    @organisation = mock_model(Organisation, :null_object => true)
+    Organisation.stub!(:find).and_return(@organisation)
+    # Authenticate
+    login_as :administrator
+  end
+
+  it "should redirect to 'strategy/show/:id' with a valid strategy" do
+    @organisation.stub!(:update_attributes!).and_return(nil)
+    post :update
+    response.should redirect_to(:action => 'show', :id => @organisation.id)
+  end
+
+  it "should assign a flash message with a valid strategy"
   
-  it "should fail when given an invalid ID"  
+  it "should re-render 'user/edit/:id' with an invalid strategy" do
+    @exception = ActiveRecord::RecordNotSaved.new
+    @exception.stub!(:record).and_return(@organisation)
+    @organisation.stub!(:update_attributes!).and_raise(@exception)
+    post :update
+    response.should render_template(:edit)
+  end
+  
+  it "should assign a flash message with an invalid strategy"  
+
+  it "should fail when given an invalid ID"
 
 end
 

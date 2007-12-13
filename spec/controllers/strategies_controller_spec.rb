@@ -175,7 +175,10 @@ describe StrategiesController, 'handling POST /strategies/create' do
   before(:each) do
     # Prep data
     @organisation = mock_model(Organisation)
-    @strategy = mock_model(Strategy, { :null_object => true, :organisation => @organisation })
+    @strategy = mock_model(Strategy, {  :null_object => true,
+                                        :new_record? => true,
+                                        :organisation => @organisation
+                                        })
     Strategy.stub!(:new).and_return(@strategy)
     # Authenticate
     login_as :administrator
