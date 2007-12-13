@@ -169,7 +169,13 @@ describe OrganisationsController, 'handling GET /organisations/show/:id' do
     assigns[:organisation_manager].should equal(@organisation.organisation_manager)
   end
   
-  it "should fail when given an invalid ID"
+  it "should render 404 file when given an invalid ID" do
+    @exception = ActiveRecord::RecordNotFound.new
+    Organisation.stub!(:find).and_raise(@exception)
+    get :show, :id => 'broken'
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.headers["Status"].should eql("404 Not Found")
+  end
 
 end
 
@@ -270,7 +276,13 @@ describe OrganisationsController, 'handling GET /organisations/edit/:id' do
     assigns[:organisation_manager].should eql(@organisation.organisation_manager)
   end
 
-  it "should fail when given an invalid ID"
+  it "should render 404 file when given an invalid ID" do
+    @exception = ActiveRecord::RecordNotFound.new
+    Organisation.stub!(:find).and_raise(@exception)
+    get :edit, :id => 'broken'
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.headers["Status"].should eql("404 Not Found")
+  end
 
 end
 
@@ -302,7 +314,13 @@ describe OrganisationsController, 'handling POST /organisations/update/:id' do
   
   it "should assign a flash message with an invalid strategy"  
 
-  it "should fail when given an invalid ID"
+  it "should render 404 file when given an invalid ID" do
+    @exception = ActiveRecord::RecordNotFound.new
+    Organisation.stub!(:find).and_raise(@exception)
+    post :update, :id => 'broken'
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.headers["Status"].should eql("404 Not Found")
+  end
 
 end
 
@@ -325,6 +343,12 @@ describe OrganisationsController, 'handling POST /organisations/destroy/:id' do
     post :destroy, :id => @organisation.id
   end
   
-  it "should fail when given an invalid ID"
+  it "should render 404 file when given an invalid ID" do
+    @exception = ActiveRecord::RecordNotFound.new
+    Organisation.stub!(:find).and_raise(@exception)
+    post :destroy, :id => 'broken'
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.headers["Status"].should eql("404 Not Found")
+  end
 
 end

@@ -133,18 +133,38 @@ describe StrategiesController, 'handling GET /strategies' do
 end
 
 describe StrategiesController, 'handling GET /strategies/list/:id' do
+
+  before(:each) do
+    login_as :administrator
+  end
   
   it "should be successful"
   
-  it "should fail when given an invalid ID"  
+  it "should render 404 file when given an invalid ID" do
+    @exception = ActiveRecord::RecordNotFound.new
+    Organisation.stub!(:find).and_raise(@exception)
+    get :list, :id => 'broken'
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.headers["Status"].should eql("404 Not Found")
+  end
 
 end
 
 describe StrategiesController, 'handling GET /strategies/reorder/:id' do
+
+  before(:each) do
+    login_as :administrator
+  end
   
   it "should be successful"
   
-  it "should fail when given an invalid ID"  
+  it "should render 404 file when given an invalid ID" do
+    @exception = ActiveRecord::RecordNotFound.new
+    Organisation.stub!(:find).and_raise(@exception)
+    get :reorder, :id => 'broken'
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.headers["Status"].should eql("404 Not Found")
+  end
 
 end
 
@@ -156,17 +176,37 @@ end
 
 describe StrategiesController, 'handling GET /strategies/show/:id' do
   
+  before(:each) do
+    login_as :administrator
+  end
+  
   it "should be successful"
   
-  it "should fail when given an invalid ID"  
+  it "should render 404 file when given an invalid ID" do
+    @exception = ActiveRecord::RecordNotFound.new
+    Strategy.stub!(:find).and_raise(@exception)
+    get :show, :id => 'broken'
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.headers["Status"].should eql("404 Not Found")
+  end
 
 end
 
 describe StrategiesController, 'handling GET /strategies/new/:id' do
+
+  before(:each) do
+    login_as :administrator
+  end
   
   it "should be successful"
   
-  it "should fail when given an invalid ID"  
+  it "should render 404 file when given an invalid ID" do
+    @exception = ActiveRecord::RecordNotFound.new
+    Organisation.stub!(:find).and_raise(@exception)
+    get :new, :id => 'broken'
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.headers["Status"].should eql("404 Not Found")
+  end  
 
 end
 
@@ -205,10 +245,20 @@ describe StrategiesController, 'handling POST /strategies/create' do
 end
 
 describe StrategiesController, 'handling GET /strategies/edit/:id' do
-  
+
+  before(:each) do
+    login_as :administrator
+  end  
+
   it "should be successful"
   
-  it "should fail when given an invalid ID"  
+  it "should render 404 file when given an invalid ID" do
+    @exception = ActiveRecord::RecordNotFound.new
+    Strategy.stub!(:find).and_raise(@exception)
+    get :edit, :id => 'broken'
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.headers["Status"].should eql("404 Not Found")
+  end
 
 end
 
@@ -240,7 +290,13 @@ describe StrategiesController, 'handling POST /strategies/update/:id' do
   
   it "should assign a flash message with an invalid strategy"  
 
-  it "should fail when given an invalid ID"
+  it "should render 404 file when given an invalid ID" do
+    @exception = ActiveRecord::RecordNotFound.new
+    Strategy.stub!(:find).and_raise(@exception)
+    post :update, :id => 'broken'
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.headers["Status"].should eql("404 Not Found")
+  end
 
 end
 
@@ -263,6 +319,12 @@ describe StrategiesController, 'handling POST /strategies/destroy/:id' do
     post :destroy, :id => @strategy.id
   end
   
-  it "should fail when given an invalid ID"
+  it "should render 404 file when given an invalid ID" do
+    @exception = ActiveRecord::RecordNotFound.new
+    Strategy.stub!(:find).and_raise(@exception)
+    post :destroy, :id => 'broken'
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.headers["Status"].should eql("404 Not Found")
+  end
 
 end
