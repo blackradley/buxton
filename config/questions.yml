@@ -359,7 +359,7 @@ questions:
           - 'Do you think that the Function could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
         -
           - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
-         - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
+          - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
       help: ''
       type: select
       choices: 3
