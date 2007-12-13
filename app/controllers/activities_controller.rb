@@ -122,7 +122,6 @@ class ActivitiesController < ApplicationController
     unless (@current_user.class.name == 'OrganisationManager') then render :inline => 'Invalid.' end
 
     # Get the Activity and User details ready for the view
-    #TODO: Test the exception handling here.
     @activity = Activity.find(params[:id])
     @activity_manager = @activity.activity_manager
     @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] }
@@ -153,8 +152,6 @@ class ActivitiesController < ApplicationController
   # Delete the activity (and any associated records as stated in the Activity model)
   # Available to: Organisation Manager
   def destroy
-    #TODO: Test the exception handling here.
-
     # Only allow an organisation manager to proceed    
     # TODO: catch this better
     unless (@current_user.class.name == 'OrganisationManager') then render :inline => 'Invalid.' end
@@ -165,8 +162,6 @@ class ActivitiesController < ApplicationController
 
     flash[:notice] = 'Activity successfully deleted.'
     redirect_to :action => 'list'
-  rescue ActiveRecord::RecordNotFound  
-    render :inline => 'Invalid ID.'    
   end
 
   # Show a printer friendly summary page

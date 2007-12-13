@@ -16,6 +16,8 @@ class ApplicationController < ActionController::Base
     
   before_filter :authenticate
   before_filter :set_current_user
+  
+  rescue_from ActiveRecord::RecordNotFound, :with => :not_found
     
 protected
   # Check that the user in the session is for real.
@@ -35,6 +37,10 @@ protected
   # Override in controller classes that should require authentication
   def secure?
     false
+  end
+  
+  def not_found
+    render :file => "#{RAILS_ROOT}/public/404.html",  :status => "404 Not Found"
   end
   
   # To reduce code duplication in the controllers, we override rescue_action to catch RecordInvalid and RecordNotFound 
