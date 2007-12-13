@@ -377,13 +377,19 @@ end
 
 describe ActivitiesController, "handling GET /activities/edit_contact/:id" do
 
-  it "should be successful" do
-    # login_as :organisation_manager
-    # get :edit_contact, :id => 1
-    # response.should be_success
+  before(:each) do
+    login_as :organisation_manager    
   end
+
+  it "should be successful"
   
-  it "should fail when given an invalid ID"  
+  it "should render 404 file when given an invalid ID" do
+    @exception = ActiveRecord::RecordNotFound.new
+    Activity.stub!(:find).and_raise(@exception)
+    get :edit_contact, :id => 1
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.headers["Status"].should eql("404 Not Found")
+  end
   
 end
 
@@ -414,6 +420,14 @@ describe ActivitiesController, "handling POST /activities/update_contact/:id" do
   end
   
   it "should assign a flash message with an invalid activity"  
+
+  it "should render 404 file when given an invalid ID" do
+    @exception = ActiveRecord::RecordNotFound.new
+    Activity.stub!(:find).and_raise(@exception)
+    post :update_contact, :id => 1
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.headers["Status"].should eql("404 Not Found")
+  end
   
 end
 
@@ -436,7 +450,13 @@ describe ActivitiesController, "handling POST /activities/destroy/:id" do
     post :destroy, :id => @activity.id
   end
   
-  it "should fail when given an invalid ID"
+  it "should render 404 file when given an invalid ID" do
+    @exception = ActiveRecord::RecordNotFound.new
+    Activity.stub!(:find).and_raise(@exception)
+    post :destroy, :id => 1
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.headers["Status"].should eql("404 Not Found")
+  end
   
 end
 
