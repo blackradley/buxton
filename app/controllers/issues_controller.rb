@@ -52,13 +52,13 @@ class IssuesController < ApplicationController
     respond_to do |format|
       format.js
     end
-  rescue ActiveRecord::RecordNotFound
-    render :inline => 'Invalid ID.'
   end
 
 protected
+
   # Secure the relevant methods in the controller.
   def secure?
     true
   end
+  
 end

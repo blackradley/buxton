@@ -101,12 +101,23 @@ end
 
 describe IssuesController, 'handling XHR POST /issues/destroy/:id' do
 
+  before(:each) do
+    login_as :activity_manager
+  end
+
   it "should find the issue requested"
   
   it "should call destroy on the found issue"
   
   it "should render RJS to remove the issue from the view"
   
-  it "should show a 404 page if the issue could not be found"
-
+  it "should render 404 file when given an invalid ID" do
+    @exception = ActiveRecord::RecordNotFound.new
+    @current_user.activity.stub!(:issues).and_return([])
+    @current_user.activity.issues.stub!(:find).and_raise(@exception)
+    xhr(:post, :destroy, :id => 'broken')
+    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.headers["Status"].should eql("404 Not Found")
+  end
+  
 end

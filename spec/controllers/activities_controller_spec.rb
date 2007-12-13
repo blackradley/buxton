@@ -386,7 +386,7 @@ describe ActivitiesController, "handling GET /activities/edit_contact/:id" do
   it "should render 404 file when given an invalid ID" do
     @exception = ActiveRecord::RecordNotFound.new
     Activity.stub!(:find).and_raise(@exception)
-    get :edit_contact, :id => 1
+    get :edit_contact, :id => 'broken'
     response.should render_template("#{RAILS_ROOT}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
@@ -424,7 +424,7 @@ describe ActivitiesController, "handling POST /activities/update_contact/:id" do
   it "should render 404 file when given an invalid ID" do
     @exception = ActiveRecord::RecordNotFound.new
     Activity.stub!(:find).and_raise(@exception)
-    post :update_contact, :id => 1
+    post :update_contact, :id => 'broken'
     response.should render_template("#{RAILS_ROOT}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
@@ -453,7 +453,7 @@ describe ActivitiesController, "handling POST /activities/destroy/:id" do
   it "should render 404 file when given an invalid ID" do
     @exception = ActiveRecord::RecordNotFound.new
     Activity.stub!(:find).and_raise(@exception)
-    post :destroy, :id => 1
+    post :destroy, :id => 'broken'
     response.should render_template("#{RAILS_ROOT}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end

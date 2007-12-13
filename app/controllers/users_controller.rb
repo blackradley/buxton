@@ -116,8 +116,6 @@ class UsersController < ApplicationController
     
     flash[:notice] = 'User successfully deleted.'
     redirect_to :action => 'list'
-  rescue ActiveRecord::RecordNotFound  
-    render :inline => 'Invalid ID.'    
   end
   
   # Send a passkey reminder to the email associated with this user. Only one e-mail will be sent and
@@ -153,8 +151,6 @@ class UsersController < ApplicationController
     @user.save
     
     redirect_to :back
-  rescue ActiveRecord::RecordNotFound
-    render :inline => 'Invalid ID.'    
   end
 
   # Log the user in and then direct them to the right place based on the user type
