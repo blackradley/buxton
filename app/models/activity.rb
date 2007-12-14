@@ -49,6 +49,10 @@ class Activity < ActiveRecord::Base
   before_save :clear_statistics, :set_approved
   
   after_update :save_issues
+  
+  def activity_type
+    [self.existing_proposed?, self.function_policy?].join(' ')
+  end
 
   def existing_proposed?
     hashes['choices'][8][self.existing_proposed.to_i]
