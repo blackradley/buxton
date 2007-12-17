@@ -1,0 +1,29 @@
+<h2>Organisations</h2>
+<table>
+  <tr>
+    <th class="left">Name</th>
+    <th>Editor</th>
+    <th nowrap>Last Reminder</th>
+    <th></th>
+  </tr>
+  <% for organisation in @organisations %>
+  <tr>
+    <td nowrap class="left"><%=h organisation.name -%></td>
+    <td><%= link_to organisation.organisation_manager.email, "mailto:#{organisation.organisation_manager.email}?subject=#{organisation.name}", :title =>"Email" -%></td>
+    <td><%= date_or_blank(organisation.organisation_manager.reminded_on) -%></td>
+    <td class="actions" nowrap>
+    <%= link_to image_tag('icons/login.gif'), organisation_manager_login_url(organisation) , :title =>"Login"-%>
+    <%= link_to image_tag('icons/strategies.gif'), organisation_strategies_url(organisation), :title =>"Strategies" -%>
+    <%= link_to image_tag('icons/view.jpg'), organisation, :title =>"View"  -%>
+    <%= link_to image_tag('icons/remind.gif'), { :controller => 'users', :action => 'remind', :id => organisation.organisation_manager}, :confirm => "Send reminder to #{organisation.name}?", :method => :post, :title =>"Remind" -%>
+    <%= link_to image_tag('icons/edit.jpg'), edit_organisation_url(organisation), :title =>"Edit" -%>
+    <%= link_to image_tag('icons/delete.png'), organisation, :confirm => "Delete #{organisation.name}?", :method => :delete, :title =>"Delete" -%></td>
+  </tr>
+  <% end %>
+</table>
+<br />
+<%= will_paginate(@organisations) unless @organisations.blank? -%>
+<br />
+<%= link_to 'New organisation', new_organisation_url %>
+<br />
+<%= link_to 'New demonstration', new_demo_url %>

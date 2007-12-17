@@ -1,6 +1,8 @@
 #
 # $URL$
+# $Rev$
 # $Author$
+# $Date$
 #
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
@@ -14,14 +16,9 @@ class OrganisationsController < ApplicationController
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
 
-  # Available to: Administrator
-  def index
-    list
-  end
-
   # List the organisation for the administrative User. Paginate with 10 organisations listed per page.
   # Available to: Administrator  
-  def list
+  def index
     @organisations = Organisation.paginate(:page => params[:page], :per_page => 10)
   end
 
@@ -50,7 +47,7 @@ class OrganisationsController < ApplicationController
     Organisation.transaction do
       @organisation.save!
       flash[:notice] = "#{@organisation.name} was created."
-      redirect_to :action => :list
+      redirect_to organisation_url(@organisation)
     end
   end
 
@@ -70,8 +67,8 @@ class OrganisationsController < ApplicationController
       @organisation.update_attributes!(params[:organisation])
       @organisation_manager = @organisation.organisation_manager
       @organisation_manager.update_attributes!(params[:organisation_manager])
-      flash[:notice] =  "#{@organisation.name} was successfully changed."
-      redirect_to :action => 'show', :id => @organisation
+      flash[:notice] = "#{@organisation.name} was successfully changed."
+      redirect_to organisation_url(@organisation)
     end
   end
   
@@ -82,16 +79,17 @@ class OrganisationsController < ApplicationController
     @organisation.destroy
 
     flash[:notice] = 'Organisation successfully deleted.'
-    redirect_to :action => 'list'
+    redirect_to organisations_url
   end
 
   def view_pdf
-    @organisation = Organisation.find(@current_user.organisation.id)
+    @organisation = @current_user.organisation
     send_data  OrganisationPDFRenderer.render_pdf(:data => @organisation.generate_pdf_data),
       :type         => "application/pdf",
       :disposition  => "inline",
       :filename     => "report.pdf" 
   end
+  
 protected
   # Secure the relevant methods in the controller.
   def secure?
@@ -101,5 +99,5 @@ protected
   def show_errors(exception)
     flash[:notice] = 'Organisation could not be updated.'
     render :action => (exception.record.new_record? ? :new : :edit) 
-  end  
+  end
 end

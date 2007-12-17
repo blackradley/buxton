@@ -8,6 +8,14 @@
 #
 ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
+  map.resources :organisations do |organisations|
+    organisations.resources :strategies, :collection => { :reorder => :get }
+  end
+  
+  # Manually create a subset of the RESTful named routes for the DemosController
+  map.new_demo 'demos/new', :controller => 'demos', :action => 'new', :conditions => { :method => :get }
+  map.demos 'demos', :controller => 'demos', :action => 'create', :conditions => { :method => :post }
+  
   map.connect 'sections/edit/:id/:equality_strand', :controller => 'sections', :action => 'edit'
 
   # Sample of regular route:

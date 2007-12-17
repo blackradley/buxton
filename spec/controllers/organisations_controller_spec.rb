@@ -1,41 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe OrganisationsController, 'routes' do
-
-  it "should map { :controller => 'organisations', :action => 'index' } to /organisations" do
-    route_for(:controller => 'organisations', :action => 'index').should == '/organisations'
-  end
-  
-  it "should map { :controller => 'organisations', :action => 'list' } to /organisations/list" do
-    route_for(:controller => 'organisations', :action => 'list').should == '/organisations/list'
-  end
-  
-  it "should map { :controller => 'organisations', :action => 'show', :id => 1 } to /organisations/show/1" do
-    route_for(:controller => 'organisations', :action => 'show', :id => 1).should == '/organisations/show/1'
-  end
-  
-  it "should map { :controller => 'organisations', :action => 'new' } to /organisations/new" do
-    route_for(:controller => 'organisations', :action => 'new').should == '/organisations/new'
-  end
-  
-  it "should map { :controller => 'organisations', :action => 'create' } to /organisations/create" do
-    route_for(:controller => 'organisations', :action => 'create').should == '/organisations/create'
-  end
-  
-  it "should map { :controller => 'organisations', :action => 'edit', :id => 1 } to /organisations/edit/1" do
-    route_for(:controller => 'organisations', :action => 'edit', :id => 1).should == '/organisations/edit/1'
-  end
-
-  it "should map { :controller => 'organisations', :action => 'update', :id => 1 } to /organisations/update/1" do
-    route_for(:controller => 'organisations', :action => 'update', :id => 1).should == '/organisations/update/1'
-  end
-
-  it "should map { :controller => 'organisations', :action => 'destroy', :id => 1 } to /organisations/destroy/1" do
-    route_for(:controller => 'organisations', :action => 'destroy', :id => 1).should == '/organisations/destroy/1'
-  end
-
-end
-
 describe OrganisationsController, "should not allow GET requests to dangerous actions" do
   
   before(:each) do
@@ -105,16 +69,6 @@ end
 
 describe OrganisationsController, 'handling GET /organisations' do
   
-  it "should be successful" do
-    login_as :administrator
-    get :index
-    response.should be_success
-  end
-  
-end
-
-describe OrganisationsController, 'handling GET /organisations/list' do
-  
   before(:each) do
     @organisations = [  mock_model(Organisation, :name => 'Meals on Wheels'),
                         mock_model(Organisation, :name => 'Drugs and Alcohol')
@@ -124,18 +78,18 @@ describe OrganisationsController, 'handling GET /organisations/list' do
   end
   
   it "should be successful" do
-    get :list
+    get :index
     response.should be_success
   end
   
   it "should render 'list'" do
-    get :list
-    response.should render_template(:list)
+    get :index
+    response.should render_template(:index)
   end
   
   it "should find all organisations and assign them to a variable" do
     Organisation.should_receive(:find).and_return(@organisations)
-    get :list
+    get :index
     assigns[:organisations].should eql(@organisations)
   end
 
@@ -202,7 +156,7 @@ describe OrganisationsController, 'handling GET /organisations/new' do
   it "should assign a new user and organisation for the view" do
     Organisation.should_receive(:new).and_return(@organisation)
     @organisation.should_receive(:build_organisation_manager).and_return(@organisation_manager)    
-    get :new    
+    get :new  
     assigns[:organisation].should eql(@organisation)
     assigns[:organisation_manager].should eql(@organisation_manager)
   end
@@ -299,7 +253,7 @@ describe OrganisationsController, 'handling POST /organisations/update/:id' do
   it "should redirect to 'strategy/show/:id' with a valid strategy" do
     @organisation.stub!(:update_attributes!).and_return(nil)
     post :update
-    response.should redirect_to(:action => 'show', :id => @organisation.id)
+    response.should redirect_to(organisation_url(@organisation))
   end
 
   it "should assign a flash message with a valid strategy"

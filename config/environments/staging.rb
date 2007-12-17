@@ -8,7 +8,7 @@
 #
 # Settings specified here will take precedence over those in config/environment.rb
 
-# The production environment is meant for finished, "live" apps.
+# The staging environment is meant for finished, "live" apps.
 # Code is not reloaded between requests
 config.cache_classes = true
 
@@ -32,5 +32,5 @@ config.action_mailer.delivery_method = :smtp
 # (create the session table with 'rake db:sessions:create')
 config.action_controller.session_store = :active_record_store
 
-# We presently run on a .org.uk domain
+# We presently run on a .co.uk domain
 TLD_LENGTH = 2

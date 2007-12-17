@@ -1,17 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe DemosController, 'routes' do
-
-  it "should map { :controller => 'demos', :action => 'new' } to /demos/new" do
-    route_for(:controller => 'demos', :action => 'new').should == '/demos/new'
-  end
-  
-  it "should map { :controller => 'demos', :action => 'create' } to /demos/create" do
-    route_for(:controller => 'demos', :action => 'create').should == '/demos/create'
-  end
-
-end
-
 describe DemosController, 'should not allow GET requests to dangerous actions' do
   
   it "#create should not be successful" do
