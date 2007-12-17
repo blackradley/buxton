@@ -110,6 +110,7 @@ class Activity < ActiveRecord::Base
     statistics
     data << self.stat_function
     data << self.id
+    data << [:unapproved_logo_on_first_page, :header, :body, :statistics, :issues]
   end
   #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions. 
   def percentage_answered(section = nil, strand = nil)
@@ -535,7 +536,6 @@ private
       section = segments[0]
       strand = segments[1]
       question_name = segments[2]
-      puts query_hash[section.to_s][question_name.to_i]
       dependencies = query_hash[section.to_s][question_name.to_i]['dependent_questions']
       dependencies.gsub!("yes_value", yes_value.to_s)
       dependencies.gsub!("no_value", no_value.to_s)
