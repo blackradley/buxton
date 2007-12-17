@@ -1,10 +1,7 @@
 #
 # $URL$
-#
 # $Rev$
-#
 # $Author$
-#
 # $Date$
 #
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
@@ -31,3 +28,6 @@ config.action_controller.allow_forgery_protection    = false
 # The :test delivery method accumulates sent emails in the
 # ActionMailer::Base.deliveries array.
 config.action_mailer.delivery_method = :test
+
+# We shouldn't have a TLD as we'll be running on localhost
+TLD_LENGTH = 0

@@ -12,20 +12,20 @@ class ActivitiesController < ApplicationController
   verify  :method => :post,
           :only => [ :destroy, :create, :update, :update_activity_type, :update_contact ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
-          
+
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors  
 
   # By default, show the summary page. Not presently referenced anywhere.
   # Available to: Organisation Manager
   def index
-    @activity = Activity.find(@current_user.activity.id)
+    @activity = @current_user.activity
   end
 
   # These are summary statistics for all the activities within this organisation.
   # Available to: Organisation Manager
   def summary
-    @organisation = Organisation.find(@current_user.organisation.id)
+    @organisation = @current_user.organisation
     @activities = @organisation.activities
     @results_table = @organisation.activity_summary_table
   end
@@ -33,19 +33,19 @@ class ActivitiesController < ApplicationController
   # Show the summary information for a specific activity.
   # Available to: Activity Manager
   def show
-    @activity = Activity.find(@current_user.activity.id)
+    @activity = @current_user.activity
   end
 
   # Shows the section matrix state for a specific activity.
   # Available to: Activity Manager
   def overview
-    @activity = Activity.find(@current_user.activity.id)
+    @activity = @current_user.activity
   end
   
   # List and provide a summary of the state of all the activities in this organisation.
   # Available to: Organisation Manager
   def list
-    @organisation = Organisation.find(@current_user.organisation.id)
+    @organisation = @current_user.organisation
     @directorates = @organisation.directorates
   end
   
@@ -87,7 +87,7 @@ class ActivitiesController < ApplicationController
   # Opening page where they must choose between Activity/Policy and Existing/Proposed
   # Available to: Activity Manager
   def activity_type
-    @activity = Activity.find(@current_user.activity.id)
+    @activity = @current_user.activity
   end
 
   # Update the activity status and proceed, or not, accordingly
@@ -167,7 +167,7 @@ class ActivitiesController < ApplicationController
   # Show a printer friendly summary page
   # Available to: Activity Manager
   def print
-    @activity = Activity.find(@current_user.activity.id)
+    @activity = @current_user.activity
     
     # Set print_only true and render the normal show action, which will check this variable and include
     # the appropriate CSS as necessary.
@@ -181,7 +181,7 @@ class ActivitiesController < ApplicationController
     # affected by the application wide change to extensions. Hence, it loads what is essentially a 
     # self.up library, and then a self.down library to undo the changes it made to PDF::Writer
     pdf_writer do
-      @activity = Activity.find(@current_user.activity.id)
+      @activity = @current_user.activity
       send_data  ActivityPDFRenderer.render_pdf(:data => @activity.generate_pdf_data),
         :type         => "application/pdf",
         :disposition  => "inline",

@@ -168,7 +168,7 @@ class UsersController < ApplicationController
         when 'OrganisationManager'
           redirect_to :controller => 'activities', :action => 'summary'
         when 'Administrator'
-          redirect_to :controller => 'organisations', :action => 'list'
+          redirect_to organisations_url
       end
     end
   end

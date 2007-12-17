@@ -1,10 +1,10 @@
-<h1>Editing <%= @strategy.organisation.name -%> strategy</h1>
+<h1>Editing <%= @organisation.name -%> Strategy</h1>
 
-<% form_tag :action => 'update', :id => @strategy do %>
+<% form_for [@organisation, @strategy] do |f| %>
   <%= render :partial => 'form' %>
   <span class="button">
-  <%= submit_tag 'Save' %>
+	  <%= submit_tag 'Save' %>
   </span>
 <% end %>
 
-<%= link_to 'Show', :action => 'show', :id => @strategy -%> | <%= link_to 'Back', :action => 'list', :id => @strategy.organisation_id -%>
+<%= link_to 'Show', organisation_strategy_url(@organisation, @strategy) -%> | <%= link_to 'Back', organisation_strategies_url(@organisation) -%>

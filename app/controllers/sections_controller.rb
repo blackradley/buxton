@@ -18,7 +18,7 @@ class SectionsController < ApplicationController
   # Manager to scan down.
   # Available to: Organisation Manager
   def list
-    @organisation = Organisation.find(@current_user.organisation.id)
+    @organisation = @current_user.organisation
     
     case params[:id]
     when 'purpose'
@@ -76,7 +76,7 @@ class SectionsController < ApplicationController
   # Get the activity information ready for editing using the appropriate form.
   # Available to: Activity Manager
   def edit
-    @activity = Activity.find(@current_user.activity.id)
+    @activity = @current_user.activity
     @activity_manager = @activity.activity_manager
     
     @equality_strand = ''    

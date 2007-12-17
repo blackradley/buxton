@@ -1,6 +1,6 @@
 <h2><%=h @organisation.name %></h2>
 <div id='show_organisation'>
-<p><label for="organisation_manager_email">Email</label><div class="labelled"><%= @organisation_manager.email -%></div></p>
+<p><label for="organisation_manager_email">Email</label><div class="labelled"><%= link_to @organisation_manager.email, "mailto:#{@organisation_manager.email}" -%></div></p>
     
 <p><label for="organisation_name">Last Reminded</label><div class="labelled"><%= date_or_blank(@organisation_manager.reminded_on) -%></div></p>
 

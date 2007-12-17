@@ -150,7 +150,7 @@ module ApplicationHelper
       when 'Administrator'
         generate_menu( [
                         { :text => 'Organisations',
-                          :url => { :controller => 'organisations', :action => 'list'},
+                          :url => organisations_url,
                           :title => 'Organisations - Overview' },
                         { :text => 'New Demo',
                           :url => { :controller => 'demos', :action => 'new' },

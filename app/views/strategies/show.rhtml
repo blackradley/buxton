@@ -4,4 +4,4 @@
 </p>
 <% end %>
 
-<%= link_to 'Edit', :action => 'edit', :id => @strategy -%> | <%= link_to 'Back', :action => 'list', :id => @strategy.organisation_id -%>
+<%= link_to 'Edit', edit_organisation_strategy_url(@organisation, @strategy) -%> | <%= link_to 'Back', organisation_strategies_url(@organisation) -%>

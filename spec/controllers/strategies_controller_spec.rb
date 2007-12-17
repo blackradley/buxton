@@ -1,49 +1,5 @@
 require File.dirname(__FILE__) + '/../spec_helper'
 
-describe StrategiesController, 'routes' do
-
-  it "should map { :controller => 'strategies', :action => 'index' } to /strategies" do
-    route_for(:controller => 'strategies', :action => 'index').should == '/strategies'
-  end
-  
-  it "should map { :controller => 'strategies', :action => 'list', :id => 1 } to /strategies/list/1" do
-    route_for(:controller => 'strategies', :action => 'list', :id => 1).should == '/strategies/list/1'
-  end
-  
-  it "should map { :controller => 'strategies', :action => 'reorder', :id => 1 } to /strategies/reorder/1" do
-    route_for(:controller => 'strategies', :action => 'reorder', :id => 1).should == '/strategies/reorder/1'
-  end
-  
-  it "should map { :controller => 'strategies', :action => 'update_strategy_order' } to /strategies/update_strategy_order" do
-    route_for(:controller => 'strategies', :action => 'update_strategy_order').should == '/strategies/update_strategy_order'
-  end
-
-  it "should map { :controller => 'strategies', :action => 'show', :id => 1 } to /strategies/show/1" do
-    route_for(:controller => 'strategies', :action => 'show', :id => 1).should == '/strategies/show/1'
-  end
-
-  it "should map { :controller => 'strategies', :action => 'new', :id => 1 } to /strategies/new/1" do
-    route_for(:controller => 'strategies', :action => 'new', :id => 1).should == '/strategies/new/1'
-  end
-        
-  it "should map { :controller => 'strategies', :action => 'create' } to /strategies/create" do
-    route_for(:controller => 'strategies', :action => 'create').should == '/strategies/create'
-  end
-  
-  it "should map { :controller => 'strategies', :action => 'edit', :id => 1 } to /strategies/edit/1" do
-    route_for(:controller => 'strategies', :action => 'edit', :id => 1).should == '/strategies/edit/1'
-  end
-  
-  it "should map { :controller => 'strategies', :action => 'update', :id => 1 } to /strategies/update/1" do
-    route_for(:controller => 'strategies', :action => 'update', :id => 1).should == '/strategies/update/1'
-  end  
-  
-  it "should map { :controller => 'strategies', :action => 'destroy', :id => 1 } to /strategies/destroy/1" do
-    route_for(:controller => 'strategies', :action => 'destroy', :id => 1).should == '/strategies/destroy/1'
-  end
-  
-end
-
 describe StrategiesController, "should not allow GET requests to dangerous actions" do
 
   before(:each) do
@@ -78,12 +34,7 @@ describe StrategiesController, "should not allow access to secured actions when 
     get :index
     response.should be_redirect
   end
-  
-  it "#list should not be successful" do
-    get :list
-    response.should be_redirect
-  end
-  
+    
   it "#reorder should not be successful" do
     get :reorder
     response.should be_redirect
@@ -118,21 +69,15 @@ describe StrategiesController, "should not allow access to secured actions when 
     post :update
     response.should be_redirect
   end
-  
+
   it "#destroy should not be successful" do
     post :destroy
     response.should be_redirect
   end
-    
+
 end
 
 describe StrategiesController, 'handling GET /strategies' do
-  
-  it "should be successful"
-
-end
-
-describe StrategiesController, 'handling GET /strategies/list/:id' do
 
   before(:each) do
     login_as :administrator
@@ -143,7 +88,7 @@ describe StrategiesController, 'handling GET /strategies/list/:id' do
   it "should render 404 file when given an invalid ID" do
     @exception = ActiveRecord::RecordNotFound.new
     Organisation.stub!(:find).and_raise(@exception)
-    get :list, :id => 'broken'
+    get :index, :id => 'broken'
     response.should render_template("#{RAILS_ROOT}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
@@ -254,8 +199,8 @@ describe StrategiesController, 'handling GET /strategies/edit/:id' do
   
   it "should render 404 file when given an invalid ID" do
     @exception = ActiveRecord::RecordNotFound.new
-    Strategy.stub!(:find).and_raise(@exception)
-    get :edit, :id => 'broken'
+    @organisation.strategies.stub!(:find).and_raise(@exception)
+    get edit_organisation_strategy_url(1, 'broken')
     response.should render_template("#{RAILS_ROOT}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
@@ -263,7 +208,7 @@ describe StrategiesController, 'handling GET /strategies/edit/:id' do
 end
 
 describe StrategiesController, 'handling POST /strategies/update/:id' do
-  
+
   before(:each) do
     # Prep data
     @strategy = mock_model(Strategy, :null_object => true)
@@ -279,16 +224,16 @@ describe StrategiesController, 'handling POST /strategies/update/:id' do
   end
 
   it "should assign a flash message with a valid strategy"
-  
-  it "should re-render 'user/edit/:id' with an invalid strategy" do
+
+  it "should re-render 'strategy/edit/:id' with an invalid strategy" do
     @exception = ActiveRecord::RecordNotSaved.new
     @exception.stub!(:record).and_return(@strategy)
     @strategy.stub!(:update_attributes!).and_raise(@exception)
     post :update
     response.should render_template(:edit)
   end
-  
-  it "should assign a flash message with an invalid strategy"  
+
+  it "should assign a flash message with an invalid strategy"
 
   it "should render 404 file when given an invalid ID" do
     @exception = ActiveRecord::RecordNotFound.new
@@ -314,7 +259,7 @@ describe StrategiesController, 'handling POST /strategies/destroy/:id' do
     response.should be_redirect
   end
   
-  it "should destroy the organisation" do
+  it "should destroy the strategy" do
     @strategy.should_receive(:destroy)
     post :destroy, :id => @strategy.id
   end
