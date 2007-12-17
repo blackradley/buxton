@@ -87,7 +87,7 @@ class Organisation < ActiveRecord::Base
     return results_table
   end
   
-  def generate_pdf_data
+  def generate_pdf_data(full_report = false)
     data = [self.name, 0,0,0,0]
     self.activities.each do |activity|
       case activity.function_policy
@@ -111,8 +111,9 @@ class Organisation < ActiveRecord::Base
     data << self.progress_table
     summary_table = self.activity_summary_table.to_a
     summary_table.sort!
-    puts summary_table
     data << summary_table
+    data << self.directorates
+    data << full_report
   end
   
   def directorate_attributes=(directorate_attributes)

@@ -14,7 +14,7 @@
   <% for activity in @organisation.activities -%>
   <tr>
     <td class="left"><%=h activity.name -%></td>
-    <td width="104px"><%= progress_bar(activity.percentage_answered(:confidence_consultation)) -%></td>
+    <td width="104px"><%= progress_bar(activity.percentage_answered(:consultation)) -%></td>
     <td><%= date_or_blank(activity.activity_manager.reminded_on) -%></td>
 	<td class="actions" nowrap>
       <%= link_to image_tag('icons/view.jpg'), {:action => 'show', :id => 'confidence', :f => activity}, :id => 'view', :title =>"View" -%> 

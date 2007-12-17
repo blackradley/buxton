@@ -1,15 +1,19 @@
 class ActivityPDFRenderer < Ruport::Renderer
-  stage :page_numbers, :unapproved_logo_on_first_page, :header, :body, :statistics, :issues, :footer
- 
-  class ActivityPDF < Ruport::Formatter::PDF
-    renders :pdf, :for => ActivityPDFRenderer
-    def build_page_numbers
+  stage :page_numbers, :unapproved_logo_on_first_page, :header, :body, :statistics, :issues, :footer, :render
+end 
+#TODO: Find much better way of ignoring not wanted sections.
+class ActivityPDF < Ruport::Formatter::PDF
+  renders :pdf, :for => ActivityPDFRenderer
+  def build_page_numbers
+    if data[11].include?(:page_numbers)
       pdf_writer.start_page_numbering(pdf_writer.absolute_left_margin,
         pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(12) * 1.01),
         12,
         :left)
     end
-    def build_unapproved_logo_on_first_page
+  end
+  def build_unapproved_logo_on_first_page
+    if data[11].include?(:unapproved_logo_on_first_page) then
       pdf_writer.unapproved_status = data[1] 
       #The page numbers are started at the top, so that they will always hit the first page, but they appear at the bottom
       #This creates the grey Unapproved background.
@@ -19,7 +23,9 @@ class ActivityPDFRenderer < Ruport::Renderer
       pdf_writer.add_text(pdf_writer.margin_x_middle-150, pdf_writer.margin_y_middle-150, data[1].to_s, 72, 45)
       pdf_writer.restore_state
     end
-    def build_header
+  end
+  def build_header
+    if data[11].include?(:header) then
       pdf_writer.fill_color Color::RGB.const_get('Black')
       pdf_writer.image( "#{RAILS_ROOT}/public/images/pdf_logo.png", :justification => :center, :resize => 0.5)
       pdf_writer.text "<b>#{data[3]}</b>", :justification => :center, :font_size => 18
@@ -27,7 +33,9 @@ class ActivityPDFRenderer < Ruport::Renderer
       pdf_writer.text "", :justification => :center, :font_size => 10 #Serves as a new line character. Is this more readable than moving the cursor manually?
       add_text " "
     end
-    def build_body
+  end
+  def build_body
+    if data[11].include?(:body) then
       pdf_writer.save_state
       add_text "<b>Directorate</b>: #{data[2].to_s}"
       add_text " "
@@ -46,9 +54,11 @@ class ActivityPDFRenderer < Ruport::Renderer
       draw_table(table, :position=> :left, :orientation => 2, :shade_rows => :none, :show_lines => :none, :show_headings => false)
       pdf_writer.text data[7].to_s, :justification => :left, :font_size => 10
       add_text " "
-   end
-   
-    def build_statistics
+    end
+ end
+ 
+  def build_statistics
+    if data[11].include?(:statistics) then
       if data[9]
         statistics = data[9]
         relevance = statistics.relevance
@@ -93,8 +103,10 @@ class ActivityPDFRenderer < Ruport::Renderer
         add_text " "
       end
     end
-    
-    def build_issues
+  end
+  
+  def build_issues
+    if data[11].include?(:issues) then
       pdf_writer.text "<b>Issues</b>", :justification => :left, :font_size => 12
       move_cursor_to(cursor - 7)
       pdf_writer.stroke_color! Color::RGB::Black
@@ -128,8 +140,10 @@ class ActivityPDFRenderer < Ruport::Renderer
         end
       end
     end
-    
-    def build_footer
+  end
+  
+  def build_footer
+    if data[11].include?(:footer) then 
       pdf_writer.open_object do |footer|
         pdf_writer.save_state
         pdf_writer.stroke_color! Color::RGB::Black
@@ -148,8 +162,12 @@ class ActivityPDFRenderer < Ruport::Renderer
         pdf_writer.close_object
         pdf_writer.add_object(footer, :all_pages)
       end
-      pdf_writer.stop_page_numbering(true)
-      render_pdf 
     end
+  end
+  
+  def build_render
+    pdf_writer.stop_page_numbering(true)
+    pdf_writer.y = bottom_boundary
+    render_pdf
   end
 end
