@@ -126,6 +126,8 @@ class Activity < ActiveRecord::Base
     unless section && !(section == :action_planning) then 
        #First we calculate all the questions, in case there is a nil.
        questions = Activity.get_question_names(:consultation, strand, 7)
+       questions << Activity.get_question_names(:impact, strand, 9)
+       questions.flatten!
        questions.each do |question|
          strand = question.to_s.split("_")
          strand.delete_at(1)
@@ -179,37 +181,54 @@ class Activity < ActiveRecord::Base
       return false unless (check_question(:existing_proposed) && check_question(:function_policy))
     end
     Activity.get_question_names(section, strand).each{|question| if check_question(question) then return true end}
-    #There is no need to check issues, because if the dependent question has been answered, then by definition they are started
-    #, and if it is not answered, they do not need to be filled in, so should not be taken account of.
-      unless section && !(section == :purpose) then #Check strategies are completed.
-        self.activity_strategies.each do |strategy| 
-          if check_response(strategy.strategy_response) then
-            return true
-          end
-        end
-      end      
-    return false
-  end
-  
-  #This allows you to check whether a activity, section or strand has been completed. It runs like started, but only breaking when it finds a question
-  #that has not been answered. Hence, it is at its slowest where there is a single unanswered question in each section. In worst case it has to run 
-  #through every question bar n where n is the number of activitys, making it a O(n) algorithm.
-  #TODO: Is it possible to optimise it by setting it to flick back and forth between the end and the start, on the assumption that people
-  #will answer it logically, meaning that if they fail to answer a question, it is more likely to be either at the end or start than the middle. Such a
-  #change would make no difference to the runtime in the worst case, and could well speed it up in best case.
-  def completed(section = nil, strand = nil)
-    return false unless (check_question(:existing_proposed) && check_question(:function_policy))
-    Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
     unless section && !(section == :action_planning) then 
        #First we calculate all the questions, in case there is a nil.
        questions = Activity.get_question_names(:consultation, strand, 7)
+       questions << Activity.get_question_names(:impact, strand, 9)
+       questions.flatten!
        questions.each do |question|
          strand = question.to_s.split("_")
          strand.delete_at(1)
          strand.delete_at(0)
          strand.pop
          if section
-          lookups_required = (self.send(question) == 1 ||self.send(question) == 0) 
+          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?) 
+         else
+          lookups_required = (self.send(question) == 2)
+         end
+         if lookups_required then
+           return true if started(:impact, strand)||started(:consultation, strand)
+         end
+       end
+    end
+    unless section && !(section == :purpose) then #Check strategies are completed.
+      self.activity_strategies.each do |strategy| 
+        if check_response(strategy.strategy_response) then
+          return true
+        end
+      end
+    end      
+    return false
+  end
+  
+  #This allows you to check whether a activity, section or strand has been completed. It runs like started, but only breaking when it finds a question
+  #that has not been answered. Hence, it is at its slowest where there is a single unanswered question in each section. In worst case it has to run 
+  #through every question bar n where n is the number of activitys, making it a O(n) algorithm.
+  def completed(section = nil, strand = nil)
+    return false unless (check_question(:existing_proposed) && check_question(:function_policy))
+    Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
+    unless section && !(section == :action_planning) then 
+       #First we calculate all the questions, in case there is a nil.
+       questions = Activity.get_question_names(:consultation, strand, 7)
+       questions << Activity.get_question_names(:impact, strand, 9)
+       questions.flatten!
+       questions.each do |question|
+         strand = question.to_s.split("_")
+         strand.delete_at(1)
+         strand.delete_at(0)
+         strand.pop
+         if section
+          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?) 
          else
           lookups_required = (self.send(question) == 2)
          end
