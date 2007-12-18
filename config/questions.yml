@@ -548,12 +548,12 @@ overall_questions:
       dependent_questions: 'impact_overall_2 yes_value'
       
 wordings:
-  gender: 'men and women'
-  race: individuals from different ethnic backgrounds'
-  disability: 'individuals with different kinds of disability'
-  faith: 'individuals of different faiths'
-  sexual_orientation: 'individuals of different sexual orientations'
-  age: 'individuals of different ages'
+  gender: men and women
+  race: individuals from different ethnic backgrounds
+  disability: individuals with different kinds of disability
+  faith: individuals of different faiths
+  sexual_orientation: individuals of different sexual orientations
+  age: individuals of different ages
 
 strands:
   gender:  Gender

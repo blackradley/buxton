@@ -21,6 +21,7 @@ class OrganisationPDF < Ruport::Formatter::PDF
       pdf_writer.start_new_page(true)
     end
   end
+  
   def build_page_numbers
     pdf_writer.start_page_numbering(pdf_writer.absolute_left_margin,
       pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(12) * 1.01),
@@ -81,14 +82,10 @@ class OrganisationPDF < Ruport::Formatter::PDF
         directorate_page_count << [pdf_writer.pageset.index(pdf_writer.current_page) + 1, directorate]
         directorate.activities.each do |activity|
           pdf_writer.start_new_page(true)
-          pdf_writer.open_object do |proxy|
-            pdf_writer.set_proxy(proxy)
-            data_for = activity.generate_pdf_data
-            data_for[11] = [:unapproved_logo_on_first_page, :header, :body, :statistics, :issues]
-            ActivityPDFRenderer.render_pdf(:data => data_for)
-            pdf_writer.close_object
-            pdf_writer.add_object(proxy)
-          end
+          pdf_writer.set_proxy(pdf_writer.current_contents)
+          data_for = activity.generate_pdf_data
+          data_for[11] = [:unapproved_logo_on_first_page, :header, :body, :statistics, :issues]
+          ActivityPDFRenderer.render_pdf(:data => data_for)
         end
       end
       pdf_writer.set_proxy(nil)
