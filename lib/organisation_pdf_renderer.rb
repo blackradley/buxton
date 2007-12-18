@@ -1,5 +1,4 @@
 #require "#{RAILS_ROOT}/config/initializers/migration_style_library_edits.rb"
-require "ruby-debug"
 
 class OrganisationPDFRenderer < Ruport::Renderer
   #Footer needs to be rendered first, as the activities appear as loose content objects too and will overwrite it if it 
