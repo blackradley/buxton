@@ -1,0 +1,4750 @@
+
+activity_1:
+  name:  Improving your reading, writing and number skills
+  directorate:  directorate_3
+  activity_manager:  actman_iain
+  purpose_gender_3: 2
+  purpose_race_3: 0
+  purpose_disability_3: 1
+  purpose_faith_3: 2
+  purpose_sexual_orientation_3: 1
+  purpose_age_3: 0
+  purpose_gender_4: 2
+  purpose_race_4: 2
+  purpose_disability_4: 0
+  purpose_faith_4: 1
+  purpose_sexual_orientation_4: 2
+  purpose_age_4: 2
+  impact_overall_1: 0
+  impact_overall_2: 0
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 1
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 0
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 1
+  impact_race_2: 2
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 0
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 1
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 0
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 0
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 2
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 2
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 0
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 1
+  impact_gender_9: 2
+  impact_race_6: 0
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 1
+  impact_race_9: 0
+  impact_disability_6: 0
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 2
+  impact_disability_9: 2
+  impact_faith_6: 0
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 1
+  impact_faith_9: 0
+  impact_sexual_orientation_6: 2
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 0
+  impact_sexual_orientation_9: 1
+  impact_age_6: 2
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 0
+  impact_age_9: 2
+  consultation_gender_2: 1
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 0
+  consultation_gender_5: 2
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 2
+  consultation_race_1: 1
+  consultation_race_2: 2
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 2
+  consultation_race_5: 0
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 2
+  consultation_disability_1: 1
+  consultation_disability_2: 2
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 2
+  consultation_disability_5: 1
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 2
+  consultation_faith_1: 1
+  consultation_faith_2: 2
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 0
+  consultation_faith_5: 2
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 0
+  consultation_sexual_orientation_1: 0
+  consultation_sexual_orientation_2: 1
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 0
+  consultation_sexual_orientation_5: 0
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 2
+  consultation_age_1: 1
+  consultation_age_2: 0
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 1
+  consultation_age_5: 2
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 2
+  consultation_gender_1: 2
+  additional_work_gender_1: 0
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 2
+  additional_work_gender_4: 1
+  additional_work_gender_5: 0
+  additional_work_gender_6: 2
+  additional_work_race_1: 1
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 2
+  additional_work_race_4: 1
+  additional_work_race_5: 0
+  additional_work_race_6: 2
+  additional_work_race_7: 2
+  additional_work_disability_1: 1
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 1
+  additional_work_disability_4: 1
+  additional_work_disability_5: 0
+  additional_work_disability_6: 2
+  additional_work_disability_7: 0
+  additional_work_disability_8: 2
+  additional_work_sexual_orientation_1: 2
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 2
+  additional_work_sexual_orientation_4: 2
+  additional_work_sexual_orientation_5: 2
+  additional_work_sexual_orientation_6: 1
+  additional_work_sexual_orientation_7: 1
+  additional_work_age_1: 0
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 0
+  additional_work_age_4: 1
+  additional_work_age_5: 2
+  additional_work_age_6: 1
+  additional_work_age_7: 2
+  additional_work_faith_1: 1
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 0
+  additional_work_faith_4: 2
+  additional_work_faith_5: 1
+  additional_work_faith_6: 1
+  additional_work_faith_7: 0
+  additional_work_disability_9: 1
+  additional_work_disability_10: 0
+  purpose_overall_5: 0
+  purpose_overall_6: 1
+  purpose_overall_7: 1
+  purpose_overall_8: 2
+  purpose_overall_9: 2
+  impact_overall_1: 1
+  impact_overall_2: 0
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 1
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 2
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 0
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 0
+  impact_faith_2: 2
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 2
+  existing_proposed: 1
+
+
+activity_2:
+  name:  Time off for trade union duties and activities
+  directorate:  directorate_1
+  activity_manager:  actman_iain
+  purpose_gender_3: 0
+  purpose_race_3: 1
+  purpose_disability_3: 1
+  purpose_faith_3: 0
+  purpose_sexual_orientation_3: 1
+  purpose_age_3: 1
+  purpose_gender_4: 2
+  purpose_race_4: 2
+  purpose_disability_4: 2
+  purpose_faith_4: 0
+  purpose_sexual_orientation_4: 1
+  purpose_age_4: 2
+  impact_overall_1: 2
+  impact_overall_2: 0
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 1
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 0
+  impact_race_2: 0
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 2
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 1
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 2
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 2
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 1
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 2
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 0
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 0
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 0
+  impact_gender_9: 1
+  impact_race_6: 1
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 0
+  impact_race_9: 2
+  impact_disability_6: 1
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 1
+  impact_disability_9: 1
+  impact_faith_6: 0
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 0
+  impact_faith_9: 2
+  impact_sexual_orientation_6: 2
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 1
+  impact_sexual_orientation_9: 1
+  impact_age_6: 0
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 0
+  impact_age_9: 1
+  consultation_gender_2: 1
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 2
+  consultation_gender_5: 1
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 2
+  consultation_race_1: 2
+  consultation_race_2: 2
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 1
+  consultation_race_5: 1
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 0
+  consultation_disability_1: 2
+  consultation_disability_2: 2
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 1
+  consultation_disability_5: 1
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 1
+  consultation_faith_1: 2
+  consultation_faith_2: 2
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 0
+  consultation_faith_5: 1
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 1
+  consultation_sexual_orientation_1: 0
+  consultation_sexual_orientation_2: 0
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 1
+  consultation_sexual_orientation_5: 2
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 1
+  consultation_age_1: 1
+  consultation_age_2: 1
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 0
+  consultation_age_5: 1
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 0
+  consultation_gender_1: 0
+  additional_work_gender_1: 0
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 1
+  additional_work_gender_4: 2
+  additional_work_gender_5: 2
+  additional_work_gender_6: 2
+  additional_work_race_1: 2
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 0
+  additional_work_race_4: 0
+  additional_work_race_5: 2
+  additional_work_race_6: 1
+  additional_work_race_7: 0
+  additional_work_disability_1: 1
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 0
+  additional_work_disability_4: 2
+  additional_work_disability_5: 0
+  additional_work_disability_6: 0
+  additional_work_disability_7: 2
+  additional_work_disability_8: 1
+  additional_work_sexual_orientation_1: 2
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 1
+  additional_work_sexual_orientation_4: 2
+  additional_work_sexual_orientation_5: 2
+  additional_work_sexual_orientation_6: 1
+  additional_work_sexual_orientation_7: 2
+  additional_work_age_1: 0
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 0
+  additional_work_age_4: 2
+  additional_work_age_5: 1
+  additional_work_age_6: 1
+  additional_work_age_7: 1
+  additional_work_faith_1: 2
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 0
+  additional_work_faith_4: 0
+  additional_work_faith_5: 1
+  additional_work_faith_6: 0
+  additional_work_faith_7: 1
+  additional_work_disability_9: 1
+  additional_work_disability_10: 0
+  purpose_overall_5: 2
+  purpose_overall_6: 1
+  purpose_overall_7: 2
+  purpose_overall_8: 1
+  purpose_overall_9: 2
+  impact_overall_1: 2
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 0
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 2
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 1
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 1
+  impact_age_2: 2
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 2
+  existing_proposed: 1
+
+
+activity_3:
+  name:  UK Deaf Sport
+  directorate:  directorate_3
+  activity_manager:  actman_iain
+  purpose_gender_3: 0
+  purpose_race_3: 0
+  purpose_disability_3: 0
+  purpose_faith_3: 1
+  purpose_sexual_orientation_3: 2
+  purpose_age_3: 1
+  purpose_gender_4: 1
+  purpose_race_4: 1
+  purpose_disability_4: 2
+  purpose_faith_4: 1
+  purpose_sexual_orientation_4: 1
+  purpose_age_4: 1
+  impact_overall_1: 0
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 1
+  impact_gender_2: 1
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 2
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 0
+  impact_race_2: 2
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 2
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 1
+  impact_disability_2: 2
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 2
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 0
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 0
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 0
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 2
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 1
+  impact_gender_9: 2
+  impact_race_6: 2
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 0
+  impact_race_9: 0
+  impact_disability_6: 2
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 1
+  impact_disability_9: 1
+  impact_faith_6: 0
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 0
+  impact_faith_9: 0
+  impact_sexual_orientation_6: 0
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 1
+  impact_sexual_orientation_9: 0
+  impact_age_6: 0
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 0
+  impact_age_9: 0
+  consultation_gender_2: 1
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 1
+  consultation_gender_5: 1
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 1
+  consultation_race_1: 0
+  consultation_race_2: 1
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 1
+  consultation_race_5: 1
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 2
+  consultation_disability_1: 0
+  consultation_disability_2: 0
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 0
+  consultation_disability_5: 0
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 1
+  consultation_faith_1: 1
+  consultation_faith_2: 0
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 1
+  consultation_faith_5: 2
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 0
+  consultation_sexual_orientation_1: 0
+  consultation_sexual_orientation_2: 0
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 1
+  consultation_sexual_orientation_5: 2
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 1
+  consultation_age_1: 1
+  consultation_age_2: 0
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 1
+  consultation_age_5: 0
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 1
+  consultation_gender_1: 1
+  additional_work_gender_1: 2
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 0
+  additional_work_gender_4: 2
+  additional_work_gender_5: 1
+  additional_work_gender_6: 1
+  additional_work_race_1: 1
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 1
+  additional_work_race_4: 1
+  additional_work_race_5: 1
+  additional_work_race_6: 1
+  additional_work_race_7: 2
+  additional_work_disability_1: 0
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 0
+  additional_work_disability_4: 1
+  additional_work_disability_5: 1
+  additional_work_disability_6: 0
+  additional_work_disability_7: 0
+  additional_work_disability_8: 0
+  additional_work_sexual_orientation_1: 0
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 1
+  additional_work_sexual_orientation_4: 2
+  additional_work_sexual_orientation_5: 0
+  additional_work_sexual_orientation_6: 1
+  additional_work_sexual_orientation_7: 1
+  additional_work_age_1: 0
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 0
+  additional_work_age_4: 1
+  additional_work_age_5: 0
+  additional_work_age_6: 1
+  additional_work_age_7: 1
+  additional_work_faith_1: 0
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 2
+  additional_work_faith_4: 1
+  additional_work_faith_5: 2
+  additional_work_faith_6: 2
+  additional_work_faith_7: 0
+  additional_work_disability_9: 0
+  additional_work_disability_10: 2
+  purpose_overall_5: 2
+  purpose_overall_6: 0
+  purpose_overall_7: 2
+  purpose_overall_8: 0
+  purpose_overall_9: 0
+  impact_overall_1: 1
+  impact_overall_2: 1
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 2
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 1
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 0
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 1
+  impact_age_2: 2
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 1
+  existing_proposed: 2
+
+
+activity_4:
+  name:  Cerebral Palsy Sport
+  directorate:  directorate_2
+  activity_manager:  actman_iain
+  purpose_gender_3: 1
+  purpose_race_3: 2
+  purpose_disability_3: 0
+  purpose_faith_3: 1
+  purpose_sexual_orientation_3: 2
+  purpose_age_3: 1
+  purpose_gender_4: 2
+  purpose_race_4: 1
+  purpose_disability_4: 0
+  purpose_faith_4: 0
+  purpose_sexual_orientation_4: 2
+  purpose_age_4: 1
+  impact_overall_1: 0
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 1
+  impact_gender_2: 1
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 1
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 0
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 1
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 0
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 1
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 0
+  impact_faith_2: 2
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 1
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 2
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 1
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 1
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 1
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 0
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 2
+  impact_gender_9: 1
+  impact_race_6: 1
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 2
+  impact_race_9: 2
+  impact_disability_6: 1
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 0
+  impact_disability_9: 2
+  impact_faith_6: 1
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 2
+  impact_faith_9: 1
+  impact_sexual_orientation_6: 0
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 0
+  impact_sexual_orientation_9: 0
+  impact_age_6: 2
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 1
+  impact_age_9: 1
+  consultation_gender_2: 2
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 1
+  consultation_gender_5: 1
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 0
+  consultation_race_1: 0
+  consultation_race_2: 1
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 1
+  consultation_race_5: 0
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 0
+  consultation_disability_1: 2
+  consultation_disability_2: 1
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 1
+  consultation_disability_5: 1
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 2
+  consultation_faith_1: 0
+  consultation_faith_2: 2
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 2
+  consultation_faith_5: 1
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 1
+  consultation_sexual_orientation_1: 0
+  consultation_sexual_orientation_2: 0
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 0
+  consultation_sexual_orientation_5: 1
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 0
+  consultation_age_1: 1
+  consultation_age_2: 0
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 0
+  consultation_age_5: 0
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 1
+  consultation_gender_1: 2
+  additional_work_gender_1: 1
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 1
+  additional_work_gender_4: 0
+  additional_work_gender_5: 0
+  additional_work_gender_6: 1
+  additional_work_race_1: 0
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 0
+  additional_work_race_4: 1
+  additional_work_race_5: 2
+  additional_work_race_6: 1
+  additional_work_race_7: 0
+  additional_work_disability_1: 0
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 1
+  additional_work_disability_4: 2
+  additional_work_disability_5: 0
+  additional_work_disability_6: 2
+  additional_work_disability_7: 1
+  additional_work_disability_8: 2
+  additional_work_sexual_orientation_1: 2
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 1
+  additional_work_sexual_orientation_4: 0
+  additional_work_sexual_orientation_5: 2
+  additional_work_sexual_orientation_6: 0
+  additional_work_sexual_orientation_7: 2
+  additional_work_age_1: 1
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 1
+  additional_work_age_4: 2
+  additional_work_age_5: 2
+  additional_work_age_6: 2
+  additional_work_age_7: 1
+  additional_work_faith_1: 1
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 2
+  additional_work_faith_4: 1
+  additional_work_faith_5: 1
+  additional_work_faith_6: 1
+  additional_work_faith_7: 0
+  additional_work_disability_9: 2
+  additional_work_disability_10: 1
+  purpose_overall_5: 1
+  purpose_overall_6: 0
+  purpose_overall_7: 1
+  purpose_overall_8: 0
+  purpose_overall_9: 2
+  impact_overall_1: 2
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 1
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 1
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 1
+  impact_disability_2: 2
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 2
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 2
+  existing_proposed: 1
+
+
+activity_5:
+  name:  Time off for trade union duties and activities
+  directorate:  directorate_3
+  activity_manager:  actman_iain
+  purpose_gender_3: 0
+  purpose_race_3: 2
+  purpose_disability_3: 2
+  purpose_faith_3: 2
+  purpose_sexual_orientation_3: 2
+  purpose_age_3: 1
+  purpose_gender_4: 0
+  purpose_race_4: 0
+  purpose_disability_4: 2
+  purpose_faith_4: 2
+  purpose_sexual_orientation_4: 1
+  purpose_age_4: 1
+  impact_overall_1: 1
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 1
+  impact_gender_2: 1
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 0
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 1
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 0
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 2
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 0
+  impact_faith_2: 2
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 2
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 1
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 1
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 2
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 0
+  impact_gender_9: 0
+  impact_race_6: 2
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 2
+  impact_race_9: 1
+  impact_disability_6: 2
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 0
+  impact_disability_9: 0
+  impact_faith_6: 0
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 2
+  impact_faith_9: 0
+  impact_sexual_orientation_6: 2
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 0
+  impact_sexual_orientation_9: 1
+  impact_age_6: 0
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 0
+  impact_age_9: 2
+  consultation_gender_2: 0
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 1
+  consultation_gender_5: 0
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 1
+  consultation_race_1: 0
+  consultation_race_2: 1
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 2
+  consultation_race_5: 2
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 0
+  consultation_disability_1: 1
+  consultation_disability_2: 1
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 1
+  consultation_disability_5: 0
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 1
+  consultation_faith_1: 1
+  consultation_faith_2: 0
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 1
+  consultation_faith_5: 1
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 0
+  consultation_sexual_orientation_1: 2
+  consultation_sexual_orientation_2: 2
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 0
+  consultation_sexual_orientation_5: 0
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 2
+  consultation_age_1: 1
+  consultation_age_2: 1
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 1
+  consultation_age_5: 1
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 2
+  consultation_gender_1: 0
+  additional_work_gender_1: 1
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 0
+  additional_work_gender_4: 2
+  additional_work_gender_5: 2
+  additional_work_gender_6: 1
+  additional_work_race_1: 0
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 2
+  additional_work_race_4: 1
+  additional_work_race_5: 1
+  additional_work_race_6: 1
+  additional_work_race_7: 1
+  additional_work_disability_1: 0
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 0
+  additional_work_disability_4: 2
+  additional_work_disability_5: 0
+  additional_work_disability_6: 0
+  additional_work_disability_7: 2
+  additional_work_disability_8: 2
+  additional_work_sexual_orientation_1: 0
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 1
+  additional_work_sexual_orientation_4: 2
+  additional_work_sexual_orientation_5: 0
+  additional_work_sexual_orientation_6: 0
+  additional_work_sexual_orientation_7: 0
+  additional_work_age_1: 2
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 2
+  additional_work_age_4: 1
+  additional_work_age_5: 2
+  additional_work_age_6: 2
+  additional_work_age_7: 2
+  additional_work_faith_1: 1
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 0
+  additional_work_faith_4: 2
+  additional_work_faith_5: 2
+  additional_work_faith_6: 0
+  additional_work_faith_7: 1
+  additional_work_disability_9: 1
+  additional_work_disability_10: 2
+  purpose_overall_5: 0
+  purpose_overall_6: 0
+  purpose_overall_7: 2
+  purpose_overall_8: 2
+  purpose_overall_9: 1
+  impact_overall_1: 1
+  impact_overall_2: 0
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 0
+  impact_race_2: 2
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 0
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 1
+  existing_proposed: 2
+
+
+activity_6:
+  name:  Extra-curricular activities
+  directorate:  directorate_2
+  activity_manager:  actman_iain
+  purpose_gender_3: 1
+  purpose_race_3: 2
+  purpose_disability_3: 1
+  purpose_faith_3: 1
+  purpose_sexual_orientation_3: 0
+  purpose_age_3: 2
+  purpose_gender_4: 0
+  purpose_race_4: 0
+  purpose_disability_4: 1
+  purpose_faith_4: 1
+  purpose_sexual_orientation_4: 0
+  purpose_age_4: 1
+  impact_overall_1: 0
+  impact_overall_2: 0
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 1
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 0
+  impact_race_2: 2
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 1
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 0
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 1
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 1
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 1
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 0
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 0
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 2
+  impact_gender_9: 1
+  impact_race_6: 1
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 1
+  impact_race_9: 2
+  impact_disability_6: 0
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 0
+  impact_disability_9: 0
+  impact_faith_6: 0
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 1
+  impact_faith_9: 2
+  impact_sexual_orientation_6: 1
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 2
+  impact_sexual_orientation_9: 1
+  impact_age_6: 1
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 0
+  impact_age_9: 2
+  consultation_gender_2: 0
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 1
+  consultation_gender_5: 0
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 0
+  consultation_race_1: 0
+  consultation_race_2: 0
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 0
+  consultation_race_5: 1
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 2
+  consultation_disability_1: 0
+  consultation_disability_2: 0
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 0
+  consultation_disability_5: 2
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 0
+  consultation_faith_1: 2
+  consultation_faith_2: 0
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 1
+  consultation_faith_5: 2
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 0
+  consultation_sexual_orientation_1: 1
+  consultation_sexual_orientation_2: 2
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 1
+  consultation_sexual_orientation_5: 0
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 2
+  consultation_age_1: 0
+  consultation_age_2: 2
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 1
+  consultation_age_5: 2
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 2
+  consultation_gender_1: 0
+  additional_work_gender_1: 0
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 2
+  additional_work_gender_4: 0
+  additional_work_gender_5: 1
+  additional_work_gender_6: 1
+  additional_work_race_1: 1
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 1
+  additional_work_race_4: 1
+  additional_work_race_5: 0
+  additional_work_race_6: 0
+  additional_work_race_7: 0
+  additional_work_disability_1: 0
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 1
+  additional_work_disability_4: 1
+  additional_work_disability_5: 0
+  additional_work_disability_6: 1
+  additional_work_disability_7: 2
+  additional_work_disability_8: 0
+  additional_work_sexual_orientation_1: 2
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 1
+  additional_work_sexual_orientation_4: 2
+  additional_work_sexual_orientation_5: 1
+  additional_work_sexual_orientation_6: 1
+  additional_work_sexual_orientation_7: 2
+  additional_work_age_1: 2
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 1
+  additional_work_age_4: 2
+  additional_work_age_5: 1
+  additional_work_age_6: 2
+  additional_work_age_7: 0
+  additional_work_faith_1: 2
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 2
+  additional_work_faith_4: 0
+  additional_work_faith_5: 1
+  additional_work_faith_6: 1
+  additional_work_faith_7: 2
+  additional_work_disability_9: 0
+  additional_work_disability_10: 1
+  purpose_overall_5: 1
+  purpose_overall_6: 2
+  purpose_overall_7: 0
+  purpose_overall_8: 1
+  purpose_overall_9: 2
+  impact_overall_1: 2
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 0
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 2
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 2
+  existing_proposed: 1
+
+
+activity_7:
+  name:  Jubilee Sailing Trust
+  directorate:  directorate_3
+  activity_manager:  actman_iain
+  purpose_gender_3: 2
+  purpose_race_3: 2
+  purpose_disability_3: 1
+  purpose_faith_3: 2
+  purpose_sexual_orientation_3: 1
+  purpose_age_3: 0
+  purpose_gender_4: 2
+  purpose_race_4: 0
+  purpose_disability_4: 2
+  purpose_faith_4: 0
+  purpose_sexual_orientation_4: 1
+  purpose_age_4: 0
+  impact_overall_1: 1
+  impact_overall_2: 1
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 0
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 1
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 0
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 1
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 1
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 0
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 2
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 1
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 2
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 1
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 1
+  impact_gender_9: 0
+  impact_race_6: 0
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 0
+  impact_race_9: 1
+  impact_disability_6: 1
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 2
+  impact_disability_9: 0
+  impact_faith_6: 1
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 0
+  impact_faith_9: 1
+  impact_sexual_orientation_6: 0
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 0
+  impact_sexual_orientation_9: 0
+  impact_age_6: 1
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 2
+  impact_age_9: 2
+  consultation_gender_2: 0
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 2
+  consultation_gender_5: 0
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 2
+  consultation_race_1: 1
+  consultation_race_2: 1
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 0
+  consultation_race_5: 0
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 2
+  consultation_disability_1: 0
+  consultation_disability_2: 0
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 0
+  consultation_disability_5: 0
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 1
+  consultation_faith_1: 0
+  consultation_faith_2: 2
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 1
+  consultation_faith_5: 1
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 2
+  consultation_sexual_orientation_1: 0
+  consultation_sexual_orientation_2: 1
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 2
+  consultation_sexual_orientation_5: 0
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 1
+  consultation_age_1: 1
+  consultation_age_2: 0
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 1
+  consultation_age_5: 1
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 2
+  consultation_gender_1: 0
+  additional_work_gender_1: 1
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 0
+  additional_work_gender_4: 0
+  additional_work_gender_5: 0
+  additional_work_gender_6: 2
+  additional_work_race_1: 1
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 1
+  additional_work_race_4: 1
+  additional_work_race_5: 2
+  additional_work_race_6: 2
+  additional_work_race_7: 1
+  additional_work_disability_1: 0
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 0
+  additional_work_disability_4: 0
+  additional_work_disability_5: 1
+  additional_work_disability_6: 1
+  additional_work_disability_7: 2
+  additional_work_disability_8: 0
+  additional_work_sexual_orientation_1: 2
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 2
+  additional_work_sexual_orientation_4: 2
+  additional_work_sexual_orientation_5: 0
+  additional_work_sexual_orientation_6: 1
+  additional_work_sexual_orientation_7: 2
+  additional_work_age_1: 0
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 0
+  additional_work_age_4: 1
+  additional_work_age_5: 1
+  additional_work_age_6: 0
+  additional_work_age_7: 2
+  additional_work_faith_1: 0
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 2
+  additional_work_faith_4: 1
+  additional_work_faith_5: 1
+  additional_work_faith_6: 2
+  additional_work_faith_7: 1
+  additional_work_disability_9: 2
+  additional_work_disability_10: 1
+  purpose_overall_5: 1
+  purpose_overall_6: 0
+  purpose_overall_7: 0
+  purpose_overall_8: 2
+  purpose_overall_9: 1
+  impact_overall_1: 0
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 1
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 2
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 2
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 2
+  existing_proposed: 2
+
+
+activity_8:
+  name:  Extra-curricular activities
+  directorate:  directorate_3
+  activity_manager:  actman_iain
+  purpose_gender_3: 0
+  purpose_race_3: 1
+  purpose_disability_3: 1
+  purpose_faith_3: 1
+  purpose_sexual_orientation_3: 0
+  purpose_age_3: 0
+  purpose_gender_4: 0
+  purpose_race_4: 2
+  purpose_disability_4: 1
+  purpose_faith_4: 2
+  purpose_sexual_orientation_4: 1
+  purpose_age_4: 2
+  impact_overall_1: 1
+  impact_overall_2: 0
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 1
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 1
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 2
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 2
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 0
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 0
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 0
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 1
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 0
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 1
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 0
+  impact_gender_9: 2
+  impact_race_6: 1
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 1
+  impact_race_9: 2
+  impact_disability_6: 1
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 0
+  impact_disability_9: 2
+  impact_faith_6: 2
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 0
+  impact_faith_9: 1
+  impact_sexual_orientation_6: 0
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 1
+  impact_sexual_orientation_9: 1
+  impact_age_6: 1
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 0
+  impact_age_9: 1
+  consultation_gender_2: 1
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 1
+  consultation_gender_5: 2
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 2
+  consultation_race_1: 1
+  consultation_race_2: 2
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 2
+  consultation_race_5: 0
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 2
+  consultation_disability_1: 0
+  consultation_disability_2: 2
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 0
+  consultation_disability_5: 2
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 1
+  consultation_faith_1: 0
+  consultation_faith_2: 0
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 1
+  consultation_faith_5: 1
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 2
+  consultation_sexual_orientation_1: 2
+  consultation_sexual_orientation_2: 0
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 0
+  consultation_sexual_orientation_5: 0
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 2
+  consultation_age_1: 2
+  consultation_age_2: 2
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 1
+  consultation_age_5: 2
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 0
+  consultation_gender_1: 1
+  additional_work_gender_1: 0
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 1
+  additional_work_gender_4: 2
+  additional_work_gender_5: 2
+  additional_work_gender_6: 2
+  additional_work_race_1: 1
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 0
+  additional_work_race_4: 1
+  additional_work_race_5: 2
+  additional_work_race_6: 0
+  additional_work_race_7: 1
+  additional_work_disability_1: 2
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 1
+  additional_work_disability_4: 0
+  additional_work_disability_5: 0
+  additional_work_disability_6: 1
+  additional_work_disability_7: 2
+  additional_work_disability_8: 1
+  additional_work_sexual_orientation_1: 1
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 2
+  additional_work_sexual_orientation_4: 0
+  additional_work_sexual_orientation_5: 1
+  additional_work_sexual_orientation_6: 2
+  additional_work_sexual_orientation_7: 0
+  additional_work_age_1: 0
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 1
+  additional_work_age_4: 0
+  additional_work_age_5: 1
+  additional_work_age_6: 2
+  additional_work_age_7: 0
+  additional_work_faith_1: 2
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 2
+  additional_work_faith_4: 1
+  additional_work_faith_5: 1
+  additional_work_faith_6: 2
+  additional_work_faith_7: 2
+  additional_work_disability_9: 2
+  additional_work_disability_10: 2
+  purpose_overall_5: 2
+  purpose_overall_6: 2
+  purpose_overall_7: 1
+  purpose_overall_8: 0
+  purpose_overall_9: 0
+  impact_overall_1: 2
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 0
+  impact_race_2: 0
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 0
+  impact_disability_2: 2
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 2
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 2
+  existing_proposed: 1
+
+
+activity_9:
+  name:  Report suspect activity to MI5
+  directorate:  directorate_1
+  activity_manager:  actman_iain
+  purpose_gender_3: 2
+  purpose_race_3: 1
+  purpose_disability_3: 1
+  purpose_faith_3: 2
+  purpose_sexual_orientation_3: 0
+  purpose_age_3: 1
+  purpose_gender_4: 2
+  purpose_race_4: 1
+  purpose_disability_4: 0
+  purpose_faith_4: 1
+  purpose_sexual_orientation_4: 1
+  purpose_age_4: 2
+  impact_overall_1: 1
+  impact_overall_2: 0
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 1
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 2
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 0
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 1
+  impact_disability_2: 2
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 1
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 2
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 2
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 1
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 0
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 0
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 1
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 2
+  impact_gender_9: 0
+  impact_race_6: 0
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 0
+  impact_race_9: 1
+  impact_disability_6: 2
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 2
+  impact_disability_9: 1
+  impact_faith_6: 0
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 0
+  impact_faith_9: 1
+  impact_sexual_orientation_6: 2
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 0
+  impact_sexual_orientation_9: 0
+  impact_age_6: 1
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 1
+  impact_age_9: 1
+  consultation_gender_2: 2
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 2
+  consultation_gender_5: 0
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 2
+  consultation_race_1: 2
+  consultation_race_2: 2
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 0
+  consultation_race_5: 0
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 2
+  consultation_disability_1: 1
+  consultation_disability_2: 2
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 1
+  consultation_disability_5: 2
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 1
+  consultation_faith_1: 2
+  consultation_faith_2: 0
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 1
+  consultation_faith_5: 2
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 0
+  consultation_sexual_orientation_1: 2
+  consultation_sexual_orientation_2: 1
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 2
+  consultation_sexual_orientation_5: 2
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 2
+  consultation_age_1: 2
+  consultation_age_2: 0
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 0
+  consultation_age_5: 1
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 2
+  consultation_gender_1: 1
+  additional_work_gender_1: 2
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 1
+  additional_work_gender_4: 2
+  additional_work_gender_5: 0
+  additional_work_gender_6: 0
+  additional_work_race_1: 1
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 1
+  additional_work_race_4: 2
+  additional_work_race_5: 0
+  additional_work_race_6: 1
+  additional_work_race_7: 0
+  additional_work_disability_1: 1
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 2
+  additional_work_disability_4: 1
+  additional_work_disability_5: 2
+  additional_work_disability_6: 1
+  additional_work_disability_7: 0
+  additional_work_disability_8: 2
+  additional_work_sexual_orientation_1: 0
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 2
+  additional_work_sexual_orientation_4: 0
+  additional_work_sexual_orientation_5: 1
+  additional_work_sexual_orientation_6: 2
+  additional_work_sexual_orientation_7: 1
+  additional_work_age_1: 1
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 1
+  additional_work_age_4: 0
+  additional_work_age_5: 0
+  additional_work_age_6: 1
+  additional_work_age_7: 1
+  additional_work_faith_1: 2
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 0
+  additional_work_faith_4: 0
+  additional_work_faith_5: 2
+  additional_work_faith_6: 2
+  additional_work_faith_7: 1
+  additional_work_disability_9: 2
+  additional_work_disability_10: 0
+  purpose_overall_5: 1
+  purpose_overall_6: 0
+  purpose_overall_7: 0
+  purpose_overall_8: 2
+  purpose_overall_9: 0
+  impact_overall_1: 0
+  impact_overall_2: 1
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 1
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 0
+  impact_disability_2: 0
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 1
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 1
+  existing_proposed: 1
+
+
+activity_10:
+  name:  Study support
+  directorate:  directorate_2
+  activity_manager:  actman_iain
+  purpose_gender_3: 1
+  purpose_race_3: 1
+  purpose_disability_3: 2
+  purpose_faith_3: 2
+  purpose_sexual_orientation_3: 2
+  purpose_age_3: 2
+  purpose_gender_4: 1
+  purpose_race_4: 2
+  purpose_disability_4: 2
+  purpose_faith_4: 0
+  purpose_sexual_orientation_4: 0
+  purpose_age_4: 2
+  impact_overall_1: 1
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 0
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 0
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 0
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 2
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 2
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 0
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 1
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 1
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 2
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 2
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 0
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 0
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 2
+  impact_gender_9: 1
+  impact_race_6: 0
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 0
+  impact_race_9: 1
+  impact_disability_6: 0
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 1
+  impact_disability_9: 2
+  impact_faith_6: 2
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 0
+  impact_faith_9: 1
+  impact_sexual_orientation_6: 1
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 2
+  impact_sexual_orientation_9: 1
+  impact_age_6: 2
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 2
+  impact_age_9: 2
+  consultation_gender_2: 2
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 0
+  consultation_gender_5: 2
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 1
+  consultation_race_1: 2
+  consultation_race_2: 1
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 1
+  consultation_race_5: 0
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 0
+  consultation_disability_1: 0
+  consultation_disability_2: 2
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 0
+  consultation_disability_5: 0
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 0
+  consultation_faith_1: 0
+  consultation_faith_2: 1
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 0
+  consultation_faith_5: 2
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 1
+  consultation_sexual_orientation_1: 2
+  consultation_sexual_orientation_2: 1
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 1
+  consultation_sexual_orientation_5: 2
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 0
+  consultation_age_1: 1
+  consultation_age_2: 0
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 1
+  consultation_age_5: 0
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 2
+  consultation_gender_1: 0
+  additional_work_gender_1: 2
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 0
+  additional_work_gender_4: 1
+  additional_work_gender_5: 2
+  additional_work_gender_6: 2
+  additional_work_race_1: 1
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 1
+  additional_work_race_4: 0
+  additional_work_race_5: 1
+  additional_work_race_6: 0
+  additional_work_race_7: 0
+  additional_work_disability_1: 0
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 1
+  additional_work_disability_4: 0
+  additional_work_disability_5: 1
+  additional_work_disability_6: 1
+  additional_work_disability_7: 0
+  additional_work_disability_8: 2
+  additional_work_sexual_orientation_1: 0
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 1
+  additional_work_sexual_orientation_4: 0
+  additional_work_sexual_orientation_5: 0
+  additional_work_sexual_orientation_6: 1
+  additional_work_sexual_orientation_7: 0
+  additional_work_age_1: 2
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 1
+  additional_work_age_4: 1
+  additional_work_age_5: 2
+  additional_work_age_6: 1
+  additional_work_age_7: 2
+  additional_work_faith_1: 1
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 0
+  additional_work_faith_4: 0
+  additional_work_faith_5: 2
+  additional_work_faith_6: 0
+  additional_work_faith_7: 2
+  additional_work_disability_9: 2
+  additional_work_disability_10: 1
+  purpose_overall_5: 1
+  purpose_overall_6: 2
+  purpose_overall_7: 0
+  purpose_overall_8: 0
+  purpose_overall_9: 0
+  impact_overall_1: 1
+  impact_overall_2: 1
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 1
+  impact_race_2: 2
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 1
+  impact_disability_2: 2
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 1
+  impact_sexual_orientation_2: 2
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 1
+  existing_proposed: 1
+
+
+activity_11:
+  name:  Office of Government Commerce
+  directorate:  directorate_2
+  activity_manager:  actman_iain
+  purpose_gender_3: 1
+  purpose_race_3: 1
+  purpose_disability_3: 1
+  purpose_faith_3: 2
+  purpose_sexual_orientation_3: 0
+  purpose_age_3: 2
+  purpose_gender_4: 0
+  purpose_race_4: 1
+  purpose_disability_4: 2
+  purpose_faith_4: 0
+  purpose_sexual_orientation_4: 0
+  purpose_age_4: 1
+  impact_overall_1: 1
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 1
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 0
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 2
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 1
+  impact_disability_2: 0
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 1
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 0
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 2
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 2
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 2
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 0
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 0
+  impact_gender_9: 2
+  impact_race_6: 1
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 0
+  impact_race_9: 2
+  impact_disability_6: 0
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 1
+  impact_disability_9: 0
+  impact_faith_6: 0
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 2
+  impact_faith_9: 1
+  impact_sexual_orientation_6: 1
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 0
+  impact_sexual_orientation_9: 2
+  impact_age_6: 1
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 2
+  impact_age_9: 2
+  consultation_gender_2: 1
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 0
+  consultation_gender_5: 0
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 2
+  consultation_race_1: 2
+  consultation_race_2: 1
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 1
+  consultation_race_5: 1
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 0
+  consultation_disability_1: 0
+  consultation_disability_2: 0
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 2
+  consultation_disability_5: 2
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 1
+  consultation_faith_1: 1
+  consultation_faith_2: 1
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 2
+  consultation_faith_5: 0
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 0
+  consultation_sexual_orientation_1: 0
+  consultation_sexual_orientation_2: 2
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 1
+  consultation_sexual_orientation_5: 0
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 0
+  consultation_age_1: 2
+  consultation_age_2: 2
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 0
+  consultation_age_5: 1
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 2
+  consultation_gender_1: 1
+  additional_work_gender_1: 2
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 2
+  additional_work_gender_4: 1
+  additional_work_gender_5: 0
+  additional_work_gender_6: 0
+  additional_work_race_1: 1
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 0
+  additional_work_race_4: 0
+  additional_work_race_5: 1
+  additional_work_race_6: 1
+  additional_work_race_7: 0
+  additional_work_disability_1: 1
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 0
+  additional_work_disability_4: 1
+  additional_work_disability_5: 0
+  additional_work_disability_6: 2
+  additional_work_disability_7: 0
+  additional_work_disability_8: 0
+  additional_work_sexual_orientation_1: 1
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 2
+  additional_work_sexual_orientation_4: 2
+  additional_work_sexual_orientation_5: 0
+  additional_work_sexual_orientation_6: 1
+  additional_work_sexual_orientation_7: 1
+  additional_work_age_1: 1
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 0
+  additional_work_age_4: 1
+  additional_work_age_5: 0
+  additional_work_age_6: 2
+  additional_work_age_7: 2
+  additional_work_faith_1: 0
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 2
+  additional_work_faith_4: 0
+  additional_work_faith_5: 1
+  additional_work_faith_6: 2
+  additional_work_faith_7: 1
+  additional_work_disability_9: 0
+  additional_work_disability_10: 2
+  purpose_overall_5: 2
+  purpose_overall_6: 0
+  purpose_overall_7: 2
+  purpose_overall_8: 1
+  purpose_overall_9: 1
+  impact_overall_1: 0
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 1
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 1
+  impact_race_2: 2
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 0
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 1
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 1
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 1
+  existing_proposed: 2
+
+
+activity_12:
+  name:  Guide to leisure pursuits for over 50s
+  directorate:  directorate_3
+  activity_manager:  actman_iain
+  purpose_gender_3: 0
+  purpose_race_3: 0
+  purpose_disability_3: 1
+  purpose_faith_3: 1
+  purpose_sexual_orientation_3: 0
+  purpose_age_3: 1
+  purpose_gender_4: 1
+  purpose_race_4: 0
+  purpose_disability_4: 0
+  purpose_faith_4: 0
+  purpose_sexual_orientation_4: 2
+  purpose_age_4: 2
+  impact_overall_1: 2
+  impact_overall_2: 1
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 2
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 0
+  impact_race_2: 0
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 2
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 1
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 0
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 0
+  impact_faith_2: 2
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 1
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 0
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 1
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 2
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 0
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 2
+  impact_gender_9: 2
+  impact_race_6: 1
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 2
+  impact_race_9: 1
+  impact_disability_6: 1
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 1
+  impact_disability_9: 1
+  impact_faith_6: 1
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 1
+  impact_faith_9: 2
+  impact_sexual_orientation_6: 2
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 1
+  impact_sexual_orientation_9: 0
+  impact_age_6: 0
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 1
+  impact_age_9: 2
+  consultation_gender_2: 0
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 1
+  consultation_gender_5: 0
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 0
+  consultation_race_1: 0
+  consultation_race_2: 2
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 0
+  consultation_race_5: 2
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 1
+  consultation_disability_1: 2
+  consultation_disability_2: 1
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 0
+  consultation_disability_5: 1
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 1
+  consultation_faith_1: 0
+  consultation_faith_2: 0
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 0
+  consultation_faith_5: 0
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 0
+  consultation_sexual_orientation_1: 1
+  consultation_sexual_orientation_2: 0
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 1
+  consultation_sexual_orientation_5: 0
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 0
+  consultation_age_1: 0
+  consultation_age_2: 2
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 0
+  consultation_age_5: 1
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 1
+  consultation_gender_1: 0
+  additional_work_gender_1: 1
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 1
+  additional_work_gender_4: 1
+  additional_work_gender_5: 0
+  additional_work_gender_6: 1
+  additional_work_race_1: 1
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 2
+  additional_work_race_4: 2
+  additional_work_race_5: 2
+  additional_work_race_6: 0
+  additional_work_race_7: 2
+  additional_work_disability_1: 1
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 0
+  additional_work_disability_4: 2
+  additional_work_disability_5: 2
+  additional_work_disability_6: 1
+  additional_work_disability_7: 0
+  additional_work_disability_8: 0
+  additional_work_sexual_orientation_1: 0
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 2
+  additional_work_sexual_orientation_4: 0
+  additional_work_sexual_orientation_5: 2
+  additional_work_sexual_orientation_6: 0
+  additional_work_sexual_orientation_7: 2
+  additional_work_age_1: 2
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 0
+  additional_work_age_4: 2
+  additional_work_age_5: 1
+  additional_work_age_6: 1
+  additional_work_age_7: 0
+  additional_work_faith_1: 2
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 2
+  additional_work_faith_4: 1
+  additional_work_faith_5: 1
+  additional_work_faith_6: 2
+  additional_work_faith_7: 2
+  additional_work_disability_9: 2
+  additional_work_disability_10: 0
+  purpose_overall_5: 1
+  purpose_overall_6: 2
+  purpose_overall_7: 0
+  purpose_overall_8: 1
+  purpose_overall_9: 2
+  impact_overall_1: 2
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 0
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 1
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 1
+  existing_proposed: 2
+
+
+activity_13:
+  name:  Cerebral Palsy Sport
+  directorate:  directorate_1
+  activity_manager:  actman_iain
+  purpose_gender_3: 0
+  purpose_race_3: 2
+  purpose_disability_3: 0
+  purpose_faith_3: 2
+  purpose_sexual_orientation_3: 2
+  purpose_age_3: 0
+  purpose_gender_4: 1
+  purpose_race_4: 2
+  purpose_disability_4: 0
+  purpose_faith_4: 1
+  purpose_sexual_orientation_4: 1
+  purpose_age_4: 0
+  impact_overall_1: 0
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 2
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 1
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 0
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 0
+  impact_disability_2: 0
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 0
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 2
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 0
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 2
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 1
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 0
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 0
+  impact_gender_9: 1
+  impact_race_6: 1
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 0
+  impact_race_9: 1
+  impact_disability_6: 2
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 0
+  impact_disability_9: 2
+  impact_faith_6: 0
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 0
+  impact_faith_9: 1
+  impact_sexual_orientation_6: 2
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 1
+  impact_sexual_orientation_9: 0
+  impact_age_6: 2
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 1
+  impact_age_9: 1
+  consultation_gender_2: 1
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 2
+  consultation_gender_5: 1
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 1
+  consultation_race_1: 1
+  consultation_race_2: 2
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 2
+  consultation_race_5: 0
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 0
+  consultation_disability_1: 2
+  consultation_disability_2: 2
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 0
+  consultation_disability_5: 0
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 2
+  consultation_faith_1: 2
+  consultation_faith_2: 1
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 1
+  consultation_faith_5: 1
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 2
+  consultation_sexual_orientation_1: 1
+  consultation_sexual_orientation_2: 0
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 0
+  consultation_sexual_orientation_5: 1
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 0
+  consultation_age_1: 2
+  consultation_age_2: 1
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 0
+  consultation_age_5: 1
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 1
+  consultation_gender_1: 0
+  additional_work_gender_1: 1
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 0
+  additional_work_gender_4: 1
+  additional_work_gender_5: 1
+  additional_work_gender_6: 0
+  additional_work_race_1: 1
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 2
+  additional_work_race_4: 2
+  additional_work_race_5: 2
+  additional_work_race_6: 0
+  additional_work_race_7: 2
+  additional_work_disability_1: 2
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 1
+  additional_work_disability_4: 0
+  additional_work_disability_5: 2
+  additional_work_disability_6: 0
+  additional_work_disability_7: 0
+  additional_work_disability_8: 0
+  additional_work_sexual_orientation_1: 1
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 0
+  additional_work_sexual_orientation_4: 0
+  additional_work_sexual_orientation_5: 1
+  additional_work_sexual_orientation_6: 2
+  additional_work_sexual_orientation_7: 1
+  additional_work_age_1: 1
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 2
+  additional_work_age_4: 0
+  additional_work_age_5: 2
+  additional_work_age_6: 2
+  additional_work_age_7: 1
+  additional_work_faith_1: 2
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 1
+  additional_work_faith_4: 1
+  additional_work_faith_5: 1
+  additional_work_faith_6: 1
+  additional_work_faith_7: 1
+  additional_work_disability_9: 2
+  additional_work_disability_10: 0
+  purpose_overall_5: 0
+  purpose_overall_6: 0
+  purpose_overall_7: 2
+  purpose_overall_8: 2
+  purpose_overall_9: 2
+  impact_overall_1: 1
+  impact_overall_2: 0
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 1
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 0
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 0
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 1
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 2
+  existing_proposed: 2
+
+
+activity_14:
+  name:  Report suspect activity to MI5
+  directorate:  directorate_1
+  activity_manager:  actman_iain
+  purpose_gender_3: 2
+  purpose_race_3: 1
+  purpose_disability_3: 2
+  purpose_faith_3: 1
+  purpose_sexual_orientation_3: 2
+  purpose_age_3: 1
+  purpose_gender_4: 2
+  purpose_race_4: 1
+  purpose_disability_4: 1
+  purpose_faith_4: 2
+  purpose_sexual_orientation_4: 1
+  purpose_age_4: 1
+  impact_overall_1: 1
+  impact_overall_2: 1
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 1
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 0
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 2
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 2
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 0
+  impact_faith_2: 2
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 1
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 0
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 0
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 2
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 2
+  impact_gender_9: 1
+  impact_race_6: 1
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 2
+  impact_race_9: 1
+  impact_disability_6: 0
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 1
+  impact_disability_9: 1
+  impact_faith_6: 0
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 2
+  impact_faith_9: 1
+  impact_sexual_orientation_6: 2
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 0
+  impact_sexual_orientation_9: 2
+  impact_age_6: 0
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 0
+  impact_age_9: 0
+  consultation_gender_2: 1
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 0
+  consultation_gender_5: 2
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 0
+  consultation_race_1: 0
+  consultation_race_2: 0
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 1
+  consultation_race_5: 1
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 2
+  consultation_disability_1: 0
+  consultation_disability_2: 1
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 2
+  consultation_disability_5: 2
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 2
+  consultation_faith_1: 0
+  consultation_faith_2: 0
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 2
+  consultation_faith_5: 2
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 2
+  consultation_sexual_orientation_1: 0
+  consultation_sexual_orientation_2: 0
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 0
+  consultation_sexual_orientation_5: 1
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 0
+  consultation_age_1: 0
+  consultation_age_2: 1
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 1
+  consultation_age_5: 0
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 0
+  consultation_gender_1: 2
+  additional_work_gender_1: 2
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 0
+  additional_work_gender_4: 2
+  additional_work_gender_5: 2
+  additional_work_gender_6: 1
+  additional_work_race_1: 1
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 0
+  additional_work_race_4: 2
+  additional_work_race_5: 2
+  additional_work_race_6: 2
+  additional_work_race_7: 0
+  additional_work_disability_1: 0
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 0
+  additional_work_disability_4: 0
+  additional_work_disability_5: 2
+  additional_work_disability_6: 1
+  additional_work_disability_7: 0
+  additional_work_disability_8: 0
+  additional_work_sexual_orientation_1: 2
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 1
+  additional_work_sexual_orientation_4: 0
+  additional_work_sexual_orientation_5: 0
+  additional_work_sexual_orientation_6: 1
+  additional_work_sexual_orientation_7: 0
+  additional_work_age_1: 2
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 0
+  additional_work_age_4: 0
+  additional_work_age_5: 1
+  additional_work_age_6: 1
+  additional_work_age_7: 2
+  additional_work_faith_1: 2
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 0
+  additional_work_faith_4: 2
+  additional_work_faith_5: 2
+  additional_work_faith_6: 1
+  additional_work_faith_7: 1
+  additional_work_disability_9: 2
+  additional_work_disability_10: 2
+  purpose_overall_5: 0
+  purpose_overall_6: 1
+  purpose_overall_7: 1
+  purpose_overall_8: 1
+  purpose_overall_9: 0
+  impact_overall_1: 1
+  impact_overall_2: 0
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 1
+  impact_gender_2: 1
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 0
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 0
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 2
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 1
+  existing_proposed: 2
+
+
+activity_15:
+  name:  Corporate Social Responsibility
+  directorate:  directorate_3
+  activity_manager:  actman_iain
+  purpose_gender_3: 2
+  purpose_race_3: 1
+  purpose_disability_3: 1
+  purpose_faith_3: 2
+  purpose_sexual_orientation_3: 2
+  purpose_age_3: 2
+  purpose_gender_4: 2
+  purpose_race_4: 0
+  purpose_disability_4: 1
+  purpose_faith_4: 1
+  purpose_sexual_orientation_4: 2
+  purpose_age_4: 2
+  impact_overall_1: 0
+  impact_overall_2: 0
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 0
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 0
+  impact_race_2: 0
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 0
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 0
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 2
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 1
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 1
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 0
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 1
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 1
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 1
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 1
+  impact_gender_9: 1
+  impact_race_6: 2
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 1
+  impact_race_9: 2
+  impact_disability_6: 1
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 2
+  impact_disability_9: 2
+  impact_faith_6: 1
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 2
+  impact_faith_9: 2
+  impact_sexual_orientation_6: 1
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 0
+  impact_sexual_orientation_9: 2
+  impact_age_6: 1
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 2
+  impact_age_9: 2
+  consultation_gender_2: 2
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 1
+  consultation_gender_5: 1
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 1
+  consultation_race_1: 2
+  consultation_race_2: 2
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 0
+  consultation_race_5: 1
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 2
+  consultation_disability_1: 1
+  consultation_disability_2: 1
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 0
+  consultation_disability_5: 2
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 0
+  consultation_faith_1: 1
+  consultation_faith_2: 0
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 1
+  consultation_faith_5: 0
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 1
+  consultation_sexual_orientation_1: 1
+  consultation_sexual_orientation_2: 2
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 2
+  consultation_sexual_orientation_5: 1
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 0
+  consultation_age_1: 2
+  consultation_age_2: 0
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 1
+  consultation_age_5: 2
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 1
+  consultation_gender_1: 2
+  additional_work_gender_1: 0
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 2
+  additional_work_gender_4: 1
+  additional_work_gender_5: 1
+  additional_work_gender_6: 1
+  additional_work_race_1: 0
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 1
+  additional_work_race_4: 1
+  additional_work_race_5: 1
+  additional_work_race_6: 1
+  additional_work_race_7: 1
+  additional_work_disability_1: 2
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 2
+  additional_work_disability_4: 1
+  additional_work_disability_5: 1
+  additional_work_disability_6: 2
+  additional_work_disability_7: 2
+  additional_work_disability_8: 2
+  additional_work_sexual_orientation_1: 2
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 0
+  additional_work_sexual_orientation_4: 0
+  additional_work_sexual_orientation_5: 1
+  additional_work_sexual_orientation_6: 2
+  additional_work_sexual_orientation_7: 2
+  additional_work_age_1: 2
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 2
+  additional_work_age_4: 0
+  additional_work_age_5: 1
+  additional_work_age_6: 1
+  additional_work_age_7: 1
+  additional_work_faith_1: 1
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 1
+  additional_work_faith_4: 2
+  additional_work_faith_5: 2
+  additional_work_faith_6: 0
+  additional_work_faith_7: 0
+  additional_work_disability_9: 1
+  additional_work_disability_10: 0
+  purpose_overall_5: 1
+  purpose_overall_6: 0
+  purpose_overall_7: 0
+  purpose_overall_8: 0
+  purpose_overall_9: 2
+  impact_overall_1: 0
+  impact_overall_2: 0
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 1
+  impact_disability_2: 0
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 1
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 1
+  existing_proposed: 1
+
+
+activity_16:
+  name:  Time off for trade union duties and activities
+  directorate:  directorate_1
+  activity_manager:  actman_iain
+  purpose_gender_3: 2
+  purpose_race_3: 1
+  purpose_disability_3: 2
+  purpose_faith_3: 1
+  purpose_sexual_orientation_3: 0
+  purpose_age_3: 2
+  purpose_gender_4: 2
+  purpose_race_4: 1
+  purpose_disability_4: 0
+  purpose_faith_4: 2
+  purpose_sexual_orientation_4: 0
+  purpose_age_4: 1
+  impact_overall_1: 0
+  impact_overall_2: 1
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 2
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 1
+  impact_race_2: 2
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 1
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 0
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 2
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 2
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 1
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 2
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 0
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 1
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 0
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 0
+  impact_gender_9: 0
+  impact_race_6: 1
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 1
+  impact_race_9: 0
+  impact_disability_6: 1
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 2
+  impact_disability_9: 0
+  impact_faith_6: 2
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 0
+  impact_faith_9: 0
+  impact_sexual_orientation_6: 0
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 1
+  impact_sexual_orientation_9: 2
+  impact_age_6: 1
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 0
+  impact_age_9: 0
+  consultation_gender_2: 1
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 2
+  consultation_gender_5: 0
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 0
+  consultation_race_1: 1
+  consultation_race_2: 0
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 2
+  consultation_race_5: 1
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 0
+  consultation_disability_1: 2
+  consultation_disability_2: 0
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 1
+  consultation_disability_5: 0
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 0
+  consultation_faith_1: 0
+  consultation_faith_2: 0
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 2
+  consultation_faith_5: 0
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 1
+  consultation_sexual_orientation_1: 2
+  consultation_sexual_orientation_2: 2
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 1
+  consultation_sexual_orientation_5: 0
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 2
+  consultation_age_1: 1
+  consultation_age_2: 0
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 1
+  consultation_age_5: 0
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 0
+  consultation_gender_1: 2
+  additional_work_gender_1: 1
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 1
+  additional_work_gender_4: 1
+  additional_work_gender_5: 1
+  additional_work_gender_6: 1
+  additional_work_race_1: 2
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 0
+  additional_work_race_4: 2
+  additional_work_race_5: 2
+  additional_work_race_6: 0
+  additional_work_race_7: 1
+  additional_work_disability_1: 0
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 1
+  additional_work_disability_4: 0
+  additional_work_disability_5: 2
+  additional_work_disability_6: 0
+  additional_work_disability_7: 1
+  additional_work_disability_8: 2
+  additional_work_sexual_orientation_1: 1
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 2
+  additional_work_sexual_orientation_4: 0
+  additional_work_sexual_orientation_5: 1
+  additional_work_sexual_orientation_6: 1
+  additional_work_sexual_orientation_7: 1
+  additional_work_age_1: 2
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 0
+  additional_work_age_4: 1
+  additional_work_age_5: 1
+  additional_work_age_6: 0
+  additional_work_age_7: 2
+  additional_work_faith_1: 1
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 2
+  additional_work_faith_4: 0
+  additional_work_faith_5: 0
+  additional_work_faith_6: 0
+  additional_work_faith_7: 0
+  additional_work_disability_9: 2
+  additional_work_disability_10: 2
+  purpose_overall_5: 0
+  purpose_overall_6: 0
+  purpose_overall_7: 2
+  purpose_overall_8: 1
+  purpose_overall_9: 1
+  impact_overall_1: 1
+  impact_overall_2: 0
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 1
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 0
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 0
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 2
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 1
+  existing_proposed: 2
+
+
+activity_17:
+  name:  Jubilee Sailing Trust
+  directorate:  directorate_2
+  activity_manager:  actman_iain
+  purpose_gender_3: 0
+  purpose_race_3: 1
+  purpose_disability_3: 1
+  purpose_faith_3: 2
+  purpose_sexual_orientation_3: 1
+  purpose_age_3: 2
+  purpose_gender_4: 2
+  purpose_race_4: 0
+  purpose_disability_4: 0
+  purpose_faith_4: 0
+  purpose_sexual_orientation_4: 2
+  purpose_age_4: 0
+  impact_overall_1: 1
+  impact_overall_2: 0
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 2
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 0
+  impact_race_2: 0
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 1
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 2
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 2
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 0
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 0
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 0
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 1
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 2
+  impact_gender_9: 1
+  impact_race_6: 0
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 1
+  impact_race_9: 0
+  impact_disability_6: 0
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 0
+  impact_disability_9: 1
+  impact_faith_6: 2
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 1
+  impact_faith_9: 2
+  impact_sexual_orientation_6: 0
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 0
+  impact_sexual_orientation_9: 2
+  impact_age_6: 0
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 0
+  impact_age_9: 1
+  consultation_gender_2: 0
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 0
+  consultation_gender_5: 1
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 0
+  consultation_race_1: 0
+  consultation_race_2: 2
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 1
+  consultation_race_5: 2
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 1
+  consultation_disability_1: 0
+  consultation_disability_2: 0
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 1
+  consultation_disability_5: 1
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 1
+  consultation_faith_1: 2
+  consultation_faith_2: 1
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 2
+  consultation_faith_5: 1
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 0
+  consultation_sexual_orientation_1: 0
+  consultation_sexual_orientation_2: 0
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 2
+  consultation_sexual_orientation_5: 2
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 0
+  consultation_age_1: 0
+  consultation_age_2: 2
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 1
+  consultation_age_5: 2
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 1
+  consultation_gender_1: 0
+  additional_work_gender_1: 1
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 1
+  additional_work_gender_4: 1
+  additional_work_gender_5: 1
+  additional_work_gender_6: 1
+  additional_work_race_1: 1
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 2
+  additional_work_race_4: 1
+  additional_work_race_5: 1
+  additional_work_race_6: 1
+  additional_work_race_7: 2
+  additional_work_disability_1: 1
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 2
+  additional_work_disability_4: 1
+  additional_work_disability_5: 2
+  additional_work_disability_6: 2
+  additional_work_disability_7: 2
+  additional_work_disability_8: 2
+  additional_work_sexual_orientation_1: 1
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 1
+  additional_work_sexual_orientation_4: 0
+  additional_work_sexual_orientation_5: 0
+  additional_work_sexual_orientation_6: 0
+  additional_work_sexual_orientation_7: 1
+  additional_work_age_1: 1
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 0
+  additional_work_age_4: 1
+  additional_work_age_5: 2
+  additional_work_age_6: 1
+  additional_work_age_7: 2
+  additional_work_faith_1: 2
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 0
+  additional_work_faith_4: 1
+  additional_work_faith_5: 2
+  additional_work_faith_6: 2
+  additional_work_faith_7: 2
+  additional_work_disability_9: 1
+  additional_work_disability_10: 1
+  purpose_overall_5: 0
+  purpose_overall_6: 1
+  purpose_overall_7: 2
+  purpose_overall_8: 2
+  purpose_overall_9: 2
+  impact_overall_1: 1
+  impact_overall_2: 1
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 0
+  impact_race_2: 2
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 0
+  impact_disability_2: 2
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 2
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 1
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 2
+  existing_proposed: 2
+
+
+activity_18:
+  name:  Extra-curricular activities
+  directorate:  directorate_4
+  activity_manager:  actman_iain
+  purpose_gender_3: 2
+  purpose_race_3: 2
+  purpose_disability_3: 2
+  purpose_faith_3: 1
+  purpose_sexual_orientation_3: 0
+  purpose_age_3: 1
+  purpose_gender_4: 0
+  purpose_race_4: 2
+  purpose_disability_4: 0
+  purpose_faith_4: 2
+  purpose_sexual_orientation_4: 2
+  purpose_age_4: 1
+  impact_overall_1: 2
+  impact_overall_2: 1
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 2
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 0
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 1
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 0
+  impact_disability_2: 2
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 0
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 0
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 0
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 1
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 2
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 0
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 0
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 1
+  impact_gender_9: 2
+  impact_race_6: 1
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 2
+  impact_race_9: 1
+  impact_disability_6: 2
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 0
+  impact_disability_9: 1
+  impact_faith_6: 2
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 0
+  impact_faith_9: 0
+  impact_sexual_orientation_6: 2
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 1
+  impact_sexual_orientation_9: 2
+  impact_age_6: 0
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 2
+  impact_age_9: 2
+  consultation_gender_2: 2
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 0
+  consultation_gender_5: 2
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 2
+  consultation_race_1: 0
+  consultation_race_2: 0
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 0
+  consultation_race_5: 0
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 1
+  consultation_disability_1: 1
+  consultation_disability_2: 0
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 1
+  consultation_disability_5: 2
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 1
+  consultation_faith_1: 0
+  consultation_faith_2: 2
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 1
+  consultation_faith_5: 1
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 0
+  consultation_sexual_orientation_1: 1
+  consultation_sexual_orientation_2: 2
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 2
+  consultation_sexual_orientation_5: 1
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 1
+  consultation_age_1: 1
+  consultation_age_2: 2
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 0
+  consultation_age_5: 0
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 2
+  consultation_gender_1: 0
+  additional_work_gender_1: 1
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 2
+  additional_work_gender_4: 0
+  additional_work_gender_5: 1
+  additional_work_gender_6: 2
+  additional_work_race_1: 2
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 2
+  additional_work_race_4: 2
+  additional_work_race_5: 0
+  additional_work_race_6: 2
+  additional_work_race_7: 2
+  additional_work_disability_1: 0
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 2
+  additional_work_disability_4: 1
+  additional_work_disability_5: 2
+  additional_work_disability_6: 2
+  additional_work_disability_7: 1
+  additional_work_disability_8: 1
+  additional_work_sexual_orientation_1: 0
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 2
+  additional_work_sexual_orientation_4: 2
+  additional_work_sexual_orientation_5: 0
+  additional_work_sexual_orientation_6: 0
+  additional_work_sexual_orientation_7: 2
+  additional_work_age_1: 2
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 1
+  additional_work_age_4: 2
+  additional_work_age_5: 1
+  additional_work_age_6: 1
+  additional_work_age_7: 1
+  additional_work_faith_1: 2
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 0
+  additional_work_faith_4: 1
+  additional_work_faith_5: 0
+  additional_work_faith_6: 0
+  additional_work_faith_7: 2
+  additional_work_disability_9: 0
+  additional_work_disability_10: 2
+  purpose_overall_5: 2
+  purpose_overall_6: 1
+  purpose_overall_7: 0
+  purpose_overall_8: 0
+  purpose_overall_9: 2
+  impact_overall_1: 2
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 0
+  impact_disability_2: 0
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 0
+  impact_faith_2: 2
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 2
+  existing_proposed: 2
+
+
+activity_19:
+  name:  Study support
+  directorate:  directorate_4
+  activity_manager:  actman_iain
+  purpose_gender_3: 2
+  purpose_race_3: 1
+  purpose_disability_3: 0
+  purpose_faith_3: 2
+  purpose_sexual_orientation_3: 2
+  purpose_age_3: 1
+  purpose_gender_4: 2
+  purpose_race_4: 1
+  purpose_disability_4: 0
+  purpose_faith_4: 0
+  purpose_sexual_orientation_4: 1
+  purpose_age_4: 0
+  impact_overall_1: 1
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 1
+  impact_gender_2: 1
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 1
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 0
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 2
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 2
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 2
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 2
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 1
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 0
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 1
+  impact_age_2: 2
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 1
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 0
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 1
+  impact_gender_9: 0
+  impact_race_6: 1
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 0
+  impact_race_9: 1
+  impact_disability_6: 0
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 1
+  impact_disability_9: 0
+  impact_faith_6: 1
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 2
+  impact_faith_9: 1
+  impact_sexual_orientation_6: 0
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 1
+  impact_sexual_orientation_9: 0
+  impact_age_6: 1
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 2
+  impact_age_9: 0
+  consultation_gender_2: 1
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 2
+  consultation_gender_5: 2
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 1
+  consultation_race_1: 1
+  consultation_race_2: 0
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 2
+  consultation_race_5: 2
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 2
+  consultation_disability_1: 1
+  consultation_disability_2: 0
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 1
+  consultation_disability_5: 0
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 1
+  consultation_faith_1: 1
+  consultation_faith_2: 1
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 0
+  consultation_faith_5: 1
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 2
+  consultation_sexual_orientation_1: 0
+  consultation_sexual_orientation_2: 1
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 1
+  consultation_sexual_orientation_5: 0
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 0
+  consultation_age_1: 0
+  consultation_age_2: 1
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 0
+  consultation_age_5: 1
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 0
+  consultation_gender_1: 0
+  additional_work_gender_1: 1
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 1
+  additional_work_gender_4: 0
+  additional_work_gender_5: 0
+  additional_work_gender_6: 1
+  additional_work_race_1: 1
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 2
+  additional_work_race_4: 2
+  additional_work_race_5: 1
+  additional_work_race_6: 0
+  additional_work_race_7: 2
+  additional_work_disability_1: 0
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 0
+  additional_work_disability_4: 1
+  additional_work_disability_5: 1
+  additional_work_disability_6: 0
+  additional_work_disability_7: 2
+  additional_work_disability_8: 1
+  additional_work_sexual_orientation_1: 0
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 1
+  additional_work_sexual_orientation_4: 1
+  additional_work_sexual_orientation_5: 1
+  additional_work_sexual_orientation_6: 2
+  additional_work_sexual_orientation_7: 2
+  additional_work_age_1: 2
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 2
+  additional_work_age_4: 0
+  additional_work_age_5: 2
+  additional_work_age_6: 2
+  additional_work_age_7: 1
+  additional_work_faith_1: 1
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 1
+  additional_work_faith_4: 0
+  additional_work_faith_5: 1
+  additional_work_faith_6: 1
+  additional_work_faith_7: 0
+  additional_work_disability_9: 0
+  additional_work_disability_10: 2
+  purpose_overall_5: 0
+  purpose_overall_6: 2
+  purpose_overall_7: 1
+  purpose_overall_8: 1
+  purpose_overall_9: 0
+  impact_overall_1: 0
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 1
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 2
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 0
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 2
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 2
+  existing_proposed: 1
+
+
+activity_20:
+  name:  Extra-curricular activities
+  directorate:  directorate_2
+  activity_manager:  actman_iain
+  purpose_gender_3: 1
+  purpose_race_3: 2
+  purpose_disability_3: 2
+  purpose_faith_3: 1
+  purpose_sexual_orientation_3: 2
+  purpose_age_3: 2
+  purpose_gender_4: 2
+  purpose_race_4: 1
+  purpose_disability_4: 1
+  purpose_faith_4: 1
+  purpose_sexual_orientation_4: 2
+  purpose_age_4: 0
+  impact_overall_1: 1
+  impact_overall_2: 1
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 1
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 2
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 0
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 2
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 1
+  impact_disability_2: 0
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 2
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 2
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 0
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 2
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 2
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 1
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 1
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 0
+  impact_gender_9: 2
+  impact_race_6: 1
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 0
+  impact_race_9: 0
+  impact_disability_6: 1
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 0
+  impact_disability_9: 1
+  impact_faith_6: 0
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 2
+  impact_faith_9: 1
+  impact_sexual_orientation_6: 0
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 1
+  impact_sexual_orientation_9: 0
+  impact_age_6: 1
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 0
+  impact_age_9: 1
+  consultation_gender_2: 0
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 2
+  consultation_gender_5: 2
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 1
+  consultation_race_1: 0
+  consultation_race_2: 2
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 1
+  consultation_race_5: 2
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 0
+  consultation_disability_1: 0
+  consultation_disability_2: 2
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 2
+  consultation_disability_5: 0
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 2
+  consultation_faith_1: 1
+  consultation_faith_2: 1
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 2
+  consultation_faith_5: 0
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 0
+  consultation_sexual_orientation_1: 1
+  consultation_sexual_orientation_2: 1
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 1
+  consultation_sexual_orientation_5: 0
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 2
+  consultation_age_1: 2
+  consultation_age_2: 0
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 0
+  consultation_age_5: 0
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 0
+  consultation_gender_1: 0
+  additional_work_gender_1: 0
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 1
+  additional_work_gender_4: 2
+  additional_work_gender_5: 0
+  additional_work_gender_6: 2
+  additional_work_race_1: 2
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 1
+  additional_work_race_4: 2
+  additional_work_race_5: 0
+  additional_work_race_6: 2
+  additional_work_race_7: 1
+  additional_work_disability_1: 2
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 2
+  additional_work_disability_4: 0
+  additional_work_disability_5: 2
+  additional_work_disability_6: 2
+  additional_work_disability_7: 0
+  additional_work_disability_8: 1
+  additional_work_sexual_orientation_1: 1
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 1
+  additional_work_sexual_orientation_4: 2
+  additional_work_sexual_orientation_5: 2
+  additional_work_sexual_orientation_6: 1
+  additional_work_sexual_orientation_7: 2
+  additional_work_age_1: 2
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 0
+  additional_work_age_4: 1
+  additional_work_age_5: 2
+  additional_work_age_6: 2
+  additional_work_age_7: 1
+  additional_work_faith_1: 2
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 0
+  additional_work_faith_4: 2
+  additional_work_faith_5: 2
+  additional_work_faith_6: 1
+  additional_work_faith_7: 0
+  additional_work_disability_9: 2
+  additional_work_disability_10: 1
+  purpose_overall_5: 2
+  purpose_overall_6: 2
+  purpose_overall_7: 1
+  purpose_overall_8: 1
+  purpose_overall_9: 2
+  impact_overall_1: 2
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 1
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 2
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 1
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 2
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 1
+  existing_proposed: 1
+
+
+activity_21:
+  name:  Office of Government Commerce
+  directorate:  directorate_2
+  activity_manager:  actman_iain
+  purpose_gender_3: 1
+  purpose_race_3: 2
+  purpose_disability_3: 0
+  purpose_faith_3: 2
+  purpose_sexual_orientation_3: 2
+  purpose_age_3: 0
+  purpose_gender_4: 0
+  purpose_race_4: 1
+  purpose_disability_4: 0
+  purpose_faith_4: 2
+  purpose_sexual_orientation_4: 0
+  purpose_age_4: 0
+  impact_overall_1: 0
+  impact_overall_2: 0
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 0
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 2
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 2
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 2
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 0
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 1
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 2
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 2
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 0
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 2
+  impact_gender_9: 2
+  impact_race_6: 1
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 0
+  impact_race_9: 2
+  impact_disability_6: 0
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 2
+  impact_disability_9: 1
+  impact_faith_6: 0
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 1
+  impact_faith_9: 1
+  impact_sexual_orientation_6: 1
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 0
+  impact_sexual_orientation_9: 0
+  impact_age_6: 0
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 0
+  impact_age_9: 2
+  consultation_gender_2: 1
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 1
+  consultation_gender_5: 0
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 0
+  consultation_race_1: 2
+  consultation_race_2: 0
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 2
+  consultation_race_5: 2
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 1
+  consultation_disability_1: 0
+  consultation_disability_2: 1
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 0
+  consultation_disability_5: 0
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 1
+  consultation_faith_1: 0
+  consultation_faith_2: 2
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 1
+  consultation_faith_5: 2
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 0
+  consultation_sexual_orientation_1: 1
+  consultation_sexual_orientation_2: 2
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 2
+  consultation_sexual_orientation_5: 1
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 2
+  consultation_age_1: 2
+  consultation_age_2: 0
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 0
+  consultation_age_5: 0
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 0
+  consultation_gender_1: 1
+  additional_work_gender_1: 0
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 2
+  additional_work_gender_4: 1
+  additional_work_gender_5: 2
+  additional_work_gender_6: 2
+  additional_work_race_1: 1
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 0
+  additional_work_race_4: 0
+  additional_work_race_5: 1
+  additional_work_race_6: 2
+  additional_work_race_7: 1
+  additional_work_disability_1: 0
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 0
+  additional_work_disability_4: 2
+  additional_work_disability_5: 1
+  additional_work_disability_6: 2
+  additional_work_disability_7: 2
+  additional_work_disability_8: 1
+  additional_work_sexual_orientation_1: 1
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 1
+  additional_work_sexual_orientation_4: 2
+  additional_work_sexual_orientation_5: 2
+  additional_work_sexual_orientation_6: 1
+  additional_work_sexual_orientation_7: 2
+  additional_work_age_1: 0
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 2
+  additional_work_age_4: 1
+  additional_work_age_5: 1
+  additional_work_age_6: 0
+  additional_work_age_7: 0
+  additional_work_faith_1: 2
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 1
+  additional_work_faith_4: 0
+  additional_work_faith_5: 1
+  additional_work_faith_6: 1
+  additional_work_faith_7: 2
+  additional_work_disability_9: 0
+  additional_work_disability_10: 1
+  purpose_overall_5: 1
+  purpose_overall_6: 0
+  purpose_overall_7: 0
+  purpose_overall_8: 0
+  purpose_overall_9: 2
+  impact_overall_1: 1
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 1
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 1
+  impact_race_2: 0
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 2
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 1
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 1
+  existing_proposed: 2
+
+
+activity_22:
+  name:  Report suspect activity to MI5
+  directorate:  directorate_2
+  activity_manager:  actman_iain
+  purpose_gender_3: 2
+  purpose_race_3: 0
+  purpose_disability_3: 0
+  purpose_faith_3: 2
+  purpose_sexual_orientation_3: 0
+  purpose_age_3: 2
+  purpose_gender_4: 0
+  purpose_race_4: 1
+  purpose_disability_4: 1
+  purpose_faith_4: 2
+  purpose_sexual_orientation_4: 1
+  purpose_age_4: 2
+  impact_overall_1: 2
+  impact_overall_2: 1
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 1
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 2
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 0
+  impact_race_2: 0
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 2
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 0
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 0
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 0
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 2
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 2
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 1
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 1
+  impact_gender_9: 2
+  impact_race_6: 1
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 0
+  impact_race_9: 0
+  impact_disability_6: 0
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 0
+  impact_disability_9: 2
+  impact_faith_6: 1
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 1
+  impact_faith_9: 2
+  impact_sexual_orientation_6: 2
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 1
+  impact_sexual_orientation_9: 0
+  impact_age_6: 1
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 0
+  impact_age_9: 2
+  consultation_gender_2: 2
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 2
+  consultation_gender_5: 1
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 2
+  consultation_race_1: 1
+  consultation_race_2: 1
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 2
+  consultation_race_5: 0
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 1
+  consultation_disability_1: 1
+  consultation_disability_2: 2
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 0
+  consultation_disability_5: 2
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 2
+  consultation_faith_1: 1
+  consultation_faith_2: 1
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 0
+  consultation_faith_5: 2
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 0
+  consultation_sexual_orientation_1: 1
+  consultation_sexual_orientation_2: 2
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 2
+  consultation_sexual_orientation_5: 1
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 0
+  consultation_age_1: 2
+  consultation_age_2: 1
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 2
+  consultation_age_5: 0
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 0
+  consultation_gender_1: 1
+  additional_work_gender_1: 0
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 1
+  additional_work_gender_4: 1
+  additional_work_gender_5: 1
+  additional_work_gender_6: 2
+  additional_work_race_1: 0
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 2
+  additional_work_race_4: 2
+  additional_work_race_5: 1
+  additional_work_race_6: 1
+  additional_work_race_7: 0
+  additional_work_disability_1: 0
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 1
+  additional_work_disability_4: 2
+  additional_work_disability_5: 0
+  additional_work_disability_6: 0
+  additional_work_disability_7: 1
+  additional_work_disability_8: 1
+  additional_work_sexual_orientation_1: 2
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 1
+  additional_work_sexual_orientation_4: 2
+  additional_work_sexual_orientation_5: 1
+  additional_work_sexual_orientation_6: 0
+  additional_work_sexual_orientation_7: 2
+  additional_work_age_1: 0
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 1
+  additional_work_age_4: 1
+  additional_work_age_5: 0
+  additional_work_age_6: 0
+  additional_work_age_7: 2
+  additional_work_faith_1: 2
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 0
+  additional_work_faith_4: 2
+  additional_work_faith_5: 0
+  additional_work_faith_6: 0
+  additional_work_faith_7: 1
+  additional_work_disability_9: 1
+  additional_work_disability_10: 1
+  purpose_overall_5: 1
+  purpose_overall_6: 1
+  purpose_overall_7: 1
+  purpose_overall_8: 2
+  purpose_overall_9: 1
+  impact_overall_1: 0
+  impact_overall_2: 0
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 2
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 1
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 2
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 1
+  existing_proposed: 1
+
+
+activity_23:
+  name:  Study support
+  directorate:  directorate_2
+  activity_manager:  actman_iain
+  purpose_gender_3: 0
+  purpose_race_3: 2
+  purpose_disability_3: 2
+  purpose_faith_3: 0
+  purpose_sexual_orientation_3: 1
+  purpose_age_3: 0
+  purpose_gender_4: 1
+  purpose_race_4: 2
+  purpose_disability_4: 0
+  purpose_faith_4: 2
+  purpose_sexual_orientation_4: 1
+  purpose_age_4: 1
+  impact_overall_1: 0
+  impact_overall_2: 1
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 0
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 2
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 0
+  impact_race_2: 2
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 2
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 1
+  impact_disability_2: 0
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 2
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 2
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 0
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 1
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 1
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 0
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 2
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 2
+  impact_gender_9: 0
+  impact_race_6: 2
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 1
+  impact_race_9: 2
+  impact_disability_6: 2
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 0
+  impact_disability_9: 0
+  impact_faith_6: 2
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 1
+  impact_faith_9: 1
+  impact_sexual_orientation_6: 2
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 1
+  impact_sexual_orientation_9: 0
+  impact_age_6: 2
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 2
+  impact_age_9: 2
+  consultation_gender_2: 2
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 2
+  consultation_gender_5: 1
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 1
+  consultation_race_1: 0
+  consultation_race_2: 1
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 2
+  consultation_race_5: 0
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 0
+  consultation_disability_1: 0
+  consultation_disability_2: 0
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 1
+  consultation_disability_5: 1
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 0
+  consultation_faith_1: 1
+  consultation_faith_2: 2
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 1
+  consultation_faith_5: 0
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 0
+  consultation_sexual_orientation_1: 0
+  consultation_sexual_orientation_2: 0
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 0
+  consultation_sexual_orientation_5: 0
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 1
+  consultation_age_1: 2
+  consultation_age_2: 0
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 1
+  consultation_age_5: 2
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 2
+  consultation_gender_1: 1
+  additional_work_gender_1: 0
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 0
+  additional_work_gender_4: 0
+  additional_work_gender_5: 1
+  additional_work_gender_6: 0
+  additional_work_race_1: 2
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 1
+  additional_work_race_4: 0
+  additional_work_race_5: 0
+  additional_work_race_6: 2
+  additional_work_race_7: 0
+  additional_work_disability_1: 1
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 2
+  additional_work_disability_4: 0
+  additional_work_disability_5: 2
+  additional_work_disability_6: 0
+  additional_work_disability_7: 2
+  additional_work_disability_8: 1
+  additional_work_sexual_orientation_1: 1
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 1
+  additional_work_sexual_orientation_4: 2
+  additional_work_sexual_orientation_5: 2
+  additional_work_sexual_orientation_6: 0
+  additional_work_sexual_orientation_7: 1
+  additional_work_age_1: 1
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 1
+  additional_work_age_4: 1
+  additional_work_age_5: 1
+  additional_work_age_6: 0
+  additional_work_age_7: 1
+  additional_work_faith_1: 2
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 1
+  additional_work_faith_4: 0
+  additional_work_faith_5: 1
+  additional_work_faith_6: 2
+  additional_work_faith_7: 1
+  additional_work_disability_9: 2
+  additional_work_disability_10: 1
+  purpose_overall_5: 0
+  purpose_overall_6: 0
+  purpose_overall_7: 1
+  purpose_overall_8: 2
+  purpose_overall_9: 2
+  impact_overall_1: 2
+  impact_overall_2: 1
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 1
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 0
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 0
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 0
+  impact_faith_2: 0
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 0
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 1
+  existing_proposed: 1
+
+
+activity_24:
+  name:  Developing maths skills for five to 11 year olds
+  directorate:  directorate_4
+  activity_manager:  actman_iain
+  purpose_gender_3: 1
+  purpose_race_3: 2
+  purpose_disability_3: 0
+  purpose_faith_3: 2
+  purpose_sexual_orientation_3: 2
+  purpose_age_3: 2
+  purpose_gender_4: 1
+  purpose_race_4: 2
+  purpose_disability_4: 0
+  purpose_faith_4: 0
+  purpose_sexual_orientation_4: 2
+  purpose_age_4: 2
+  impact_overall_1: 1
+  impact_overall_2: 1
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 1
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 2
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 0
+  impact_race_2: 0
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 1
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 1
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 2
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 2
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 0
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 2
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 1
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 1
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 0
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 0
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 1
+  impact_gender_9: 2
+  impact_race_6: 2
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 0
+  impact_race_9: 1
+  impact_disability_6: 0
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 1
+  impact_disability_9: 0
+  impact_faith_6: 0
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 2
+  impact_faith_9: 1
+  impact_sexual_orientation_6: 1
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 1
+  impact_sexual_orientation_9: 2
+  impact_age_6: 2
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 0
+  impact_age_9: 0
+  consultation_gender_2: 0
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 1
+  consultation_gender_5: 2
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 2
+  consultation_race_1: 2
+  consultation_race_2: 1
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 1
+  consultation_race_5: 0
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 1
+  consultation_disability_1: 1
+  consultation_disability_2: 2
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 0
+  consultation_disability_5: 2
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 0
+  consultation_faith_1: 0
+  consultation_faith_2: 2
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 1
+  consultation_faith_5: 0
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 2
+  consultation_sexual_orientation_1: 0
+  consultation_sexual_orientation_2: 2
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 0
+  consultation_sexual_orientation_5: 0
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 0
+  consultation_age_1: 2
+  consultation_age_2: 0
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 0
+  consultation_age_5: 0
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 2
+  consultation_gender_1: 2
+  additional_work_gender_1: 2
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 2
+  additional_work_gender_4: 1
+  additional_work_gender_5: 2
+  additional_work_gender_6: 0
+  additional_work_race_1: 2
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 1
+  additional_work_race_4: 1
+  additional_work_race_5: 0
+  additional_work_race_6: 2
+  additional_work_race_7: 0
+  additional_work_disability_1: 2
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 0
+  additional_work_disability_4: 0
+  additional_work_disability_5: 2
+  additional_work_disability_6: 2
+  additional_work_disability_7: 1
+  additional_work_disability_8: 0
+  additional_work_sexual_orientation_1: 1
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 2
+  additional_work_sexual_orientation_4: 1
+  additional_work_sexual_orientation_5: 1
+  additional_work_sexual_orientation_6: 1
+  additional_work_sexual_orientation_7: 2
+  additional_work_age_1: 1
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 2
+  additional_work_age_4: 2
+  additional_work_age_5: 0
+  additional_work_age_6: 2
+  additional_work_age_7: 2
+  additional_work_faith_1: 1
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 1
+  additional_work_faith_4: 2
+  additional_work_faith_5: 0
+  additional_work_faith_6: 1
+  additional_work_faith_7: 0
+  additional_work_disability_9: 2
+  additional_work_disability_10: 1
+  purpose_overall_5: 1
+  purpose_overall_6: 1
+  purpose_overall_7: 0
+  purpose_overall_8: 1
+  purpose_overall_9: 1
+  impact_overall_1: 1
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 0
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 1
+  impact_race_2: 2
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 0
+  impact_disability_2: 0
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 1
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 2
+  impact_age_2: 2
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 2
+  existing_proposed: 1
+
+
+activity_25:
+  name:  Jubilee Sailing Trust
+  directorate:  directorate_2
+  activity_manager:  actman_iain
+  purpose_gender_3: 0
+  purpose_race_3: 2
+  purpose_disability_3: 0
+  purpose_faith_3: 0
+  purpose_sexual_orientation_3: 2
+  purpose_age_3: 2
+  purpose_gender_4: 0
+  purpose_race_4: 0
+  purpose_disability_4: 2
+  purpose_faith_4: 2
+  purpose_sexual_orientation_4: 2
+  purpose_age_4: 1
+  impact_overall_1: 1
+  impact_overall_2: 1
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_4: 2
+  impact_gender_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 1
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_4: 1
+  impact_race_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 0
+  impact_disability_2: 1
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_4: 0
+  impact_disability_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 2
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_4: 1
+  impact_faith_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 2
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_4: 1
+  impact_sexual_orientation_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 0
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_4: 2
+  impact_age_5: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_6: 0
+  impact_gender_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_8: 0
+  impact_gender_9: 0
+  impact_race_6: 0
+  impact_race_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_8: 1
+  impact_race_9: 0
+  impact_disability_6: 0
+  impact_disability_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_8: 0
+  impact_disability_9: 1
+  impact_faith_6: 0
+  impact_faith_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_8: 0
+  impact_faith_9: 0
+  impact_sexual_orientation_6: 1
+  impact_sexual_orientation_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_8: 0
+  impact_sexual_orientation_9: 2
+  impact_age_6: 2
+  impact_age_7: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_8: 0
+  impact_age_9: 1
+  consultation_gender_2: 1
+  consultation_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_4: 1
+  consultation_gender_5: 2
+  consultation_gender_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_gender_7: 1
+  consultation_race_1: 1
+  consultation_race_2: 0
+  consultation_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_4: 0
+  consultation_race_5: 1
+  consultation_race_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_race_7: 0
+  consultation_disability_1: 0
+  consultation_disability_2: 1
+  consultation_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_4: 1
+  consultation_disability_5: 1
+  consultation_disability_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_disability_7: 2
+  consultation_faith_1: 2
+  consultation_faith_2: 2
+  consultation_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_4: 2
+  consultation_faith_5: 1
+  consultation_faith_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_faith_7: 2
+  consultation_sexual_orientation_1: 2
+  consultation_sexual_orientation_2: 0
+  consultation_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_4: 0
+  consultation_sexual_orientation_5: 2
+  consultation_sexual_orientation_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_sexual_orientation_7: 2
+  consultation_age_1: 2
+  consultation_age_2: 2
+  consultation_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_4: 0
+  consultation_age_5: 1
+  consultation_age_6: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  consultation_age_7: 0
+  consultation_gender_1: 0
+  additional_work_gender_1: 1
+  additional_work_gender_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_gender_3: 2
+  additional_work_gender_4: 1
+  additional_work_gender_5: 2
+  additional_work_gender_6: 2
+  additional_work_race_1: 1
+  additional_work_race_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_race_3: 2
+  additional_work_race_4: 0
+  additional_work_race_5: 2
+  additional_work_race_6: 1
+  additional_work_race_7: 2
+  additional_work_disability_1: 0
+  additional_work_disability_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_disability_3: 2
+  additional_work_disability_4: 2
+  additional_work_disability_5: 0
+  additional_work_disability_6: 1
+  additional_work_disability_7: 1
+  additional_work_disability_8: 2
+  additional_work_sexual_orientation_1: 1
+  additional_work_sexual_orientation_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_sexual_orientation_3: 2
+  additional_work_sexual_orientation_4: 0
+  additional_work_sexual_orientation_5: 2
+  additional_work_sexual_orientation_6: 1
+  additional_work_sexual_orientation_7: 1
+  additional_work_age_1: 1
+  additional_work_age_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_age_3: 0
+  additional_work_age_4: 0
+  additional_work_age_5: 0
+  additional_work_age_6: 0
+  additional_work_age_7: 1
+  additional_work_faith_1: 2
+  additional_work_faith_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  additional_work_faith_3: 0
+  additional_work_faith_4: 1
+  additional_work_faith_5: 1
+  additional_work_faith_6: 0
+  additional_work_faith_7: 0
+  additional_work_disability_9: 0
+  additional_work_disability_10: 2
+  purpose_overall_5: 1
+  purpose_overall_6: 2
+  purpose_overall_7: 1
+  purpose_overall_8: 0
+  purpose_overall_9: 0
+  impact_overall_1: 2
+  impact_overall_2: 2
+  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_gender_1: 2
+  impact_gender_2: 2
+  impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_race_1: 2
+  impact_race_2: 0
+  impact_race_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_disability_1: 2
+  impact_disability_2: 2
+  impact_disability_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_faith_1: 1
+  impact_faith_2: 1
+  impact_faith_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_sexual_orientation_1: 2
+  impact_sexual_orientation_2: 1
+  impact_sexual_orientation_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  impact_age_1: 1
+  impact_age_2: 0
+  impact_age_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  purpose_overall_2: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+  function_policy: 2
+  existing_proposed: 1
+

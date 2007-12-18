@@ -19,8 +19,10 @@ module PDF
     end
     
     def add_content(cc)
-      @@proxy << cc if @@proxy
-      @current_contents << cc unless @@proxy
+      if @@proxy then
+        @@proxy << cc 
+      end
+      @current_contents << cc
     end
     
     def new_page(insert = false, page = nil, pos = :after)

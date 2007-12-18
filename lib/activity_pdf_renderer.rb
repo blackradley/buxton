@@ -6,6 +6,7 @@ class ActivityPDF < Ruport::Formatter::PDF
   renders :pdf, :for => ActivityPDFRenderer
   def build_page_numbers
     if data[11].include?(:page_numbers)
+      pdf_writer.set_proxy(nil)
       pdf_writer.start_page_numbering(pdf_writer.absolute_left_margin,
         pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(12) * 1.01),
         12,
@@ -116,7 +117,7 @@ class ActivityPDF < Ruport::Formatter::PDF
       issues_table = Issue.report_table(
         :all,
         :conditions => {:activity_id => activity_id},
-        :except => %w(id activity_id)
+        :except => %w(id activity_id section)
         )
       columns = issues_table.column_names
       no_strand_cols = columns.clone.to_a
@@ -135,7 +136,7 @@ class ActivityPDF < Ruport::Formatter::PDF
             issue_table_renamed_columns << column.titleize if column
           end
           issue_table.rename_columns(issue_table.column_names, issue_table_renamed_columns)
-          draw_table(issue_table, :shade_rows => :none, :show_lines => :all, :font_size => 10, :heading_font_size => 10)
+          draw_table(issue_table, :shade_rows => :none, :show_lines => :all, :font_size => 10, :heading_font_size => 10, :width => 500)
           issue_table = nil
         end
       end
@@ -143,7 +144,7 @@ class ActivityPDF < Ruport::Formatter::PDF
   end
   
   def build_footer
-    if data[11].include?(:footer) then 
+    if data[11].include?(:footer) then
       pdf_writer.open_object do |footer|
         pdf_writer.save_state
         pdf_writer.stroke_color! Color::RGB::Black
@@ -167,7 +168,6 @@ class ActivityPDF < Ruport::Formatter::PDF
   
   def build_render
     pdf_writer.stop_page_numbering(true)
-    pdf_writer.y = bottom_boundary
     render_pdf
   end
 end

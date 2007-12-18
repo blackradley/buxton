@@ -76,7 +76,7 @@ class YmlActivityGenerator
     5.times do
       return_text << "#{text[rand(8)]} "
     end
-    return return_text
+    return return_text.titleize
   end
   def generate_activity_start(name, directorate = 'directorate_1', actman = 'actman_iain')
     @file << "name:  #{name}"
