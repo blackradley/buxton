@@ -485,7 +485,29 @@ class Activity < ActiveRecord::Base
     help.chop!
     return [label, type, choices, help, weights]
   end
-
+  
+    #This takes a method in the form of :section_strand_number and turns it into an array [section, strand, number]
+  def self.question_separation(question)
+    hashes = YAML.load_file("#{RAILS_ROOT}/config/questions.yml") unless hashes
+    question = question.to_s
+    if question.include?("overall") then
+      query_hash = hashes['overall_questions']
+    else
+      query_hash = hashes['questions']
+    end
+    section = ""
+    question_number = ""
+    query_hash.each_key{|section_name| section = section_name.to_sym if question.include?(section_name.to_s)}
+    question.gsub!(section.to_s, "")
+    question = question.split("_")
+    question_number = question.pop
+    strand = question.inject(""){|init_name, parts_name| init_name += "#{parts_name} "}
+    strand.strip!
+    strand.gsub!(" ", "_")
+    return [section.to_sym, strand.to_sym, question_number] if (!section.blank? && !strand.blank? && question_number)
+    return nil
+  end
+  
 private
 
 #Check question takes a single question as an argument and checks if it has been completed, and that any dependent questions have been answered.
@@ -513,27 +535,6 @@ private
      end
   end
   
-  #This takes a method in the form of :section_strand_number and turns it into an array [section, strand, number]
-  def question_separation(question)
-    question = question.to_s
-    if question.include?("overall") then
-      query_hash = hashes['overall_questions']
-    else
-      query_hash = hashes['questions']
-    end
-    section = ""
-    question_number = ""
-    query_hash.each_key{|section_name| section = section_name.to_sym if question.include?(section_name.to_s)}
-    question.gsub!(section.to_s, "")
-    question = question.split("_")
-    question_number = question.pop
-    strand = question.inject(""){|init_name, parts_name| init_name += "#{parts_name} "}
-    strand.strip!
-    strand.gsub!(" ", "_")
-    return [section.to_sym, strand.to_sym, question_number] if (!section.blank? && !strand.blank? && question_number)
-    return nil
-  end
-  
   def check_response(response) #Check response verifies whether a response to a question is correct or not.
     checker = !(response.to_i == 0)
     checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
@@ -550,7 +551,7 @@ private
     else
       query_hash = hashes['questions']
     end
-    segments = question_separation(question)
+    segments = Activity.question_separation(question)
     if segments then
       section = segments[0]
       strand = segments[1]
