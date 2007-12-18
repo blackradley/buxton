@@ -68,7 +68,7 @@ module ApplicationHelper
     links.each do |link|
       class_name = (current_page?(link[:url])) ? 'selected' : ''
       if link[:status] == 'disabled' then
-        link_html << content_tag('li', link[:text], { :class => 'disabled' })
+        link_html << content_tag('li', link_to(link[:text], '#'), { :class => ['disabled', class_name].join(' ') })
       else
         link_html << content_tag('li', link_to(link[:text], link[:url], :title => link[:title]),
           { :class => class_name })
