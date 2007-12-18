@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 case $1 in
-	"test" )
+	"staging" )
 	ssh buxton@buxton.test.27stars.co.uk
 	;;
 	"production" )
