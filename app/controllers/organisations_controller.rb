@@ -9,10 +9,10 @@
 class OrganisationsController < ApplicationController
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
-  verify  :method => :post,
-          :only => [ :destroy, :create, :update ],
-          :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
-
+  # verify  :method => :post,
+  #          :only => [ :destroy, :create, :update ],
+  #          :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
+ 
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
 

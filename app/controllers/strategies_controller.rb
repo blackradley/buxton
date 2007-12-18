@@ -13,10 +13,10 @@ class StrategiesController < ApplicationController
           :xhr => true,
           :only => [ :update_strategy_order ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
-  verify  :method => :post,
-          :only => [ :create, :update, :destroy ],
-          :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
-
+  # verify  :method => :post,
+  #          :only => [ :create, :update, :destroy ],
+  #          :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
+ 
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
   
@@ -91,6 +91,7 @@ class StrategiesController < ApplicationController
       # acts_as_list expects position 1 to be first. Thus the +1 here to keep it all happy.
       @organisation.strategies.update(id, :position => position+1)
     end
+    render :nothing => true
   end  
   
 protected

@@ -9,7 +9,7 @@
 ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
   map.resources :organisations do |organisations|
-    organisations.resources :strategies, :collection => { :reorder => :get }
+    organisations.resources :strategies, :collection => { :reorder => :get, :update_strategy_order => :post }
   end
   
   # Manually create a subset of the RESTful named routes for the DemosController
