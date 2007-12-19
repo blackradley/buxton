@@ -1021,3 +1021,44 @@ form.new_organisation .directorates .sub_button, form.edit_organisation .directo
 .indent{
 	margin-left: 20px;
 }
+
+/*directorates*/
+
+.directorates{
+	float:right;
+	width: 220px;	
+	margin-top: 4px;	
+	font-size: 1em;
+	margin-top:-43px;
+	 margin-bottom:20px;
+	 text-align:left;
+	margin-right: 23px;
+}
+
+.directorates .directorate{
+	clear: left;
+	width: 100%;
+	float:left;
+	text-align: right;
+	margin-left: 0px;
+	margin-bottom: 10px;
+}
+.directorates .directorate a img{
+	float:left;
+	margin-top: 4px;
+	margin-left: 6px;
+}
+
+.directorates input{
+	float:left;
+	width:180px;
+	margin-right:5px;
+	margin-left:0px;
+}
+
+.fieldWithErrors input{
+	background-color: #FFF0F0;
+	border:1px solid #C00;
+	display: inline;
+}
+
