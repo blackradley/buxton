@@ -11,10 +11,7 @@
 # names or passwords to remember, but quite insecure.  Then again no one
 # remembers the user names and passwords so they are a hassle.  It is all a
 # bit of a compromise between hassle and security.
-#
-# Unlike controllers from Action Pack, the mailer instance doesn‘t have any
-# context about the incoming request.  So the request is passed in explicitly
-# to each of the methods.
+# 
 class Notifier < ActionMailer::Base
     
   # Constant for the origin of all the emails.
