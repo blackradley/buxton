@@ -264,7 +264,7 @@ module ApplicationHelper
 
      # unfortunately needed until we set up wildcard DNS on staging/dev server
      if domain == '27stars.co.uk' || domain == 'localhost'
-       "#{request.protocol}#{domain}#{request.port_string}/#{passkey}"
+       "#{request.protocol}#{request.host_with_port}/#{passkey}"
      else
        "#{request.protocol}#{subdomain}.#{domain}#{request.port_string}/#{passkey}"
      end
