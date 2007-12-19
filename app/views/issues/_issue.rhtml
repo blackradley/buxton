@@ -5,7 +5,7 @@
 
 <div class="issue">
 <% fields_for "activity[issue_attributes][]", issue do |issue_form|%>
-  <p>
+  
     <%= issue_form.text_field :description, :index => nil %>
     <% if issue.new_record? %>
       <%= link_to_function image_tag('icons/cross.gif'), "$(this).up( '.issue').remove()" %>
@@ -18,7 +18,7 @@
       <%= issue_form.hidden_field :strand, :index => nil, :value => params[:equality_strand] %>
       <%= issue_form.hidden_field :issue_destroy, :index => nil, :class => 'issue_destroy' %>
     <% end %>
-  </p>
+  
 <% end %>
 </div>
 
