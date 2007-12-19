@@ -19,6 +19,8 @@
   		<div id="issues_list">
   			<%= render :partial => 'issues/issue', :collection => @activity.issues_by_section(@section).reject{|issue| issue.strand != @equality_strand }%>
   		</div>
+  		<div class="clear"></div>
+  		<br />
   		<%= link_to_function "Add a New Issue" do |page|
   		    page.insert_html :bottom, :issues_list, :partial => 'issues/issue', :object => Issue.new
   		end %>

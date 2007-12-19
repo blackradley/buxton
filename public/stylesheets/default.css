@@ -478,15 +478,12 @@ td.bar{
 
 /*Errors*/
 
-.fieldWithErrors{
+/*.fieldWithErrors{
 	display: inline;
 	border: solid 3px #C00;
-}
+}*/
 
-.fieldWithErrors INPUT{
-	background-color: #FFF0F0;
-	border-style:none;
-}
+
 
 #errorExplanation 
 {
@@ -625,11 +622,31 @@ color: #515f8d;
 	margin-right: 23px;
 }
 
+#questions .issues .issue{
+	clear: left;
+	width: 100%;
+	float:left;
+	text-align: right;
+	margin-left: 0px;
+	margin-bottom: 10px;
+}
+#questions .issues .issue a img{
+	float:left;
+	margin-top: 4px;
+	margin-left: 6px;
+}
+
 #questions .issues input{
 	float:left;
-	width:120px;
-	margin-right:10px;
+	width:180px;
+	margin-right:5px;
 	margin-left:0px;
+}
+
+.fieldWithErrors input{
+	background-color: #FFF0F0;
+	border:1px solid #C00;
+	display: inline;
 }
 
 #questions .issues #addissue input{
@@ -637,28 +654,6 @@ color: #515f8d;
 	width: 40px;
 }
 
-#questions .issues ul{
-	padding: 0px;
-	float:left;
-	padding-left:0px;
-	list-style-position: inside;
-	list-style-type: decimal-leading-zero;
-	margin:0px;
-	margin-left: 10px;
-}
-
-html>body #questions .issues ul{
-	padding: 0px;
-	float:left;
-	padding-left:0px;
-	list-style-position: inside;
-	list-style-type: decimal-leading-zero;
-	margin:0px;
-}
-
-#questions #issues ul li{
-	margin-top:3px;
-}
 
 /*summary page */
 
