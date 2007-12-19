@@ -11,6 +11,9 @@ class DemosController < ApplicationController
           :only => [ :create ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
+  rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
+  rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
+
   # Available to: anybody
   def new
   end
@@ -44,23 +47,29 @@ class DemosController < ApplicationController
         'Investing in regeneration',
         'Improving our transport and tackling congestion',
         'Providing more effective education and leisure opportunities']
-      strategy_names.each {|strategy_name|
+      strategy_names.each { |strategy_name|
         strategy = @organisation.strategies.build
         strategy.name = strategy_name
         strategy.description = strategy_name
       }
-      
-      # Give the organisation three activities which are owned by the same user
-      activity_names = ['Community Strategy', 'Publications', 'Meals on Wheels']
-      activity_names.each {|activity_name|
-        # Create a activity
-        activity = @organisation.activities.build(:name => activity_name)
-        activity.organisation = @organisation #this should be filled in directly above, don't know why not
-        # Create a activity manager
-        activity_manager = activity.build_activity_manager(params[:organisation_manager])
-        activity_manager.passkey = ActivityManager.generate_passkey(activity_manager)
-      }
 
+      # Give the organisation five directorates
+      directorate_names = ["Adult, Community and Housing Services","Childrens Services","Finance, ICT and Procurement","Law and Property","Urban Environment"]
+      directorate_names.each { |directorate_name|
+        # Create a directorate
+        directorate = @organisation.directorates.build(:name => directorate_name)
+        # directorate.organisation = @organisation #this should be filled in directly above, don't know why not
+
+        activity_names = ['Activity 1','Activity 2','Activity 3']
+        activity_names.each { |activity_name|
+          # Create a activity
+          activity = directorate.activities.build(:name => activity_name)
+          # Create a activity manager
+          activity_manager = activity.build_activity_manager(params[:organisation_manager])
+          activity_manager.passkey = ActivityManager.generate_passkey(activity_manager)
+        }        
+      }
+      
       Organisation.transaction do
         @organisation.save!
         flash[:notice] = 'Demonstration organisation was created.'
@@ -70,6 +79,13 @@ class DemosController < ApplicationController
     # If we made it here then all of the above was successful.
     # Log in the organisational manager (be they new or old).
     redirect_to :controller => 'users', :action => :login, :passkey => @organisation_manager.passkey
+  end
+
+protected
+
+  def show_errors(exception)
+    flash[:notice] = "Unable to create demo. Please check for errors and try again."
+    render :action => :new
   end
 
 end

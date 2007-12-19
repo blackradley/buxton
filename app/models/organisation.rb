@@ -38,8 +38,8 @@ class Organisation < ActiveRecord::Base
   validates_presence_of :name, :message => 'All organisations must have a name'
   validates_presence_of :style, :message => 'Please provide an css style name, all organisations must have a style'
   validates_format_of :style, :with => /^[\w]*$/
-  validates_uniqueness_of :style
-    
+  # validates_uniqueness_of :style
+
   after_update :save_directorates
 
   def strategy_text
