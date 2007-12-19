@@ -263,7 +263,7 @@ module ApplicationHelper
      domain = request.domain(TLD_LENGTH)
 
      # unfortunately needed until we set up wildcard DNS on staging/dev server
-     if domain == 'buxton.test.27stars.co.uk' || domain == 'localhost'
+     if domain == '27stars.co.uk' || domain == 'localhost'
        "#{request.protocol}#{domain}#{request.port_string}/#{passkey}"
      else
        "#{request.protocol}#{subdomain}.#{domain}#{request.port_string}/#{passkey}"
