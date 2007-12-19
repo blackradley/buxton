@@ -12,10 +12,10 @@
     <td><%= link_to organisation.organisation_manager.email, "mailto:#{organisation.organisation_manager.email}?subject=#{organisation.name}", :title =>"Email" -%></td>
     <td><%= date_or_blank(organisation.organisation_manager.reminded_on) -%></td>
     <td class="actions" nowrap>
-    <%= link_to image_tag('icons/login.gif'), login_url(organisation.style, organisation.organisation_manager.passkey) , :title =>"Login"-%>
+    <%= link_to image_tag('icons/login.gif'), organisation.organisation_manager.url_for_login(request) , :title =>"Login"-%>
     <%= link_to image_tag('icons/strategies.gif'), organisation_strategies_url(organisation), :title =>"Strategies" -%>
     <%= link_to image_tag('icons/view.gif'), organisation, :title =>"View"  -%>
-    <%= link_to image_tag('icons/remind.gif'), { :controller => 'users', :action => 'remind', :id => organisation.organisation_manager}, :confirm => "Send reminder to #{organisation.name}?", :method => :post, :title =>"Remind" -%>
+    <%= link_to image_tag('icons/remind.gif'), { :controller => 'users', :action => 'remind', :id => organisation.organisation_manager}, :confirm => "Send reminder for #{organisation.name} to #{organisation.organisation_manager.email}?", :method => :post, :title =>"Remind" -%>
     <%= link_to image_tag('icons/edit.gif'), edit_organisation_url(organisation), :title =>"Edit" -%>
     <%= link_to image_tag('icons/delete.gif'), organisation, :confirm => "Delete #{organisation.name}?", :method => :delete, :title =>"Delete" -%></td>
   </tr>

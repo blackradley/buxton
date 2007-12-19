@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
-
+  
   # Present a form to request a lost passkey by entering your e-mail address.
   # Available to: anybody
   def index
@@ -85,6 +85,7 @@ class UsersController < ApplicationController
     else
       for @user in @users
         # new_passkey(@user)
+        @login_url = @user.url_for_login(request)
         case @user.class.name
           when 'ActivityManager'
             email = Notifier.create_activity_key(@user, request)
@@ -126,7 +127,8 @@ class UsersController < ApplicationController
   #               Organisation Manager
   def remind
     @user = User.find(params[:id])
-    
+    @login_url = @user.url_for_login(request)    
+
     # Are they a activity manager?
     case @user.class.name
     when 'ActivityManager'

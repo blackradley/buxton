@@ -44,4 +44,27 @@ class User < ActiveRecord::Base
     end
   end
   
+  # Generate a login URL for a given subdomain and passkey
+  def url_for_login(request)
+    domain = request.domain(TLD_LENGTH)
+
+    subdomain = case @user.class.name
+    when 'ActivityManager'
+      subdomain_string = self.activity.organisation.style + '.'
+    when 'OrganisationManager'
+      subdomain_string = self.organisation.style + '.'
+    when 'Administrator'
+      subdomain_string = ''
+    else
+      # TODO throw an error - shouldn't ever get here
+    end
+
+    # unfortunately needed until we set up wildcard DNS on staging/dev server
+    if domain == '27stars.co.uk' || domain == 'localhost'
+      "#{request.protocol}#{request.host_with_port}/#{self.passkey}"
+    else
+      "#{request.protocol}#{subdomain_string}#{domain}#{request.port_string}/#{self.passkey}"
+    end
+  end
+  
 end
