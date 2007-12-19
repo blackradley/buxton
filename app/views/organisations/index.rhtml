@@ -14,10 +14,10 @@
     <td class="actions" nowrap>
     <%= link_to image_tag('icons/login.gif'), organisation_manager_login_url(organisation) , :title =>"Login"-%>
     <%= link_to image_tag('icons/strategies.gif'), organisation_strategies_url(organisation), :title =>"Strategies" -%>
-    <%= link_to image_tag('icons/view.jpg'), organisation, :title =>"View"  -%>
+    <%= link_to image_tag('icons/view.gif'), organisation, :title =>"View"  -%>
     <%= link_to image_tag('icons/remind.gif'), { :controller => 'users', :action => 'remind', :id => organisation.organisation_manager}, :confirm => "Send reminder to #{organisation.name}?", :method => :post, :title =>"Remind" -%>
-    <%= link_to image_tag('icons/edit.jpg'), edit_organisation_url(organisation), :title =>"Edit" -%>
-    <%= link_to image_tag('icons/delete.png'), organisation, :confirm => "Delete #{organisation.name}?", :method => :delete, :title =>"Delete" -%></td>
+    <%= link_to image_tag('icons/edit.gif'), edit_organisation_url(organisation), :title =>"Edit" -%>
+    <%= link_to image_tag('icons/delete.gif'), organisation, :confirm => "Delete #{organisation.name}?", :method => :delete, :title =>"Delete" -%></td>
   </tr>
   <% end %>
 </table>
