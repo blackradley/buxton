@@ -12,7 +12,7 @@
     <td><%= link_to organisation.organisation_manager.email, "mailto:#{organisation.organisation_manager.email}?subject=#{organisation.name}", :title =>"Email" -%></td>
     <td><%= date_or_blank(organisation.organisation_manager.reminded_on) -%></td>
     <td class="actions" nowrap>
-    <%= link_to image_tag('icons/login.gif'), organisation_manager_login_url(organisation) , :title =>"Login"-%>
+    <%= link_to image_tag('icons/login.gif'), login_url(organisation.style, organisation.organisation_manager.passkey) , :title =>"Login"-%>
     <%= link_to image_tag('icons/strategies.gif'), organisation_strategies_url(organisation), :title =>"Strategies" -%>
     <%= link_to image_tag('icons/view.gif'), organisation, :title =>"View"  -%>
     <%= link_to image_tag('icons/remind.gif'), { :controller => 'users', :action => 'remind', :id => organisation.organisation_manager}, :confirm => "Send reminder to #{organisation.name}?", :method => :post, :title =>"Remind" -%>

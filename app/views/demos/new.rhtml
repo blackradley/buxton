@@ -18,9 +18,7 @@ you to set up a new organisation, or access an organisation you have already cre
 <%= error_messages_for 'organisation_manager' %>
 
 <% form_tag demos_url do %>
-    <p>
-        <label>Email</label>:<%= text_field :organisation_manager, :email, :size => 50 -%>
-    </p>
+    <p><label>Email</label>:<%= text_field :organisation_manager, :email, :size => 50 -%></p>
 	<span class="button">
     	<%= submit_tag 'Access Your Demonstration Organisation' %>
 	</span>

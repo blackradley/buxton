@@ -135,19 +135,23 @@ class ActivitiesController < ApplicationController
     # TODO: catch this better
     unless (@current_user.class.name == 'OrganisationManager') then render :inline => 'Invalid.' end
 
+    @activity = Activity.find(params[:id])
+    @activity_manager = @activity.activity_manager # Get this ready in case we need to re-render the edit template
+    @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] } # Get this ready in case we need to re-render the edit template
+
     # Update the activity
-    Activity.transaction do
-      @activity = Activity.find(params[:id])
-      @activity.update_attributes!(params[:activity])
-      # # Update the user
-      # @activity_manager = @activity.activity_manager
-      # @activity_manager.update_attributes!(params[:activity_manager])
+    @activity.activity_manager.attributes = params[:activity_manager]
+    @activity.attributes = params[:activity]
+
+    if @activity.valid? && @activity.activity_manager.valid? then
+      @activity.activity_manager.save!
+      @activity.save!
       flash[:notice] =  "#{@activity.name} was successfully changed."
       redirect_to :action => 'list'
+    else
+      # Something went wrong
+      render :action => :edit_contact
     end
-    # Something went wrong
-  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-    render :action => :edit_contact
   end
 
   # Delete the activity (and any associated records as stated in the Activity model)
