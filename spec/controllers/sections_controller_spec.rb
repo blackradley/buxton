@@ -189,13 +189,12 @@ end
 describe SectionsController, 'handling POST /sections/update' do
   
   before(:each) do
-    @activity = mock_model(Activity, :null_object => true)
-    Activity.stub!(:find).and_return(@activity)
     # Authenticate
     login_as :activity_manager
     set_referrer('/') # this isn't a legitimate source but I don't
                       # know the syntax needed here and it's not checked
                       # against. It just needs something.
+    @activity = @current_user.activity
   end
 
   it "should redirect with a valid activity" do
@@ -210,8 +209,8 @@ describe SectionsController, 'handling POST /sections/update' do
     @exception = ActiveRecord::RecordNotSaved.new
     @exception.stub!(:record).and_return(@activity)
     @activity.stub!(:update_attributes!).and_raise(@exception)
-    post :update
-    response.should render_template(:show)
+    post :update, { :id => 'impact', :equality_strand => 'gender' }
+    response.should render_template(:edit_impact)
   end
   
   it "should assign a flash message with an invalid activity"

@@ -49,8 +49,11 @@
 	<%= f.question :purpose, {:equality_strand => 'sexual_orientation', :number => 4, :f_id => @activity.id} %>
 	<%= f.question :purpose, {:equality_strand => 'age', :number => 4, :f_id => @activity.id} %>
 
-
 	<div class="clear"></div>
+	<% fields_for "section" do |s| %>
+		<%= f.hidden_field :id, @id %>
+		<%= f.hidden_field :equality_strand, @equality_strand %>		
+	<% end %>
 	<span class="button"><%= submit_tag 'Save' -%></span>
 	<div class="clear"></div>
 <% end -%>

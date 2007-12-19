@@ -31,6 +31,10 @@
 	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 10, :f_id => @activity.id} %>
 <% end -%>
 <div class="clear"></div>
+<% fields_for "section" do |s| %>
+	<%= f.hidden_field :id, @id %>
+	<%= f.hidden_field :equality_strand, @equality_strand %>		
+<% end %>
 <span class="button"><%= submit_tag 'Save' -%></span>
 <div class="clear"></div>
 <% end -%>

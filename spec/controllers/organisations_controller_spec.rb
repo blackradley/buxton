@@ -95,7 +95,7 @@ describe OrganisationsController, 'handling GET /organisations' do
 
 end
 
-describe OrganisationsController, 'handling GET /organisations/show/:id' do
+describe OrganisationsController, 'handling GET /organisations/:id' do
   
   before(:each) do
     @organisation = mock_model(Organisation)
@@ -163,7 +163,7 @@ describe OrganisationsController, 'handling GET /organisations/new' do
 
 end
 
-describe OrganisationsController, 'handling POST /organisations/create' do
+describe OrganisationsController, 'handling POST /organisations' do
   
   before(:each) do
     # Prep data
@@ -187,7 +187,7 @@ describe OrganisationsController, 'handling POST /organisations/create' do
     post :create
   end
   
-  it "with a valid organisation should redirect to 'organisations/list'" do
+  it "with a valid organisation should redirect to 'organisations'" do
     @organisation.stub!(:save!).and_return(nil)
     post :create
     response.should be_redirect
@@ -203,7 +203,7 @@ describe OrganisationsController, 'handling POST /organisations/create' do
   
 end
 
-describe OrganisationsController, 'handling GET /organisations/edit/:id' do
+describe OrganisationsController, 'handling GET /organisations/:id/edit' do
   
   before(:each) do
     @organisation = mock_model(Organisation)
@@ -240,7 +240,7 @@ describe OrganisationsController, 'handling GET /organisations/edit/:id' do
 
 end
 
-describe OrganisationsController, 'handling POST /organisations/update/:id' do
+describe OrganisationsController, 'handling PUT /organisations/:id' do
   
   before(:each) do
     # Prep data
@@ -252,7 +252,7 @@ describe OrganisationsController, 'handling POST /organisations/update/:id' do
 
   it "should redirect to 'strategy/show/:id' with a valid strategy" do
     @organisation.stub!(:update_attributes!).and_return(nil)
-    post :update
+    put :update, :id => @organisation
     response.should redirect_to(organisation_url(@organisation))
   end
 
@@ -262,7 +262,7 @@ describe OrganisationsController, 'handling POST /organisations/update/:id' do
     @exception = ActiveRecord::RecordNotSaved.new
     @exception.stub!(:record).and_return(@organisation)
     @organisation.stub!(:update_attributes!).and_raise(@exception)
-    post :update
+    put :update, :id => @organisation
     response.should render_template(:edit)
   end
   
@@ -271,14 +271,14 @@ describe OrganisationsController, 'handling POST /organisations/update/:id' do
   it "should render 404 file when given an invalid ID" do
     @exception = ActiveRecord::RecordNotFound.new
     Organisation.stub!(:find).and_raise(@exception)
-    post :update, :id => 'broken'
+    put :update, :id => 'broken'
     response.should render_template("#{RAILS_ROOT}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
 end
 
-describe OrganisationsController, 'handling POST /organisations/destroy/:id' do
+describe OrganisationsController, 'handling DELETE /organisations/:id' do
   
   before(:each) do
     @organisation = mock_model(Organisation)
@@ -288,19 +288,19 @@ describe OrganisationsController, 'handling POST /organisations/destroy/:id' do
   end
   
   it "should be successful" do
-    post :destroy, :id => @organisation.id
+    delete :destroy, :id => @organisation
     response.should be_redirect
   end
   
   it "should destroy the organisation" do
     @organisation.should_receive(:destroy)
-    post :destroy, :id => @organisation.id
+    delete :destroy, :id => @organisation
   end
   
   it "should render 404 file when given an invalid ID" do
     @exception = ActiveRecord::RecordNotFound.new
     Organisation.stub!(:find).and_raise(@exception)
-    post :destroy, :id => 'broken'
+    delete :destroy, :id => 'broken'
     response.should render_template("#{RAILS_ROOT}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end

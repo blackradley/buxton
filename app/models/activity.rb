@@ -51,7 +51,11 @@ class Activity < ActiveRecord::Base
   after_update :save_issues
   
   def activity_type
-    [self.existing_proposed?, self.function_policy?].join(' ')
+    if self.started then
+      [self.existing_proposed?, self.function_policy?].join(' ')
+    else
+      '-'
+    end
   end
 
   def existing_proposed?

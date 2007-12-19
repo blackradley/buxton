@@ -1,9 +1,9 @@
 <div id="show">
-<p><label>Function/Policy is </label><div class="labelled"><%= @activity.existing_proposed?%></div></p>
+<p><label>Function/Policy is </label><div class="labelled"><%= @activity.existing_proposed? -%></div></p>
 <br />
 <% @activity_responses = @activity.activity_strategies.sort_by {|fr| fr.strategy.position } -%>
 <% unless @activity_responses.nil? || !(@activity_responses.length > 0) then -%>
-<h5>Which strategies does "<%=h @activity.name %> implement? </h5>
+<h5>Which strategies does "<%=h @activity.name %>" implement?</h5>
 <% strategy_hash = {} -%>
 <% @activity.hashes['choices'][3].collect{|key| strategy_hash[@activity.hashes['choices'][3].index(key)] = key} -%>
 <% @activity_responses.each do |activity_response| -%>

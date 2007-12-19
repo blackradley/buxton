@@ -12,8 +12,8 @@
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
-  		<% issues.each do |issue| -%>
-  	<li><%=h  issue.description -%></li>
+  	<% issues.each do |issue| -%>
+  	<li><%=h issue.description -%></li>
   	<% end -%>
   </ul>
   </div>
@@ -29,7 +29,7 @@
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
-  		<% issues.each do |issue| -%>
+  	<% issues.each do |issue| -%>
   	<li><%=h issue.description -%></li>
   	<% end -%>
   </ul>
@@ -46,8 +46,8 @@
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
-  		<% issues.each do |issue| -%>
-  	<li><%=h  issue.description -%></li>
+  	<% issues.each do |issue| -%>
+  	<li><%=h issue.description -%></li>
   	<% end -%>
   </ul>
   </div>
@@ -65,9 +65,7 @@
   <ul>
   	<% issues.each do |issue| -%>
   	<li><%=h issue.description -%></li>
-  	
   	<% end -%>
-  	
   </ul>
   </div>
 </p>
@@ -81,13 +79,11 @@
 <% issues = @activity.issues.reject{|issue| issue.strand != 'sexual_orientation' } -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
-    
   <ul>
   	<% issues.each do |issue| -%>
   	<li><%=h issue.description -%></li>
   	<% end -%>
   </ul>
- 
   </div>
 </p>
 
@@ -101,7 +97,7 @@
 <p><label>Please record the issues identified</label>
 <div class="issues">
 <ul>
-		<% issues.each do |issue| -%>
+	<% issues.each do |issue| -%>
 	<li><%=h issue.description -%></li>
 	<% end -%>
 </ul>
