@@ -8,9 +8,9 @@
   <tr>
     <td title="<%=h strategy.description %>" class="left"><%=h strategy.name -%></td>
     <td class="actions" nowrap>
-    <%= link_to image_tag('icons/view.jpg'), organisation_strategy_url(@organisation, strategy), :title =>"View" -%>
-    <%= link_to image_tag('icons/edit.jpg'), edit_organisation_strategy_url(@organisation, strategy), :title =>"Edit" -%>
-    <%= link_to image_tag('icons/delete.png'), organisation_strategy_url(@organisation, strategy), :confirm => "Delete #{strategy.name}?", :method => :delete, :title =>"Delete" -%></td>
+    <%= link_to image_tag('icons/view.gif'), organisation_strategy_url(@organisation, strategy), :title =>"View" -%>
+    <%= link_to image_tag('icons/edit.gif'), edit_organisation_strategy_url(@organisation, strategy), :title =>"Edit" -%>
+    <%= link_to image_tag('icons/delete.gif'), organisation_strategy_url(@organisation, strategy), :confirm => "Delete #{strategy.name}?", :method => :delete, :title =>"Delete" -%></td>
   </tr>
   <% end -%>
 </table>
