@@ -63,7 +63,8 @@ class ActivitiesController < ApplicationController
     @activity = Activity.new(params[:activity])
     @activity_manager = @activity.build_activity_manager(params[:activity_manager])
     @activity_manager.passkey = ActivityManager.generate_passkey(@activity_manager)
-
+    @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] }
+    
     Activity.transaction do
       @activity.save!
       flash[:notice] = "#{@activity.name} was created."
