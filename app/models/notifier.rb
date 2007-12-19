@@ -21,27 +21,27 @@ class Notifier < ActionMailer::Base
   FROM = 'equality_support@blackradley.com'
 
   # A new key for the system administrator
-  def administration_key(user, request)
+  def administration_key(user, login_url)
     @subject      = 'New Administration Key'
-    email_details(user, request)
+    email_details(user, login_url)
   end
 
   # A new key for the organisation administrator
-  def organisation_key(user, request)
+  def organisation_key(user, login_url)
     @subject      = 'Impact Engine Demonstration Version 2.1'
-    email_details(user, request)
+    email_details(user, login_url)
   end
 
   # Request a new key for the activity manager
-  def activity_key(user, request)
+  def activity_key(user, login_url)
     @subject      = 'New Activity Key for ' + user.activity.name
-    email_details(user, request)
+    email_details(user, login_url)
   end
 
 # Set the bits and pieces in the email
 private
-  def email_details(user, request)
-    @body         = {"user" => user, "request" => request}
+  def email_details(user, login_url)
+    @body         = {"user" => user, "login_url" => login_url}
     @recipients   = user.email
     @from         = FROM
     @sent_on      = Time.now.gmtime

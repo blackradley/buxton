@@ -88,17 +88,17 @@ class UsersController < ApplicationController
         @login_url = @user.url_for_login(request)
         case @user.class.name
           when 'ActivityManager'
-            email = Notifier.create_activity_key(@user, request)
+            email = Notifier.create_activity_key(@user, @login_url)
             Notifier.deliver(email)
             @user.reminded_on = Time.now.gmtime
             @user.save
            when 'OrganisationManager'
-            email = Notifier.create_organisation_key(@user, request)
+            email = Notifier.create_organisation_key(@user, @login_url)
             Notifier.deliver(email)
             @user.reminded_on = Time.now.gmtime
             @user.save
           when 'Administrator'
-            email = Notifier.create_administration_key(@user, request)
+            email = Notifier.create_administration_key(@user, @login_url)
             Notifier.deliver(email)
             @user.reminded_on = Time.now.gmtime
             @user.save
@@ -132,11 +132,11 @@ class UsersController < ApplicationController
     # Are they a activity manager?
     case @user.class.name
     when 'ActivityManager'
-      email = Notifier.create_activity_key(@user, request)
+      email = Notifier.create_activity_key(@user, @login_url)
       flash[:notice] = 'Reminder for ' + @user.activity.name + ' sent to ' + @user.email
     # Nope, are they an organisation manager?
     when 'OrganisationManager'
-      email = Notifier.create_organisation_key(@user, request)
+      email = Notifier.create_organisation_key(@user, @login_url)
       flash[:notice] = "Reminder for #{@user.organisation.name} sent to #{@user.email}"
     # Nope. Well do nothing then.
     else
