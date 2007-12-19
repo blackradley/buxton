@@ -1,6 +1,6 @@
 <div class="directorate">
 <% fields_for "organisation[directorate_attributes][]", directorate do |directorate_form|%>
-  <p>
+  
     <%= directorate_form.text_field :name, :index => nil %>
     <% if directorate.new_record? %>
       <%= link_to_function image_tag('icons/cross.gif'), "this.up( '.directorate').remove()" %>
@@ -9,6 +9,6 @@
       <%= directorate_form.hidden_field :id, :index => nil %>
       <%= directorate_form.hidden_field :should_destroy, :index => nil, :class => 'should_destroy' %>
     <% end %>
-  </p>
+  
 <% end %>
 </div>

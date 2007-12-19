@@ -31,9 +31,11 @@ function addListItem() {
 		<div id="directorates_list">
 			<%= render :partial => 'directorates/directorate', :collection => @organisation.directorates %>
 		</div>
+			<span id="add_link" style="width:auto;"><%= image_tag('icons/add.gif') %> 
 		<%= link_to_function "Add a Directorate" do |page|
 		    page.insert_html :bottom, :directorates_list, :partial => 'directorates/directorate', :object => Directorate.new
 		end %>
+		</span>
 		<div class="clear"></div>
 	</div>
 </fieldset>

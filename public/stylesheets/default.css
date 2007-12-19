@@ -961,16 +961,16 @@ fieldset#status{
 	border:0px solid red;
 	padding: 0px;
 }
-#status label{
+#status label, #new_activity label{
 	width: 100px;
 	margin: 0px;
 	float: left;
 }
-#status .labelled{
+#status .labelled, #new_activity labelled{
 	width: 180px;
 	float: left;
 }
-#status .labelled select{
+#status .labelled select, #new_activity labelled select{
 	width: 180px;
 	margin-right:0px;
 }
@@ -1026,7 +1026,7 @@ form.new_organisation .directorates .sub_button, form.edit_organisation .directo
 
 .directorates{
 	float:left;
-	width: 220px;	
+	width: 600px;	
 	margin-top: 4px;	
 	font-size: 1em;
 	margin-top:0px;
@@ -1042,6 +1042,7 @@ form.new_organisation .directorates .sub_button, form.edit_organisation .directo
 	text-align: right;
 	margin-left: 0px;
 	margin-bottom: 10px;
+	margin-top:10px;
 }
 .directorates .directorate a img{
 	float:left;
@@ -1051,9 +1052,9 @@ form.new_organisation .directorates .sub_button, form.edit_organisation .directo
 
 .directorates input{
 	float:left;
-	width:180px;
+	width:400px;
 	margin-right:5px;
-	margin-left:0px;
+	margin-left:20px;
 }
 
 .fieldWithErrors input{
@@ -1061,4 +1062,18 @@ form.new_organisation .directorates .sub_button, form.edit_organisation .directo
 	border:1px solid #C00;
 	display: inline;
 }
+#add_link{
+	float: left;
+	margin-top: 10px;
+	margin-left: 20px;
+}
 
+#add_link img{
+	margin-right:5px;
+	float: left;
+}
+
+#add_link a, #add_link a:visited, #add_link a:hover{
+	text-decoration:underline;
+	color: #515f8d;
+}
