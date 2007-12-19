@@ -13,13 +13,13 @@
 <h5>Men and Women</h5>
 <% if strand_issues = issues["gender"] -%>
 	<% strand_issues.each do |i| -%>
-  	<div id="action_planning">
+  	
   		<p><label>Description:</label> <div class="labelled"><%=h i.description -%></div></p>
   	    <p><label>Actions:</label> <div class="labelled"><%=h i.actions -%></div></p>
   	    <p><label>Timescales:</label> <div class="labelled"> <%= @activity.hashes['choices'][4][i.timescales]-%></div></p>
   	    <p><label>Resources:</label> <div class="labelled"><%=h i.resources -%></div></p>
   	    <p><label>Lead officer:</label> <div class="labelled"><%=h i.lead_officer -%></div></p>
-  	</div>
+  	
 	<% end -%>
 <% else -%>
 	<p><label>No issues.</label> <div class="labelled"></div></p>
@@ -28,13 +28,13 @@
 <h5>People from different ethnic backgrounds</h5>
 <% if strand_issues = issues["race"] -%>
 	<% strand_issues.each do |i| -%>
-  	<div id="action_planning">
+  	
   		<p><label>Description:</label> <div class="labelled"><%=h i.description -%></div></p>
   	    <p><label>Actions:</label> <div class="labelled"><%=h i.actions -%></div></p>
   	    <p><label>Timescales:</label> <div class="labelled"> <%= @activity.hashes['choices'][4][i.timescales] -%></div></p>
   	    <p><label>Resources:</label> <div class="labelled"><%=h i.resources -%></div></p>
   	    <p><label>Lead officer:</label> <div class="labelled"><%=h i.lead_officer -%></div></p>
-  	</div>
+  	
 	<% end -%>
 <% else -%>
 	<p><label>No issues.</label> <div class="labelled"></div></p>
@@ -43,13 +43,13 @@
 <h5>People with different kinds of disability</h5>
 <% if strand_issues = issues["disability"] -%>
 	<% strand_issues.each do |i| -%>
-  	<div id="action_planning">
+  
   		<p><label>Description:</label> <div class="labelled"><%=h i.description -%></div></p>
   	    <p><label>Actions:</label> <div class="labelled"><%=h i.actions -%></div></p>
   	    <p><label>Timescales:</label> <div class="labelled"> <%= @activity.hashes['choices'][4][i.timescales]-%></div></p>
   	    <p><label>Resources:</label> <div class="labelled"><%=h i.resources -%></div></p>
   	    <p><label>Lead officer:</label> <div class="labelled"><%=h i.lead_officer -%></div></p>
-  	</div>
+  	
 	<% end -%>
 <% else -%>
 	<p><label>No issues.</label> <div class="labelled"></div></p>
@@ -58,13 +58,13 @@
 <h5>People from different faith groups</h5>
 <% if strand_issues = issues["faith"] -%>
 	<% strand_issues.each do |i| -%>
-  	<div id="action_planning">
+  	
   		<p><label>Description:</label> <div class="labelled"><%=h i.description -%></div></p>
   	    <p><label>Actions:</label> <div class="labelled"><%=h i.actions -%></div></p>
   	    <p><label>Timescales:</label> <div class="labelled"> <%= @activity.hashes['choices'][4][i.timescales]-%></div></p>
   	    <p><label>Resources:</label> <div class="labelled"><%=h i.resources -%></div></p>
   	    <p><label>Lead officer:</label> <div class="labelled"><%=h i.lead_officer -%></div></p>
-  	</div>
+  
 	<% end -%>
 <% else -%>
 	<p><label>No issues.</label> <div class="labelled"></div></p>
@@ -73,13 +73,13 @@
 <h5>People of different sexual orientations</h5>
 <% if strand_issues = issues["sexual_orientation"] -%>
 	<% strand_issues.each do |i| -%>
-  	<div id="action_planning">
+  
   		<p><label>Description:</label> <div class="labelled"><%=h i.description -%></div></p>
   	    <p><label>Actions:</label> <div class="labelled"><%=h i.actions -%></div></p>
   	    <p><label>Timescales:</label> <div class="labelled"> <%= @activity.hashes['choices'][4][i.timescales]-%></div></p>
   	    <p><label>Resources:</label> <div class="labelled"><%=h i.resources -%></div></p>
   	    <p><label>Lead officer:</label> <div class="labelled"><%=h i.lead_officer -%></div></p>
-  	</div>
+  
 	<% end -%>
 <% else -%>
 	<p><label>No issues.</label> <div class="labelled"></div></p>
@@ -88,13 +88,13 @@
 <h5>People of different ages</h5>
 <% if strand_issues = issues["age"] -%>
 	<% strand_issues.each do |i| -%>
-  	<div id="action_planning">
+  	
   		<p><label>Description:</label> <div class="labelled"><%=h i.description -%></div></p>
   	    <p><label>Actions:</label> <div class="labelled"><%=h i.actions -%></div></p>
   	    <p><label>Timescales:</label> <div class="labelled"> <%= @activity.hashes['choices'][4][i.timescales]-%></div></p>
   	    <p><label>Resources:</label> <div class="labelled"><%=h i.resources -%></div></p>
   	    <p><label>Lead officer:</label> <div class="labelled"><%=h i.lead_officer -%></div></p>
-  	</div>
+  
 	<% end -%>
 <% else -%>
 	<p><label>No issues.</label> <div class="labelled"></div></p>
