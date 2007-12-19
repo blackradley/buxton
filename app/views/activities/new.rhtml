@@ -1,6 +1,6 @@
 <h2>New activity</h2>
 
-<% form_for :activity, :url => { action => 'create'} do |f| %>
+<% form_for :activity, :url => { :action => 'create'} do |f| %>
   <%= render :partial => 'contact', :locals => { :f => f } -%>
   <span class="button">
   <%= submit_tag "Create" %>
