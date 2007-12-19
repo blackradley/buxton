@@ -54,7 +54,7 @@ class ActivitiesController < ApplicationController
   def new
     @activity = Activity.new
     @activity_manager = @activity.build_activity_manager
-    @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] }
+    @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] }
   end
 
   # Create a new activity and a new user based on the parameters in the form data.
