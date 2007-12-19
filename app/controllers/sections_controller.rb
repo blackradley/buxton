@@ -141,8 +141,6 @@ class SectionsController < ApplicationController
       render :template => 'sections/edit_consultation'
     when 'additional_work'
       render :template => 'sections/edit_additional_work'
-    when 'action_planning'
-      render :template => 'sections/edit_action_planning'
     else
       # throw error
       raise ActiveRecord::RecordNotFound
