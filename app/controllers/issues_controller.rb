@@ -35,12 +35,17 @@ class IssuesController < ApplicationController
   def update
     # Loop through all the issues, given to us after auto-indexing the form data
     # (see: http://www.railsforum.com/viewtopic.php?pid=42791)
-    params[:issue_attributes].each do |id, data|
+    params[:issue].each do |id, data|
       issue = Issue.find(id)
-      issue.update_attributes(data)
+      issue.update_attributes!(data)
     end
     flash[:notice] =  "Action Planning was successfully updated."
     redirect_to :back
+    
+  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+    flash[:notice] =  "Could not update the activity."
+    @equality_strand = params[:equality_strand]
+    render :template => 'sections/edit_action_planning'    
   end
   
   # Destroy an issue and reply with the appropriate RJS
