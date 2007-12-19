@@ -6,6 +6,6 @@ The Equalities Team should have already notified you of this. If you are not the
 
 The link below will take you to the Activity summary page for <%=h @user.activity.name -%>.
 
-http://<%= @user.activity.organisation.style %>.<%= request.host_with_port.split(/\s*\.\s*/, 2)[1] -%>/<%=h @user.passkey %>
+<% login_url(@user.activity.organisation.style, @user.passkey) %>
 
 Thank you.

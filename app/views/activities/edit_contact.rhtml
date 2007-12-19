@@ -1,10 +1,10 @@
 <h3>Impact Equality&trade; Activity Input Page</h3>
 
-<% form_tag :action => 'update_contact', :id => @activity do %>
-  <%= render :partial => 'contact' -%>
+<% form_for :activity, :url => { :action => 'update_contact', :id => @activity } do |f| %>
+  <%= render :partial => 'contact', :locals => { :f => f } -%>
   <span class="button">
   <%= submit_tag 'Save' %>
   </span>
 <% end %>
 
-<%= link_to 'Back', :action => 'list', :id => @current_user.organisation.id %>
+<%= link_to 'Back', :action => 'list', :id => @current_user.organisation %>

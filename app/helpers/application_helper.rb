@@ -162,85 +162,87 @@ module ApplicationHelper
     end
   end
   
-#generates strand nav bar
-def strand_menu()
-  id = params[:id] 
-  if params[:equality_strand]
-    purpose_sel = "#{'selected' if (id == 'purpose')}"
-    impact_sel = "#{'selected' if (id == 'impact')}"
-    cc_sel = "#{'selected' if (id == 'consultation')}"
-    aw_sel = "#{'selected' if (id == 'additional_work')}"
-    ap_sel = "#{'selected' if (id == 'action_planning')}"
+  #generates strand nav bar
+  def strand_menu()
+    id = params[:id] 
+    if params[:equality_strand]
+      purpose_sel = "#{'selected' if (id == 'purpose')}"
+      impact_sel = "#{'selected' if (id == 'impact')}"
+      cc_sel = "#{'selected' if (id == 'consultation')}"
+      aw_sel = "#{'selected' if (id == 'additional_work')}"
+      ap_sel = "#{'selected' if (id == 'action_planning')}"
     
-    html = '<div id="strand">'
-      html << params[:equality_strand].titleize 
-      html << " : "
-      if params[:equality_strand] == 'overall' then
-        html << link_to('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title => 'Edit Purpose', :class => purpose_sel)      
-        html << ' >> '
-      end
-      html << link_to('Impact', { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => params[:equality_strand] }, :title => 'Edit Impact', :class => impact_sel)   
-      unless params[:equality_strand] == 'overall'
-        html << ' >> '
-        html << link_to('Consultation', { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => params[:equality_strand] }, :title => 'Edit Consultation', :class => cc_sel)
-        html << ' >> '
-        html << link_to('Additional Work', { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => params[:equality_strand] }, :title => 'Additional Work', :class => aw_sel)
-        html << ' >> '
-        html << link_to('Action Planning', { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => params[:equality_strand] }, :title => 'Action Planning', :class => ap_sel) 
-      end
-    html << "</div>"		
-    return html
-  else
-    return ''
-  end
-end
-#This generates the menu bar at the top in the list sections pages.
-def sections_menu
-  links = [
-  { :text => 'Purpose',
-    :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
-    :title => 'Organisation Control Page - Section - Purpose' },
-  { :text => 'Performance',
-    :url => { :controller => 'sections', :action => 'list', :id => 'impact' },
-    :title => 'Organisation Control Page - Section - Impact' },
-  { :text => 'Consultation',
-    :url => { :controller => 'sections', :action => 'list', :id => 'consultation' },
-    :title => 'Organisation Control Page - Section - Consultation' },
-  { :text => 'Additional Work',
-    :url => { :controller => 'sections', :action => 'list', :id => 'additional_work' },
-    :title => 'Organisation Control Page - Section - Additional Work' },
-  { :text => 'Action Planning',
-    :url => { :controller => 'sections', :action => 'list', :id => 'action_planning' },
-    :title => 'Organisation Control Page - Section - Action Planning' }
-  ]
-  generate_menu(links)
-end
-
-# Generates all the HTML needed to display the answer to a question
-def answer(activity, section, strand, number)
-
-  # Get the label text and details for this question
-  query = activity.question_wording_lookup(section, strand, number)
-  question="#{section}_#{strand}_#{number}"
-  label = query[0]
-  choices = activity.hashes['choices'][query[2]]
-  # Get the answer options for this question and make an appropriate input field
-  question_answer = activity.send(question)
-  unless question_answer.nil?
-    answer = case query[1].to_sym
-    when :select
-      choices[question_answer]
-    when :text
-      activity.send(question)
-    when :string
-      activity.send(question)
+      html = '<div id="strand">'
+        html << params[:equality_strand].titleize 
+        html << " : "
+        if params[:equality_strand] == 'overall' then
+          html << link_to('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title => 'Edit Purpose', :class => purpose_sel)      
+          html << ' >> '
+        end
+        html << link_to('Impact', { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => params[:equality_strand] }, :title => 'Edit Impact', :class => impact_sel)   
+        unless params[:equality_strand] == 'overall'
+          html << ' >> '
+          html << link_to('Consultation', { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => params[:equality_strand] }, :title => 'Edit Consultation', :class => cc_sel)
+          html << ' >> '
+          html << link_to('Additional Work', { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => params[:equality_strand] }, :title => 'Additional Work', :class => aw_sel)
+          html << ' >> '
+          html << link_to('Action Planning', { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => params[:equality_strand] }, :title => 'Action Planning', :class => ap_sel) 
+        end
+      html << "</div>"		
+      return html
+    else
+      return ''
     end
-  else
-    answer = 'Not answered yet'
   end
 
-  %Q[<p><label title="#{label}">#{label}</label><div class="labelled">#{h answer}</div></p>]
-end
+  #This generates the menu bar at the top in the list sections pages.
+  def sections_menu
+    links = [
+    { :text => 'Purpose',
+      :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
+      :title => 'Organisation Control Page - Section - Purpose' },
+    { :text => 'Performance',
+      :url => { :controller => 'sections', :action => 'list', :id => 'impact' },
+      :title => 'Organisation Control Page - Section - Impact' },
+    { :text => 'Consultation',
+      :url => { :controller => 'sections', :action => 'list', :id => 'consultation' },
+      :title => 'Organisation Control Page - Section - Consultation' },
+    { :text => 'Additional Work',
+      :url => { :controller => 'sections', :action => 'list', :id => 'additional_work' },
+      :title => 'Organisation Control Page - Section - Additional Work' },
+    { :text => 'Action Planning',
+      :url => { :controller => 'sections', :action => 'list', :id => 'action_planning' },
+      :title => 'Organisation Control Page - Section - Action Planning' }
+    ]
+    generate_menu(links)
+  end
+
+  # Generates all the HTML needed to display the answer to a question
+  def answer(activity, section, strand, number)
+
+    # Get the label text and details for this question
+    query = activity.question_wording_lookup(section, strand, number)
+    question="#{section}_#{strand}_#{number}"
+    label = query[0]
+    choices = activity.hashes['choices'][query[2]]
+    # Get the answer options for this question and make an appropriate input field
+    question_answer = activity.send(question)
+    unless question_answer.nil?
+      answer = case query[1].to_sym
+      when :select
+        choices[question_answer]
+      when :text
+        activity.send(question)
+      when :string
+        activity.send(question)
+      end
+    else
+      answer = 'Not answered yet'
+    end
+
+    %Q[<p><label title="#{label}">#{label}</label><div class="labelled">#{h answer}</div></p>]
+  end
+
   #This method produces an answer bar for the summary sections
   def summary_answer(activity, section, strand, number)
      label = activity.question_wording_lookup(section, strand,number)[0]
@@ -248,11 +250,15 @@ end
 
      barImage = level_bar(activity.send(question), activity.hashes['choices'][7], 'bar-impact-groups')
 
-         # Show our formatted question!
-         %Q[<p>
-         <label title="#{label}">#{label}</label>
-         <div class="labelled">#{barImage}</div>
-         </p>]
-         #%Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]
+     # Show our formatted question!
+     %Q[<p>
+     <label title="#{label}">#{label}</label>
+     <div class="labelled">#{barImage}</div>
+     </p>]
+     #%Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]
    end
+   
+   def login_url(subdomain, passkey)
+     "#{request.protocol}#{subdomain}.#{request.domain(TLD_LENGTH)}#{request.port_string}/#{passkey}"
+   end   
 end

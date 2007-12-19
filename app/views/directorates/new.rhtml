@@ -7,4 +7,4 @@
   </span>
 <% end %>
 
-<%= link_to 'Back', :action => 'list', :id => @current_user.organisation.id, :controller => 'organisations' %>
+<%= link_to 'Back', :controller => 'organisations', :id => @current_user.organisation %>

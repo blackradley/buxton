@@ -1,12 +1,14 @@
 <%= error_messages_for 'activity_manager' %>
 <%= error_messages_for 'activity' %>
 
+<% fields_for :activity_manager do |am| %>
 <p><label for="activity_manager_email">Email</label><br />
-<div class = 'labelled'><%= text_field 'activity_manager', 'email', 'size' => 50 -%></div></p>
+<div class = 'labelled'><%= am.text_field :email, 'size' => 50 -%></div></p>
+<% end %>
 
 <p><label for="activity_name">Name</label><br />
-<div class = 'labelled'><%= text_field 'activity', 'name', 'size' => 50 -%></div></p>
+<div class = 'labelled'><%= f.text_field :name, 'size' => 50 -%></div></p>
 
 <p><label for="directorate_id">Directorate</label><br />
-<div class = 'labelled'><%= select('activity', 'directorate_id', @directorates) -%><div>
+<div class = 'labelled'><%= f.select(:directorate_id, @directorates) -%><div>
 </p>
