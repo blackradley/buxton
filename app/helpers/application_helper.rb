@@ -258,7 +258,15 @@ module ApplicationHelper
      #%Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]
    end
    
+   # Generate a login URL for a given subdomain and passkey
    def login_url(subdomain, passkey)
-     "#{request.protocol}#{subdomain}.#{request.domain(TLD_LENGTH)}#{request.port_string}/#{passkey}"
-   end   
+     domain = request.domain(TLD_LENGTH)
+
+     # unfortunately needed until we set up wildcard DNS on staging/dev server
+     if domain == 'buxton.test.27stars.co.uk' || domain == 'localhost'
+       "#{request.protocol}#{domain}#{request.port_string}/#{passkey}"
+     else
+       "#{request.protocol}#{subdomain}.#{domain}#{request.port_string}/#{passkey}"
+     end
+   end
 end
