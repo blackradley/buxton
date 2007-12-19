@@ -48,10 +48,8 @@
 	
 	
 	<div class="clear"></div>
-	<% fields_for "section" do |s| %>
-		<%= hidden_field_tag 'id', @id %>
-		<%= hidden_field_tag 'equality_strand', @equality_strand %>
-	<% end %>	
+	<%= hidden_field_tag 'id', @id %>
+	<%= hidden_field_tag 'equality_strand', @equality_strand %>
 	<span class="button"><%= submit_tag 'Save' %></span>
 	<div class="clear"></div>
 <% end -%>
