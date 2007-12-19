@@ -16,34 +16,29 @@
 # context about the incoming request.  So the request is passed in explicitly
 # to each of the methods.
 class Notifier < ActionMailer::Base
-#
-# Constant for the origin of all the emails.
-#
+    
+  # Constant for the origin of all the emails.
   FROM = 'equality_support@blackradley.com'
-#
-# A new key for the system administrator
-#
+
+  # A new key for the system administrator
   def administration_key(user, request)
     @subject      = 'New Administration Key'
     email_details(user, request)
   end
-#
-# A new key for the organisation administrator
-#
+
+  # A new key for the organisation administrator
   def organisation_key(user, request)
     @subject      = 'Impact Engine Demonstration Version 2.1'
     email_details(user, request)
   end
-#
-# Request a new key for the activity manager
-#
+
+  # Request a new key for the activity manager
   def activity_key(user, request)
     @subject      = 'New Activity Key for ' + user.activity.name
     email_details(user, request)
   end
-#
+
 # Set the bits and pieces in the email
-#
 private
   def email_details(user, request)
     @body         = {"user" => user, "request" => request}
