@@ -803,19 +803,20 @@ p #summarytable{
 	padding: 0px 5px;
 	background-color:#fff;
 	text-align:right;
-	line-height:22px;
+	line-height:18px;
 }
 
 .summary fieldset.section_summary_header legend.section_summary_toggles{
-	width: 80px;
+	width: 90px;
 } 
 
 .summary fieldset.section_summary_show legend.section_summary_toggles{
-	width: 40px;
+	width: 50px;
 }
 
 .summary fieldset.section_summary_header legend.section_summary_toggles img, .summary fieldset.section_summary_show legend.section_summary_toggles img{
 	margin-left:5px;
+	margin-top:2px;
 	float: right;
 }
 

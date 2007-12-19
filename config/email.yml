@@ -5,6 +5,13 @@ development:
   authentication: login
   username: Iain_Wilkinson@blackradley.com
   password: callustu
+staging:
+  server: mail.protectedservice.net
+  port: 25
+  domain: www.blackradley.com
+  authentication: login
+  username: Iain_Wilkinson@blackradley.com
+  password: callustu  
 production:
   server: mail.protectedservice.net
   port: 25
