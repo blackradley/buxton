@@ -233,12 +233,12 @@ end
 describe ActivitiesController, "handling POST /activities/update" do
 
   before(:each) do
-    # Authenticate
-    login_as :activity_manager
-    @activity = @current_user.activity
     set_referrer('/') # this isn't a legitimate source but I don't
                       # know the syntax needed here and it's not checked
                       # against. It just needs something.
+    # Authenticate
+    login_as :activity_manager
+    @activity = @current_user.activity
   end
 
   it "should redirect to 'activities/list' with a valid activity" do

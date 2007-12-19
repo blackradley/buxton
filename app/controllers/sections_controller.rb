@@ -1,4 +1,4 @@
-#  
+#
 # $URL$
 # $Rev$
 # $Author$
@@ -79,14 +79,14 @@ class SectionsController < ApplicationController
     @activity = @current_user.activity
     @activity_manager = @activity.activity_manager
     
-    @equality_strand = ''    
+    @equality_strand = ''
     valid_equality_strands = ['overall','gender','race','sexual_orientation','disability','faith','age']
     if valid_equality_strands.include? params[:equality_strand]
       @equality_strand = params[:equality_strand]
+      @id = params[:id]
     else
       # throw error
-      render :inline => 'Invalid section.'
-      return
+      raise RecordNotFound
     end
     
     case params[:id]
@@ -96,15 +96,14 @@ class SectionsController < ApplicationController
     when 'impact'
       render :template => 'sections/edit_impact'
     when 'consultation'
-      @issue = Issue.new
       render :template => 'sections/edit_consultation'
     when 'additional_work'
       render :template => 'sections/edit_additional_work'
     when 'action_planning'
       render :template => 'sections/edit_action_planning'
     else
-      # K: TODO: catch this - we shouldn't ever be here
-      render :inline => 'Invalid section.'
+      # throw error
+      raise ActiveRecord::RecordNotFound
     end
   end
 
@@ -129,7 +128,25 @@ class SectionsController < ApplicationController
     
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     flash[:notice] =  "Could not update the activity."
-    # TODO: re-render the show template and update the spec to be more accurate
+    @equality_strand = params[:equality_strand]
+    @id = params[:id]    
+    
+    case @id
+    when 'purpose'
+      @activity_responses = @activity.activity_strategies.sort_by {|fr| fr.strategy.position } # sort by position
+      render :template => 'sections/edit_purpose'
+    when 'impact'
+      render :template => 'sections/edit_impact'
+    when 'consultation'
+      render :template => 'sections/edit_consultation'
+    when 'additional_work'
+      render :template => 'sections/edit_additional_work'
+    when 'action_planning'
+      render :template => 'sections/edit_action_planning'
+    else
+      # throw error
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
 protected

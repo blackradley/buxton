@@ -155,24 +155,26 @@ describe StrategiesController, 'handling GET /strategies/new/:id' do
 
 end
 
-describe StrategiesController, 'handling POST /strategies/create' do
+describe StrategiesController, 'handling POST /organisations/:organisatrion_id/strategies' do
   
   before(:each) do
     # Prep data
-    @organisation = mock_model(Organisation)
+    @organisation = mock_model(Organisation, :null_object => true)
     @strategy = mock_model(Strategy, {  :null_object => true,
                                         :new_record? => true,
                                         :organisation => @organisation
                                         })
-    Strategy.stub!(:new).and_return(@strategy)
+    Organisation.stub!(:find).and_return(@organisation)                                        
+    @organisation.strategies.stub!(:build).and_return(@strategy)
+
     # Authenticate
     login_as :administrator
   end
 
-  it "should redirect to 'strategies/list/:id' with a valid strategy" do
+  it "should redirect to 'organisations/:organisation_id/strategies/:id' with a valid strategy" do
     @strategy.stub!(:save!).and_return(nil)
-    post :create
-    response.should redirect_to(:action => 'list', :id => @organisation.id)
+    post :create, :organisation_id => @organisation
+    response.should redirect_to(organisation_strategies_url(@organisation))
   end
 
   it "should assign a flash message with a valid strategy"
@@ -181,7 +183,7 @@ describe StrategiesController, 'handling POST /strategies/create' do
     @exception = ActiveRecord::RecordNotSaved.new
     @exception.stub!(:record).and_return(@strategy)
     @strategy.stub!(:save!).and_raise(@exception)
-    post :create
+    post :create, :organisation_id => @organisation
     response.should render_template(:new)
   end
   
@@ -189,9 +191,11 @@ describe StrategiesController, 'handling POST /strategies/create' do
 
 end
 
-describe StrategiesController, 'handling GET /strategies/edit/:id' do
+describe StrategiesController, 'handling GET /organisations/:organisation_id/strategies/:id/edit' do
 
   before(:each) do
+    @organisation = mock_model(Organisation, :null_object => true)
+    Organisation.stub!(:find).and_return(@organisation)
     login_as :administrator
   end  
 
@@ -200,27 +204,30 @@ describe StrategiesController, 'handling GET /strategies/edit/:id' do
   it "should render 404 file when given an invalid ID" do
     @exception = ActiveRecord::RecordNotFound.new
     @organisation.strategies.stub!(:find).and_raise(@exception)
-    get edit_organisation_strategy_url(1, 'broken')
+    get :edit, :organisation_id => @organisation, :id => 'broken'
     response.should render_template("#{RAILS_ROOT}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
 end
 
-describe StrategiesController, 'handling POST /strategies/update/:id' do
+describe StrategiesController, 'handling PUT /organisations/:organisation_id/strategies/:id' do
 
   before(:each) do
     # Prep data
     @strategy = mock_model(Strategy, :null_object => true)
-    Strategy.stub!(:find).and_return(@strategy)    
+    @organisation = mock_model(Organisation, :null_object => true)
+    Organisation.stub!(:find).and_return(@organisation)
+    @organisation.strategies.stub!(:find).and_return(@strategy)
+
     # Authenticate
     login_as :administrator
   end
 
-  it "should redirect to 'strategy/show/:id' with a valid strategy" do
+  it "should redirect to '/organisations/:organisation_id/strategies/:id' with a valid strategy" do
     @strategy.stub!(:update_attributes!).and_return(nil)
-    post :update
-    response.should redirect_to(:action => 'show', :id => @strategy.id)
+    put :update, :organisation_id => @organisation, :id => @strategy
+    response.should redirect_to(organisation_strategy_url(@organisation, @strategy))
   end
 
   it "should assign a flash message with a valid strategy"
@@ -229,7 +236,7 @@ describe StrategiesController, 'handling POST /strategies/update/:id' do
     @exception = ActiveRecord::RecordNotSaved.new
     @exception.stub!(:record).and_return(@strategy)
     @strategy.stub!(:update_attributes!).and_raise(@exception)
-    post :update
+    put :update, :organisation_id => @organisation, :id => @strategy
     response.should render_template(:edit)
   end
 
@@ -237,37 +244,41 @@ describe StrategiesController, 'handling POST /strategies/update/:id' do
 
   it "should render 404 file when given an invalid ID" do
     @exception = ActiveRecord::RecordNotFound.new
-    Strategy.stub!(:find).and_raise(@exception)
-    post :update, :id => 'broken'
+    @organisation.strategies.stub!(:find).and_raise(@exception)
+    put :update, :organisation_id => @organisation, :id => @strategy
     response.should render_template("#{RAILS_ROOT}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
 end
 
-describe StrategiesController, 'handling POST /strategies/destroy/:id' do
+describe StrategiesController, 'handling DELETE /organisations/:organisation_id/strategies/:id' do
   
   before(:each) do
-    @strategy = mock_model(Strategy)
-    Strategy.stub!(:find).and_return(@strategy)
+    @strategy = mock_model(Strategy)    
     @strategy.stub!(:destroy).and_return(true)
+    
+    @organisation = mock_model(Organisation, :null_object => true)
+    Organisation.stub!(:find).and_return(@organisation)
+    @organisation.strategies.stub!(:find).and_return(@strategy)
+
     login_as :administrator
   end
   
   it "should be successful" do
-    post :destroy, :id => @strategy.id
+    delete :destroy, :organisation_id => @organisation, :id => @strategy
     response.should be_redirect
   end
   
   it "should destroy the strategy" do
     @strategy.should_receive(:destroy)
-    post :destroy, :id => @strategy.id
+    delete :destroy, :organisation_id => @organisation, :id => @strategy
   end
   
   it "should render 404 file when given an invalid ID" do
     @exception = ActiveRecord::RecordNotFound.new
-    Strategy.stub!(:find).and_raise(@exception)
-    post :destroy, :id => 'broken'
+    @organisation.strategies.stub!(:find).and_raise(@exception)
+    delete :destroy, :organisation_id => @organisation, :id => 'broken'
     response.should render_template("#{RAILS_ROOT}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
