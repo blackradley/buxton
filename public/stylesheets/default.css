@@ -1025,14 +1025,14 @@ form.new_organisation .directorates .sub_button, form.edit_organisation .directo
 /*directorates*/
 
 .directorates{
-	float:right;
+	float:left;
 	width: 220px;	
 	margin-top: 4px;	
 	font-size: 1em;
-	margin-top:-43px;
+	margin-top:0px;
 	 margin-bottom:20px;
 	 text-align:left;
-	margin-right: 23px;
+	margin-right: 0px;
 }
 
 .directorates .directorate{
