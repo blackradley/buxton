@@ -344,7 +344,8 @@ describe ActivitiesController, "handling POST /activities/update_contact/:id" do
   end
 
   it "should redirect to 'activities/list' with a valid activity" do
-    @activity.stub!(:update_attributes!).and_return(nil)
+    @activity.stub!(:valid?).and_return(true)
+    @activity.activity_manager.stub!(:valid?).and_return(true)
     post :update_contact
     response.should redirect_to(:action => 'list')
   end
@@ -352,9 +353,8 @@ describe ActivitiesController, "handling POST /activities/update_contact/:id" do
   it "should assign a flash message with a valid activity"
   
   it "should re-render 'activities/edit_contact' with an invalid activity" do
-    @exception = ActiveRecord::RecordNotSaved.new
-    @exception.stub!(:record).and_return(@activity)
-    @activity.stub!(:update_attributes!).and_raise(@exception)
+    @activity.stub!(:valid?).and_return(false)
+    @activity.activity_manager.stub!(:valid?).and_return(false)
     post :update_contact
     response.should render_template(:edit_contact)
   end
