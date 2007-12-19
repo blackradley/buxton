@@ -79,7 +79,7 @@
 
 <div id="show_consultation" <%= %Q[style="display:none;"] unless @print_only -%>>
 	<fieldset class="section_summary_show">
-		<legend>Confidence Consultation</legend>
+		<legend>Consultation</legend>
 		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_consultation'); Element.toggle('consultation_top')", :title => 'Close Summary View' -%></legend>
 		<%= render 'sections/show_consultation' -%>	
 	</fieldset>
