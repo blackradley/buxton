@@ -110,6 +110,10 @@ class SectionsController < ApplicationController
   # Update the activity answers, for this particular section, as appropriate
   # Available to: Activity Manager
   def update
+    #removes all blank elements from the array that were not there previously (ie those without id's)
+    params[:activity][:issue_attributes].reject!{|i| i['description'].blank? && i['id'].nil? }
+    #marks all previously existing issues that had their description field blanked for destruction
+    params[:activity][:issue_attributes].each{|i| i['issue_destroy'] = 1 if i['description'].blank?}
     # Update the answers in the activity table
     @activity = @current_user.activity
     @activity.update_attributes!(params[:activity])
