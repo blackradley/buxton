@@ -1,15 +1,17 @@
 <div id="show">
 <p><label>Function/Policy is </label><div class="labelled"><%= @activity.existing_proposed? -%></div></p>
 <br />
-<% @activity_responses = @activity.activity_strategies.sort_by {|fr| fr.strategy.position } -%>
-<% unless @activity_responses.nil? || !(@activity_responses.length > 0) then -%>
+
 <h5><%=h @activity.header(:purpose_overall_1) -%></h5>
-<% strategy_hash = {} -%>
-<% @activity.hashes['choices'][3].collect{|key| strategy_hash[@activity.hashes['choices'][3].index(key)] = key} -%>
-<% @activity_responses.each do |activity_response| -%>
-	<p><label><%= activity_response.strategy.position + 1 -%>: <%= activity_response.strategy.name -%></label><div class="labelled"><%= strategy_hash[activity_response.strategy_response] -%></div></p>
-<% end -%>
-<% end -%>
+<% @strategies.each do |strategy| %>
+	<p><label><%=h strategy.name -%></label><div class="labelled">
+	<% if as = @activity_strategies.find_by_strategy_id(strategy) then
+		answer = as.strategy_response.to_i
+	else
+		answer = 0
+	end %>
+	<%= @activity.hashes['choices'][3][answer] %></div></p>
+<% end %>
 
 <h5><%=h @activity.header(:purpose_overall_2) -%></h5>
 <%= answer(@activity, :purpose, :overall, 5) %>
