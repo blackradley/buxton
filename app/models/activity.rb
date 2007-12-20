@@ -57,6 +57,15 @@ class Activity < ActiveRecord::Base
     end
   end
 
+  def header(header_placing)
+    fun_pol = self.function_policy
+    fun_pol -= 1
+    fun_pol = 0 if fun_pol == -1
+    exist_prop = self.existing_proposed
+    exist_prop -= 1
+    exist_prop = 0 if exist_prop == -1
+    return hashes['headers'][header_placing.to_s][fun_pol][exist_prop]
+  end
   def existing_proposed?
     hashes['choices'][8][self.existing_proposed.to_i]
   end

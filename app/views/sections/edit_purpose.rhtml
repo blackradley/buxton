@@ -10,7 +10,7 @@
 
 	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 2, :f_id => @activity.id} %>
 	<% unless @activity_responses.nil? || !(@activity_responses.length > 0) then -%>
-	<h4>For each strategy, please decide whether it is going to be significantly aided by the activity:</h4>
+	<h4><%=h @activity.header(:purpose_overall_1) -%></h4>
 	<% yes_no = @activity.hashes['choices'][3] -%>
 	<% @activity_responses.each do |activity_strategy| -%>
 		<% if activity_strategy then response = activity_strategy.strategy_response else response = 0 end -%>
@@ -22,7 +22,7 @@
 	<% end -%>
 	<% end -%>
 
-	<h4>Which of these groups are you having an impact on? <a href="#" onclick="Element.toggle('impact_groups_help'); return false;"><img alt="Help" src="/images/icons/help.gif" /></a></h4>
+	<h4><%=h @activity.header(:purpose_overall_2) -%><a href="#" onclick="Element.toggle('impact_groups_help'); return false;"><img alt="Help" src="/images/icons/help.gif" /></a></h4>
 	<span id="impact_groups_help" class="toggleHelp" style="display:none;">It is likely that the Function will have an impact on some individuals.  Functions may be external and affect the users of the Council services or internal and only affect staff employed by the Council. Of course staff of the Council are also probably users of Council services in their own right. The question asks you to identify which particular groups of individuals the Function affects.
 	<br /><br />The question also asks you to estimate the approximate proportion each group of individuals the Function has an impact on. It is quite clearly an estimate which by their very nature are not right, they just give an idea of the relative scale.</span>
 	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 5, :f_id => @activity.id} %>
