@@ -17,8 +17,8 @@ class OrganisationPDF < Ruport::Formatter::PDF
       pdf_writer.image( "#{RAILS_ROOT}/public/images/pdf_logo.png", :justification => :center)
       pdf_writer.add_text_wrap(left_boundary, pdf_writer.absolute_y_middle, right-left,  "<b>#{data[0]}</b>", 37, :center)
       3.times{add_text " "}
-      pdf_writer.text "Impact Equality#{163.chr} Organisation Report", :justification => :center, :font_size => 19
-      #pdf_writer.start_new_page(true)
+      pdf_writer.text "Impact Equality#{153.chr} Organisation Report", :justification => :center, :font_size => 19
+      pdf_writer.start_new_page(true)
     end
   end
   
@@ -33,7 +33,7 @@ class OrganisationPDF < Ruport::Formatter::PDF
     pdf_writer.fill_color Color::RGB.const_get('Black')
     pdf_writer.image( "#{RAILS_ROOT}/public/images/pdf_logo.png", :justification => :center, :resize => 0.6)
     pdf_writer.text "<b>#{data[0]}</b>", :justification => :center, :font_size => 19
-    pdf_writer.text "Impact Equality#{163.chr} Organisation Summary Report", :justification => :center, :font_size => 12
+    pdf_writer.text "Impact Equality#{153.chr} Organisation Summary Report", :justification => :center, :font_size => 12
     pdf_writer.text "" #Serves as a new line character. Is this more readable than moving the cursor manually?
     add_text " "
     add_text " "
@@ -73,6 +73,7 @@ class OrganisationPDF < Ruport::Formatter::PDF
     end
     draw_table(table, :position=> :left, :orientation => 2)
     add_text " "
+    pdf_writer.start_new_page
   end
   
   def build_full_report
@@ -82,13 +83,28 @@ class OrganisationPDF < Ruport::Formatter::PDF
       data[9].each do |directorate|
         directorate_page_count << [pdf_writer.pageset.index(pdf_writer.current_page) + 1, directorate]
         directorate.activities.each do |activity|
-          pdf_writer.start_new_page(true)
           pdf_writer.set_proxy([])
           data_for = activity.generate_pdf_data
           data_for[11] = [:unapproved_logo_on_first_page, :header, :body, :statistics, :issues]
           ActivityPDFRenderer.render_pdf(:data => data_for)
-          pdf_writer.open_object do |activity_object|
-            
+          separated = [[]]
+          index = 0
+          results = pdf_writer.get_proxy
+          results.each do |result|
+            unless result == :new_page then
+              separated[index] << result
+            else
+              index += 1
+              separated[index] = []
+            end
+          end
+          separated.each do |page|
+            pdf_writer.open_object do |page_object|
+              page.each{|element| page_object << element}
+              pdf_writer.close_object
+              pdf_writer.add_object(page_object)
+            end
+            pdf_writer.start_new_page
           end
         end
       end
