@@ -6,19 +6,19 @@
 <h4><%=h directorate.name -%></h4>
 <table class="list">
   <tr>
-    <th class="left">Name</th>
+    <th class="left" style="width:150px;">Name</th>
     <th>Completed</th>
     <th>Relevant</th>
     <th>Impact</th>
     <th>Priority</th>
     <th>Approved</th>
     <th>Approver</th>
-    <th>Last key sent</th>
+    <th>Last&nbsp;key sent</th>
     <th></th>
   </tr>
   <% for activity in directorate.activities -%>
   <tr>
-    <td class="left"><%=h activity.name -%></td>
+    <td class="left" style="width:150px;"><%=h activity.name -%></td>
     <td><%= completed_tag(activity) -%></td>
     <td><%= relevance_tag(activity) -%></td>
     <td><%= impact_tag(activity) -%></td>
