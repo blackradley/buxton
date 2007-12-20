@@ -1,4 +1,7 @@
 <h2>Organisations</h2>
+<span id="pdf_link" style="width:auto;"><%= image_tag('icons/add.gif')%><%= link_to 'New organisation', new_organisation_url %><br />
+</span>
+
 <table>
   <tr>
     <th class="left">Name</th>
@@ -23,7 +26,8 @@
 </table>
 <br />
 <%= will_paginate(@organisations) unless @organisations.blank? -%>
-<br />
-<%= link_to 'New organisation', new_organisation_url %>
-<br />
-<%= link_to 'New demonstration', new_demo_url %>
+<div class="clear"></div>
+
+<span class="button">
+ 	<%= link_to 'New demonstration', new_demo_url %>
+ </span>
