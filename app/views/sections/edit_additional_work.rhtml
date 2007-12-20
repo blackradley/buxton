@@ -4,15 +4,17 @@
 	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'action_planning', :equality_strand => @equality_strand }, :title =>"Next Section" -%>
 </h1>
 <div id="questiontext">
-	<p><%=h @activity.additional_work_text_lookup(@equality_strand, 1) %></p>
-	<p><%=h @activity.additional_work_text_lookup(@equality_strand, 2) %></p>
-	<p><%=h @activity.additional_work_text_lookup(@equality_strand, 3) %></p>
-	<p><%=h @activity.additional_work_text_lookup(@equality_strand, 4) %></p>
-	<p><%=h @activity.additional_work_text_lookup(@equality_strand, 5) %></p>
-	<p><%=h @activity.additional_work_text_lookup(@equality_strand, 6) %></p>
-	<p><%=h @activity.additional_work_text_lookup(@equality_strand, 7) %></p>
+<p>Below is some feedback generated from your previous answers:</p>
+<ul>
+	<li><%=h @activity.additional_work_text_lookup(@equality_strand, 1) %></li>
+	<li><%=h @activity.additional_work_text_lookup(@equality_strand, 2) %></li>
+	<li><%=h @activity.additional_work_text_lookup(@equality_strand, 3) %></li>
+	<li><%=h @activity.additional_work_text_lookup(@equality_strand, 4) %></li>
+	<li><%=h @activity.additional_work_text_lookup(@equality_strand, 5) %></li>
+	<li><%=h @activity.additional_work_text_lookup(@equality_strand, 6) %></li>
+	<li><%=h @activity.additional_work_text_lookup(@equality_strand, 7) %></li>
+</ul>
 </div>
-
 
 <div id="questions">
 <% form_for(:activity, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
