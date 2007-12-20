@@ -201,7 +201,7 @@ module ApplicationHelper
     { :text => 'Purpose',
       :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
       :title => 'Organisation Control Page - Section - Purpose' },
-    { :text => 'Performance',
+    { :text => 'Impact',
       :url => { :controller => 'sections', :action => 'list', :id => 'impact' },
       :title => 'Organisation Control Page - Section - Impact' },
     { :text => 'Consultation',
