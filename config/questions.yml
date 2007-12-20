@@ -587,6 +587,21 @@ headers:
     -   
       - Which of these groups does the Policy have an impact on?
       - Which of these groups will the Policy have an impact on?
+  purpose_overall_3:
+    -
+      - The Function has the following differential positive impact on these equality groups
+      - The Function might have the following differential positive impact on these equality groups
+    -   
+      - The Policy has the following differential positive impact on these equality groups
+      - The Policy might have the following differential positive impact on these equality groups
+  purpose_overall_4:
+    -
+      - The Function has the following differential negative impact on these equality groups
+      - The Function might have the following differential negative impact on these equality groups
+    -   
+      - The Policy has the following differential negative impact on these equality groups
+      - The Policy might have the following differential negative impact on these equality groups
+
 yes_value: 1
 no_value: 2
 choices:
