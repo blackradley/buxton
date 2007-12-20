@@ -571,6 +571,22 @@ section_names:
   - additional_work
   - action_planning
   
+  
+headers:
+  purpose_overall_1:
+    - 
+      - For each strategic objective below please indicate whether it is significantly aided by the Function.
+      - For each strategic objective below please indicate whether it will be significantly aided by the Function.
+    - 
+      - For each strategic objective below please indicate whether it is significantly aided by the Policy.
+      - For each strategic objective below please indicate whether it will be significantly aided by the Policy.
+  purpose_overall_2:
+    -
+      - Which of these groups does the Function have an impact on?
+      - Which of these groups will the Function have an impact on?
+    -   
+      - Which of these groups does the Policy have an impact on?
+      - Which of these groups will the Policy have an impact on?
 yes_value: 1
 no_value: 2
 choices:

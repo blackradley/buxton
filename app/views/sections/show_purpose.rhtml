@@ -3,7 +3,7 @@
 <br />
 <% @activity_responses = @activity.activity_strategies.sort_by {|fr| fr.strategy.position } -%>
 <% unless @activity_responses.nil? || !(@activity_responses.length > 0) then -%>
-<h5>Which strategies does "<%=h @activity.name %>" implement?</h5>
+<h5><%=h @activity.header(:purpose_overall_1) -%></h5>
 <% strategy_hash = {} -%>
 <% @activity.hashes['choices'][3].collect{|key| strategy_hash[@activity.hashes['choices'][3].index(key)] = key} -%>
 <% @activity_responses.each do |activity_response| -%>
@@ -11,7 +11,7 @@
 <% end -%>
 <% end -%>
 
-<h5>What proportion of these groups does "<%=h @activity.name %>" impact?</h5>
+<h5><%=h @activity.header(:purpose_overall_2) -%></h5>
 <%= summary_answer(@activity, :purpose, :overall, 5) %>
 <%= summary_answer(@activity, :purpose, :overall, 6) %>
 <%= summary_answer(@activity, :purpose, :overall, 7) %>
