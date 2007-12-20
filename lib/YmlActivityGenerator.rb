@@ -3,24 +3,37 @@ class YmlActivityGenerator
   DISPLAYTEXT = "Lorem ipsum dolor sit amet consectetuer adipiscing elit."
   @@running_count = 0
   @@issue_id = 0
-  @@names = ["Time off for trade union duties and activities",
-    "Extra-curricular activities",
-    "Guide to leisure pursuits for over 50s",
-    "Study support",
-    "Improving your reading, writing and number skills",
-    "Sport and fitness",
-    "UK Deaf Sport",
-    "Leisure",
-    "Mind the Gap",
-    "Sports facilities and events",
-    "Developing maths skills for five to 11 year olds",
-    "Report suspect activity to MI5",
-    "Jubilee Sailing Trust",
-    "Theft resistant number plates",
-    "Mencap",
-    "Corporate Social Responsibility",
-    "Cerebral Palsy Sport",
-    "Office of Government Commerce"]
+  @@names = {
+    :directorate_1 => [
+      "Business Services",
+      "Older People and Adults with Physical Disabilities",
+      "Mental Health and Learning Disabilities",
+      "Building Services",
+      "Strategic and Private Sector Housing",
+      "Housing Management",
+      "Libraries, Archives and Adult Learning"],
+    :directorate_2 => [
+      "Children's Specialist Services",
+      "Early Years, Youth and Education Services",
+      "Partnership and Children's Trust",
+      "Policy, Performance and Information",
+      "Resources"],
+    :directorate_3 =>[
+      "Audit",
+      "Benefits",
+      "Revenues",
+      "Financial",
+      "ICT",
+      "Purchasing"],
+    :directorate_4 => [
+      "Legal and Democratic Services",
+      "Corporate Estate Service",
+      "Property Consultancy"],
+    :directorate_5 => [
+      "Economic Regeneration Division",
+      "Environmental Management Division",
+      "Culture and Community Services",
+      "Development and Environmental Protection Division"]}
     
   def initialize(number = @@running_count, name = nil, directorate = nil, actman = 'actman_iain', type = nil)
     @file = []
@@ -28,9 +41,9 @@ class YmlActivityGenerator
     @hashes = YAML.load_file("#{RAILS_ROOT}/config/questions.yml")
     @@running_count += 1
     @issues = []
-    name = @@names[rand(@@names.size)]
-    @name = name
     directorate = "directorate_#{rand(4)+1}"
+    name = @@names[directorate.to_sym].pop
+    @name = name
     generate_activity_start(name, directorate, actman) if name
     generate_activity_text(type) if type
   end 
@@ -94,14 +107,9 @@ class YmlActivityGenerator
     end
     output
   end
-  def self.to_yaml(numbers = nil, names = nil, directorates = 'directorate_1', actmans = 'actman_iain', types = :random)
+  def self.to_yaml(numbers, names = nil, directorates = nil, actmans = 'actman_iain', types = :random)
     numbers = 1 unless numbers
     numbers = 1..numbers unless numbers.class == Array || numbers.nil?
-    unless numbers.nil? || names then
-      names = (1..numbers.to_a.size).to_a 
-      names.map{@@names[rand(@@names.size)]}
-    end
-    numbers = 1..names.size unless names.nil? || numbers
     numbers.each do |number|
       if actmans.class == Array then
         manager = actmans.pop
