@@ -128,6 +128,12 @@ textarea{
 	border: 1px solid #515f8d;
 	margin-top: 4px;	
 	height: 60px;
+	font-family: Tahoma, Verdana, Arial, Sans-Serif;
+	font-size: 1em;
+}
+
+* {
+	
 }
 
 form{
@@ -590,10 +596,11 @@ color: #515f8d;
 
 #questions p{
 	clear: left;
-	width: 100%;
 	float:left;
+	width: 100%;
 	text-align: right;
 	margin-left: 0px;
+	margin-right: 0px;
 }
 
 #questions input, #questions select, #questions textarea{
@@ -613,32 +620,35 @@ color: #515f8d;
 
 #questions .issues{
 	float:right;
-	width: 220px;	
+	width: 250px;	
 	margin-top: 4px;	
 	font-size: 1em;
 	margin-top:-43px;
 	 margin-bottom:20px;
 	 text-align:left;
-	margin-right: 23px;
+	 /*border: 1px solid red;*/
+	 	
+	/*margin-right: 23px;*/
 }
 
 #questions .issues .issue{
 	clear: left;
-	width: 100%;
 	float:left;
 	text-align: right;
 	margin-left: 0px;
 	margin-bottom: 10px;
+	/*border: 1px solid red;*/
+	width: 100%;
 }
 #questions .issues .issue a img{
 	float:left;
 	margin-top: 4px;
-	margin-left: 6px;
+	margin-left: 2px;
 }
 
 #questions .issues input{
 	float:left;
-	width:180px;
+	width:220px;
 	margin-right:5px;
 	margin-left:0px;
 }
@@ -649,10 +659,7 @@ color: #515f8d;
 	display: inline;
 }
 
-#questions .issues #addissue input{
-	margin-right:0px;
-	width: 40px;
-}
+
 
 
 /*summary page */
@@ -961,16 +968,30 @@ fieldset#status{
 	border:0px solid red;
 	padding: 0px;
 }
-#status label, #new_activity label{
+#status label, #new_activity label, #strategy_details label, #strategy_new label, #strategy_edit label{
 	width: 100px;
 	margin: 0px;
 	float: left;
 }
-#status .labelled, #new_activity labelled{
+
+#status .labelled, #new_activity .labelled, #strategy_details .labelled, #strategy_new .labelled, #strategy_edit .labelled{
 	width: 180px;
 	float: left;
 }
-#status .labelled select, #new_activity labelled select{
+#strategy_details .labelled, #strategy_new .labelled, #strategy_edit .labelled{
+	width: 510px;
+	float: left;
+}
+#strategy_details .labelled input, #strategy_new .labelled input, #strategy_edit .labelled input{
+	width: 510px;
+	float: left;
+}
+#strategy_details .labelled textarea, #strategy_new .labelled textarea, #strategy_edit .labelled textarea{
+	width: 510px;
+	float: left;
+}
+
+#status .labelled select, #new_activity .labelled select{
 	width: 180px;
 	margin-right:0px;
 }
@@ -994,22 +1015,25 @@ form.new_organisation .labelled, form.edit_organisation labelled, #show_organisa
 	line-height:20px;
 	font-weight:bold;
 }
-form.new_organisation label.long, form.new_organisation .labelled.long, form.edit_organisation label.long, form.edit_organisation .labelled.long, #show_organisation label.long{
-	width: 500px;
+form#new_organisation label.long, form#new_organisation .labelled.long, form#edit_organisation label.long, form#edit_organisation .labelled.long, #show_organisation label.long{
+	width: 600px;
 	
 }
 #show_organisation fieldset.organisation_customisation .labelled.long.indent{
-	width: 500px;
-	padding-bottom:20px;
+	width: 600px;
 }
 
-form.new_organisation .labelled.long input, form.edit_organisation .labelled.long input {
+form#show_organisation fieldset .organisation_customisation,form#new_organisation fieldset.organisation_customisation{
+	margin-bottom:20px;
+
+}
+form#new_organisation .labelled.long input, form.edit_organisation .labelled.long input {
 	width: auto;
 	margin-left:20px;
 	border: none;
 
 }
-form.new_organisation .directorates ul, form.edit_organisation .directorates ul {
+form#new_organisation .directorates ul, form.edit_organisation .directorates ul {
 	list-style: none;
 	padding:0px;
 	margin-left:20px;
@@ -1028,6 +1052,10 @@ form.new_organisation .directorates .sub_button, form.edit_organisation .directo
 }
 .indent{
 	margin-left: 20px;
+}
+
+ul#sortable_strategies li{
+	cursor: pointer;
 }
 
 /*directorates*/
