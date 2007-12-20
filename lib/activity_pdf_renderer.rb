@@ -1,5 +1,5 @@
 class ActivityPDFRenderer < Ruport::Renderer
-  stage :page_numbers, :unapproved_logo_on_first_page, :header, :body, :statistics, :issues, :footer, :render
+  stage :page_numbers, :footer, :unapproved_logo_on_first_page, :header, :body, :statistics, :issues, :render
 end 
 #TODO: Find much better way of ignoring not wanted sections.
 class ActivityPDF < Ruport::Formatter::PDF
