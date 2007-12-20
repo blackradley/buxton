@@ -46,6 +46,7 @@ class ActivitiesController < ApplicationController
   # Available to: Organisation Manager
   def list
     @organisation = @current_user.organisation
+    @directorate_term = @organisation.directorate_string
     @directorates = @organisation.directorates
   end
   
@@ -54,7 +55,7 @@ class ActivitiesController < ApplicationController
   def new
     @activity = Activity.new
     @activity_manager = @activity.build_activity_manager
-    @directorate_term = @activity.organisation.directorate_string    
+    @directorate_term = @current_user.organisation.directorate_string
     @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] }
   end
 
@@ -64,7 +65,7 @@ class ActivitiesController < ApplicationController
     @activity = Activity.new(params[:activity])
     @activity_manager = @activity.build_activity_manager(params[:activity_manager])
     @activity_manager.passkey = ActivityManager.generate_passkey(@activity_manager)
-    @directorate_term = @activity.organisation.directorate_string    
+    @directorate_term = @current_user.organisation.directorate_string
     @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] } # Needed for the new template incase we need to re-render it
     
     Activity.transaction do
