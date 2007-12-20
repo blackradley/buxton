@@ -430,9 +430,9 @@ class Activity < ActiveRecord::Base
     exist_prop -= 1
     exist_prop = 0 if exist_prop == -1
     fun_pol_indicator = case fun_pol
-      when 1 
+      when 0 
         "function"
-      when 2
+      when 1
         "policy"
       else
         "---------"
