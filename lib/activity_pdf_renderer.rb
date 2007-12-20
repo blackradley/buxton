@@ -38,7 +38,7 @@ class ActivityPDF < Ruport::Formatter::PDF
   def build_body
     if data[11].include?(:body) then
       pdf_writer.save_state
-      add_text "<b>Directorate</b>: #{data[2].to_s}"
+      add_text "<b>#{data[12]}</b>: #{data[2].to_s}"
       add_text " "
       pdf_writer.text "<b>Activity</b>", :justification => :left, :font_size => 12
       move_cursor_to(cursor - 7)

@@ -114,6 +114,7 @@ class Activity < ActiveRecord::Base
     data << self.stat_function
     data << self.id
     data << [:page_numbers, :unapproved_logo_on_first_page, :header, :body, :statistics, :issues, :footer]
+    data << self.organisation.directorate_string
   end
   #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions. 
   def percentage_answered(section = nil, strand = nil)

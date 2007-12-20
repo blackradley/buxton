@@ -88,11 +88,15 @@ class Organisation < ActiveRecord::Base
   end
   
   def generate_pdf_data(full_report = false)
-    data = [self.name, 0,0,0,0]
+    data = [self.name, 0,0,0,0,0]
     self.activities.each do |activity|
       case activity.function_policy
+        when 0
+          data[5] += 1
         when 1
           case activity.existing_proposed
+            when 0
+              data[5] += 1
             when 1
               data[1] += 1
             when 2
@@ -100,6 +104,8 @@ class Organisation < ActiveRecord::Base
           end
         when 2
           case activity.existing_proposed
+            when 0
+              data[5] += 1
             when 1
               data[3] += 1
             when 2
