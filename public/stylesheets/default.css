@@ -994,9 +994,15 @@ form.new_organisation .labelled, form.edit_organisation labelled, #show_organisa
 	line-height:20px;
 	font-weight:bold;
 }
-form.new_organisation label.long, form.new_organisation .labelled.long, form.edit_organisation label.long, form.edit_organisation .labelled.long, #show_organisation label.long, #show_organisation .labelled.long{
-	width: 80%;
+form.new_organisation label.long, form.new_organisation .labelled.long, form.edit_organisation label.long, form.edit_organisation .labelled.long, #show_organisation label.long{
+	width: 500px;
+	
 }
+#show_organisation fieldset.organisation_customisation .labelled.long.indent{
+	width: 500px;
+	margin-bottom:20px;
+}
+
 form.new_organisation .labelled.long input, form.edit_organisation .labelled.long input {
 	width: auto;
 	margin-left:20px;
@@ -1012,6 +1018,7 @@ form.new_organisation .directorates ul, form.edit_organisation .directorates ul 
 	font-weight:bold;
 	padding:0px;
 	margin-left:20px;
+	margin-top: 20px;
 	list-style-type: lower-roman;
 	list-style-position:inside;
 }
