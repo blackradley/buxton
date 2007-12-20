@@ -91,18 +91,18 @@ class Organisation < ActiveRecord::Base
     data = [self.name, 0,0,0,0]
     self.activities.each do |activity|
       case activity.function_policy
-        when 0
-          case activity.existing_proposed
-            when 0
-              data[1] += 1
-            when 1
-              data[2] += 1
-          end
         when 1
           case activity.existing_proposed
-            when 0
-              data[3] += 1
             when 1
+              data[1] += 1
+            when 2
+              data[2] += 1
+          end
+        when 2
+          case activity.existing_proposed
+            when 1
+              data[3] += 1
+            when 2
               data[4] += 1
           end
        end
