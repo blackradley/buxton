@@ -1,35 +1,38 @@
 <h2><%=h @organisation.name %></h2>
 <div id='show_organisation'>
-<p><label for="organisation_manager_email">Email</label><div class="labelled"><%= link_to @organisation_manager.email, "mailto:#{@organisation_manager.email}" -%></div></p>
-    
-<p><label for="organisation_name">Last Reminded</label><div class="labelled"><%= date_or_blank(@organisation_manager.reminded_on) -%></div></p>
+  
+  
+  <p><label for="organisation_manager_email">Email</label><div class="labelled"><%= link_to @organisation_manager.email, "mailto:#{@organisation_manager.email}" -%></div></p>
+  
+  <p><label for="organisation_name">Last Reminded</label><div class="labelled"><%= date_or_blank(@organisation_manager.reminded_on) -%></div></p>
+  
+  <p><label for="organisation_name">Created</label><div class="labelled"><%= date_or_blank(@organisation.created_on) -%></div></p>
 
-<p><label for="organisation_name">Created</label><div class="labelled"><%= date_or_blank(@organisation.created_on) -%></div></p>
-
-<p><label for="organisation_name">Last Updated</label><div class="labelled"><%= date_or_blank(@organisation.updated_on) -%></div></p>
-
-<fieldset id="organisation_customisation">
-	<legend>Customisation</legend>
-	<p><label for="organisation_style">Style:</label><div class="labelled"><%= @organisation.style -%></div></p>
-	<p><label for="organisation_directorate_term">Localised term for 'Directorate':</label>
-		<div class="labelled"><%=h @organisation.directorate_term -%></div></label><br /></p>
-	<p><label for="organisation_strategies_text" class="long">Text to be used when asking about an Activities strategies:
-  	<div class="labelled long indent">
-  	  <%=h @organisation.strategy_text -%>    
+  <p><label for="organisation_name">Last Updated</label><div class="labelled"><%= date_or_blank(@organisation.updated_on) -%></div></p>
+  
+  <fieldset class="organisation_customisation">
+  	<legend>Customisation</legend>
+  	<p><label for="organisation_style">Style:</label><div class="labelled"><%= @organisation.style -%></div></p>
+  	<p><label for="organisation_directorate_term">Localised term for 'Directorate':</label><div class="labelled"><%=h @organisation.directorate_term -%></div></p>
+  	<p><label for="organisation_strategies_text" class="long">Text to be used when asking about an Activities strategies:</label><br />
+    	<div class="labelled longindent">
+    	  <%=h @organisation.strategy_text -%>
+   	</div>
+  	</p>
+  </fieldset>
+  <fieldset class="organisation_customisation">
+    <legend>Directorates</legend>
+    <% fields_for :directorate do |directorate_fields|%>
+  	<div class="directorates">
+  		<ul id="directorates_list">
+  		  <% for directorate in @directorates -%>
+  			<li><%= directorate.name %> </li>
+  			<% end -%>
+  		</ul>
+  		<div class="clear"></div>
   	</div>
-	</p>
-</fieldset>
-<fieldset id="organisation_directorates">
-  <legend>Directorates</legend>
-  <div class="directorates">
-		<ul id="directorates_list">
-		  <% for directorate in @directorates -%>
-			<li><%= directorate.name %> </li>
-			<% end -%>
-		</ul>
-		<div class="clear"></div>
-	</div>
-</fieldset>
+  </fieldset> 
+ </div> 
 
 <span class="button" style="float:right;">
 <%= link_to 'Edit', {:action => 'edit', :id => @organisation}  %>
@@ -37,4 +40,3 @@
 <span class="button">
 <%= link_to 'Back', {:controller => 'organisations'}  %>
 </span>
-</div>
