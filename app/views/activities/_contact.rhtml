@@ -9,7 +9,7 @@
 <p><label for="activity_name">Name</label>
 <div class = "labelled"><%= f.text_field :name, 'size' => 50 -%></div></p>
 
-<p><label for="directorate_id">Directorate</label>
+<p><label for="directorate_id"><%= @directorate_term -%></label>
 <div class = "labelled"><%= f.select(:directorate_id, @directorates) -%><div>
 </p>
 </fieldset>
