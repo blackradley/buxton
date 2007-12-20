@@ -10,14 +10,14 @@ class OrganisationPDF < Ruport::Formatter::PDF
   
   
   def build_first_page
-    if data[9] then
+    if data[10] then
       left = left_boundary()
       right = right_boundary
-      pdf_writer.y = pdf_writer.absolute_y_middle + 127
+      pdf_writer.y = pdf_writer.absolute_y_middle + 128
       pdf_writer.image( "#{RAILS_ROOT}/public/images/pdf_logo.png", :justification => :center)
-      pdf_writer.add_text_wrap(left_boundary, pdf_writer.absolute_y_middle, right-left,  "<b>#{data[0]}</b>", 36, :center)
+      pdf_writer.add_text_wrap(left_boundary, pdf_writer.absolute_y_middle, right-left,  "<b>#{data[0]}</b>", 37, :center)
       3.times{add_text " "}
-      pdf_writer.text "Impact Equality#{153.chr} Organisation Report", :justification => :center, :font_size => 18
+      pdf_writer.text "Impact Equality#{163.chr} Organisation Report", :justification => :center, :font_size => 19
       #pdf_writer.start_new_page(true)
     end
   end
@@ -31,9 +31,9 @@ class OrganisationPDF < Ruport::Formatter::PDF
   
   def build_header
     pdf_writer.fill_color Color::RGB.const_get('Black')
-    pdf_writer.image( "#{RAILS_ROOT}/public/images/pdf_logo.png", :justification => :center, :resize => 0.5)
-    pdf_writer.text "<b>#{data[0]}</b>", :justification => :center, :font_size => 18
-    pdf_writer.text "Impact Equality#{153.chr} Organisation Summary Report", :justification => :center, :font_size => 12
+    pdf_writer.image( "#{RAILS_ROOT}/public/images/pdf_logo.png", :justification => :center, :resize => 0.6)
+    pdf_writer.text "<b>#{data[0]}</b>", :justification => :center, :font_size => 19
+    pdf_writer.text "Impact Equality#{163.chr} Organisation Summary Report", :justification => :center, :font_size => 12
     pdf_writer.text "" #Serves as a new line character. Is this more readable than moving the cursor manually?
     add_text " "
     add_text " "
@@ -47,7 +47,8 @@ class OrganisationPDF < Ruport::Formatter::PDF
     table << ["Proposed Function", data[2]]
     table << ["Existing Policy", data[3]]
     table << ["Proposed Policy", data[4]]
-    table << ["Total", data[5]]
+    table << ["Unknown Type", data[5]]
+    table << ["Total", data[6]]
     draw_table(table, :position=> :left, :orientation => 2)
     add_text " "
   end
@@ -56,7 +57,7 @@ class OrganisationPDF < Ruport::Formatter::PDF
     add_text "<b>Progress</b>"
     add_text " "
     table = Table("", "Started", "Completed")
-    data[6].each do |section, value|
+    data[7].each do |section, value|
       table << [section.to_s.titleize, value].flatten
     end
     draw_table(table, :position=> :left, :orientation => 2)
@@ -67,7 +68,7 @@ class OrganisationPDF < Ruport::Formatter::PDF
     add_text "<b>Results</b>"
     add_text " "
     table = Table("", "Low Impact", "Medium Impact", "High Impact")
-    data[7].each do |priority_ranking, value|
+    data[8].each do |priority_ranking, value|
       table << ["Priority #{priority_ranking}", value[:low], value[:medium], value[:high]]
     end
     draw_table(table, :position=> :left, :orientation => 2)
@@ -76,9 +77,9 @@ class OrganisationPDF < Ruport::Formatter::PDF
   
   def build_full_report
     directorate_page_count = []
-    if data[9] then
+    if data[10] then
       pdf_writer.set_proxy(nil)
-      data[8].each do |directorate|
+      data[9].each do |directorate|
         directorate_page_count << [pdf_writer.pageset.index(pdf_writer.current_page) + 1, directorate]
         directorate.activities.each do |activity|
           pdf_writer.start_new_page(true)
