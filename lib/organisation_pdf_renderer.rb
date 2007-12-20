@@ -18,7 +18,7 @@ class OrganisationPDF < Ruport::Formatter::PDF
       pdf_writer.add_text_wrap(left_boundary, pdf_writer.absolute_y_middle, right-left,  "<b>#{data[0]}</b>", 36, :center)
       3.times{add_text " "}
       pdf_writer.text "Impact Equality#{153.chr} Organisation Report", :justification => :center, :font_size => 18
-      pdf_writer.start_new_page(true)
+      #pdf_writer.start_new_page(true)
     end
   end
   
@@ -82,10 +82,13 @@ class OrganisationPDF < Ruport::Formatter::PDF
         directorate_page_count << [pdf_writer.pageset.index(pdf_writer.current_page) + 1, directorate]
         directorate.activities.each do |activity|
           pdf_writer.start_new_page(true)
-          pdf_writer.set_proxy(pdf_writer.current_contents)
+          pdf_writer.set_proxy([])
           data_for = activity.generate_pdf_data
           data_for[11] = [:unapproved_logo_on_first_page, :header, :body, :statistics, :issues]
           ActivityPDFRenderer.render_pdf(:data => data_for)
+          pdf_writer.open_object do |activity_object|
+            
+          end
         end
       end
       pdf_writer.set_proxy(nil)
@@ -127,6 +130,7 @@ class OrganisationPDF < Ruport::Formatter::PDF
 
   end
   def build_renderer
+    pdf_writer.stop_page_numbering(true)
     render_pdf 
   end
 end
