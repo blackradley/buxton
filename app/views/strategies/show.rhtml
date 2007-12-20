@@ -1,7 +1,13 @@
 <% for column in Strategy.content_columns %>
 <p>
-  <b><%= column.human_name -%>:</b> <%=h @strategy.send(column.name) -%>
+  <label><%= column.human_name -%>:</label><div class="labelled"><%=h @strategy.send(column.name) -%></div>
 </p>
 <% end %>
 
-<%= link_to 'Edit', edit_organisation_strategy_url(@organisation, @strategy) -%> | <%= link_to 'Back', organisation_strategies_url(@organisation) -%>
+<span class="button"  style="float:none;">
+ 	<%= link_to 'Edit', edit_organisation_strategy_url(@organisation, @strategy) -%>
+ </span>
+
+ <span class="button">
+  	<%= link_to 'Back', organisation_strategies_url(@organisation) %>
+  </span>
