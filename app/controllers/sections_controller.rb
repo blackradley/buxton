@@ -56,6 +56,8 @@ class SectionsController < ApplicationController
     if @activity.started then
       case params[:id]
       when 'purpose'
+        @strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
+        @activity_strategies = @activity.activity_strategies
         render :template => 'sections/show_purpose'
       when 'impact'
         render :template => 'sections/show_impact'
@@ -92,7 +94,8 @@ class SectionsController < ApplicationController
     
     case params[:id]
     when 'purpose'
-      @activity_responses = @activity.activity_strategies.sort_by {|fr| fr.strategy.position } # sort by position
+      @strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
+      @activity_strategies = @activity.activity_strategies     
       render :template => 'sections/edit_purpose'
     when 'impact'
       render :template => 'sections/edit_impact'
