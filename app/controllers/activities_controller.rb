@@ -54,6 +54,7 @@ class ActivitiesController < ApplicationController
   def new
     @activity = Activity.new
     @activity_manager = @activity.build_activity_manager
+    @directorate_term = @activity.organisation.directorate_string    
     @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] }
   end
 
@@ -63,6 +64,7 @@ class ActivitiesController < ApplicationController
     @activity = Activity.new(params[:activity])
     @activity_manager = @activity.build_activity_manager(params[:activity_manager])
     @activity_manager.passkey = ActivityManager.generate_passkey(@activity_manager)
+    @directorate_term = @activity.organisation.directorate_string    
     @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] } # Needed for the new template incase we need to re-render it
     
     Activity.transaction do
@@ -125,6 +127,7 @@ class ActivitiesController < ApplicationController
     # Get the Activity and User details ready for the view
     @activity = Activity.find(params[:id])
     @activity_manager = @activity.activity_manager
+    @directorate_term = @activity.organisation.directorate_string
     @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] }
   end
 
@@ -137,6 +140,7 @@ class ActivitiesController < ApplicationController
 
     @activity = Activity.find(params[:id])
     @activity_manager = @activity.activity_manager # Get this ready in case we need to re-render the edit template
+    @directorate_term = @activity.organisation.directorate_string
     @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] } # Get this ready in case we need to re-render the edit template
 
     # Update the activity

@@ -136,5 +136,13 @@ class Organisation < ActiveRecord::Base
       end
     end
   end
+  
+  def directorate_string
+    if self.directorate_term and !self.directorate_term.blank? then
+      self.directorate_term.capitalize
+    else
+      "Directorate"
+    end
+  end
 
 end
