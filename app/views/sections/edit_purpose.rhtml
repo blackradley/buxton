@@ -31,7 +31,7 @@
 	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 8, :f_id => @activity.id} %>
 	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 9, :f_id => @activity.id} %>
 
-	<h4>If the activity were performed well... <a href="#" onclick="Element.toggle('good_equality_groups_help'); return false;"><img alt="Help" src="/images/icons/help.gif?1191325091" /></a></h4>
+	<h4><%=h @activity.header(:purpose_overall_3) -%><a href="#" onclick="Element.toggle('good_equality_groups_help'); return false;"><img alt="Help" src="/images/icons/help.gif?1191325091" /></a></h4>
 	<span id="good_equality_groups_help" class="toggleHelp" style="display:none;">Everybody belongs to all the six equality strands; we all have a gender, an ethnic background and an age etc.  If the Function affects anyone it will probably affect people who belong to different elements of the Equality Strand, people of different ages, faiths and ethnic background for example. Does the Function affect both men and women, if it does and it is performed well, might it affect men and women differently.<br /><br />The question asks you to identify the scale of any differential impact on different individuals within each Equality Strand if the Function is performing well.</span>
 	<%= f.question :purpose, {:equality_strand => 'gender', :number => 3, :f_id => @activity.id} %>
 	<%= f.question :purpose, {:equality_strand => 'race', :number => 3, :f_id => @activity.id} %>
@@ -40,7 +40,7 @@
 	<%= f.question :purpose, {:equality_strand => 'sexual_orientation', :number => 3, :f_id => @activity.id} %>
 	<%= f.question :purpose, {:equality_strand => 'age', :number => 3, :f_id => @activity.id} %>
 
-	<h4>If the activity were performed badly... <a href="#" onclick="Element.toggle('bad_equality_groups_help'); return false;"><img alt="Help" src="/images/icons/help.gif?1191325091" /></a></h4>
+	<h4><%=h @activity.header(:purpose_overall_4) -%><a href="#" onclick="Element.toggle('bad_equality_groups_help'); return false;"><img alt="Help" src="/images/icons/help.gif?1191325091" /></a></h4>
 	<span id="bad_equality_groups_help" class="toggleHelp" style="display:none;">The question asks you to identify the scale of any differential impact on different individuals within each Equality Strand if the Function is performing badly.</span>
 	<%= f.question :purpose, {:equality_strand => 'gender', :number => 4, :f_id => @activity.id} %>
 	<%= f.question :purpose, {:equality_strand => 'race', :number => 4, :f_id => @activity.id} %>

@@ -237,7 +237,7 @@ module ApplicationHelper
         activity.send(question)
       end
     else
-      answer = 'Not answered yet'
+      answer = 'Not Answered Yet'
     end
 
     %Q[<p><label title="#{label}">#{label}</label><div class="labelled">#{h answer}</div></p>]
