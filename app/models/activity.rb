@@ -226,11 +226,9 @@ class Activity < ActiveRecord::Base
        questions = Activity.get_question_names(:consultation, strand, 7)
        questions << Activity.get_question_names(:impact, strand, 9)
        questions.flatten!
+       puts questions
        questions.each do |question|
-         strand = question.to_s.split("_")
-         strand.delete_at(1)
-         strand.delete_at(0)
-         strand.pop
+         strand = Activity.question_separation(question)[1]
          if section
           lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?) 
          else
@@ -398,7 +396,7 @@ class Activity < ActiveRecord::Base
         is_validated = (self.send("impact_#{strand}_1".to_sym) == 1)
         response += "This performance assessment has #{"not " unless is_validated}been validated."
       when 4
-        issues_present = (self.send("impact_#{strand}_4".to_sym) == 1)
+        issues_present = (self.send("impact_#{strand}_9".to_sym) == 1)&&((self.send("consultation_#{strand}_7".to_sym) == 1))
         response += "There are #{"no " unless issues_present}performance issues that might have different implications for #{wordings[strand]}."
       when 5
         information_present = (self.send("impact_#{strand}_1".to_sym) == 2)
