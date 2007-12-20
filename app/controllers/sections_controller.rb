@@ -110,15 +110,21 @@ class SectionsController < ApplicationController
   # Update the activity answers, for this particular section, as appropriate
   # Available to: Activity Manager
   def update
-    #removes all blank elements from the array that were not there previously (ie those without id's)
-    params[:activity][:issue_attributes].reject!{|i| i['description'].blank? && i['id'].nil? }
-    #marks all previously existing issues that had their description field blanked for destruction
-    params[:activity][:issue_attributes].each{|i| i['issue_destroy'] = 1 if i['description'].blank?}
+    
+    # If we have issues to process
+    if params[:activity][:issue_attributes] then
+      #removes all blank elements from the array that were not there previously (ie those without id's)
+      # params[:activity][:issue_attributes].reject!{|i| i['description'].blank? && i['id'].nil? }
+      #marks all previously existing issues that had their description field blanked for destruction
+      # params[:activity][:issue_attributes].each{|i| i['issue_destroy'] = 1 if i['description'].blank?}
+    end
+    
     # Update the answers in the activity table
     @activity = @current_user.activity
     @activity.update_attributes!(params[:activity])
     # Since answers have changed, force recalculation of statistics
     @activity.stat_function = nil
+    
     # Update the activity strategy answers if we have any (currently only in the Purpose section)
     if params[:activity_strategies] then
       params[:activity_strategies].each do |activity_strategy|
@@ -127,28 +133,29 @@ class SectionsController < ApplicationController
         activity_response.save
       end
     end
+    
     flash[:notice] =  "#{@activity.name} was successfully updated."
     redirect_to :back
     
-  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-    flash[:notice] =  "Could not update the activity."
-    @equality_strand = params[:equality_strand]
-    @id = params[:id]    
-    
-    case @id
-    when 'purpose'
-      @activity_responses = @activity.activity_strategies.sort_by {|fr| fr.strategy.position } # sort by position
-      render :template => 'sections/edit_purpose'
-    when 'impact'
-      render :template => 'sections/edit_impact'
-    when 'consultation'
-      render :template => 'sections/edit_consultation'
-    when 'additional_work'
-      render :template => 'sections/edit_additional_work'
-    else
-      # throw error
-      raise ActiveRecord::RecordNotFound
-    end
+  # rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+  #   flash[:notice] =  "Could not update the activity."
+  #   @equality_strand = params[:equality_strand]
+  #   @id = params[:id]    
+  #   
+  #   case @id
+  #   when 'purpose'
+  #     @activity_responses = @activity.activity_strategies.sort_by {|fr| fr.strategy.position } # sort by position
+  #     render :template => 'sections/edit_purpose'
+  #   when 'impact'
+  #     render :template => 'sections/edit_impact'
+  #   when 'consultation'
+  #     render :template => 'sections/edit_consultation'
+  #   when 'additional_work'
+  #     render :template => 'sections/edit_additional_work'
+  #   else
+  #     # throw error
+  #     raise ActiveRecord::RecordNotFound
+  #   end
   end
 
 protected

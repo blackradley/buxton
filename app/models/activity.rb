@@ -39,10 +39,10 @@ class Activity < ActiveRecord::Base
   has_many :activity_strategies, :dependent => :destroy
   has_many :issues, :dependent => :destroy
 
-  validates_presence_of :name, :message => 'All activities must have a name'
+  validates_presence_of :name, :message => 'All activities must have a name.'
   validates_presence_of :activity_manager
   validates_associated :activity_manager
-  validates_uniqueness_of :name, :scope => :directorate_id
+  # validates_uniqueness_of :name, :scope => :directorate_id
 
   attr_accessor :stat_function
   before_save :clear_statistics, :set_approved
@@ -367,11 +367,11 @@ class Activity < ActiveRecord::Base
           when 1
             response += "it would not affect #{wordings[strand]} differently."
           when 2
-            response += "it would affect #{wordings[strand]} differently to a limited extent"
+            response += "it would affect #{wordings[strand]} differently to a limited extent."
           when 3
-            response += "it would affect #{wordings[strand]} differently to a significant extent"
+            response += "it would affect #{wordings[strand]} differently to a significant extent."
           else
-            response += "it would affect #{wordings[strand]} differently to a significant extent"
+            response += "it would affect #{wordings[strand]} differently to a significant extent."
         end
       when 2
         response = "If the #{fun_pol_indicator} were performed badly "
@@ -379,11 +379,11 @@ class Activity < ActiveRecord::Base
           when 1
             response += "it would not affect #{wordings[strand]} differently."
           when 2
-            response += "it would affect #{wordings[strand]} differently to a limited extent"
+            response += "it would affect #{wordings[strand]} differently to a limited extent."
           when 3
-            response += "it would affect #{wordings[strand]} differently to a significant extent"
+            response += "it would affect #{wordings[strand]} differently to a significant extent."
           else
-            response += "it would affect #{wordings[strand]} differently to a significant extent"
+            response += "it would affect #{wordings[strand]} differently to a significant extent."
         end
       when 3
         response = "The performance of the #{fun_pol_indicator} in meeting the different needs of #{wordings[strand]} is "
@@ -391,17 +391,17 @@ class Activity < ActiveRecord::Base
           response += choices[2][send("impact_#{strand}_1".to_sym)].split(" - ")[1].downcase
         rescue
           #if it gets here, then response threw an error, meaning that the answer is "Not Answered"
-          response += "not yet determined"
+          response += "not yet determined."
         end
         response += ".\n"
         is_validated = (self.send("impact_#{strand}_1".to_sym) == 1)
         response += "This performance assessment has #{"not " unless is_validated}been validated."
       when 4
         issues_present = (self.send("impact_#{strand}_4".to_sym) == 1)
-        response += "There are #{"no " unless issues_present}performance issues that might have different implications for #{wordings[strand]}"
+        response += "There are #{"no " unless issues_present}performance issues that might have different implications for #{wordings[strand]}."
       when 5
         information_present = (self.send("impact_#{strand}_1".to_sym) == 2)
-        response = "There are #{"no " if information_present}gaps in the information to monitor the performance of the #{fun_pol_indicator} in meeting the needs of #{wordings[strand]}"
+        response = "There are #{"no " if information_present}gaps in the information to monitor the performance of the #{fun_pol_indicator} in meeting the needs of #{wordings[strand]}."
       when 6
         consulted_groups = (self.send("consultation_#{strand}_1".to_sym) == 1)
         consulted_experts = (self.send("consultation_#{strand}_4".to_sym) == 1)
