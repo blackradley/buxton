@@ -1,10 +1,11 @@
+<h2>Strategy Details</h2>
 <div id="strategy_details">
 <% for column in Strategy.content_columns %>
 <p>
   <label><%= column.human_name -%>:</label><div class="labelled"><%=h @strategy.send(column.name) -%></div>
 </p>
 <% end %>
-</div>
+
 <div class="clear"></div>
  <span class="button">
   	<%= link_to 'Back', organisation_strategies_url(@organisation) %>
