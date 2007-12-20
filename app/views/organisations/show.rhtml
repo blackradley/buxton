@@ -8,7 +8,7 @@
 
 <p><label for="organisation_name">Last Updated</label><div class="labelled"><%= date_or_blank(@organisation.updated_on) -%></div></p>
 
-<fieldset class="organisation_customisation">
+<fieldset id="organisation_customisation">
 	<legend>Customisation</legend>
 	<p><label for="organisation_style">Style:</label><div class="labelled"><%= @organisation.style -%></div></p>
 	<p><label for="organisation_directorate_term">Localised term for 'Directorate':</label>
@@ -19,7 +19,7 @@
   	</div>
 	</p>
 </fieldset>
-<fieldset class="organisation_directorates">
+<fieldset id="organisation_directorates">
   <legend>Directorates</legend>
   <div class="directorates">
 		<ul id="directorates_list">
