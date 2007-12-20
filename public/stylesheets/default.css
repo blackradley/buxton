@@ -1000,7 +1000,7 @@ form.new_organisation label.long, form.new_organisation .labelled.long, form.edi
 }
 #show_organisation fieldset.organisation_customisation .labelled.long.indent{
 	width: 500px;
-	margin-bottom:20px;
+	padding-bottom:20px;
 }
 
 form.new_organisation .labelled.long input, form.edit_organisation .labelled.long input {
