@@ -235,7 +235,6 @@ class Activity < ActiveRecord::Base
        questions = Activity.get_question_names(:consultation, strand, 7)
        questions << Activity.get_question_names(:impact, strand, 9)
        questions.flatten!
-       puts questions
        questions.each do |question|
          strand = Activity.question_separation(question)[1]
          if section
