@@ -41,8 +41,6 @@ class YmlActivityGenerator
     @hashes = YAML.load_file("#{RAILS_ROOT}/config/questions.yml")
     @@running_count += 1
     @issues = []
-    directorate = "directorate_#{rand(4)+1}"
-    name = @@names[directorate.to_sym].pop
     @name = name
     generate_activity_start(name, directorate, actman) if name
     generate_activity_text(type) if type
@@ -107,9 +105,17 @@ class YmlActivityGenerator
     end
     output
   end
-  def self.to_yaml(numbers, names = nil, directorates = nil, actmans = 'actman_iain', types = :random)
+  def self.to_yaml(numbers, names = [], directorates = [], actmans = 'actman_iain', types = :random)
     numbers = 1 unless numbers
     numbers = 1..numbers unless numbers.class == Array || numbers.nil?
+    5.times do |i| 
+      i += 1
+      @@names["directorate_#{i}".to_sym].size.times{ directorates << "directorate_#{i}"}
+    end
+    name_set = @@names.clone
+    directorates.each do |directorate|
+      names << name_set[directorate.to_sym].pop
+    end
     numbers.each do |number|
       if actmans.class == Array then
         manager = actmans.pop

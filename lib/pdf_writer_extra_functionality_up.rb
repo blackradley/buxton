@@ -18,6 +18,10 @@ module PDF
       @@proxy = proxy
     end
     
+    def get_proxy
+      return @@proxy
+    end
+    
     def add_content(cc)
       if @@proxy then
         @@proxy << cc 
@@ -26,6 +30,9 @@ module PDF
     end
     
     def new_page(insert = false, page = nil, pos = :after)
+      if @@proxy then
+        @@proxy << :new_page
+      end
       if directorate then
         new_page_without_background(insert, page, pos)
         left = absolute_left_margin
