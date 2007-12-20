@@ -1,3 +1,5 @@
+<% @section = 'consultation' %>
+
 <div id="show">
 	
 <h4>Consultation by equality group</h4>
@@ -8,7 +10,7 @@
 <%= answer(@activity, :consultation, :gender, 3) %>
 <%= answer(@activity, :consultation, :gender, 4) %>
 <%= answer(@activity, :consultation, :gender, 5) %>
-<% issues = @activity.issues.reject{|issue| issue.strand != 'gender' } -%>
+<% issues = @activity.issues_by_section(@section).reject{|issue| issue.strand != 'gender' } -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
@@ -25,7 +27,7 @@
 <%= answer(@activity, :consultation, :race, 3) %>
 <%= answer(@activity, :consultation, :race, 4) %>
 <%= answer(@activity, :consultation, :race, 5) %>
-<% issues = @activity.issues.reject{|issue| issue.strand != 'race' } -%>
+<% issues = @activity.issues_by_section(@section).reject{|issue| issue.strand != 'race' } -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
@@ -42,7 +44,7 @@
 <%= answer(@activity, :consultation, :disability, 3) %>
 <%= answer(@activity, :consultation, :disability, 4) %>
 <%= answer(@activity, :consultation, :disability, 5) %>
-<% issues = @activity.issues.reject{|issue| issue.strand != 'disability' } -%>
+<% issues = @activity.issues_by_section(@section).reject{|issue| issue.strand != 'disability' } -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
@@ -59,7 +61,7 @@
 <%= answer(@activity, :consultation, :faith, 3) %>
 <%= answer(@activity, :consultation, :faith, 4) %>
 <%= answer(@activity, :consultation, :faith, 5) %>
-<% issues = @activity.issues.reject{|issue| issue.strand != 'faith' } -%>
+<% issues = @activity.issues_by_section(@section).reject{|issue| issue.strand != 'faith' } -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
@@ -76,7 +78,7 @@
 <%= answer(@activity, :consultation, :sexual_orientation, 3) %>
 <%= answer(@activity, :consultation, :sexual_orientation, 4) %>
 <%= answer(@activity, :consultation, :sexual_orientation, 5) %>
-<% issues = @activity.issues.reject{|issue| issue.strand != 'sexual_orientation' } -%>
+<% issues = @activity.issues_by_section(@section).reject{|issue| issue.strand != 'sexual_orientation' } -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
@@ -93,7 +95,7 @@
 <%= answer(@activity, :consultation, :age, 3) %>
 <%= answer(@activity, :consultation, :age, 4) %>
 <%= answer(@activity, :consultation, :age, 5) %>
-<% issues = @activity.issues.reject{|issue| issue.strand != 'age' } -%>
+<% issues = @activity.issues_by_section(@section).reject{|issue| issue.strand != 'age' } -%>
 <p><label>Please record the issues identified</label>
 <div class="issues">
 <ul>
