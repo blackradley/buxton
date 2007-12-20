@@ -3,7 +3,8 @@
 <div id="sections_menu"><%= sections_menu -%></div>
 
 <h3>Action Planning</h3>
-<p></p>
+<% @directorates.each do |directorate| -%>
+<h4><%=h directorate.name -%></h4>
 <table class="list">
   <tr>
     <th class="left" width="50%">Name</th>
@@ -11,7 +12,7 @@
     <th>Last key sent</th>
     <th></th>
   </tr>
-  <% for activity in @organisation.activities -%>
+  <% for activity in directorate.activities -%>
   <tr>
     <td class="left"><%=h activity.name -%></td>
     <td width="104px"><%= progress_bar(activity.percentage_answered(:action_planning)) -%></td>
@@ -24,3 +25,4 @@
   </tr>
   <% end -%>
 </table>
+<% end %>

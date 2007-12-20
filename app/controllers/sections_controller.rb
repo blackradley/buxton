@@ -19,7 +19,7 @@ class SectionsController < ApplicationController
   # Manager to scan down.
   # Available to: Organisation Manager
   def list
-    @organisation = @current_user.organisation
+    @directorates = @current_user.organisation.directorates
     
     case params[:id]
     when 'purpose'
@@ -115,9 +115,9 @@ class SectionsController < ApplicationController
     # If we have issues to process
     if params[:activity][:issue_attributes] then
       #removes all blank elements from the array that were not there previously (ie those without id's)
-      # params[:activity][:issue_attributes].reject!{|i| i['description'].blank? && i['id'].nil? }
+      params[:activity][:issue_attributes].reject!{|i| i['description'].blank? && i['id'].nil? }
       #marks all previously existing issues that had their description field blanked for destruction
-      # params[:activity][:issue_attributes].each{|i| i['issue_destroy'] = 1 if i['description'].blank?}
+      params[:activity][:issue_attributes].each{|i| i['issue_destroy'] = 1 if i['description'].blank?}
     end
     
     # Update the answers in the activity table
