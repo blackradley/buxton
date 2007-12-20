@@ -886,7 +886,7 @@ p #summarytable{
 
 /*help*/
 
-.toggleHelp{
+/*.toggleHelp{
 	float:left;
 	font-weight: normal;
 	color:#515f8d;
@@ -906,7 +906,7 @@ p #summarytable{
 	overflow:hidden;
 	margin:4px 0px;
 	paddding:0px 20%;
-}
+}*/
 #questions .toggleHelp{
 	float:left;
 	font-weight: normal;
@@ -1112,4 +1112,9 @@ ul#sortable_strategies li{
 #add_link a, #add_link a:visited, #add_link a:hover{
 	text-decoration:underline;
 	color: #515f8d;
+}
+#questiontext{
+	background-color: #e4edf7;
+	padding: 10px 20px;
+	margin-bottom: 20px;
 }
