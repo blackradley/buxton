@@ -26,7 +26,7 @@
   	<div class="directorates">
   		<ul id="directorates_list">
   		  <% for directorate in @directorates -%>
-  			<li><%= directorate.name %> </li>
+  			<li><%=h directorate.name %> </li>
   			<% end -%>
   		</ul>
   		<div class="clear"></div>

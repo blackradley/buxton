@@ -1,7 +1,7 @@
 <h3>Impact Equality&trade; Organisation Control Page - Activities</h3>
 <div id="pdf_link"><%= link_to "#{image_tag('icons/add.gif')} Add New Activity", :action => 'new' -%></div>
 <p>This page shows the Organisation Equalities Manager how each activity is progressing through Impact Equality&trade;. It also lets the manager add new activities, amend existing activities and delete activities.</p>
-<strong><%= "No directorates created." if @directorates.blank? -%></strong>
+<strong><%= "No #{@directorate_term}s created." if @directorates.blank? -%></strong>
 <% @directorates.each do |directorate| -%>
 <h4><%=h directorate.name -%></h4>
 <table class="list">
