@@ -3,14 +3,9 @@
 <br />
 
 <h5><%=h @activity.header(:purpose_overall_1) -%></h5>
-<% @strategies.each do |strategy| %>
-	<p><label><%=h strategy.name -%></label><div class="labelled">
-	<% if as = @activity_strategies.find_by_strategy_id(strategy) then
-		answer = as.strategy_response.to_i
-	else
-		answer = 0
-	end %>
-	<%= @activity.hashes['choices'][3][answer] %></div></p>
+<% @activity_strategies.each do |activity_strategy| %>
+	<p><label><%=h activity_strategy.strategy.name -%></label><div class="labelled">
+	<%= @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i] %></div></p>
 <% end %>
 
 <h5><%=h @activity.header(:purpose_overall_2) -%></h5>

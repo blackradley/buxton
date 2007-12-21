@@ -9,18 +9,14 @@
 <% form_for(:activity, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 
 	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 2, :f_id => @activity.id} %>
-	<% unless @activity_responses.nil? || !(@activity_responses.length > 0) then -%>
+
 	<h4><%=h @activity.header(:purpose_overall_1) -%></h4>
 	<% yes_no = @activity.hashes['choices'][3] -%>
-	<% @activity_responses.each do |activity_strategy| -%>
-		<% if activity_strategy then response = activity_strategy.strategy_response else response = 0 end -%>
-		<p>
-			<label for="<%= activity_strategy.strategy.description -%>"><%= activity_strategy.strategy.name -%></label>
-			<%= select('activity_strategies', activity_strategy.strategy_id, yes_no.collect{|key| [key, yes_no.index(key)]},
-			 :selected => response) -%>
-		</p>
-	<% end -%>
-	<% end -%>
+	<% @activity_strategies.each do |activity_strategy| %>
+		<p><label for="<%= activity_strategy.strategy.description -%>"><%= activity_strategy.strategy.name -%></label>
+			<%= select('strategy_responses', activity_strategy.strategy_id, @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i], 
+			 :selected => activity_strategy.strategy_response.to_i) -%></p>		
+	<% end %>
 
 	<h4><%=h @activity.header(:purpose_overall_2) -%><a href="#" onclick="Element.toggle('impact_groups_help'); return false;"><img alt="Help" src="/images/icons/help.gif" /></a></h4>
 	<span id="impact_groups_help" class="toggleHelp" style="display:none;">It is likely that the Function will have an impact on some individuals.  Functions may be external and affect the users of the Council services or internal and only affect staff employed by the Council. Of course staff of the Council are also probably users of Council services in their own right. The question asks you to identify which particular groups of individuals the Function affects.

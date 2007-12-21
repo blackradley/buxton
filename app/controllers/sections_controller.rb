@@ -56,8 +56,10 @@ class SectionsController < ApplicationController
     if @activity.started then
       case params[:id]
       when 'purpose'
-        @strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
-        @activity_strategies = @activity.activity_strategies
+        strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
+        @activity_strategies = Array.new(strategies.size) do |i|
+          @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
+        end
         render :template => 'sections/show_purpose'
       when 'impact'
         render :template => 'sections/show_impact'
@@ -94,8 +96,10 @@ class SectionsController < ApplicationController
     
     case params[:id]
     when 'purpose'
-      @strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
-      @activity_strategies = @activity.activity_strategies     
+      strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
+      @activity_strategies = Array.new(strategies.size) do |i|
+        @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
+      end
       render :template => 'sections/edit_purpose'
     when 'impact'
       render :template => 'sections/edit_impact'
@@ -131,36 +135,39 @@ class SectionsController < ApplicationController
     @activity.stat_function = nil
     
     # Update the activity strategy answers if we have any (currently only in the Purpose section)
-    if params[:activity_strategies] then
-      params[:activity_strategies].each do |activity_strategy|
-        activity_response = @activity.activity_strategies.find_or_create_by_strategy_id(activity_strategy[0])
-        activity_response.strategy_response = activity_strategy[1]
-        activity_response.save
+    if params[:strategy_responses] then
+      params[:strategy_responses].each do |strategy_response|
+        activity_strategy = @activity.activity_strategies.find_or_create_by_strategy_id(strategy_response[0])
+        activity_strategy.strategy_response = strategy_response[1]
+        activity_strategy.save   
       end
     end
     
     flash[:notice] =  "#{@activity.name} was successfully updated."
     redirect_to :back
     
-  # rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-  #   flash[:notice] =  "Could not update the activity."
-  #   @equality_strand = params[:equality_strand]
-  #   @id = params[:id]    
-  #   
-  #   case @id
-  #   when 'purpose'
-  #     @activity_responses = @activity.activity_strategies.sort_by {|fr| fr.strategy.position } # sort by position
-  #     render :template => 'sections/edit_purpose'
-  #   when 'impact'
-  #     render :template => 'sections/edit_impact'
-  #   when 'consultation'
-  #     render :template => 'sections/edit_consultation'
-  #   when 'additional_work'
-  #     render :template => 'sections/edit_additional_work'
-  #   else
-  #     # throw error
-  #     raise ActiveRecord::RecordNotFound
-  #   end
+  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+    flash[:notice] =  "Could not update the activity."
+    @equality_strand = params[:equality_strand]
+    @id = params[:id]    
+    
+    case @id
+    when 'purpose'
+      strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
+      @activity_strategies = Array.new(strategies.size) do |i|
+        @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
+      end
+      render :template => 'sections/edit_purpose'
+    when 'impact'
+      render :template => 'sections/edit_impact'
+    when 'consultation'
+      render :template => 'sections/edit_consultation'
+    when 'additional_work'
+      render :template => 'sections/edit_additional_work'
+    else
+      # throw error
+      raise ActiveRecord::RecordNotFound
+    end
   end
 
 protected
