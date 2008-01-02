@@ -34,6 +34,10 @@ class ActivitiesController < ApplicationController
   # Available to: Activity Manager
   def show
     @activity = @current_user.activity
+    strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
+    @activity_strategies = Array.new(strategies.size) do |i|
+      @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
+    end
   end
 
   # Shows the section matrix state for a specific activity.

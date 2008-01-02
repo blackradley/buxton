@@ -48,7 +48,6 @@ class SectionsController < ApplicationController
     else
       @current_user.activity.id
     end
-    
     @activity = Activity.find(f_id)
     
     # Only display the answers if Activity/Policy Existing/Proposed are answered otherwise
