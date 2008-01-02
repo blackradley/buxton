@@ -381,11 +381,11 @@ questions:
     8:
       label:
         -
-          - 'Do you think that the Function takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?'
-          - 'Do you think that the Function takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?'
+          - 'Do you think that the Function could assist #{wordings[strand]} to get on better with each other?'
+          - 'Do you think that the Function could assist #{wordings[strand]} to get on better with each other?'
         -
-          - 'Do you think that the Policy takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?'
-          - 'Do you think that the Policy takes account of #{strand.to_s.capitalize} even if it means treating #{wordings[strand]} more favourably?'
+          - 'Do you think that the Function could assist #{wordings[strand]} to get on better with each other?'
+          - 'Do you think that the Function could assist #{wordings[strand]} to get on better with each other?'
       help: ''
       type: select
       choices: 3
