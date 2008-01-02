@@ -146,7 +146,7 @@ questions:
           - 'Please record any such measures.'
       help: '<p>There may be plans to close any gaps in information by collecting more information.</p>'
       type: text
-      dependent_questions: ''
+      dependent_questions: 'impact_#{strand}_6 yes_value'
     8:
       label:
         - 
@@ -160,7 +160,7 @@ questions:
       type: select
       choices: 3
       weights: 3
-      dependent_questions: 'impact_#{strand}_7 yes_value'
+      dependent_questions: 'impact_#{strand}_6 yes_value'
     9:
       label:
         - 
