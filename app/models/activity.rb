@@ -526,11 +526,8 @@ private
       dependant_correct = true
       dependency.each do #For each dependent question, check that it has the correct value
 	      |dependent|
-	      if dependent[1].class == String then
-          dependant_correct = dependant_correct && !(send(dependent[0]).to_s.blank?)   
-	      else
-		      dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1] || send(dependent[0]) == 0 ||send(dependent[0]).nil?)
-	      end
+		    dependent[1] = dependent[1].to_i
+        dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1] || send(dependent[0]) == 0 ||send(dependent[0]).nil?)
 	    end
       if dependant_correct then #If you don't need to answer this question, automatically give it a completed status
         return true 
@@ -569,7 +566,7 @@ private
       dependencies.gsub!("no_value", no_value.to_s)
       dependencies = dependencies.split(" ")
       return nil if dependencies == []
-      dependencies[0] = question = eval(%Q{<<"DELIM"\n} + dependencies[0] + "\nDELIM\n")
+      dependencies[0] = eval(%Q{<<"DELIM"\n} + dependencies[0] + "\nDELIM\n")
       dependencies[0].chop!
       return [dependencies]
     else
