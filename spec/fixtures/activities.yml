@@ -2,7 +2,7 @@
 activity_1:
   name:  Economic Regeneration Division
   directorate:  directorate_5
-  activity_manager:  actman_iain
+  activity_manager:  actman_1
   purpose_gender_3: 1
   purpose_race_3: 2
   purpose_disability_3: 2
@@ -192,7 +192,7 @@ activity_1:
 activity_2:
   name:  Environmental Management Division
   directorate:  directorate_5
-  activity_manager:  actman_iain
+  activity_manager:  actman_2
   purpose_gender_3: 0
   purpose_race_3: 2
   purpose_disability_3: 1
@@ -382,7 +382,7 @@ activity_2:
 activity_3:
   name:  Culture and Community Services
   directorate:  directorate_5
-  activity_manager:  actman_iain
+  activity_manager:  actman_3
   purpose_gender_3: 0
   purpose_race_3: 2
   purpose_disability_3: 2
@@ -572,7 +572,7 @@ activity_3:
 activity_4:
   name:  Development and Environmental Protection Division
   directorate:  directorate_5
-  activity_manager:  actman_iain
+  activity_manager:  actman_4
   purpose_gender_3: 0
   purpose_race_3: 1
   purpose_disability_3: 0
@@ -762,7 +762,7 @@ activity_4:
 activity_5:
   name:  Legal and Democratic Services
   directorate:  directorate_4
-  activity_manager:  actman_iain
+  activity_manager:  actman_5
   purpose_gender_3: 2
   purpose_race_3: 1
   purpose_disability_3: 1
@@ -952,7 +952,7 @@ activity_5:
 activity_6:
   name:  Corporate Estate Service
   directorate:  directorate_4
-  activity_manager:  actman_iain
+  activity_manager:  actman_6
   purpose_gender_3: 2
   purpose_race_3: 1
   purpose_disability_3: 2
@@ -1142,7 +1142,7 @@ activity_6:
 activity_7:
   name:  Property Consultancy
   directorate:  directorate_4
-  activity_manager:  actman_iain
+  activity_manager:  actman_7
   purpose_gender_3: 0
   purpose_race_3: 0
   purpose_disability_3: 1
@@ -1332,7 +1332,7 @@ activity_7:
 activity_8:
   name:  Audit
   directorate:  directorate_3
-  activity_manager:  actman_iain
+  activity_manager:  actman_8
   purpose_gender_3: 0
   purpose_race_3: 2
   purpose_disability_3: 2
@@ -1522,7 +1522,7 @@ activity_8:
 activity_9:
   name:  Benefits
   directorate:  directorate_3
-  activity_manager:  actman_iain
+  activity_manager:  actman_9
   purpose_gender_3: 1
   purpose_race_3: 1
   purpose_disability_3: 1
@@ -1712,7 +1712,7 @@ activity_9:
 activity_10:
   name:  Revenues
   directorate:  directorate_3
-  activity_manager:  actman_iain
+  activity_manager:  actman_10
   purpose_gender_3: 2
   purpose_race_3: 0
   purpose_disability_3: 2
@@ -1902,7 +1902,7 @@ activity_10:
 activity_11:
   name:  Financial
   directorate:  directorate_3
-  activity_manager:  actman_iain
+  activity_manager:  actman_11
   purpose_gender_3: 1
   purpose_race_3: 2
   purpose_disability_3: 2
@@ -2092,7 +2092,7 @@ activity_11:
 activity_12:
   name:  ICT
   directorate:  directorate_3
-  activity_manager:  actman_iain
+  activity_manager:  actman_12
   purpose_gender_3: 2
   purpose_race_3: 1
   purpose_disability_3: 2
@@ -2282,7 +2282,7 @@ activity_12:
 activity_13:
   name:  Purchasing
   directorate:  directorate_3
-  activity_manager:  actman_iain
+  activity_manager:  actman_13
   purpose_gender_3: 0
   purpose_race_3: 2
   purpose_disability_3: 0
@@ -2472,7 +2472,7 @@ activity_13:
 activity_14:
   name:  Children's Specialist Services
   directorate:  directorate_2
-  activity_manager:  actman_iain
+  activity_manager:  actman_14
   purpose_gender_3: 2
   purpose_race_3: 2
   purpose_disability_3: 2
@@ -2662,7 +2662,7 @@ activity_14:
 activity_15:
   name:  Early Years, Youth and Education Services
   directorate:  directorate_2
-  activity_manager:  actman_iain
+  activity_manager:  actman_15
   purpose_gender_3: 2
   purpose_race_3: 0
   purpose_disability_3: 1
@@ -2852,7 +2852,7 @@ activity_15:
 activity_16:
   name:  Partnership and Children's Trust
   directorate:  directorate_2
-  activity_manager:  actman_iain
+  activity_manager:  actman_16
   purpose_gender_3: 0
   purpose_race_3: 1
   purpose_disability_3: 1
@@ -3042,7 +3042,7 @@ activity_16:
 activity_17:
   name:  Policy, Performance and Information
   directorate:  directorate_2
-  activity_manager:  actman_iain
+  activity_manager:  actman_17
   purpose_gender_3: 2
   purpose_race_3: 1
   purpose_disability_3: 0
@@ -3232,7 +3232,7 @@ activity_17:
 activity_18:
   name:  Resources
   directorate:  directorate_2
-  activity_manager:  actman_iain
+  activity_manager:  actman_18
   purpose_gender_3: 1
   purpose_race_3: 1
   purpose_disability_3: 2
@@ -3422,7 +3422,7 @@ activity_18:
 activity_19:
   name:  Business Services
   directorate:  directorate_1
-  activity_manager:  actman_iain
+  activity_manager:  actman_19
   purpose_gender_3: 1
   purpose_race_3: 0
   purpose_disability_3: 1
@@ -3612,7 +3612,7 @@ activity_19:
 activity_20:
   name:  Older People and Adults with Physical Disabilities
   directorate:  directorate_1
-  activity_manager:  actman_iain
+  activity_manager:  actman_20
   purpose_gender_3: 0
   purpose_race_3: 2
   purpose_disability_3: 1
@@ -3802,7 +3802,7 @@ activity_20:
 activity_21:
   name:  Mental Health and Learning Disabilities
   directorate:  directorate_1
-  activity_manager:  actman_iain
+  activity_manager:  actman_21
   purpose_gender_3: 2
   purpose_race_3: 0
   purpose_disability_3: 0
@@ -3992,7 +3992,7 @@ activity_21:
 activity_22:
   name:  Building Services
   directorate:  directorate_1
-  activity_manager:  actman_iain
+  activity_manager:  actman_22
   purpose_gender_3: 1
   purpose_race_3: 2
   purpose_disability_3: 1
@@ -4182,7 +4182,7 @@ activity_22:
 activity_23:
   name:  Strategic and Private Sector Housing
   directorate:  directorate_1
-  activity_manager:  actman_iain
+  activity_manager:  actman_23
   purpose_gender_3: 2
   purpose_race_3: 1
   purpose_disability_3: 0
@@ -4372,7 +4372,7 @@ activity_23:
 activity_24:
   name:  Housing Management
   directorate:  directorate_1
-  activity_manager:  actman_iain
+  activity_manager:  actman_24
   purpose_gender_3: 2
   purpose_race_3: 0
   purpose_disability_3: 0
@@ -4562,7 +4562,7 @@ activity_24:
 activity_25:
   name:  Libraries, Archives and Adult Learning
   directorate:  directorate_1
-  activity_manager:  actman_iain
+  activity_manager:  actman_25
   purpose_gender_3: 0
   purpose_race_3: 1
   purpose_disability_3: 0
