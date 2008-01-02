@@ -123,11 +123,11 @@ questions:
     6:
       label: 
         - 
-          - 'Any there any other measures by which the impact of the Function on meeting the particular needs of #{wordings[strand]} could be assessed?'
-          - 'Any there any other measures by which the impact of the Function on meeting the particular needs of #{wordings[strand]} could be assessed?'
+          - 'Are there any other measures by which the impact of the Function on meeting the particular needs of #{wordings[strand]} could be assessed?'
+          - 'Are there any other measures by which the impact of the Function on meeting the particular needs of #{wordings[strand]} could be assessed?'
         - 
-          - 'Any there any other measures by which the impact of the Policy on meeting the particular needs of #{wordings[strand]} could be assessed?'
-          - 'Any there any other measures by which the impact of the Policy on meeting the particular needs of #{wordings[strand]} could be assessed?'
+          - 'Are there any other measures by which the impact of the Policy on meeting the particular needs of #{wordings[strand]} could be assessed?'
+          - 'Are there any other measures by which the impact of the Policy on meeting the particular needs of #{wordings[strand]} could be assessed?'
       help: '<p>Ideally the assessment of the performance will be based upon sound quantitative information; however
             , there may be gaps in the information about how the #{fun_pol_indicator} meets the particular needs of #{wordings[strand]}.
             These gaps may be that relevant data is not collected, that the information is out of date or does not 
