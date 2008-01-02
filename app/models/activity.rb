@@ -127,7 +127,6 @@ class Activity < ActiveRecord::Base
   end
   #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions. 
   def percentage_answered(section = nil, strand = nil)
-    sec_questions = []
     issue_strand = []
     number_answered = 0
     total = 0
@@ -142,14 +141,15 @@ class Activity < ActiveRecord::Base
        questions << Activity.get_question_names(:impact, strand, 9)
        questions.flatten!
        questions.each do |question|
-         strand = question.to_s.split("_")
-         strand.delete_at(1)
-         strand.delete_at(0)
-         strand.pop
-         lookups_required = (self.send(question) != 2)
+         strand = Activity.question_separation(question)[1]
+         if section
+          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?) 
+         else
+          lookups_required = (self.send(question) == 2)
+         end
          if lookups_required then
            issue_strand = self.issues.clone
-           issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s} if strand
+           issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s}
            return 0 if (section == :action_planning && issue_strand.length == 0)
            issue_names = []
            Issue.content_columns.each{|column| issue_names.push(column.name)}
@@ -157,11 +157,9 @@ class Activity < ActiveRecord::Base
            issue_strand.each do |issue_name|
               issue_names.each do |name|
                 if check_response(issue_name.send(name.to_sym)) then
-                  total += 1
                   number_answered += 1
-                else 
-                  total += 1
                 end
+                total += 1
               end
            end
          end
