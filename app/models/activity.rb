@@ -136,35 +136,35 @@ class Activity < ActiveRecord::Base
     Activity.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1 end; total += 1} 
     #If you don't specify a section, or your section is action planning, consider issues as well.
     unless section && !(section == :action_planning) then 
-       #First we calculate all the questions, in case there is a nil.
-       questions = Activity.get_question_names(:consultation, strand, 7)
-       questions << Activity.get_question_names(:impact, strand, 9)
-       questions.flatten!
-       questions.each do |question|
-         strand = Activity.question_separation(question)[1]
-         if section
+      #First we calculate all the questions, in case there is a nil.
+      questions = Activity.get_question_names(:consultation, strand, 7)
+      questions << Activity.get_question_names(:impact, strand, 9)
+      questions.flatten!
+      questions.each do |question|
+        strand = Activity.question_separation(question)[1]
+        if section
           lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?) 
-         else
+        else
           lookups_required = (self.send(question) == 2)
-         end
-         if lookups_required then
-           issue_strand = self.issues.clone
-           issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s}
-           return 0 if (section == :action_planning && issue_strand.length == 0)
-           issue_names = []
-           Issue.content_columns.each{|column| issue_names.push(column.name)}
-           issue_names.delete('strand')
-           issue_strand.each do |issue_name|
-              issue_names.each do |name|
-                if check_response(issue_name.send(name.to_sym)) then
-                  number_answered += 1
-                end
-                total += 1
+        end
+        if lookups_required then
+          issue_strand = self.issues.clone
+          issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s}
+          return 0 if (section == :action_planning && issue_strand.length == 0)
+          issue_names = []
+          Issue.content_columns.each{|column| issue_names.push(column.name)}
+          issue_names.delete('strand')
+          issue_strand.each do |issue_name|
+            issue_names.each do |name|
+              if check_response(issue_name.send(name.to_sym)) then
+                number_answered += 1
               end
-           end
-         end
-       end
-     end
+              total += 1
+            end
+          end
+        end
+      end
+    end
     #If you don't suggest a section, or your section is purpose, then consider strategies as well.
     unless section && !(section == :purpose) then
       self.activity_strategies.each do |strategy| 
@@ -229,49 +229,47 @@ class Activity < ActiveRecord::Base
     return false unless (check_question(:existing_proposed) && check_question(:function_policy))
     Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
     unless section && !(section == :action_planning) then 
-       #First we calculate all the questions, in case there is a nil.
-       questions = Activity.get_question_names(:consultation, strand, 7)
-       questions << Activity.get_question_names(:impact, strand, 9)
-       questions.flatten!
-       questions.each do |question|
-         strand = Activity.question_separation(question)[1]
-         if section
+      #First we calculate all the questions, in case there is a nil.
+      questions = Activity.get_question_names(:consultation, strand, 7)
+      questions << Activity.get_question_names(:impact, strand, 9)
+      questions.flatten!
+      questions.each do |question|
+        strand = Activity.question_separation(question)[1]
+        if section
           lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?) 
-         else
+        else
           lookups_required = (self.send(question) == 2)
-         end
-         if lookups_required then
-           issue_strand = self.issues.clone
-           issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s}
-           return false if (section == :action_planning && issue_strand.length == 0)
-           issue_names = []
-           Issue.content_columns.each{|column| issue_names.push(column.name)}
-           issue_names.delete('strand')
-           issue_strand.each do |issue_name|
-              issue_names.each do |name|
-                unless check_response(issue_name.send(name.to_sym)) then
-                  return false
-                end
+        end
+        if lookups_required then
+          issue_strand = self.issues.clone
+          issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s}
+          return false if (section == :action_planning && issue_strand.length == 0)
+          issue_names = []
+          Issue.content_columns.each{|column| issue_names.push(column.name)}
+          issue_names.delete('strand')
+          issue_strand.each do |issue_name|
+            issue_names.each do |name|
+              unless check_response(issue_name.send(name.to_sym)) then
+                return false
               end
-           end
-         end
-       end
-      unless section && !(section == :purpose) then
-        self.activity_strategies.each do |strategy| 
-          unless check_response(strategy.strategy_response) then
-            completed = false
-            break
+            end
           end
         end
-      end      
+      end
     end
+    unless section && !(section == :purpose) then
+      self.activity_strategies.each do |strategy|
+        unless check_response(strategy.strategy_response) then
+          return false
+        end
+      end
+    end      
     return true
   end
   
   def issues_by_section(section)
     issues.reject{|issue| issue.section != section }
   end
-  
   
   def issue_attributes=(issue_attributes)
     issue_attributes.each do |attributes|
