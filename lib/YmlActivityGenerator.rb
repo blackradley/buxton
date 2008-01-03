@@ -1,5 +1,5 @@
 class YmlActivityGenerator
-  
+  #In script/console run require 'YmlActivityGenerator.rb', then YmlActivityGenerator.to_yaml(25) to reinvoke 25 fixtures. 25 is the max.
   DISPLAYTEXT = "Lorem ipsum dolor sit amet consectetuer adipiscing elit."
   @@running_count = 0
   @@issue_id = 0
@@ -35,14 +35,14 @@ class YmlActivityGenerator
       "Culture and Community Services",
       "Development and Environmental Protection Division"]}
     
-  def initialize(number = @@running_count, name = nil, directorate = nil, actman = 'actman_iain', type = nil)
+  def initialize(number = @@running_count, name = nil, directorate = nil, type = nil)
     @file = []
     @number = number
     @hashes = YAML.load_file("#{RAILS_ROOT}/config/questions.yml")
     @@running_count += 1
     @issues = []
     @name = name
-    generate_activity_start(name, directorate, actman) if name
+    generate_activity_start(name, directorate) if name
     generate_activity_text(type) if type
   end 
   def generate_activity_text(type) 
@@ -89,10 +89,10 @@ class YmlActivityGenerator
     end
     return return_text.titleize
   end
-  def generate_activity_start(name, directorate = 'directorate_1', actman = 'actman_iain')
+  def generate_activity_start(name, directorate = 'directorate_1')
     @file << "name:  #{name}"
     @file << "directorate:  #{directorate}"
-    @file << "activity_manager:  #{actman}"
+    @file << "activity_manager:  actman_#{@number}"
   end
   def issue_to_s
     output = ""
@@ -105,7 +105,7 @@ class YmlActivityGenerator
     end
     output
   end
-  def self.to_yaml(numbers, names = [], directorates = [], actmans = 'actman_iain', types = :random)
+  def self.to_yaml(numbers, names = [], directorates = [], types = :random)
     numbers = 1 unless numbers
     numbers = 1..numbers unless numbers.class == Array || numbers.nil?
     5.times do |i| 
@@ -117,11 +117,6 @@ class YmlActivityGenerator
       names << name_set[directorate.to_sym].pop
     end
     numbers.each do |number|
-      if actmans.class == Array then
-        manager = actmans.pop
-      else
-        manager = actmans    
-      end
       if directorates.class == Array then
         directorate = directorates.pop
       else
@@ -138,10 +133,10 @@ class YmlActivityGenerator
         name = names    
       end
       File.open("#{RAILS_ROOT}/spec/fixtures/activities.yml", 'a') do |yaml|
-        yaml.puts self.new(number, name, directorate, manager, type)
+        yaml.puts self.new(number, name, directorate, type)
       end
       File.open("#{RAILS_ROOT}/spec/fixtures/issues.yml", 'a') do |yaml|
-        yaml.puts self.new(number, name, directorate, manager, type).issue_to_s
+        yaml.puts self.new(number, name, directorate, type).issue_to_s
       end
     end
   end

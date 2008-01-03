@@ -12,7 +12,6 @@
 	<li><%=h @activity.additional_work_text_lookup(@equality_strand, 4) %></li>
 	<li><%=h @activity.additional_work_text_lookup(@equality_strand, 5) %></li>
 	<li><%=h @activity.additional_work_text_lookup(@equality_strand, 6) %></li>
-	<li><%=h @activity.additional_work_text_lookup(@equality_strand, 7) %></li>
 </ul>
 </div>
 
@@ -23,14 +22,13 @@
 	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 3, :f_id => @activity.id} %>
 	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 4, :f_id => @activity.id} %>
 	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 5, :f_id => @activity.id} %>
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 6, :f_id => @activity.id} %>
 	<% unless @equality_strand == 'gender' then %>
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 7, :f_id => @activity.id} %>
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 6, :f_id => @activity.id} %>
 	<% end %>
 	<% if @equality_strand=='disability' then %>	
+	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 7, :f_id => @activity.id} %>
 	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 8, :f_id => @activity.id} %>
 	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 9, :f_id => @activity.id} %>
-	<%= f.question :additional_work, {:equality_strand => @equality_strand, :number => 10, :f_id => @activity.id} %>
 <% end -%>
 <div class="clear"></div>
 <%= hidden_field_tag 'id', @id %>
