@@ -117,7 +117,6 @@ class SectionsController < ApplicationController
   # Update the activity answers, for this particular section, as appropriate
   # Available to: Activity Manager
   def update
-    
     # If we have issues to process
     if params[:activity][:issue_attributes] then
       #removes all blank elements from the array that were not there previously (ie those without id's)
@@ -136,9 +135,10 @@ class SectionsController < ApplicationController
     # Update the activity strategy answers if we have any (currently only in the Purpose section)
     if params[:strategy_responses] then
       params[:strategy_responses].each do |strategy_response|
+        numeric_response = @activity.hashes['choices'][3].index(strategy_response[1])
         activity_strategy = @activity.activity_strategies.find_or_create_by_strategy_id(strategy_response[0])
-        activity_strategy.strategy_response = strategy_response[1]
-        activity_strategy.save
+        activity_strategy.update_attributes(:strategy_response => numeric_response)
+        activity_strategy.save!
       end
     end
     
