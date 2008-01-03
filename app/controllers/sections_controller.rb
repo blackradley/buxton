@@ -138,7 +138,7 @@ class SectionsController < ApplicationController
       params[:strategy_responses].each do |strategy_response|
         activity_strategy = @activity.activity_strategies.find_or_create_by_strategy_id(strategy_response[0])
         activity_strategy.strategy_response = strategy_response[1]
-        activity_strategy.save   
+        activity_strategy.save
       end
     end
     
