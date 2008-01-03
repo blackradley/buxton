@@ -137,7 +137,7 @@ class SectionsController < ApplicationController
       params[:strategy_responses].each do |strategy_response|
         numeric_response = @activity.hashes['choices'][3].index(strategy_response[1])
         activity_strategy = @activity.activity_strategies.find_or_create_by_strategy_id(strategy_response[0])
-        activity_strategy.update_attributes(:strategy_response => numeric_response)
+        activity_strategy.strategy_response = numeric_response
         activity_strategy.save!
       end
     end
