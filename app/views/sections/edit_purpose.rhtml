@@ -15,7 +15,7 @@
 	<% @activity_strategies.each do |activity_strategy| %>
 		<p><label for="<%= activity_strategy.strategy.description -%>"><%= activity_strategy.strategy.name -%></label>
 			<%= select('strategy_responses', activity_strategy.strategy_id, @activity.hashes['choices'][3], 
-			 :selected => activity_strategy.strategy_response.to_i) -%></p>		
+			 :selected => @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i]) -%></p>		
 	<% end %>
 
 	<h4><%=h @activity.header(:purpose_overall_2) -%><a href="#" onclick="Element.toggle('impact_groups_help'); return false;"><img alt="Help" src="/images/icons/help.gif" /></a></h4>
