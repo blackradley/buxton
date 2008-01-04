@@ -2,7 +2,7 @@
 <h1 id="questions">
 	<%= image_tag('icons/no_previous.gif', :class =>'previous')-%>
 	<%=h @activity.name -%> - <%= @equality_strand.titleize -%> Purpose
-	<%= link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'impact', :equality_strand => @equality_strand }, :title =>"Next Section" -%>
+	<%= image_tag('icons/no_next.gif', :class =>'next') 
 </h1> 
 
 <div id="questions">
