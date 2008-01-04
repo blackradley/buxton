@@ -358,7 +358,7 @@ class Activity < ActiveRecord::Base
   def self.get_question_names(section = nil, strand = nil, number = nil)
 	  return ["#{section}_#{strand}_#{number}".to_sym] if section && strand && number
     questions = []
-	  unnecessary_columns = [:name, :approved, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on]
+	  unnecessary_columns = [:name, :approved, :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on]
 	  Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
 	  unnecessary_columns.each{|column| questions.delete(column)}
 	  questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section
@@ -453,6 +453,7 @@ class Activity < ActiveRecord::Base
     end
     section = section.to_s
     strand = strand.to_s
+    question = question.to_i
   	strands = hashes['strands']
     wordings = hashes['wordings']
     questions = hashes['questions']
@@ -530,6 +531,13 @@ private
 
 #Check question takes a single question as an argument and checks if it has been completed, and that any dependent questions have been answered.
   def check_question(question)
+    puts question
+    if !(question == :existing_proposed || question == :function_policy) then
+      separated_question = Activity.question_separation(question)
+      puts separated_question
+      puts '------------------'
+      return true if question_wording_lookup(*Activity.question_separation(question))[0].blank?
+    end
     dependency = dependent_questions(question)
     if dependency then
       response = send(question)
