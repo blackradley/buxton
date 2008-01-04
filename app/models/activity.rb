@@ -70,6 +70,19 @@ class Activity < ActiveRecord::Base
     hashes['choices'][8][self.existing_proposed.to_i]
   end
   
+  def fun_pol_number
+    fun_pol = self.function_policy
+    fun_pol -= 1
+    fun_pol = 0 if fun_pol == -1
+    fun_pol
+  end
+  
+  def exist_prop_number
+    exist_prop = self.existing_proposed
+    exist_prop -= 1
+    exist_prop = 0 if exist_prop == -1
+    exist_prop
+  end
   def existing?
    self.existing_proposed == 1 
   end
@@ -430,13 +443,7 @@ class Activity < ActiveRecord::Base
   #It can also be passed nils, and in that event, it will automatically return an array containing all the values that corresponded to the nils. Hence, to return all
   #questions and their lookup types, just func.question_wording_lookup suffices.
   def question_wording_lookup(section = nil, strand = nil, question = nil)
-    fun_pol = self.function_policy
-    fun_pol -= 1
-    fun_pol = 0 if fun_pol == -1
-    exist_prop = self.existing_proposed
-    exist_prop -= 1
-    exist_prop = 0 if exist_prop == -1
-    fun_pol_indicator = case fun_pol
+    fun_pol_indicator = case fun_pol_number
       when 0 
         "function"
       when 1
@@ -450,6 +457,7 @@ class Activity < ActiveRecord::Base
     wordings = hashes['wordings']
     questions = hashes['questions']
     overall_questions = hashes['overall_questions']
+    descriptive_term = hashes['descriptive_terms_for_strands']
     response = {}
     #First recursively decide on all the strands
     unless strand != "" then
@@ -484,10 +492,10 @@ class Activity < ActiveRecord::Base
       end
       return response
     end
-    label = query_hash[section][question]['label'][fun_pol][exist_prop].to_s
+    label = query_hash[section][question]['label'][self.fun_pol_number][self.exist_prop_number].to_s
     type = query_hash[section][question]['type']
     choices = query_hash[section][question]['choices']
-    help = query_hash[section][question]['help'].to_s
+    help = query_hash[section][question]['help'][self.fun_pol_number][self.exist_prop_number].to_s
     weights = query_hash[section][question]['weights']
     label = eval(%Q{<<"DELIM"\n} + label + "\nDELIM\n")
     help = eval(%Q{<<"DELIM"\n} + help + "\nDELIM\n")

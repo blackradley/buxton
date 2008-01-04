@@ -41,9 +41,11 @@
   		<%= link_to_function "Add a New Issue" do |page|
   		    page.insert_html :bottom, :issues_list, :partial => 'issues/issue', :object => Issue.new
   		end %>
-  		<%= image_tag('icons/add.gif') %> 
+  		<%= image_tag('icons/add.gif') %>
+  		<a href="#" onclick="Element.toggle('issues_help'); return false;"><img alt="Help" src="/images/icons/help.gif" /></a> 
   		<div class="clear"></div>
   	</div>
+  	<span id="issues_help" class="toggleHelp" style="display:none;"><%= @activity.hashes['issues_help_text'][@activity.fun_pol_number][@activity.exist_prop_number].to_s %></span>
 	</p>
 	
 	
