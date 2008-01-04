@@ -111,35 +111,35 @@ questions:
           - 'This question asks you whether you have any information to support your assessment of the impact of the Function that you recorded in the previous question.<br/><br/>
              The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/> 
              The available answers are:<br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul>
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul>
              If you have not got information to support the assessment of impact you might like to think on what basis you made the assessment.'
           - 'This question asks you whether you have any information to support your assessment of the impact of the Function that you recorded in the previous question.<br/><br/>
              The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/> 
              The available answers are:<br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul>
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul>
              If you have not got information to support the assessment of impact you might like to think on what basis you made the assessment.'
         - 
           - 'This question asks you whether you have any information to support your assessment of the impact of the Policy that you recorded in the previous question.<br/><br/>
              The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/> 
              The available answers are:<br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul>
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul>
              If you have not got information to support the assessment of impact you might like to think on what basis you made the assessment.'
           - 'This question asks you whether you have any information to support your assessment of the impact of the Policy that you recorded in the previous question.<br/><br/>
              The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/> 
              The available answers are:<br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul>
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul>
              If you have not got information to support the assessment of impact you might like to think on what basis you made the assessment.'
       type: select
       choices: 3
@@ -229,35 +229,35 @@ questions:
           - 'This question asks you if there are other measures by which you could assess the impact of the Function on #{wordings[strand]}#{hashes["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}.  Such measures
              might be the level of complaints, anecdotal evidence or your first hand experience of the Function.<br/><br/>#{hashes["extra_strand_wordings"]["impact"][6]["extra_paragraph"][strand]}
              The available answers to this question are:<br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul><br/>
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul><br/>
              In the light of this question you may want to go back and review your assessment of the impact of the Function on #{wordings[strand]}.'
           - 'This question asks you if there are other measures by which you could assess the impact of the Function on #{wordings[strand]}#{hashes["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}.  Such measures
              might be the level of complaints, anecdotal evidence or your first hand experience of the Function.<br/><br/>#{hashes["extra_strand_wordings"]["impact"][6]["extra_paragraph"][strand]}
              The available answers to this question are:<br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul><br/>
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul><br/>
              In the light of this question you may want to go back and review your assessment of the impact of the Function on #{wordings[strand]}.'
         - 
           - 'This question asks you if there are other measures by which you could assess the impact of the Policy on #{wordings[strand]}#{hashes["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}.  Such measures
              might be the level of complaints, anecdotal evidence or your first hand experience of the Policy.<br/><br/>#{hashes["extra_strand_wordings"]["impact"][6]["extra_paragraph"][strand]}
              The available answers to this question are:<br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul><br/>
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul><br/>
              In the light of this question you may want to go back and review your assessment of the impact of the Policy on #{wordings[strand]}.'
           - 'This question asks you if there are other measures by which you could assess the impact of the Policy on #{wordings[strand]}#{hashes["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}.  Such measures
              might be the level of complaints, anecdotal evidence or your first hand experience of the Policy.<br/><br/>#{hashes["extra_strand_wordings"]["impact"][6]["extra_paragraph"][strand]}
              The available answers to this question are:<br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul><br/>
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul><br/>
              In the light of this question you may want to go back and review your assessment of the impact of the Policy on #{wordings[strand]}.'
       type: select
       choices: 3
@@ -345,31 +345,35 @@ questions:
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
              The consultation may have been arranged specifically for this particular Function or for a number of Functions.<br/><br/>
              The available answers to this question are:<br/>
-             Yes<br/>
-             No<br/>
-             Not Sure'
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul><br/>'
           - 'This question asks whether any groups representing the interests of #{wordings[strand]} have been consulted on the potential impact of the Function.<br/><br/>
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
              The consultation may have been arranged specifically for this particular Function or for a number of Functions.<br/><br/>
              The available answers to this question are:<br/>
-             Yes<br/>
-             No<br/>
-             Not Sure'
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul><br/>'
         - 
           - 'This question asks whether any groups representing the interests of #{wordings[strand]} have been consulted on the impact of the Policy.<br/><br/>
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
              The consultation may have been arranged specifically for this particular Policy or for a number of Policies.<br/><br/>
              The available answers to this question are:<br/>
-             Yes<br/>
-             No<br/>
-             Not Sure'
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul><br/>'
           - 'This question asks whether any groups representing the interests of #{wordings[strand]} have been consulted on the potential impact of the Policy.<br/><br/>
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
              The consultation may have been arranged specifically for this particular Policy or for a number of Policies.<br/><br/>
              The available answers to this question are:<br/>
-             Yes<br/>
-             No<br/>
-             Not Sure'
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul><br/>'
       type: select
       choices: 3
       weights: 7
@@ -448,31 +452,35 @@ questions:
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
              The consultation may have been arranged specifically for this particular Function or for a number of Functions.<br/><br/>
              The available answers to this question are:<br/>
-             Yes<br/>
-             No<br/>
-             Not Sure'
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul><br/>'
           - 'This question asks whether any stakeholders with knowledge and expertise on the #{"different " if strand == "gender"}interests of #{wordings[strand]} have been consulted on the potential impact of the Function.<br/><br/>
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
              The consultation may have been arranged specifically for this particular Function or for a number of Functions.<br/><br/>
              The available answers to this question are:<br/>
-             Yes<br/>
-             No<br/>
-             Not Sure'
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul><br/>'
         - 
           - 'This question asks whether any stakeholders with knowledge and expertise on the #{"different " if strand == "gender"}interests of #{wordings[strand]} have been consulted on the impact of the Policy.<br/><br/>
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
              The consultation may have been arranged specifically for this particular Policy or for a number of Policies.<br/><br/>
              The available answers to this question are:<br/>
-             Yes<br/>
-             No<br/>
-             Not Sure'
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul><br/>'
           - 'This question asks whether any stakeholders with knowledge and expertise on the #{"different " if strand == "gender"}interests of #{wordings[strand]} have been consulted on the potential impact of the Policy.<br/><br/>
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
              The consultation may have been arranged specifically for this particular Policy or for a number of Policies.<br/><br/>
              The available answers to this question are:<br/>
-             Yes<br/>
-             No<br/>
-             Not Sure'
+             <ul><li>Yes</li>
+             <li>No</li>
+             <li>Not Sure</li>
+             </ul><br/>'
       type: select
       choices: 3
       weights: 14
@@ -865,107 +873,7 @@ overall_questions:
       choices: 3
       weights: 0
       dependent_questions: ''
-  impact:
-    1:
-      label:
-        - 
-          - 'How would you assess the current impact of the Function in meeting the particular needs of #{wordings[strand]}?'
-          - 'How would you assess the potential impact of the Function in meeting the particular needs of #{wordings[strand]}?'
-        - 
-          - 'How would you assess the current impact of the Policy in meeting the particular needs of #{wordings[strand]}?'
-          - 'How would you assess the potential impact of the Policy in meeting the particular needs of #{wordings[strand]}?'
-      help: 
-        -
-          - ''
-          - ''
-        - 
-          - ''
-          - ''
-      type: select
-      choices: 2
-      weights: 2
-      dependent_questions: ''
-    2:
-      label:
-        - 
-          - 'Do you have current information to support this assessment?'
-          - 'Will you be able to access information to support this assessment?'
-        - 
-          - 'Do you have current information to support this assessment?'
-          - 'Will you be able to access information to support this assessment?'
-      help: 
-        -
-          - 'This question asks you whether you have any information to support your assessment of the impact of the Function that you recorded in the previous question.<br/><br/>
-             The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/> 
-             The available answers are:<br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul>
-             If you have not got information to support the assessment of impact you might like to think on what basis you made the assessment.'
-          - 'This question asks you whether you have any information to support your assessment of the impact of the Function that you recorded in the previous question.<br/><br/>
-             The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/> 
-             The available answers are:<br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul>
-             If you have not got information to support the assessment of impact you might like to think on what basis you made the assessment.'
-        - 
-          - 'This question asks you whether you have any information to support your assessment of the impact of the Policy that you recorded in the previous question.<br/><br/>
-             The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/> 
-             The available answers are:<br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul>
-             If you have not got information to support the assessment of impact you might like to think on what basis you made the assessment.'
-          - 'This question asks you whether you have any information to support your asessment of the impact of the Policy that you recorded in the previous question.<br/><br/>
-             The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/> 
-             The available answers are:<br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul>
-             If you have not got information to support the assessment of impact you might like to think on what basis you made the assessment.'
-      type: select
-      choices: 3
-      weights: 15
-      dependent_questions: ''
-    3:
-      label:
-        - 
-          - 'Please record the nature and source of this information.'
-          - 'Please record the nature and source of this information.'
-        - 
-          - 'Please record the nature and source of this information.'
-          - 'Please record the nature and source of this information.'
-      help: 
-        -
-          - 'This question asks you to record the nature of the information you have used to make your assessment of the impact.<br/><br/>
-             A brief description of the information, its source and date is sufficient. e.g.<br/>
-             Internal Audit Report.<br/>
-             ABC Ltd<br/>
-             October 2007'
-          - 'This question asks you to record the nature of the information you have used to make your assessment of the impact.<br/><br/>
-             A brief description of the information, its source and date is sufficient. e.g.<br/>
-             Internal Audit Report.<br/>
-             ABC Ltd<br/>
-             October 2007'
-        - 
-          - 'This question asks you to record the nature of the information you have used to make your assessment of the impact.<br/><br/>
-             A brief description of the information, its source and date is sufficient. e.g.<br/>
-             Internal Audit Report.<br/>
-             ABC Ltd<br/>
-             October 2007'
-          - 'This question asks you to record the nature of the information you have used to make your assessment of the impact.<br/><br/>
-             A brief description of the information, its source and date is sufficient. e.g..<br/>
-             Internal Audit Report.<br/>
-             ABC Ltd<br/>
-             October 2007'
-      type: text
-      dependent_questions: 'impact_overall_2 yes_value'
-      
+     
 wordings:
   gender: men and women
   race: individuals from different ethnic backgrounds
@@ -1052,10 +960,10 @@ header_help_text:
          <li>Employees of businesses operating in the Council area.  Functions which cover the way in which the Council engages with businesses are likely to have an impact on these individuals.</li></ul>
          Please indicate whether the Function have any impact, good or bad, on the following individuals.  The available answers for each group of individuals are:
          <br/><br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul>'
+         <ul><li>Yes</li>
+         <li>No</li>
+         <li>Not Sure</li>
+         </ul>'
       - 'This question asks you to identify the different groups of individuals the Function has an impact upon.<br/><br/>
          The groups of individuals are:<ul>
          <li>Service Users, people who use Council services whether residents or visitors.  Functions which deliver front line services will have an impact on these individuals.</li>
@@ -1065,10 +973,10 @@ header_help_text:
          <li>Employees of businesses operating in the Council area.  Functions which cover the way in which the Council engages with businesses are likely to have an impact on these individuals.</li></ul>
          Please indicate whether the Function have any impact, good or bad, on the following individuals.  The available answers for each group of individuals are:
          <br/><br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul>'
+         <ul><li>Yes</li>
+         <li>No</li>
+         <li>Not Sure</li>
+         </ul>'
     -
       - 'This question asks you to identify the different groups of individuals the Policy has an impact upon.<br/><br/>
          The groups of individuals are:<ul>
@@ -1079,10 +987,10 @@ header_help_text:
          <li>Employees of businesses operating in the Council area.  Policies which cover the way in which the Council engages with businesses are likely to have an impact on these individuals.</li></ul>
          Please indicate whether the Policies have any impact, good or bad, on the following individuals.  The available answers for each group of individuals are:
          <br/><br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul>'
+         <ul><li>Yes</li>
+         <li>No</li>
+         <li>Not Sure</li>
+         </ul>'
       - 'This question asks you to identify the different groups of individuals the Policy has an impact upon.<br/><br/>
          The groups of individuals are:<ul>
          <li>Service Users, people who use Council services whether residents or visitors.  Policies which deliver front line services will have an impact on these individuals.</li>
@@ -1092,10 +1000,10 @@ header_help_text:
          <li>Employees of businesses operating in the Council area.  Policies which cover the way in which the Council engages with businesses are likely to have an impact on these individuals.</li></ul>
          Please indicate whether the Policies have any impact, good or bad, on the following individuals.  The available answers for each group of individuals are:
          <br/><br/>
-<ul><li>Yes</li>
-        <li>No</li>
-        <li>Not Sure</li>
-</ul>'
+         <ul><li>Yes</li>
+         <li>No</li>
+         <li>Not Sure</li>
+         </ul>'
   purpose_overall_3:
     -
       - 'This group of questions seeks to identify any positive differential impact that the Function has on individuals.<br/><br/> The questions 
@@ -1104,9 +1012,9 @@ header_help_text:
          faith and is performing well would expect to have a positive impact only for members of that faith.  It may be that there is other
          unplanned positive differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
-        <li>Some impact</li>
-        <li>Significant impact</li>
-</ul><br/>
+         <li>Some impact</li>
+         <li>Significant impact</li>
+         </ul><br/>
          Please indicate whether, in your opinion,  the positive impact is limited or significant.'
 
       - 'This group of questions seeks to identify any positive differential impact that the Function has on individuals.<br/><br/> The questions 
@@ -1115,9 +1023,9 @@ header_help_text:
          faith and is performing well would expect to have a positive impact only for members of that faith.  It may be that there is other
          unplanned positive differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
-        <li>Some impact</li>
-        <li>Significant impact</li>
-</ul><br/>
+         <li>Some impact</li>
+         <li>Significant impact</li>
+         </ul><br/>
          Please indicate whether, in your opinion,  the positive impact is limited or significant.'
     -   
       - 'This group of questions seeks to identify any positive differential impact that the Policy has on individuals.<br/><br/> The questions 
@@ -1128,7 +1036,7 @@ header_help_text:
          The available answers to the questions are:<br/><ul><li>None at all</li>
         <li>Some impact</li>
         <li>Significant impact</li>
-</ul><br/>
+        </ul><br/>
          Please indicate whether, in your opinion,  the positive impact is limited or significant.'
       - 'This group of questions seeks to identify any positive differential impact that the Policy has on individuals.<br/><br/> The questions 
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
@@ -1136,9 +1044,9 @@ header_help_text:
          faith and is performing well would expect to have a positive impact only for members of that faith.  It may be that there is other
          unplanned positive differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
-        <li>Some impact</li>
-        <li>Significant impact</li>
-</ul><br/>
+         <li>Some impact</li>
+         <li>Significant impact</li>
+         </ul><br/>
          Please indicate whether, in your opinion,  the positive impact is limited or significant.'
   purpose_overall_4:
     -
@@ -1150,7 +1058,7 @@ header_help_text:
          The available answers to the questions are:<br/><ul><li>None at all</li>
         <li>Some impact</li>
         <li>Significant impact</li>
-</ul><br/>
+        </ul><br/>
          Please indicate whether, in your opinion,  the negative impact is limited or significant.'
       - 'This group of questions seeks to identify any negative differential impact that the Function has on individuals.<br/><br/> The questions 
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
@@ -1158,9 +1066,9 @@ header_help_text:
          faith and is performing badly may have a negative impact only for members of that faith.  It may be that there is other
          unplanned negative differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
-        <li>Some impact</li>
-        <li>Significant impact</li>
-</ul><br/>
+         <li>Some impact</li>
+         <li>Significant impact</li>
+         </ul><br/>
          Please indicate whether, in your opinion,  the negative impact is limited or significant.'
     -
       - 'This group of questions seeks to identify any negative differential impact that the Policy has on individuals.<br/><br/> The questions 
@@ -1169,9 +1077,9 @@ header_help_text:
          faith and is performing badly may have a negative impact only for members of that faith.  It may be that there is other
          unplanned negative differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
-        <li>Some impact</li>
-        <li>Significant impact</li>
-</ul><br/>
+         <li>Some impact</li>
+         <li>Significant impact</li>
+         </ul><br/>
          Please indicate whether, in your opinion,  the negative impact is limited or significant.'
       - 'This group of questions seeks to identify any negative differential impact that the Policy has on individuals.<br/><br/> The questions 
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
@@ -1179,9 +1087,9 @@ header_help_text:
          faith and is performing badly may have a negative impact only for members of that faith.  It may be that there is other
          unplanned negative differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
-        <li>Some impact</li>
-        <li>Significant impact</li>
-</ul><br/>
+         <li>Some impact</li>
+         <li>Significant impact</li>
+         </ul><br/>
          Please indicate whether, in your opinion,  the negative impact is limited or significant.'
 yes_value: 1
 no_value: 2
@@ -1193,11 +1101,11 @@ choices:
     - 'Significant impact'
   2:
     - 'Not Answered Yet'
-    - '1 - poor'
-    - '2 - below expectations'
-    - '3 - at expectations'
-    - '4 - good'
-    - '5 - excellent'
+    - '1 - Below expectations'
+    - '2 - At expectations'
+    - '3 - Good'
+    - '4 - Very good'
+    - '5 - Excellent'
   3:
     - 'Not Answered Yet'
     - 'Yes'
