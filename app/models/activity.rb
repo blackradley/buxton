@@ -330,17 +330,15 @@ class Activity < ActiveRecord::Base
   				  dependency = dependent_questions(question_name)
   				  if dependency then
   				    dependant_correct = true
-  				    dependency.each do
-  					    |dependent|
-  					    if dependent[1].class == String then
-  						    dependant_correct = dependant_correct && !(send(dependent[0]).to_s.length > 0)   
-  					    else
-  						    dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1])
-  					    end
-  					  end
+              dependency.each do #For each dependent question, check that it has the correct value
+                |dependent|
+                dependent[1] = dependent[1].to_i
+                dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1] || send(dependent[0]) == 0 ||send(dependent[0]).nil?)
+              end
   				    questions[question_name] = send(question_name) if dependant_correct
   				  else
   					questions[question_name] = send(question_name)
+            questions[question_name] = nil if question_wording_lookup(section_name, strand_name, question)[0].blank?
   				end
   			  rescue
   			  end
@@ -443,6 +441,10 @@ class Activity < ActiveRecord::Base
   #It can also be passed nils, and in that event, it will automatically return an array containing all the values that corresponded to the nils. Hence, to return all
   #questions and their lookup types, just func.question_wording_lookup suffices.
   def question_wording_lookup(section = nil, strand = nil, question = nil)
+    puts section
+    puts strand
+    puts question
+    puts '---------------------'
     fun_pol_indicator = case fun_pol_number
       when 0 
         "function"
@@ -453,7 +455,7 @@ class Activity < ActiveRecord::Base
     end
     section = section.to_s
     strand = strand.to_s
-    question = question.to_i
+    question = question.to_i unless question.nil?
   	strands = hashes['strands']
     wordings = hashes['wordings']
     questions = hashes['questions']
@@ -531,11 +533,7 @@ private
 
 #Check question takes a single question as an argument and checks if it has been completed, and that any dependent questions have been answered.
   def check_question(question)
-    puts question
     if !(question == :existing_proposed || question == :function_policy) then
-      separated_question = Activity.question_separation(question)
-      puts separated_question
-      puts '------------------'
       return true if question_wording_lookup(*Activity.question_separation(question))[0].blank?
     end
     dependency = dependent_questions(question)
