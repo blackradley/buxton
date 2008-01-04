@@ -429,11 +429,11 @@ questions:
     4:
       label: 
         - 
-          - 'Have experts been consulted on the impact of the Function on #{wordings[strand]}'
-          - 'Have experts been consulted on the potential impact of the Function on #{wordings[strand]}'
+          - 'Have stakeholders been consulted to access the knowledge and expertise on the impact of the Function on #{wordings[strand]}'
+          - 'Have stakeholders been consulted to access the knowledge and expertise on the impact of the Function on #{wordings[strand]}'
         - 
-          - 'Have experts been consulted on the impact of the Policy on #{wordings[strand]}'
-          - 'Have experts been consulted on the potential impact of the Policy on #{wordings[strand]}'
+          - 'Have stakeholders been consulted to access the knowledge and expertise on the impact of the Policy on #{wordings[strand]}'
+          - 'Have stakeholders been consulted to access the knowledge and expertise on the impact of the Policy on #{wordings[strand]}'
       help: 
         -
           - 'This question asks whether any stakeholders with knowledge and expertise on the #{"different " if strand == "gender"}interests of #{wordings[strand]} have been consulted on the impact of the Function.<br/><br/>
@@ -751,7 +751,7 @@ overall_questions:
              Examples of target outcomes are:<ul> <li>A narrowing of the gap between the local employment rate for priority disadvantaged groups and the national rate.</li>
              <li>An improvement in the skill levels of the workforce to better meet the needs of the local economy.</li></ul> It is unlikely that the target outcome will be expressed in terms of numerical targets or outputs.'
           - 'This question asks you to identify the target outcome or desired state of affairs which the Function is designed to deliver.  If the Function does the job which it is supposed to do, what will it change or achieve.<br/><br/>
-             Examples of target outcomes are:><ul> <li>A narrowing of the gap between the local employment rate for priority disadvantaged groups and the national rate.</li>
+             Examples of target outcomes are:<ul> <li>A narrowing of the gap between the local employment rate for priority disadvantaged groups and the national rate.</li>
              <li>An improvement in the skill levels of the workforce to better meet the needs of the local economy.</li></ul> It is unlikely that the target outcome will be expressed in terms of numerical targets or outputs.'
         -
           - 'This question asks you to identify the target outcome or desired state of affairs which the Policy is designed to deliver.  If the Policy does the job which it is supposed to do, what will it change or achieve.<br/><br/>
@@ -989,11 +989,11 @@ headers:
       - For each strategic objective below please indicate whether it will be significantly aided by the Policy.
   purpose_overall_2:
     -
-      - Which of these groups does the Function have an impact on?
-      - Which of these groups will the Function have an impact on?
+      - Which of these individuals does the Function have an impact on?
+      - Which of these individuals will the Function have an impact on?
     -   
-      - Which of these groups does the Policy have an impact on?
-      - Which of these groups will the Policy have an impact on?
+      - Which of these individuals does the Policy have an impact on?
+      - Which of these individuals will the Policy have an impact on?
   purpose_overall_3:
     -
       - The Function has the following differential positive impact on these equality groups
@@ -1173,7 +1173,7 @@ choices:
     - 'Not applicable'
   6:
     - 'Not Answered Yet'
-    - 'No relevant experts'
+    - 'No relevant stakeholders'
     - 'Plans to consult'
     - 'No plans to consult'
     - 'Not sure'
