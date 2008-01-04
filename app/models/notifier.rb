@@ -25,7 +25,7 @@ class Notifier < ActionMailer::Base
 
   # A new key for the organisation administrator
   def organisation_key(user, login_url)
-    @subject      = 'Impact Engine Demonstration Version 2.1'
+    @subject      = 'Impact Engine Version 3.0'
     email_details(user, login_url)
   end
 

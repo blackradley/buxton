@@ -131,7 +131,7 @@ class OrganisationPDF < Ruport::Formatter::PDF
       pdf_writer.stroke_color! Color::RGB::Black
       pdf_writer.stroke_style! pdf_writer.class::StrokeStyle::DEFAULT
       font_size = 12
-      text = "Report Produced: #{Time.now}"
+      text = "Report Produced: #{Time.now.gmtime}"
       y = pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(font_size) * 1.01)
       width = pdf_writer.text_width(text, font_size)
       margin = pdf_writer.absolute_right_margin
