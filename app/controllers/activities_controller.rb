@@ -84,7 +84,7 @@ class ActivitiesController < ApplicationController
   def update
     @activity = @current_user.activity
     @activity.update_attributes!(params[:activity])
-    flash[:notice] =  "#{@activity.name} was successfully updated."
+    flash[:notice] = "#{@activity.name} was successfully updated."
     redirect_to :back
     
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid

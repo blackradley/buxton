@@ -94,8 +94,12 @@ class Activity < ActiveRecord::Base
   end
   
   def set_approved
-    if self.approved && !self.approved_on then
-      self.approved_on = Time.now.gmtime
+    if self.approved then
+      if !self.approved_on then
+        self.approved_on = Time.now.gmtime
+      end
+    else
+      self.approved_on = nil
     end
   end
   
