@@ -149,7 +149,7 @@ class Activity < ActiveRecord::Base
     total = 0
     #A section can't be completed unless the activity is started.
     return 0 unless started
-    #Check whether each question is completed. If it is, add one to the amount that are completed. In both cases, add one to the total. 
+    #Check whether each question is completed. If it is, add one to the amount that are completed. Then add one to the total. 
     Activity.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1 end; total += 1} 
     #If you don't specify a section, or your section is action planning, consider issues as well.
     unless section && !(section == :action_planning) then 
@@ -441,10 +441,6 @@ class Activity < ActiveRecord::Base
   #It can also be passed nils, and in that event, it will automatically return an array containing all the values that corresponded to the nils. Hence, to return all
   #questions and their lookup types, just func.question_wording_lookup suffices.
   def question_wording_lookup(section = nil, strand = nil, question = nil)
-    puts section
-    puts strand
-    puts question
-    puts '---------------------'
     fun_pol_indicator = case fun_pol_number
       when 0 
         "function"
@@ -534,7 +530,9 @@ private
 #Check question takes a single question as an argument and checks if it has been completed, and that any dependent questions have been answered.
   def check_question(question)
     if !(question == :existing_proposed || question == :function_policy) then
-      return true if question_wording_lookup(*Activity.question_separation(question))[0].blank?
+      if question_wording_lookup(*Activity.question_separation(question))[0].blank? then
+        return true
+      end
     end
     dependency = dependent_questions(question)
     if dependency then
