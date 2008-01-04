@@ -19,9 +19,10 @@ class StatQuestion
   #Hence, this is why it is possible to have a section with a score of 0, as (for example, as action planning is) it
   #could be full of text questions with no lookups with values.
   def score(response)
+    @max = 0 if response.nil?
     @scores = 0
     return 0 unless @weights
-    @scores = @weights[response].to_i
+    @scores = @weights[response.to_i].to_i
     return @scores
   end
 end

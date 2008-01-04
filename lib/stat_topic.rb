@@ -24,13 +24,13 @@ class StatTopic
     @questions.each_value{|question| total += question.scores}
     @result = total.to_f/(@topic_max+20) # +20 is added to both totals to compensate for existence status.
     @questions.each_value do |question| # This checks for all purpose questions
-  name = question.name.to_s
-  if name.include?("purpose") then
-    unless @impact > question.scores then
-      @impact = question.scores
+      name = question.name.to_s
+      if name.include?("purpose") then
+        unless @impact > question.scores then
+          @impact = question.scores
+        end
+      end
     end
-  end
-   end
     purpose_total = 0
     @questions.each_value{|question| purpose_total += question.scores if (question.name.to_s.include?("purpose"))}
     @purpose_result = (purpose_total.to_f + existence)/(@purpose_max + 20)   
