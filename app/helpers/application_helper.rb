@@ -177,9 +177,10 @@ module ApplicationHelper
         html << " : "
         if params[:equality_strand] == 'overall' then
           html << link_to('Purpose', { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => params[:equality_strand] }, :title => 'Edit Purpose', :class => purpose_sel)      
-        end           
+          html << ' >> '
+        end
+        html << link_to('Impact', { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => params[:equality_strand] }, :title => 'Edit Impact', :class => impact_sel)   
         unless params[:equality_strand] == 'overall'
-          html << link_to('Impact', { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => params[:equality_strand] }, :title => 'Edit Impact', :class => impact_sel)
           html << ' >> '
           html << link_to('Consultation', { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => params[:equality_strand] }, :title => 'Edit Consultation', :class => cc_sel)
           html << ' >> '
