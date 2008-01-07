@@ -32,7 +32,7 @@ class DemosController < ApplicationController
 
     if @organisation_manager.nil? then
       # Create an organisation
-      @organisation = Organisation.new({ :name => 'Demo Council', :style => 'www' })
+      @organisation = Organisation.new({ :name => 'Demo Council', :style => 'www', :directorate_term => 'department' })
       
       # Create a new organisation manager with the e-mail address we were given
       @organisation_manager = @organisation.build_organisation_manager(params[:organisation_manager])
