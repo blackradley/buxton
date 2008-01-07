@@ -727,11 +727,15 @@ questions:
           - 'Do you think that the function will take account of disabilities even if it means treating #{wordings[strand]} more favourably?'
       help: 
         -
-          - 
-          - ''
+          - 'The question asks whether the Function takes account of disabilities even if it means treating people with disabilities more favourably.<br/><br/>
+             As noted in the Impact section this type of intentional positive impact can be characterized as positive action.'
+          - 'The question asks whether the Function takes account of disabilities even if it means treating people with disabilities more favourably.<br/><br/>
+             As noted in the Impact section this type of intentional positive impact can be characterized as positive action.'
         - 
-          - ''
-          - ''
+          - 'The question asks whether the Policy takes account of disabilities even if it means treating people with disabilities more favourably.<br/><br/>
+             As noted in the Impact section this type of intentional positive impact can be characterized as positive action.'
+          - 'The question asks whether the Policy takes account of disabilities even if it means treating people with disabilities more favourably.<br/><br/>
+             As noted in the Impact section this type of intentional positive impact can be characterized as positive action.'
       type: select
       choices: 3
       weights: 0
