@@ -407,20 +407,15 @@ class Activity < ActiveRecord::Base
         response = "The performance of the #{fun_pol_indicator} in meeting the different needs of #{wordings[strand]} is "
         begin
           response += choices[2][send("impact_#{strand}_1".to_sym)].split(" - ")[1].downcase
+          response += "."
         rescue
           #if it gets here, then response threw an error, meaning that the answer is "Not Answered"
           response += "not yet determined."
         end
-        response += ".\n"
-        is_validated = (self.send("impact_#{strand}_1".to_sym) == 1)
-        response += "This performance assessment has #{"not " unless is_validated}been validated."
       when 4
         issues_present = (self.send("impact_#{strand}_9".to_sym) == 1)&&((self.send("consultation_#{strand}_7".to_sym) == 1))
         response += "There are #{"no " unless issues_present}performance issues that might have different implications for #{wordings[strand]}."
       when 5
-        information_present = (self.send("impact_#{strand}_1".to_sym) == 2)
-        response = "There are #{"no " if information_present}gaps in the information to monitor the performance of the #{fun_pol_indicator} in meeting the needs of #{wordings[strand]}."
-      when 6
         consulted_groups = (self.send("consultation_#{strand}_1".to_sym) == 1)
         consulted_experts = (self.send("consultation_#{strand}_4".to_sym) == 1)
         response += "Groups representing #{wordings[strand]} have #{"not " unless consulted_groups}been consulted and"
@@ -428,7 +423,7 @@ class Activity < ActiveRecord::Base
         response += "\n"
         issues_identified = (self.send("consultation_#{strand}_7".to_sym) == 1)
         response += "The consultations did not identify any issues with the impact of the #{fun_pol_indicator} upon #{wordings[strand]}."
-      when 7
+      when 6
         stats_object = statistics
         return "The #{fun_pol_indicator} has not yet been completed sufficiently to warrant calculation of impact level and the priority ranking." unless statistics
         strand = "" unless strand
