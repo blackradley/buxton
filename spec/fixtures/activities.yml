@@ -14,9 +14,6 @@ activity_1:
   purpose_faith_4: 1
   purpose_sexual_orientation_4: 0
   purpose_age_4: 1
-  impact_overall_1: 0
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 1
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -934,9 +931,6 @@ activity_6:
   purpose_faith_4: 1
   purpose_sexual_orientation_4: 1
   purpose_age_4: 0
-  impact_overall_1: 0
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 0
   impact_gender_2: 1
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -2406,9 +2400,6 @@ activity_14:
   purpose_faith_4: 2
   purpose_sexual_orientation_4: 1
   purpose_age_4: 0
-  impact_overall_1: 0
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 1
   impact_gender_2: 1
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -2590,9 +2581,6 @@ activity_15:
   purpose_faith_4: 0
   purpose_sexual_orientation_4: 2
   purpose_age_4: 0
-  impact_overall_1: 0
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 1
   impact_gender_2: 2
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -2916,9 +2904,6 @@ activity_16:
   purpose_overall_7: 0
   purpose_overall_8: 1
   purpose_overall_9: 2
-  impact_overall_1: 0
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 2
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -2958,9 +2943,6 @@ activity_17:
   purpose_faith_4: 1
   purpose_sexual_orientation_4: 0
   purpose_age_4: 0
-  impact_overall_1: 0
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 1
   impact_gender_2: 1
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -4045,7 +4027,6 @@ activity_22:
   function_policy: 2
   existing_proposed: 2
 
-
 activity_23:
   name:  Strategic and Private Sector Housing
   directorate:  directorate_1
@@ -4062,9 +4043,6 @@ activity_23:
   purpose_faith_4: 0
   purpose_sexual_orientation_4: 1
   purpose_age_4: 2
-  impact_overall_1: 0
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 1
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
