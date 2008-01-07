@@ -136,6 +136,7 @@ class ActivityPDF < Ruport::Formatter::PDF
             issue_table_renamed_columns << column.titleize if column
           end
           issue_table.rename_columns(issue_table.column_names, issue_table_renamed_columns)
+          pdf_writer.start_new_page if pdf_writer.y < 50 #Hack to prevent 8 page table bug
           draw_table(issue_table, :shade_rows => :none, :show_lines => :all, :font_size => 10, :heading_font_size => 10, :width => 500)
           issue_table = nil
         end

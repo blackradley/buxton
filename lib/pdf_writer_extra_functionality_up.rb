@@ -50,6 +50,7 @@ module PDF
         stroke_color! Color::RGB.const_get('Black')
         current_page
       end
+      
     end
   end
 end  

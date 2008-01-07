@@ -3,7 +3,7 @@
 class OrganisationPDFRenderer < Ruport::Renderer
   #Footer needs to be rendered first, as the activities appear as loose content objects too and will overwrite it if it 
   #is calculated after.
-  stage :first_page, :page_numbers, :header, :activities_table, :progress_table, :results_table, :footer, :full_report, :renderer
+  stage :first_page, :footer, :page_numbers, :header, :activities_table, :progress_table, :results_table, :full_report, :renderer
 end
 class OrganisationPDF < Ruport::Formatter::PDF
   renders :pdf, :for => OrganisationPDFRenderer
@@ -73,12 +73,12 @@ class OrganisationPDF < Ruport::Formatter::PDF
     end
     draw_table(table, :position=> :left, :orientation => 2)
     add_text " "
-    pdf_writer.start_new_page
+    pdf_writer.start_new_page if data[10]
   end
   
   def build_full_report
-    directorate_page_count = []
     if data[10] then
+    directorate_page_count = []
       pdf_writer.set_proxy(nil)
       data[9].each do |directorate|
         directorate_page_count << [pdf_writer.pageset.index(pdf_writer.current_page) + 1, directorate]
@@ -110,18 +110,18 @@ class OrganisationPDF < Ruport::Formatter::PDF
       end
       pdf_writer.set_proxy(nil)
       pdf_writer.stop_page_numbering(true)
-    end
-    directorate_page_count.each do |directorate_object|
-      pdf_writer.directorate = directorate_object[1]
-      opts = {
-        :on       => true,
-        :page     => directorate_object[0],
-        :position => :before
-      }
-      pdf_writer.insert_mode(opts)
-      pdf_writer.start_new_page
-      pdf_writer.insert_mode(:off)
-      pdf_writer.directorate
+      directorate_page_count.each do |directorate_object|
+        pdf_writer.directorate = directorate_object[1]
+        opts = {
+          :on       => true,
+          :page     => directorate_object[0],
+          :position => :before
+        }
+        pdf_writer.insert_mode(opts)
+        pdf_writer.start_new_page
+        pdf_writer.insert_mode(:off)
+        pdf_writer.directorate
+      end
     end
   end
   
