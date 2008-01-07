@@ -153,9 +153,7 @@ activity_1:
   purpose_overall_7: 1
   purpose_overall_8: 2
   purpose_overall_9: 0
-  impact_overall_1: 2
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+
   impact_gender_1: 0
   impact_gender_2: 2
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -195,9 +193,6 @@ activity_2:
   purpose_faith_4: 1
   purpose_sexual_orientation_4: 2
   purpose_age_4: 0
-  impact_overall_1: 2
-  impact_overall_2: 0
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -337,9 +332,7 @@ activity_2:
   purpose_overall_7: 1
   purpose_overall_8: 1
   purpose_overall_9: 2
-  impact_overall_1: 2
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+
   impact_gender_1: 2
   impact_gender_2: 1
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -379,9 +372,6 @@ activity_3:
   purpose_faith_4: 1
   purpose_sexual_orientation_4: 2
   purpose_age_4: 0
-  impact_overall_1: 1
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 1
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -521,9 +511,7 @@ activity_3:
   purpose_overall_7: 0
   purpose_overall_8: 2
   purpose_overall_9: 0
-  impact_overall_1: 2
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+
   impact_gender_1: 1
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -563,9 +551,6 @@ activity_4:
   purpose_faith_4: 1
   purpose_sexual_orientation_4: 1
   purpose_age_4: 2
-  impact_overall_1: 0
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 2
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -705,9 +690,6 @@ activity_4:
   purpose_overall_7: 2
   purpose_overall_8: 0
   purpose_overall_9: 2
-  impact_overall_1: 1
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 2
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -747,9 +729,6 @@ activity_5:
   purpose_faith_4: 1
   purpose_sexual_orientation_4: 2
   purpose_age_4: 0
-  impact_overall_1: 0
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 1
   impact_gender_2: 1
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -889,9 +868,6 @@ activity_5:
   purpose_overall_7: 2
   purpose_overall_8: 1
   purpose_overall_9: 2
-  impact_overall_1: 1
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 1
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -1070,9 +1046,7 @@ activity_6:
   purpose_overall_7: 0
   purpose_overall_8: 1
   purpose_overall_9: 0
-  impact_overall_1: 2
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+
   impact_gender_1: 2
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -1112,9 +1086,6 @@ activity_7:
   purpose_faith_4: 0
   purpose_sexual_orientation_4: 1
   purpose_age_4: 2
-  impact_overall_1: 0
-  impact_overall_2: 0
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 0
   impact_gender_2: 2
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -1254,9 +1225,6 @@ activity_7:
   purpose_overall_7: 2
   purpose_overall_8: 2
   purpose_overall_9: 1
-  impact_overall_1: 1
-  impact_overall_2: 0
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 0
   impact_gender_2: 2
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -1296,9 +1264,6 @@ activity_8:
   purpose_faith_4: 1
   purpose_sexual_orientation_4: 2
   purpose_age_4: 1
-  impact_overall_1: 1
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -1438,9 +1403,6 @@ activity_8:
   purpose_overall_7: 2
   purpose_overall_8: 0
   purpose_overall_9: 1
-  impact_overall_1: 1
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 0
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -1480,9 +1442,6 @@ activity_9:
   purpose_faith_4: 1
   purpose_sexual_orientation_4: 2
   purpose_age_4: 2
-  impact_overall_1: 0
-  impact_overall_2: 0
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 2
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -1622,9 +1581,6 @@ activity_9:
   purpose_overall_7: 2
   purpose_overall_8: 1
   purpose_overall_9: 2
-  impact_overall_1: 2
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 0
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -1664,9 +1620,6 @@ activity_10:
   purpose_faith_4: 1
   purpose_sexual_orientation_4: 0
   purpose_age_4: 1
-  impact_overall_1: 1
-  impact_overall_2: 0
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 0
   impact_gender_2: 2
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -1806,9 +1759,7 @@ activity_10:
   purpose_overall_7: 2
   purpose_overall_8: 0
   purpose_overall_9: 1
-  impact_overall_1: 2
-  impact_overall_2: 0
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+
   impact_gender_1: 2
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -1848,9 +1799,6 @@ activity_11:
   purpose_faith_4: 2
   purpose_sexual_orientation_4: 1
   purpose_age_4: 0
-  impact_overall_1: 0
-  impact_overall_2: 0
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 0
   impact_gender_2: 1
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -1990,9 +1938,6 @@ activity_11:
   purpose_overall_7: 1
   purpose_overall_8: 1
   purpose_overall_9: 2
-  impact_overall_1: 2
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 0
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -2032,9 +1977,7 @@ activity_12:
   purpose_faith_4: 2
   purpose_sexual_orientation_4: 2
   purpose_age_4: 2
-  impact_overall_1: 2
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+
   impact_gender_1: 0
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -2174,9 +2117,6 @@ activity_12:
   purpose_overall_7: 0
   purpose_overall_8: 1
   purpose_overall_9: 0
-  impact_overall_1: 2
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -2216,9 +2156,6 @@ activity_13:
   purpose_faith_4: 0
   purpose_sexual_orientation_4: 2
   purpose_age_4: 0
-  impact_overall_1: 1
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 1
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -2358,9 +2295,6 @@ activity_13:
   purpose_overall_7: 2
   purpose_overall_8: 0
   purpose_overall_9: 2
-  impact_overall_1: 0
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 1
   impact_gender_2: 1
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -2539,9 +2473,6 @@ activity_14:
   purpose_overall_7: 1
   purpose_overall_8: 1
   purpose_overall_9: 2
-  impact_overall_1: 0
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 2
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -2720,9 +2651,6 @@ activity_15:
   purpose_overall_7: 1
   purpose_overall_8: 0
   purpose_overall_9: 0
-  impact_overall_1: 0
-  impact_overall_2: 0
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 1
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -2762,9 +2690,6 @@ activity_16:
   purpose_faith_4: 1
   purpose_sexual_orientation_4: 2
   purpose_age_4: 1
-  impact_overall_1: 0
-  impact_overall_2: 0
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 0
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -3082,9 +3007,6 @@ activity_17:
   purpose_overall_7: 0
   purpose_overall_8: 0
   purpose_overall_9: 0
-  impact_overall_1: 0
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 1
   impact_gender_2: 1
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -3124,9 +3046,6 @@ activity_18:
   purpose_faith_4: 0
   purpose_sexual_orientation_4: 0
   purpose_age_4: 0
-  impact_overall_1: 1
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -3266,9 +3185,6 @@ activity_18:
   purpose_overall_7: 1
   purpose_overall_8: 1
   purpose_overall_9: 2
-  impact_overall_1: 0
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 1
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -3308,9 +3224,6 @@ activity_19:
   purpose_faith_4: 1
   purpose_sexual_orientation_4: 0
   purpose_age_4: 2
-  impact_overall_1: 1
-  impact_overall_2: 0
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -3450,9 +3363,6 @@ activity_19:
   purpose_overall_7: 0
   purpose_overall_8: 1
   purpose_overall_9: 0
-  impact_overall_1: 0
-  impact_overall_2: 0
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -3492,9 +3402,7 @@ activity_20:
   purpose_faith_4: 2
   purpose_sexual_orientation_4: 1
   purpose_age_4: 1
-  impact_overall_1: 2
-  impact_overall_2: 0
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+
   impact_gender_1: 1
   impact_gender_2: 2
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -3634,9 +3542,6 @@ activity_20:
   purpose_overall_7: 1
   purpose_overall_8: 2
   purpose_overall_9: 1
-  impact_overall_1: 1
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -3676,9 +3581,6 @@ activity_21:
   purpose_faith_4: 2
   purpose_sexual_orientation_4: 0
   purpose_age_4: 0
-  impact_overall_1: 2
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 1
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -3818,9 +3720,7 @@ activity_21:
   purpose_overall_7: 1
   purpose_overall_8: 0
   purpose_overall_9: 2
-  impact_overall_1: 2
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+
   impact_gender_1: 0
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -3860,9 +3760,6 @@ activity_22:
   purpose_faith_4: 0
   purpose_sexual_orientation_4: 2
   purpose_age_4: 0
-  impact_overall_1: 1
-  impact_overall_2: 0
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 0
   impact_gender_2: 1
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -4002,9 +3899,6 @@ activity_22:
   purpose_overall_7: 2
   purpose_overall_8: 2
   purpose_overall_9: 1
-  impact_overall_1: 1
-  impact_overall_2: 0
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 2
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -4182,9 +4076,6 @@ activity_23:
   purpose_overall_7: 2
   purpose_overall_8: 1
   purpose_overall_9: 2
-  impact_overall_1: 1
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 0
   impact_gender_2: 2
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -4224,9 +4115,6 @@ activity_24:
   purpose_faith_4: 1
   purpose_sexual_orientation_4: 2
   purpose_age_4: 2
-  impact_overall_1: 2
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 0
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -4366,9 +4254,6 @@ activity_24:
   purpose_overall_7: 2
   purpose_overall_8: 0
   purpose_overall_9: 0
-  impact_overall_1: 1
-  impact_overall_2: 0
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 2
   impact_gender_2: 2
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -4408,9 +4293,7 @@ activity_25:
   purpose_faith_4: 0
   purpose_sexual_orientation_4: 0
   purpose_age_4: 1
-  impact_overall_1: 2
-  impact_overall_2: 1
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
+
   impact_gender_1: 2
   impact_gender_2: 0
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
@@ -4550,9 +4433,6 @@ activity_25:
   purpose_overall_7: 2
   purpose_overall_8: 0
   purpose_overall_9: 2
-  impact_overall_1: 2
-  impact_overall_2: 2
-  impact_overall_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
   impact_gender_1: 0
   impact_gender_2: 2
   impact_gender_3: Lorem ipsum dolor sit amet consectetuer adipiscing elit.
