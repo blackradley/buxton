@@ -8,7 +8,7 @@ class ActivityPDF < Ruport::Formatter::PDF
     if data[11].include?(:page_numbers)
       pdf_writer.set_proxy(nil)
       pdf_writer.start_page_numbering(pdf_writer.absolute_left_margin,
-        pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(12) * 1.01),
+        pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(12) * 1.01) - 5,
         12,
         :left)
     end
@@ -137,7 +137,7 @@ class ActivityPDF < Ruport::Formatter::PDF
           end
           issue_table.rename_columns(issue_table.column_names, issue_table_renamed_columns)
           pdf_writer.start_new_page if pdf_writer.y < 50 #Hack to prevent 8 page table bug
-          draw_table(issue_table, :shade_rows => :none, :show_lines => :all, :font_size => 10, :heading_font_size => 10, :width => 500)
+          draw_table(issue_table, :shade_rows => :none, :show_lines => :all, :font_size => 10, :heading_font_size => 10, :width => 500, :split_rows => true)
           issue_table = nil
         end
       end
@@ -152,13 +152,13 @@ class ActivityPDF < Ruport::Formatter::PDF
         pdf_writer.stroke_style! pdf_writer.class::StrokeStyle::DEFAULT
         font_size = 12
         text = "Report Produced: #{Time.now.gmtime}"
-        y = pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(font_size) * 1.01)
+        y = pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(font_size) * 1.01) - 5
         width = pdf_writer.text_width(text, font_size)
         margin = pdf_writer.absolute_right_margin
         pdf_writer.add_text(margin - width, y, text, font_size)
         left_margin = pdf_writer.absolute_left_margin
         right_margin = pdf_writer.absolute_right_margin
-        y = pdf_writer.absolute_bottom_margin
+        y = pdf_writer.absolute_bottom_margin - 5
         pdf_writer.line(left_margin, y, right_margin, y).stroke
         pdf_writer.restore_state
         pdf_writer.close_object

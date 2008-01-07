@@ -24,7 +24,7 @@ class OrganisationPDF < Ruport::Formatter::PDF
   
   def build_page_numbers
     pdf_writer.start_page_numbering(pdf_writer.absolute_left_margin,
-      pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(12) * 1.01),
+      pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(12) * 1.01) - 5,
       12,
       :left)
   end
@@ -73,7 +73,7 @@ class OrganisationPDF < Ruport::Formatter::PDF
     end
     draw_table(table, :position=> :left, :orientation => 2)
     add_text " "
-    pdf_writer.start_new_page if data[10]
+    #pdf_writer.start_new_page if data[10]
   end
   
   def build_full_report
@@ -99,17 +99,17 @@ class OrganisationPDF < Ruport::Formatter::PDF
             end
           end
           separated.each do |page|
+            pdf_writer.start_new_page
             pdf_writer.open_object do |page_object|
               page.each{|element| page_object << element}
               pdf_writer.close_object
               pdf_writer.add_object(page_object)
             end
-            pdf_writer.start_new_page
           end
         end
       end
-      pdf_writer.set_proxy(nil)
       pdf_writer.stop_page_numbering(true)
+      pdf_writer.set_proxy(nil)
       directorate_page_count.each do |directorate_object|
         pdf_writer.directorate = directorate_object[1]
         opts = {
@@ -132,13 +132,13 @@ class OrganisationPDF < Ruport::Formatter::PDF
       pdf_writer.stroke_style! pdf_writer.class::StrokeStyle::DEFAULT
       font_size = 12
       text = "Report Produced: #{Time.now.gmtime}"
-      y = pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(font_size) * 1.01)
+      y = pdf_writer.absolute_bottom_margin - (pdf_writer.font_height(font_size) * 1.01) - 5
       width = pdf_writer.text_width(text, font_size)
       margin = pdf_writer.absolute_right_margin
       pdf_writer.add_text(margin - width, y, text, font_size)
       left_margin = pdf_writer.absolute_left_margin
       right_margin = pdf_writer.absolute_right_margin
-      y = pdf_writer.absolute_bottom_margin
+      y = pdf_writer.absolute_bottom_margin - 5
       pdf_writer.line(left_margin, y, right_margin, y).stroke
       pdf_writer.restore_state
       pdf_writer.close_object
