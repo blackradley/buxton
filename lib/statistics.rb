@@ -14,7 +14,7 @@ require 'stat_question.rb'
 #It contains the function object, which can then be referenced externally. and tested on. 
 #TODO: Make aliases that point to the function methods..so for example, def stats.impact; @function.impact; end.
 class Statistics
-  attr_reader :function
+  attr_reader :function, :impact, :priority_ranking, :relevance
   def initialize  
     topic_hash = {}
     hashes = @@Hashes
@@ -49,15 +49,18 @@ class Statistics
   #TODO: Since it now is passed the function, it should be able to calculate the score itself. This will make the model code much simpler.
   def score(results, function)
     @function.score(results, function) if results
+    @impact = fun_impact
+    @relevance = fun_relevance
+    @priority_ranking = fun_priority_ranking
   end
   #3 methods to provide an interface into it for easier readability.
-  def impact
+  def fun_impact
     @function.impact
   end
-  def priority_ranking
+  def fun_priority_ranking
     @function.fun_priority_ranking
   end
-  def relevance
+  def fun_relevance
     @function.fun_relevance
   end
 end
