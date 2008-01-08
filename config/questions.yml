@@ -648,14 +648,14 @@ questions:
       label:
         -
           - 'Do you think that the Function has a role in preventing #{wordings[strand]} being treated differently, in an unfair
-             or inappropriate way, just because of their gender, race, disability, faith, sexual orientation or age?'
+             or inappropriate way, just because of their #{strand.to_s.titleize.downcase}?'
           - 'Do you think that the Function will have a role in preventing #{wordings[strand]} being treated differently, in an 
-             unfair or inappropriate way, just because of their gender, race, disability, faith, sexual orientation or age?'
+             unfair or inappropriate way, just because of their #{strand.to_s.titleize.downcase}?'
         -
           - 'Do you think that the Policy has a role in preventing #{wordings[strand]} being treated differently, in an unfair or
-             inappropriate way, just because of their gender, race, disability, faith, sexual orientation or age?'
+             inappropriate way, just because of their #{strand.to_s.titleize.downcase}?'
           - 'Do you think that the Policy will have a role in preventing #{wordings[strand]} being treated differently, in an unfair
-             or inappropriate way, just because of their gender, race, disability, faith, sexual orientation or age?'
+             or inappropriate way, just because of their #{strand.to_s.titleize.downcase}?'
       help: 
         -
           - 'This question asks you to assess whether the Function could have a role in eliminating discrimination or harassment faced by #{wordings[strand]} as a result of their #{descriptive_term[strand]}.<br/><br/>
