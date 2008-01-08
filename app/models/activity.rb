@@ -300,16 +300,18 @@ class Activity < ActiveRecord::Base
   end
 
   def save_issues
-    issues.each do |d|
-      if d.issue_destroy?
+    # If we have issues
+    if self.issues then
+      # Loop through and process them
+      self.issues.each do |d|
+        if d.issue_destroy?
           d.destroy
-      else
-        d.save(false)
+        else
+          d.save(false)
+        end
       end
     end
-  end 
-  
-  
+  end  
   
   #This initialises a statistics object, and scores it.
   #TODO: Heavy amount of speed increases. No extensive comments as yet, because I'm anticipating ripping this
