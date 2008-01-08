@@ -48,7 +48,7 @@ class User < ActiveRecord::Base
   def url_for_login(request)
     domain = request.domain(TLD_LENGTH)
 
-    subdomain = case @user.class.name
+    subdomain = case self.class.name
     when 'ActivityManager'
       subdomain_string = self.activity.organisation.style + '.'
     when 'OrganisationManager'
