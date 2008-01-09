@@ -61,9 +61,7 @@ class ActivityPDF < Ruport::Formatter::PDF
   def build_statistics
     if data[11].include?(:statistics) then
       if data[9]
-        statistics = data[9]
-        relevance = statistics.relevance
-        stat_fun = statistics.function
+        stat_fun = data[9]
         priority_table = []
         priority_table << stat_fun.priority_ranking(:gender)
         priority_table << stat_fun.priority_ranking(:race)
@@ -71,7 +69,7 @@ class ActivityPDF < Ruport::Formatter::PDF
         priority_table << stat_fun.priority_ranking(:faith)
         priority_table << stat_fun.priority_ranking(:sexual_orientation)
         priority_table << stat_fun.priority_ranking(:age)
-        add_text "<b>Activity Relevant?</b>: #{if relevance then "Yes" else "No" end}"
+        add_text "<b>Activity Relevant?</b>: #{if stat_fun.relevant? then "Yes" else "No" end}"
         add_text " "
         add_text "<b>Priority</b>: (1-5)"
         add_text " "
@@ -86,12 +84,12 @@ class ActivityPDF < Ruport::Formatter::PDF
         add_text "<b>Impact</b>: (High, Medium, Low)"
         add_text " "
         impact_table = []
-        impact_table << stat_fun.topic_impact(:gender).to_s.capitalize
-        impact_table << stat_fun.topic_impact(:race).to_s.capitalize
-        impact_table << stat_fun.topic_impact(:disability).to_s.capitalize
-        impact_table << stat_fun.topic_impact(:faith).to_s.capitalize
-        impact_table << stat_fun.topic_impact(:sexual_orientation).to_s.capitalize
-        impact_table << stat_fun.topic_impact(:age).to_s.capitalize
+        impact_table << stat_fun.impact_wording(:gender).to_s.capitalize
+        impact_table << stat_fun.impact_wording(:race).to_s.capitalize
+        impact_table << stat_fun.impact_wording(:disability).to_s.capitalize
+        impact_table << stat_fun.impact_wording(:faith).to_s.capitalize
+        impact_table << stat_fun.impact_wording(:sexual_orientation).to_s.capitalize
+        impact_table << stat_fun.impact_wording(:age).to_s.capitalize
         pdf_writer.stroke_color! Color::RGB::Black
         pdf_writer.stroke_style! pdf_writer.class::StrokeStyle::DEFAULT        
         statistics_impact_table = Table(['Gender', 'Race', 'Disability', 'Faith', 'Sexual Orientation', 'Age'])

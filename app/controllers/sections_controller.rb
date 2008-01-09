@@ -127,10 +127,7 @@ class SectionsController < ApplicationController
     
     # Update the answers in the activity table
     @activity = @current_user.activity
-    @activity.stat_function = nil
     @activity.update_attributes!(params[:activity])
-    # Since answers have changed, force recalculation of statistics
-    @activity.stat_function = nil
     
     # Update the activity strategy answers if we have any (currently only in the Purpose section)
     if params[:strategy_responses] then

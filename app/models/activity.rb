@@ -44,11 +44,11 @@ class Activity < ActiveRecord::Base
   validates_associated :activity_manager
   # validates_uniqueness_of :name, :scope => :directorate_id
 
-  attr_accessor :stat_function
-  before_save :clear_statistics, :set_approved
+  attr_accessor :activity_clone
+  before_save :set_approved
   
   after_update :save_issues
-  
+
   def activity_type
     if self.started then
       [self.existing_proposed?, self.function_policy?].join(' ')
@@ -58,7 +58,7 @@ class Activity < ActiveRecord::Base
   end
 
   def header(header_placing)
-    fun_pol = self.function_policy
+    fun_pol = self.function_policy.to_i
     fun_pol -= 1
     fun_pol = 0 if fun_pol == -1
     exist_prop = self.existing_proposed
@@ -71,14 +71,14 @@ class Activity < ActiveRecord::Base
   end
   
   def fun_pol_number
-    fun_pol = self.function_policy
+    fun_pol = self.function_policy.to_i
     fun_pol -= 1
     fun_pol = 0 if fun_pol == -1
     fun_pol
   end
   
   def exist_prop_number
-    exist_prop = self.existing_proposed
+    exist_prop = self.existing_proposed.to_i
     exist_prop -= 1
     exist_prop = 0 if exist_prop == -1
     exist_prop
@@ -100,10 +100,6 @@ class Activity < ActiveRecord::Base
   end
   def hashes
     @@Hashes
-  end
-  
-  def clear_statistics
-    @stat_function = nil
   end
   
   def set_approved
@@ -136,8 +132,7 @@ class Activity < ActiveRecord::Base
     data << self.approver
     data << self.purpose_overall_2
     data << self.approved_on
-    statistics
-    data << self.stat_function
+    data << self
     data << self.id
     data << [:page_numbers, :unapproved_logo_on_first_page, :header, :body, :statistics, :issues, :footer]
     data << self.organisation.directorate_string
@@ -244,8 +239,12 @@ class Activity < ActiveRecord::Base
   #through every question bar n where n is the number of activitys, making it a O(n) algorithm.
   def completed(section = nil, strand = nil)
     return false unless (check_question(:existing_proposed) && check_question(:function_policy))
-    Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
-    unless section && !(section == :action_planning) then 
+    if section || strand then
+      Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
+    else
+      return false unless self.overall_completed_questions
+    end
+    unless (section && !(section == :action_planning)) || self.overall_completed_issues then 
       #First we calculate all the questions, in case there is a nil.
       questions = Activity.get_question_names(:consultation, strand, 7)
       questions << Activity.get_question_names(:impact, strand, 9)
@@ -273,13 +272,15 @@ class Activity < ActiveRecord::Base
           end
         end
       end
+      self.update_attributes(:overall_completed_issues => true)
     end
-    unless section && !(section == :purpose) then
+    unless (section && !(section == :purpose)) || self.overall_completed_strategies then
       self.activity_strategies.each do |strategy|
         unless check_response(strategy.strategy_response) then
           return false
         end
       end
+      self.update_attributes(:overall_completed_strategies => true)
     end      
     return true
   end
@@ -311,45 +312,103 @@ class Activity < ActiveRecord::Base
         end
       end
     end
-  end  
+  end 
   
-  #This initialises a statistics object, and scores it.
-  #TODO: Heavy amount of speed increases. No extensive comments as yet, because I'm anticipating ripping this
-  #calling method out and replacing it with a much faster version. Statistics library should remain largely unchanged though.
-  def statistics
-    statistics_sections = [:purpose, :impact, :consulation]
-    statistics_completed = true
-    statistics_sections.each{|section| statistics_completed = statistics_completed && completed(section)}
-    return nil unless statistics_completed # Don't calculate stats if all the necessary questions haven't been answered
-    return @stat_function if @stat_function
-    questions = {}
-    question_hash = question_wording_lookup
-    question_hash.each do |strand_name, strand|
-  	  strand.each do |section_name, section|
-  		  section.each_key do |question|
-  			  question_name = "#{section_name.to_s}_#{strand_name.to_s}_#{question.to_s}".to_sym
-  			  begin
-  				  dependency = dependent_questions(question_name)
-  				  if dependency then
-  				    dependant_correct = true
-              dependency.each do #For each dependent question, check that it has the correct value
-                |dependent|
-                dependent[1] = dependent[1].to_i
-                dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1] || send(dependent[0]) == 0 ||send(dependent[0]).nil?)
-              end
-  				    questions[question_name] = send(question_name) if dependant_correct
-  				  else
-  					questions[question_name] = send(question_name)
-            questions[question_name] = nil if question_wording_lookup(section_name, strand_name, question)[0].blank?
-  				end
-  			  rescue
-  			  end
-  		  end
-	    end
+  def before_save
+    @activity_clone = Activity.find(self.id)
+  end
+  
+  def after_save
+    made_change = false
+    questions_completed = true
+    question_names = Activity.get_question_names
+    question_names.each do |name|
+      weights = self.hashes['weights'][question_wording_lookup(*Activity.question_separation(name))[4]]
+      weights = [] if weights.nil?
+      old_result = weights[@activity_clone.send(name).to_i]
+      new_result = weights[self.send(name).to_i]
+      check_result = check_question(name)
+      questions_completed = false unless check_result
+      unless check_result == :no_need then
+        if @activity_clone.send(name) != self.send(name) then
+          self.update_attributes(:overall_started => true) if check_result
+          made_change = true
+          #impact calculations
+          if name.to_s.include?("purpose") then
+            self.update_attributes(:impact => new_result) if new_result > self.impact
+          end
+          #percentage importance calculations
+          old_total = self.priority_ranking*(@@question_max.to_f)
+          new_total = old_total - old_result + new_result.to_f
+          self.update_attributes(:percentage_importance => (new_total/@@question_max)*100)
+        end
+      end
     end
-    statistics = @@Statistics.clone
-    statistics.score(questions, self)
-    @stat_function = statistics
+    self.update_attributes(:overall_completed_questions => true) if (questions_completed && made_change)
+  end
+  
+  def Activity.force_question_max_calculation
+    @@question_max = 0
+    Activity.get_question_names.each do |name|
+      weights = @@Hashes['weights'][Activity.find(:first).question_wording_lookup(*Activity.question_separation(name))[4]]
+      weights = [] if weights.nil?
+      weights_max = 0
+      weights.each{|weight| weights_max = weight.to_i if weight.to_i > weights_max}
+      @@question_max += weights_max
+    end
+  end
+  
+  def relevant?
+    self.percentage_importance >= 35
+  end
+  
+  def impact_wording(strand = nil)
+    unless strand then
+      case self.impact
+        when 15
+          return :high
+        when 10
+          return :medium
+        when 5
+          return :low
+      end
+    else
+      good_impact = self.send("purpose_#{strand.to_s}_3".to_sym)
+      bad_impact = self.send("purpose_#{strand.to_s}_4".to_sym)
+      good_impact = bad_impact if bad_impact > good_impact
+      good_impact = hashes['weights'][question_wording_lookup(*Activity.question_separation("purpose_#{strand.to_s}_3".to_sym))[4]][good_impact]
+      case good_impact
+        when 15
+          return :high
+        when 10
+          return :medium
+        when 5
+          return :low        
+      end
+    end
+  end
+  
+  def priority_ranking(strand = nil)
+      ranking_boundaries = [80,70,60,50]
+      rank = 5
+    unless strand then
+      ranking_boundaries.each{|border| rank -= 1 unless self.percentage_importance > border}
+      return rank
+    else
+      strand_max = 0
+      strand_score = 0
+      Activity.get_question_names(nil, strand) do |name|    
+        weights = hashes['weights'][question_wording_lookup(*Activity.question_separation(name))[4]]
+        weight = weights[self.send(name)]
+        max_weight = 0
+        weights.each{|weight| max_weight = weight unless max_weight < weight}
+        strand_max += max_weight
+        strand_score += weight
+      end
+      ranking = strand_score.to_f/strand_max.to_f
+      ranking_boundaries.each{|border| rank -= 1 unless ranking > border}
+      return rank
+    end
   end
 
 #This method recovers questions. It allows you to search by strand or by section.
@@ -358,7 +417,9 @@ class Activity < ActiveRecord::Base
   def self.get_question_names(section = nil, strand = nil, number = nil)
 	  return ["#{section}_#{strand}_#{number}".to_sym] if section && strand && number
     questions = []
-	  unnecessary_columns = [:name, :approved, :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on]
+	  unnecessary_columns = [:impact, :overall_completed_questions, :overall_completed_strategies, 
+      :overall_completed_issues, :overall_started, :percentage_importance, :name, :approved,
+      :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on]
 	  Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
 	  unnecessary_columns.each{|column| questions.delete(column)}
 	  questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section
@@ -541,7 +602,7 @@ private
         dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1] || send(dependent[0]) == 0 ||send(dependent[0]).nil?)
 	    end
       if dependant_correct then #If you don't need to answer this question, automatically give it a completed status
-        return true 
+        return :no_need 
       else 
         return check_response(response) #Else check it as normal
       end
@@ -584,6 +645,4 @@ private
       return nil
     end
   end  
-  
-  
 end
