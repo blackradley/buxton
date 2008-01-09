@@ -6,4 +6,7 @@ case $1 in
 	"production" )
 	ssh serveradmin@impactengine.org.uk@ftp.s21552.gridserver.com
 	;;
+	"production2" )
+	ssh buxton@webwelcome.net
+	;;
 esac
