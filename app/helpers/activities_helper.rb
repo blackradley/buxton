@@ -43,7 +43,7 @@ module ActivitiesHelper
   
   def impact_tag(activity)
     if activity.completed then
-      activity.statistics.impact.to_s.capitalize
+      activity.impact_wording.to_s.capitalize
     else
       '-'
     end
@@ -51,7 +51,7 @@ module ActivitiesHelper
 
   def priority_tag(activity)
     if activity.completed then
-      activity.statistics.priority_ranking
+      activity.priority_ranking
     else
       '-'
     end
@@ -59,7 +59,7 @@ module ActivitiesHelper
   
   def relevance_tag(activity)
     if activity.completed then
-      (activity.statistics.relevance) ? 'Yes' : 'No'
+      (activity.relevant?) ? 'Yes' : 'No'
     else
       '-'
     end    

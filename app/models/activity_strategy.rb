@@ -16,4 +16,10 @@
 class ActivityStrategy < ActiveRecord::Base
   belongs_to :activity
   belongs_to :strategy
+  
+  def after_save
+    if self.activity.overall_completed_strategies then
+      self.activity.update_attribute(:overall_completed_strategies => false) if self.strategy_response == 0
+    end
+  end
 end
