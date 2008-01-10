@@ -19,7 +19,7 @@ class ActivityStrategy < ActiveRecord::Base
   
   def after_save
     if self.activity.overall_completed_strategies then
-      self.activity.update_attribute(:overall_completed_strategies => false) if self.strategy_response == 0
+      self.activity.update_attributes(:overall_completed_strategies => false) if self.strategy_response == 0
     end
   end
 end
