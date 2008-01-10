@@ -41,7 +41,7 @@ class Activity < ActiveRecord::Base
   validates_associated :activity_manager
   # validates_uniqueness_of :name, :scope => :directorate_id
 
-  attr_accessor :activity_clone
+  attr_accessor :activity_clone, :temp_purpose_completed, :temp_
   before_save :set_approved
   
   after_update :save_issues
@@ -237,6 +237,7 @@ class Activity < ActiveRecord::Base
   def completed(section = nil, strand = nil)
     return false unless (check_question(:existing_proposed) && check_question(:function_policy))
     if section || strand then
+      return self.send("#{section}_completed".to_sym) unless strand
       Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
     else
       return false unless self.overall_completed_questions
@@ -318,30 +319,36 @@ class Activity < ActiveRecord::Base
   def after_save
     made_change = false
     questions_completed = true
+    to_update = {:purpose_completed => true, :impact_completed => true, :consultation_completed => true,
+        :action_planning_completed => true, :additional_work_completed => true}
     question_names = Activity.get_question_names
     question_names.each do |name|
-      weights = self.hashes['weights'][question_wording_lookup(*Activity.question_separation(name))[4]]
-      weights = [] if weights.nil?
-      old_result = weights[@activity_clone.send(name).to_i]
-      new_result = weights[self.send(name).to_i]
       check_result = check_question(name)
       questions_completed = false unless check_result
+      section = Activity.question_separation(name)[0]
+      to_update["#{section}_completed".to_sym] = false unless check_result
       unless check_result == :no_need then
         if @activity_clone.send(name) != self.send(name) then
-          self.update_attributes(:overall_started => true) if check_result
+          #Initialise weights and values
+          weights = self.hashes['weights'][question_wording_lookup(*Activity.question_separation(name))[4]]
+          weights = [] if weights.nil?
+          old_result = weights[@activity_clone.send(name).to_i]
+          new_result = weights[self.send(name).to_i]
+          #Force it to be started
           made_change = true
           #impact calculations
           if name.to_s.include?("purpose") then
-            self.update_attributes(:impact => new_result) if new_result > self.impact
+            to_update[:impact] = new_result if new_result > self.impact
           end
           #percentage importance calculations
           old_total = self.priority_ranking*(@@question_max.to_f)
           new_total = old_total - old_result + new_result.to_f
-          self.update_attributes(:percentage_importance => (new_total/@@question_max)*100)
+          to_update[:percentage_importance] = (new_total/@@question_max)*100
         end
       end
     end
-    self.update_attributes(:overall_completed_questions => true) if (questions_completed && made_change)
+    to_update[:overall_completed_questions] = true if (questions_completed && made_change)
+    self.update_attributes(to_update) if made_change
   end
   
   def Activity.force_question_max_calculation
@@ -415,6 +422,7 @@ class Activity < ActiveRecord::Base
 	  return ["#{section}_#{strand}_#{number}".to_sym] if section && strand && number
     questions = []
 	  unnecessary_columns = [:impact, :overall_completed_questions, :overall_completed_strategies, 
+      :purpose_completed, :impact_completed, :consultation_completed, :additional_work_completed, :action_planning_completed,
       :overall_completed_issues, :overall_started, :percentage_importance, :name, :approved,
       :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on]
 	  Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
