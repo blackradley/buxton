@@ -41,7 +41,7 @@ class Activity < ActiveRecord::Base
   validates_associated :activity_manager
   # validates_uniqueness_of :name, :scope => :directorate_id
 
-  attr_accessor :activity_clone, :overall_completed_issues, :action_planning_completed
+  attr_accessor :activity_clone, :overall_completed_issues, :completed_strategies, :made_change, :second_pass
   before_save :set_approved
   
   after_update :save_issues
@@ -238,7 +238,7 @@ class Activity < ActiveRecord::Base
   def completed(section = nil, strand = nil)
     return false unless (check_question(:existing_proposed) && check_question(:function_policy))
     if section || strand then
-      return self.send("#{section.to_s}_completed".to_sym) unless strand || (section == :action_planning) || (section == :purpose)
+      return self.send("#{section.to_s}_completed".to_sym) unless strand || (section == :action_planning)
       Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
     else
       return false unless self.overall_completed_questions
@@ -273,14 +273,6 @@ class Activity < ActiveRecord::Base
       end
       self.update_attributes(:overall_completed_issues => true, :action_planning_completed => true) unless (section || strand)
     end
-    unless (section && !(section == :purpose)) || self.overall_completed_strategies then
-      self.activity_strategies.each do |strategy|
-        unless check_response(strategy.strategy_response) then
-          return false
-        end
-      end
-      self.update_attributes(:overall_completed_strategies => true)
-    end      
     return true
   end
   
@@ -318,10 +310,13 @@ class Activity < ActiveRecord::Base
   end
   
   def after_update
-    made_change = false
+    puts "saving"
+    @made_change = false
     questions_completed = true
+    not_purpose = false
     to_update = {:purpose_completed => true, :impact_completed => true, :consultation_completed => true,
         :action_planning_completed => true, :additional_work_completed => true}
+    to_update[:purpose_completed] = false if self.use_purpose_completed
     question_names = Activity.get_question_names
     question_names.each do |name|
       sep_name = Activity.question_separation(name)
@@ -342,10 +337,12 @@ class Activity < ActiveRecord::Base
             old_result = weights[old_store.to_i].to_i
             new_result = weights[new_store.to_i].to_i
             #Force it to be started
-            made_change = true
+            @made_change = true
             #impact calculations
             if name.to_s.include?("purpose") then
               to_update[:impact] = new_result if new_result > self.impact.to_i #FIXME: database should set this to 0 so we don't have to to_i it
+            else
+              not_purpose = true
             end
             #percentage importance calculations
             old_total = self.priority_ranking*(@@question_max.to_f)
@@ -355,11 +352,11 @@ class Activity < ActiveRecord::Base
         end
       end
     end
-    strategies = self.purpose_completed
-    to_update[:purpose_completed] = to_update[:purpose_completed] && self.overall_completed_strategies
-    made_change = true if strategies != to_update[:purpose_completed]
-    to_update[:overall_completed_questions] = true if (questions_completed && made_change)
-    self.update_attributes(to_update) if made_change
+    to_update[:overall_completed_strategies] = true unless self.use_purpose_completed
+    to_update[:overall_completed_questions] = true if (questions_completed && @made_change)
+    no_change = {:use_purpose_completed => true}
+    no_change.merge(to_update) if @made_change
+    self.update_attributes(no_change) if !self.use_purpose_completed || @made_change
   end
   
   def Activity.force_question_max_calculation
@@ -435,7 +432,7 @@ class Activity < ActiveRecord::Base
   def self.get_question_names(section = nil, strand = nil, number = nil)
 	  return ["#{section}_#{strand}_#{number}".to_sym] if section && strand && number
     questions = []
-	  unnecessary_columns = [:impact, :overall_completed_questions, :overall_completed_strategies, 
+	  unnecessary_columns = [:impact, :overall_completed_questions, :overall_completed_strategies, :use_purpose_completed, 
       :purpose_completed, :impact_completed, :consultation_completed, :additional_work_completed, :action_planning_completed,
       :overall_completed_issues, :overall_started, :percentage_importance, :name, :approved,
       :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on]
