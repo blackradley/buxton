@@ -238,12 +238,12 @@ class Activity < ActiveRecord::Base
   def completed(section = nil, strand = nil)
     return false unless (check_question(:existing_proposed) && check_question(:function_policy))
     if section || strand then
-      return self.send("#{section}_completed".to_sym) unless strand
+      return self.send("#{section.to_s}_completed".to_sym) unless strand
       Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
     else
       return false unless self.overall_completed_questions
     end
-    unless (section && !(section == :action_planning)) || self.overall_completed_issues then 
+    unless (section && !(section == :action_planning)) && self.overall_completed_issues then 
       #First we calculate all the questions, in case there is a nil.
       questions = Activity.get_question_names(:consultation, strand, 7)
       questions << Activity.get_question_names(:impact, strand, 9)
@@ -273,7 +273,7 @@ class Activity < ActiveRecord::Base
       end
       self.update_attributes(:overall_completed_issues => true)
     end
-    unless (section && !(section == :purpose)) || self.overall_completed_strategies then
+    unless (section && !(section == :purpose)) && self.overall_completed_strategies then
       self.activity_strategies.each do |strategy|
         unless check_response(strategy.strategy_response) then
           return false
@@ -355,8 +355,9 @@ class Activity < ActiveRecord::Base
         end
       end
     end
-    made_change = true if @activity_clone.activity_strategies != self.activity_strategies
-    made_change = true if @activity_clone.issues != self.issues
+    strategies = self.purpose_completed
+    to_update[:purpose_completed] = to_update[:purpose_completed] && self.overall_completed_strategies
+    made_change = true if strategies != to_update[:purpose_completed]
     to_update[:overall_completed_questions] = true if (questions_completed && made_change)
     self.update_attributes(to_update) if made_change
   end
@@ -505,10 +506,9 @@ class Activity < ActiveRecord::Base
         issues_identified = (self.send("consultation_#{strand}_7".to_sym) == 1)
         response += "The consultations did not identify any issues with the impact of the #{fun_pol_indicator} upon #{wordings[strand]}."
       when 6
-        stats_object = statistics
-        return "The #{fun_pol_indicator} has not yet been completed sufficiently to warrant calculation of impact level and the priority ranking." unless statistics
+        return "The #{fun_pol_indicator} has not yet been completed sufficiently to warrant calculation of impact level and the priority ranking." unless completed(:purpose)&& completed(:impact) && completed(:consultation)
         strand = "" unless strand
-        response = "For the #{strand.to_s.downcase} equality strand the Activity has an overall priority ranking of #{stats_object.function.priority_ranking(strand)} and a Potential Impact rating of #{stats_object.function.topic_impact(strand).to_s.capitalize}."
+        response = "For the #{strand.to_s.downcase} equality strand the Activity has an overall priority ranking of #{priority_ranking(strand.to_sym)} and a Potential Impact rating of #{impact_wording(strand.to_sym).to_s.capitalize}."
     end
     
     return response
