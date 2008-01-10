@@ -41,7 +41,7 @@ class Activity < ActiveRecord::Base
   validates_associated :activity_manager
   # validates_uniqueness_of :name, :scope => :directorate_id
 
-  attr_accessor :activity_clone, :temp_purpose_completed, :temp_
+  attr_accessor :activity_clone, :overall_completed_issues, :action_planning_completed
   before_save :set_approved
   
   after_update :save_issues
@@ -238,7 +238,7 @@ class Activity < ActiveRecord::Base
   def completed(section = nil, strand = nil)
     return false unless (check_question(:existing_proposed) && check_question(:function_policy))
     if section || strand then
-      return self.send("#{section.to_s}_completed".to_sym) unless strand
+      return self.send("#{section.to_s}_completed".to_sym) unless strand || (section == :action_planning)
       Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
     else
       return false unless self.overall_completed_questions
@@ -271,7 +271,7 @@ class Activity < ActiveRecord::Base
           end
         end
       end
-      self.update_attributes(:overall_completed_issues => true)
+      self.update_attributes(:overall_completed_issues => true, :action_planning_completed => true) unless (section || strand)
     end
     unless (section && !(section == :purpose)) && self.overall_completed_strategies then
       self.activity_strategies.each do |strategy|
