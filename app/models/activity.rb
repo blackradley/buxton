@@ -95,6 +95,7 @@ class Activity < ActiveRecord::Base
   def policy?
     self.function_policy == 2
   end
+  
   def hashes
     @@Hashes
   end
@@ -328,25 +329,29 @@ class Activity < ActiveRecord::Base
       old_store = @activity_clone.send(name)
       new_store = self.send(name)
       questions_completed = false unless check_result
-      section = sep_name[0]
-      to_update["#{section}_completed".to_sym] = false unless check_result
-      unless check_result == :no_need then
-        if old_store != new_store then
-          #Initialise weights and values
-          weights = self.hashes['weights'][question_wording_lookup(*sep_name)[4]]
-          weights = [] if weights.nil?
-          old_result = weights[old_store.to_i]
-          new_result = weights[new_store.to_i]
-          #Force it to be started
-          made_change = true
-          #impact calculations
-          if name.to_s.include?("purpose") then
-            to_update[:impact] = new_result if new_result > self.impact
+      # If we don't have a sep_name we're not modifying questions - thus don't
+      # do any stats calculations.
+      if sep_name then
+        section = sep_name[0]
+        to_update["#{section}_completed".to_sym] = false unless check_result
+        unless check_result == :no_need then
+          if old_store != new_store then
+            #Initialise weights and values
+            weights = self.hashes['weights'][question_wording_lookup(*sep_name)[4]]
+            weights = [] if weights.nil?
+            old_result = weights[old_store.to_i]
+            new_result = weights[new_store.to_i]
+            #Force it to be started
+            made_change = true
+            #impact calculations
+            if name.to_s.include?("purpose") then
+              to_update[:impact] = new_result if new_result > self.impact
+            end
+            #percentage importance calculations
+            old_total = self.priority_ranking*(@@question_max.to_f)
+            new_total = old_total - old_result + new_result.to_f
+            to_update[:percentage_importance] = (new_total/@@question_max)*100
           end
-          #percentage importance calculations
-          old_total = self.priority_ranking*(@@question_max.to_f)
-          new_total = old_total - old_result + new_result.to_f
-          to_update[:percentage_importance] = (new_total/@@question_max)*100
         end
       end
     end
