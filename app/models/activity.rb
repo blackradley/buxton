@@ -243,7 +243,7 @@ class Activity < ActiveRecord::Base
     else
       return false unless self.overall_completed_questions
     end
-    unless (section && !(section == :action_planning)) && self.overall_completed_issues then 
+    unless (section && !(section == :action_planning)) || self.overall_completed_issues then 
       #First we calculate all the questions, in case there is a nil.
       questions = Activity.get_question_names(:consultation, strand, 7)
       questions << Activity.get_question_names(:impact, strand, 9)
@@ -273,7 +273,7 @@ class Activity < ActiveRecord::Base
       end
       self.update_attributes(:overall_completed_issues => true, :action_planning_completed => true) unless (section || strand)
     end
-    unless (section && !(section == :purpose)) && self.overall_completed_strategies then
+    unless (section && !(section == :purpose)) || self.overall_completed_strategies then
       self.activity_strategies.each do |strategy|
         unless check_response(strategy.strategy_response) then
           return false
