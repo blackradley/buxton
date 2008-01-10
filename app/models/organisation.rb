@@ -79,8 +79,6 @@ class Organisation < ActiveRecord::Base
     # Loop through all the activities this organisation has, generate statistics for
     # the completed ones and fill in the results table accordingly.
     for activity in self.activities
-      puts activity.priority_ranking if activity.completed
-      puts activity.impact_wording if activity.completed
       if activity.completed && activity.priority_ranking && activity.impact_wording then
         results_table[activity.priority_ranking][activity.impact_wording] += 1
       end

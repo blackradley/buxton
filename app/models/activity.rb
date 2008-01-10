@@ -323,17 +323,20 @@ class Activity < ActiveRecord::Base
         :action_planning_completed => true, :additional_work_completed => true}
     question_names = Activity.get_question_names
     question_names.each do |name|
+      sep_name = Activity.question_separation(name)
       check_result = check_question(name)
+      old_store = @activity_clone.send(name)
+      new_store = self.send(name)
       questions_completed = false unless check_result
-      section = Activity.question_separation(name)[0]
+      section = sep_name[0]
       to_update["#{section}_completed".to_sym] = false unless check_result
       unless check_result == :no_need then
-        if @activity_clone.send(name) != self.send(name) then
+        if old_store != new_store then
           #Initialise weights and values
-          weights = self.hashes['weights'][question_wording_lookup(*Activity.question_separation(name))[4]]
+          weights = self.hashes['weights'][question_wording_lookup(*sep_name)[4]]
           weights = [] if weights.nil?
-          old_result = weights[@activity_clone.send(name).to_i]
-          new_result = weights[self.send(name).to_i]
+          old_result = weights[old_store.to_i]
+          new_result = weights[new_store.to_i]
           #Force it to be started
           made_change = true
           #impact calculations
@@ -347,6 +350,8 @@ class Activity < ActiveRecord::Base
         end
       end
     end
+    made_change = true if @activity_clone.activity_strategies != self.activity_strategies
+    made_change = true if @activity_clone.issues != self.issues
     to_update[:overall_completed_questions] = true if (questions_completed && made_change)
     self.update_attributes(to_update) if made_change
   end
