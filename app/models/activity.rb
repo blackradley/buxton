@@ -238,7 +238,7 @@ class Activity < ActiveRecord::Base
   def completed(section = nil, strand = nil)
     return false unless (check_question(:existing_proposed) && check_question(:function_policy))
     if section || strand then
-      return self.send("#{section.to_s}_completed".to_sym) unless strand || (section == :action_planning)
+      return self.send("#{section.to_s}_completed".to_sym) unless strand || (section == :action_planning) || (section == :purpose)
       Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
     else
       return false unless self.overall_completed_questions
