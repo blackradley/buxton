@@ -310,13 +310,13 @@ class Activity < ActiveRecord::Base
   end
   
   def after_update
-    puts "saving"
+    @saved = true unless @saved.nil?
     @made_change = false
     questions_completed = true
     not_purpose = false
     to_update = {:purpose_completed => true, :impact_completed => true, :consultation_completed => true,
         :action_planning_completed => true, :additional_work_completed => true}
-    to_update[:purpose_completed] = false if self.use_purpose_completed
+    to_update[:purpose_completed] = false unless self.use_purpose_completed
     question_names = Activity.get_question_names
     question_names.each do |name|
       sep_name = Activity.question_separation(name)
@@ -352,11 +352,13 @@ class Activity < ActiveRecord::Base
         end
       end
     end
-    to_update[:overall_completed_strategies] = true unless self.use_purpose_completed
     to_update[:overall_completed_questions] = true if (questions_completed && @made_change)
     no_change = {:use_purpose_completed => true}
-    no_change.merge(to_update) if @made_change
-    self.update_attributes(no_change) if !self.use_purpose_completed || @made_change
+    no_change[:overall_completed_strategies] = true if self.use_purpose_completed
+    no_change.merge!(to_update) if @made_change
+    no_change[:purpose_completed] = to_update[:purpose_completed] if self.use_purpose_completed
+    @saved = false if @saved.nil?
+    self.update_attributes(no_change) if !self.use_purpose_completed || @made_change || !@saved
   end
   
   def Activity.force_question_max_calculation
