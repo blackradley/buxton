@@ -5,7 +5,7 @@ class AddingStatisticsColumns < ActiveRecord::Migration
   end
 
   def self.down
-    remove_column :activities, :impact
-    remove_column :activities, :percentage_importance
+    remove_column :activities, :gender_impact
+    remove_column :activities, :gender_percentage_importance
   end
 end
