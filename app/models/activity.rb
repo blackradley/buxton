@@ -313,11 +313,11 @@ class Activity < ActiveRecord::Base
     end
   end 
   
-  def before_save
+  def before_update
     @activity_clone = Activity.find(self.id)
   end
   
-  def after_save
+  def after_update
     made_change = false
     questions_completed = true
     to_update = {:purpose_completed => true, :impact_completed => true, :consultation_completed => true,
@@ -339,13 +339,13 @@ class Activity < ActiveRecord::Base
             #Initialise weights and values
             weights = self.hashes['weights'][question_wording_lookup(*sep_name)[4]]
             weights = [] if weights.nil?
-            old_result = weights[old_store.to_i]
-            new_result = weights[new_store.to_i]
+            old_result = weights[old_store.to_i].to_i
+            new_result = weights[new_store.to_i].to_i
             #Force it to be started
             made_change = true
             #impact calculations
             if name.to_s.include?("purpose") then
-              to_update[:impact] = new_result if new_result > self.impact
+              to_update[:impact] = new_result if new_result > self.impact.to_i #FIXME: database should set this to 0 so we don't have to to_i it
             end
             #percentage importance calculations
             old_total = self.priority_ranking*(@@question_max.to_f)
@@ -403,8 +403,11 @@ class Activity < ActiveRecord::Base
   end
   
   def priority_ranking(strand = nil)
-      ranking_boundaries = [80,70,60,50]
-      rank = 5
+    # FIXME: database should set this default for us
+    self.update_attribute(:percentage_importance, 0) unless self.percentage_importance
+    
+    ranking_boundaries = [80,70,60,50]
+    rank = 5
     unless strand then
       ranking_boundaries.each{|border| rank -= 1 unless self.percentage_importance > border}
       return rank
