@@ -429,7 +429,7 @@ class Activity < ActiveRecord::Base
     unless strand then
       #ranking_boundaries.each{|border| rank -= 1 unless self.percentage_importance > border}
       #return rank
-      strand_total = hashes['strands'].inject(0) do |total, strand|
+      strand_total = hashes['strands'].keys.inject(0) do |total, strand|
         total += priority_ranking(strand)**3
       end
       strand_total = (strand_total.to_f/(hashes['strands'].size))**(1.to_f/3)
@@ -437,16 +437,18 @@ class Activity < ActiveRecord::Base
     else
       strand_max = 0
       strand_score = 0
-      Activity.get_question_names(nil, strand) do |name|    
+      Activity.get_question_names(nil, strand).each do |name|
         weights = hashes['weights'][question_wording_lookup(*Activity.question_separation(name))[4]]
-        weight = weights[self.send(name)]
+        weights = [] unless weights
+        weight = weights[self.send(name).to_i].to_i
         max_weight = 0
-        weights.each{|weight| max_weight = weight unless max_weight < weight}
+        weights.each{|weight| max_weight = weight.to_i unless max_weight.to_i > weight.to_i}
         strand_max += max_weight
         strand_score += weight
       end
+      return 0 if strand_max == 0
       ranking = strand_score.to_f/strand_max.to_f
-      ranking_boundaries.each{|border| rank -= 1 unless ranking > border}
+      ranking_boundaries.each{|border| rank -= 1 unless ranking*100 > border}
       return rank
     end
   end
