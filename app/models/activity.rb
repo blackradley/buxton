@@ -496,7 +496,7 @@ class Activity < ActiveRecord::Base
           response += "not yet determined."
         end
       when 4
-        issues_present = (self.send("impact_#{strand}_9".to_sym) == 1)&&((self.send("consultation_#{strand}_7".to_sym) == 1))
+        issues_present = (self.send("impact_#{strand}_9".to_sym) == 1)||((self.send("consultation_#{strand}_7".to_sym) == 1))
         response += "There are #{"no " unless issues_present}performance issues that might have different implications for #{wordings[strand]}."
       when 5
         consulted_groups = (self.send("consultation_#{strand}_1".to_sym) == 1)
