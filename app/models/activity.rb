@@ -432,7 +432,7 @@ class Activity < ActiveRecord::Base
       strand_total = hashes['strands'].inject(0) do |total, strand|
         total += priority_ranking(strand)**3
       end
-      strand_total = (strand_total.to_f)**(1.to_f/3)
+      strand_total = (strand_total.to_f/(hashes['strands'].size))**(1.to_f/3)
       return (strand_total + 0.5).to_i
     else
       strand_max = 0
