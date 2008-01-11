@@ -437,14 +437,15 @@ class Activity < ActiveRecord::Base
     else
       strand_max = 0
       strand_score = 0
-      Activity.get_question_names(nil, strand).each do |name|
+      questions_to_consider = Activity.get_question_names(nil, strand) + [:existing_proposed]
+      questions_to_consider.each do |name|
         weights = hashes['weights'][question_wording_lookup(*Activity.question_separation(name))[4]]
         weights = [] unless weights
-        weight = weights[self.send(name).to_i].to_i
+        strand_weight = weights[self.send(name).to_i].to_i
         max_weight = 0
         weights.each{|weight| max_weight = weight.to_i unless max_weight.to_i > weight.to_i}
         strand_max += max_weight
-        strand_score += weight
+        strand_score += strand_weight
       end
       return 0 if strand_max == 0
       ranking = strand_score.to_f/strand_max.to_f
