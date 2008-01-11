@@ -380,13 +380,29 @@ class Activity < ActiveRecord::Base
   
   def impact_wording(strand = nil)
     unless strand then
-      case self.impact
-        when 15
-          return :high
-        when 10
-          return :medium
-        when 5
-          return :low
+   #   case self.impact
+    #    when 15
+     #     return :high
+      #  when 10
+       #   return :medium
+      #  when 5
+     #     return :low
+     #   else 
+     #     return '-'
+     # end
+      total = 5
+      weights = hashes['weights'][question_wording_lookup(:purpose, :gender, 3)[4]]
+       Activity.get_question_names(:purpose, nil, 3).each{|name| total = weights[self.send(name)] unless total > weights[self.send(name)]}
+       Activity.get_question_names(:purpose, nil, 4).each{|name| total = weights[self.send(name)] unless total > weights[self.send(name)]}
+       case total
+         when 15
+           return :high
+         when 10
+           return :medium
+         when 5
+           return :low
+         else 
+           return '-'
       end
     else
       good_impact = self.send("purpose_#{strand.to_s}_3".to_sym)
@@ -411,8 +427,13 @@ class Activity < ActiveRecord::Base
     ranking_boundaries = [80,70,60,50]
     rank = 5
     unless strand then
-      ranking_boundaries.each{|border| rank -= 1 unless self.percentage_importance > border}
-      return rank
+      #ranking_boundaries.each{|border| rank -= 1 unless self.percentage_importance > border}
+      #return rank
+      strand_total = hashes['strands'].inject(0) do |total, strand|
+        total += priority_ranking(strand)**3
+      end
+      strand_total = (strand_total.to_f)**(1.to_f/3)
+      return (strand_total + 0.5).to_i
     else
       strand_max = 0
       strand_score = 0
