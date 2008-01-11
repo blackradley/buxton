@@ -317,7 +317,7 @@ class Activity < ActiveRecord::Base
     to_update = {:purpose_completed => true, :impact_completed => true, :consultation_completed => true,
         :action_planning_completed => true, :additional_work_completed => true}
     to_update[:purpose_completed] = false unless self.use_purpose_completed
-    if self.use_purpose_completed then 
+    if self.use_purpose_completed && @saved.nil? then 
       question_names = Activity.get_question_names
       question_names.each do |name|
         sep_name = Activity.question_separation(name)
