@@ -236,7 +236,7 @@ class Activity < ActiveRecord::Base
         Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
       end
     else
-      return false unless self.overall_completed_questions && self.purpose_completed && self.overall_completed_issues
+      return false unless self.overall_completed_questions && self.purpose_completed && self.action_planning_completed
     end
     unless (section && !(section == :action_planning)) then
       #First we calculate all the questions, in case there is a nil.
