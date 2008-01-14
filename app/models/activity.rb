@@ -1,32 +1,32 @@
-# 
-# $URL$ 
+#
+# $URL$
 # $Rev$
 # $Author$
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
 # Activitys are identifed by their name, which does not have to be unique but
 # it might be a good idea since the Organisation manager will use the name
 # to identify the activity.
-# 
+#
 # When a activity is created a single User is created for it at the same time,
 # who is listed in the user table.  If the same person (as identified by their
 # email address) is the activity manager for a number of activitys then they
 # are entered many time into the User table.
-# 
+#
 # The activitys are supposed to contribute to organisational goals or
-# strategies hence they link to a ActivityStrategy.  This is not a "has many 
-# and belongs to" where the intervening table would be transparent, because we 
+# strategies hence they link to a ActivityStrategy.  This is not a "has many
+# and belongs to" where the intervening table would be transparent, because we
 # want to store a value in the activity_strategy table of how much of a contribution
 # is being made to the strategy.
-# 
+#
 # Neither is a "has many: through" used because like the "has many and belongs to"
-# it is not really a many to many relationship. Each Strategy is owned by 
+# it is not really a many to many relationship. Each Strategy is owned by
 # the Organisation, and each Activity then contributes (or doesn't contribute) to
 # each of the strategies.  The strategy list for each activity within an organisation
 # is always the same, and the response is stored in the activity_strategy table.
-# 
+#
 class Activity < ActiveRecord::Base
   belongs_to :activity_manager, :dependent => :destroy
   belongs_to :directorate
@@ -43,7 +43,7 @@ class Activity < ActiveRecord::Base
 
   attr_accessor :activity_clone, :overall_completed_issues, :completed_strategies, :made_change, :second_pass
   before_save :set_approved
-  
+
   after_update :save_issues
 
   def activity_type
@@ -66,14 +66,14 @@ class Activity < ActiveRecord::Base
   def existing_proposed?
     hashes['choices'][8][self.existing_proposed.to_i]
   end
-  
+
   def fun_pol_number
     fun_pol = self.function_policy.to_i
     fun_pol -= 1
     fun_pol = 0 if fun_pol == -1
     fun_pol
   end
-  
+
   def exist_prop_number
     exist_prop = self.existing_proposed.to_i
     exist_prop -= 1
@@ -81,25 +81,25 @@ class Activity < ActiveRecord::Base
     exist_prop
   end
   def existing?
-   self.existing_proposed == 1 
+   self.existing_proposed == 1
   end
-  
+
   def proposed?
     self.existing_proposed == 2
   end
-  
+
   def function?
     self.function_policy == 1
   end
-  
+
   def policy?
     self.function_policy == 2
   end
-  
+
   def hashes
     @@Hashes
   end
-  
+
   def set_approved
     if self.approved == 1 then
       if !self.approved_on then
@@ -109,11 +109,11 @@ class Activity < ActiveRecord::Base
       self.approved_on = nil
     end
   end
-  
+
   def function_policy?
     hashes['choices'][9][self.function_policy.to_i]
   end
-  
+
   def generate_pdf_data
     data = []
     data << self.name
@@ -135,17 +135,17 @@ class Activity < ActiveRecord::Base
     data << [:page_numbers, :unapproved_logo_on_first_page, :header, :body, :statistics, :issues, :footer]
     data << self.organisation.directorate_string
   end
-  #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions. 
+  #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions.
   def percentage_answered(section = nil, strand = nil)
     issue_strand = []
     number_answered = 0
     total = 0
     #A section can't be completed unless the activity is started.
     return 0 unless started
-    #Check whether each question is completed. If it is, add one to the amount that are completed. Then add one to the total. 
-    Activity.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1 end; total += 1} 
+    #Check whether each question is completed. If it is, add one to the amount that are completed. Then add one to the total.
+    Activity.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1 end; total += 1}
     #If you don't specify a section, or your section is action planning, consider issues as well.
-    unless section && !(section == :action_planning) then 
+    unless section && !(section == :action_planning) then
       #First we calculate all the questions, in case there is a nil.
       questions = Activity.get_question_names(:consultation, strand, 7)
       questions << Activity.get_question_names(:impact, strand, 9)
@@ -153,7 +153,7 @@ class Activity < ActiveRecord::Base
       questions.each do |question|
         strand = Activity.question_separation(question)[1]
         if section
-          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?) 
+          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?)
         else
           lookups_required = (self.send(question) == 2)
         end
@@ -177,11 +177,11 @@ class Activity < ActiveRecord::Base
     end
     #If you don't suggest a section, or your section is purpose, then consider strategies as well.
     unless section && !(section == :purpose) then
-      self.activity_strategies.each do |strategy| 
+      self.activity_strategies.each do |strategy|
         if check_response(strategy.strategy_response) then
           total += 1
           number_answered += 1
-        else 
+        else
           total += 1
         end
       end
@@ -189,63 +189,56 @@ class Activity < ActiveRecord::Base
     return ((Float(number_answered)/total)*100).round unless total == 0  #Calculate percentage as long as there are questions.
     return 100  #If there are no questions in a section, return complete for it. TODO: See if Iain wants this behavior.
   end
-  
-   #The started tag allows you to check whether a activity, section, or strand has been started. This is basically works by running check_percentage, but as 
+
+   #The started tag allows you to check whether a activity, section, or strand has been started. This is basically works by running check_percentage, but as
    #soon as it finds a true value, it breaks out of the loop and returns false. If you request a activity started from it, it checks whether the 2 questions
    #that you have to answer(activity/policy and proposed/overall) have been answered or not, and if they have not been answered, then no others can be
    # and if they have, then the activity is by definition started
   def started(section = nil, strand = nil)
-    unless (section || strand) then      
+    unless (section || strand) then
       return true if (check_question(:existing_proposed) && check_question(:function_policy))
       return false
     else
       return false unless (check_question(:existing_proposed) && check_question(:function_policy))
     end
     Activity.get_question_names(section, strand).each{|question| if check_question(question) then return true end}
-    unless section && !(section == :action_planning) then 
+    unless section && !(section == :action_planning) then
        #First we calculate all the questions, in case there is a nil.
-       questions = Activity.get_question_names(:consultation, strand, 7)
-       questions << Activity.get_question_names(:impact, strand, 9)
-       questions.flatten!
-       questions.each do |question|
-         strand = question.to_s.split("_")
-         strand.delete_at(1)
-         strand.delete_at(0)
-         strand.pop
-         if section
-          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?) 
-         else
-          lookups_required = (self.send(question) == 2)
-         end
-         if lookups_required then
-           return true if started(:impact, strand)||started(:consultation, strand)
-	 else
-	   return true
-         end
-       end
+      if strand then
+        return true if started(:impact, strand)||started(:consultation, strand)
+      else
+        questions = Activity.get_question_names(:consultation, strand, 7)
+        questions << Activity.get_question_names(:impact, strand, 9)
+        questions.flatten!
+        questions.each do |question|
+          return true if self.send(question.to_sym) == 1
+        end
+      end
     end
     unless section && !(section == :purpose) then #Check strategies are completed.
-      self.activity_strategies.each do |strategy| 
+      self.activity_strategies.each do |strategy|
         if check_response(strategy.strategy_response) then
           return true
         end
       end
-    end      
+    end
     return false
   end
-  
+
   #This allows you to check whether a activity, section or strand has been completed. It runs like started, but only breaking when it finds a question
-  #that has not been answered. Hence, it is at its slowest where there is a single unanswered question in each section. In worst case it has to run 
+  #that has not been answered. Hence, it is at its slowest where there is a single unanswered question in each section. In worst case it has to run
   #through every question bar n where n is the number of activitys, making it a O(n) algorithm.
   def completed(section = nil, strand = nil)
     return false unless (check_question(:existing_proposed) && check_question(:function_policy))
     if section || strand then
       return self.send("#{section.to_s}_completed".to_sym) unless strand || (section == :action_planning)
-      Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
+      unless section == :action_planning then
+        Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
+      end
     else
       return false unless self.overall_completed_questions && self.purpose_completed && self.overall_completed_issues
     end
-    unless (section && !(section == :action_planning)) then 
+    unless (section && !(section == :action_planning)) then
       #First we calculate all the questions, in case there is a nil.
       questions = Activity.get_question_names(:consultation, strand, 7)
       questions << Activity.get_question_names(:impact, strand, 9)
@@ -253,7 +246,7 @@ class Activity < ActiveRecord::Base
       questions.each do |question|
         strand = Activity.question_separation(question)[1]
         if section
-          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?) 
+          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?)
         else
           lookups_required = (self.send(question) == 2)
         end
@@ -273,15 +266,17 @@ class Activity < ActiveRecord::Base
           end
         end
       end
-      self.update_attributes(:overall_completed_issues => true, :action_planning_completed => true) unless (section || strand)
+      unless self.overall_completed_issues then
+        self.update_attributes(:overall_completed_issues => true, :action_planning_completed => true) unless (section || strand)
+      end
     end
     return true
   end
-  
+
   def issues_by_section(section)
     issues.reject{|issue| issue.section != section }
   end
-  
+
   def issue_attributes=(issue_attributes)
     issue_attributes.each do |attributes|
       if attributes[:id].blank?
@@ -305,12 +300,12 @@ class Activity < ActiveRecord::Base
         end
       end
     end
-  end 
-  
+  end
+
   def before_update
     @activity_clone = Activity.find(self.id)
   end
-  
+
   def after_update
     @saved = true unless @saved.nil?
     @made_change = false
@@ -319,7 +314,7 @@ class Activity < ActiveRecord::Base
     to_update = {:purpose_completed => true, :impact_completed => true, :consultation_completed => true,
         :action_planning_completed => true, :additional_work_completed => true}
     to_update[:purpose_completed] = false unless self.use_purpose_completed
-    if self.use_purpose_completed && @saved.nil? then 
+    if self.use_purpose_completed && @saved.nil? then
       question_names = Activity.get_question_names
       question_names.each do |name|
         sep_name = Activity.question_separation(name)
@@ -364,7 +359,7 @@ class Activity < ActiveRecord::Base
     @saved = false if @saved.nil?
     self.update_attributes(no_change) if !self.use_purpose_completed || @made_change || !@saved
   end
-  
+
   def Activity.force_question_max_calculation
     @@question_max = 0
     Activity.get_question_names.each do |name|
@@ -375,11 +370,11 @@ class Activity < ActiveRecord::Base
       @@question_max += weights_max
     end
   end
-  
+
   def relevant?
     self.percentage_importance >= 35
   end
-  
+
   def impact_wording(strand = nil)
     unless strand then
    #   case self.impact
@@ -389,7 +384,7 @@ class Activity < ActiveRecord::Base
        #   return :medium
       #  when 5
      #     return :low
-     #   else 
+     #   else
      #     return '-'
      # end
       total = 5
@@ -403,7 +398,7 @@ class Activity < ActiveRecord::Base
            return :medium
          when 5
            return :low
-         else 
+         else
            return '-'
       end
     else
@@ -417,15 +412,15 @@ class Activity < ActiveRecord::Base
         when 10
           return :medium
         when 5
-          return :low        
+          return :low
       end
     end
   end
-  
+
   def priority_ranking(strand = nil)
     # FIXME: database should set this default for us
     self.update_attribute(:percentage_importance, 0) unless self.percentage_importance
-    
+
     ranking_boundaries = [80,70,60,50]
     rank = 5
     unless strand then
@@ -457,12 +452,12 @@ class Activity < ActiveRecord::Base
   end
 
 #This method recovers questions. It allows you to search by strand or by section.
-#It works by getting a list of all the columns, then removing any ones which aren't quesitons. 
+#It works by getting a list of all the columns, then removing any ones which aren't quesitons.
 #NOTE: Should a new column be added to activity that isn't a question, it should also be added here.
   def self.get_question_names(section = nil, strand = nil, number = nil)
 	  return ["#{section}_#{strand}_#{number}".to_sym] if section && strand && number
     questions = []
-	  unnecessary_columns = [:impact, :overall_completed_questions, :overall_completed_strategies, :use_purpose_completed, 
+	  unnecessary_columns = [:impact, :overall_completed_questions, :overall_completed_strategies, :use_purpose_completed,
       :purpose_completed, :impact_completed, :consultation_completed, :additional_work_completed, :action_planning_completed,
       :overall_completed_issues, :overall_started, :percentage_importance, :name, :approved,
       :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on]
@@ -478,11 +473,11 @@ class Activity < ActiveRecord::Base
     strand = strand.to_s
     fun_pol_indicator = ""
     existing_proposed_name = ""
-    begin 
+    begin
       fun_pol_indicator = function_policy?.downcase #Detect whether it is a activity or a policy
       existing_proposed_name = existing_proposed?.downcase #Detect whether it is an existing activity or a proposed activity.
     rescue
-    end 
+    end
     wordings = hashes['wordings']
     strands = hashes['strands']
     response = ""
@@ -537,7 +532,7 @@ class Activity < ActiveRecord::Base
         strand = "" unless strand
         response = "For the #{strand.to_s.downcase} equality strand the Activity has an overall priority ranking of #{priority_ranking(strand.to_sym)} and a Potential Impact rating of #{impact_wording(strand.to_sym).to_s.capitalize}."
     end
-    
+
     return response
   end
   #This activity returns the wording of a particular question. It takes a section strand and question number as arguments, and returns that specific question.
@@ -545,7 +540,7 @@ class Activity < ActiveRecord::Base
   #questions and their lookup types, just func.question_wording_lookup suffices.
   def question_wording_lookup(section = nil, strand = nil, question = nil)
     fun_pol_indicator = case fun_pol_number
-      when 0 
+      when 0
         "function"
       when 1
         "policy"
@@ -576,7 +571,7 @@ class Activity < ActiveRecord::Base
     unless section != "" then
       query_hash.each_key do |new_section|
         if response[strand] then
-          response[strand][new_section] = question_wording_lookup(new_section, strand, question)[strand][new_section] 
+          response[strand][new_section] = question_wording_lookup(new_section, strand, question)[strand][new_section]
         else
           response[strand] = {new_section => question_wording_lookup(new_section, strand, question)[strand][new_section]}
         end
@@ -605,7 +600,7 @@ class Activity < ActiveRecord::Base
     help.chop!
     return [label, type, choices, help, weights]
   end
-  
+
     #This takes a method in the form of :section_strand_number and turns it into an array [section, strand, number]
   def self.question_separation(question)
     hashes = YAML.load_file("#{RAILS_ROOT}/config/questions.yml") unless hashes
@@ -627,7 +622,7 @@ class Activity < ActiveRecord::Base
     return [section.to_sym, strand.to_sym, question_number] if (!section.blank? && !strand.blank? && question_number)
     return nil
   end
-  
+
 private
 
 #Check question takes a single question as an argument and checks if it has been completed, and that any dependent questions have been answered.
@@ -647,8 +642,8 @@ private
         dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1] || send(dependent[0]) == 0 ||send(dependent[0]).nil?)
 	    end
       if dependant_correct then #If you don't need to answer this question, automatically give it a completed status
-        return :no_need 
-      else 
+        return :no_need
+      else
         return check_response(response) #Else check it as normal
       end
      else
@@ -656,14 +651,14 @@ private
        return check_response(response)
      end
   end
-  
+
   def check_response(response) #Check response verifies whether a response to a question is correct or not.
     checker = !(response.to_i == 0)
     checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
     return checker
   end
-  
-#This returns any dependencies of a question  
+
+#This returns any dependencies of a question
   def dependent_questions(question)
     question = question.to_s
     yes_value = hashes['yes_value']
@@ -689,5 +684,5 @@ private
     else
       return nil
     end
-  end  
+  end
 end
