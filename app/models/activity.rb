@@ -219,6 +219,8 @@ class Activity < ActiveRecord::Base
          end
          if lookups_required then
            return true if started(:impact, strand)||started(:consultation, strand)
+	 else
+	   return true
          end
        end
     end
@@ -241,9 +243,9 @@ class Activity < ActiveRecord::Base
       return self.send("#{section.to_s}_completed".to_sym) unless strand || (section == :action_planning)
       Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
     else
-      return false unless self.overall_completed_questions && self.purpose_completed
+      return false unless self.overall_completed_questions && self.purpose_completed && self.overall_completed_issues
     end
-    unless (section && !(section == :action_planning)) || self.overall_completed_issues then 
+    unless (section && !(section == :action_planning)) then 
       #First we calculate all the questions, in case there is a nil.
       questions = Activity.get_question_names(:consultation, strand, 7)
       questions << Activity.get_question_names(:impact, strand, 9)
@@ -346,7 +348,7 @@ class Activity < ActiveRecord::Base
                 not_purpose = true
               end
               #percentage importance calculations
-              old_total = self.priority_ranking*(@@question_max.to_f)
+              old_total = (self.priority_ranking.to_f/100)*(@@question_max.to_f)
               new_total = old_total - old_result + new_result.to_f
               to_update[:percentage_importance] = (new_total/@@question_max)*100
             end
