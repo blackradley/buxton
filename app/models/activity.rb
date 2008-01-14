@@ -207,11 +207,11 @@ class Activity < ActiveRecord::Base
       if strand then
         return true if started(:impact, strand)||started(:consultation, strand)
       else
-        questions = Activity.get_question_names(:consultation, strand, 7)
-        questions << Activity.get_question_names(:impact, strand, 9)
+        questions = Activity.get_question_names(:consultation, nil, 7)
+        questions << Activity.get_question_names(:impact, nil, 9)
         questions.flatten!
         questions.each do |question|
-          return true if self.send(question.to_sym) == 1
+          return true if check_question(question.to_sym)
         end
       end
     end
