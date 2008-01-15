@@ -40,7 +40,7 @@ class Activity < ActiveRecord::Base
   validates_presence_of :activity_manager
   validates_associated :activity_manager
   # validates_uniqueness_of :name, :scope => :directorate_id
-  
+
   has_many :questions, :dependent => :destroy
 
   attr_accessor :activity_clone, :overall_completed_issues, :completed_strategies, :made_change, :second_pass
@@ -308,7 +308,7 @@ class Activity < ActiveRecord::Base
     @activity_clone = Activity.find(self.id)
   end
 
-  def after_update
+  def old_after_update
     @saved = true unless @saved.nil?
     @made_change = false
     questions_completed = true
@@ -360,6 +360,52 @@ class Activity < ActiveRecord::Base
     no_change[:purpose_completed] = to_update[:purpose_completed] if self.use_purpose_completed
     @saved = false if @saved.nil?
     self.update_attributes(no_change) if !self.use_purpose_completed || @made_change || !@saved
+  end
+
+  def after_update
+    return true if @saved
+    @saved = true
+    to_save = {}
+    to_save[:overall_completed_strategies] = true if self.purpose_completed
+    Activity.get_question_names.each do |name|
+      old_store = @activity_clone.send(name)
+      new_store = self.send(name)
+      if old_store != new_store then
+        to_change = []
+        check_result = check_question(name)
+        to_change.push([name, check_result])
+        unless @@dependencies[name].nil? then
+          re_eval = @@dependencies[name][0]
+          check_re_eval = check_question(re_eval)
+          to_change.push([re_eval, check_re_eval])
+        end
+        to_change.each do |question_name, completed_result|
+          status = self.questions.find_or_initialize_by_name(question_name)
+          status.update_attributes(:completed => !!completed_result) #cheap cast to bool. Not a cargocult ;)
+          separated_question = Activity.question_separation(question_name)
+          question_details = question_wording_lookup(*separated_question)
+          if separated_question[0].to_s == 'purpose' && separated_question[1].to_s != "overall" then
+            question_impact = question_details[4]
+            to_save[:impact] = question_impact if question_impact.to_i > self.impact.to_i
+          end
+          #save percentage importance here for strands
+        end
+      end
+    end
+    sections = [:purpose, :impact, :consultation, :action_planning, :additional_work]
+    sections.each do |section|
+      sec_completed = true
+      section_questions = self.questions.find(:all, :conditions => "name LIKE '%#{section.to_s}%'")
+      sec_completed = false if section_questions.size != Activity.get_question_names(section).size
+      section_questions.each{|question| sec_completed = false unless question.completed}
+      to_save["#{section}_completed".to_sym] = sec_completed
+    end
+    to_save[:overall_completed_strategies] = to_save[:purpose_completed] if to_save[:overall_completed_strategies]
+    overall_comp = true
+    self.questions.find(:all).each{|question| overall_comp = false unless question.completed}
+    overall_comp = false if self.questions.size != Activity.get_question_names.size
+    to_save[:overall_completed_questions] = overall_comp unless overall_comp == self.overall_completed_questions
+    self.update_attributes(to_save)
   end
 
   def Activity.force_question_max_calculation
@@ -641,7 +687,8 @@ private
       dependency.each do #For each dependent question, check that it has the correct value
 	      |dependent|
 		    dependent[1] = dependent[1].to_i
-        dependant_correct = dependant_correct && !(send(dependent[0])==dependent[1] || send(dependent[0]) == 0 ||send(dependent[0]).nil?)
+        dependent_solution = send(dependent[0])
+        dependant_correct = dependant_correct && !(dependent_solution ==dependent[1] || dependent_solution == 0 || dependent_solution.nil?)
 	    end
       if dependant_correct then #If you don't need to answer this question, automatically give it a completed status
         return :no_need
