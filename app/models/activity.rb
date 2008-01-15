@@ -40,6 +40,8 @@ class Activity < ActiveRecord::Base
   validates_presence_of :activity_manager
   validates_associated :activity_manager
   # validates_uniqueness_of :name, :scope => :directorate_id
+  
+  has_many :questions, :dependent => :destroy
 
   attr_accessor :activity_clone, :overall_completed_issues, :completed_strategies, :made_change, :second_pass
   before_save :set_approved
