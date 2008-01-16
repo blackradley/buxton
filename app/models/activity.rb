@@ -419,9 +419,6 @@ class Activity < ActiveRecord::Base
         to_save["#{strand}_percentage_importance".to_sym] = new_importance.to_i
       end
     else
-      hashes['wordings'].keys.each do |strand|
-        to_save["#{strand}_percentage_importance".to_sym] = @activity_clone.send("#{strand}_percentage_importance".to_sym)
-      end
       Activity.get_question_names.each do |name|
         old_store = @activity_clone.send(name)
         new_store = self.send(name)
@@ -450,9 +447,9 @@ class Activity < ActiveRecord::Base
               weight = self.hashes['weights'][question_details[4]][new_store.to_i].to_i unless new_store.to_i == 0
               old_weight = 0 if old_store.to_i == 0
               new_weight = 0 if new_store.to_i == 0
-              new_importance = ((weight.to_f - old_weight.to_f)/Activity.get_strand_max(separated_question[1]))*100 + old_importance
+              new_importance = ((weight.to_f - old_weight.to_f)/Activity.get_strand_max(separated_question[1]))*100 + old_importance.to_i
               if new_importance != old_importance then
-                to_save["#{separated_question[1]}_percentage_importance".to_sym] += (new_importance + 0.5).to_i
+                to_save["#{separated_question[1]}_percentage_importance".to_sym] = (new_importance + 0.5).to_i
               end
             end
           end
