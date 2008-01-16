@@ -414,7 +414,7 @@ class Activity < ActiveRecord::Base
       self.hashes['wordings'].keys.each do |strand|
         strand_max = Activity.get_strand_max(strand)
         old_importance = self.send("#{strand}_percentage_importance".to_sym)
-        new_importance = old_importance + (new_weight - old_weight.to_f)*100/strand_max
+        new_importance = old_importance + (new_weight.to_f - old_weight.to_f)*100/strand_max
         new_importance += 0.5 #true integer conversion with rounding
         to_save["#{strand}_percentage_importance".to_sym] = new_importance.to_i
       end
@@ -475,8 +475,7 @@ class Activity < ActiveRecord::Base
         to_save["#{section}_completed".to_sym] = sec_completed
       end
       to_save[:overall_completed_strategies] = to_save[:purpose_completed] if to_save[:overall_completed_strategies]
-      overall_comp = true
-      self.questions.find(:all).each{|question| overall_comp = false unless question.completed}
+      overall_comp = self.questions.find(:all, :condition => 'completed = false').size > 0
       overall_comp = false if self.questions.size != Activity.get_question_names.size
       to_save[:overall_completed_questions] = overall_comp unless overall_comp == self.overall_completed_questions
     end
@@ -518,13 +517,13 @@ class Activity < ActiveRecord::Base
   end
   def Activity.force_question_max_calculation
     @@Hashes['wordings'].keys.each do |strand|
+      Activity.set_max(strand, 20) #existing_proposed increment
       Activity.get_question_names(strand).each do |name|
         question_separation = Activity.question_separation(name)
         weights = @@Hashes['weights'][Activity.find(:first).question_wording_lookup(*question_separation)[4]]
         weights = [] if weights.nil?
         weights_max = 0
         weights.each{|weight| weights_max = weight.to_i if weight.to_i > weights_max}
-        weights_max += 20 #adding shift for the existing_proposed status
         Activity.set_max(strand, weights_max)
       end
     end
