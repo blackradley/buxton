@@ -475,7 +475,7 @@ class Activity < ActiveRecord::Base
         to_save["#{section}_completed".to_sym] = sec_completed
       end
       to_save[:overall_completed_strategies] = to_save[:purpose_completed] if to_save[:overall_completed_strategies]
-      overall_comp = self.questions.find(:all, :condition => 'completed = false').size > 0
+      overall_comp = !(self.questions.find(:all, :conditions => 'completed = false').size > 0)
       overall_comp = false if self.questions.size != Activity.get_question_names.size
       to_save[:overall_completed_questions] = overall_comp unless overall_comp == self.overall_completed_questions
     end
@@ -590,7 +590,8 @@ class Activity < ActiveRecord::Base
     questions = []
 	  unnecessary_columns = [:impact, :overall_completed_questions, :overall_completed_strategies, :use_purpose_completed,
       :purpose_completed, :impact_completed, :consultation_completed, :additional_work_completed, :action_planning_completed,
-      :overall_completed_issues, :overall_started, :percentage_importance, :name, :approved,
+      :overall_completed_issues, :overall_started, :percentage_importance, :name, :approved, :gender_percentage_importance,
+      :race_percentage_importance, :disability_percentage_importance, :sexual_orientation_percentage_importance, :faith_percentage_importance, :age_percentage_importance,
       :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on]
 	  Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
 	  unnecessary_columns.each{|column| questions.delete(column)}
