@@ -1,6 +1,11 @@
 # Load entire question hash into memory
 @@Hashes = YAML.load_file("#{RAILS_ROOT}/config/questions.yml")
-@@question_max = 0
+@@age_max = 0
+@@gender_max = 0
+@@faith_max = 0
+@@sexual_orientation_max = 0
+@@race_max = 0
+@@disability_max = 0
 Activity.force_question_max_calculation
 @@dependencies = {}
 @@Hashes['questions'].each do |section, section_data|
