@@ -145,6 +145,7 @@ class Activity < ActiveRecord::Base
     #A section can't be completed unless the activity is started.
     return 0 unless started
     #Check whether each question is completed. If it is, add one to the amount that are completed. Then add one to the total.
+    # TODO: OPTIMISE HERE
     Activity.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1 end; total += 1}
     #If you don't specify a section, or your section is action planning, consider issues as well.
     unless section && !(section == :action_planning) then
@@ -198,11 +199,12 @@ class Activity < ActiveRecord::Base
    # and if they have, then the activity is by definition started
   def started(section = nil, strand = nil)
     unless (section || strand) then
-      return true if (check_question(:existing_proposed) && check_question(:function_policy))
-      return false
+      # If both of these questions have been answered, return true, otherwise return false
+      return (check_question(:existing_proposed) && check_question(:function_policy))
     else
       return false unless (check_question(:existing_proposed) && check_question(:function_policy))
     end
+    # TODO: OPTIMISE HERE
     Activity.get_question_names(section, strand).each{|question| if check_question(question) then return true end}
     unless section && !(section == :action_planning) then
        #First we calculate all the questions, in case there is a nil.
@@ -235,7 +237,38 @@ class Activity < ActiveRecord::Base
     if section || strand then
       return self.send("#{section.to_s}_completed".to_sym) unless strand || (section == :action_planning)
       unless section == :action_planning then
-        Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
+        # BEGIN NEW IMPLEMENTATION
+          # Check on issues first, if appropriate
+          if (section == :impact) || (section == :consultation) then
+            issues_question = case section
+            when :impact
+              "impact_#{strand}_9"
+            when :consultation
+              "consultation_#{strand}_7"
+            end
+            if self.send(issues_question.to_sym) == 1 then
+              issues = self.issues_by(section, strand)
+              return false if issues.size == 0
+            end
+          end
+          like = [section, strand].join('_')
+          # Find all incomplete questions with the given arguments
+          answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'")
+          all_questions = Activity.get_question_names(section,strand)
+          # Have all the questions been answered?
+          if answered_questions.size == all_questions.size then
+            # Yes, then remove all completed questions
+            answered_questions.reject! {|question| question.completed == true}
+            # And if we don't have any records left, we must be complete, otherwise we are incomplete
+            return answered_questions.size == 0
+          else
+            # If some questions have not been answered, we must not be complete
+            return false
+          end
+        # END NEW IMPLEMENTATION
+        # BEGIN OLD IMPLEMENTATION
+          # Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
+        # END OLD IMPLEMENTATION
       end
     else
       return false unless self.overall_completed_questions && self.purpose_completed && self.action_planning_completed
@@ -275,8 +308,11 @@ class Activity < ActiveRecord::Base
     return true
   end
 
-  def issues_by_section(section)
-    issues.reject{|issue| issue.section != section }
+  def issues_by(section = nil, strand = nil)
+    filtered_issues = self.issues.clone
+    filtered_issues.reject!{|issue| issue.section != section.to_s } if section
+    filtered_issues.reject!{|issue| issue.strand != strand.to_s } if strand
+    filtered_issues
   end
 
   def issue_attributes=(issue_attributes)
