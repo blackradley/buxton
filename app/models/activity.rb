@@ -308,114 +308,187 @@ class Activity < ActiveRecord::Base
     @activity_clone = Activity.find(self.id)
   end
 
-  def old_after_update
-    @saved = true unless @saved.nil?
-    @made_change = false
-    questions_completed = true
-    not_purpose = false
-    to_update = {:purpose_completed => true, :impact_completed => true, :consultation_completed => true,
-        :action_planning_completed => true, :additional_work_completed => true}
-    to_update[:purpose_completed] = false unless self.use_purpose_completed
-    if self.use_purpose_completed && @saved.nil? then
-      question_names = Activity.get_question_names
-      question_names.each do |name|
-        sep_name = Activity.question_separation(name)
-        check_result = check_question(name)
-        old_store = @activity_clone.send(name)
-        new_store = self.send(name)
-        questions_completed = false unless check_result
-        # If we don't have a sep_name we're not modifying questions - thus don't
-        # do any stats calculations.
-        if sep_name then
-          section = sep_name[0]
-          to_update["#{section}_completed".to_sym] = false unless check_result
-          unless check_result == :no_need then
-            if old_store != new_store then
-              #Initialise weights and values
-              weights = self.hashes['weights'][question_wording_lookup(*sep_name)[4]]
-              weights = [] if weights.nil?
-              old_result = weights[old_store.to_i].to_i
-              new_result = weights[new_store.to_i].to_i
-              #Force it to be started
-              @made_change = true
-              #impact calculations
-              if name.to_s.include?("purpose") then
-                to_update[:impact] = new_result if new_result > self.impact.to_i #FIXME: database should set this to 0 so we don't have to to_i it
-              else
-                not_purpose = true
-              end
-              #percentage importance calculations
-              old_total = (self.priority_ranking.to_f/100)*(@@question_max.to_f)
-              new_total = old_total - old_result + new_result.to_f
-              to_update[:percentage_importance] = (new_total/@@question_max)*100
-            end
-          end
-        end
-      end
-    end
-    to_update[:overall_completed_questions] = true if (questions_completed && @made_change)
-    no_change = {:use_purpose_completed => true}
-    no_change[:overall_completed_strategies] = true if self.use_purpose_completed
-    no_change.merge!(to_update) if @made_change
-    no_change[:purpose_completed] = to_update[:purpose_completed] if self.use_purpose_completed
-    @saved = false if @saved.nil?
-    self.update_attributes(no_change) if !self.use_purpose_completed || @made_change || !@saved
-  end
+#  def old_after_update
+#    @saved = true unless @saved.nil?
+#    @made_change = false
+#    questions_completed = true
+#    not_purpose = false
+#    to_update = {:purpose_completed => true, :impact_completed => true, :consultation_completed => true,
+#        :action_planning_completed => true, :additional_work_completed => true}
+#    to_update[:purpose_completed] = false unless self.use_purpose_completed
+#    if self.use_purpose_completed && @saved.nil? then
+#      question_names = Activity.get_question_names
+#      question_names.each do |name|
+#        sep_name = Activity.question_separation(name)
+#        check_result = check_question(name)
+#        old_store = @activity_clone.send(name)
+#        new_store = self.send(name)
+#        questions_completed = false unless check_result
+#        # If we don't have a sep_name we're not modifying questions - thus don't
+#        # do any stats calculations.
+#        if sep_name then
+#          section = sep_name[0]
+#          to_update["#{section}_completed".to_sym] = false unless check_result
+#          unless check_result == :no_need then
+#            if old_store != new_store then
+#              #Initialise weights and values
+#              weights = self.hashes['weights'][question_wording_lookup(*sep_name)[4]]
+#              weights = [] if weights.nil?
+#              old_result = weights[old_store.to_i].to_i
+#              new_result = weights[new_store.to_i].to_i
+#              #Force it to be started
+#              @made_change = true
+#              #impact calculations
+#              if name.to_s.include?("purpose") then
+#                to_update[:impact] = new_result if new_result > self.impact.to_i #FIXME: database should set this to 0 so we don't have to to_i it
+#              else
+#                not_purpose = true
+#              end
+#              #percentage importance calculations
+#              old_total = (self.priority_ranking.to_f/100)*(@@question_max.to_f)
+#              new_total = old_total - old_result + new_result.to_f
+#              to_update[:percentage_importance] = (new_total/@@question_max)*100
+#            end
+#          end
+#        end
+#      end
+#    end
+#    to_update[:overall_completed_questions] = true if (questions_completed && @made_change)
+#    no_change = {:use_purpose_completed => true}
+#    no_change[:overall_completed_strategies] = true if self.use_purpose_completed
+#    no_change.merge!(to_update) if @made_change
+#    no_change[:purpose_completed] = to_update[:purpose_completed] if self.use_purpose_completed
+#    @saved = false if @saved.nil?
+#    self.update_attributes(no_change) if !self.use_purpose_completed || @made_change || !@saved
+#  end
 
   def after_update
     return true if @saved
     @saved = true
     to_save = {}
+    check_impact = false
     to_save[:overall_completed_strategies] = true if self.purpose_completed
-    Activity.get_question_names.each do |name|
-      old_store = @activity_clone.send(name)
-      new_store = self.send(name)
-      if old_store != new_store then
-        to_change = []
-        check_result = check_question(name)
-        to_change.push([name, check_result])
-        unless @@dependencies[name].nil? then
-          re_eval = @@dependencies[name][0]
-          check_re_eval = check_question(re_eval)
-          to_change.push([re_eval, check_re_eval])
-        end
-        to_change.each do |question_name, completed_result|
-          status = self.questions.find_or_initialize_by_name(question_name)
-          status.update_attributes(:completed => !!completed_result) #cheap cast to bool. Not a cargocult ;)
-          separated_question = Activity.question_separation(question_name)
-          question_details = question_wording_lookup(*separated_question)
-          if separated_question[0].to_s == 'purpose' && separated_question[1].to_s != "overall" then
-            question_impact = question_details[4]
-            to_save[:impact] = question_impact if question_impact.to_i > self.impact.to_i
+    if @activity_clone.send(:existing_proposed) != self.send(:existing_proposed) then
+      old_value = @activity_clone.send(:existing_proposed) - 1
+      new_value = self.send(:existing_proposed) - 1
+      old_weight = self.hashes['weights'][self.hashes['existing_proposed']['weight']][old_value]
+      new_weight = self.hashes['weights'][self.hashes['existing_proposed']['weight']][new_value]
+      old_weight = 0 if @activity_clone.send(:existing_proposed) == 0
+      new_weight = 0 if self.send(:existing_proposed) == 0
+      self.hashes['wordings'].keys.each do |strand|
+        strand_max = Activity.get_strand_max(strand)
+        old_importance = self.send("#{strand}_percentage_importance".to_sym)
+        new_importance = old_importance + (new_weight - old_weight.to_f)*100/strand_max
+        new_importance += 0.5 #true integer conversion with rounding
+        to_save["#{strand}_percentage_importance".to_sym] = new_importance.to_i
+      end
+    else
+      hashes['wordings'].keys.each do |strand|
+        to_save["#{strand}_percentage_importance".to_sym] = @activity_clone.send("#{strand}_percentage_importance".to_sym)
+      end
+      Activity.get_question_names.each do |name|
+        old_store = @activity_clone.send(name)
+        new_store = self.send(name)
+        if old_store != new_store then
+          to_change = []
+          check_result = check_question(name)
+          to_change.push([name, check_result])
+          unless @@dependencies[name].nil? then
+            re_eval = @@dependencies[name][0]
+            check_re_eval = check_question(re_eval)
+            to_change.push([re_eval, check_re_eval])
           end
-          #save percentage importance here for strands
+          to_change.each do |question_name, completed_result|
+            status = self.questions.find_or_initialize_by_name(question_name)
+            status.update_attributes(:completed => !!completed_result) #cheap cast to bool. Not a cargocult ;)
+            separated_question = Activity.question_separation(question_name)
+            question_details = question_wording_lookup(*separated_question)
+            if separated_question[0].to_s == 'purpose' && separated_question[1].to_s != "overall" then
+              check_impact = true if old_store*5 == self.impact.to_i
+            end
+            old_importance = self.send("#{separated_question[1]}_percentage_importance".to_sym)
+            old_position = old_store - 1 unless old_store == 0
+            new_position = new_store - 1 unless new_store == 0
+            old_weight = self.hashes['weights'][question_details[4]][old_store]
+            weight = self.hashes['weights'][question_details[4]][new_store]
+            old_weight = 0 if old_store == 0
+            new_weight = 0 if new_store == 0
+            new_importance = ((weight - old_weight.to_f)/Activity.get_strand_max(separated_question[1]))*100 + old_importance
+            if new_importance != old_importance then
+              to_save["#{separated_question[1]}_percentage_importance".to_sym] += (new_importance + 0.5).to_i
+            end
+          end
         end
       end
+      if check_impact then
+        new_impact = 5
+        impact_questions = Activity.get_question_names('purpose', nil, 3) + Activity.get_question_names('purpose', nil, 4)
+        impact_questions.each do |iq|
+          new_impact = self.send(iq)*5 if new_impact < self.send(iq)*5
+        end
+        to_save[:impact] = new_impact if new_impact != self.impact
+      end
+      sections = [:purpose, :impact, :consultation, :action_planning, :additional_work]
+      sections.each do |section|
+        sec_completed = true
+        section_questions = self.questions.find(:all, :conditions => "name LIKE '%#{section.to_s}%'")
+        sec_completed = false if section_questions.size != Activity.get_question_names(section).size
+        section_questions.each{|question| sec_completed = false unless question.completed}
+        to_save["#{section}_completed".to_sym] = sec_completed
+      end
+      to_save[:overall_completed_strategies] = to_save[:purpose_completed] if to_save[:overall_completed_strategies]
+      overall_comp = true
+      self.questions.find(:all).each{|question| overall_comp = false unless question.completed}
+      overall_comp = false if self.questions.size != Activity.get_question_names.size
+      to_save[:overall_completed_questions] = overall_comp unless overall_comp == self.overall_completed_questions
     end
-    sections = [:purpose, :impact, :consultation, :action_planning, :additional_work]
-    sections.each do |section|
-      sec_completed = true
-      section_questions = self.questions.find(:all, :conditions => "name LIKE '%#{section.to_s}%'")
-      sec_completed = false if section_questions.size != Activity.get_question_names(section).size
-      section_questions.each{|question| sec_completed = false unless question.completed}
-      to_save["#{section}_completed".to_sym] = sec_completed
-    end
-    to_save[:overall_completed_strategies] = to_save[:purpose_completed] if to_save[:overall_completed_strategies]
-    overall_comp = true
-    self.questions.find(:all).each{|question| overall_comp = false unless question.completed}
-    overall_comp = false if self.questions.size != Activity.get_question_names.size
-    to_save[:overall_completed_questions] = overall_comp unless overall_comp == self.overall_completed_questions
     self.update_attributes(to_save)
   end
 
+  def Activity.set_max(strand, increment)
+    case strand.to_s
+     when 'gender'
+       @@gender_max += increment
+     when 'race'
+       @@race_max += increment
+     when 'disability'
+       @@disability_max += increment
+     when 'sexual_orientation'
+       @@sexual_orientation_max += increment
+     when 'faith'
+       @@faith_max += increment
+     when 'age'
+       @@age_max += increment
+    end
+  end
+
+  def Activity.get_strand_max(strand)
+    case strand.to_s
+     when 'gender'
+       @@gender_max
+     when 'race'
+       @@race_max
+     when 'disability'
+       @@disability_max
+     when 'sexual_orientation'
+       @@sexual_orientation_max
+     when 'faith'
+       @@faith_max
+     when 'age'
+       @@age_max
+    end
+  end
   def Activity.force_question_max_calculation
-    @@question_max = 0
-    Activity.get_question_names.each do |name|
-      weights = @@Hashes['weights'][Activity.find(:first).question_wording_lookup(*Activity.question_separation(name))[4]]
-      weights = [] if weights.nil?
-      weights_max = 0
-      weights.each{|weight| weights_max = weight.to_i if weight.to_i > weights_max}
-      @@question_max += weights_max
+    @@Hashes['wordings'].keys.each do |strand|
+      Activity.get_question_names(strand).each do |name|
+        question_separation = Activity.question_separation(name)
+        weights = @@Hashes['weights'][Activity.find(:first).question_wording_lookup(*question_separation)[4]]
+        weights = [] if weights.nil?
+        weights_max = 0
+        weights.each{|weight| weights_max = weight.to_i if weight.to_i > weights_max}
+        weights_max += 20 #adding shift for the existing_proposed status
+        Activity.set_max(strand, weights_max)
+      end
     end
   end
 
@@ -425,29 +498,15 @@ class Activity < ActiveRecord::Base
 
   def impact_wording(strand = nil)
     unless strand then
-   #   case self.impact
-    #    when 15
-     #     return :high
-      #  when 10
-       #   return :medium
-      #  when 5
-     #     return :low
-     #   else
-     #     return '-'
-     # end
-      total = 5
-      weights = hashes['weights'][question_wording_lookup(:purpose, :gender, 3)[4]]
-       Activity.get_question_names(:purpose, nil, 3).each{|name| total = weights[self.send(name)] unless total > weights[self.send(name)]}
-       Activity.get_question_names(:purpose, nil, 4).each{|name| total = weights[self.send(name)] unless total > weights[self.send(name)]}
-       case total
-         when 15
-           return :high
-         when 10
-           return :medium
-         when 5
-           return :low
-         else
-           return '-'
+      case self.impact
+        when 15
+          return :high
+        when 10
+          return :medium
+        when 5
+          return :low
+        else
+          return '-'
       end
     else
       good_impact = self.send("purpose_#{strand.to_s}_3".to_sym)
@@ -468,33 +527,17 @@ class Activity < ActiveRecord::Base
   def priority_ranking(strand = nil)
     # FIXME: database should set this default for us
     self.update_attribute(:percentage_importance, 0) unless self.percentage_importance
-
     ranking_boundaries = [80,70,60,50]
     rank = 5
     unless strand then
-      #ranking_boundaries.each{|border| rank -= 1 unless self.percentage_importance > border}
-      #return rank
-      strand_total = hashes['strands'].keys.inject(0) do |total, strand|
+      strand_total = hashes['wordings'].keys.inject(0) do |total, strand|
         total += priority_ranking(strand)**3
       end
       strand_total = (strand_total.to_f/(hashes['strands'].size))**(1.to_f/3)
       return (strand_total + 0.5).to_i
     else
-      strand_max = 0
-      strand_score = 0
-      questions_to_consider = Activity.get_question_names(nil, strand) + [:existing_proposed]
-      questions_to_consider.each do |name|
-        weights = hashes['weights'][question_wording_lookup(*Activity.question_separation(name))[4]]
-        weights = [] unless weights
-        strand_weight = weights[self.send(name).to_i].to_i
-        max_weight = 0
-        weights.each{|weight| max_weight = weight.to_i unless max_weight.to_i > weight.to_i}
-        strand_max += max_weight
-        strand_score += strand_weight
-      end
-      return 0 if strand_max == 0
-      ranking = strand_score.to_f/strand_max.to_f
-      ranking_boundaries.each{|border| rank -= 1 unless ranking*100 > border}
+      ranking = self.send("#{strand}_percentage_importance")
+      ranking_boundaries.each{|border| rank -= 1 unless ranking > border}
       return rank
     end
   end
