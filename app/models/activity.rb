@@ -254,7 +254,7 @@ class Activity < ActiveRecord::Base
           like = [section, strand].join('_')
           # Find all incomplete questions with the given arguments
           answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'")
-          all_questions = Activity.get_question_names(section,strand)
+          all_questions = Activity.get_question_names(section, strand)
           # Have all the questions been answered?
           if answered_questions.size == all_questions.size then
             # Yes, then remove all completed questions
@@ -435,7 +435,7 @@ class Activity < ActiveRecord::Base
             to_change.push([re_eval, check_re_eval])
           end
           to_change.each do |question_name, completed_result|
-            status = self.questions.find_or_initialize_by_name(question_name)
+            status = self.questions.find_or_initialize_by_name(question_name.to_s)
             status.update_attributes(:completed => !!completed_result) #cheap cast to bool. Not a cargocult ;)
             separated_question = Activity.question_separation(question_name)
             question_details = question_wording_lookup(*separated_question)
