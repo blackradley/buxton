@@ -17,7 +17,7 @@
 	<p><label>Please record the issues identified</label>
 		<div class="issues">
   		<div id="issues_list">
-  			<%= render :partial => 'issues/issue', :collection => @activity.issues_by_section(@section).reject{|issue| issue.strand != @equality_strand }%>
+  			<%= render :partial => 'issues/issue', :collection => @activity.issues_by(@section, @equality_strand) %>
   		</div>
   		<div class="clear"></div>
   		<br />
