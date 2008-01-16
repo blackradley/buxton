@@ -13,30 +13,30 @@ function_policy:
   choices: 9
   weight: 0
   dependent_questions: ''
-  
+
 questions:
   purpose:
     3:
       label:
-        - 
+        -
           - 'If the Function is performed well does it have the potential to affect #{wordings[strand]} differently?'
           - 'If the Function is performed well will it have the potential to affect #{wordings[strand]} differently?'
-        - 
+        -
           - 'If the Policy is operating effectively does it have the potential to affect #{wordings[strand]} differently?'
           - 'If the Policy is operating effectively will it have the potential to affect #{wordings[strand]} differently?'
-      help: 
+      help:
         -
-          - 'The Help link above gives the rationale for this group of questions.<br/><br/> This question asks you to identify any positive 
+          - 'The Help link above gives the rationale for this group of questions.<br/><br/> This question asks you to identify any positive
              differential impact that the Function has on #{wordings[strand]}.<br/><br/>  #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed well.'
-          - 'The Help link above gives the rationale for this group of questions.<br/><br/> This question asks you to identify any positive 
+          - 'The Help link above gives the rationale for this group of questions.<br/><br/> This question asks you to identify any positive
              differential impact that the Function has on #{wordings[strand]}.<br/><br/>  #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed well.'
         -
-          - 'The Help link above gives the rationale for this group of questions.<br/><br/> This question asks you to identify any positive 
+          - 'The Help link above gives the rationale for this group of questions.<br/><br/> This question asks you to identify any positive
              differential impact that the Policy has on #{wordings[strand]}.<br/><br/>  #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed well.'
-          - 'The Help link above gives the rationale for this group of questions.<br/><br/> This question asks you to identify any positive 
+          - 'The Help link above gives the rationale for this group of questions.<br/><br/> This question asks you to identify any positive
              differential impact that the Policy has on #{wordings[strand]}.<br/><br/>  #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the Policy could affect #{wordings[strand]} differently if it were performed well.'
       type: select
@@ -45,18 +45,18 @@ questions:
       dependent_questions: ''
     4:
       label:
-        - 
+        -
           - 'If the Function is performed badly does it have the potential to affect #{wordings[strand]} differently?'
           - 'If the Function is performed badly will it have the potential to affect #{wordings[strand]} differently?'
-        - 
+        -
           - 'If the Policy is not operating effectively does it have the potential to affect #{wordings[strand]} differently?'
           - 'If the Policy is not operating effectively will it have the potential to affect #{wordings[strand]} differently?'
-      help: 
+      help:
         -
-          - 'The Help link above gives the rationale for this group of questions.<br/><br/> This question asks you to identify any negative 
+          - 'The Help link above gives the rationale for this group of questions.<br/><br/> This question asks you to identify any negative
              differential impact that the Function has on #{wordings[strand]}.<br/><br/>  #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed badly.'
-          - 'The Help link above gives the rationale for this group of questions.<br/><br/>  This question asks you to identify any negative 
+          - 'The Help link above gives the rationale for this group of questions.<br/><br/>  This question asks you to identify any negative
              differential impact that the Function has on #{wordings[strand]}.<br/><br/>   #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed badly.'
         -
@@ -73,13 +73,13 @@ questions:
   impact:
     1:
       label:
-        - 
+        -
           - 'How would you assess the current impact of the Function in meeting the particular needs of #{wordings[strand]}?'
           - 'How would you assess the potential impact of the Function in meeting the particular needs of #{wordings[strand]}?'
-        - 
+        -
           - 'How would you assess the current impact of the Policy in meeting the particular needs of #{wordings[strand]}?'
           - 'How would you assess the potential impact of the Policy in meeting the particular needs of #{wordings[strand]}?'
-      help: 
+      help:
         -
           - 'This question asks you to assess the current impact of the Function in meeting the particular needs of #{wordings[strand]}.<br/><br/>
              The available answers are on a five point scale from 5 excellent to 1 poor and as usual ‘Not sure’ is also an acceptable answer.<br/><br/>
@@ -87,7 +87,7 @@ questions:
           - 'This question asks you to assess the current impact of the Proposed Function in meeting the particular needs of #{wordings[strand]}.<br/><br/>
              The available answers are on a five point scale from 5 excellent to 1 poor and as usual ‘Not sure’ is also an acceptable answer.<br/><br/>
              If the Function is not meeting the needs of any #{wordings[strand]} purely because of their #{descriptive_term[strand]} then clearly the impact of the Proposed Function in this regard is not positive.'
-        - 
+        -
           - 'This question asks you to assess the current impact of the Policy in meeting the particular needs of #{wordings[strand]}.<br/><br/>
              The available answers are on a five point scale from 5 excellent to 1 poor and as usual ‘Not sure’ is also an acceptable answer.<br/><br/>
              If the Policy is not meeting the needs of any #{wordings[strand]} purely because of their #{descriptive_term[strand]} then clearly the impact of the Policy in this regard is not positive.'
@@ -100,16 +100,16 @@ questions:
       dependent_questions: ''
     2:
       label:
-        - 
+        -
           - 'Do you have current information to support this assessment?'
           - 'Will you be able to access information to support this assessment?'
-        - 
+        -
           - 'Do you have current information to support this assessment?'
           - 'Will you be able to access information to support this assessment?'
-      help: 
+      help:
         -
           - 'This question asks you whether you have any information to support your assessment of the impact of the Function that you recorded in the previous question.<br/><br/>
-             The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/> 
+             The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/>
              The available answers are:<br/>
              <ul><li>Yes</li>
              <li>No</li>
@@ -117,16 +117,16 @@ questions:
              </ul>
              If you have not got information to support the assessment of impact you might like to think on what basis you made the assessment.'
           - 'This question asks you whether you have any information to support your assessment of the impact of the Function that you recorded in the previous question.<br/><br/>
-             The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/> 
+             The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/>
              The available answers are:<br/>
              <ul><li>Yes</li>
              <li>No</li>
              <li>Not Sure</li>
              </ul>
              If you have not got information to support the assessment of impact you might like to think on what basis you made the assessment.'
-        - 
+        -
           - 'This question asks you whether you have any information to support your assessment of the impact of the Policy that you recorded in the previous question.<br/><br/>
-             The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/> 
+             The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/>
              The available answers are:<br/>
              <ul><li>Yes</li>
              <li>No</li>
@@ -134,7 +134,7 @@ questions:
              </ul>
              If you have not got information to support the assessment of impact you might like to think on what basis you made the assessment.'
           - 'This question asks you whether you have any information to support your assessment of the impact of the Policy that you recorded in the previous question.<br/><br/>
-             The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/> 
+             The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/>
              The available answers are:<br/>
              <ul><li>Yes</li>
              <li>No</li>
@@ -147,13 +147,13 @@ questions:
       dependent_questions: ''
     3:
       label:
-        - 
+        -
           - 'Please record the nature and source of this information.'
           - 'Please record the nature and source of this information.'
-        - 
+        -
           - 'Please record the nature and source of this information.'
           - 'Please record the nature and source of this information.'
-      help: 
+      help:
         -
           - 'This question asks you to record the nature of the information you have used to make your assessment of the impact.<br/><br/>
              A brief description of the information, its source and date is sufficient. e.g.<br/>
@@ -165,7 +165,7 @@ questions:
              Internal Audit Report.<br/>
              ABC Ltd<br/>
              October 2007'
-        - 
+        -
           - 'This question asks you to record the nature of the information you have used to make your assessment of the impact.<br/><br/>
              A brief description of the information, its source and date is sufficient. e.g.<br/>
              Internal Audit Report.<br/>
@@ -180,17 +180,17 @@ questions:
       dependent_questions: 'impact_#{strand}_2 yes_value'
     4:
       label:
-        - 
+        -
           - 'If you do not have current information to support this assessment are there plans to collect such information?'
           - ''
-        - 
+        -
           - 'If you do not have current information to support this assessment are there plans to collect such information?'
           - ''
-      help: 
+      help:
         -
           - 'This question asks you whether the Council has any plans to collect information to assess the impact of the Function.'
           - ''
-        - 
+        -
           - 'This question asks you whether the Council has any plans to collect information to assess the impact of the Policy.'
           - ''
       type: select
@@ -199,32 +199,32 @@ questions:
       dependent_questions: ''
     5:
       label:
-        - 
+        -
           - 'What are the timescales for collecting such information?'
           - ''
-        - 
+        -
           - 'What are the timescales for collecting such information?'
           - ''
-      help: 
+      help:
         -
           - 'This question asks you to estimate the timescales for collecting additional information.<br/><br/>
              If you are not sure about the timescales please note this in the space provided.'
           - ''
-        - 
+        -
           - 'This question asks you to estimate the timescales for collecting additional information.<br/><br/>
              If you are not sure about the timescales please note this in the space provided.'
           - ''
       type: text
       dependent_questions: 'impact_#{strand}_4 yes_value'
     6:
-      label: 
-        - 
+      label:
+        -
           - 'Are there any other measures by which the impact of the Function on meeting the particular needs of #{wordings[strand]} could be assessed?'
           - 'Are there any other measures by which the impact of the Function on meeting the particular needs of #{wordings[strand]} could be assessed?'
-        - 
+        -
           - 'Are there any other measures by which the impact of the Policy on meeting the particular needs of #{wordings[strand]} could be assessed?'
           - 'Are there any other measures by which the impact of the Policy on meeting the particular needs of #{wordings[strand]} could be assessed?'
-      help: 
+      help:
         -
           - 'This question asks you if there are other measures by which you could assess the impact of the Function on #{wordings[strand]}#{hashes["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}.  Such measures
              might be the level of complaints, anecdotal evidence or your first hand experience of the Function.<br/><br/>#{hashes["extra_strand_wordings"]["impact"][6]["extra_paragraph"][strand]}
@@ -242,7 +242,7 @@ questions:
              <li>Not Sure</li>
              </ul><br/>
              In the light of this question you may want to go back and review your assessment of the impact of the Function on #{wordings[strand]}.'
-        - 
+        -
           - 'This question asks you if there are other measures by which you could assess the impact of the Policy on #{wordings[strand]}#{hashes["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}.  Such measures
              might be the level of complaints, anecdotal evidence or your first hand experience of the Policy.<br/><br/>#{hashes["extra_strand_wordings"]["impact"][6]["extra_paragraph"][strand]}
              The available answers to this question are:<br/>
@@ -265,19 +265,19 @@ questions:
       dependent_questions: ''
     7:
       label:
-        - 
+        -
           - 'Please record any such measures.'
           - 'Please record any such measures.'
-        - 
+        -
           - 'Please record any such measures.'
           - 'Please record any such measures.'
-      help: 
+      help:
         -
           - 'This question asks you to record the details of any additional measures.<br/><br/>
              A brief description, source and date will be sufficient.'
           - 'This question asks you to record the details of any additional measures.<br/><br/>
              A brief description, source and date will be sufficient.'
-        - 
+        -
           - 'This question asks you to record the details of any additional measures.<br/><br/>
              A brief description, source and date will be sufficient.'
           - 'This question asks you to record the details of any additional measures.<br/><br/>
@@ -286,17 +286,17 @@ questions:
       dependent_questions: 'impact_#{strand}_6 yes_value'
     8:
       label:
-        - 
+        -
           - 'Is the assessment of the impact of the Function derived from these other measures consistent with the assessment derived from the information?'
           - ''
-        - 
+        -
           - 'Is the assessment of the impact of the Policy derived from these other measures consistent with the assessment derived from the information?'
           - ''
-      help: 
+      help:
         -
           - 'This question asks you whether  all the information from the range of sources gives a consistent assessment of the impact of the Function.'
           - ''
-        - 
+        -
           - 'This question asks you whether  all the information from the range of sources gives a consistent assessment of the impact of the Policy.'
           - ''
       type: select
@@ -305,25 +305,25 @@ questions:
       dependent_questions: 'impact_#{strand}_6 yes_value'
     9:
       label:
-        - 
+        -
           - 'Are there any issues about the way in which the Function impacts on #{wordings[strand]}'
           - 'Are there any issues about the way in which the Function will impact #{wordings[strand]}'
-        - 
+        -
           - 'Are there any issues about the way in which the Policy impacts on #{wordings[strand]}'
           - 'Are there any issues about the way in which the Policy will impact #{wordings[strand]}'
-      help: 
+      help:
         -
-          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact.  #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/> 
+          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact.  #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
-          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/> 
+          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
-        - 
-          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/> 
+        -
+          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
-          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/> 
+          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
       type: select
@@ -332,14 +332,14 @@ questions:
       dependent_questions: ''
   consultation:
     1:
-      label: 
-        - 
+      label:
+        -
           - 'Have groups been consulted on the impact of the Function on #{wordings[strand]}'
           - 'Have groups been consulted on the potential impact of the Function on #{wordings[strand]}'
-        - 
+        -
           - 'Have groups been consulted on the impact of the Policy on #{wordings[strand]}'
           - 'Have groups been consulted on the potential impact of the Policy on #{wordings[strand]}'
-      help: 
+      help:
         -
           - 'This question asks whether any groups representing the interests of #{wordings[strand]} have been consulted on the impact of the Function.<br/><br/>
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
@@ -357,7 +357,7 @@ questions:
              <li>No</li>
              <li>Not Sure</li>
              </ul><br/>'
-        - 
+        -
           - 'This question asks whether any groups representing the interests of #{wordings[strand]} have been consulted on the impact of the Policy.<br/><br/>
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
              The consultation may have been arranged specifically for this particular Policy or for a number of Policies.<br/><br/>
@@ -379,14 +379,14 @@ questions:
       weights: 7
       dependent_questions: ''
     2:
-      label: 
-        - 
+      label:
+        -
           - 'If no why is this so?'
           - 'If no why is this so?'
-        - 
+        -
           - 'If no why is this so?'
           - 'If no why is this so?'
-      help: 
+      help:
         -
           - 'This question asks why groups have not been consulted on the impact of the Function.<br/><br/>
              The available answers to this question are:<ul>
@@ -400,7 +400,7 @@ questions:
              <li>Plans to consult.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
              <li>No plans to consult.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
              <li>Not Sure.  As always an acceptable answer if you are unsure.</li></ul>'
-        - 
+        -
           - 'This question asks why groups have not been consulted on the impact of the Policy.<br/><br/>
              The available answers to this question are:<ul>
              <li>No relevant groups.  This would be the correct answer if it had been decided that there were no suitable groups representing the interests of #{wordings[strand]} to consult with.</li>
@@ -418,20 +418,20 @@ questions:
       weights: 8
       dependent_questions: 'consultation_#{strand}_1 no_value'
     3:
-      label: 
-        - 
+      label:
+        -
           - 'If yes please list groups and dates'
           - 'If yes please list groups and dates'
-        - 
+        -
           - 'If yes please list groups and dates'
           - 'If yes please list groups and dates'
-      help: 
+      help:
         -
           - 'This question asks you to list the groups that have been consulted and the date of the consultation.<br/><br/>
              If any future consultations are planned please record these details as well.'
           - 'This question asks you to list the groups that have been consulted and the date of the consultation.<br/><br/>
              If any future consultations are planned please record these details as well.'
-        - 
+        -
           - 'This question asks you to list the groups that have been consulted and the date of the consultation.<br/><br/>
              If any future consultations are planned please record these details as well.'
           - 'This question asks you to list the groups that have been consulted and the date of the consultation.<br/><br/>
@@ -439,14 +439,14 @@ questions:
       type: text
       dependent_questions: 'consultation_#{strand}_1 yes_value'
     4:
-      label: 
-        - 
+      label:
+        -
           - 'Have stakeholders been consulted to access their knowledge and expertise on the impact of the Function on #{wordings[strand]}'
           - 'Have stakeholders been consulted to access their knowledge and expertise on the impact of the Function on #{wordings[strand]}'
-        - 
+        -
           - 'Have stakeholders been consulted to access their knowledge and expertise on the impact of the Policy on #{wordings[strand]}'
           - 'Have stakeholders been consulted to access their knowledge and expertise on the impact of the Policy on #{wordings[strand]}'
-      help: 
+      help:
         -
           - 'This question asks whether any stakeholders with knowledge and expertise on the #{"different " if strand == "gender"}interests of #{wordings[strand]} have been consulted on the impact of the Function.<br/><br/>
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
@@ -464,7 +464,7 @@ questions:
              <li>No</li>
              <li>Not Sure</li>
              </ul><br/>'
-        - 
+        -
           - 'This question asks whether any stakeholders with knowledge and expertise on the #{"different " if strand == "gender"}interests of #{wordings[strand]} have been consulted on the impact of the Policy.<br/><br/>
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
              The consultation may have been arranged specifically for this particular Policy or for a number of Policies.<br/><br/>
@@ -487,13 +487,13 @@ questions:
       dependent_questions: ''
     5:
       label:
-        - 
+        -
           - 'If no why is this so?'
           - 'If no why is this so?'
-        - 
+        -
           - 'If no why is this so?'
           - 'If no why is this so?'
-      help: 
+      help:
         -
           - 'This question asks why stakeholders have not been consulted on the impact of the Function.<br/><br/>
              The available answers to this question are:<ul>
@@ -507,7 +507,7 @@ questions:
              <li>Plans to consult.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
              <li>No plans to consult.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
              <li>Not Sure.  As always an acceptable answer if you are unsure.</li></ul>'
-        - 
+        -
           - 'This question asks why stakeholders have not been consulted on the impact of the Policy.<br/><br/>
              The available answers to this question are:<ul>
              <li>No relevant stakeholders.  This would be the correct answer if it had been decided that there were no suitable stakeholders representing the interests of #{wordings[strand]} to consult with.</li>
@@ -526,19 +526,19 @@ questions:
       dependent_questions: 'consultation_#{strand}_4 no_value'
     6:
       label:
-        - 
+        -
           - 'If yes please list groups and dates'
           - 'If yes please list groups and dates'
-        - 
+        -
           - 'If yes please list groups and dates'
           - 'If yes please list groups and dates'
-      help: 
+      help:
         -
           - 'This question asks you to list the groups that have been consulted and the date of the consultation.<br/><br/>
              If any future consultations are planned please record these details as well.'
           - 'This question asks you to list the groups that have been consulted and the date of the consultation.<br/><br/>
              If any future consultations are planned please record these details as well.'
-        - 
+        -
           - 'This question asks you to list the groups that have been consulted and the date of the consultation.<br/><br/>
              If any future consultations are planned please record these details as well.'
           - 'This question asks you to list the groups that have been consulted and the date of the consultation.<br/><br/>
@@ -547,25 +547,25 @@ questions:
       dependent_questions: 'consultation_#{strand}_4 yes_value'
     7:
       label:
-        - 
+        -
           - 'Did any of the consultations identify any issues with the impact of the Function on the particular needs of #{wordings[strand]}'
           - 'Did any of the consultations identify any issues with the potential impact of the Function on the particular needs of #{wordings[strand]}'
-        - 
+        -
           - 'Did any of the consultations identify any issues with the impact of the Policy on the particular needs of #{wordings[strand]}'
           - 'Did any of the consultations identify any issues with the potential impact of the Policy on the particular needs of #{wordings[strand]}'
-      help: 
+      help:
         -
-          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact.  #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/> 
+          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact.  #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
-          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/> 
+          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
-        - 
-          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/> 
+        -
+          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
-          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/> 
+          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
       type: select
@@ -574,18 +574,18 @@ questions:
       dependent_questions: ''
   additional_work:
     1:
-      label: 
+      label:
         -
-          - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
+          - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how
 		    the Function impacts, or may impact, upon #{wordings[strand]}?'
-          - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
+          - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how
 		     the Function impacts, or may impact, upon #{wordings[strand]}?'
         -
-          - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
+          - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how
 		     the Policy impacts, or may impact, upon #{wordings[strand]}?'
-          - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how 
-		     the Policy impacts, or may impact, upon #{wordings[strand]}?'  
-      help: 
+          - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how
+		     the Policy impacts, or may impact, upon #{wordings[strand]}?'
+      help:
         -
           - 'This question asks you to reflect upon whether you think that you need further information to obtain a comprehensive view of the impact of the Function.<br/><br/>
              The Impact section asked you to identify existing information to assess the impact of the function on #{wordings[strand]}.<br/><br/>
@@ -595,7 +595,7 @@ questions:
              The Impact section asked you to identify existing information to assess the potential impact of the function on #{wordings[strand]}.<br/><br/>
              The Consultation section asked you to who had been consulted about the potential impact of the Function. <br/><br/>
              Even with these two sources of information you may feel that there is additional information required such as further data collection and analysis of further consultation.'
-        - 
+        -
           - 'This question asks you to reflect upon whether you think that you need further information to obtain a comprehensive view of the impact of the Policy.<br/><br/>
              The Impact section asked you to identify existing information to assess the impact of the function on #{wordings[strand]}.<br/><br/>
              The Consultation section asked you to who had been consulted about the impact of the Policy. <br/><br/>
@@ -616,11 +616,11 @@ questions:
         -
           - 'Please explain the further information required.'
           - 'Please explain the further information required.'
-      help: 
+      help:
         -
           - 'A brief description of the nature of the information, source and timescales for collection will be sufficient.'
           - 'A brief description of the nature of the information, source and timescales for collection will be sufficient.'
-        - 
+        -
           - 'A brief description of the nature of the information, source and timescales for collection will be sufficient.'
           - 'A brief description of the nature of the information, source and timescales for collection will be sufficient.'
       type: text
@@ -629,15 +629,15 @@ questions:
       label:
         -
           - 'Is there any more work you feel is necessary to complete the assessment?'
-          - 'Is there any more work you feel is necessary to complete the assessment?' 
+          - 'Is there any more work you feel is necessary to complete the assessment?'
         -
           - 'Is there any more work you feel is necessary to complete the assessment?'
           - 'Is there any more work you feel is necessary to complete the assessment?'
-      help: 
+      help:
         -
           - ''
           - ''
-        - 
+        -
           - ''
           - ''
       type: select
@@ -649,20 +649,20 @@ questions:
         -
           - 'Do you think that the Function has a role in preventing #{wordings[strand]} being treated differently, in an unfair
              or inappropriate way, just because of their #{strand.to_s.titleize.downcase}?'
-          - 'Do you think that the Function will have a role in preventing #{wordings[strand]} being treated differently, in an 
+          - 'Do you think that the Function will have a role in preventing #{wordings[strand]} being treated differently, in an
              unfair or inappropriate way, just because of their #{strand.to_s.titleize.downcase}?'
         -
           - 'Do you think that the Policy has a role in preventing #{wordings[strand]} being treated differently, in an unfair or
              inappropriate way, just because of their #{strand.to_s.titleize.downcase}?'
           - 'Do you think that the Policy will have a role in preventing #{wordings[strand]} being treated differently, in an unfair
              or inappropriate way, just because of their #{strand.to_s.titleize.downcase}?'
-      help: 
+      help:
         -
           - 'This question asks you to assess whether the Function could have a role in eliminating discrimination or harassment faced by #{wordings[strand]} as a result of their #{descriptive_term[strand]}.<br/><br/>
              There will be a minority of Functions that are intended to eliminate discrimination or harassment as their primary purpose and some Functions which might have a secondary role in eliminating discrimination or harassment.'
           - 'This question asks you to assess whether the Function could have a role in eliminating discrimination or harassment faced by #{wordings[strand]} as a result of their #{descriptive_term[strand]}.<br/><br/>
              There will be a minority of Functions that are intended to eliminate discrimination or harassment as their primary purpose and some Functions which might have a secondary role in eliminating discrimination or harassment.'
-        - 
+        -
           - 'This question asks you to assess whether the Policy could have a role in eliminating discrimination or harassment faced by #{wordings[strand]} as a result of their #{descriptive_term[strand]}.<br/><br/>
              There will be a minority of Policies that are intended to eliminate discrimination or harassment as their primary purpose and some Policies which might have a secondary role in eliminating discrimination or harassment.'
           - 'This question asks you to assess whether the Policy could have a role in eliminating discrimination or harassment faced by #{wordings[strand]} as a result of their #{descriptive_term[strand]}.<br/><br/>
@@ -679,13 +679,13 @@ questions:
         -
           - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
           - 'Do you think that the Policy could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
-      help: 
+      help:
         -
           - 'This question asks you to assess whether the Function could have a role in promoting equality of opportunity for #{wordings[strand]}.<br/><br/>
              There will be a minority of Functions that are intended to eliminate equality of opportunity as their primary purpose and some Functions which might have a secondary role in promoting equality.'
           - 'This question asks you to assess whether the Function could have a role in promoting equality of opportunity for #{wordings[strand]}.<br/><br/>
              There will be a minority of Functions that are intended to eliminate equality of opportunity as their primary purpose and some Functions which might have a secondary role in promoting equality.'
-        - 
+        -
           - 'This question asks you to assess whether the Policy could have a role in promoting equality of opportunity for #{wordings[strand]}.<br/><br/>
              There will be a minority of Policies that are intended to eliminate equality of opportunity as their primary purpose and some Policies which might have a secondary role in promoting equality.'
           - 'This question asks you to assess whether the Policy could have a role in promoting equality of opportunity for #{wordings[strand]}.<br/><br/>
@@ -702,13 +702,13 @@ questions:
         -
           - 'Do you think that the Function could assist #{wordings[strand]} to get on better with each other?'
           - 'Do you think that the Function could assist #{wordings[strand]} to get on better with each other?'
-      help: 
+      help:
         -
           - 'This question asks you to assess whether the Function could have a role in assisting #{wordings[strand]} to get on better with each other.<br/><br/>
              There will be a minority of Functions that are intended to promote good relations as their primary purpose and some Functions that might have this as a secondary role.'
           - 'This question asks you to assess whether the Function could have a role in assisting #{wordings[strand]} to get on better with each other.<br/><br/>
              There will be a minority of Functions that are intended to promote good relations as their primary purpose and some Functions that might have this as a secondary role.'
-        - 
+        -
           - 'This question asks you to assess whether the Policy could have a role in assisting #{wordings[strand]} to get on better with each other.<br/><br/>
              There will be a minority of Policies that are intended to promote good relations as their primary purpose and some Policies that might have this as a secondary role.'
           - 'This question asks you to assess whether the Policy could have a role in assisting #{wordings[strand]} to get on better with each other.<br/><br/>
@@ -725,13 +725,13 @@ questions:
         -
           - 'Do you think that the function will take account of disabilities even if it means treating #{wordings[strand]} more favourably?'
           - 'Do you think that the function will take account of disabilities even if it means treating #{wordings[strand]} more favourably?'
-      help: 
+      help:
         -
           - 'The question asks whether the Function takes account of disabilities even if it means treating people with disabilities more favourably.<br/><br/>
              As noted in the Impact section this type of intentional positive impact can be characterized as positive action.'
           - 'The question asks whether the Function takes account of disabilities even if it means treating people with disabilities more favourably.<br/><br/>
              As noted in the Impact section this type of intentional positive impact can be characterized as positive action.'
-        - 
+        -
           - 'The question asks whether the Policy takes account of disabilities even if it means treating people with disabilities more favourably.<br/><br/>
              As noted in the Impact section this type of intentional positive impact can be characterized as positive action.'
           - 'The question asks whether the Policy takes account of disabilities even if it means treating people with disabilities more favourably.<br/><br/>
@@ -745,16 +745,16 @@ questions:
         -
           - 'Do you think that the Function could assist #{wordings[strand]} to participate more?'
           - 'Do you think that the Function could assist #{wordings[strand]} to participate more?'
-        -  
+        -
           - 'Do you think that the Policy could assist #{wordings[strand]} to participate more?'
           - 'Do you think that the Policy could assist #{wordings[strand]} to participate more?'
-      help: 
+      help:
         -
           - 'The question asks you whether the Function could encourage individuals with different types of disability to participate more in society.<br/><br/>
              Functions which assisted with access, both physical and information, for people with different types of disability might assist in this regard.'
           - 'The question asks you whether the Function could encourage individuals with different types of disability to participate more in society.<br/><br/>
              Functions which assisted with access, both physical and information, for people with different types of disability might assist in this regard.'
-        - 
+        -
           - 'The question asks you whether the Policy could encourage individuals with different types of disability to participate more in society.<br/><br/>
              Policies which assisted with access, both physical and information, for people with different types of disability might assist in this regard.'
           - 'The question asks you whether the Policy could encourage individuals with different types of disability to participate more in society.<br/><br/>
@@ -768,32 +768,32 @@ questions:
         -
           - 'Do you think that the Function could assist in promoting positive attitudes to #{wordings[strand]}?'
           - 'Do you think that the Function could assist in promoting positive attitudes to #{wordings[strand]}?'
-        -  
+        -
           - 'Do you think that the Policy could assist in promoting positive attitudes to #{wordings[strand]}?'
           - 'Do you think that the Policy could assist in promoting positive attitudes to #{wordings[strand]}?'
-      help: 
+      help:
         -
           - 'The question asks you whether the Function could assist in promoting positive attitudes to individuals with different types of disability.'
           - 'The question asks you whether the Function could assist in promoting positive attitudes to individuals with different types of disability.'
-        - 
+        -
           - 'The question asks you whether the Policy could assist in promoting positive attitudes to individuals with different types of disability.'
           - 'The question asks you whether the Policy could assist in promoting positive attitudes to individuals with different types of disability.'
       type: select
       choices: 3
       weights: 0
       dependent_questions: ''
-      
+
 overall_questions:
   purpose:
-    2: 
+    2:
       label:
         -
-          - 'What is the target outcome of the Function?'  
+          - 'What is the target outcome of the Function?'
           - 'What is the target outcome of the Function?'
         -
-          - 'What is the target outcome of the Policy?'  
           - 'What is the target outcome of the Policy?'
-      help: 
+          - 'What is the target outcome of the Policy?'
+      help:
         -
           - 'This question asks you to identify the target outcome or desired state of affairs which the Function is designed to deliver.  If the Function does the job which it is supposed to do, what will it change or achieve.<br/><br/>
              Examples of target outcomes are:<ul> <li>A narrowing of the gap between the local employment rate for priority disadvantaged groups and the national rate.</li>
@@ -812,13 +812,13 @@ overall_questions:
       dependent_questions: ''
     5:
       label:
-        -  
+        -
           - 'Service users'
           - 'Service users'
-        - 
+        -
           - 'Service users'
           - 'Service users'
-      help: 
+      help:
         -
           - ''
           - ''
@@ -837,7 +837,7 @@ overall_questions:
         -
           - 'Staff employed by the council'
           - 'Staff employed by the council'
-      help: 
+      help:
         -
           - ''
           - ''
@@ -856,7 +856,7 @@ overall_questions:
         -
           - 'Staff of supplier organisations'
           - 'Staff of supplier organisations'
-      help: 
+      help:
         -
           - ''
           - ''
@@ -875,7 +875,7 @@ overall_questions:
         -
           - 'Staff of partner organisations'
           - 'Staff of partner organisations'
-      help: 
+      help:
         -
           - ''
           - ''
@@ -894,7 +894,7 @@ overall_questions:
         -
           - 'Employees of businesses'
           - 'Employees of businesses'
-      help: 
+      help:
         -
           - ''
           - ''
@@ -905,7 +905,7 @@ overall_questions:
       choices: 3
       weights: 0
       dependent_questions: ''
-     
+
 wordings:
   gender: men and women
   race: individuals from different ethnic backgrounds
@@ -929,35 +929,35 @@ section_names:
   - consultation
   - additional_work
   - action_planning
-  
-  
+
+
 headers:
   purpose_overall_1:
-    - 
+    -
       - For each strategic objective below please indicate whether it is significantly aided by the Function.
       - For each strategic objective below please indicate whether it will be significantly aided by the Function.
-    - 
+    -
       - For each strategic objective below please indicate whether it is significantly aided by the Policy.
       - For each strategic objective below please indicate whether it will be significantly aided by the Policy.
   purpose_overall_2:
     -
       - Which of these individuals does the Function have an impact on?
       - Which of these individuals will the Function have an impact on?
-    -   
+    -
       - Which of these individuals does the Policy have an impact on?
       - Which of these individuals will the Policy have an impact on?
   purpose_overall_3:
     -
       - The Function has the following differential positive impact on these equality groups
       - The Function might have the following differential positive impact on these equality groups
-    -   
+    -
       - The Policy has the following differential positive impact on these equality groups
       - The Policy might have the following differential positive impact on these equality groups
   purpose_overall_4:
     -
       - The Function has the following differential negative impact on these equality groups
       - The Function might have the following differential negative impact on these equality groups
-    -   
+    -
       - The Policy has the following differential negative impact on these equality groups
       - The Policy might have the following differential negative impact on these equality groups
 
@@ -1038,7 +1038,7 @@ header_help_text:
          </ul>'
   purpose_overall_3:
     -
-      - 'This group of questions seeks to identify any positive differential impact that the Function has on individuals.<br/><br/> The questions 
+      - 'This group of questions seeks to identify any positive differential impact that the Function has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Function that was designed to improve access to services for people of a certain
          faith and is performing well would expect to have a positive impact only for members of that faith.  It may be that there is other
@@ -1049,7 +1049,7 @@ header_help_text:
          </ul><br/>
          Please indicate whether, in your opinion,  the positive impact is limited or significant.'
 
-      - 'This group of questions seeks to identify any positive differential impact that the Function has on individuals.<br/><br/> The questions 
+      - 'This group of questions seeks to identify any positive differential impact that the Function has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Function that was designed to improve access to services for people of a certain
          faith and is performing well would expect to have a positive impact only for members of that faith.  It may be that there is other
@@ -1059,8 +1059,8 @@ header_help_text:
          <li>Significant impact</li>
          </ul><br/>
          Please indicate whether, in your opinion,  the positive impact is limited or significant.'
-    -   
-      - 'This group of questions seeks to identify any positive differential impact that the Policy has on individuals.<br/><br/> The questions 
+    -
+      - 'This group of questions seeks to identify any positive differential impact that the Policy has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Policy that was designed to improve access to services for people of a certain
          faith and is performing well would expect to have a positive impact only for members of that faith.  It may be that there is other
@@ -1070,7 +1070,7 @@ header_help_text:
         <li>Significant impact</li>
         </ul><br/>
          Please indicate whether, in your opinion,  the positive impact is limited or significant.'
-      - 'This group of questions seeks to identify any positive differential impact that the Policy has on individuals.<br/><br/> The questions 
+      - 'This group of questions seeks to identify any positive differential impact that the Policy has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Policy that was designed to improve access to services for people of a certain
          faith and is performing well would expect to have a positive impact only for members of that faith.  It may be that there is other
@@ -1082,7 +1082,7 @@ header_help_text:
          Please indicate whether, in your opinion,  the positive impact is limited or significant.'
   purpose_overall_4:
     -
-      - 'This group of questions seeks to identify any negative differential impact that the Function has on individuals.<br/><br/> The questions 
+      - 'This group of questions seeks to identify any negative differential impact that the Function has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Function that was designed to improve access to services for people of a certain
          faith and is performing badly may have a negative impact only for members of that faith.  It may be that there is other
@@ -1092,7 +1092,7 @@ header_help_text:
         <li>Significant impact</li>
         </ul><br/>
          Please indicate whether, in your opinion,  the negative impact is limited or significant.'
-      - 'This group of questions seeks to identify any negative differential impact that the Function has on individuals.<br/><br/> The questions 
+      - 'This group of questions seeks to identify any negative differential impact that the Function has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Function that was designed to improve access to services for people of a certain
          faith and is performing badly may have a negative impact only for members of that faith.  It may be that there is other
@@ -1103,7 +1103,7 @@ header_help_text:
          </ul><br/>
          Please indicate whether, in your opinion,  the negative impact is limited or significant.'
     -
-      - 'This group of questions seeks to identify any negative differential impact that the Policy has on individuals.<br/><br/> The questions 
+      - 'This group of questions seeks to identify any negative differential impact that the Policy has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Policy that was designed to improve access to services for people of a certain
          faith and is performing badly may have a negative impact only for members of that faith.  It may be that there is other
@@ -1113,7 +1113,7 @@ header_help_text:
          <li>Significant impact</li>
          </ul><br/>
          Please indicate whether, in your opinion,  the negative impact is limited or significant.'
-      - 'This group of questions seeks to identify any negative differential impact that the Policy has on individuals.<br/><br/> The questions 
+      - 'This group of questions seeks to identify any negative differential impact that the Policy has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Policy that was designed to improve access to services for people of a certain
          faith and is performing badly may have a negative impact only for members of that faith.  It may be that there is other
@@ -1163,7 +1163,7 @@ choices:
     - 'Not sure'
     - 'Not applicable'
   7:
-    - 'Not Answered Yet' 
+    - 'Not Answered Yet'
     - 'None'
     - 'Small minority'
     - 'Significant minority'
@@ -1202,7 +1202,7 @@ weights:
     - 0
     - '-5'
     - 0
-  4:  
+  4:
     - 10
     - 10
     - 0
@@ -1242,8 +1242,8 @@ weights:
     - 5
 
   12:
-    - 20
     - 5
+    - 20
   13:
     - 0
     - -3
@@ -1254,7 +1254,7 @@ weights:
   14:
     - 20
     - 10
-    - 20 	
+    - 20
   15:
     - 0
     - '-10'
@@ -1297,8 +1297,8 @@ extra_strand_wordings:
       disability: 'It will be important to ensure that the consultation includes people with a range of disabilities, including physical, sensory, learning and mental health.<br/><br/>'
       age:
       faith: 'It will be important to ensure that the consultation includes people from a range of faiths, including both majority and minority religions. <br/><br/>'
-      sexual_orientation: 'It will be important to ensure that the consultation includes people from a range of sexual orientations , including lesbian, gay, bisexual and transgender. <br/><br/>'      
-    
+      sexual_orientation: 'It will be important to ensure that the consultation includes people from a range of sexual orientations , including lesbian, gay, bisexual and transgender. <br/><br/>'
+
 descriptive_terms_for_strands:
   gender: 'gender'
   race: 'ethnicity'
@@ -1306,7 +1306,7 @@ descriptive_terms_for_strands:
   faith: 'faith'
   sexual_orientation: 'sexuality'
   age: 'age'
-  
+
 issues_help_text:
   -
     - 'This question asks you to list each of the issues which the consultation identified.<br/><br/>
@@ -1326,4 +1326,3 @@ issues_help_text:
        To add an issue please click on the ‘Add a New Issue link’ and then type a brief description of the issue in the box.<br/><br/>
        To edit an existing issue just click on the text and to delete an issue click on the red cross to the right of the issue text.<br/><br/>
        The issues identified will be brought forward to the Action Planning section.'
-    
