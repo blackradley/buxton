@@ -43,7 +43,7 @@ class Activity < ActiveRecord::Base
 
   has_many :questions, :dependent => :destroy
 
-  attr_accessor :activity_clone, :overall_completed_issues, :completed_strategies, :made_change, :second_pass
+  attr_accessor :activity_clone, :overall_completed_issues, :completed_strategies, :made_change, :saved
   before_save :set_approved
 
   after_update :save_issues
@@ -449,10 +449,11 @@ class Activity < ActiveRecord::Base
                 check_impact = true if old_store.to_i*5 == self.impact.to_i
               end
               old_importance = self.send("#{separated_question[1]}_percentage_importance".to_sym)
+              old_importance = to_save["#{separated_question[1]}_percentage_importance".to_sym] if to_save["#{separated_question[1]}_percentage_importance".to_sym]
               old_position = old_store.to_i - 1 unless old_store.to_i == 0
               new_position = new_store.to_i - 1 unless new_store.to_i == 0
-              old_weight = self.hashes['weights'][question_details[4]][old_store.to_i].to_i unless old_store.to_i == 0
-              weight = self.hashes['weights'][question_details[4]][new_store.to_i].to_i unless new_store.to_i == 0
+              old_weight = self.hashes['weights'][question_details[4].to_i][old_store.to_i].to_i unless old_store.to_i == 0
+              weight = self.hashes['weights'][question_details[4].to_i][new_store.to_i].to_i unless new_store.to_i == 0
               old_weight = 0 if old_store.to_i == 0
               new_weight = 0 if new_store.to_i == 0
               new_importance = ((weight.to_f - old_weight.to_f)/Activity.get_strand_max(separated_question[1]))*100 + old_importance.to_i
@@ -467,7 +468,7 @@ class Activity < ActiveRecord::Base
         new_impact = 5
         impact_questions = Activity.get_question_names('purpose', nil, 3) + Activity.get_question_names('purpose', nil, 4)
         impact_questions.each do |iq|
-          new_impact = self.send(iq)*5 if new_impact < self.send(iq)*5
+          new_impact = self.send(iq).to_i*5 if new_impact < self.send(iq).to_i*5
         end
         to_save[:impact] = new_impact if new_impact != self.impact
       end
