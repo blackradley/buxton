@@ -142,11 +142,11 @@ class Activity < ActiveRecord::Base
     issue_strand = []
     number_answered = 0
     total = 0
-    #A section can't be completed unless the activity is started.
-    return 0 unless started
     #Check whether each question is completed. If it is, add one to the amount that are completed. Then add one to the total.
-    # TODO: OPTIMISE HERE
-    Activity.get_question_names(section, strand).each{|question| if check_question(question) then number_answered += 1 end; total += 1}
+    like = [section, strand].join('_')
+    # Find all incomplete questions with the given arguments
+    number_answered += self.questions.find(:all, :conditions => "name LIKE '%#{like}%' AND completed = true").size
+    total += Activity.get_question_names(section, strand).size
     #If you don't specify a section, or your section is action planning, consider issues as well.
     unless section && !(section == :action_planning) then
       #First we calculate all the questions, in case there is a nil.
@@ -198,26 +198,16 @@ class Activity < ActiveRecord::Base
    #that you have to answer(activity/policy and proposed/overall) have been answered or not, and if they have not been answered, then no others can be
    # and if they have, then the activity is by definition started
   def started(section = nil, strand = nil)
-    unless (section || strand) then
-      # If both of these questions have been answered, return true, otherwise return false
-      return (check_question(:existing_proposed) && check_question(:function_policy))
-    else
-      return false unless (check_question(:existing_proposed) && check_question(:function_policy))
-    end
-    # TODO: OPTIMISE HERE
-    Activity.get_question_names(section, strand).each{|question| if check_question(question) then return true end}
+    like = [section, strand].join('_')
+    # Find all incomplete questions with the given arguments
+    answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'")
+    return true if answered_questions.size > 0
     unless section && !(section == :action_planning) then
        #First we calculate all the questions, in case there is a nil.
-      if strand then
-        return true if started(:impact, strand)||started(:consultation, strand)
-      else
-        questions = Activity.get_question_names(:consultation, nil, 7)
-        questions << Activity.get_question_names(:impact, nil, 9)
-        questions.flatten!
-        questions.each do |question|
-          return true if check_question(question.to_sym)
-        end
-      end
+        answered_questions = []
+        answered_questions += self.questions.find(:all, :conditions => "name LIKE 'consultation_%#{strand}_7'")
+        answered_questions += self.questions.find(:all, :conditions => "name LIKE 'impact_%#{strand}_9'")
+        return true if answered_questions.size > 0
     end
     unless section && !(section == :purpose) then #Check strategies are completed.
       self.activity_strategies.each do |strategy|
@@ -233,7 +223,7 @@ class Activity < ActiveRecord::Base
   #that has not been answered. Hence, it is at its slowest where there is a single unanswered question in each section. In worst case it has to run
   #through every question bar n where n is the number of activitys, making it a O(n) algorithm.
   def completed(section = nil, strand = nil)
-    return false unless (check_question(:existing_proposed) && check_question(:function_policy))
+    #return false unless started(section, strand)#(check_question(:existing_proposed) && check_question(:function_policy))
     if section || strand then
       return self.send("#{section.to_s}_completed".to_sym) unless strand || (section == :action_planning)
       unless section == :action_planning then

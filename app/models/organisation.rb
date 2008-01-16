@@ -62,7 +62,7 @@ class Organisation < ActiveRecord::Base
     section_names = self.hashes['section_names']
     section_names.each do |section|
       section_data = []
-      section_data << self.activities.inject(0) { |started, activity| started += (activity.started(section.to_sym)) ? 1 : 0 }
+      section_data << self.activities.inject(0) { |started, activity| started += (activity.started(section.to_sym)) ? 1 : 0;}
       section_data << self.activities.inject(0) { |completed, activity| completed += (activity.completed(section.to_sym)) ? 1 : 0 }
       table << [section, section_data.to_a]
     end
