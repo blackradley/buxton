@@ -369,12 +369,12 @@ class Activity < ActiveRecord::Base
     check_impact = false
     to_save[:overall_completed_strategies] = true if self.purpose_completed
     if @activity_clone.send(:existing_proposed) != self.send(:existing_proposed) then
-      old_value = @activity_clone.send(:existing_proposed) - 1
-      new_value = self.send(:existing_proposed) - 1
+      old_value = @activity_clone.send(:existing_proposed).to_i - 1
+      new_value = self.send(:existing_proposed).to_i - 1
       old_weight = self.hashes['weights'][self.hashes['existing_proposed']['weight']][old_value]
       new_weight = self.hashes['weights'][self.hashes['existing_proposed']['weight']][new_value]
-      old_weight = 0 if @activity_clone.send(:existing_proposed) == 0
-      new_weight = 0 if self.send(:existing_proposed) == 0
+      old_weight = 0 if @activity_clone.send(:existing_proposed).to_i == 0
+      new_weight = 0 if self.send(:existing_proposed).to_i == 0
       self.hashes['wordings'].keys.each do |strand|
         strand_max = Activity.get_strand_max(strand)
         old_importance = self.send("#{strand}_percentage_importance".to_sym)
@@ -403,19 +403,21 @@ class Activity < ActiveRecord::Base
             status.update_attributes(:completed => !!completed_result) #cheap cast to bool. Not a cargocult ;)
             separated_question = Activity.question_separation(question_name)
             question_details = question_wording_lookup(*separated_question)
-            if separated_question[0].to_s == 'purpose' && separated_question[1].to_s != "overall" then
-              check_impact = true if old_store*5 == self.impact.to_i
-            end
-            old_importance = self.send("#{separated_question[1]}_percentage_importance".to_sym)
-            old_position = old_store - 1 unless old_store == 0
-            new_position = new_store - 1 unless new_store == 0
-            old_weight = self.hashes['weights'][question_details[4]][old_store]
-            weight = self.hashes['weights'][question_details[4]][new_store]
-            old_weight = 0 if old_store == 0
-            new_weight = 0 if new_store == 0
-            new_importance = ((weight - old_weight.to_f)/Activity.get_strand_max(separated_question[1]))*100 + old_importance
-            if new_importance != old_importance then
-              to_save["#{separated_question[1]}_percentage_importance".to_sym] += (new_importance + 0.5).to_i
+            unless separated_question[1].to_s == 'overall' then
+              if separated_question[0].to_s == 'purpose' && separated_question[1].to_s != "overall" then
+                check_impact = true if old_store.to_i*5 == self.impact.to_i
+              end
+              old_importance = self.send("#{separated_question[1]}_percentage_importance".to_sym)
+              old_position = old_store.to_i - 1 unless old_store.to_i == 0
+              new_position = new_store.to_i - 1 unless new_store.to_i == 0
+              old_weight = self.hashes['weights'][question_details[4]][old_store.to_i].to_i unless old_store.to_i == 0
+              weight = self.hashes['weights'][question_details[4]][new_store.to_i].to_i unless new_store.to_i == 0
+              old_weight = 0 if old_store.to_i == 0
+              new_weight = 0 if new_store.to_i == 0
+              new_importance = ((weight.to_f - old_weight.to_f)/Activity.get_strand_max(separated_question[1]))*100 + old_importance
+              if new_importance != old_importance then
+                to_save["#{separated_question[1]}_percentage_importance".to_sym] += (new_importance + 0.5).to_i
+              end
             end
           end
         end
@@ -493,7 +495,10 @@ class Activity < ActiveRecord::Base
   end
 
   def relevant?
-    self.percentage_importance >= 35
+    hashes['wordings'].keys.each do |strand|
+      return false if self.send("#{strand}_percentage_importance") < 35
+    end
+    return true
   end
 
   def impact_wording(strand = nil)
@@ -619,7 +624,7 @@ class Activity < ActiveRecord::Base
         issues_identified = (self.send("consultation_#{strand}_7".to_sym) == 1)
         response += "The consultations did not identify any issues with the impact of the #{fun_pol_indicator} upon #{wordings[strand]}."
       when 6
-        return "The #{fun_pol_indicator} has not yet been completed sufficiently to warrant calculation of impact level and the priority ranking." unless completed(:purpose)&& completed(:impact) && completed(:consultation)
+        return "The #{fun_pol_indicator} has not yet been completed sufficiently to warrant calculation of impact level and the priority ranking." unless completed(:purpose, strand.to_sym)&& completed(:impact, strand.to_sym) && completed(:consultation, strand.to_sym)
         strand = "" unless strand
         response = "For the #{strand.to_s.downcase} equality strand the Activity has an overall priority ranking of #{priority_ranking(strand.to_sym)} and a Potential Impact rating of #{impact_wording(strand.to_sym).to_s.capitalize}."
     end
