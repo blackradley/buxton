@@ -397,7 +397,9 @@ class Activity < ActiveRecord::Base
 #    @saved = false if @saved.nil?
 #    self.update_attributes(no_change) if !self.use_purpose_completed || @made_change || !@saved
 #  end
-
+  def invisible_questions
+    @@invisible_questions
+  end
   def after_update
     return true if @saved
     @saved = true
@@ -417,6 +419,12 @@ class Activity < ActiveRecord::Base
         new_importance = old_importance + (new_weight.to_f - old_weight.to_f)*100/strand_max
         new_importance += 0.5 #true integer conversion with rounding
         to_save["#{strand}_percentage_importance".to_sym] = new_importance.to_i
+      end
+      if new_value == 1 then
+        @@invisible_questions.each do |question|
+          status = self.questions.find_or_initialize_by_name(question.to_s)
+          status.update_attributes(:completed => true)
+        end
       end
     else
       Activity.get_question_names.each do |name|

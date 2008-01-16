@@ -8,9 +8,11 @@
 @@disability_max = 0
 Activity.force_question_max_calculation
 @@dependencies = {}
+@@invisible_questions = []
 @@Hashes['questions'].each do |section, section_data|
   section_data.each do |question_name, question_data|
     @@Hashes['wordings'].keys.each do |strand|
+      @@invisible_questions.push("#{section}_#{strand}_#{question_name}".to_sym) if question_data['label'][0][1].blank?
       unless question_data.values[4].blank? then
         temp = question_data.values[4].split(" ")
         temp[0]=  eval(%Q{<<"DELIM"\n} + temp[0] + "\nDELIM").chomp
