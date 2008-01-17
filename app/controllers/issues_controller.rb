@@ -6,7 +6,7 @@
 #
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
 #
-# Issues are currently set in Confidence Consultation and filled in in Action Planning
+# Issues are currently set in Impact and Consultation and filled in in Action Planning
 class IssuesController < ApplicationController
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
