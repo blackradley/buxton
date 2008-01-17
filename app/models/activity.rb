@@ -516,7 +516,7 @@ class Activity < ActiveRecord::Base
       Activity.set_max(strand, 20) #existing_proposed increment
       Activity.get_question_names(strand).each do |name|
         question_separation = Activity.question_separation(name)
-        weights = @@Hashes['weights'][Activity.find(:first).question_wording_lookup(*question_separation)[4]]
+        weights = @@Hashes['weights'][Activity.find(:all).first.question_wording_lookup(*question_separation)[4]]
         weights = [] if weights.nil?
         weights_max = 0
         weights.each{|weight| weights_max = weight.to_i if weight.to_i > weights_max}
