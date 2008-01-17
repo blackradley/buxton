@@ -19,7 +19,7 @@ namespace :db do
     blank_question_names_hash.delete(:function_policy)
     activity.update_attributes!(blank_question_names_hash)
     activity.saved = nil
-    activity.update_attributes(:gender_percentage_importance => 0, :disability_percentage_importance => 0, :race_percentage_importance => 0, :age_percentage_importance => 0, :faith_percentage_importance => 0, :sexual_orientation_percentage_importance => 0, :impactivity => 0)
+    activity.update_attributes(:gender_percentage_importance => 0, :disability_percentage_importance => 0, :race_percentage_importance => 0, :age_percentage_importance => 0, :faith_percentage_importance => 0, :sexual_orientation_percentage_importance => 0, :impact => 0)
     activity.saved = nil
     restore_data_hash = {}
     blank_question_names_hash.keys.each{|q| restore_data_hash[q] = activity_clone.send(q)}
