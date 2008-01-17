@@ -198,7 +198,7 @@ class Activity < ActiveRecord::Base
    #that you have to answer(activity/policy and proposed/overall) have been answered or not, and if they have not been answered, then no others can be
    # and if they have, then the activity is by definition started
   def started(section = nil, strand = nil)
-    return (self.existing_proposed.to_i + self.function_policy.to_i) > 0 unless section || strand
+    return (self.existing_proposed.to_i + self.function_policy.to_i) > 0 if (section.nil? && strand.nil?) || !((self.existing_proposed.to_i + self.function_policy.to_i) > 0)
     like = [section, strand].join('_')
     # Find all incomplete questions with the given arguments
     answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'")
@@ -426,8 +426,8 @@ class Activity < ActiveRecord::Base
           to_change = []
           check_result = check_question(name)
           to_change.push([name, check_result])
-          unless @@dependencies[name].nil? then
-            re_eval = @@dependencies[name][0]
+          unless @@dependencies[name.to_s].nil? then
+            re_eval = @@dependencies[name.to_s][0].clone
             check_re_eval = check_question(re_eval)
             to_change.push([re_eval, check_re_eval])
           end
@@ -743,7 +743,7 @@ class Activity < ActiveRecord::Base
     end
     section = ""
     question_number = ""
-    query_hash.each_key{|section_name| section = section_name.to_sym if question.include?(section_name.to_s)}
+    query_hash.keys.each{|section_name|section = section_name.to_sym if question.include?(section_name.to_s)}
     question.gsub!(section.to_s, "")
     question = question.split("_")
     question_number = question.pop
@@ -758,11 +758,7 @@ private
 
 #Check question takes a single question as an argument and checks if it has been completed, and that any dependent questions have been answered.
   def check_question(question)
-    if !(question == :existing_proposed || question == :function_policy) then
-      if question_wording_lookup(*Activity.question_separation(question))[0].blank? then
-        return true
-      end
-    end
+    question = question.to_sym
     dependency = dependent_questions(question)
     if dependency then
       response = send(question)
