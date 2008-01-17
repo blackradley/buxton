@@ -230,6 +230,7 @@ class Activity < ActiveRecord::Base
         # BEGIN NEW IMPLEMENTATION
           # Check on issues first, if appropriate
           if (section == :impact) || (section == :consultation) then
+            # TODO: have this handle when no strand is given
             issues_question = case section
             when :impact
               "impact_#{strand}_9"
@@ -478,7 +479,7 @@ class Activity < ActiveRecord::Base
     self.update_attributes(to_save)
   end
 
-  def Activity.set_max(strand, increment)
+  def self.set_max(strand, increment)
     case strand.to_s
      when 'gender'
        @@gender_max += increment
@@ -495,7 +496,7 @@ class Activity < ActiveRecord::Base
     end
   end
 
-  def Activity.get_strand_max(strand)
+  def self.get_strand_max(strand)
     case strand.to_s
      when 'gender'
        @@gender_max
@@ -511,12 +512,13 @@ class Activity < ActiveRecord::Base
        @@age_max
     end
   end
-  def Activity.force_question_max_calculation
+
+  def self.force_question_max_calculation
     @@Hashes['wordings'].keys.each do |strand|
       Activity.set_max(strand, 20) #existing_proposed increment
       Activity.get_question_names(strand).each do |name|
         question_separation = Activity.question_separation(name)
-        weights = @@Hashes['weights'][Activity.find(:all).first.question_wording_lookup(*question_separation)[4]]
+        weights = @@Hashes['weights'][Activity.new.question_wording_lookup(*question_separation)[4]]
         weights = [] if weights.nil?
         weights_max = 0
         weights.each{|weight| weights_max = weight.to_i if weight.to_i > weights_max}
