@@ -1,6 +1,6 @@
 class ActivityPDFRenderer < Ruport::Renderer
   stage :page_numbers, :footer, :unapproved_logo_on_first_page, :header, :body, :statistics, :issues, :render
-end 
+end
 #TODO: Find much better way of ignoring not wanted sections.
 class ActivityPDF < Ruport::Formatter::PDF
   renders :pdf, :for => ActivityPDFRenderer
@@ -15,7 +15,7 @@ class ActivityPDF < Ruport::Formatter::PDF
   end
   def build_unapproved_logo_on_first_page
     if data[11].include?(:unapproved_logo_on_first_page) then
-      pdf_writer.unapproved_status = data[1] 
+      pdf_writer.unapproved_status = data[1]
       #The page numbers are started at the top, so that they will always hit the first page, but they appear at the bottom
       #This creates the grey Unapproved background.
       colour = 'Gainsboro'
@@ -57,10 +57,10 @@ class ActivityPDF < Ruport::Formatter::PDF
       add_text " "
     end
  end
- 
+
   def build_statistics
     if data[11].include?(:statistics) then
-      if data[9]
+      if data[9].completed
         stat_fun = data[9]
         priority_table = []
         priority_table << stat_fun.priority_ranking(:gender)
@@ -74,7 +74,7 @@ class ActivityPDF < Ruport::Formatter::PDF
         add_text "<b>Priority</b>: (1-5)"
         add_text " "
         pdf_writer.stroke_color! Color::RGB::Black
-        pdf_writer.stroke_style! pdf_writer.class::StrokeStyle::DEFAULT        
+        pdf_writer.stroke_style! pdf_writer.class::StrokeStyle::DEFAULT
         statistics_table = Table(['Gender', 'Race', 'Disability', 'Faith', 'Sexual Orientation', 'Age'])
         statistics_table << priority_table
         draw_table(statistics_table, :shade_rows => :none,
@@ -91,11 +91,11 @@ class ActivityPDF < Ruport::Formatter::PDF
         impact_table << stat_fun.impact_wording(:sexual_orientation).to_s.capitalize
         impact_table << stat_fun.impact_wording(:age).to_s.capitalize
         pdf_writer.stroke_color! Color::RGB::Black
-        pdf_writer.stroke_style! pdf_writer.class::StrokeStyle::DEFAULT        
+        pdf_writer.stroke_style! pdf_writer.class::StrokeStyle::DEFAULT
         statistics_impact_table = Table(['Gender', 'Race', 'Disability', 'Faith', 'Sexual Orientation', 'Age'])
         statistics_impact_table << impact_table
         draw_table(statistics_impact_table, :shade_rows => :none,
-          :font_size => 10, :heading_font_size => 10, :show_lines => :all)        
+          :font_size => 10, :heading_font_size => 10, :show_lines => :all)
       else
         add_text " "
         add_text "Project details have not yet calculated as the Activity has not been completed."
@@ -103,15 +103,16 @@ class ActivityPDF < Ruport::Formatter::PDF
       end
     end
   end
-  
+
   def build_issues
     if data[11].include?(:issues) then
       pdf_writer.text "<b>Issues</b>", :justification => :left, :font_size => 12
       move_cursor_to(cursor - 7)
       pdf_writer.stroke_color! Color::RGB::Black
       pdf_writer.stroke_style! pdf_writer.class::StrokeStyle.new(1, :dash => { :pattern => [2, 1], :phase => 2 })
-      hr      
+      hr
       activity_id = data[10]
+      #could be improved: Takes time.
       issues_table = Issue.report_table(
         :all,
         :conditions => {:activity_id => activity_id},
@@ -122,7 +123,7 @@ class ActivityPDF < Ruport::Formatter::PDF
       no_strand_cols.delete('strand')
       wordings = Activity.find(activity_id).hashes['wordings']
       pdf_writer.stroke_color! Color::RGB::Black
-      pdf_writer.stroke_style! pdf_writer.class::StrokeStyle::DEFAULT      
+      pdf_writer.stroke_style! pdf_writer.class::StrokeStyle::DEFAULT
       wordings.each do |strand_name, wording|
         unless issues_table.sub_table(columns){|row| row.strand.to_s == strand_name.to_s}.to_a == [] then
           add_text " "
@@ -141,7 +142,7 @@ class ActivityPDF < Ruport::Formatter::PDF
       end
     end
   end
-  
+
   def build_footer
     if data[11].include?(:footer) then
       pdf_writer.open_object do |footer|
@@ -164,7 +165,7 @@ class ActivityPDF < Ruport::Formatter::PDF
       end
     end
   end
-  
+
   def build_render
     pdf_writer.stop_page_numbering(true)
     render_pdf

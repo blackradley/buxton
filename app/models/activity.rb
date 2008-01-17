@@ -548,8 +548,8 @@ class Activity < ActiveRecord::Base
           return '-'
       end
     else
-      good_impact = self.send("purpose_#{strand.to_s}_3".to_sym)
-      bad_impact = self.send("purpose_#{strand.to_s}_4".to_sym)
+      good_impact = self.send("purpose_#{strand.to_s}_3".to_sym).to_i
+      bad_impact = self.send("purpose_#{strand.to_s}_4".to_sym).to_i
       good_impact = bad_impact if bad_impact > good_impact
       good_impact = hashes['weights'][question_wording_lookup(*Activity.question_separation("purpose_#{strand.to_s}_3".to_sym))[4]][good_impact]
       case good_impact
