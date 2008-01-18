@@ -86,7 +86,8 @@ class OrganisationPDF < Ruport::Formatter::PDF
           pdf_writer.set_proxy([])
           data_for = activity.generate_pdf_data
           data_for[11] = [:unapproved_logo_on_first_page, :header, :body, :statistics, :issues]
-          ActivityPDFRenderer.render_pdf(:data => data_for)
+          ActivityPDFGenerator.new(data_for)
+	  #a.pdf.render_pdf
           separated = [[]]
           index = 0
           results = pdf_writer.get_proxy
