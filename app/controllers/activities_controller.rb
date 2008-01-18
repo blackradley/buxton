@@ -14,7 +14,7 @@ class ActivitiesController < ApplicationController
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
-  rescue_from ActiveRecord::RecordInvalid, :with => :show_errors  
+  rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
 
   # By default, show the summary page. Not presently referenced anywhere.
   # Available to: Organisation Manager
@@ -45,7 +45,7 @@ class ActivitiesController < ApplicationController
   def overview
     @activity = @current_user.activity
   end
-  
+
   # List and provide a summary of the state of all the activities in this organisation.
   # Available to: Organisation Manager
   def list
@@ -53,7 +53,7 @@ class ActivitiesController < ApplicationController
     @directorate_term = @organisation.directorate_string
     @directorates = @organisation.directorates
   end
-  
+
   # Create a new Activity and a new associated user, all activities must have single a valid User.
   # Available to: Organisation Manager
   def new
@@ -63,15 +63,15 @@ class ActivitiesController < ApplicationController
     @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] }
   end
 
-  # Create a new activity and a new user based on the parameters in the form data.
-  # Available to: Organisation Manager  
+  # Create a new activity and a new user brequire 'pdfwriter_extensions'  ased on the parameters in the form data.
+  # Available to: Organisation Manager
   def create
     @activity = Activity.new(params[:activity])
     @activity_manager = @activity.build_activity_manager(params[:activity_manager])
     @activity_manager.passkey = ActivityManager.generate_passkey(@activity_manager)
     @directorate_term = @current_user.organisation.directorate_string
     @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] } # Needed for the new template incase we need to re-render it
-    
+
     Activity.transaction do
       @activity.save!
       flash[:notice] = "#{@activity.name} was created."
@@ -80,13 +80,13 @@ class ActivitiesController < ApplicationController
   end
 
   # Update the activity details accordingly.
-  # Available to: Activity Manager  
+  # Available to: Activity Manager
   def update
     @activity = @current_user.activity
     @activity.update_attributes!(params[:activity])
     flash[:notice] = "#{@activity.name} was successfully updated."
     redirect_to :back
-    
+
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     flash[:notice] =  "Could not update the activity."
     render :action => :show
@@ -99,11 +99,11 @@ class ActivitiesController < ApplicationController
   end
 
   # Update the activity status and proceed, or not, accordingly
-  # Available to: Activity Manager  
+  # Available to: Activity Manager
   def update_activity_type
     @activity = @current_user.activity
     @activity.update_attributes!(params[:activity])
-    
+
     # Check both the Activity/Policy and Existing/Proposed questions have been answered
     if @activity.started then
       # If so, proceed
@@ -123,7 +123,7 @@ class ActivitiesController < ApplicationController
   # Get both the activity and user information ready for editing, since they
   # are both edited at the same time. The organisational manager edits these
   # not the Activity manager.
-  # Available to: Organisation Manager  
+  # Available to: Organisation Manager
   def edit_contact
     # Only allow an organisation manager to proceed
     # TODO: catch this better
@@ -137,7 +137,7 @@ class ActivitiesController < ApplicationController
   end
 
   # Update the contact email and activity name
-  # Available to: Organisation Manager  
+  # Available to: Organisation Manager
   def update_contact
     # Only allow an organisation manager to proceed
     # TODO: catch this better
@@ -166,10 +166,10 @@ class ActivitiesController < ApplicationController
   # Delete the activity (and any associated records as stated in the Activity model)
   # Available to: Organisation Manager
   def destroy
-    # Only allow an organisation manager to proceed    
+    # Only allow an organisation manager to proceed
     # TODO: catch this better
     unless (@current_user.class.name == 'OrganisationManager') then render :inline => 'Invalid.' end
-    
+
     # Destroy the activity and go back to the list of activities for this organisation
     @activity = Activity.find(params[:id])
     @activity.destroy
@@ -182,7 +182,7 @@ class ActivitiesController < ApplicationController
   # Available to: Activity Manager
   def print
     @activity = @current_user.activity
-    
+
     # Set print_only true and render the normal show action, which will check this variable and include
     # the appropriate CSS as necessary.
     @print_only = true
@@ -190,11 +190,10 @@ class ActivitiesController < ApplicationController
   end
 
   def view_pdf
-      @activity = @current_user.activity
-      send_data  ActivityPDFRenderer.render_pdf(:data => @activity.generate_pdf_data),
-        :type         => "application/pdf",
-        :disposition  => "inline",
-        :filename     => "report.pdf"
+    @activity = @current_user.activity
+    send_data ActivityPDFGenerator.new(@activity.generate_pdf_data).pdf.render, :disposition => 'inline',
+      :filename => "#{@activity.name}.pdf",
+      :type => "application/pdf"
   end
 
 protected
@@ -202,9 +201,9 @@ protected
   def secure?
     true
   end
-  
+
   def show_errors(exception)
-    flash[:notice] = 'Activity could not be updated.'    
-    render :action => (exception.record.new_record? ? :new : :edit) 
+    flash[:notice] = 'Activity could not be updated.'
+    render :action => (exception.record.new_record? ? :new : :edit)
   end
 end

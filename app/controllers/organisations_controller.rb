@@ -12,19 +12,19 @@ class OrganisationsController < ApplicationController
   render_options = { :status => 405 }
   verify :method => :post, :only => [ :create ], :render => render_options
   verify :method => :put, :only => [ :update ], :render => render_options
-  verify :method => :delete, :only => [ :destroy ], :render => render_options    
- 
+  verify :method => :delete, :only => [ :destroy ], :render => render_options
+
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
 
   # List the organisation for the administrative User. Paginate with 10 organisations listed per page.
-  # Available to: Administrator  
+  # Available to: Administrator
   def index
     @organisations = Organisation.paginate(:page => params[:page], :per_page => 10)
   end
 
   # Show a view of an individual Organisation
-  # Available to: Administrator  
+  # Available to: Administrator
   def show
     @organisation = Organisation.find(params[:id])
     @directorates = @organisation.directorates
@@ -32,14 +32,14 @@ class OrganisationsController < ApplicationController
   end
 
   # Create a new Organisation and a new associated User
-  # Available to: Administrator  
+  # Available to: Administrator
   def new
     @organisation = Organisation.new
     @organisation_manager = @organisation.build_organisation_manager
   end
 
   # Create a new organisation and a new user based on the parameters on the form.
-  # Available to: Administrator  
+  # Available to: Administrator
   def create
     @organisation = Organisation.new(params[:organisation])
     @organisation_manager = @organisation.build_organisation_manager(params[:organisation_manager])
@@ -54,14 +54,14 @@ class OrganisationsController < ApplicationController
 
   # Get both the organisation and it's user since the user can also be edited
   # by the administrator.
-  # Available to: Administrator  
+  # Available to: Administrator
   def edit
     @organisation = Organisation.find(params[:id])
     @organisation_manager = @organisation.organisation_manager
   end
 
   # Update the organisation and all of its attributes
-  # Available to: Administrator  
+  # Available to: Administrator
   def update
     @organisation = Organisation.find(params[:id])
     Organisation.transaction do
@@ -72,9 +72,9 @@ class OrganisationsController < ApplicationController
       redirect_to organisation_url(@organisation)
     end
   end
-  
+
   # Destroy the organisation
-  # Available to: Administrator  
+  # Available to: Administrator
   def destroy
     @organisation = Organisation.find(params[:id])
     @organisation.destroy
@@ -88,24 +88,25 @@ class OrganisationsController < ApplicationController
     send_data  OrganisationPDFRenderer.render_pdf(:data => @organisation.generate_pdf_data),
       :type         => "application/pdf",
       :disposition  => "inline",
-      :filename     => "report.pdf" 
+      :filename     => "report.pdf"
   end
-  
+
   def view_full_pdf
     @organisation = @current_user.organisation
     send_data  OrganisationPDFRenderer.render_pdf(:data => @organisation.generate_pdf_data(true)),
       :type         => "application/pdf",
       :disposition  => "inline",
-      :filename     => "report.pdf" 
+      :filename     => "report.pdf"
+
   end
 protected
   # Secure the relevant methods in the controller.
   def secure?
     true
   end
-  
+
   def show_errors(exception)
     flash[:notice] = 'Organisation could not be updated.'
-    render :action => (exception.record.new_record? ? :new : :edit) 
+    render :action => (exception.record.new_record? ? :new : :edit)
   end
 end

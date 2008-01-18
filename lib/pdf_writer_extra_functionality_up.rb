@@ -28,7 +28,6 @@ module PDF
       end
       @current_contents << cc
     end
-    
     def new_page(insert = false, page = nil, pos = :after)
       if @@proxy then
         @@proxy << :new_page
