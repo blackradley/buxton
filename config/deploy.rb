@@ -3,9 +3,10 @@ require 'mongrel_cluster/recipes'
 # =============================================================================
 # REQUIRED VARIABLES
 # =============================================================================
-set :application, "Buxton"
+set :application, "buxton"
 set :repository,  "http://svn3.cvsdude.com/BlackRadley/buxton/trunk"
 set :domain, "72.47.213.74"
+set :port, 1417
 
 # =============================================================================
 # ROLES
@@ -45,7 +46,7 @@ set :rake, "/usr/local/rubygems/gems/bin/rake"
 namespace :deploy do
   desc "Restart the mongrel cluster"
   task :restart, :roles => :app do
-    /etc/init.d/mongrel_cluster restart
+    invoke_command "/etc/init.d/mongrel_cluster restart"
   end
 end
 
