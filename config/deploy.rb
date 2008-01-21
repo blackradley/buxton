@@ -15,7 +15,7 @@ role :db,  domain, :primary => true
 # =============================================================================
 # OPTIONAL VARIABLES
 # =============================================================================
-set :deploy_to, "/var/www/vhosts/webwelcome.net/rails/testapp"
+set :deploy_to, "/var/www/vhosts/impactengine.org.uk/rails/testapp"
 set :user, 'buxton'
 set :scm_username, '27stars-karl'
 set :scm_password, 'dogstar'
