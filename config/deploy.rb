@@ -1,3 +1,5 @@
+require 'mongrel_cluster/recipes'
+
 # =============================================================================
 # REQUIRED VARIABLES
 # =============================================================================
@@ -16,6 +18,7 @@ role :db,  domain, :primary => true
 # OPTIONAL VARIABLES
 # =============================================================================
 set :deploy_to, "/var/www/vhosts/impactengine.org.uk/rails/testapp"
+set :mongrel_conf, "#{current_path}/config/mongrel_cluster.yml" # required really but needs to be after deploy_to
 set :user, 'buxton'
 set :scm_username, '27stars-karl'
 set :scm_password, 'dogstar'
@@ -25,42 +28,50 @@ set :rake, "/usr/local/rubygems/gems/bin/rake"
 # =============================================================================
 # TASKS
 # =============================================================================
-after "deploy:update_code", "db:symlink" 
-
-# database.yml task
-namespace :db do
-  desc "Make symlink for database yaml" 
-  task :symlink do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml" 
-  end
-end
+# after "deploy:update_code", "db:symlink" 
+# 
+# # database.yml task
+# namespace :db do
+#   desc "Make symlink for database yaml" 
+#   task :symlink do
+#     run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml" 
+#   end
+# end
 
 # =============================================================================
 # TASKS UNTIL CAPISTRANO 2 SUPPORTS MONGREL OUT-OF-THE-BOX
 # =============================================================================
+
 namespace :deploy do
-  namespace :mongrel do
-    [ :stop, :start, :restart ].each do |t|
-      desc "#{t.to_s.capitalize} the mongrel appserver"
-      task t, :roles => :app do
-        #invoke_command checks the use_sudo variable to determine how to run the mongrel_rails command
-        invoke_command "/etc/init.d/mongrel_cluster #{t.to_s}", :via => run_method
-      end
-    end
-  end
-
-  desc "Custom restart task for mongrel cluster"
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    deploy.mongrel.restart
-  end
-
-  desc "Custom start task for mongrel cluster"
-  task :start, :roles => :app do
-    deploy.mongrel.start
-  end
-
-  desc "Custom stop task for mongrel cluster"
-  task :stop, :roles => :app do
-    deploy.mongrel.stop
+  desc "Restart the mongrel cluster"
+  task :restart, :roles => :app do
+    /etc/init.d/mongrel_cluster restart
   end
 end
+
+# namespace :deploy do
+#   namespace :mongrel do
+#     [ :stop, :start, :restart ].each do |t|
+#       desc "#{t.to_s.capitalize} the mongrel appserver"
+#       task t, :roles => :app do
+#         #invoke_command checks the use_sudo variable to determine how to run the mongrel_rails command
+#         invoke_command "/etc/init.d/mongrel_cluster #{t.to_s}", :via => run_method
+#       end
+#     end
+#   end
+# 
+#   desc "Custom restart task for mongrel cluster"
+#   task :restart, :roles => :app, :except => { :no_release => true } do
+#     deploy.mongrel.restart
+#   end
+# 
+#   desc "Custom start task for mongrel cluster"
+#   task :start, :roles => :app do
+#     deploy.mongrel.start
+#   end
+# 
+#   desc "Custom stop task for mongrel cluster"
+#   task :stop, :roles => :app do
+#     deploy.mongrel.stop
+#   end
+# end
