@@ -1,4 +1,4 @@
-require 'mongrel_cluster/recipes'
+# require 'mongrel_cluster/recipes'
 
 # =============================================================================
 # REQUIRED VARIABLES
@@ -24,7 +24,6 @@ set :user, 'buxton'
 set :scm_username, '27stars-karl'
 set :scm_password, 'dogstar'
 set :rake, "/usr/local/rubygems/gems/bin/rake"
-# set :use_sudo, false
 
 # =============================================================================
 # TASKS
