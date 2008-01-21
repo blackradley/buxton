@@ -1,7 +1,1 @@
-ErrorDocument 500 "<h2>Application error</h2>Rails application failed to start properly"
-
-RewriteEngine On
-
-RewriteCond %{DOCUMENT_ROOT}/system/maintenance.html -f
-RewriteCond %{SCRIPT_FILENAME} !maintenance.html
-RewriteRule ^.*$ /system/maintenance.html [L]
+ErrorDocument 500 /500.html
