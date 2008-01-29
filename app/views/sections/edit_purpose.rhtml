@@ -8,6 +8,9 @@
 <div id="questions">
 <% form_for(:activity, :url => {:action => 'update'}, :builder => QuestionBuilder) do |f| -%>
 	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 2, :f_id => @activity.id} %>
+	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 10, :f_id => @activity.id} %>
+	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 11, :f_id => @activity.id} %>
+  <%= f.question :purpose, {:equality_strand => @equality_strand, :number => 12, :f_id => @activity.id} %>
 	<h4><%=h @activity.header(:purpose_overall_1) -%><a href="#" onclick="Element.toggle('strategic_objectives'); return false;"><img alt="Help" src="/images/icons/help.gif" /></a></h4>
 	<span id="strategic_objectives" class="toggleHelp" style="display:none;"><%= @activity.hashes['header_help_text']['purpose_overall_1'][@activity.fun_pol_number][@activity.exist_prop_number].to_s %></span>
 	<% yes_no = @activity.hashes['choices'][3] -%>
@@ -24,7 +27,7 @@
 	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 7, :f_id => @activity.id} %>
 	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 8, :f_id => @activity.id} %>
 	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 9, :f_id => @activity.id} %>
-
+  
 	<h4><%=h @activity.header(:purpose_overall_3) -%><a href="#" onclick="Element.toggle('good_equality_groups_help'); return false;"><img alt="Help" src="/images/icons/help.gif?1191325091" /></a></h4>
 	<span id="good_equality_groups_help" class="toggleHelp" style="display:none;"><%= @activity.hashes['header_help_text']['purpose_overall_3'][@activity.fun_pol_number][@activity.exist_prop_number].to_s %></span>
 	<%= f.question :purpose, {:equality_strand => 'gender', :number => 3, :f_id => @activity.id} %>

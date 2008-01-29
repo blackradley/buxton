@@ -101,11 +101,11 @@ questions:
     2:
       label:
         -
-          - 'Do you have current information to support this assessment?'
-          - 'Will you be able to access information to support this assessment?'
+          - 'Do you have current evidence to support this assessment?'
+          - 'Do you have current evidence to support this assessment ?'
         -
-          - 'Do you have current information to support this assessment?'
-          - 'Will you be able to access information to support this assessment?'
+          - 'Do you have current evidence to support this assessment?'
+          - 'Do you have current evidence to support this assessment ?'
       help:
         -
           - 'This question asks you whether you have any information to support your assessment of the impact of the Function that you recorded in the previous question.<br/><br/>
@@ -200,10 +200,10 @@ questions:
     5:
       label:
         -
-          - 'What are the timescales for collecting such information?'
+          - 'Please record the nature and source of the evidence you plan to collect'
           - ''
         -
-          - 'What are the timescales for collecting such information?'
+          - 'Please record the nature and source of the evidence you plan to collect'
           - ''
       help:
         -
@@ -219,11 +219,11 @@ questions:
     6:
       label:
         -
-          - 'Are there any other measures by which the impact of the Function on meeting the particular needs of #{wordings[strand]} could be assessed?'
-          - 'Are there any other measures by which the impact of the Function on meeting the particular needs of #{wordings[strand]} could be assessed?'
+          - 'Have any complaints been recieved about the impact of the Function in meeting the particular needs of #{wordings[strand]}?'
+          - ''
         -
-          - 'Are there any other measures by which the impact of the Policy on meeting the particular needs of #{wordings[strand]} could be assessed?'
-          - 'Are there any other measures by which the impact of the Policy on meeting the particular needs of #{wordings[strand]} could be assessed?'
+          - 'Have any complaints been recieved about the impact of the Policy in meeting the particular needs of #{wordings[strand]}?'
+          - ''
       help:
         -
           - 'This question asks you if there are other measures by which you could assess the impact of the Function on #{wordings[strand]}#{hashes["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}.  Such measures
@@ -266,11 +266,11 @@ questions:
     7:
       label:
         -
-          - 'Please record any such measures.'
-          - 'Please record any such measures.'
+          - 'Please record the nature of any such complaints'
+          - ''
         -
-          - 'Please record any such measures.'
-          - 'Please record any such measures.'
+          - 'Please record the nature of any such complaints'
+          - ''
       help:
         -
           - 'This question asks you to record the details of any additional measures.<br/><br/>
@@ -287,10 +287,10 @@ questions:
     8:
       label:
         -
-          - 'Is the assessment of the impact of the Function derived from these other measures consistent with the assessment derived from the information?'
+          - 'Does all the evidence from different sources about the impact of the Function on meeting the particular needs of #{wordings[strand]} present a consistent view?'
           - ''
         -
-          - 'Is the assessment of the impact of the Policy derived from these other measures consistent with the assessment derived from the information?'
+          - 'Does all the evidence from different sources about the impact of the Policy on meeting the particular needs of #{wordings[strand]} present a consistent view?'
           - ''
       help:
         -
@@ -306,11 +306,11 @@ questions:
     9:
       label:
         -
-          - 'Are there any issues about the way in which the Function impacts on #{wordings[strand]}'
-          - 'Are there any issues about the way in which the Function will impact #{wordings[strand]}'
+          - 'Are there any issues about the way in which the Function meets the particular needs of #{wordings[strand]}?'
+          - 'Are there any potential issues about the way in which the Function meets the particular needs of #{wordings[strand]}?'
         -
-          - 'Are there any issues about the way in which the Policy impacts on #{wordings[strand]}'
-          - 'Are there any issues about the way in which the Policy will impact #{wordings[strand]}'
+          - 'Are there any issues about the way in which the Policy meets the particular needs of #{wordings[strand]}?'
+          - 'Are there any potential issues about the way in which the Policy meets the particular needs of #{wordings[strand]}?'
       help:
         -
           - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact.  #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
@@ -334,11 +334,11 @@ questions:
     1:
       label:
         -
-          - 'Have groups been consulted on the impact of the Function on #{wordings[strand]}'
-          - 'Have groups been consulted on the potential impact of the Function on #{wordings[strand]}'
+          - 'Have you obtained the views of #{wordings[strand]} on the impact of the Function?'
+          - 'Have you obtained the views of #{wordings[strand]} on the potential impact of the Function?'
         -
-          - 'Have groups been consulted on the impact of the Policy on #{wordings[strand]}'
-          - 'Have groups been consulted on the potential impact of the Policy on #{wordings[strand]}'
+          - 'Have you obtained the views of #{wordings[strand]} on the impact of the Policy?'
+          - 'Have you obtained the views of #{wordings[strand]} on the potential impact of the Policy?'
       help:
         -
           - 'This question asks whether any groups representing the interests of #{wordings[strand]} have been consulted on the impact of the Function.<br/><br/>
@@ -420,11 +420,11 @@ questions:
     3:
       label:
         -
-          - 'If yes please list groups and dates'
-          - 'If yes please list groups and dates'
+          - 'If yes please list the way in which these views were obtained'
+          - 'If yes please list the way in which these views were obtained'
         -
-          - 'If yes please list groups and dates'
-          - 'If yes please list groups and dates'
+          - 'If yes please list the way in which these views were obtained'
+          - 'If yes please list the way in which these views were obtained'
       help:
         -
           - 'This question asks you to list the groups that have been consulted and the date of the consultation.<br/><br/>
@@ -441,11 +441,11 @@ questions:
     4:
       label:
         -
-          - 'Have stakeholders been consulted to access their knowledge and expertise on the impact of the Function on #{wordings[strand]}'
-          - 'Have stakeholders been consulted to access their knowledge and expertise on the impact of the Function on #{wordings[strand]}'
+          - 'Have you obtained the views of stakeholders on the impact of the Function on #{wordings[strand]}?'
+          - 'Have you obtained the views of stakeholders on the potential impact of the Function on #{wordings[strand]}?'
         -
-          - 'Have stakeholders been consulted to access their knowledge and expertise on the impact of the Policy on #{wordings[strand]}'
-          - 'Have stakeholders been consulted to access their knowledge and expertise on the impact of the Policy on #{wordings[strand]}'
+          - 'Have you obtained the views of stakeholders on the impact of the Function on #{wordings[strand]}?'
+          - 'Have you obtained the views of stakeholders on the potential impact of the Policy on #{wordings[strand]}?'
       help:
         -
           - 'This question asks whether any stakeholders with knowledge and expertise on the #{"different " if strand == "gender"}interests of #{wordings[strand]} have been consulted on the impact of the Function.<br/><br/>
@@ -527,11 +527,11 @@ questions:
     6:
       label:
         -
-          - 'If yes please list groups and dates'
-          - 'If yes please list groups and dates'
+          - 'If yes please list the way in which these views were obtained'
+          - 'If yes please list the way in which these views were obtained'
         -
-          - 'If yes please list groups and dates'
-          - 'If yes please list groups and dates'
+          - 'If yes please list the way in which these views were obtained'
+          - 'If yes please list the way in which these views were obtained'
       help:
         -
           - 'This question asks you to list the groups that have been consulted and the date of the consultation.<br/><br/>
@@ -548,11 +548,11 @@ questions:
     7:
       label:
         -
-          - 'Did any of the consultations identify any issues with the impact of the Function on the particular needs of #{wordings[strand]}'
-          - 'Did any of the consultations identify any issues with the potential impact of the Function on the particular needs of #{wordings[strand]}'
+          - 'Did any of the consultations identify any issues with the impact of the Function on the particular needs of #{wordings[strand]}?'
+          - 'Did any of the consultations identify any issues with the potential impact of the Function on the particular needs of #{wordings[strand]}?'
         -
-          - 'Did any of the consultations identify any issues with the impact of the Policy on the particular needs of #{wordings[strand]}'
-          - 'Did any of the consultations identify any issues with the potential impact of the Policy on the particular needs of #{wordings[strand]}'
+          - 'Did any of the consultations identify any issues with the impact of the Policy on the particular needs of #{wordings[strand]}?'
+          - 'Did any of the consultations identify any issues with the potential impact of the Policy on the particular needs of #{wordings[strand]}?'
       help:
         -
           - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact.  #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
@@ -905,7 +905,64 @@ overall_questions:
       choices: 3
       weights: 0
       dependent_questions: ''
-
+    10:
+      label:
+        -
+          - 'Have you read the <a href="corprateequalityscheme">Corporate Equality Scheme</a>?'
+          - 'Have you read the <a href="corprateequalityscheme">Corporate Equality Scheme</a>?'
+        -
+          - 'Have you read the <a href="corprateequalityscheme">Corporate Equality Scheme</a>?'
+          - 'Have you read the <a href="corprateequalityscheme">Corporate Equality Scheme</a>?'
+      help:
+        -
+          - ''
+          - ''
+        -
+          - ''
+          - ''
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: ''
+    11:
+      label:
+        -
+          - 'Is the Function delivered by a third party?'
+          - 'Will the Function be delivered by a third party?'
+        -
+          - 'Is the Policy delivered by a third party?'
+          - 'Will the Policy be delivered by a third party?'
+      help:
+        -
+          - ''
+          - ''
+        -
+          - ''
+          - ''
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: ''
+    12:
+      label:
+        -
+          - 'Were equality requirements part of the contracting process if the Function is delivered by a third party?'
+          - 'Will equality requirements part of the contracting process if the Function is going to be delivered by a third party?'
+        -
+          - 'Were equality requirements part of the contracting process if the Policy is delivered by a third party?'
+          - 'Will equality requirements part of the contracting process if the Function is going to be delivered by a third party?'
+      help:
+        -
+          - ''
+          - ''
+        -
+          - ''
+          - ''
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: 'purpose_overall_11'          
+    
 wordings:
   gender: men and women
   race: individuals from different ethnic backgrounds
