@@ -10,6 +10,6 @@ case $1 in
 	ssh buxton@impactengine.org.uk -p 1417
 	;;
 	"production_old" )
-	ssh serveradmin@impactengine.org.uk@ftp.s21552.gridserver.com
+	ssh serveradmin@webwelcome.net@ftp.s21552.gridserver.com
 	;;
 esac
