@@ -1,6 +1,9 @@
 <div id="show">
 <p><label>Function/Policy is </label><div class="labelled"><%= @activity.existing_proposed? -%></div></p>
 <br />
+<%= answer(@activity, :purpose, :overall, 10) %>
+<%= answer(@activity, :purpose, :overall, 11) %>
+<%= answer(@activity, :purpose, :overall, 12) %>
 
 <h5><%=h @activity.header(:purpose_overall_1) -%></h5>
 <% @activity_strategies.each do |activity_strategy| %>
