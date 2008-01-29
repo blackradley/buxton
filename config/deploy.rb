@@ -1,25 +1,16 @@
 # require 'mongrel_cluster/recipes'
+require 'capistrano/ext/multistage'
 
 # =============================================================================
 # REQUIRED VARIABLES
 # =============================================================================
 set :application, "buxton"
 set :repository,  "http://svn3.cvsdude.com/BlackRadley/buxton/trunk"
-set :domain, "72.47.213.74"
 set :port, 1417
-
-# =============================================================================
-# ROLES
-# =============================================================================
-role :app, domain
-role :web, domain
-role :db,  domain, :primary => true
 
 # =============================================================================
 # OPTIONAL VARIABLES
 # =============================================================================
-set :deploy_to, "/var/www/vhosts/impactengine.org.uk/rails/testapp"
-set :mongrel_conf, "#{current_path}/config/mongrel_cluster.yml" # required really but needs to be after deploy_to
 set :user, 'buxton'
 set :scm_username, '27stars-karl'
 set :scm_password, 'dogstar'
@@ -41,37 +32,9 @@ end
 # =============================================================================
 # TASKS UNTIL CAPISTRANO 2 SUPPORTS MONGREL OUT-OF-THE-BOX
 # =============================================================================
-
 namespace :deploy do
   desc "Restart the mongrel cluster"
   task :restart, :roles => :app do
     invoke_command "/etc/init.d/mongrel_cluster restart"
   end
 end
-
-# namespace :deploy do
-#   namespace :mongrel do
-#     [ :stop, :start, :restart ].each do |t|
-#       desc "#{t.to_s.capitalize} the mongrel appserver"
-#       task t, :roles => :app do
-#         #invoke_command checks the use_sudo variable to determine how to run the mongrel_rails command
-#         invoke_command "/etc/init.d/mongrel_cluster #{t.to_s}", :via => run_method
-#       end
-#     end
-#   end
-# 
-#   desc "Custom restart task for mongrel cluster"
-#   task :restart, :roles => :app, :except => { :no_release => true } do
-#     deploy.mongrel.restart
-#   end
-# 
-#   desc "Custom start task for mongrel cluster"
-#   task :start, :roles => :app do
-#     deploy.mongrel.start
-#   end
-# 
-#   desc "Custom stop task for mongrel cluster"
-#   task :stop, :roles => :app do
-#     deploy.mongrel.stop
-#   end
-# end
