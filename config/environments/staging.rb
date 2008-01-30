@@ -37,5 +37,5 @@ config.action_mailer.delivery_method = :smtp
 # (create the session table with 'rake db:sessions:create')
 config.action_controller.session_store = :active_record_store
 
-# We presently run on a .co.uk domain
+# We presently run on a .org.uk domain
 TLD_LENGTH = 2

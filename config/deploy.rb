@@ -23,9 +23,10 @@ after "deploy:update_code", "db:symlink"
 
 # database.yml task
 namespace :db do
-  desc "Make symlink for database yaml" 
+  desc "Make symlink for database and mongrel_cluster yaml files"
   task :symlink do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml" 
+    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+    run "ln -nfs #{shared_path}/config/mongrel_cluster.yml #{release_path}/config/mongrel_cluster.yml"
   end
 end
 
