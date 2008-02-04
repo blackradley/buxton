@@ -11,6 +11,13 @@
 	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 10, :f_id => @activity.id} %>
 	<%= f.question :purpose, {:equality_strand => @equality_strand, :number => 11, :f_id => @activity.id} %>
   <%= f.question :purpose, {:equality_strand => @equality_strand, :number => 12, :f_id => @activity.id} %>
+  <h4> Relevant Strands </h4>
+  <label>Gender: </label><%= f.check_box (:gender_irrelevant) %>
+  <label>Sexual Orientation: </label><%= f.check_box (:sexual_orientation_irrelevant) %>
+  <label>Faith: </label><%= f.check_box (:faith_irrelevant) %>
+  <label>Disability: </label><%= f.check_box (:disability_irrelevant) %>
+  <label>Age: </label><%= f.check_box (:age_irrelevant) %>
+  <label>Race: </label><%= f.check_box (:race_irrelevant) %>
 	<h4><%=h @activity.header(:purpose_overall_1) -%><a href="#" onclick="Element.toggle('strategic_objectives'); return false;"><img alt="Help" src="/images/icons/help.gif" /></a></h4>
 	<span id="strategic_objectives" class="toggleHelp" style="display:none;"><%= @activity.hashes['header_help_text']['purpose_overall_1'][@activity.fun_pol_number][@activity.exist_prop_number].to_s %></span>
 	<% yes_no = @activity.hashes['choices'][3] -%>

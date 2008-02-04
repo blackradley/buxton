@@ -160,8 +160,10 @@ class Activity < ActiveRecord::Base
     #Check whether each question is completed. If it is, add one to the amount that are completed. Then add one to the total.
     like = [section, strand].join('_')
     # Find all incomplete questions with the given arguments
-    number_answered += self.questions.find(:all, :conditions => "name LIKE '%#{like}%' AND completed = true").size
-    total += Activity.get_question_names(section, strand).size
+    needed = section != :purpose
+    number_answered += self.questions.find(:all, :conditions => "name LIKE '%#{like}%' AND completed = true#{" AND needed = true" if needed}").size
+    not_needed_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'#{" AND needed = false" if needed}").size
+    total += Activity.get_question_names(section, strand).size - not_needed_questions
     #If you don't specify a section, or your section is action planning, consider issues as well.
     unless section && !(section == :action_planning) then
       #First we calculate all the questions, in case there is a nil.
@@ -259,13 +261,15 @@ class Activity < ActiveRecord::Base
             end
           end
           like = [section, strand].join('_')
+          needed = (section != :purpose)
           # Find all incomplete questions with the given arguments
-          answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'")
+          answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%' AND completed = true#{" AND needed = true" if needed}")
           all_questions = Activity.get_question_names(section, strand)
+          not_req_qns = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'#{" AND needed = false" if needed}")
           # Have all the questions been answered?
-          if answered_questions.size == all_questions.size then
-            # Yes, then remove all completed questions
-            answered_questions.reject! {|question| question.completed == true}
+          if answered_questions.size == (all_questions.size - not_req_qns.size) then
+            # Yes, then remove all completed questions and those that aren't needed
+            answered_questions.reject! {|question| question.completed == true || !question.needed}
             # And if we don't have any records left, we must be complete, otherwise we are incomplete
             return answered_questions.size == 0
           else
@@ -288,9 +292,9 @@ class Activity < ActiveRecord::Base
       questions.each do |question|
         strand = Activity.question_separation(question)[1]
         if section
-          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?)
+          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?) && !self.send("#{strand}_irrelevant".to_sym)
         else
-          lookups_required = (self.send(question) == 2)
+          lookups_required = (self.send(question) == 2) && !self.send("#{strand}_irrelevant".to_sym)
         end
         if lookups_required then
           issue_strand = self.issues.clone
@@ -332,7 +336,13 @@ class Activity < ActiveRecord::Base
       end
     end
   end
-
+  def strand_irrelevancies
+    list = {}
+    hashes['wordings'].keys.each do |strand|
+      list["#{strand}_irrelevant".to_sym] = send("#{strand}_irrelevant".to_sym)
+    end
+    list
+  end
   def save_issues
     # If we have issues
     if self.issues then
@@ -354,6 +364,10 @@ class Activity < ActiveRecord::Base
   def invisible_questions
     @@invisible_questions
   end
+  
+  def dependencies
+    @@dependencies
+  end
   def after_update
     return true if @saved
     @saved = true
@@ -367,7 +381,7 @@ class Activity < ActiveRecord::Base
       new_weight = self.hashes['weights'][self.hashes['existing_proposed']['weight']][new_value]
       old_weight = 0 if @activity_clone.send(:existing_proposed).to_i == 0
       new_weight = 0 if self.send(:existing_proposed).to_i == 0
-      self.hashes['wordings'].keys.each do |strand|
+      strands.each do |strand|
         strand_max = Activity.get_strand_max(strand)
         old_importance = self.send("#{strand}_percentage_importance".to_sym)
         new_importance = old_importance + (new_weight.to_f - old_weight.to_f)*100/strand_max
@@ -381,6 +395,15 @@ class Activity < ActiveRecord::Base
         end
       end
     else
+      strand_irrelevancies.each do |strand_name, value|
+        if @activity_clone.send(strand_name) != value then
+          Activity.get_question_names(nil, strand_name.to_s.gsub("_irrelevant", "")).each do |question_name|
+            next if question_name.to_s.include? "purpose"
+            question = self.questions.find_or_initialize_by_name(question_name.to_s)
+            question.update_attributes(:needed => !value)
+          end
+        end
+      end       
       Activity.get_question_names.each do |name|
         old_store = @activity_clone.send(name)
         new_store = self.send(name)
@@ -388,10 +411,12 @@ class Activity < ActiveRecord::Base
           to_change = []
           check_result = check_question(name)
           to_change.push([name, check_result])
-          unless @@dependencies[name.to_s].nil? then
-            re_eval = @@dependencies[name.to_s][0].clone
-            check_re_eval = check_question(re_eval)
-            to_change.push([re_eval, check_re_eval])
+          unless dependencies[name.to_s].nil? then
+            dependencies.each do |dependent|
+              re_eval = dependent[name.to_s][0].clone
+              check_re_eval = check_question(re_eval)
+              to_change.push([re_eval, check_re_eval])
+            end
           end
           to_change.each do |question_name, completed_result|
             status = self.questions.find_or_initialize_by_name(question_name.to_s)
@@ -429,9 +454,12 @@ class Activity < ActiveRecord::Base
       sections = [:purpose, :impact, :consultation, :action_planning, :additional_work]
       sections.each do |section|
         sec_completed = true
-        section_questions = self.questions.find(:all, :conditions => "name LIKE '%#{section.to_s}%'")
-        sec_completed = false if section_questions.size != Activity.get_question_names(section).size
-        section_questions.each{|question| sec_completed = false unless question.completed}
+        needed = (section != :purpose)
+        section_questions = self.questions.find(:all, :conditions => "name LIKE '%#{section.to_s}%'#{" AND needed = true" if needed}") 
+        remove_qns = self.questions.find(:all, :conditions => "name LIKE '%#{section.to_s}%' AND needed = false#{" AND needed = false" if needed}").size
+        total = Activity.get_question_names(section).size - remove_qns
+        sec_completed = false if section_questions.size != total
+        section_questions.each{|question| sec_completed = false unless question.completed || (!question.needed && needed)}
         to_save["#{section}_completed".to_sym] = sec_completed
       end
       to_save[:overall_completed_strategies] = to_save[:purpose_completed] if to_save[:overall_completed_strategies]
@@ -489,9 +517,15 @@ class Activity < ActiveRecord::Base
       end
     end
   end
-
+  def overview_strands
+    {'gender' => 'gender', 'race' => 'race', 'disability' => 'disability', 'faith' => 'faith', 'sex' => 'sexual_orientation', 'age' => 'age'}
+  end
+  def strand_relevant?(strand)
+    puts !self.send("#{strand}_irrelevant".to_sym)
+    !self.send("#{strand}_irrelevant".to_sym)
+  end
   def relevant?
-    hashes['wordings'].keys.each do |strand|
+    strands.each do |strand|
       return false if self.send("#{strand}_percentage_importance") < 35
     end
     return true
@@ -510,6 +544,7 @@ class Activity < ActiveRecord::Base
           return '-'
       end
     else
+      return '-' if self.send("#{strand}_irrelevant")
       good_impact = self.send("purpose_#{strand.to_s}_3".to_sym).to_i
       bad_impact = self.send("purpose_#{strand.to_s}_4".to_sym).to_i
       good_impact = bad_impact if bad_impact > good_impact
@@ -524,19 +559,23 @@ class Activity < ActiveRecord::Base
       end
     end
   end
-
+  def strands
+    strand_list = hashes['wordings'].keys.map{|strand| strand unless self.send("#{strand}_irrelevant")}
+    strand_list.compact
+  end
   def priority_ranking(strand = nil)
     # FIXME: database should set this default for us
     self.update_attribute(:percentage_importance, 0) unless self.percentage_importance
     ranking_boundaries = [80,70,60,50]
     rank = 5
     unless strand then
-      strand_total = hashes['wordings'].keys.inject(0) do |total, strand|
+      strand_total = strands.inject(0) do |total, strand|
         total += priority_ranking(strand)**3
       end
-      strand_total = (strand_total.to_f/(hashes['strands'].size))**(1.to_f/3)
+      strand_total = (strand_total.to_f/strands.size)**(1.to_f/3)
       return (strand_total + 0.5).to_i
     else
+      return '-' if self.send("#{strand}_irrelevant")
       ranking = self.send("#{strand}_percentage_importance")
       ranking_boundaries.each{|border| rank -= 1 unless ranking > border}
       return rank
@@ -553,7 +592,8 @@ class Activity < ActiveRecord::Base
       :purpose_completed, :impact_completed, :consultation_completed, :additional_work_completed, :action_planning_completed,
       :overall_completed_issues, :overall_started, :percentage_importance, :name, :approved, :gender_percentage_importance,
       :race_percentage_importance, :disability_percentage_importance, :sexual_orientation_percentage_importance, :faith_percentage_importance, :age_percentage_importance,
-      :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on]
+      :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on, :gender_irrelevant, :faith_irrelevant,
+      :sexual_orientation_irrelevant, :age_irrelevant, :disability_irrelevant, :race_irrelevant]
 	  Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
 	  unnecessary_columns.each{|column| questions.delete(column)}
 	  questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section
