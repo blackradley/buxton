@@ -1,0 +1,137 @@
+.more{:id => "more_" + "#{question_issues[:id]}", :style => "display:none"}
+  %h3
+    =image_tag ("icons/help.gif")
+    Help:
+  -if question_issues[:help]!=''
+    %p.help
+      =question_issues[:help]
+  -else
+    %p.nohelp Sorry - no help text for this question.
+  %h3
+    =image_tag ("icons/comment.gif")
+    Comment for report:
+  -if question_issues[:comment]!=''
+    %p.comment{:style => "display:block"}
+      =question_issues[:comment]
+    .control{:style => "display:block"}
+      =image_tag ("icons/comment_delete.gif")
+      =link_to "Delete", "#"
+    .control{:style => "display:block"}
+      =image_tag ("icons/comment_edit.gif")
+      =link_to "Edit", "#"
+  -else
+    .control
+      =image_tag ("icons/comment_add.gif")
+      =link_to "Add new comment for report", "#"
+  %p.commentform{:style => "display:none"}
+    %textarea
+      -if question_issues[:comment]!=''
+        =question_issues[:comment]
+    =link_to "Save", "#" 
+    | 
+    =link_to "Cancel", "#"
+  %h3
+    =image_tag ("icons/note.gif")
+    Note to myself:
+  -if question_issues[:note]!=''
+    %p.note{:style => "display:block"}
+      =question_issues[:note]
+    .control{:style => "display:block"}
+      =image_tag ("icons/note_delete.gif")
+      =link_to "Delete", "#"
+    .control{:style => "display:block"}
+      =image_tag ("icons/note_edit.gif")
+      =link_to "Edit", "#"
+  -else
+    .control
+      =image_tag ("icons/note_add.gif")
+      =link_to "Add new note for myself", "#"
+  %p.noteform{:style => "display:none"}
+    %textarea
+      -if question_issues[:note]!=''
+        =question_issues[:note]
+    =link_to "Save", "#" 
+    | 
+    =link_to "Cancel", "#"
+-depString =''    
+-depString << "checkDependancy('#{question_issues[:id]}','#{question_issues[:id]}_issues', '1'); "
+%p.question{:id => "#{question_issues[:id]}", :onclick => "setFocus(\'more_#{question_issues[:id]}\',\'#{question_issues[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:block;"}
+  %label
+    =question_issues[:label]
+  %labelled
+    -case question_issues[:input_type]    
+      -when :text
+        = f.text_area question_issues[:id]
+      -when :string
+        = f.text_field question_issues[:id]
+      -when :select
+        = f.select "#{question_issues[:id]}", question_issues[:input_choices]  
+  
+-displayString = "none"
+-if @activity.send(question_issues[:id]).to_s == '1'
+  -displayString = "block"
+
+.more{:id => "more_" + "#{question_issues[:id]}_issues", :style => "display:none"}
+  %h3
+    =image_tag ("icons/help.gif")
+    Help:
+  -if question_issues[:help]!=''
+    %p.help
+      = @activity.hashes['issues_help_text'][@activity.fun_pol_number][@activity.exist_prop_number].to_s
+  -else
+    %p.nohelp Sorry - no help text for this question.
+  %h3
+    =image_tag ("icons/comment.gif")
+    Comment for report:
+  -if question_issues[:comment]!=''
+    %p.comment{:style => "display:block"}
+      =question_issues[:comment]
+    .control{:style => "display:block"}
+      =image_tag ("icons/comment_delete.gif")
+      =link_to "Delete", "#"
+    .control{:style => "display:block"}
+      =image_tag ("icons/comment_edit.gif")
+      =link_to "Edit", "#"
+  -else
+    .control
+      =image_tag ("icons/comment_add.gif")
+      =link_to "Add new comment for report", "#"
+  %p.commentform{:style => "display:none"}
+    %textarea
+      -if question_issues[:comment]!=''
+        =question_issues[:comment]
+    =link_to "Save", "#" 
+    | 
+    =link_to "Cancel", "#"
+  %h3
+    =image_tag ("icons/note.gif")
+    Note to myself:
+  -if question_issues[:note]!=''
+    %p.note{:style => "display:block"}
+      =question_issues[:note]
+    .control{:style => "display:block"}
+      =image_tag ("icons/note_delete.gif")
+      =link_to "Delete", "#"
+    .control{:style => "display:block"}
+      =image_tag ("icons/note_edit.gif")
+      =link_to "Edit", "#"
+  -else
+    .control
+      =image_tag ("icons/note_add.gif")
+      =link_to "Add new note for myself", "#"
+  %p.noteform{:style => "display:none"}
+    %textarea
+      -if question_issues[:note]!=''
+        =question_issues[:note]
+    =link_to "Save", "#" 
+    | 
+    =link_to "Cancel", "#"
+  
+%p.question.sub{:id => "#{question_issues[:id]}_issues", :onclick => "setFocus(\'more_#{question_issues[:id]}_issues\',\'#{question_issues[:id]}_issues\');", :style => "display:#{displayString};"}
+  =image_tag("icons/arrow_turn_right.gif")
+  %label Please record the issues identified
+  %span.issues
+    #issues_list
+      = render :partial => 'issues/issue', :collection => @activity.issues_by(@section, @equality_strand)
+    = link_to_function "Add a New Issue" do |page| 
+      - page.insert_html :bottom, :issues_list, :partial => 'issues/issue', :object => Issue.new

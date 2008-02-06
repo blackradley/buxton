@@ -75,6 +75,30 @@ class Activity < ActiveRecord::Base
     fun_pol = 0 if fun_pol == -1
     fun_pol
   end
+  
+     #    
+     # def question_details(section, strand, number)
+     #   strand=strand.to_sym
+     #   number=number.to_i
+     #   query = question_wording_lookup(section.to_sym, strand.to_sym, number)
+     #   label = query[0]
+     #   type = query[1].to_sym
+     #   choices = query[2].to_i
+     #   help = query[3]
+     #   look_up_choices = hashes['choices']
+     #   puts look_up_choices
+     #   question="#{section}_#{strand}_#{number}"
+     #   # Get the answer options for this question and make an appropriate input field
+     #   input_field = case type     
+     #   when :text
+     #     "<textarea><"
+     #   when :string
+     #     text_field question
+     #   when :select
+     #     select question, look_up_choices[choices].collect{|l| [l, look_up_choices[choices].index(l)]}      
+     #   end
+     #   {:id => "#{section}_#{strand}_#{number}", :label => "#{label}", :help => "#{help}", :input => "#{input_field}", :comment => "comment text", :note => "comment text"}
+     # end
 
   def exist_prop_number
     exist_prop = self.existing_proposed.to_i
@@ -318,6 +342,30 @@ class Activity < ActiveRecord::Base
     end
     return true
   end
+  
+  def question_details()
+     {    { :id => 'additional_work_gender_1',
+            :label => 'label text',
+            :help => 'help text',
+            :input => '<select onfocus="setFocus(\'more_additional_work_gender_1\',\'additional_work_gender_1\')">
+              <option> Not Answered Yet </option>
+              <option> Yes </option>
+              <option> No </option>
+              </select>',
+            :comment => 'comment',
+            :note => 'note' },
+            { :id => 'additional_work_gender_2',
+                    :label => 'label text',
+                    :help => 'help text',
+                    :input => '<select onfocus="setFocus(\'more_additional_work_gender_2\',\'additional_work_gender_2\')">
+                      <option> Not Answered Yet </option>
+                      <option> Yes </option>
+                      <option> No </option>
+                      </select>',
+                    :comment => 'comment',
+                    :note => 'note' }
+      }
+  end
 
   def issues_by(section = nil, strand = nil)
     filtered_issues = self.issues.clone
@@ -365,9 +413,12 @@ class Activity < ActiveRecord::Base
     @@invisible_questions
   end
   
-  def dependencies
-    @@dependencies
+  def dependencies(question=nil)
+    return @@dependencies unless question
+    @@dependencies[question]
+    
   end
+  
   def after_update
     return true if @saved
     @saved = true
@@ -411,16 +462,19 @@ class Activity < ActiveRecord::Base
           to_change = []
           check_result = check_question(name)
           to_change.push([name, check_result])
-          unless dependencies[name.to_s].nil? then
+          unless dependencies(name.to_s).nil? then
             dependencies.each do |dependent|
-              re_eval = dependent[name.to_s][0].clone
+              re_eval = dependent[0]
               check_re_eval = check_question(re_eval)
-              to_change.push([re_eval, check_re_eval])
+              puts re_eval.class
+              puts "--------"
+              to_change.push([re_eval.clone, check_re_eval])
             end
           end
           to_change.each do |question_name, completed_result|
             status = self.questions.find_or_initialize_by_name(question_name.to_s)
             status.update_attributes(:completed => !!completed_result) #cheap cast to bool. Not a cargocult ;)
+            question_name = question_name.to_sym
             separated_question = Activity.question_separation(question_name)
             question_details = question_wording_lookup(*separated_question)
             unless separated_question[1].to_s == 'overall' then
@@ -755,6 +809,38 @@ class Activity < ActiveRecord::Base
     return [section.to_sym, strand.to_sym, question_number] if (!section.blank? && !strand.blank? && question_number)
     return nil
   end
+  
+  #This returns any dependencies of a question
+    def dependent_questions(question)
+      puts question
+      question = question.to_s
+      yes_value = hashes['yes_value']
+      no_value = hashes['no_value']
+      if question.include?("overall") then
+        query_hash = hashes['overall_questions']
+      else
+        query_hash = hashes['questions']
+      end
+      segments = Activity.question_separation(question)
+      if segments then
+        section = segments[0]
+        strand = segments[1]
+        question_name = segments[2]
+        dependencies = query_hash[section.to_s][question_name.to_i]['dependent_questions']
+        puts dependencies.to_s
+        dependencies.gsub!("yes_value", yes_value.to_s)
+        dependencies.gsub!("no_value", no_value.to_s)
+        dependencies = dependencies.split(" ")
+        return nil if dependencies == []
+        dependencies[0] = eval(%Q{<<"DELIM"\n} + dependencies[0] + "\nDELIM\n")
+        dependencies[0].chop!
+        puts [dependencies]
+        return [dependencies]
+      else
+        puts 'nil loop'
+        return nil
+      end
+    end
 
 private
 
@@ -788,31 +874,5 @@ private
     return checker
   end
 
-#This returns any dependencies of a question
-  def dependent_questions(question)
-    question = question.to_s
-    yes_value = hashes['yes_value']
-    no_value = hashes['no_value']
-    if question.include?("overall") then
-      query_hash = hashes['overall_questions']
-    else
-      query_hash = hashes['questions']
-    end
-    segments = Activity.question_separation(question)
-    if segments then
-      section = segments[0]
-      strand = segments[1]
-      question_name = segments[2]
-      dependencies = query_hash[section.to_s][question_name.to_i]['dependent_questions']
-      dependencies.gsub!("yes_value", yes_value.to_s)
-      dependencies.gsub!("no_value", no_value.to_s)
-      dependencies = dependencies.split(" ")
-      return nil if dependencies == []
-      dependencies[0] = eval(%Q{<<"DELIM"\n} + dependencies[0] + "\nDELIM\n")
-      dependencies[0].chop!
-      return [dependencies]
-    else
-      return nil
-    end
-  end
+
 end

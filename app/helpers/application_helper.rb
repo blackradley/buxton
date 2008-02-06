@@ -61,6 +61,62 @@ module ApplicationHelper
     end
   end
   
+  
+  def question_details(section, strand, questions)
+    info_array = []   
+    
+    questions.each do |question|
+      info = @activity.question_wording_lookup(section, strand, question)  
+      look_up_choices = @activity.hashes['choices']
+      choices = info[2].to_i
+      choices_array=[]
+      dependents=[]
+      dependents_array=[]
+      dependency = []
+      
+      if choices!=0
+         look_up_choices[choices].each do |d|
+           choices_array << [d, look_up_choices[choices].index(d)]
+         end
+       end
+       
+       dependents = @activity.dependencies("#{section}_#{strand}_#{question}")
+       
+        if dependents
+            dependents.each do |da|
+              dependents_array << [da[0], @activity.hashes[da[1]].to_i]
+            end
+          end
+       
+       dependency = @activity.dependent_questions("#{section}_#{strand}_#{question}") 
+       
+     # puts dependents_array[0]
+       
+      # input_choices = look_up_choices[choices].map{|option| [option, look_up_choices[choices].index(option)]}
+      # choices_array=[]
+      #      for i in look_up_choices[choices]
+      #         choices_array << [i, look_up_choices[choices].index(i)]
+      #       end
+           
+      info_array << {  :id => "#{section}_#{strand}_#{question}",
+                        :label => info[0],
+                        :help => info[3],
+                        :input_type => info[1].to_sym,
+                        :input_choices => choices_array,
+                        :dependents => dependents_array,
+                        # :dependentHTML => dependents_array,
+                        :dependency => dependency,
+                        :input_choices => choices_array,
+                        :comment => 'comment',
+                        :note => 'note' 
+                      }           
+    end 
+  
+    return info_array
+    
+      
+  end
+  
   # Takes a list of links and generates a menu accordingly.
   # On state provided by introduction of class="selected"
   def generate_menu(links)

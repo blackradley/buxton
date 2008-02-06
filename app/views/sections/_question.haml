@@ -1,0 +1,92 @@
+.more{:id => "more_" + "#{question[:id]}", :style => "display:none"}
+  %h3
+    =image_tag ("icons/help.gif")
+    Help:
+  -if question[:help]!=''
+    %p.help
+      =question[:help]
+  -else
+    %p.nohelp Sorry - no help text for this question.
+  %h3
+    =image_tag ("icons/comment.gif")
+    Comment for report:
+  -if question[:comment]!=''
+    %p.comment{:style => "display:block"}
+      =question[:comment]
+    .control{:style => "display:block"}
+      =image_tag ("icons/comment_delete.gif")
+      =link_to "Delete", "#"
+    .control{:style => "display:block"}
+      =image_tag ("icons/comment_edit.gif")
+      =link_to "Edit", "#"
+  -else
+    .control
+      =image_tag ("icons/comment_add.gif")
+      =link_to "Add new comment for report", "#"
+  %p.commentform{:style => "display:none"}
+    %textarea
+      -if question[:comment]!=''
+        =question[:comment]
+    =link_to "Save", "#" 
+    | 
+    =link_to "Cancel", "#"
+  %h3
+    =image_tag ("icons/note.gif")
+    Note to myself:
+  -if question[:note]!=''
+    %p.note{:style => "display:block"}
+      =question[:note]
+    .control{:style => "display:block"}
+      =image_tag ("icons/note_delete.gif")
+      =link_to "Delete", "#"
+    .control{:style => "display:block"}
+      =image_tag ("icons/note_edit.gif")
+      =link_to "Edit", "#"
+  -else
+    .control
+      =image_tag ("icons/note_add.gif")
+      =link_to "Add new note for myself", "#"
+  %p.noteform{:style => "display:none"}
+    %textarea
+      -if question[:note]!=''
+        =question[:note]
+    =link_to "Save", "#" 
+    | 
+    =link_to "Cancel", "#"
+-if question[:dependents][0] 
+  -depString = ""
+  -question[:dependents].each do |dep|
+    -depString << "checkDependancy('#{question[:id]}','#{dep[0]}', '#{dep[1]}'); "
+-if question[:dependency]
+  -displayString = "none"
+  -if @activity.send(question[:dependency][0][0].to_sym)
+    -if @activity.send(question[:dependency][0][0].to_sym).to_s == question[:dependency][0][1]
+      -displayString = "block"
+    
+  %p.question.sub{:id => "#{question[:id]}", :onclick => "setFocus(\'more_#{question[:id]}\',\'#{question[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:#{displayString};"}
+    =image_tag("icons/arrow_turn_right.gif")
+    %label
+      =question[:label]
+      =question[:dependency][0][0]
+      =@activity.send(question[:dependency][0][0].to_sym).to_s.class
+      =question[:dependency][0][1].class
+    %labelled
+      -case question[:input_type]    
+        -when :text
+          = f.text_area question[:id]
+        -when :string
+          = f.text_field question[:id]
+        -when :select
+          = f.select "#{question[:id]}", question[:input_choices]
+-else
+  %p.question{:id => "#{question[:id]}", :onclick => "setFocus(\'more_#{question[:id]}\',\'#{question[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:block;"}
+    %label
+      =question[:label]
+    %labelled
+      -case question[:input_type]    
+        -when :text
+          = f.text_area question[:id]
+        -when :string
+          = f.text_field question[:id]
+        -when :select
+          = f.select "#{question[:id]}", question[:input_choices]
