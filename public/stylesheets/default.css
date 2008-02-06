@@ -575,6 +575,8 @@ h1#questions{
 text-align:center;
 font-size:20px;
 color: #515f8d;
+background: none;
+float: none;
 }
 
 .next{
@@ -587,6 +589,13 @@ color: #515f8d;
 	margin-bottom: -0px;
 }
 
+#questions{
+	width: 100%;
+	background: url(../images/questions_bg.gif) repeat-y -25px;
+	clear: left;
+	float:left;
+}
+
 #questions label{
 	width: 400px;
 	float: left;
@@ -594,22 +603,138 @@ color: #515f8d;
 	padding-bottom: 2px;
 }
 
-#questions p{
+#questions .more{
+clear: left;
+	float:right;
+	width: 240px;
+	text-align: left;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+#questions .more h3{
+	width: 240px;
+	text-align: left;
+	margin:0px 0px;
+	margin-top: 10px;
+}
+#questions .more h3 img{
+	float: left;
+	margin: 0px 4px;
+}
+#questions .more h3 a, #questions .more h3 a{
+	font-size: 1em;
+	font-weight:normal;
+}
+#questions .more p.help{
+	margin-left: 5px;
+	margin-top: 0px;
+	padding: 10px;
+	color:#515f8d;
+	font-size:1em;
+	background-color: #f9fdd0;
+	border: 1px solid #fff3a4;
+}
+#questions .more p.help ul li{
+	float: left;
+}
+#questions .more p.nohelp{
+	margin-left: 5px;
+	margin-top: 0px;
+	text-align:center;
+	font-style:italic;
+}
+#questions .more p.comment{
+	margin-left: 5px;
+	margin-top: 0px;
+	padding: 10px;
+	color:#515f8d;
+	font-size:1em;
+	background-color: #dfe3f9;
+	border: 1px solid #b3beda;
+}
+#questions .more p.note{
+	margin-left: 5px;
+	margin-top: 0px;
+	padding: 10px;
+	color:#515f8d;
+	font-size:1em;
+	background-color: #f0fddc;
+	border: 1px solid #a3bf8e;
+}
+#questions .more p.controls{
+	margin: 0px;
+}
+#questions .more .control{
+	float: left;
+	margin-right: 10px;
+	margin-left: 5px;
+}
+#questions .more .control img{
+	float: left;
+	margin-right: 5px;
+}
+#questions .more p.commentform{
+	margin: 0px 5px;
+	text-align: left;
+}
+#questions .more p.commentform textarea{
+	margin: 0px;
+	margin-bottom:4px;
+	float: left;
+	text-align: left;
+}
+
+#questions p.question{
+	position:relative;
 	clear: left;
 	float:left;
-	width: 100%;
+	width: 400px;
 	text-align: right;
 	margin-left: 0px;
 	margin-right: 0px;
+	overflow: hidden;
+	display:block;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	
+}
+#questions p.question.sub{
+	padding-left: 50px;
+	width: 350px;
+}
+
+#questions p.question.sub img{
+	position:absolute;
+	top: 0px;
+	left: 30px;
+}
+
+
+#questions p.question label{
+margin:5px 10px;
+width: 380px;
+	
+}
+#questions p.question.sub label{
+width: 300px;
+	
 }
 
 #questions input, #questions select, #questions textarea{
 	float:left;
+	margin-left: 10px;
+	margin-bottom:10px;
+
+}
+#questions .more textarea{
+	float:left;
+	margin-bottom:10px;
+
 }
 
 #questions .button input {
 	float:right;
-	margin-right:30px;
+	margin-right:160px;
 }
 
 #questions p img{
@@ -619,13 +744,12 @@ color: #515f8d;
 }
 
 #questions .issues{
-	float:right;
+	float:left;
 	width: 250px;	
 	margin-top: 4px;	
 	font-size: 1em;
-	margin-top:-43px;
-	 margin-bottom:20px;
-	 text-align:left;
+	margin-bottom:10px;
+	text-align:left;
 	 /*border: 1px solid red;*/
 	 	
 	/*margin-right: 23px;*/
@@ -634,23 +758,29 @@ color: #515f8d;
 #questions .issues .issue{
 	clear: left;
 	float:left;
-	text-align: right;
 	margin-left: 0px;
 	margin-bottom: 10px;
 	/*border: 1px solid red;*/
 	width: 100%;
 }
-#questions .issues .issue a img{
+#questions p.question.sub .issues a{
+	margin-left: 10px;
+}
+
+#questions p.question.sub .issues .issue a img{
 	float:left;
 	margin-top: 4px;
 	margin-left: 2px;
+	position:relative;
+	top: 0px;
+	left: 0px;
 }
 
-#questions .issues input{
+#questions p.question.sub .issues .issue input{
 	float:left;
 	width:220px;
-	margin-right:5px;
-	margin-left:0px;
+	margin-right:0px;
+	margin-left:10px;
 }
 
 .fieldWithErrors input{
