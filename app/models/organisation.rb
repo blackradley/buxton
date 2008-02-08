@@ -39,6 +39,7 @@ class Organisation < ActiveRecord::Base
   validates_presence_of :style, :message => 'Please provide an css style name, all organisations must have a style'
   validates_format_of :style, :with => /^[\w]*$/
   # validates_uniqueness_of :style
+  validates_format_of :ces_link, :with => URI::regexp(['http','https','ftp']), :unless => Proc.new { |o| o.ces_link.blank? }
 
   after_update :save_directorates
 
