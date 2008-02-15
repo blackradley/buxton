@@ -34,6 +34,7 @@ BODY
 
 .content .workingArea, .messageArea{
 	margin:20px;
+	width: 660px;
 	overflow: hidden;
 }
 .messageArea p{
@@ -832,7 +833,8 @@ html/**/>body #questions .issue{
 
 #pdf_link{
 	float: right;
-	margin-top: -40px;
+	margin-top: -30px;
+	height: 30px;
 	width: 105px;
 }
 
@@ -852,8 +854,7 @@ p #summarytable{
 
 #summarytable{
 	margin-bottom: 5px;
-	float: left;
-	width:370px;
+	width:360px;
 	margin:0px;
 }
 
