@@ -17,10 +17,6 @@
           = stylesheet_link_tag @current_user.activity.organisation.style
         -elsif @current_user.class.name == 'OrganisationManager' 
           = stylesheet_link_tag @current_user.organisation.style
-    = javascript_include_tag "prototype"
-    = javascript_include_tag "effects"
-    = javascript_include_tag "dragdrop"
-    = javascript_include_tag "application"
     = calendar_date_select_includes
     %link{:href=>'/images/favicon.ico', :rel=>'icon', :type=>"image/x-icon"}
   %body
