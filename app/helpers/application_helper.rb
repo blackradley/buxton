@@ -90,7 +90,9 @@ module ApplicationHelper
       name = "#{section}_#{strand}_#{question}"
       full_question = [*Question.find_or_initialize_by_name(name)][0]
       comment = full_question.comment
+      note = full_question.note
       comment_contents = (comment.nil? ? '' : comment.contents)
+      note_contents = (note.nil? ? '' : note.contents)
       info_array << {  :id => name,
                         :full_question => full_question,
                         :label => info[0],
@@ -98,11 +100,10 @@ module ApplicationHelper
                         :input_type => info[1].to_sym,
                         :input_choices => choices_array,
                         :dependents => dependents_array,
-                        # :dependentHTML => dependents_array,
                         :dependency => dependency,
                         :input_choices => choices_array,
                         :comment => comment_contents,
-                        :note => '' 
+                        :note => note_contents 
                       }     
        full_question.save      
     end 
