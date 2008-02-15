@@ -633,7 +633,7 @@ clear: left;
 	font-size: 1em;
 	font-weight:normal;
 }
-#questions .more p.help{
+#questions .more .help{
 	margin-left: 5px;
 	margin-top: 0px;
 	padding: 10px;
