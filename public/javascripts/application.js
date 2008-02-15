@@ -17,6 +17,27 @@ function mark_for_issue_destroy(element) {
 	$(element).up('.issue').hide();
 }
 
+document.getElementsByClassName = function(className, parentElement) {
+  if (typeof parentElement == 'string'){
+    parentElement = document.getElementById(parentElement);
+  } else if (typeof parentElement != 'object' ||
+             typeof parentElement.tagName != 'string'){
+    parentElement = document.body;
+  }
+  var children = parentElement.getElementsByTagName('*');
+  var re = new RegExp('\\b' + className + '\\b');
+  var el, elements = [];
+  var i = 0;
+  while ( (el = children[i++]) ){
+    if ( el.className && re.test(el.className)){
+      elements.push(el);
+    }
+  }
+  return elements;
+
+}
+
+
 function setFocus(element, element2){
 	var doc = document.getElementsByClassName('more');
 	for (var i = 0; i < doc.length; i++){
