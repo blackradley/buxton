@@ -101,8 +101,10 @@ class SectionsController < ApplicationController
       end
       render :template => 'sections/edit_purpose'
     when 'impact'
+      @section = :impact
       render :template => 'sections/edit_impact'
     when 'consultation'
+      @section = :consultation
       render :template => 'sections/edit_consultation'
     when 'additional_work'
       render :template => 'sections/edit_additional_work'
