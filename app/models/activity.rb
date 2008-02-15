@@ -75,30 +75,7 @@ class Activity < ActiveRecord::Base
     fun_pol = 0 if fun_pol == -1
     fun_pol
   end
-  
-     #    
-     # def question_details(section, strand, number)
-     #   strand=strand.to_sym
-     #   number=number.to_i
-     #   query = question_wording_lookup(section.to_sym, strand.to_sym, number)
-     #   label = query[0]
-     #   type = query[1].to_sym
-     #   choices = query[2].to_i
-     #   help = query[3]
-     #   look_up_choices = hashes['choices']
-     #   puts look_up_choices
-     #   question="#{section}_#{strand}_#{number}"
-     #   # Get the answer options for this question and make an appropriate input field
-     #   input_field = case type     
-     #   when :text
-     #     "<textarea><"
-     #   when :string
-     #     text_field question
-     #   when :select
-     #     select question, look_up_choices[choices].collect{|l| [l, look_up_choices[choices].index(l)]}      
-     #   end
-     #   {:id => "#{section}_#{strand}_#{number}", :label => "#{label}", :help => "#{help}", :input => "#{input_field}", :comment => "comment text", :note => "comment text"}
-     # end
+
 
   def exist_prop_number
     exist_prop = self.existing_proposed.to_i
@@ -287,15 +264,13 @@ class Activity < ActiveRecord::Base
           like = [section, strand].join('_')
           needed = (section != :purpose)
           # Find all incomplete questions with the given arguments
-          answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%' AND completed = true#{" AND needed = true" if needed}")
+          # Either completed must be true, or needed must be false for this to evaluate. There is no need for both.
+          answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%' AND (completed = true OR needed = false)")
           all_questions = Activity.get_question_names(section, strand)
-          not_req_qns = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'#{" AND needed = false" if needed}")
           # Have all the questions been answered?
-          if answered_questions.size == (all_questions.size - not_req_qns.size) then
-            # Yes, then remove all completed questions and those that aren't needed
-            answered_questions.reject! {|question| question.completed == true || !question.needed}
-            # And if we don't have any records left, we must be complete, otherwise we are incomplete
-            return answered_questions.size == 0
+          if answered_questions.size == (all_questions.size) then
+            #if they have all been completed, then it must be done.
+            return true
           else
             # If some questions have not been answered, we must not be complete
             return false
@@ -343,30 +318,6 @@ class Activity < ActiveRecord::Base
     return true
   end
   
-  def question_details()
-     {    { :id => 'additional_work_gender_1',
-            :label => 'label text',
-            :help => 'help text',
-            :input => '<select onfocus="setFocus(\'more_additional_work_gender_1\',\'additional_work_gender_1\')">
-              <option> Not Answered Yet </option>
-              <option> Yes </option>
-              <option> No </option>
-              </select>',
-            :comment => 'comment',
-            :note => 'note' },
-            { :id => 'additional_work_gender_2',
-                    :label => 'label text',
-                    :help => 'help text',
-                    :input => '<select onfocus="setFocus(\'more_additional_work_gender_2\',\'additional_work_gender_2\')">
-                      <option> Not Answered Yet </option>
-                      <option> Yes </option>
-                      <option> No </option>
-                      </select>',
-                    :comment => 'comment',
-                    :note => 'note' }
-      }
-  end
-
   def issues_by(section = nil, strand = nil)
     filtered_issues = self.issues.clone
     filtered_issues.reject!{|issue| issue.section != section.to_s } if section
@@ -410,11 +361,11 @@ class Activity < ActiveRecord::Base
   end
 
   def invisible_questions
-    @@invisible_questions
+    @@invisible_questions.clone
   end
   
   def dependencies(question=nil)
-    return @@dependencies unless question
+    return @@dependencies.clone unless question
     @@dependencies[question]
     
   end
@@ -442,7 +393,7 @@ class Activity < ActiveRecord::Base
       if new_value == 1 then
         @@invisible_questions.each do |question|
           status = self.questions.find_or_initialize_by_name(question.to_s)
-          status.update_attributes(:completed => true)
+          status.update_attributes(:needed => false)
         end
       end
     else
@@ -463,11 +414,11 @@ class Activity < ActiveRecord::Base
           check_result = check_question(name)
           to_change.push([name, check_result])
           unless dependencies(name.to_s).nil? then
-            dependencies.each do |dependent|
-              re_eval = dependent[0]
-              check_re_eval = check_question(re_eval)
+            dependencies(name.to_s).each do |dependent|
+              re_eval = dependent[0].to_s.clone
+              puts re_eval
               puts re_eval.class
-              puts "--------"
+              check_re_eval = check_question(re_eval)
               to_change.push([re_eval.clone, check_re_eval])
             end
           end
