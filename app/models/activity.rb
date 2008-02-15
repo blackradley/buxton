@@ -47,6 +47,10 @@ class Activity < ActiveRecord::Base
   before_save :set_approved
 
   after_update :save_issues
+  
+  def review_on_string
+    self.review_on.strftime('%B %e, %Y')
+  end
 
   def activity_type
     if self.started then
@@ -597,12 +601,12 @@ class Activity < ActiveRecord::Base
       :purpose_completed, :impact_completed, :consultation_completed, :additional_work_completed, :action_planning_completed,
       :overall_completed_issues, :overall_started, :percentage_importance, :name, :approved, :gender_percentage_importance,
       :race_percentage_importance, :disability_percentage_importance, :sexual_orientation_percentage_importance, :faith_percentage_importance, :age_percentage_importance,
-      :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on, :gender_irrelevant, :faith_irrelevant,
+      :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on, :review_on, :gender_irrelevant, :faith_irrelevant,
       :sexual_orientation_irrelevant, :age_irrelevant, :disability_irrelevant, :race_irrelevant]
 	  Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
 	  unnecessary_columns.each{|column| questions.delete(column)}
-	  questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section
-	  questions.delete_if{ |question| !(question.to_s.include?(strand.to_s))}if strand
+	  questions.delete_if{ |question| !(question.to_s.include?(section.to_s))} if section
+	  questions.delete_if{ |question| !(question.to_s.include?(strand.to_s))} if strand
 	  questions.delete_if{ |question| !(question.to_s.include?(number.to_s))} if number
 	  return questions
   end
