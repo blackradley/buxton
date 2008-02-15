@@ -49,7 +49,6 @@ class SectionsController < ApplicationController
       @current_user.activity.id
     end
     @activity = Activity.find(f_id)
-    
     # Only display the answers if Activity/Policy Existing/Proposed are answered otherwise
     # we don't know what label text to use.
     if @activity.started then
@@ -80,6 +79,7 @@ class SectionsController < ApplicationController
   # Get the activity information ready for editing using the appropriate form.
   # Available to: Activity Manager
   def edit
+    strand = params[:equality_strand]
     @activity = @current_user.activity
     @activity_manager = @activity.activity_manager
     
@@ -109,6 +109,8 @@ class SectionsController < ApplicationController
     when 'additional_work'
       render :template => 'sections/edit_additional_work'
     when 'action_planning'
+      @impact_enabled =  (@activity.send("impact_#{strand}_9") == 1)
+      @consultation_enabled =  (@activity.send("consultation_#{strand}_7") == 1)
       render :template => 'sections/edit_action_planning'
     else
       # throw error

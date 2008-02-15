@@ -11,6 +11,8 @@
 #questions
   -form_for(:issues, :url => {:controller => 'issues', :action => 'update'}) do |f|
     -issues = @activity.issues.reject{|issue| issue.strand != @equality_strand }
+    - issues.reject!{|issue| issue.section.to_s == 'impact'} unless @impact_enabled
+    - issues.reject!{|issue| issue.section.to_s == 'consultation'} unless @consultation_enabled
     - if issues.size > 0
       -for issue in issues
         %h3
