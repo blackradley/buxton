@@ -10,6 +10,78 @@
   %h3
     =image_tag ("icons/comment.gif")
     Comment for report:
+  - opt = ['none', 'block']
+  - flag = (question_issues[:comment] !='' ? 1 : 0) 
+  .normalcommentview{:id => "#{question_issues[:id]}_comment_view", :style => "display:#{opt[flag]}"}
+    %p.comment{:id => "#{question_issues[:id]}_comment"}
+      =question_issues[:comment]
+    .control
+      =image_tag ("icons/comment_delete.gif")
+      =link_to_remote "Delete", :url => {:action => 'destroy', :controller => :comment, :question_issues_id => question_issues[:full_question].id}, :confirm => "Delete this comment?", :update => "#{question_issues[:id]}_comment", :complete => "cancel_comment('#{question_issues[:id]}');"
+    .control
+      =image_tag ("icons/comment_edit.gif")
+      =link_to_function "Edit", "edit_comment('#{question_issues[:id]}');"
+  .new_comment{:id => "#{question_issues[:id]}_comment_new", :style => "display:#{opt[1 - flag]}"}
+    .control
+      =image_tag ("icons/comment_add.gif")
+      =link_to_function "Add new comment for report", "new_comment('#{question_issues[:id]}');"
+  .commentform{:id => "#{question_issues[:id]}_comment_form", :style => "display:none"}
+    =text_area_tag "comment", question_issues[:comment], :id => "#{question_issues[:id]}_comment_fill_in"
+    = link_to_remote "Save", :url => {:action => 'edit', :controller => :comment, :question_issues_id => question_issues[:full_question].id}, :with => "'comment='+document.getElementById('#{question_issues[:id]}_comment_fill_in').value", :update => "#{question_issues[:id]}_comment", :complete => "edit_comment('#{question_issues[:id]}');"
+    |
+    =link_to_function "Cancel", "cancel_comment('#{question_issues[:id]}');"
+  %h3
+    =image_tag ("icons/note.gif")
+    Note to myself:
+  - flag = (question_issues[:note] !='' ? 1 : 0) 
+  .normalnoteview{:id => "#{question_issues[:id]}_note_view", :style => "display:#{opt[flag]}"}
+    %p.note{:id => "#{question_issues[:id]}_note"}
+      =question_issues[:note]
+    .control
+      =image_tag ("icons/note_delete.gif")
+      =link_to_remote "Delete", :url => {:action => 'destroy', :controller => :note, :question_issues_id => question_issues[:full_question].id}, :confirm => "Delete this note?", :update => "#{question_issues[:id]}_note", :complete => "cancel_note('#{question_issues[:id]}');"
+    .control
+      =image_tag ("icons/note_edit.gif")
+      =link_to_function "Edit", "edit_note('#{question_issues[:id]}');"
+  .new_note{:id => "#{question_issues[:id]}_note_new", :style => "display:#{opt[1 - flag]}"}
+    .control
+      =image_tag ("icons/note_add.gif")
+      =link_to_function "Add new note to myself", "new_note('#{question_issues[:id]}');"
+  .noteform{:id => "#{question_issues[:id]}_note_form", :style => "display:none"}
+    =text_area_tag "note", question_issues[:note], :id => "#{question_issues[:id]}_note_fill_in"
+    = link_to_remote "Save", :url => {:action => 'edit', :controller => :note, :question_issues_id => question_issues[:full_question].id}, :with => "'note='+document.getElementById('#{question_issues[:id]}_note_fill_in').value", :update => "#{question_issues[:id]}_note", :complete => "edit_note('#{question_issues[:id]}');"
+    |
+    =link_to_function "Cancel", "cancel_note('#{question_issues[:id]}');"
+-depString =''    
+-depString << "checkDependancy('#{question_issues[:id]}','#{question_issues[:id]}_issues', '1'); "
+%p.question{:id => "#{question_issues[:id]}", :onclick => "setFocus(\'more_#{question_issues[:id]}\',\'#{question_issues[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:block;"}
+  %label
+    =question_issues[:label]
+  %labelled
+    -case question_issues[:input_type]    
+      -when :text
+        = f.text_area question_issues[:id]
+      -when :string
+        = f.text_field question_issues[:id]
+      -when :select
+        = f.select "#{question_issues[:id]}", question_issues[:input_choices]  
+  
+-displayString = "none"
+-if @activity.send(question_issues[:id]).to_s == '1'
+  -displayString = "block"
+
+.more{:id => "more_" + "#{question_issues[:id]}_issues", :style => "display:none"}
+  %h3
+    =image_tag ("icons/help.gif")
+    Help:
+  -if question_issues[:help]!=''
+    %p.help
+      = @activity.hashes['issues_help_text'][@activity.fun_pol_number][@activity.exist_prop_number].to_s
+  -else
+    %p.nohelp Sorry - no help text for this question.
+  %h3
+    =image_tag ("icons/comment.gif")
+    Comment for report:
   -if question_issues[:comment]!=''
     %p.comment{:style => "display:block"}
       =question_issues[:comment]
@@ -53,32 +125,12 @@
     =link_to "Save", "#" 
     | 
     =link_to "Cancel", "#"
--depString =''    
--depString << "checkDependancy('#{question_issues[:id]}','#{question_issues[:id]}_issues', '1'); "
-%p.question{:id => "#{question_issues[:id]}", :onclick => "setFocus(\'more_#{question_issues[:id]}\',\'#{question_issues[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:block;"}
-  %label
-    =question_issues[:label]
-  %labelled
-    -case question_issues[:input_type]    
-      -when :text
-        = f.text_area question_issues[:id]
-      -when :string
-        = f.text_field question_issues[:id]
-      -when :select
-        = f.select "#{question_issues[:id]}", question_issues[:input_choices]  
   
--displayString = "none"
--if @activity.send(question_issues[:id]).to_s == '1'
-  -displayString = "block"
-
-.more{:id => "more_" + "#{question_issues[:id]}_issues", :style => "display:none"}
-  
-.question.sub{:id => "#{question_issues[:id]}_issues", :onclick => "setFocus(\'more_#{question_issues[:id]}_issues\',\'#{question_issues[:id]}_issues\');", :style => "display:#{displayString};"}
+%p.question.sub{:id => "#{question_issues[:id]}_issues", :onclick => "setFocus(\'more_#{question_issues[:id]}_issues\',\'#{question_issues[:id]}_issues\');", :style => "display:#{displayString};"}
   =image_tag("icons/arrow_turn_right.gif")
-  %label 
-    Please record the issues identified
-  %span.issues
-    %span#issues_list
+  %label Please record the issues identified
+  %span.issuesS
+    #issues_list
       = render :partial => 'issues/issue', :collection => @activity.issues_by(@section, @equality_strand)
       = link_to_function "Add a New Issue" do |page| 
         - page.insert_html :bottom, :issues_list, :partial => 'issues/issue', :object => Issue.new
