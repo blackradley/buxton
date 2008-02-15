@@ -148,11 +148,11 @@ questions:
     3:
       label:
         -
-          - 'Please record the nature and source of this information.'
-          - 'Please record the nature and source of this information.'
+          - 'Please record the nature and source of this evidence.'
+          - 'Please record the nature and source of this evidence.'
         -
-          - 'Please record the nature and source of this information.'
-          - 'Please record the nature and source of this information.'
+          - 'Please record the nature and source of this evidence.'
+          - 'Please record the nature and source of this evidence.'
       help:
         -
           - 'This question asks you to record the nature of the information you have used to make your assessment of the impact.<br/><br/>
@@ -181,10 +181,10 @@ questions:
     4:
       label:
         -
-          - 'If you do not have current information to support this assessment are there plans to collect such information?'
+          - 'If you do not have current evidence to support this assessment are there plans to collect such evidence?'
           - ''
         -
-          - 'If you do not have current information to support this assessment are there plans to collect such information?'
+          - 'If you do not have current evidence to support this assessment are there plans to collect such evidence?'
           - ''
       help:
         -
@@ -219,10 +219,10 @@ questions:
     6:
       label:
         -
-          - 'Have any complaints been recieved about the impact of the Function in meeting the particular needs of #{wordings[strand]}?'
+          - 'Have any complaints been received about the impact of the Function in meeting the particular needs of #{wordings[strand]}?'
           - ''
         -
-          - 'Have any complaints been recieved about the impact of the Policy in meeting the particular needs of #{wordings[strand]}?'
+          - 'Have any complaints been received about the impact of the Policy in meeting the particular needs of #{wordings[strand]}?'
           - ''
       help:
         -
@@ -288,17 +288,17 @@ questions:
       label:
         -
           - 'Does all the evidence from different sources about the impact of the Function on meeting the particular needs of #{wordings[strand]} present a consistent view?'
-          - ''
+          - 'Does all the evidence from different sources about the potential impact of the Function on meeting the particular needs of #{wordings[strand]} present a consistent view?'
         -
           - 'Does all the evidence from different sources about the impact of the Policy on meeting the particular needs of #{wordings[strand]} present a consistent view?'
-          - ''
+          - 'Does all the evidence from different sources about the potential impact of the Policy on meeting the particular needs of #{wordings[strand]} present a consistent view?'
       help:
         -
-          - 'This question asks you whether  all the information from the range of sources gives a consistent assessment of the impact of the Function.'
-          - ''
+          - 'This question asks you whether all the information from the range of sources gives a consistent assessment of the impact of the Function.'
+          - 'This question asks you whether all the information from the range of sources gives a consistent assessment of the potential impact of the Function.'
         -
-          - 'This question asks you whether  all the information from the range of sources gives a consistent assessment of the impact of the Policy.'
-          - ''
+          - 'This question asks you whether all the information from the range of sources gives a consistent assessment of the impact of the Policy.'
+          - 'This question asks you whether all the information from the range of sources gives a consistent assessment of the potential impact of the Policy.'
       type: select
       choices: 3
       weights: 3
@@ -314,17 +314,17 @@ questions:
       help:
         -
           - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact.  #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
-             Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
+             Differential impact can be positive or negative. Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
           - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
-             Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
+             Differential impact can be positive or negative. Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
         -
           - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
-             Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
+             Differential impact can be positive or negative. Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
           - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
-             Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
+             Differential impact can be positive or negative. Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
       type: select
       choices: 3
@@ -381,11 +381,11 @@ questions:
     2:
       label:
         -
-          - 'If no why is this so?'
-          - 'If no why is this so?'
+          - 'If no, why is this so?'
+          - 'If no, why is this so?'
         -
-          - 'If no why is this so?'
-          - 'If no why is this so?'
+          - 'If no, why is this so?'
+          - 'If no, why is this so?'
       help:
         -
           - 'This question asks why groups have not been consulted on the impact of the Function.<br/><br/>
@@ -420,11 +420,11 @@ questions:
     3:
       label:
         -
-          - 'If yes please list the way in which these views were obtained'
-          - 'If yes please list the way in which these views were obtained'
+          - 'If yes, please list the way in which these views were obtained'
+          - 'If yes, please list the way in which these views were obtained'
         -
-          - 'If yes please list the way in which these views were obtained'
-          - 'If yes please list the way in which these views were obtained'
+          - 'If yes, please list the way in which these views were obtained'
+          - 'If yes, please list the way in which these views were obtained'
       help:
         -
           - 'This question asks you to list the groups that have been consulted and the date of the consultation.<br/><br/>
@@ -444,7 +444,7 @@ questions:
           - 'Have you obtained the views of stakeholders on the impact of the Function on #{wordings[strand]}?'
           - 'Have you obtained the views of stakeholders on the potential impact of the Function on #{wordings[strand]}?'
         -
-          - 'Have you obtained the views of stakeholders on the impact of the Function on #{wordings[strand]}?'
+          - 'Have you obtained the views of stakeholders on the impact of the Policy on #{wordings[strand]}?'
           - 'Have you obtained the views of stakeholders on the potential impact of the Policy on #{wordings[strand]}?'
       help:
         -
@@ -488,11 +488,11 @@ questions:
     5:
       label:
         -
-          - 'If no why is this so?'
-          - 'If no why is this so?'
+          - 'If no, why is this so?'
+          - 'If no, why is this so?'
         -
-          - 'If no why is this so?'
-          - 'If no why is this so?'
+          - 'If no, why is this so?'
+          - 'If no, why is this so?'
       help:
         -
           - 'This question asks why stakeholders have not been consulted on the impact of the Function.<br/><br/>
@@ -527,11 +527,11 @@ questions:
     6:
       label:
         -
-          - 'If yes please list the way in which these views were obtained'
-          - 'If yes please list the way in which these views were obtained'
+          - 'If yes, please list the way in which these views were obtained'
+          - 'If yes, please list the way in which these views were obtained'
         -
-          - 'If yes please list the way in which these views were obtained'
-          - 'If yes please list the way in which these views were obtained'
+          - 'If yes, please list the way in which these views were obtained'
+          - 'If yes, please list the way in which these views were obtained'
       help:
         -
           - 'This question asks you to list the groups that have been consulted and the date of the consultation.<br/><br/>
