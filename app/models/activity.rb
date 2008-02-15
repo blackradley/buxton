@@ -416,8 +416,6 @@ class Activity < ActiveRecord::Base
           unless dependencies(name.to_s).nil? then
             dependencies(name.to_s).each do |dependent|
               re_eval = dependent[0].to_s.clone
-              puts re_eval
-              puts re_eval.class
               check_re_eval = check_question(re_eval)
               to_change.push([re_eval.clone, check_re_eval])
             end
@@ -526,7 +524,6 @@ class Activity < ActiveRecord::Base
     {'gender' => 'gender', 'race' => 'race', 'disability' => 'disability', 'faith' => 'faith', 'sex' => 'sexual_orientation', 'age' => 'age'}
   end
   def strand_relevant?(strand)
-    puts self.send("#{strand}_relevant".to_sym)
     self.send("#{strand}_relevant".to_sym)
   end
   def relevant?
@@ -763,7 +760,6 @@ class Activity < ActiveRecord::Base
   
   #This returns any dependencies of a question
     def dependent_questions(question)
-      puts question
       question = question.to_s
       yes_value = hashes['yes_value']
       no_value = hashes['no_value']
@@ -778,17 +774,14 @@ class Activity < ActiveRecord::Base
         strand = segments[1]
         question_name = segments[2]
         dependencies = query_hash[section.to_s][question_name.to_i]['dependent_questions']
-        puts dependencies.to_s
         dependencies.gsub!("yes_value", yes_value.to_s)
         dependencies.gsub!("no_value", no_value.to_s)
         dependencies = dependencies.split(" ")
         return nil if dependencies == []
         dependencies[0] = eval(%Q{<<"DELIM"\n} + dependencies[0] + "\nDELIM\n")
         dependencies[0].chop!
-        puts [dependencies]
         return [dependencies]
       else
-        puts 'nil loop'
         return nil
       end
     end
