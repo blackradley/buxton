@@ -406,7 +406,7 @@ class Activity < ActiveRecord::Base
           Activity.get_question_names(nil, strand_name.to_s.gsub("_relevant", "")).each do |question_name|
             next if question_name.to_s.include? "purpose"
             question = self.questions.find_or_initialize_by_name(question_name.to_s)
-            question.update_attributes(:needed => !value)
+            question.update_attributes(:needed => value)
           end
         end
       end       
