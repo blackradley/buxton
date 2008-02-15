@@ -34,6 +34,7 @@ BODY
 
 .content .workingArea, .messageArea{
 	margin:20px;
+	overflow: hidden;
 }
 .messageArea p{
 	color: green;
@@ -702,6 +703,7 @@ clear: left;
 	display:block;
 	margin-top: 5px;
 	margin-bottom: 0px;
+	padding-bottom:5px;
 	
 }
 #questions p.question.sub{
@@ -881,7 +883,14 @@ p #summarytable{
 	margin-top: 0px;
 	padding: 10px;
 	margin-left: 5px;
+	overflow: hidden;
 }
+html/**/>body.summary fieldset#approval{
+	
+	width: 230px;
+
+}
+
 
 .summary fieldset#approval legend img{
 
@@ -895,24 +904,41 @@ p #summarytable{
 }
 
 .summary fieldset#approval label{
-	width: 40px;
+	width: 45px;
 	border: 0px solid red;
 	margin-bottom:5px;
 	margin-right:5px;
+	float: left;
+	clear: left;
 }
 
 .summary fieldset#approval input{
 	width: auto;
+	float: left;
+	border: 0px solid #515f8d;
+}
+
+.summary fieldset#approval img{
+	float: left;
+	border: 0px solid #515f8d;
+}
+.summary fieldset#approval legend img{
 	float: none;
 	border: 0px solid #515f8d;
 }
 
 .summary fieldset#approval label#activity_approver_label{
 	width: 20px;		
+	clear: left;
+}
+.summary fieldset#approval label#activity_review_on_label{
+	width: 60px;		
 }
 
+
+
 .summary fieldset#approval #activity_approver{
-	width: 213px;
+	width: 198px;
 	border: 1px solid #979595;
 	margin: 0px;
 	margin-bottom: 10px;
@@ -929,6 +955,7 @@ p #summarytable{
 	background-color: #515f8d;
 	border: 2px solid #F90;
 	cursor: pointer;
+	margin-top: 10px;
 }
 
 .summary fieldset#approval .toggleHelp{
@@ -978,11 +1005,11 @@ p #summarytable{
 }
 
 .summary fieldset.section_summary_header legend.section_summary_toggles{
-	width: 90px;
+	width: 100px;
 } 
 
 .summary fieldset.section_summary_show legend.section_summary_toggles{
-	width: 50px;
+	width: 60px;
 }
 
 .summary fieldset.section_summary_header legend.section_summary_toggles img, .summary fieldset.section_summary_show legend.section_summary_toggles img{
