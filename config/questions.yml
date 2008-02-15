@@ -302,7 +302,7 @@ questions:
       type: select
       choices: 3
       weights: 3
-      dependent_questions: 'impact_#{strand}_6 yes_value'
+      dependent_questions: ''
     9:
       label:
         -
