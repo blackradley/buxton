@@ -909,10 +909,10 @@ overall_questions:
       label:
         -
           - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
-          - 'Have you read the <a href="corprateequalityscheme">Corporate Equality Scheme</a>?'
+          - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
         -
-          - 'Have you read the <a href="corprateequalityscheme">Corporate Equality Scheme</a>?'
-          - 'Have you read the <a href="corprateequalityscheme">Corporate Equality Scheme</a>?'
+          - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
+          - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
       help:
         -
           - ''
