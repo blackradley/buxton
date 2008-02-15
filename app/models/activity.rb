@@ -49,7 +49,7 @@ class Activity < ActiveRecord::Base
   after_update :save_issues
   
   def review_on_string
-    self.review_on.strftime('%B %e, %Y')
+    self.review_on.strftime('%B %e, %Y') unless self.review_on.nil?
   end
 
   def activity_type
