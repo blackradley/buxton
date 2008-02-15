@@ -694,7 +694,7 @@ clear: left;
 	position:relative;
 	clear: left;
 	float:left;
-	width: 400px;
+	width: 410px;
 	text-align: right;
 	margin-left: 0px;
 	margin-right: 0px;
@@ -706,8 +706,12 @@ clear: left;
 }
 #questions p.question.sub{
 	margin-left: 20px;
-	width: 300px;
+	width: 370px;
 }
+html/**/>body #questions p.question.sub{
+	width: 390px;
+}
+
 
 #questions p.question.sub img{
 	position:absolute;
@@ -719,17 +723,21 @@ clear: left;
 #questions .question.sub{
 	margin-left: 20px;
 	width: 300px;
+	float:left;
+	clear: left;
+	overflow: hidden;
+	margin-top: 5px;
 }
 
 #questions  .question.sub img{
 	position:absolute;
-	top: 0px;
-	left: 0px;
+	top: 3px;
+	left: 5px;
 }
 
-#questions .question label{
-margin:5px 10px;
-width: 380px;
+#questions .question.sub label{
+margin:5px 30px;
+width: 340px;
 	
 }
 
@@ -768,21 +776,28 @@ padding-left: 20px;
 }
 
 #questions #issues_list{
-	border: 1px solid red;
+	/*border: 1px solid red;*/
 }
 
 #questions .issue{
 	clear: left;
 	float:left;
-	margin-left: 0px;
+	margin-left: 5px;
 	margin-bottom: 10px;
-	border: 1px solid red;
+	/*border: 1px solid red;*/
 	width: 300px;
+}
+html/**/>body #questions .issue{
+	margin-left: 20px;
 }
 #questions #issues_list a{
 	margin-left: 10px;
-	clear: left;
 	float:left;
+}
+#questions .question.sub a{
+	margin-left: 30px;
+	float:left;
+	margin-bottom:10px;
 }
 
 #questions #issues_list a img{
