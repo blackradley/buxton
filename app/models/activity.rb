@@ -47,10 +47,6 @@ class Activity < ActiveRecord::Base
   before_save :set_approved
 
   after_update :save_issues
-  
-  def review_on_string
-    self.review_on.strftime('%B %e, %Y')
-  end
 
   def activity_type
     if self.started then
@@ -295,9 +291,9 @@ class Activity < ActiveRecord::Base
       questions.each do |question|
         strand = Activity.question_separation(question)[1]
         if section
-          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?) && !self.send("#{strand}_irrelevant".to_sym)
+          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?) && self.send("#{strand}_relevant".to_sym)
         else
-          lookups_required = (self.send(question) == 2) && !self.send("#{strand}_irrelevant".to_sym)
+          lookups_required = (self.send(question) == 2) && !self.send("#{strand}_relevant".to_sym)
         end
         if lookups_required then
           issue_strand = self.issues.clone
@@ -339,10 +335,10 @@ class Activity < ActiveRecord::Base
       end
     end
   end
-  def strand_irrelevancies
+  def strand_relevancies
     list = {}
     hashes['wordings'].keys.each do |strand|
-      list["#{strand}_irrelevant".to_sym] = send("#{strand}_irrelevant".to_sym)
+      list["#{strand}_relevant".to_sym] = send("#{strand}_relevant".to_sym)
     end
     list
   end
@@ -401,9 +397,9 @@ class Activity < ActiveRecord::Base
         end
       end
     else
-      strand_irrelevancies.each do |strand_name, value|
+      strand_relevancies.each do |strand_name, value|
         if @activity_clone.send(strand_name) != value then
-          Activity.get_question_names(nil, strand_name.to_s.gsub("_irrelevant", "")).each do |question_name|
+          Activity.get_question_names(nil, strand_name.to_s.gsub("_relevant", "")).each do |question_name|
             next if question_name.to_s.include? "purpose"
             question = self.questions.find_or_initialize_by_name(question_name.to_s)
             question.update_attributes(:needed => !value)
@@ -530,8 +526,8 @@ class Activity < ActiveRecord::Base
     {'gender' => 'gender', 'race' => 'race', 'disability' => 'disability', 'faith' => 'faith', 'sex' => 'sexual_orientation', 'age' => 'age'}
   end
   def strand_relevant?(strand)
-    puts !self.send("#{strand}_irrelevant".to_sym)
-    !self.send("#{strand}_irrelevant".to_sym)
+    puts self.send("#{strand}_relevant".to_sym)
+    self.send("#{strand}_relevant".to_sym)
   end
   def relevant?
     strands.each do |strand|
@@ -553,7 +549,7 @@ class Activity < ActiveRecord::Base
           return '-'
       end
     else
-      return '-' if self.send("#{strand}_irrelevant")
+      return '-' unless self.send("#{strand}_relevant")
       good_impact = self.send("purpose_#{strand.to_s}_3".to_sym).to_i
       bad_impact = self.send("purpose_#{strand.to_s}_4".to_sym).to_i
       good_impact = bad_impact if bad_impact > good_impact
@@ -569,7 +565,7 @@ class Activity < ActiveRecord::Base
     end
   end
   def strands
-    strand_list = hashes['wordings'].keys.map{|strand| strand unless self.send("#{strand}_irrelevant")}
+    strand_list = hashes['wordings'].keys.map{|strand| strand if self.send("#{strand}_relevant")}
     strand_list.compact
   end
   def priority_ranking(strand = nil)
@@ -584,7 +580,7 @@ class Activity < ActiveRecord::Base
       strand_total = (strand_total.to_f/strands.size)**(1.to_f/3)
       return (strand_total + 0.5).to_i
     else
-      return '-' if self.send("#{strand}_irrelevant")
+      return '-' if self.send("#{strand}_relevant")
       ranking = self.send("#{strand}_percentage_importance")
       ranking_boundaries.each{|border| rank -= 1 unless ranking > border}
       return rank
@@ -601,12 +597,12 @@ class Activity < ActiveRecord::Base
       :purpose_completed, :impact_completed, :consultation_completed, :additional_work_completed, :action_planning_completed,
       :overall_completed_issues, :overall_started, :percentage_importance, :name, :approved, :gender_percentage_importance,
       :race_percentage_importance, :disability_percentage_importance, :sexual_orientation_percentage_importance, :faith_percentage_importance, :age_percentage_importance,
-      :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on, :review_on, :gender_irrelevant, :faith_irrelevant,
-      :sexual_orientation_irrelevant, :age_irrelevant, :disability_irrelevant, :race_irrelevant]
+      :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on, :gender_relevant, :faith_relevant,
+      :sexual_orientation_relevant, :age_relevant, :disability_relevant, :race_relevant, :review_on]
 	  Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
 	  unnecessary_columns.each{|column| questions.delete(column)}
-	  questions.delete_if{ |question| !(question.to_s.include?(section.to_s))} if section
-	  questions.delete_if{ |question| !(question.to_s.include?(strand.to_s))} if strand
+	  questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section
+	  questions.delete_if{ |question| !(question.to_s.include?(strand.to_s))}if strand
 	  questions.delete_if{ |question| !(question.to_s.include?(number.to_s))} if number
 	  return questions
   end
@@ -736,10 +732,10 @@ class Activity < ActiveRecord::Base
     choices = query_hash[section][question]['choices']
     help = query_hash[section][question]['help'][self.fun_pol_number][self.exist_prop_number].to_s
     weights = query_hash[section][question]['weights']
-    label = eval(%Q{<<"DELIM"\n} + label + "\nDELIM\n")
-    help = eval(%Q{<<"DELIM"\n} + help + "\nDELIM\n")
-    label.chop!
-    help.chop!
+    label = eval(%Q{<<"DELIM"\n} + label.to_s + "\nDELIM\n") rescue nil
+    help = eval(%Q{<<"DELIM"\n} + help.to_s + "\nDELIM\n") rescue nil
+    label.chop! unless label.nil?
+    help.chop! unless help.nil?
     return [label, type, choices, help, weights]
   end
 
