@@ -26,17 +26,17 @@ questions:
           - 'If the Policy is operating effectively will it have the potential to affect #{wordings[strand]} differently?'
       help:
         -
-          - 'The Help link above gives the rationale for this group of questions.<br/><br/> This question asks you to identify any positive
+          - 'This question asks you to identify any positive
              differential impact that the Function has on #{wordings[strand]}.<br/><br/>  #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed well.'
-          - 'The Help link above gives the rationale for this group of questions.<br/><br/> This question asks you to identify any positive
+          - 'This question asks you to identify any positive
              differential impact that the Function has on #{wordings[strand]}.<br/><br/>  #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed well.'
         -
-          - 'The Help link above gives the rationale for this group of questions.<br/><br/> This question asks you to identify any positive
+          - 'This question asks you to identify any positive
              differential impact that the Policy has on #{wordings[strand]}.<br/><br/>  #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed well.'
-          - 'The Help link above gives the rationale for this group of questions.<br/><br/> This question asks you to identify any positive
+          - 'This question asks you to identify any positive
              differential impact that the Policy has on #{wordings[strand]}.<br/><br/>  #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the Policy could affect #{wordings[strand]} differently if it were performed well.'
       type: select
@@ -53,17 +53,17 @@ questions:
           - 'If the Policy is not operating effectively will it have the potential to affect #{wordings[strand]} differently?'
       help:
         -
-          - 'The Help link above gives the rationale for this group of questions.<br/><br/> This question asks you to identify any negative
+          - 'This question asks you to identify any negative
              differential impact that the Function has on #{wordings[strand]}.<br/><br/>  #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed badly.'
-          - 'The Help link above gives the rationale for this group of questions.<br/><br/>  This question asks you to identify any negative
+          - ' This question asks you to identify any negative
              differential impact that the Function has on #{wordings[strand]}.<br/><br/>   #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed badly.'
         -
-          - 'The Help link above gives the rationale for this group of questions.<br/><br/>  This question asks you to identify any negative
+          - ' This question asks you to identify any negative
              differential impact that the Policy has on #{wordings[strand]}.<br/><br/>   #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the Policy could affect #{wordings[strand]} differently if it were performed badly.'
-          - 'The Help link above gives the rationale for this group of questions.<br/><br/>  This question asks you to identify any negative
+          - ' This question asks you to identify any negative
              differential impact that the Policy has on #{wordings[strand]}.<br/><br/>   #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the Policy could affect #{wordings[strand]} differently if it were performed badly.'
       type: select
