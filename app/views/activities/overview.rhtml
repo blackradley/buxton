@@ -37,7 +37,7 @@ the level of completion of each section for each equality strand.</p>
 		  </td>
 		  <td>
 		    <% if @activity.strand_relevant?(strand) then %>
-			    <%= completed_tag(@activity, :impact, strand.to_sym) -%>
+			    <%= completed_tag(@activity, :consultation, strand.to_sym) -%>
 			    <%= link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => strand }, :title =>"Edit Impact" -%>
 			  <% else %>
 			    <p> N/A </p>
@@ -45,7 +45,7 @@ the level of completion of each section for each equality strand.</p>
 		  </td>
 		  <td>
 		    <% if @activity.strand_relevant?(strand) then %>
-			    <%= completed_tag(@activity, :impact, strand.to_sym) -%>
+			    <%= completed_tag(@activity, :additional_work, strand.to_sym) -%>
 			    <%= link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => strand }, :title =>"Edit Impact" -%>
 			  <% else %>
 			    <p> N/A </p>
@@ -53,7 +53,7 @@ the level of completion of each section for each equality strand.</p>
 		  </td>
 		  <td>
 		    <% if @activity.strand_relevant?(strand) then %>
-			    <%= completed_tag(@activity, :impact, strand.to_sym) -%>
+			    <%= completed_tag(@activity, :action_planning, strand.to_sym) -%>
 			    <%= link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => strand }, :title =>"Edit Impact" -%>
 			  <% else %>
 			    <p> N/A </p>
