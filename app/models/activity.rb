@@ -47,6 +47,10 @@ class Activity < ActiveRecord::Base
   before_save :set_approved
 
   after_update :save_issues
+  
+  def review_on_string
+    self.review_on.strftime('%B %e, %Y')
+  end
 
   def activity_type
     if self.started then
