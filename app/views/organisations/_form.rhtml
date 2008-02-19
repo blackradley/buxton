@@ -16,6 +16,8 @@ function addListItem() {
 <fieldset class="organisation_customisation">
 	<legend>Customisation</legend>
 	<p><label for="organisation_style">Style:</label><div class="labelled"><%= text_field 'organisation', 'style' -%></div></p>
+	<p><label for="organisation_ces_link">Link to CES document:</label><div class="labelled"><%= text_field 'organisation', 'ces_link' -%></div></p>
+	<p class="help_example">e.g. http://organisation.org/CES.pdf</p>	
 	<p><label for="organisation_directorate_term">Localised term for 'Directorate':</label><div class="labelled"><%= text_field 'organisation', 'directorate_term' -%></div></p>
 	<p><label for="organisation_strategies_text" class="long">Text to be used when asking about an Activities strategies:</label><br />
   	<div class="labelled long">

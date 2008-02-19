@@ -57,7 +57,7 @@ class Organisation < ActiveRecord::Base
   def hashes
     @@Hashes
   end
-
+  
   def progress_table
     table = []
     section_names = self.hashes['section_names']
@@ -68,9 +68,9 @@ class Organisation < ActiveRecord::Base
       table << [section, section_data.to_a]
     end
     return table
-  end
+  end  
 
-  def activity_summary_table
+  def results_table
     results_table = { 1 => { :high => 0, :medium => 0, :low => 0 },
                       2 => { :high => 0, :medium => 0, :low => 0 },
                       3 => { :high => 0, :medium => 0, :low => 0 },
@@ -118,9 +118,9 @@ class Organisation < ActiveRecord::Base
     end
     data << self.activities.length
     data << self.progress_table
-    summary_table = self.activity_summary_table.to_a
-    summary_table.sort!
-    data << summary_table
+    results_table = self.activity_results_table.to_a
+    results_table.sort!
+    data << results_table
     data << self.directorates
     data << full_report
   end
