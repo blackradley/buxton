@@ -214,9 +214,7 @@ class Activity < ActiveRecord::Base
   #that has not been answered. Hence, it is at its slowest where there is a single unanswered question in each section. In worst case it has to run
   #through every question bar n where n is the number of activitys, making it a O(n) algorithm.
   def completed(section = nil, strand = nil)
-    #return false unless started(section, strand)#(check_question(:existing_proposed) && check_question(:function_policy))
     if section || strand then
-      return self.send("#{section.to_s}_completed".to_sym) unless strand || (section == :action_planning)
       unless section == :action_planning then
         # BEGIN NEW IMPLEMENTATION
           # Check on issues first, if appropriate
