@@ -4,11 +4,15 @@
 
 class ActivityPDFGenerator
 
-  def initialize(data)
-     a = Time.now
+  def initialize(activity)
     @pdf = PDF::Writer.new
-    data[11].each do |operation|
-      @pdf = self.send("build_#{operation.to_s}", @pdf, data)
+    a = Time.now
+    methods_to_call =  [:page_numbers, :unapproved_logo_on_first_page, :footer, :header, :body, :rankings,
+     :purpose, :impact, :consultation, :additional_work, :equality_objectives, :review_date, :action_plan]
+    methods_to_call.each do |operation|
+      puts operation
+      @pdf = self.send("build_#{operation.to_s}", @pdf, activity)
+      puts Time.now - a
     end
     @pdf.stop_page_numbering(true)
   end
@@ -16,141 +20,338 @@ class ActivityPDFGenerator
   def pdf
     @pdf
   end
-
-  def build_page_numbers(pdf, data)
-      pdf.set_proxy(nil)
-      pdf.start_page_numbering(pdf.absolute_left_margin,
-        pdf.absolute_bottom_margin - (pdf.font_height(12) * 1.01) - 5,
-        12,
-        :left)
-  return pdf
+  def build_page_numbers(pdf, activity)
+    pdf.start_page_numbering(pdf.absolute_left_margin,
+      pdf.absolute_bottom_margin - (pdf.font_height(12) * 1.01) - 5,
+      12,
+      :left)
+    pdf
   end
-  def build_unapproved_logo_on_first_page(pdf, data)
-      pdf.unapproved_status = data[1]
+  def build_unapproved_logo_on_first_page(pdf, activity)
+      pdf.unapproved_status = case activity.approved
+        when 0
+         "UNAPPROVED"
+        when 1
+         ""
+      end
       #The page numbers are started at the top, so that they will always hit the first page, but they appear at the bottom
       #This creates the grey Unapproved background.
       colour = 'Gainsboro'
       pdf.save_state
       pdf.fill_color Color::RGB.const_get(colour)
-      pdf.add_text(pdf.margin_x_middle-150, pdf.margin_y_middle-150, data[1].to_s, 72, 45)
+      pdf.add_text(pdf.margin_x_middle-150, pdf.margin_y_middle-150, pdf.unapproved_status, 72, 45)
       pdf.restore_state
     return pdf
   end
-  def build_header(pdf, data)
+  def build_header(pdf, activity)
       pdf.fill_color Color::RGB.const_get('Black')
       pdf.image( "#{RAILS_ROOT}/public/images/pdf_logo.png", :justification => :center, :resize => 0.5)
-      pdf.text "<b>#{data[3]}</b>", :justification => :center, :font_size => 18
+      pdf.text "<b>#{activity.organisation.name}</b>", :justification => :center, :font_size => 18
       pdf.text "Impact Equality#{153.chr} Activity Report", :justification => :center, :font_size => 12
       pdf.text "", :justification => :center, :font_size => 10 #Serves as a new line character. Is this more readable than moving the cursor manually?
       pdf.text " "
     return pdf
   end
-  def build_body(pdf, data)
-      pdf.save_state
-      pdf.text "<b>#{data[12]}</b>: #{data[2].to_s}"
-      pdf.text " "
-      pdf.text "<b>Activity</b>", :justification => :left, :font_size => 12
-      pdf.y -= 7
-      pdf.stroke_color! Color::RGB::Black
-      pdf.stroke_style! PDF::Writer::StrokeStyle.new(1, :dash => { :pattern => [2, 1], :phase => 2 })
-      left_margin = pdf.absolute_left_margin
-      right_margin = pdf.absolute_right_margin
-      pdf.line(left_margin, pdf.y, right_margin, pdf.y).stroke
-      pdf.restore_state
-      table = []
-      table << {'description' =>"<b>Name</b>:", 'data' => data[0].to_s}
-      table << {'description' =>"<b>Type</b>:", 'data' => data[4].to_s}
-      table << {'description' =>"<b>Managers email</b>:", 'data' => data[5].to_s}
-      table << {'description' =>"<b>Approver</b>:", 'data' => data[6].to_s} if data[1].to_s == ""
-      table << {'description' =>"<b>Approved on:</b>", 'data' => data[8].to_s} if data[1].to_s == ""
-      table << {'description' =>"<b>Activity Target Outcome</b>", 'data' =>  ""}
-      tab = PDF::SimpleTable.new()
-      tab.data = table
-      tab.column_order = [ "description", "data" ]
-      tab = table_formatter(tab, :formatting)
-      tab.render_on(pdf)
-      pdf.text data[7].to_s, :justification => :left, :font_size => 10
-      pdf.text " "
-    return pdf
- end
-
-  def build_statistics(pdf, data)
-      if data[9].completed
-        stat_fun = data[9]
-        priority_table = [{}]
-        impact_table = [{}]
-        data[9].hashes['wordings'].keys.each do |strand|
-          priority_table[0][strand.titleize] = stat_fun.priority_ranking(strand.to_sym)
-          impact_table[0][strand.titleize] = stat_fun.impact_wording(strand.to_sym).to_s.titleize
-        end
-        pdf.text "<b>Activity Relevant?</b>: #{if stat_fun.relevant? then "Yes" else "No" end}"
-        pdf.text " "
-        pdf.text "<b>Priority</b>: (1-5)"
-        pdf.text " "
-        pdf.stroke_color! Color::RGB::Black
-        pdf.stroke_style! pdf.class::StrokeStyle::DEFAULT
-        statistics_table = PDF::SimpleTable.new()
-        statistics_table.column_order = ['Gender', 'Race', 'Disability', 'Faith', 'Sexual Orientation', 'Age']
-        statistics_table.data = priority_table
-        statistics_table = table_formatter(statistics_table, :standard)
-        statistics_table.render_on(pdf)
-        pdf.text "(Priority is rated 1 to 5, with 5 representing the highest priority level)", :justification => :center
-        pdf.text " ", :justification => :left
-        pdf.text "<b>Impact</b>: (High, Medium, Low)"
-        pdf.text " "
-        pdf.stroke_color! Color::RGB::Black
-        pdf.stroke_style! pdf.class::StrokeStyle::DEFAULT
-        statistics_impact_table = PDF::SimpleTable.new()
-        statistics_impact_table.column_order = ['Gender', 'Race', 'Disability', 'Faith', 'Sexual Orientation', 'Age']
-        statistics_impact_table.data = impact_table
-        statistics_impact_table= table_formatter(statistics_impact_table, :standard)
-        statistics_impact_table.render_on(pdf)
-	      pdf.text " "
-      else
-        pdf.text " "
-        pdf.text "Project details have not yet calculated as the Activity has not been completed."
-        pdf.text " "
-      end
-    return pdf
-  end
-
-  def build_issues(pdf, data)
-    if data[9].issues.size > 0 then
-      pdf.text "<b>Issues</b>", :justification => :left, :font_size => 12
-      pdf.y -= 7
-      pdf.stroke_color! Color::RGB::Black
-      pdf.stroke_style! PDF::Writer::StrokeStyle.new(1, :dash => { :pattern => [2, 1], :phase => 2 })
-      left_margin = pdf.absolute_left_margin
-      right_margin = pdf.absolute_right_margin
-      pdf.line(left_margin, pdf.y, right_margin, pdf.y).stroke
-      pdf.stroke_color! Color::RGB::Black
-      pdf.stroke_style! PDF::Writer::StrokeStyle::DEFAULT
-      issues_hash = {}
-      issues = data[14]
-      issues.each do |title, contents|
-        next if contents == []
-	pdf = construct_issue_table(pdf, title, contents, data[13])
-      end
-    else
-      pdf.text "There are no issues for this activity"
-    end
-    return pdf
-  end
-
-  def construct_issue_table(pdf, title, contents, column_order)
-    issue_table = PDF::SimpleTable.new()
-    issue_table.column_order = column_order
-    issue_table.data = contents
-    pdf.start_new_page if pdf.y < 50 #Hack to prevent 8 page table bug
-    pdf.text "<b>#{title}</b>", :justification => :left, :font_size => 10
-    pdf.y -= 5
-    issue_table = table_formatter(issue_table, :standard)
-    pdf.start_new_page if pdf.y < 50 #Hack to prevent 8 page table bug
-    issue_table.render_on(pdf)
-    pdf.y -= 5
+  def build_body(pdf, activity)
+    table = []
+    table << ['<b>Activity</b>', activity.name.to_s]
+    table << ["<b>#{activity.organisation.directorate_string}</b>", activity.directorate.name.to_s]
+    table << ["<b>Type</b>", "#{activity.existing_proposed_name.titleize} #{activity.function_policy?.titleize}"]
+    table << ["<b>Activity Manager's Email</b>", activity.activity_manager.email]
+    table << ["<b>Date Approved</b>", activity.approved_on.to_s] if activity.approved > 0
+    table << ["<b>Approved By</b>", activity.approver.to_s] if activity.approved > 0
+    pdf = generate_table(pdf, table, {:borders => [150, 540]})
     pdf
   end
-  def build_footer(pdf, data)
+  def build_rankings(pdf, activity)
+    pdf.text(" ")
+    pdf.text("<c:uline><b>1.  Rankings</b></c:uline>")
+    pdf.text(" ")
+    pdf.text("<b>1.1 Priority</b>")
+    pdf.text(" ")
+    length = pdf.absolute_right_margin - pdf.absolute_left_margin
+    border_gap = length/(activity.strands.size + 1)
+    borders = [border_gap]
+    ranking_table_data = []
+    ranking_table_data[0] = ["<b>Scores(1 to 5)</b>"]
+    ranking_table_data[1] = ['Scores - 1 lowest to 5 highest']
+    impact_table_data = []
+    impact_table_data[0] = ["<b>Impact</b>"]
+    impact_table_data[1] = ['']
+    activity.strands.each do |strand|
+      borders << border_gap + borders.last
+      ranking_table_data[0] << "<b>#{strand.titleize}</b>"
+      ranking_table_data[1] << activity.priority_ranking(strand)
+      impact_table_data[0] << "<b>#{strand.titleize}</b>"
+      impact_table_data[1] << activity.impact_wording(strand).to_s.titleize      
+    end
+    pdf = generate_table(pdf, ranking_table_data, :borders => borders)
+    pdf.text(" ")
+    pdf.text("<b>1.2 Impact</b>")
+    pdf.text(" ")
+    pdf = generate_table(pdf, impact_table_data, :borders => borders)      
+    pdf
+  end
+  def build_purpose(pdf, activity)
+    pdf.text(" ")
+    pdf.text("<c:uline><b>2.  Purpose </b></c:uline>")
+    strategies = [[],[],[]]
+    activity.activity_strategies.each do |activity_strategy|
+      case activity_strategy.strategy_response
+        when 0
+          strategies[0] << activity_strategy.strategy.name
+        when 1
+          strategies[1] << activity_strategy.strategy.name
+        when 2
+          strategies[2] << activity_strategy.strategy.name
+      end
+    end
+    unless strategies[1].size == 0 then
+      pdf.text("The Activity assists in delivering the following strategic objectives:")
+      strategies[1].each do |strategy|
+        pdf.text("<C:bullet/> #{strategy}", :left => 20)
+      end
+    else
+      pdf.text("The Activity does not assist in delivering any strategic objectives.")
+    end
+    pdf.text(" ")
+    impact_quns = []
+    (5..9).each do |i|
+      impact_quns << "<C:bullet/>#{activity.question_wording_lookup(:purpose, :overall, i)[0].to_s}" if activity.send("purpose_overall_#{i}") == 1
+    end
+    if impact_quns.size > 0 then 
+      pdf.text("The Activity has an impact on the following groups: ")
+      impact_quns.each do |question|
+        pdf.text(question, :left => 20)
+      end
+    else
+      pdf.text("The Activity has no impact on any relevant groups.")
+    end
+    pdf.text(" ")
+    good_impact_questions = Activity.get_question_names('purpose', nil, 3).map{|question| [question, activity.send(question)]}
+    good_impact_questions.reject!{|question, response| response <= 1}
+    unless good_impact_questions.size == 0 then
+      pdf.text("The Activity has a potential positive differential impact on the following equality groups:")
+      good_impact_questions.each do |question, response|
+        strand = Activity.question_separation(question)[1]
+        pdf.text("<C:bullet/>#{strand.to_s.titleize}", :left => 20)
+      end
+    else
+      pdf.text("The Activity has a potential positive differential impact on no equality groups.")
+    end
+    pdf.text(" ")
+    bad_impact_questions = Activity.get_question_names('purpose', nil, 4).map{|question| [question, activity.send(question)]}
+    bad_impact_questions.reject!{|question, response| response <= 1}
+    unless bad_impact_questions.size == 0 then
+      pdf.text("The Activity has a potential negative differential impact on the following equality groups:")
+      bad_impact_questions.each do |question, response|
+        strand = Activity.question_separation(question)[1]
+        pdf.text("<C:bullet/>#{strand.to_s.titleize}", :left => 20)
+      end
+    else
+      pdf.text("The Activity has a potential negative differential impact on no equality groups.")
+    end
+    pdf.text(" ")
+    pdf
+  end
+
+  def build_impact(pdf, activity)
+    pdf.text("<c:uline><b>3.  Purpose </b></c:uline>")
+    pdf.text(" ")
+    collected_information = Activity.get_question_names('impact', nil, 3).map{|question| [question, activity.send(question)]}
+    collected_information.reject! do |question, response|
+      not_needed = response.strip.size == 0
+      not_needed = not_needed || activity.send(question.to_s.gsub('3','2').to_sym) != 1 
+      not_needed
+    end
+    planned_information = Activity.get_question_names('impact', nil, 5).map{|question| [question, activity.send(question)]}
+    planned_information.reject! do |question, response|
+      not_needed = response.strip.size == 0
+      not_needed = not_needed || activity.send(question.to_s.gsub('5','4').to_sym) != 1 
+      not_needed
+    end
+    width = (pdf.absolute_right_margin - pdf.absolute_left_margin)
+    border_gap = width/(4)
+    borders = [border_gap]
+    3.times do |i|
+      borders << borders.last.to_i + border_gap
+    end  
+    table = []
+    table << ["<b>Equality Strand</b>", "<b>Impact</b>", "<b>Information to support</b>", "<b>Planned Information to support</b>"]
+    activity.strands.each do |strand|
+      row = []
+      row << strand.titleize
+      row << activity.impact_wording(strand).to_s.titleize
+      row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
+      row << planned_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
+      table << row
+    end
+    pdf = generate_table(pdf, table, :borders => borders)
+    pdf.text(" ")
+    pdf
+  end
+  
+  def build_consultation(pdf, activity)
+    pdf.text("<c:uline><b>4.  Consultation </b></c:uline>")
+    pdf.text(" ")
+    pdf.text("<b>4.1 Groups</b>")
+    pdf.text(" ")
+    pdf.text("The table below shows the equality strands for consultations with representative groups have taken place, the details of those consultations and any planned consultations.")
+    pdf.text(" ")
+    borders = [150, 300, 540]
+    collected_information = Activity.get_question_names('consultation', nil, 3).map{|question| [question, activity.send(question)]}
+    collected_information.reject! do |question, response|
+      not_needed = response.strip.size == 0
+      not_needed = not_needed || activity.send(question.to_s.gsub('3','1').to_sym) != 1 
+      not_needed
+    end
+    table = []
+    table << ["<b>Equality Strand</b>", "<b>Consulted</b>", "<b>Consultation Details</b>"]
+    activity.strands.each do |strand|
+      row = []
+      row << strand.titleize
+      row << activity.hashes['choices'][3][activity.send("consultation_#{strand}_1")].to_s
+      row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
+      table << row
+    end     
+    pdf = generate_table(pdf, table, :borders => borders)
+    pdf.text(" ")
+    pdf.text("<b>4.2 Stakeholders</b>")
+    pdf.text(" ")
+    pdf.text("The table below shows the equality strands for which stakeholders have been consulted, the details of those consultations and any planned consultations..")
+    pdf.text(" ")
+    collected_information = Activity.get_question_names('consultation', nil, 6).map{|question| [question, activity.send(question)]}
+    collected_information.reject! do |question, response|
+      not_needed = response.strip.size == 0
+      not_needed = not_needed || activity.send(question.to_s.gsub('6','4').to_sym) != 1 
+      not_needed
+    end
+    table = []
+    table << ["<b>Equality Strand</b>", "<b>Consulted</b>", "<b>Consultation Details</b>"]
+    activity.strands.each do |strand|
+      row = []
+      row << strand.titleize
+      row << activity.hashes['choices'][3][activity.send("consultation_#{strand}_4")].to_s
+      row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
+      table << row
+    end     
+    pdf = generate_table(pdf, table, :borders => borders)
+    pdf.text(" ")
+    pdf   
+  end
+  
+  def build_additional_work(pdf, activity)
+    pdf.text("<c:uline><b>5.  Additional Work</b></c:uline>")
+    pdf.text(" ")
+    width = (pdf.absolute_right_margin - pdf.absolute_left_margin)
+    borders = [150, 300, 540]
+    collected_information = Activity.get_question_names('additional_work', nil, 1).map{|question| [question, activity.send(question)]}
+    collected_information.reject! do |question, response|
+      not_needed = response.to_s.strip.size == 0
+      not_needed = not_needed || activity.send(question.to_s.gsub('2','1').to_sym) != 1 
+      not_needed
+    end
+    table = []
+    table << ["<b>Equality Strand</b>", "<b>Additional Work Required</b>", "<b>Nature of Work required</b>"]
+    activity.strands.each do |strand|
+      row = []
+      row << strand.titleize
+      row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_1")].to_s
+      row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
+      table << row
+    end     
+    pdf = generate_table(pdf, table, :borders => borders)
+    pdf.text(" ") 
+    pdf 
+  end
+  
+  def build_equality_objectives(pdf, activity)
+    pdf.text("<c:uline><b>6. Equality Objectives </b></c:uline>")
+    pdf.text(" ")
+    pdf.text("The assessment has identified that the Activity has a role in the following Equality Objectives")
+    pdf.text(" ")
+    width = (pdf.absolute_right_margin - pdf.absolute_left_margin)
+    border_gap = width/(4)
+    borders = [border_gap]
+    3.times do |i|
+      borders << borders.last.to_i + border_gap
+    end  
+    table = []
+    table << ["<b>Equality Strand</b>", "<b>Eliminating discrimination & harassment</b>", "<b>Promoting equality of opportunity</b>", "<b>Promote good relations between different groups</b>"]
+    activity.strands.each do |strand|
+      row = []
+      row << strand.titleize
+      row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_4")].to_s
+      row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_5")].to_s
+      if strand.to_s == 'gender' then
+        row << 'N/A'
+      else
+        row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_6")].to_s
+      end
+      table << row
+    end     
+    pdf = generate_table(pdf, table, :borders => borders)
+    pdf.text(" ")
+    pdf.text("The assessment has identified that the Activity has a role in the following Equality Objectives that are specific to the Disability Equality Strand:")
+    pdf.text(" ")
+    table = []
+    table << ["<b>Equality strand</b>", "<b>Take account of disabilities even if it means treating more favourably</b>", "<b>Promote positive attitudes to disabled people</b>", "<b>Encourage participation by disabled people</b>"]
+    row = []
+    row << 'Disability'
+    row << activity.hashes['choices'][3][activity.send("additional_work_disability_7")].to_s  
+    row << activity.hashes['choices'][3][activity.send("additional_work_disability_8")].to_s  
+    row << activity.hashes['choices'][3][activity.send("additional_work_disability_9")].to_s  
+    table << row
+    pdf = generate_table(pdf, table, :borders => borders)
+    pdf.text(" ")
+    pdf
+  end
+  def build_review_date(pdf, activity)
+    pdf.text("<c:uline><b>7.  Review Date</b></c:uline>")
+    pdf.text(" ")
+    unless activity.review_on.to_s.strip.size == 0 then
+      pdf.text(activity.review_on.to_s)
+    else
+      pdf.text("No review date has been decided on yet.")
+    end
+    pdf
+  end
+  def build_action_plan(pdf, activity)
+    pdf.start_new_page
+    pdf.text("<c:uline><b>8.  Action Plan</b></c:uline>")
+    pdf.text(" ")
+    width = (pdf.absolute_right_margin - pdf.absolute_left_margin)
+    border_gap = width/(5)
+    borders = [border_gap]
+    4.times do |i|
+      borders << borders.last.to_i + border_gap
+    end
+    issues = []
+    activity.strands.each do |strand|
+      impact_enabled =  (activity.send("impact_#{strand}_9") == 1)
+      consultation_enabled =  (activity.send("consultation_#{strand}_7") == 1)
+      strand_issues = activity.issues.find_all_by_strand(strand)
+      strand_issues.reject!{|issue| issue.section == 'impact'} unless impact_enabled
+      strand_issues.reject!{|issue| issue.section == 'consultation'} unless consultation_enabled
+      issues << strand_issues
+    end
+    issues.flatten!
+    table = []
+    table << ["<b>Issue</b>", "<b>Action</b>", "<b>Resources</b>", "<b>Timescales</b>", "<b>Lead Officer</b>"]
+    issues.each do |issue|
+      row = []
+      row << issue.description.titleize
+      row << issue.actions.to_s
+      row << issue.resources.to_s
+      row << issue.timescales.to_s
+      row << issue.lead_officer.to_s
+      table << row
+    end     
+    pdf = generate_table(pdf, table, :borders => borders) 
+    pdf   
+  end
+
+  def build_footer(pdf, activity)
       pdf.open_object do |footer|
         pdf.save_state
         pdf.stroke_color! Color::RGB::Black
@@ -171,26 +372,68 @@ class ActivityPDFGenerator
       end
     return pdf
   end
-  private
-  def table_formatter(table, type)
-    case type
-      when :formatting
-        table.position = :left
-        table.orientation = 2
-        table.shade_rows = :none
-        table.show_lines = :none
-        table.show_headings = false
-        table
-      when :standard
-        table.position = pdf.left_margin + 10
-        table.orientation = :right
-        table.shade_rows = :none
-        table.font_size = 10
-        table.heading_font_size = 10
-        table.show_lines = :all
-        table.width = 500
-        table.split_rows = true
-        table
+
+  private  #Custom implementation on SimpleTable. Creates a table in 0.08 seconds as opposed to simpletables 0.7.
+  def generate_table(pdf, table, table_data = @table_data, x_pos = nil, show_lines = true)
+    new_x_pos = table_data[:borders].last + pdf.absolute_left_margin + 2
+    top_of_table = pdf.y
+    pdf.line(pdf.absolute_left_margin, pdf.y, new_x_pos, pdf.y).stroke if show_lines
+    table.each do |row|
+      lines = 1
+      row.each_with_index do |cell, index|
+        if index == 0 then
+          width = table_data[:borders][index]
+        else
+          width = table_data[:borders][index] - table_data[:borders][index - 1]
+        end
+        line_count = cell.size*((150.0/27)*(pdf.font_size/10.0))/width + 1 #Approximation of a width for characters
+        lines = line_count if line_count > lines
+      end
+      if pdf.y < (lines+1).to_i*pdf.font_height + pdf.absolute_bottom_margin then
+        pdf.line(pdf.absolute_left_margin, top_of_table, pdf.absolute_left_margin, pdf.y).stroke if show_lines
+        pdf.start_new_page
+        pdf.line(pdf.absolute_left_margin, pdf.y, new_x_pos, pdf.y).stroke if show_lines
+        top_of_table = pdf.y
+      end
+      pdf = add_row(pdf, row, table_data, x_pos, show_lines)
     end
+    pdf.line(pdf.absolute_left_margin, top_of_table, pdf.absolute_left_margin, pdf.y).stroke if show_lines
+    pdf
+  end
+  
+  def add_row(pdf, row, table_data, x_pos = nil, lines = true)
+    top = pdf.y - pdf.font_height 
+    pdf.y -= pdf.font_height
+    max_height = 0
+    x_pos = x_pos || pdf.absolute_left_margin
+    x_pos += 2
+    init_pos = x_pos
+    row.each_with_index do |cell, index|
+      if index == 0 then
+        width = table_data[:borders][index]
+      else
+        width = table_data[:borders][index] - table_data[:borders][index - 1]
+      end
+      overflow = pdf.add_text_wrap(x_pos, pdf.y, width - 2, cell, 10)
+      current_height = 1
+      while overflow.length > 0 
+        pdf.y -= pdf.font_height
+        overflow = pdf.add_text_wrap(x_pos, pdf.y, width - 2, overflow, 10)
+        current_height += 1
+      end
+      max_height = current_height if current_height > max_height
+      x_pos = table_data[:borders][index] + pdf.absolute_left_margin + 5
+      pdf.y = top
+    end
+    max_height = (max_height)*pdf.font_height
+    pdf.y -= max_height
+    if lines then
+      x_pos = table_data[:borders].last + init_pos
+      pdf.line(pdf.absolute_left_margin, pdf.y, x_pos, pdf.y).stroke
+      table_data[:borders].each do |border|
+        pdf.line(border + init_pos, top + pdf.font_height, border + init_pos, top - max_height).stroke
+      end
+    end    
+    pdf  
   end
 end
