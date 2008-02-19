@@ -40,7 +40,7 @@
         =image_tag("3.png")
       .stepBox
         %h2 Relevant Equality Strands
-        %p The Impact Equality Tool can measure the impact of your Activity for up to six different equality strands, to access the further questions, please select the strands which are relevant for this Activity:
+        %p The answers to your questions indicate that the activity is relevant to the marked Equality Dimensions.  Please indicate by ticking the box which you would like to include in the assessment.
         -@activity.overview_strands.each do |strand_name, strand|
           -selected = false
           %span.checkStrand
