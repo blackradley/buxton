@@ -883,9 +883,10 @@ html/**/>body #questions .issue{
 	
 }
 .step .stepBox p img{
-	float: left;
-	margin-top: 2px;
+
+	margin-bottom: -3px;
 	margin-right: 4px;
+	margin-left: 4px;
 	
 }
 .step .stepBox table{
