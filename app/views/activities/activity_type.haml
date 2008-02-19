@@ -6,19 +6,19 @@
     =image_tag("1.png")
   .stepBox
     %h2 Activity Type
-    %p Please fill in whether the activity is existing/proposed and whether it is a function or a policy:
+    %p Before you can start, the assessment Impact Equality&trade; asks you to classify the activity as either a Function or Policy and as either Existing or Proposed. You will be unable to move on to the rest of the tool until you have completed these questions.
     -form_for(:activity, :url => {:action => 'update_activity_type'}) do |f|
       %fieldset
-        %p
-          %label Is this:
-          .labelled
-            -ep_options = @activity.hashes['existing_proposed']['choices']
-            = f.select :existing_proposed, @activity.hashes['choices'][ep_options].collect {|option| [option , @activity.hashes['choices'][ep_options].index(option)] } 
         %p
           %label Is this a:
           .labelled
             -fp_options = @activity.hashes['function_policy']['choices']
             = f.select :function_policy, @activity.hashes['choices'][fp_options].collect {|option| [option , @activity.hashes['choices'][fp_options].index(option)] }
+        %p
+          %label Is this:
+          .labelled
+            -ep_options = @activity.hashes['existing_proposed']['choices']
+            = f.select :existing_proposed, @activity.hashes['choices'][ep_options].collect {|option| [option , @activity.hashes['choices'][ep_options].index(option)] } 
         %span.submit
           =image_tag("icons/tick.gif")
           =submit_tag "save"
