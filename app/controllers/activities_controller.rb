@@ -41,12 +41,6 @@ class ActivitiesController < ApplicationController
     end
   end
 
-  # Shows the section matrix state for a specific activity.
-  # Available to: Activity Manager
-  def overview
-    @activity = @current_user.activity
-  end
-
   # List and provide a summary of the state of all the activities in this organisation.
   # Available to: Organisation Manager
   def list
