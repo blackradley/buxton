@@ -1074,14 +1074,20 @@ html/**/>body.summary fieldset#approval{
 	width: 20px;		
 	clear: left;
 }
+
 .summary fieldset#approval label#activity_review_on_label{
 	width: 60px;		
 }
 
-
-
-.summary fieldset#approval #activity_approver{
+.summary fieldset#approval #activity_approver {
 	width: 198px;
+	border: 1px solid #979595;
+	margin: 0px;
+	margin-bottom: 10px;
+}
+
+.summary fieldset#approval #activity_review_on {
+	width: 155px;
 	border: 1px solid #979595;
 	margin: 0px;
 	margin-bottom: 10px;
