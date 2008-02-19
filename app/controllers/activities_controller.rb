@@ -207,6 +207,7 @@ class ActivitiesController < ApplicationController
     @activity = @current_user.activity
     @activity.send("#{params[:strand]}_relevant=", !@activity.send("#{params[:strand]}_relevant"))
     @activity.save
+    render :nothing => true    
   end
 protected
   # Secure the relevant methods in the controller.
