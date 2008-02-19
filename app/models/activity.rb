@@ -486,12 +486,21 @@ class Activity < ActiveRecord::Base
       end
     end
   end
+  
   def overview_strands
     {'gender' => 'gender', 'race' => 'race', 'disability' => 'disability', 'faith' => 'faith', 'sex' => 'sexual_orientation', 'age' => 'age'}
   end
+  
+  def relevant_strands
+    self.overview_strands.values.select do |strand|
+      self.send("#{strand}_relevant".to_sym)
+    end
+  end
+  
   def strand_relevant?(strand)
     self.send("#{strand}_relevant".to_sym)
   end
+  
   def relevant?(strand = nil)
     existing_proposed_weight = self.hashes['weights'][hashes['existing_proposed']['weight']][self.existing_proposed.to_i].to_i
     good_impact = self.questions.find(:all, :conditions => "name LIKE 'purpose_%#{strand}%_3'")

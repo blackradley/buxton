@@ -42,6 +42,7 @@ class ActivitiesController < ApplicationController
     @activity_strategies = Array.new(strategies.size) do |i|
       @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
     end
+    @relevant_strands = @activity.relevant_strands.map!{|s| s.titleize}.join(', ')
   end
 
   # List and provide a summary of the state of all the activities in this organisation.
