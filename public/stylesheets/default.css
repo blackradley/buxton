@@ -883,11 +883,14 @@ html/**/>body #questions .issue{
 	
 }
 .step .stepBox p img{
-
-	margin-bottom: -3px;
+	margin-bottom:-2px;
 	margin-right: 4px;
 	margin-left: 4px;
-	
+	padding-bottom: 4px;	
+}
+html/**/>body .step .stepBox p img{
+	margin-bottom:-3px;	
+	padding-bottom: 0px;
 }
 .step .stepBox table{
 	float: left;
