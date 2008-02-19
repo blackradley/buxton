@@ -46,9 +46,11 @@
             -if @activity.strand_relevant?(strand) then
               -selected = true
             = check_box_tag(strand_name, strand_name, selected, :onclick =>"mytoggle('row_#{strand_name}_on'); mytoggle('row_#{strand_name}_off');")
-            = observe_field(strand_name, :url => {:action => 'toggle_strand', :strand => strand, :controller => 'activities'})
+            = observe_field(strand_name, :url => {:action => 'toggle_strand', :strand => strand, :controller => 'activities'})            
             %label
               =h strand.titleize
+            -if @activity.relevant?(strand) then
+              %span.strandRelevant Recommended  
         %p 
         %h2 Equality Strand Questions
         %p The Impact Equality&trade; tool asks you questions under five Assessment Sections (purpose, impact, consultation, additional work, and action planning).
