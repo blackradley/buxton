@@ -9,8 +9,8 @@
 <p>It also lets you, the authorised user, manage the complete Activity list.</p>
 <strong><%= "No #{@directorate_term}s created." if @directorates.blank? -%></strong>
 <% @directorates.each do |directorate| -%>
-<%= link_to "#{image_tag('icons/add.gif')} Add New Activity", :action => 'new', :directorate => directorate -%>
-<h4><%=h directorate.name -%></h4>
+
+<h4><%=h directorate.name -%><span class="h4_link"><%= link_to "#{image_tag('icons/add.gif')} Add New Activity", :action => 'new', :directorate => directorate -%></span></h4>
 <table class="list">
   <tr>
     <th class="left" style="width:150px;">Name</th>

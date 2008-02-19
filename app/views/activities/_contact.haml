@@ -1,0 +1,21 @@
+= error_messages_for 'activity_manager'
+= error_messages_for 'activity'
+%fieldset#new_activity
+  -fields_for :activity_manager do |am|
+    %p
+      %label 
+        E-mail address of Activity Owner (who will undertake assessment)
+      .labelled
+        = am.text_field :email, 'size' => 50
+    %p
+      %label 
+        Name of Activity
+      .labelled
+        = f.text_field :name, 'size' => 50
+    %p
+      %label
+        = @directorate_term
+        to which it belongs
+      .labelled
+        = f.select(:directorate_id, @directorates)
+

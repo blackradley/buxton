@@ -33,12 +33,20 @@ BODY
 }
 
 .content .workingArea, .messageArea{
-	margin:20px;
+	margin:0px 20px;
 	width: 660px;
 	overflow: hidden;
 }
 .messageArea p{
 	color: green;
+	margin-left: 0px;
+	background: url(../images/icons/info.gif) no-repeat left 2px;
+	padding-left: 20px;
+	line-height: 20px;
+	margin-top: 10px;
+}
+html/**/>body.messageArea p{
+	margin-top: 0px;
 }
 
 .mastHead{
@@ -240,6 +248,8 @@ UL#menuBar LI.disabled A:hover
 	margin: 0 0 0 5px;
 	padding: 0;
 	list-style: none;
+	width: 420px;
+	overflow: hidden;
 }
 
 #sections_menu ul#menuBar li
@@ -247,9 +257,9 @@ UL#menuBar LI.disabled A:hover
 	list-style: none;
 	float:left;
 	display: block;
-	margin-right: 0px;
+	margin-left: -5px;
 	margin-top: 2px;
-	border-right: 2px solid #a8afc6;
+	border-left: 2px solid #a8afc6;
 }
 
 #sections_menu UL#menuBar LI A:link, #sections_menu UL#menuBar LI A:visited
@@ -258,7 +268,7 @@ UL#menuBar LI.disabled A:hover
 	color: #a8afc6;	
 	display: block;
 	background-color: #fff;
-	padding:0 1em;
+	padding:0 10px 0 10px;
 	line-height: 20px;
 	font-weight:normal;
 }
@@ -432,7 +442,7 @@ th.strandHeading{
 
 /*organisation page table styles */
 
-TABLE.list CAPTION
+TABLE.list CAPTION, table.listSmall caption
 {
 	font-weight: bold;
 	text-align:left;
@@ -442,19 +452,26 @@ TABLE.list CAPTION
 	text-decoration:none;
 }
 
+table.listSmall{
+    border-collapse: collapse;
+    width: 50%;
+    align:center;
+}
+
 table.list{
     border-collapse: collapse;
     width: 100%;
+    align:center;
 }
 
-table.list th{ 
+table.list th, table.listSmall th{ 
 	background-color: #EEE;
 	border: 1px solid #CCC;
 	padding: 2px;
 	text-align:center;
 }   
 
-table.list td
+table.list td, table.listSmall td
 {
 	padding: 2px;
 	border: 1px solid #CCC;  
@@ -898,6 +915,7 @@ html/**/>body #questions .issue{
 .step .stepBox .checkStrand input{
 	width: auto;
 	float:left;
+	border: none;
 }
 .step .stepBox .checkStrand label{
 	float:left;
@@ -1285,6 +1303,9 @@ fieldset#status{
 	margin: 0px;
 	float: left;
 }
+#new_activity label{
+	width: 350px;
+}
 
 #status .labelled, #new_activity .labelled, #strategy_details .labelled, #strategy_new .labelled, #strategy_edit .labelled{
 	width: 180px;
@@ -1307,6 +1328,11 @@ fieldset#status{
 	width: 180px;
 	margin-right:0px;
 }
+#new_activity .labelled select, #new_activity .labelled input{
+	width: 240px;
+	margin-right:0px;
+}
+
 /*new organisation styles*/
 form.new_organisation fieldset, form.edit_organisation fieldset, #show_organisation fieldset{
 	border-top:2px solid #F90;
@@ -1445,3 +1471,29 @@ white-space: -o-pre-wrap; /* Opera 7 */
 word-wrap: break-word; /* Internet Explorer 5.5+ */
 
 }
+
+h4 .h4_link{
+	float: right;
+	margin-top: -23px;
+	font-size:0.9em;
+font-weight:normal;
+margin-right: 5px;
+height: 20px;
+}
+h4 .h4_link img{
+	margin-bottom: -4px;
+
+}
+html/**/>body h4 .h4_link{
+	float: right;
+	margin-top: -13px;
+	font-size:0.9em;
+font-weight:normal;
+margin-right: 5px;
+height: 20px;
+}
+html/**/>body h4 .h4_link img{
+	margin-bottom: -4px;
+
+}
+
