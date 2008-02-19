@@ -28,6 +28,9 @@ class ActivitiesController < ApplicationController
   def summary
     @organisation = @current_user.organisation
     @activities = @organisation.activities
+    @started = @activities.select{|a| a.started }.size
+    @completed = @activities.select{|a| a.completed }.size
+
     @results_table = @organisation.results_table
   end
 
