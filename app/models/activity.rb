@@ -499,15 +499,15 @@ class Activity < ActiveRecord::Base
     self.send("#{strand}_relevant".to_sym)
   end
   def relevant?(strand = nil)
-    existing_proposed_weight = self.hashes['weights'][hashes['existing_proposed']['weight']][self.existing_proposed.to_i]
+    existing_proposed_weight = self.hashes['weights'][hashes['existing_proposed']['weight']][self.existing_proposed.to_i].to_i
     good_impact = self.questions.find(:all, :conditions => "name LIKE 'purpose_%#{strand}%_3'")
     bad_impact =  self.questions.find(:all, :conditions => "name LIKE 'purpose_%#{strand}%_4'")
     running_total = existing_proposed_weight
     running_total += good_impact.inject(0) do |tot, question|
-      tot += self.hashes['weights'][hashes['questions']['purpose'][3]['weight'].to_i][self.send(question.name.to_s).to_i]
+      tot += self.hashes['weights'][hashes['questions']['purpose'][3]['weight'].to_i][self.send(question.name.to_sym).to_i].to_i
     end
     running_total += bad_impact.inject(0) do |tot, question|
-      tot += self.hashes['weights'][hashes['questions']['purpose'][4]['weight'].to_i][self.send(question.name.to_s).to_i]
+      tot += self.hashes['weights'][hashes['questions']['purpose'][4]['weight'].to_i][self.send(question.name.to_sym).to_i].to_i
     end
     max = 50.0
     return (running_total/max) >= 0.35    
