@@ -59,8 +59,15 @@ class ActivitiesController < ApplicationController
   def new
     @activity = Activity.new
     @activity_manager = @activity.build_activity_manager
+        
+    directorates = @current_user.organisation.directorates
     @directorate_term = @current_user.organisation.directorate_string
-    @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] }
+    @directorates = directorates.collect{ |d| [d.name, d.id] }
+    
+    # If the params
+    if params[:directorate] && directorate = directorates.find_by_id(params[:directorate]) then
+      @activity.directorate = directorate
+    end
   end
 
   # Create a new activity and a new user brequire 'pdfwriter_extensions'  ased on the parameters in the form data.
