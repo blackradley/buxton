@@ -87,7 +87,7 @@ class ActivitiesController < ApplicationController
     @activity = @current_user.activity
     @activity.update_attributes!(params[:activity])
     flash[:notice] = "#{@activity.name} was successfully updated."
-    redirect_to :back
+    redirect_to :controller => 'activities', :action => 'activity_type'
 
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     flash[:notice] =  "Could not update the activity."
