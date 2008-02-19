@@ -13,7 +13,7 @@ class SectionsController < ApplicationController
   # verify  :method => :post,
   #         :only => [ :update ],
   #         :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
-         
+
   # List the section status for the different activities of an Organisation
   # but don't paginate, a long list is actually more convenient for the Organisation
   # Manager to scan down.
@@ -21,21 +21,12 @@ class SectionsController < ApplicationController
   def list
     @directorates = @current_user.organisation.directorates
     
-    case params[:id]
-    when 'purpose'
-      render :template => 'sections/list_purpose'
-    when 'impact'
-      render :template => 'sections/list_impact'
-    when 'consultation'
-      render :template => 'sections/list_consultation'
-    when 'additional_work'
-      render :template => 'sections/list_additional_work'
-    when 'action_planning'
-      render :template => 'sections/list_action_planning'
-    else
-      # Else redirect to Purpose
+    unless params[:id] then
       redirect_to :id => 'purpose'
     end
+    
+    # Validate
+    @section = params[:id]
   end
 
   # Show the summary information for a activity's section
