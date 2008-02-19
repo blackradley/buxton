@@ -3,34 +3,6 @@
 #questions
   -form_for(:activity, :url => {:action => 'update'}) do |f|
     = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [2,10,11,12]), :locals => {:f => f}
-    %h4 Relevant Strands
-    %p.question
-      %label Please select the strands relevant to this activity:
-      %labelled
-        %span.checkStrand
-          %label 
-            Gender:
-            =f.check_box (:gender_relevant)
-        %span.checkStrand
-          %label
-            Sexual Orientation:
-            =f.check_box (:sexual_orientation_relevant)
-        %span.checkStrand
-          %label
-            Faith:
-            =f.check_box (:faith_relevant)
-        %span.checkStrand
-          %label
-            Disability:
-            =f.check_box (:disability_relevant)    
-        %span.checkStrand
-          %label
-            Age:
-            =f.check_box (:age_relevant)    
-        %span.checkStrand
-          %label
-            Race:
-            =f.check_box (:race_relevant)  
     .more{:id => "more_purpose_overall_strategy", :style => "display:none"}
       %h3
         =image_tag ("icons/help.gif")
