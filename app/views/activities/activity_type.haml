@@ -18,7 +18,7 @@
           %label Is this:
           .labelled
             -ep_options = @activity.hashes['existing_proposed']['choices']
-            = f.select :existing_proposed, @activity.hashes['choices'][ep_options].collect {|option| [option , @activity.hashes['choices'][ep_options].index(option)] } 
+            = f.select :existing_proposed, @activity.hashes['choices'][ep_options].collect {|option| [option , @activity.hashes['choices'][ep_options].index(option)] }
         %span.submit
           =image_tag("icons/tick.gif")
           =submit_tag "save"
@@ -28,7 +28,7 @@
       =image_tag("2.png")
     .stepBox
       %h2 Overall Purpose
-      %p What is the purpose of this Activity?
+      %p What is the purpose of this Activity? After you have completed the purpose Assessment Section you will be asked which of the Equality Dimensions you wish to complete.
       %p 
         =image_tag("icons/view.gif")
         =link_to "complete questions defining Overall Purpose of Activity", { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => 'overall' }, :title =>"Complete questions defining Overall Purpose of Activity"
@@ -52,7 +52,11 @@
               =h strand.titleize
         %p 
         %h2 Equality Strand Questions
-        %p The Impact Equality Tool has six sections and there are six equality strands. The table below shows the six sections along the first six columns of the horizontal axis and the six equality strands down the vertical axis. The matrix shows the level of completion of each section for each equality strand.
+        %p The Impact Equality&trade; tool asks you questions under five Assessment Sections (purpose, impact, consultation, additional work, and action planning).
+        %p Each set of questions can apply to each of the six Equality Dimensions (gender, race, disability, faith, sexual orientation, and age).
+        %p The Assessment Sections and Equality Dimensions are set out as a table below.
+        %p Click on the <img src="/images/icons/edit.gif" /> icon to answer the questions in that section. Click "Save" when you have finished work on a section.
+        %p The section is complete when the <img src="/images/icons/cross.gif" /> turns into a <img src="/images/icons/tick.gif" />.  When all the <img src="/images/icons/cross.gif" />s are <img src="/images/icons/tick.gif" />s, you are finished!
         %table
           %tr{:style => "display:block;"}
             %th.strandHeading
