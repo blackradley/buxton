@@ -5,7 +5,8 @@
 
 <div id="sections_menu"><%= sections_menu -%></div>
 
-<h3><%= @section.titleize -%></h3>
+<h3>Section: <%= @section.titleize -%></h3>
+<p>This shows how far the Activity owners have completed this part of the assessment tool.  You can see more information, or provide them with further help, using the icons on the right of each entry.</p>
 <% @directorates.each do |directorate| -%>
 <h4><%=h directorate.name -%></h4>
 <table class="list">
