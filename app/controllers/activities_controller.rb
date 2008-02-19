@@ -27,7 +27,7 @@ class ActivitiesController < ApplicationController
   def summary
     @organisation = @current_user.organisation
     @activities = @organisation.activities
-    @results_table = @organisation.activity_summary_table
+    @results_table = @organisation.results_table
   end
 
   # Show the summary information for a specific activity.
