@@ -1,18 +1,12 @@
 <h3>Welcome to the Impact Equality&trade; Tool</h3>
 <div class="summary">
+<p>Activity Home Page.</p>
 <p><label><strong>Activity Name:</strong></label><div class="labelled"><%=h @activity.name -%></div></p>
 <p><label><strong>Activity Type:</strong></label><div class="labelled"><%=h @activity.activity_type -%></div></p>
-<p>You are logged in as the Activity Manager who is responsible for completing a self-assessment of a activity identified above.  This assessment a number of sections as follows:</p>
-<p>
-  <ul>
-    <li><strong>Purpose</strong> - what is the purpose of the function/policy</li>
-    <li><strong>Impact</strong> - how well is the activity performing for each of the equality strands</li>
-    <li><strong>Consultation</strong> - what information is available to support the performance assessment</li>
-    <li> <strong>Additional Work</strong> - what additional work is required to complete the impact assessment</li>
-    <li><strong>Action Planning</strong> - what are the necessary actions to address the issues identified by the assessment process</li>
-  </ul>
-</p>
-<p>Each of the sections asks questions about the activity which you will be able answer by way of a drop down menu or a text box.  The <%= image_tag("icons/help.gif", :alt => 'help', :style => "margin-bottom:-3px;") -%> icon is the help facility.</p>
-<p>There are four pages for the Activity Manager. This page the Home page, the Activity Type page which lets you determine the type of activity, the Overview page which gives access to a progress tracking matrix and the Summary page which shows the overall completion of the tool.</p>
-<p>Click on next to begin using the tool.  The first screen you come to will ask you whether the activity is a Function or a Policy and whether it is an Existing activity or a Proposed activity.</p>
+
+
+<p>Impact Equality&trade; is an automated tool to help with equality impact assessments.  You have been asked to take a lead on the assessment of the activity identified above. If this is news to you, please contact <%= link_to @organisation_manager.email, "mailto:#{@organisation_manager.email}" -%>!</p>
+<p>You will see four tabs at the top of this page. You are currently on the first of these (Home).  The Questions tab will take you through the assessment itself.  The Summary tab shows you what you have done so far.  Both of these (Questions and Summary) cannot be seen until you have completed two questions on the Activity Type screen.  To do that, click on the Activity Type tab or on the Next button below.</p>
+<p>Before you do that a question on your awareness of the Councils’s equalities work.  Have you read the Corporate Equality Scheme?</p>
+<p>Help is available throughout and is shown in the right hand column of the screen.  You can also make a note to yourself and add comments to be included in the report for the Activity.</p>
 <span class='button right'><%= link_to 'next', { :action => 'activity_type'}, :title =>"Next" -%></span>
