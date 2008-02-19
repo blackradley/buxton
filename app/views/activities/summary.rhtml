@@ -1,8 +1,8 @@
 <h3>Organisation Summary</h3>
 <span id="pdf_link" style="width:auto;"><%= image_tag('icons/pdf.gif')%> View PDF report: <%= link_to "summary", {:action => 'view_pdf', :id => @organisation.id, :controller => 'organisations'}, :target => '_blank', :title => 'PDF Report Summary' %><!-- | <%= link_to "full", {:action => 'view_full_pdf', :id => @organisation.id, :controller => 'organisations'}, :target => '_blank', :title => 'PDF Report Full' %>--></span>
 <p>The Progress Table below shows how many activities (i.e. functions and policies) have started or completed the equalities impact assessment process.</p>
-<table class="list">
-	<caption>Progress Table</caption>
+<table class="listSmall" align="center">
+	<caption style="text-align:center">Progress Table</caption>
 	  <tr>
 	    <th>Activities</th>
 	    <th>Number</th>
@@ -21,14 +21,14 @@
 		</tr>
 </table>
 <p>For those activities which have completed the assessment, the Results Table below shows the number where there may be a problem: the further towards the top right, the more important.  See Activities tab (above) for more detail.</p>
-<table class="list">
-	<caption>Results Table</caption>
+<table class="listSmall"  align="center">
+	<caption style="text-align:center">Results Table</caption>
 	<tr>
 		<th width="30%"></th>
-		<th colspan="3">Potential Impact</th>
+		<th colspan="3">Potential Impact**</th>
 	</tr>
 	<tr>
-		<th>Priority</th>
+		<th>Priority*</th>
 		<th class="number">Low</th>
 		<th class="number">Medium</th>
 		<th class="number">High</th>
@@ -59,7 +59,6 @@
 	</tr>
 <% end -%>
 </table>
-<ul>
-  <li><em>Potential impact</em> – the effect this activity could have on achieving and promoting equality.</li>
-  <li><em>Priority</em> – a measure of how urgent it is that this activity undertake a full action planning assessment exercise.</li>
+<p>*<em>Priority – a measure of how urgent it is that this activity undertake a full action planning assessment exercise.</em><br/>
+  **<em>Potential Impact – the effect this activity could have on achieving and promoting equality.</em></p>
 </ul>
