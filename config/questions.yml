@@ -196,7 +196,7 @@ questions:
       type: select
       choices: 3
       weights: 6
-      dependent_questions: ''
+      dependent_questions: 'impact_#{strand}_2 no_value'
     5:
       label:
         -
