@@ -48,10 +48,6 @@ class Activity < ActiveRecord::Base
 
   after_update :save_issues
   
-  def review_on_string
-    self.review_on.strftime('%B %e, %Y') unless self.review_on.nil?
-  end
-
   def activity_type
     if self.started then
       [self.existing_proposed?, self.function_policy?].join(' ')
