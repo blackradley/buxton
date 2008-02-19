@@ -42,11 +42,12 @@
         %h2 Relevant Equality Strands
         %p The Impact Equality Tool can measure the impact of your Activity for up to six different equality strands, to access the further questions, please select the strands which are relevant for this Activity:
         -@activity.overview_strands.each do |strand_name, strand|
-          -selected = ""
+          -selected = false
           %span.checkStrand
             -if @activity.strand_relevant?(strand) then
-              -selected = "yes"
-            %input{:type =>"checkbox", :name =>"#{strand_name}", :onchange =>"mytoggle('row_#{strand_name}_on'); mytoggle('row_#{strand_name}_off');", :selected => "#{selected}"}
+              -selected = true
+            = check_box_tag(strand_name, strand_name, selected, :onclick =>"mytoggle('row_#{strand_name}_on'); mytoggle('row_#{strand_name}_off');")
+            = observe_field(strand_name, :url => {:action => 'toggle_strand', :strand => strand, :controller => 'activities'})
             %label
               =h strand.titleize
         %p 
