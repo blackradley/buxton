@@ -116,7 +116,7 @@ class ActivitiesController < ApplicationController
     if @activity.started then
       # If so, proceed
       flash[:notice] =  "#{@activity.name} status was successfully set up."
-      redirect_to :action => 'show'
+      redirect_to :controller => 'activities', :action => 'activity_type'
     else
       # If not, take them back and give them a chance to answer again
       flash[:notice] =  "Please answer both questions before proceeding."

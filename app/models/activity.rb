@@ -188,7 +188,7 @@ class Activity < ActiveRecord::Base
    #that you have to answer(activity/policy and proposed/overall) have been answered or not, and if they have not been answered, then no others can be
    # and if they have, then the activity is by definition started
   def started(section = nil, strand = nil)
-    return (self.existing_proposed.to_i + self.function_policy.to_i) > 0 if (section.nil? && strand.nil?) || !((self.existing_proposed.to_i + self.function_policy.to_i) > 0)
+    return (self.existing_proposed.to_i*self.function_policy.to_i) != 0 if (section.nil? && strand.nil?)
     like = [section, strand].join('_')
     # Find all incomplete questions with the given arguments
     answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'")
