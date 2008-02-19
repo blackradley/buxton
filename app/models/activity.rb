@@ -121,42 +121,10 @@ class Activity < ActiveRecord::Base
     hashes['choices'][9][self.function_policy.to_i]
   end
 
-  def generate_pdf_data
-    data = []
-    data << self.name
-    data << case self.approved
-      when 0
-       "UNAPPROVED"
-      when 1
-       ""
-    end
-    data << self.directorate.name
-    data << self.organisation.name
-    data << self.function_policy?
-    data << self.activity_manager.email
-    data << self.approver
-    data << self.purpose_overall_2
-    data << self.approved_on
-    data << self
-    data << self.id
-    data << [:page_numbers, :unapproved_logo_on_first_page, :header, :body, :statistics, :issues, :footer]
-    data << self.organisation.directorate_string
-    issues_hash = {}
-    columns =  Issue.content_columns.reject{|col| col.name.to_sym == :strand || col.name.to_sym == :section || col.name.to_sym == :activity_id}
-    col_names = columns.map{|column| column.name.to_s.titleize}
-    hashes['wordings'].each do |strand_name, wording|
-      issues_hash[wording.titleize] = []
-      self.issues.find(:all, :conditions => "strand LIKE '%#{strand_name}%'").each do |issue|
-        row = {}
-        columns.each do |column|
-          row[column.name.to_s.titleize] = issue.send(column.name.to_sym).to_s
-        end
-        issues_hash[wording.titleize].push(row)
-      end
-    end
-    data << col_names
-    data << issues_hash
+  def existing_proposed_name
+    hashes['choices'][8][self.existing_proposed.to_i]
   end
+
   #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions.
   def percentage_answered(section = nil, strand = nil)
     issue_strand = []
@@ -530,11 +498,15 @@ class Activity < ActiveRecord::Base
   def strand_relevant?(strand)
     self.send("#{strand}_relevant".to_sym)
   end
-  def relevant?
-    strands.each do |strand|
-      return false if self.send("#{strand}_percentage_importance") < 35
+  def relevant?(strand = nil)
+    unless strand then
+      strands.each do |strand|
+        return false if self.send("#{strand}_percentage_importance").to_i < 35
+      end
+      return true
+    else
+      return false if self.send("#{strand}_percentage_importance").to_i < 35
     end
-    return true
   end
 
   def impact_wording(strand = nil)
@@ -566,7 +538,7 @@ class Activity < ActiveRecord::Base
     end
   end
   def strands
-    strand_list = hashes['wordings'].keys.map{|strand| strand if self.send("#{strand}_relevant")}
+    strand_list = ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age'].map{|strand| strand if self.send("#{strand}_relevant")}
     strand_list.compact
   end
   def priority_ranking(strand = nil)

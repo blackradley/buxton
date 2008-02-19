@@ -198,7 +198,7 @@ class ActivitiesController < ApplicationController
 
   def view_pdf
     @activity = @current_user.activity
-    send_data ActivityPDFGenerator.new(@activity.generate_pdf_data).pdf.render, :disposition => 'inline',
+    send_data ActivityPDFGenerator.new(@activity).pdf.render, :disposition => 'inline',
       :filename => "#{@activity.name}.pdf",
       :type => "application/pdf"
   end
