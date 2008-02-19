@@ -165,17 +165,13 @@ module ApplicationHelper
                       :url => { :controller => 'activities', :action => 'index'},
                       :title => 'Activity Control Page - Home' ,
                       :status => '' },
-                    { :text => 'Activity Type',
+                    { :text => 'Questions',
                       :url => { :controller => 'activities', :action => 'activity_type'},
-                      :title => 'Activity Control Page - Activity Type' ,
+                      :title => 'Activity Control Page - Questions' ,
                       :status => '' }
                   ]
         if @current_user.activity.started
           links2 = [    
-                      { :text => 'Overview',
-                        :url => { :controller => 'activities', :action => 'overview'},
-                        :title => 'Activity Control Page - Overview',
-                        :status => '' },
                       { :text => 'Summary',
                         :url => { :controller => 'activities', :action => 'show' },
                         :title => 'Activity Control Page - Summary' ,
@@ -183,10 +179,6 @@ module ApplicationHelper
                     ]
         else
           links2 = [    
-                      { :text => 'Overview',
-                        :url => { :controller => 'activities', :action => 'overview'},
-                        :title => 'Activity Control Page - Overview',
-                        :status => 'disabled' },
                       { :text => 'Summary',
                         :url => { :controller => 'activities', :action => 'show' },
                         :title => 'Activity Control Page - Summary' ,
