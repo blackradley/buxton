@@ -204,6 +204,12 @@ class ActivitiesController < ApplicationController
       :type => "application/pdf"
   end
 
+  #silent toggle method
+  def toggle_strand
+    @activity = @current_user.activity
+    @activity.send("#{params[:strand]}_relevant=", !@activity.send("#{params[:strand]}_relevant"))
+    @activity.save
+  end
 protected
   # Secure the relevant methods in the controller.
   def secure?

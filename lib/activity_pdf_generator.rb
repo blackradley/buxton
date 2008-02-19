@@ -317,7 +317,6 @@ class ActivityPDFGenerator
     pdf
   end
   def build_action_plan(pdf, activity)
-    pdf.start_new_page
     pdf.text("<c:uline><b>8.  Action Plan</b></c:uline>")
     pdf.text(" ")
     width = (pdf.absolute_right_margin - pdf.absolute_left_margin)
@@ -377,7 +376,6 @@ class ActivityPDFGenerator
   def generate_table(pdf, table, table_data = @table_data, x_pos = nil, show_lines = true)
     new_x_pos = table_data[:borders].last + pdf.absolute_left_margin + 2
     top_of_table = pdf.y
-    pdf.line(pdf.absolute_left_margin, pdf.y, new_x_pos, pdf.y).stroke if show_lines
     table.each do |row|
       lines = 1
       row.each_with_index do |cell, index|
@@ -390,11 +388,12 @@ class ActivityPDFGenerator
         lines = line_count if line_count > lines
       end
       if pdf.y < (lines+1).to_i*pdf.font_height + pdf.absolute_bottom_margin then
-        pdf.line(pdf.absolute_left_margin, top_of_table, pdf.absolute_left_margin, pdf.y).stroke if show_lines
+        pdf.line(pdf.absolute_left_margin, top_of_table, pdf.absolute_left_margin, pdf.y).stroke if show_lines && row != table.first
         pdf.start_new_page
         pdf.line(pdf.absolute_left_margin, pdf.y, new_x_pos, pdf.y).stroke if show_lines
         top_of_table = pdf.y
       end
+      pdf.line(pdf.absolute_left_margin, pdf.y, new_x_pos, pdf.y).stroke if show_lines && row == table.first
       pdf = add_row(pdf, row, table_data, x_pos, show_lines)
     end
     pdf.line(pdf.absolute_left_margin, top_of_table, pdf.absolute_left_margin, pdf.y).stroke if show_lines
