@@ -826,6 +826,126 @@ html/**/>body #questions .issue{
 	display: inline;
 }
 
+/*1234 page styles*/
+.step{
+	float: left;
+	clear: left;
+	width: 100%;
+	margin-bottom: 20px;
+	display: block;
+	position:relative;
+
+}
+.stepImage{
+	float: left;
+	clear: left;
+	margin-right: 10px;
+}
+.stepImage img{
+	
+}
+.stepBox{
+	float: left;
+	width: 580px;
+}
+.step .stepBox h2{
+	float: left;
+	width:580px;
+	color: #515f8d;
+	font-weight: bold;
+	font-size:1.2em;
+	margin: 0px;
+	padding: 0px;
+} 
+.step .stepBox p {
+	float: left;
+	width: 580px;
+	margin: 0px;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	
+}
+.step .stepBox p img{
+	float: left;
+	margin-top: 2px;
+	margin-right: 4px;
+	
+}
+.step .stepBox table{
+	float: left;
+	width: 580px;
+	
+}
+.step .stepBox td{
+	width: 107px;
+	height: 33px;
+	border: 0px solid red;
+	overflow: hidden;	
+}
+.step .stepBox th{
+	width: 96px;
+	border: 0px solid red;
+	padding: 5px;	
+	
+}
+
+
+.step .stepBox .checkStrand{
+	width: 170px;
+	float:left;
+	margin-right:20px;
+}
+.step .stepBox .checkStrand input{
+	width: auto;
+	float:left;
+}
+.step .stepBox .checkStrand label{
+	float:left;
+	clear: none;
+	font-weight:bold;
+	color:#515f8d;
+}
+.step .stepBox fieldset {
+	width:100%;
+	margin: 0px;
+	padding: 0px;	
+}
+.step .stepBox fieldset p{
+	width:auto;
+	float: left;
+	margin: 0px;
+	padding: 0px;	
+}
+.step .stepBox  select{
+	width:140px;
+	float: left;
+	margin: 0px;
+	padding: 0px;
+	margin-top: 4px;	
+	margin-right: 20px;
+}
+.step .stepBox  .submit{
+	float: left;
+	width: 100px;
+}
+.stepBox  .submit img{
+	margin-top: 4px;
+	float: left;
+	margin-left: 0px;
+}
+.step .stepBox  .submit input{
+	clear: none;
+	float: left;
+	width: 50px;
+	background-color:transparent;
+	border:none;
+	text-align:left;
+	text-decoration:underline;
+	color:#515f8d;
+	margin-left: 0px;
+	padding-left: 0px;
+}
+
 
 
 

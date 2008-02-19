@@ -2,9 +2,9 @@
 // This file is automatically included by javascript_include_tag :defaults
 
 // Show or hide
-function toggleHelp(node){
-  if (node.tagName && node.tagName.toLowerCase() == 'div')
-    node.style.display = (node.style.display == 'block') ? 'none' : 'block';
+function mytoggle(node){
+  thisElement = document.getElementById(node);
+  thisElement.style.display = (thisElement.style.display == 'block') ? 'none' : 'block';
 }
 
 function mark_for_destroy(element) {

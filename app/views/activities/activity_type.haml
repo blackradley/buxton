@@ -1,0 +1,96 @@
+%h1 
+  Impact Equality&trade; - 
+  =h @activity.name
+.step#one 
+  .stepImage
+    =image_tag("1.png")
+  .stepBox
+    %h2 Activity Type
+    %p Please fill in whether the activity is existing/proposed and whether it is a function or a policy:
+    -form_for(:activity, :url => {:action => 'update_activity_type'}) do |f|
+      %fieldset
+        %p
+          %label Is this:
+          .labelled
+            -ep_options = @activity.hashes['existing_proposed']['choices']
+            = f.select :existing_proposed, @activity.hashes['choices'][ep_options].collect {|option| [option , @activity.hashes['choices'][ep_options].index(option)] } 
+        %p
+          %label Is this a:
+          .labelled
+            -fp_options = @activity.hashes['function_policy']['choices']
+            = f.select :function_policy, @activity.hashes['choices'][fp_options].collect {|option| [option , @activity.hashes['choices'][fp_options].index(option)] }
+        %span.submit
+          =image_tag("icons/tick.gif")
+          =submit_tag "save"
+-if @current_user.activity.started
+  .step#two
+    .stepImage
+      =image_tag("2.png")
+    .stepBox
+      %h2 Overall Purpose
+      %p What is the purpose of this Activity?
+      %p 
+        =image_tag("icons/view.gif")
+        =link_to "complete questions defining Overall Purpose of Activity", { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => 'overall' }, :title =>"Complete questions defining Overall Purpose of Activity"
+
+  / -if @activity.completed(:purpose) then
+  -if true
+    .step#three
+      .stepImage
+        =image_tag("3.png")
+      .stepBox
+        %h2 Relevant Equality Strands
+        %p The Impact Equality Tool can measure the impact of your Activity for up to six different equality strands, to access the further questions, please select the strands which are relevant for this Activity:
+        -@activity.overview_strands.each do |strand_name, strand|
+          -selected = ""
+          %span.checkStrand
+            -if @activity.strand_relevant?(strand) then
+              -selected = "yes"
+            %input{:type =>"checkbox", :name =>"#{strand_name}", :onchange =>"mytoggle('row_#{strand_name}_on'); mytoggle('row_#{strand_name}_off');", :selected => "#{selected}"}
+            %label
+              =h strand.titleize
+        %p 
+        %h2 Equality Strand Questions
+        %p The Impact Equality Tool has six sections and there are six equality strands. The table below shows the six sections along the first six columns of the horizontal axis and the six equality strands down the vertical axis. The matrix shows the level of completion of each section for each equality strand.
+        %table
+          %tr{:style => "display:block;"}
+            %th.strandHeading
+            %th Impact
+            %th Consultation
+            %th Additional Work
+            %th Action Planning
+          -display_on = ""
+          -display_off = ""
+          -@activity.overview_strands.each do |strand_name, strand|
+            -if @activity.strand_relevant?(strand) then
+              -display_on = "block"
+              -display_off = "none"
+            -else
+              -display_on = "none"
+              -display_off = "block"
+            %tr{:id => "row_#{strand_name}_on", :style => "display:#{display_on};"}
+              %th.strandHeading
+                =h strand_name.titleize
+              %td
+                = completed_tag(@activity, :impact, strand.to_sym)
+                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => strand }, :title =>"Edit Impact"
+              %td
+                = completed_tag(@activity, :consultation, strand.to_sym)
+                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => strand }, :title =>"Edit Consultation"
+              %td
+                = completed_tag(@activity, :additional_work, strand.to_sym)
+                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => strand }, :title =>"Edit Additional Work"
+              %td
+                = completed_tag(@activity, :action_planning, strand.to_sym)
+                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => strand }, :title =>"Edit Action Planning"                
+            %tr{:id => "row_#{strand_name}_off", :style => "display:#{display_off};"}
+              %th.strandHeading
+                =h strand_name.titleize
+              %td
+                %span.na - 
+              %td
+                %span.na -
+              %td
+                %span.na -
+              %td
+                %span.na -
