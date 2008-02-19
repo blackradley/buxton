@@ -20,6 +20,7 @@ class ActivitiesController < ApplicationController
   # Available to: Organisation Manager
   def index
     @activity = @current_user.activity
+    @organisation_manager = @activity.organisation.organisation_manager
   end
 
   # These are summary statistics for all the activities within this organisation.
