@@ -620,6 +620,13 @@ float: none;
 	float:left;
 	overflow: hidden;
 }
+#questions h4{
+	width: 400px;
+	clear: none;
+	margin-top: 0px;
+	line-height:2.5em;
+}
+
 
 #questions label{
 	width: 400px;
@@ -920,13 +927,28 @@ html/**/>body .step .stepBox p img{
 	width: auto;
 	float:left;
 	border: none;
+	margin-top:2px;
+}
+html/**/>body .step .stepBox .checkStrand input{
+	margin-top:5px;
 }
 .step .stepBox .checkStrand label{
 	float:left;
 	clear: none;
 	font-weight:bold;
 	color:#515f8d;
+	position: relative;
 }
+
+.step .stepBox .checkStrand label span.strandRelevant{
+	float:left;
+	color: green;
+	font-weight:normal;
+	font-size:0.9em;
+	font-style:italic;
+	margin-top: -7px;
+}
+
 .step .stepBox fieldset {
 	width:100%;
 	margin: 0px;
@@ -1506,4 +1528,3 @@ html/**/>body h4 .h4_link img{
 	margin-bottom: -4px;
 
 }
-
