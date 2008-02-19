@@ -166,7 +166,7 @@ module ApplicationHelper
                       :title => 'Activity Control Page - Home' ,
                       :status => '' },
                     { :text => 'Questions',
-                      :url => { :controller => 'activities', :action => 'activity_type'},
+                      :url => { :controller => 'activities', :action => 'questions'},
                       :title => 'Activity Control Page - Questions' ,
                       :status => '' }
                   ]

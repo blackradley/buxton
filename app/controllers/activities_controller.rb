@@ -96,7 +96,7 @@ class ActivitiesController < ApplicationController
 
   # Opening page where they must choose between Activity/Policy and Existing/Proposed
   # Available to: Activity Manager
-  def activity_type
+  def questions
     @activity = @current_user.activity
   end
 
@@ -110,16 +110,16 @@ class ActivitiesController < ApplicationController
     if @activity.started then
       # If so, proceed
       flash[:notice] =  "#{@activity.name} status was successfully set up."
-      redirect_to :controller => 'activities', :action => 'activity_type'
     else
       # If not, take them back and give them a chance to answer again
       flash[:notice] =  "Please answer both questions before proceeding."
-      redirect_to :action => 'activity_type'
     end
+
+    redirect_to :action => 'questions'
 
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     flash[:notice] =  "Could not update the activity."
-    render :action => :activity_type
+    render :action => :questions
   end
 
   # Get both the activity and user information ready for editing, since they
