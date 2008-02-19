@@ -1,8 +1,15 @@
-<h3>Impact Equality&trade; Organisation Control Page - Activities</h3>
-<div id="pdf_link"><%= link_to "#{image_tag('icons/add.gif')} Add New Activity", :action => 'new' -%></div>
-<p>This page shows the Organisation Equalities Manager how each activity is progressing through Impact Equality&trade;. It also lets the manager add new activities, amend existing activities and delete activities.</p>
+<h3>Organisation Control Page - Activities</h3>
+<p>The Activities are listed by Directorate.</p>
+<p>The table shows:</p>
+<ul>
+  <li>how each Activity is progressing through the assessment;</li>
+  <li>when the Activity Manager was last prompted to undertake the assessment;</li>
+  <li>who is authorised to signed it off.</li>
+</ul>
+<p>It also lets you, the authorised user, manage the complete Activity list.</p>
 <strong><%= "No #{@directorate_term}s created." if @directorates.blank? -%></strong>
 <% @directorates.each do |directorate| -%>
+<%= link_to "#{image_tag('icons/add.gif')} Add New Activity", :action => 'new', :directorate => directorate -%>
 <h4><%=h directorate.name -%></h4>
 <table class="list">
   <tr>
