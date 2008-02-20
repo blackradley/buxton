@@ -36,6 +36,7 @@ class IssuesController < ApplicationController
     # Loop through all the issues, given to us after auto-indexing the form data
     # (see: http://www.railsforum.com/viewtopic.php?pid=42791)
     params[:issue] = [] if params[:issue].nil? #Stops nil each error.
+    debugger
     params[:issue].each do |id, data|
       issue = Issue.find(id)
       issue.update_attributes!(data)

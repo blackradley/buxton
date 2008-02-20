@@ -10,29 +10,23 @@
 
 #questions
   -form_for(:issues, :url => {:controller => 'issues', :action => 'update'}) do |f|
-    -issues = @activity.issues.reject{|issue| issue.strand != @equality_strand }
+    %h4 Issues raised in Impact:
+    -issues = @activity.issues_by(:impact).reject{|issue| issue.strand != @equality_strand }
     - issues.reject!{|issue| issue.section.to_s == 'impact'} unless @impact_enabled
+    - if issues.size > 0
+      %ul
+        = render :partial => 'issues/review_issue', :collection => issues
+    - else
+      %p.noIssue No issues to plan actions for.
+      
+    %h4 Issues raised in Consultation:
+    -issues = @activity.issues_by(:consultation).reject{|issue| issue.strand != @equality_strand }
     - issues.reject!{|issue| issue.section.to_s == 'consultation'} unless @consultation_enabled
     - if issues.size > 0
-      -for issue in issues
-        %h3
-          =h issue.description
-        -fields_for "issue[]", issue do |ff|
-          %p
-            %label Actions
-            = ff.text_area :actions
-          %p
-            %label Resources
-            = ff.text_area :resources
-          %p
-            %label Timescales
-            = ff.text_area :timescales
-          %p
-            %label Lead Officer
-            = ff.text_area :lead_officer
-        .clear
+      %ul
+        = render :partial => 'issues/review_issue', :collection => issues
     - else
-      %p No issues to plan actions for.
+      %p.noIssue No issues to plan actions for.
     .clear
     = hidden_field_tag 'equality_strand', @equality_strand
     %p.question
