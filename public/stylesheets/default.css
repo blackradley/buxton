@@ -782,8 +782,12 @@ margin-left:30px;
 width: 338px;	
 }
 
-#questions li.issue span.issueDetails p.question.sub input, #questions li.issue span.issueDetails.question.sub input, #questions li.issue span.issueDetails p.question.sub textarea, #questions li.issue span.issueDetails.question.sub textarea{
+#questions li.issue span.issueDetails p.question.sub textarea, #questions li.issue span.issueDetails.question.sub textarea{
 margin-left:30px;
+width: 338px;	
+}
+#questions li.issue span.issueDetails p.question.sub input, #questions li.issue span.issueDetails.question.sub input{
+margin-left:0px;
 width: 338px;	
 }
 html/**/>body #questions .issueDetails p.question.sub input, html/**/>body #questions .issueDetails.question.sub input, html/**/>body #questions .issueDetails p.question.sub textarea, html/**/>body #questions .issueDetails.question.sub textarea{
@@ -845,12 +849,12 @@ width: 310px;
 #questions ul li{
 	padding: 0px;
 	margin: 0px;
-	margin-left: 20px;
+	margin-left: 10px;
 	list-style: none;
 	font-weight:bold;
 }
 #questions ul li.issue{
-	margin-left: 20px;
+	margin-left: 10px;
 }
 #questions ul li a{
 	font-weight:normal;

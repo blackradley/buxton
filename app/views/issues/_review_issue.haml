@@ -11,9 +11,9 @@
       = issue_form.hidden_field :issue_destroy, :index => nil, :class => 'issue_destroy'
     %span.issueDetails{:id => "details_#{review_issue.id}", :style => "display:none;"}
       %p.question.sub
-        / %label
-        /          Description
-        /        = issue_form.text_field :description, :index => nil
+        %label
+          Description
+          = issue_form.text_field :description, :index => nil
         %label
           Actions
         = issue_form.text_area :actions
