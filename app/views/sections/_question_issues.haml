@@ -73,7 +73,6 @@
 .more{:id => "more_" + "#{question_issues[:id]}_issues", :style => "display:none"}
 
 .question.sub{:id => "#{question_issues[:id]}_issues", :onclick => "setFocus(\'more_#{question_issues[:id]}_issues\',\'#{question_issues[:id]}_issues\');", :style => "display:#{displayString};"}
-  =image_tag("icons/arrow_turn_right.gif")
   %label 
     Please record the issues identified
   %span#issues_list

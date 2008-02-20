@@ -63,7 +63,6 @@
       -displayString = "block"
     
   %p.question.sub{:id => "#{question[:id]}", :onclick => "setFocus(\'more_#{question[:id]}\',\'#{question[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:#{displayString};"}
-    =image_tag("icons/arrow_turn_right.gif")
     %label
       =question[:label]
     %labelled

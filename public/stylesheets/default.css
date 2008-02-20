@@ -731,58 +731,17 @@ clear: left;
 	padding-bottom:5px;
 	
 }
-#questions p.question.sub{
-	margin-left: 20px;
-	width: 370px;
-}
-html/**/>body #questions p.question.sub{
-	width: 390px;
-}
-
-
-#questions p.question.sub img{
-	position:absolute;
-	top: 0px;
-	left: 0px;
-}
-
-
-#questions .question.sub{
-	margin-left: 20px;
-	width: 300px;
-	float:left;
-	clear: left;
-	overflow: hidden;
-	margin-top: 5px;
-}
-
-#questions  .question.sub img{
-	position:absolute;
-	top: 3px;
-	left: 5px;
-}
-
-#questions .question.sub label{
-margin:5px 30px;
-width: 340px;
-	
-}
 
 #questions p.question label{
 margin:5px 10px;
-width: 380px;
-	
-}
-#questions p.question.sub label{
-width: 300px;
-padding-left: 20px;
-	
+width: 380px;	
 }
 
 #questions input, #questions select, #questions textarea{
 	float:left;
 	margin-left: 10px;
 	margin-bottom:10px;
+	width: 380px;
 
 }
 #questions .more textarea{
@@ -794,6 +753,42 @@ padding-left: 20px;
 #questions .button input {
 	float:right;
 	margin-right:160px;
+	width: auto;
+}
+
+
+#questions p.question.sub, #questions .question.sub{
+	margin-left: 20px;
+	width: 388px;
+	float:left;
+	clear: left;
+	overflow: hidden;
+	margin-top: 5px;
+	border-left:2px solid #515f8d;
+}
+#questions li.issue span.issueDetails p.question.sub, #questions li.issue span.issueDetails.question.sub{
+	margin-left: 0px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#questions p.question.sub label,#questions .question.sub label{
+width: 358px;
+margin:0px 30px 5px 30px;
+font-weight:normal;
+}
+
+#questions p.question.sub input, #questions .question.sub input, #questions p.question.sub select, #questions .question.sub select, #questions p.question.sub textarea, #questions .question.sub textarea{
+margin-left:30px;
+width: 338px;	
+}
+
+#questions li.issue span.issueDetails p.question.sub input, #questions li.issue span.issueDetails.question.sub input, #questions li.issue span.issueDetails p.question.sub textarea, #questions li.issue span.issueDetails.question.sub textarea{
+margin-left:30px;
+width: 338px;	
+}
+html/**/>body #questions .issueDetails p.question.sub input, html/**/>body #questions .issueDetails.question.sub input, html/**/>body #questions .issueDetails p.question.sub textarea, html/**/>body #questions .issueDetails.question.sub textarea{
+margin-left:30px;
+width: 338px;	
 }
 
 #questions p img{
@@ -803,24 +798,24 @@ padding-left: 20px;
 }
 
 #questions #issues_list{
-	/*border: 1px solid red;*/
-}
+	float: left;
+	margin-bottom:10px;
+	}
 
 #questions .issue{
 	clear: left;
 	float:left;
-	margin-left: 5px;
-	margin-bottom: 10px;
+	margin-left: 0px;
+	margin-bottom: 2px;
 	/*border: 1px solid red;*/
-	width: 300px;
+	width: 388px;
 }
-html/**/>body #questions .issue{
-	margin-left: 20px;
+
+#questions p.question.sub .issue input, #questions .question.sub .issue input{
+margin-left:30px;
+width: 310px;	
 }
-#questions #issues_list a{
-	margin-left: 10px;
-	float:left;
-}
+
 #questions .question.sub a{
 	margin-left: 30px;
 	float:left;
@@ -830,18 +825,11 @@ html/**/>body #questions .issue{
 #questions #issues_list a img{
 	float:left;
 	margin-top: 4px;
-	margin-left: 2px;
+	margin-left: -20px;
 	position:relative;
-	top: 0px;
-	left: 0px;
 }
 
-#questions .question.sub .issues .issue input{
-	float:left;
-	width:220px;
-	margin-right:0px;
-	margin-left:10px;
-}
+
 
 
 .fieldWithErrors input{
@@ -849,6 +837,38 @@ html/**/>body #questions .issue{
 	border:1px solid #C00;
 	display: inline;
 }
+
+#questions ul{
+	padding: 0px;
+	margin: 0px;
+}
+#questions ul li{
+	padding: 0px;
+	margin: 0px;
+	margin-left: 20px;
+	list-style: none;
+	font-weight:bold;
+}
+#questions ul li.issue{
+	margin-left: 20px;
+}
+#questions ul li a{
+	font-weight:normal;
+	font-size:0.9em;
+	line-height:1.em;
+}
+#questions ul li a img{
+	margin-bottom: -3px;
+	margin-left:10px;
+}
+.issueDescription{
+	width: 200px;
+	float: left;}
+.issueControls{
+	width: 180px;
+	float: left;
+}
+
 
 /*1234 page styles*/
 .step{

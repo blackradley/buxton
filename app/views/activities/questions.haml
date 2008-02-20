@@ -49,8 +49,9 @@
             = observe_field(strand_name, :url => {:action => 'toggle_strand', :strand => strand, :controller => 'activities'})            
             %label
               =h strand.titleize
-            -if @activity.relevant?(strand) then
-              %span.strandRelevant Recommended  
+              -if @activity.relevant?(strand) then
+                <br />
+                %span.strandRelevant Recommended  
         %p 
         %h2 Equality Strand Questions
         %p The Impact Equality&trade; tool asks you questions under five Assessment Sections (purpose, impact, consultation, additional work, and action planning).

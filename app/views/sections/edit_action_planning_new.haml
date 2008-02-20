@@ -1,0 +1,36 @@
+%h1#questions
+  =h @activity.name 
+  <br />
+  = link_to image_tag('icons/previous.gif', :class =>'previous'), { :action => 'edit', :id => 'additional_work', :equality_strand => @equality_strand }, :title =>"Previous Section"
+  = @equality_strand.titleize + " - "
+  Action Planning
+  = image_tag('icons/no_next.gif', :class =>'next')
+
+-hashes = @activity.hashes
+
+#questions
+  -form_for(:issues, :url => {:controller => 'issues', :action => 'update'}) do |f|
+    %h4 Issues raised in Impact:
+    -issues = @activity.issues_by(:impact).reject{|issue| issue.strand != @equality_strand }
+    - issues.reject!{|issue| issue.section.to_s == 'impact'} unless @impact_enabled
+    - if issues.size > 0
+      %ul
+        = render :partial => 'issues/review_issue', :collection => issues
+    - else
+      %p.noIssue No issues to plan actions for.
+      
+    %h4 Issues raised in Consultation:
+    -issues = @activity.issues_by(:consultation).reject{|issue| issue.strand != @equality_strand }
+    - issues.reject!{|issue| issue.section.to_s == 'consultation'} unless @consultation_enabled
+    - if issues.size > 0
+      %ul
+        = render :partial => 'issues/review_issue', :collection => issues
+    - else
+      %p.noIssue No issues to plan actions for.
+    .clear
+    = hidden_field_tag 'id', @id 
+    = hidden_field_tag 'equality_strand', @equality_strand
+    %p.question
+      %span.button
+        = submit_tag 'Save' 
+  .clear

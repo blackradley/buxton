@@ -1,0 +1,29 @@
+%li.issue
+  - fields_for "activity[issue_attributes][]", review_issue do |issue_form|
+    %span.issueDescription
+      =h review_issue.description
+    %span.issueControls
+      = link_to_function image_tag('icons/cross.gif') + "delete", "mark_for_issue_destroy(this)"
+      = link_to_function image_tag('icons/edit.gif') + "show/hide details", "mytoggle('details_#{review_issue.id}')"
+      = issue_form.hidden_field :id, :index => nil
+      = issue_form.hidden_field :section, :index => nil, :value => @section
+      = issue_form.hidden_field :strand, :index => nil, :value => params[:equality_strand]
+      = issue_form.hidden_field :issue_destroy, :index => nil, :class => 'issue_destroy'
+    %span.issueDetails{:id => "details_#{review_issue.id}", :style => "display:none;"}
+      %p.question.sub
+        / %label
+        /          Description
+        /        = issue_form.text_field :description, :index => nil
+        %label
+          Actions
+        = issue_form.text_area :actions
+        %label
+          Resources
+        = issue_form.text_area :resources
+        %label
+          Timescales
+        = issue_form.text_area :timescales
+        %label
+          Lead Officer
+        = issue_form.text_area :lead_officer
+    .clear
