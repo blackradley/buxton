@@ -216,16 +216,31 @@ class Activity < ActiveRecord::Base
           # Check on issues first, if appropriate
           if (section == :impact) || (section == :consultation) then
             # TODO: have this handle when no strand is given
+            if strand then
+              issues_question = case section
+              when :impact
+                "impact_#{strand}_9"
+              when :consultation
+                "consultation_#{strand}_7"
+              end
+              if self.send(issues_question.to_sym) == 1 then
+                issues = self.issues_by(section, strand)
+                return false if issues.size == 0
+              end
+            end
+          else
+           strands.each do |strand|
             issues_question = case section
-            when :impact
-              "impact_#{strand}_9"
-            when :consultation
-              "consultation_#{strand}_7"
-            end
-            if self.send(issues_question.to_sym) == 1 then
-              issues = self.issues_by(section, strand)
-              return false if issues.size == 0
-            end
+              when :impact
+                "impact_#{strand}_9"
+              when :consultation
+                "consultation_#{strand}_7"
+              end
+              if self.send(issues_question.to_sym) == 1 then
+                issues = self.issues_by(section, strand)
+                return false if issues.size == 0
+              end           
+           end
           end
           like = [section, strand].join('_')
           needed = (section != :purpose)
@@ -389,7 +404,16 @@ class Activity < ActiveRecord::Base
           to_change.each do |question_name, completed_result|
             status = self.questions.find_or_initialize_by_name(question_name.to_s)
             status.update_attributes(:completed => !!completed_result) #cheap cast to bool. Not a cargocult ;)
-            question_name = question_name.to_sym
+            question_name = question_name.to_sym              issues_question = case section
+              when :impact
+                "impact_#{strand}_9"
+              when :consultation
+                "consultation_#{strand}_7"
+              end
+              if self.send(issues_question.to_sym) == 1 then
+                issues = self.issues_by(section, strand)
+                return false if issues.size == 0
+              end
             separated_question = Activity.question_separation(question_name)
             question_details = question_wording_lookup(*separated_question)
             unless separated_question[1].to_s == 'overall' then
