@@ -160,13 +160,13 @@ class ActivityPDFGenerator
     pdf.text(" ")
     collected_information = Activity.get_question_names('impact', nil, 3).map{|question| [question, activity.send(question)]}
     collected_information.reject! do |question, response|
-      not_needed = response.strip.size == 0
+      not_needed = response.to_s.strip.size == 0
       not_needed = not_needed || activity.send(question.to_s.gsub('3','2').to_sym) != 1 
       not_needed
     end
     planned_information = Activity.get_question_names('impact', nil, 5).map{|question| [question, activity.send(question)]}
     planned_information.reject! do |question, response|
-      not_needed = response.strip.size == 0
+      not_needed = response.to_s.strip.size == 0
       not_needed = not_needed || activity.send(question.to_s.gsub('5','4').to_sym) != 1 
       not_needed
     end
@@ -201,7 +201,7 @@ class ActivityPDFGenerator
     borders = [150, 300, 540]
     collected_information = Activity.get_question_names('consultation', nil, 3).map{|question| [question, activity.send(question)]}
     collected_information.reject! do |question, response|
-      not_needed = response.strip.size == 0
+      not_needed = response.to_s.strip.size == 0
       not_needed = not_needed || activity.send(question.to_s.gsub('3','1').to_sym) != 1 
       not_needed
     end
@@ -222,7 +222,7 @@ class ActivityPDFGenerator
     pdf.text(" ")
     collected_information = Activity.get_question_names('consultation', nil, 6).map{|question| [question, activity.send(question)]}
     collected_information.reject! do |question, response|
-      not_needed = response.strip.size == 0
+      not_needed = response.to_s.strip.size == 0
       not_needed = not_needed || activity.send(question.to_s.gsub('6','4').to_sym) != 1 
       not_needed
     end
