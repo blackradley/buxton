@@ -636,12 +636,12 @@ float: none;
 }
 
 #questions .more{
-clear: left;
 	float:right;
 	width: 240px;
 	text-align: left;
 	margin-left: 0px;
 	margin-right: 0px;
+	overflow: hidden;
 }
 #questions .more h3{
 	width: 240px;
@@ -658,13 +658,17 @@ clear: left;
 	font-weight:normal;
 }
 #questions .more .help{
-	margin-left: 5px;
+	margin-left: 10px;
 	margin-top: 0px;
 	padding: 10px;
 	color:#515f8d;
 	font-size:1em;
 	background-color: #f9fdd0;
 	border: 1px solid #fff3a4;
+	width: 230px;
+}
+html/**/>body #questions .more .help{
+	width: 202px;
 }
 #questions .more p.help ul li{
 	float: left;
@@ -675,21 +679,29 @@ clear: left;
 	text-align:center;
 	font-style:italic;
 }
-#questions .more p.comment{
-	margin-left: 5px;
-	margin-top: 0px;
+#questions .more p.comment, #questions .more p.note{
+	margin: 0px;
+	float: left;
+	text-align: left;
+	margin-left: 10px;
+	margin-bottom: 5px;
 	padding: 10px;
 	color:#515f8d;
 	font-size:1em;
+	width: 220px;
+	overflow: hidden;
+}
+/*html>body #questions .more p.comment, html>body #questions .more p.note{
+	margin-left: 10px;
+}*/
+html/**/>body #questions .more p.comment, html/**/>body #questions .more p.note{
+	width: 200px;
+}
+#questions .more p.comment{	
 	background-color: #dfe3f9;
 	border: 1px solid #b3beda;
 }
 #questions .more p.note{
-	margin-left: 5px;
-	margin-top: 0px;
-	padding: 10px;
-	color:#515f8d;
-	font-size:1em;
 	background-color: #f0fddc;
 	border: 1px solid #a3bf8e;
 }
@@ -699,22 +711,32 @@ clear: left;
 #questions .more .control{
 	float: left;
 	margin-right: 10px;
-	margin-left: 5px;
+	margin-left: 10px;
 }
 #questions .more .control img{
 	float: left;
 	margin-right: 5px;
 }
-#questions .more p.commentform{
+
+/*#questions .more .normalcommentview, #questions .more .normalnoteview{
 	margin: 0px 5px;
+	float: left;
 	text-align: left;
+	margin-left: 10px;
+	width: 220px;
+}*/
+#questions .more .commentform, #questions .more .noteform{
+	margin: 0px;
+	float: left;
+	text-align: left;
+	margin-left: 5px;
 }
-#questions .more p.commentform textarea{
+/*#questions .more p.commentform textarea{
 	margin: 0px;
 	margin-bottom:4px;
 	float: left;
 	text-align: left;
-}
+}*/
 
 #questions p.question{
 	position:relative;
@@ -737,7 +759,7 @@ margin:5px 10px;
 width: 380px;	
 }
 
-#questions input, #questions select, #questions textarea{
+#questions .question input, #questions .question select, #questions .question textarea{
 	float:left;
 	margin-left: 10px;
 	margin-bottom:10px;
@@ -747,7 +769,23 @@ width: 380px;
 #questions .more textarea{
 	float:left;
 	margin-bottom:10px;
+	width: 225px;
+	margin-left: 0px;
+	overflow: auto;
+}
+html>body #questions .more textarea{
+	width: 230px;
+}
 
+html/**/>body #questions .more textarea{
+	width: 220px;
+	margin-left: 10px;
+
+}
+
+#questions .more .commentform a, #questions .more .noteform a{
+	margin-left: 10px;
+	margin-right: 10px;
 }
 
 #questions .button input {
@@ -759,7 +797,7 @@ width: 380px;
 
 #questions p.question.sub, #questions .question.sub{
 	margin-left: 20px;
-	width: 388px;
+	width: 368px;
 	float:left;
 	clear: left;
 	overflow: hidden;
@@ -772,27 +810,31 @@ width: 380px;
 	margin-bottom: 10px;
 }
 #questions p.question.sub label,#questions .question.sub label{
-width: 358px;
+width: 338px;
 margin:0px 30px 5px 30px;
 font-weight:normal;
 }
 
-#questions p.question.sub input, #questions .question.sub input, #questions p.question.sub select, #questions .question.sub select, #questions p.question.sub textarea, #questions .question.sub textarea{
+#questions p.question.sub input, #questions .question.sub input, #questions p.question.sub select, #questions .question.sub select{
 margin-left:30px;
-width: 338px;	
+width: 318px;	
+}
+#questions p.question.sub textarea, #questions .question.sub textarea{
+margin-left:10px;
+width: 318px;
 }
 
 #questions li.issue span.issueDetails p.question.sub textarea, #questions li.issue span.issueDetails.question.sub textarea{
 margin-left:30px;
-width: 338px;	
+width: 318px;	
 }
 #questions li.issue span.issueDetails p.question.sub input, #questions li.issue span.issueDetails.question.sub input{
 margin-left:0px;
-width: 338px;	
+width: 318px;	
 }
 html/**/>body #questions .issueDetails p.question.sub input, html/**/>body #questions .issueDetails.question.sub input, html/**/>body #questions .issueDetails p.question.sub textarea, html/**/>body #questions .issueDetails.question.sub textarea{
 margin-left:30px;
-width: 338px;	
+width: 318px;	
 }
 
 #questions p img{
@@ -853,8 +895,18 @@ width: 310px;
 	list-style: none;
 	font-weight:bold;
 }
+#questions .more ul{
+	margin-left: 10px;
+	margin-top: 5px;
+}
+#questions .more ul li{
+	list-style: disc;
+	font-weight:normal;
+	list-style-position:outside;
+}
 #questions ul li.issue{
 	margin-left: 10px;
+
 }
 #questions ul li a{
 	font-weight:normal;
