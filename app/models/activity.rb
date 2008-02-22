@@ -28,7 +28,7 @@
 # is always the same, and the response is stored in the activity_strategy table.
 #
 class Activity < ActiveRecord::Base
-  belongs_to :activity_manager, :dependent => :destroy
+  has_one :activity_manager, :dependent => :destroy
   belongs_to :directorate
   # Fake belongs_to :organisation, :through => :directorate
   delegate :organisation, :organisation=, :to => :directorate
@@ -402,20 +402,13 @@ class Activity < ActiveRecord::Base
             end
           end
           to_change.each do |question_name, completed_result|
+            separated_question = Activity.question_separation(question_name)
+            section = separated_question[0]
+            strand = separated_question[1]
+            question_details = question_wording_lookup(*separated_question)
             status = self.questions.find_or_initialize_by_name(question_name.to_s)
             status.update_attributes(:completed => !!completed_result) #cheap cast to bool. Not a cargocult ;)
-            question_name = question_name.to_sym              issues_question = case section
-              when :impact
-                "impact_#{strand}_9"
-              when :consultation
-                "consultation_#{strand}_7"
-              end
-              if self.send(issues_question.to_sym) == 1 then
-                issues = self.issues_by(section, strand)
-                return false if issues.size == 0
-              end
-            separated_question = Activity.question_separation(question_name)
-            question_details = question_wording_lookup(*separated_question)
+            question_name = question_name.to_sym              
             unless separated_question[1].to_s == 'overall' then
               if separated_question[0].to_s == 'purpose' && separated_question[1].to_s != "overall" then
                 check_impact = true if old_store.to_i*5 == self.impact.to_i

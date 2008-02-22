@@ -7,7 +7,7 @@
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
 namespace :db do
-  desc "Reload every question in every activityivity so that the completed tags and statistics are brought up to date with the new functions"
+  desc "Reload every question in every activity so that the completed tags and statistics are brought up to date with the new functions"
   task :resync => :environment do
   Activity.find(:all).each do |activity|
     activity.saved = nil

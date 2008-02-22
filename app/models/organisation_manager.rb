@@ -8,5 +8,5 @@
 #
 class OrganisationManager < User
   # The user controls an organisation.
-  has_one :organisation, :dependent => :destroy  
+  belongs_to :organisation 
 end
