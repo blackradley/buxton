@@ -13,5 +13,6 @@ namespace :db do
     ActiveRecord::Base.connection.tables.each { |t| ActiveRecord::Base.connection.drop_table t }
     Rake::Task["db:migrate"].invoke
     Rake::Task["spec:db:fixtures:load"].invoke
+    Rake::Task["db:resync"].invoke
   end
 end

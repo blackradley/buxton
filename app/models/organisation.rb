@@ -26,7 +26,7 @@
 # in the system.
 #
 class Organisation < ActiveRecord::Base
-  belongs_to :organisation_manager, :dependent => :destroy
+  has_one :organisation_manager, :dependent => :destroy
   has_many :directorates, :dependent => :destroy
   has_many :strategies, :dependent => :destroy
   has_many :activities, :through => :directorates

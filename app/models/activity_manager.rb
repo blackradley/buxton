@@ -8,5 +8,6 @@
 #
 class ActivityManager < User
   # The user controls a activity.
-  has_one :activity, :dependent => :destroy
+  belongs_to :activity
+  
 end

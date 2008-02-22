@@ -9,4 +9,3 @@
 demo_council:
   name: "Demo Council"
   style: "default"
-  organisation_manager: orgman_iain
