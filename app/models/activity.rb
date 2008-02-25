@@ -235,6 +235,8 @@ class Activity < ActiveRecord::Base
                 "impact_#{strand}_9"
               when :consultation
                 "consultation_#{strand}_7"
+              else 
+                break
               end
               if self.send(issues_question.to_sym) == 1 then
                 issues = self.issues_by(section, strand)
