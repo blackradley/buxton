@@ -6,6 +6,8 @@
     %meta{'http-equiv' => 'content-type', 'content'=>'text/html;charset=UTF-8'}
     =javascript_include_tag :defaults
     =javascript_include_tag "commentsandnotes.js"
+    =javascript_include_tag "tooltip.js"    
+    = stylesheet_link_tag 'tooltip'
     -if @print_only
       = stylesheet_link_tag 'print' 
       = stylesheet_link_tag 'print', :media => 'print' 
