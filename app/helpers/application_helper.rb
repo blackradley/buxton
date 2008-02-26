@@ -257,25 +257,34 @@ module ApplicationHelper
 
     # Get the label text and details for this question
     query = activity.question_wording_lookup(section, strand, number)
-    question="#{section}_#{strand}_#{number}"
+    question_name="#{section}_#{strand}_#{number}"
     label = query[0]
     choices = activity.hashes['choices'][query[2]]
     # Get the answer options for this question and make an appropriate input field
-    question_answer = activity.send(question)
+    question_answer = activity.send(question_name)
     unless question_answer.nil?
       answer = case query[1].to_sym
       when :select
         choices[question_answer]
       when :text
-        activity.send(question)
+        activity.send(question_name)
       when :string
-        activity.send(question)
+        activity.send(question_name)
       end
     else
       answer = 'Not Answered Yet'
     end
-
-    %Q[<p><label title="#{label}">#{label}</label><div class="labelled">#{h answer}</div></p>]
+    question = Question.find_by_name(question_name)
+    if comment = question.comment then
+      tooltip_id = "comment_tooltip_#{comment.id}"
+      image_id = "comment_#{comment.id}"
+      comment_string = %Q[<div id='#{tooltip_id}' class="comment_tooltip">#{comment.contents}</div>
+      #{image_tag('icons/comment.gif', :id => image_id)}
+      <script type="text/javascript">var my_tooltip = new Tooltip('#{image_id}', '#{tooltip_id}');</script>]
+    else
+      comment_string = ""
+    end
+    %Q[<p><label title="#{label}">#{label}</label><div class="labelled">#{h answer}#{comment_string}</div></p>]
   end
 
   #This method produces an answer bar for the summary sections
