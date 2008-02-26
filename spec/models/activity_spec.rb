@@ -134,13 +134,13 @@ describe Activity do
     it "should have the correct text for an existing function on gender strand" do
       response = @activity.question_wording_lookup(:purpose, :gender, 3)
       #Test label text is right
-      response[0].should be_eql("Would it affect <strong>men and women</strong> differently?")
+      response[0].should be_eql("If the Policy is operating effectively does it have the potential to affect men and women differently?")
       #Test type of response is correctly read
       response[1].should be_eql('select')
       #Test the id of the options are correctly read
       response[2].should be_eql(1)
       #Test the help text is correctly read
-      response[3].should be_eql("")
+      response[3].should be_eql("This question asks you to identify any positive differential impact that the Policy has on men and women.</br></br> Please indicate whether the Policy could affect men and women differently if it were performed well.")
       #Test the weights are correctly read
       response[4].should be_eql(1)
     end
@@ -150,13 +150,13 @@ describe Activity do
       @activity.stub!(:function_policy).and_return(2)      
       response = @activity.question_wording_lookup(:purpose, :faith, 3)
       #Test label text is right
-      response[0].should be_eql("If the policy was performed well does it affect individuals of different faiths differently?")
+      response[0].should be_eql("If the Policy is operating effectively will it have the potential to affect individuals of different faiths differently?")
       #Test type of response is correctly read
       response[1].should be_eql('select')
       #Test the id of the options are correctly read
       response[2].should be_eql(1)
       #Test the help text is correctly read
-      response[3].should be_eql("")
+      response[3].should be_eql("This question asks you to identify any positive differential impact that the Policy has on individuals of different faiths.<br/><br/> Please indicate whether the Policy could affect individuals of different faiths differently if it were performed well.")
       #Test the weights are correctly read
       response[4].should be_eql(1)
       @activity.stub!(:existing_proposed).and_return(1)
@@ -203,11 +203,10 @@ describe Activity do
       end
       @activity.stub!(:existing_proposed).and_return(1)
       @activity.stub!(:function_policy).and_return(1)
-      @activity.statistics
     end 
     
     it "should have statistics" do
-      @activity.stat_function.should_not be_nil
+      @activity.impact
     end
     
     it "should have an medium impact" do

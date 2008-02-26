@@ -245,7 +245,6 @@ class Activity < ActiveRecord::Base
            end
           end
           like = [section, strand].join('_')
-          needed = (section != :purpose)
           # Find all incomplete questions with the given arguments
           # Either completed must be true, or needed must be false for this to evaluate. There is no need for both.
           answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%' AND (completed = true OR needed = false)")
@@ -400,6 +399,12 @@ class Activity < ActiveRecord::Base
             dependencies(name.to_s).each do |dependent|
               re_eval = dependent[0].to_s.clone
               check_re_eval = check_question(re_eval)
+              status = self.questions.find_or_initialize_by_name(re_eval.to_s)
+              if check_re_eval == :no_need then
+                status.update_attributes(:needed => false)
+              else
+                status.update_attributes(:needed => true)
+              end
               to_change.push([re_eval.clone, check_re_eval])
             end
           end
