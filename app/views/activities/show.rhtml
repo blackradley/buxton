@@ -30,7 +30,7 @@
 	</tr>
 	<tr>
 		<td><label>Strands identified as relevant:</label></td>
-		<td class="labelled"><%= @relevant_strands -%></td>
+		<td class="labelled"><%= @relevant_strands_string -%></td>
 	</tr>
 </table>
 </p>
@@ -46,6 +46,7 @@
 	</fieldset>
 </div>
 
+<% if @activity.relevant_strands.size > 0 then -%>
 <div id="show_purpose" <%= %Q[style="display:none;"] unless @print_only -%>>
 	<fieldset class="section_summary_show">
 		<legend>Purpose</legend>
@@ -117,3 +118,4 @@
 		<%= render 'sections/show_action_planning' -%>	
 	</fieldset>
 </div>
+<% end -%>
