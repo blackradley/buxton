@@ -4,6 +4,7 @@
 
 <h4>Impact by Equality Group</h4>
 
+<% if @activity.relevant_strands.include? 'gender' then -%>
 <h5>Men and women</h5>
 <%= answer(@activity, :impact, :gender, 1) %>
 <%= answer(@activity, :impact, :gender, 2) %>
@@ -24,7 +25,9 @@
   </ul>
   </div>
 </p>
+<% end -%>
 
+<% if @activity.relevant_strands.include? 'race' then -%>
 <h5>People from different ethnic backgrounds</h5>
 <%= answer(@activity, :impact, :race, 1) %>
 <%= answer(@activity, :impact, :race, 2) %>
@@ -45,7 +48,9 @@
   </ul>
   </div>
 </p>
+<% end -%>
 
+<% if @activity.relevant_strands.include? 'disability' then -%>
 <h5>People with different kinds of disability</h5>
 <%= answer(@activity, :impact, :disability, 1) %>
 <%= answer(@activity, :impact, :disability, 2) %>
@@ -66,7 +71,9 @@
   </ul>
   </div>
 </p>
+<% end -%>
 
+<% if @activity.relevant_strands.include? 'faith' then -%>
 <h5>People from different faith groups</h5>
 <%= answer(@activity, :impact, :faith, 1) %>
 <%= answer(@activity, :impact, :faith, 2) %>
@@ -87,7 +94,9 @@
   </ul>
   </div>
 </p>
+<% end -%>
 
+<% if @activity.relevant_strands.include? 'sexual_orientation' then -%>
 <h5>People of different sexual orientations</h5>          
 <%= answer(@activity, :impact, :sexual_orientation, 1) %>
 <%= answer(@activity, :impact, :sexual_orientation, 2) %>
@@ -108,8 +117,9 @@
   </ul>
   </div>
 </p>
+<% end -%>
 
-
+<% if @activity.relevant_strands.include? 'age' then -%>
 <h5>People of different ages</h5>
 <%= answer(@activity, :impact, :age, 1) %>
 <%= answer(@activity, :impact, :age, 2) %>
@@ -130,5 +140,6 @@
 </ul>
 </div>
 </p>
+<% end -%>
 
 </div>
