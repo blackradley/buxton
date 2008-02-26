@@ -2,6 +2,7 @@
 # STAGING SPECIFIC VARIABLES
 # =============================================================================
 set :domain, "impactstaging.org.uk"
+set :rails_env, "staging"
 
 # =============================================================================
 # THIS WOULD BE IN DEPLOY.RB IF IT COULD BE LAZY EVALUATED, BUT IT CAN'T
