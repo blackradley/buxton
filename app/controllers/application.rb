@@ -18,6 +18,10 @@ class ApplicationController < ActionController::Base
   before_filter :set_current_user
   
   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+  
+  # Consider requests made from 27stars router as local. This will enable more details error reports in-page
+  # and no automatic e-mails sent out. Reducing false positives.
+  consider_local "82.69.170.6"
     
 protected
   # Check that the user in the session is for real.
