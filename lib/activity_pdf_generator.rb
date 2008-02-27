@@ -76,12 +76,12 @@ class ActivityPDFGenerator
     ranking_table_data[0] = ["<b>Scores(1 to 5)</b>"]
     ranking_table_data[1] = ['Scores - 1 lowest to 5 highest']
     impact_table_data = []
-    impact_table_data[0] = ["<b>Impact</b>"]
-    impact_table_data[1] = ['']
+    impact_table_data[0] = ["<b>Equality strand</b>"]
+    impact_table_data[1] = ['Impact Rating']
     activity.strands.each do |strand|
       borders << border_gap + borders.last
       ranking_table_data[0] << "<b>#{strand.titleize}</b>"
-      ranking_table_data[1] << activity.priority_ranking(strand)
+      ranking_table_data[1] << activity.priority_ranking(strand).to_s
       impact_table_data[0] << "<b>#{strand.titleize}</b>"
       impact_table_data[1] << activity.impact_wording(strand).to_s.titleize      
     end
@@ -156,7 +156,7 @@ class ActivityPDFGenerator
   end
 
   def build_impact(pdf, activity)
-    pdf.text("<c:uline><b>3.  Purpose </b></c:uline>")
+    pdf.text("<c:uline><b>3.  Impact </b></c:uline>")
     pdf.text(" ")
     collected_information = Activity.get_question_names('impact', nil, 3).map{|question| [question, activity.send(question)]}
     collected_information.reject! do |question, response|
@@ -177,11 +177,11 @@ class ActivityPDFGenerator
       borders << borders.last.to_i + border_gap
     end  
     table = []
-    table << ["<b>Equality Strand</b>", "<b>Impact</b>", "<b>Information to support</b>", "<b>Planned Information to support</b>"]
+    table << ["<b>Equality Strand</b>", "<b>Current assessment of the impact of the Activity</b>", "<b>Information to support</b>", "<b>Planned Information to support</b>"]
     activity.strands.each do |strand|
       row = []
       row << strand.titleize
-      row << activity.impact_wording(strand).to_s.titleize
+      row << activity.hashes['choices'][2][activity.send("impact_#{strand}_1".to_sym)]
       row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       row << planned_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
