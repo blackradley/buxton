@@ -17,6 +17,8 @@ ActionController::Routing::Routes.draw do |map|
   map.demos 'demos', :controller => 'demos', :action => 'create', :conditions => { :method => :post }
   
   map.connect 'sections/edit/:id/:equality_strand', :controller => 'sections', :action => 'edit'
+  
+  map.keys 'keys', :controller => 'users', :action => 'keys' if DEV_MODE
 
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'

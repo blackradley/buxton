@@ -175,6 +175,13 @@ class UsersController < ApplicationController
     end
   end
   
+  def keys
+    return unless DEV_MODE
+    @administrators = Administrator.find(:all)
+    @organisation_managers = OrganisationManager.find(:all, :include => {:organisation => {:activities => :activity_manager}})
+    render :layout => 'keys'
+  end
+  
 protected
   # No methods are secure
   def secure?

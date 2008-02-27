@@ -1,0 +1,30 @@
+- if DEV_MODE then
+  %h1 Keys
+  %h2 Administrators
+  %ul
+    - @administrators.each do |admin|
+      %li
+        = link_to admin.email, admin.url_for_login(request)
+  %hr
+  %h2 Organisations
+  %ul
+    - @organisation_managers.each do |org_man|
+      %li
+        %h3
+          = org_man.organisation.name
+          (
+          = link_to org_man.email, org_man.url_for_login(request)
+          )
+        %ul
+          - org_man.organisation.directorates.each do |directorate|
+            %li
+              %h4
+                = directorate.name
+              %ul
+                - directorate.activities.each do |activity|
+                  %li
+                    = activity.name
+                    (
+                    = link_to activity.activity_manager.email, activity.activity_manager.url_for_login(request)
+                    )
+        %hr
