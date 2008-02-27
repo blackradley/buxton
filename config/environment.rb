@@ -9,7 +9,7 @@
 ENV['RAILS_ENV'] ||= 'staging'
 
 # Set constant for use in /keys and banner development benefits
-DEV_MODE = (['development','staging'].include? RAILS_ENV)
+DEV_MODE = (['development','staging'].include? ENV['RAILS_ENV'])
 
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.0.2' unless defined? RAILS_GEM_VERSION
