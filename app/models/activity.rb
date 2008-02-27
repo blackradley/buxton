@@ -410,7 +410,6 @@ class Activity < ActiveRecord::Base
               to_change.push([re_eval.clone, check_re_eval])
             end
           end
-          puts to_change
           to_change.each do |question_name, completed_result|
             separated_question = Activity.question_separation(question_name)
             section = separated_question[0]
