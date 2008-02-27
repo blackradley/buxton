@@ -55,6 +55,9 @@ class Activity < ActiveRecord::Base
       '-'
     end
   end
+  def parents
+    @@parents
+  end
 
   def header(header_placing)
     fun_pol = self.function_policy.to_i
@@ -129,9 +132,8 @@ class Activity < ActiveRecord::Base
     #Check whether each question is completed. If it is, add one to the amount that are completed. Then add one to the total.
     like = [section, strand].join('_')
     # Find all incomplete questions with the given arguments
-    needed = section != :purpose
-    number_answered += self.questions.find(:all, :conditions => "name LIKE '%#{like}%' AND completed = true#{" AND needed = true" if needed}").size
-    not_needed_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'#{" AND needed = false" if needed}").size
+    number_answered += self.questions.find(:all, :conditions => "name LIKE '%#{like}%' AND completed = true AND needed = true").size
+    not_needed_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'  AND needed = false").size
     total += Activity.get_question_names(section, strand).size - not_needed_questions
     #If you don't specify a section, or your section is action planning, consider issues as well.
     unless section && !(section == :action_planning) then
@@ -408,6 +410,7 @@ class Activity < ActiveRecord::Base
               to_change.push([re_eval.clone, check_re_eval])
             end
           end
+          puts to_change
           to_change.each do |question_name, completed_result|
             separated_question = Activity.question_separation(question_name)
             section = separated_question[0]
@@ -579,12 +582,16 @@ class Activity < ActiveRecord::Base
     rank = 5
     unless strand then
       strand_total = strands.inject(0) do |total, strand|
-        total += priority_ranking(strand)**3
+        total += priority_ranking(strand).to_i**3
       end
-      strand_total = (strand_total.to_f/strands.size)**(1.to_f/3)
-      return (strand_total + 0.5).to_i
+      if strands.size == 0 then
+        return '-'
+      else
+        strand_total = (strand_total.to_f/strands.size)**(1.to_f/3)
+        return (strand_total.to_f + 0.5).to_i
+      end
     else
-      return '-' if self.send("#{strand}_relevant")
+      return '-' unless self.send("#{strand}_relevant") && self.completed(:impact, strand) && self.completed(:consultation, strand)
       ranking = self.send("#{strand}_percentage_importance")
       ranking_boundaries.each{|border| rank -= 1 unless ranking > border}
       return rank

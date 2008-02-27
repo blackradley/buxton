@@ -50,19 +50,16 @@ function setFocus(element, element2){
 	grey.style.background = "#eee";
 }
 
+function setDependencyTrue(sub_question){
+   document.getElementById(sub_question).style.display = "block";
+}
 function checkDependancy(main_question, sub_question, value){
 	var dependent = document.getElementById(sub_question);
-	dependent.style.display = "none";
 	
 	var question = document.getElementById('activity_' + main_question);
-	
-	if (question.value==value){
-		dependent.style.display = "block";
-	}
-	
-	
-
-	
+	if (question.value!=value){
+		dependent.style.display = "none";
+	}	
 }
 
 
