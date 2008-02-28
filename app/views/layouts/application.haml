@@ -13,6 +13,9 @@
     = javascript_include_merged :base        
     %link{:href=>'/images/favicon.ico', :rel=>'icon', :type=>"image/x-icon"}
   %body
+    - if DEV_MODE
+      #banner
+        = "Not live. You are on a server in #{RAILS_ENV} mode." if DEV_MODE
     .container
       .mastHead
         .logo
