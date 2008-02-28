@@ -5,6 +5,9 @@ body {
   font-family: "Tahoma", Verdana, Arial, Sans-Serif;
   font-size: 0.7em; }
 
+a {
+  color: #000; }
+
 #productPage_container {
   background-image: url(../images/productPage_content_bg.jpg);
   background-repeat: repeat-y;
@@ -111,6 +114,8 @@ body {
     border-width: 6px;
     border-color: #394464;
     border-style: solid; }
+    #productPage_content .blue a {
+      color: #fff; }
     #productPage_content .blue p {
       margin: 20px;
       padding-top: 0px;
