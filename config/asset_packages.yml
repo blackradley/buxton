@@ -1,0 +1,43 @@
+# The order matters!
+--- 
+javascripts: 
+- base: 
+  - prototype
+  - effects
+  - dragdrop
+  - controls
+  - application
+  - commentsandnotes
+  - tooltip
+stylesheets:
+# error.css is never called through Rails so not included here
+- base: 
+  - default
+  - tooltip
+# create per-customer packages for customising in the future and conditional includes
+- alisonmclean:
+  - alisonmclean
+- baddiley:
+  - baddiley
+- birmingham:
+  - birmingham
+- bradford:
+  - bradford
+- brap:
+  - brap
+- brettonwood:
+  - brettonwood
+- caret:
+  - caret
+- cskstrategies:
+  - cskstrategies
+- ealing:
+  - ealing
+- hertfordshire:
+  - hertfordshire
+- stratford:
+  - stratford
+- thechangeagency:
+  - thechangeagency
+- wolverhampton:
+  - wolverhampton
