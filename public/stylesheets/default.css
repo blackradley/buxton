@@ -12,7 +12,7 @@ BODY
 	color: #666;
 }
 
-.container{
+.container {
 	width: 700px;
 	background-color: #FFF;
 	margin: 0px auto;
@@ -20,12 +20,19 @@ BODY
 	text-align: left;	
 }
 
-.footer{
+.footer {
 	padding: 20px;
+	margin-bottom: 10px;
 }
 
 .login_status {
-	float: left;	
+	float: left;
+}
+
+#body_footer {
+	padding: 30px;
+	color: #515F8D;
+	font-size:0.9em;
 }
 
 .powered_by {
