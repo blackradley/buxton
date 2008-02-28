@@ -19,15 +19,15 @@ set :rake, "/usr/local/rubygems/gems/bin/rake"
 # =============================================================================
 # TASKS
 # =============================================================================
-after "deploy:update_code", "db:symlink" 
-
-# database.yml task
-namespace :db do
-  desc "Make symlink for database and mongrel_cluster yaml files"
-  task :symlink do
-    run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-    run "ln -nfs #{shared_path}/config/mongrel_cluster.yml #{release_path}/config/mongrel_cluster.yml"
-  end
+task :after_update_code, :roles => [:web] do
+  # Build/merge all of the assets
+  run <<-EOF
+    cd #{release_path} &&
+    rake RAILS_ENV=#{rails_env} asset:packager:build_all
+  EOF
+  # Make symlink for database and mongrel_cluster yaml files
+  run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
+  run "ln -nfs #{shared_path}/config/mongrel_cluster.yml #{release_path}/config/mongrel_cluster.yml"  
 end
 
 # =============================================================================
