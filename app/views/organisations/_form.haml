@@ -1,0 +1,54 @@
+= error_messages_for 'organisation_manager'
+= error_messages_for 'organisation'
+
+%script
+  function addListItem() {
+  var list = document.getElementById('directorates_list');
+  list.innerHTML = list.innerHTML + "<li><input id=\"directorates[]\" type=\"text\" name=\"directorates[]\"/></li>";
+  }
+%p
+  %label Email
+  .labelled
+    = text_field 'organisation_manager', 'email', 'size' => 50
+    
+%p
+  %label Name
+  .labelled
+    = text_field 'organisation', 'name', 'size' => 50
+
+%fieldset.organisation_customisation
+  %legend Customisation
+  %p
+    %label Style:
+    .labelled
+      = text_field 'organisation', 'style'
+  %p
+    %label Link to CES document:
+    .labelled
+      = text_field 'organisation', 'ces_link'
+    %span.help_example e.g. http://organisation.org/CES.pdf
+  %p
+    %label Localised term for 'Directorate':
+    .labelled
+      = text_field 'organisation', 'directorate_term'
+  %p
+    %label.long Text to be used when asking about an Activities strategies:
+    %br
+    .labelled.long
+      = radio_button :organisation, :strategy_text_selection, 0
+      "How do you contribute to our goals?"
+      %br
+      = radio_button :organisation, :strategy_text_selection, 1
+      "For each strategy, please decide whether it is going to be significantly aided by the activity"
+      %br	
+%fieldset.organisation_customisation
+  %legend Directorates
+  -fields_for :directorate do |directorate_fields|
+    .directorates
+      #directorates_list
+        = render :partial => 'directorates/directorate', :collection => @organisation.directorates
+      %span#add_link{:style=>"width:auto;"}
+        = image_tag('icons/add.gif') 
+        = link_to_function "Add a Directorate" do |page|
+          -page.insert_html :bottom, :directorates_list, :partial => 'directorates/directorate', :object => Directorate.new
+      .clear
