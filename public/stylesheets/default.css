@@ -252,7 +252,7 @@ UL#menuBar LI.disabled A:hover
 
 #sections_menu ul#menuBar
 {
-	margin: 0 0 0 5px;
+	margin: 0 auto;	
 	padding: 0;
 	list-style: none;
 	width: 420px;

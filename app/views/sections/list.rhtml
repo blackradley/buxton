@@ -1,10 +1,9 @@
 <h3>Organisation Control Page - Sections</h3>
 
-<p>The Activities are listed by Directorate.</p>
-<p>Click on one of the 5 assessment sections (below) to see how each Activity is progressing through the tool.</p>
+<p>The Activities are listed by Directorate. Click on one of the 5 assessment sections (below) to see how each Activity is progressing through the tool.</p>
 
 <div id="sections_menu"><%= sections_menu -%></div>
-
+<hr />
 <h3>Section: <%= @section.titleize -%></h3>
 <p>This shows how far the Activity owners have completed this part of the assessment tool.  You can see more information, or provide them with further help, using the icons on the right of each entry.</p>
 <% @directorates.each do |directorate| -%>
