@@ -52,9 +52,8 @@ class OrganisationPDFGenerator
     pdf.text " "
     pdf.text "For those activities which have completed the assessment, the Results Table below shows the number where there may be a problem: the further towards the top right, the more important.", :justification => :center
     pdf.text " "
-    single_row_table = [["", "<b>Potential Impact</b>**"]]
-    pdf = generate_table(pdf, single_row_table, {:borders => [100,400], :alignment => :center})
     table = []
+    table << ["", "<b>Potential Impact</b>**"]
     table << ["<b>Priority</b>*", "<b>Low Impact</b>", "<b>Medium Impact</b>", "<b>High Impact</b>"]
     organisation.results_table.to_a.sort.reverse.each do |priority_ranking, value|
       table << ["Priority #{priority_ranking}", value[:low], value[:medium], value[:high]]
@@ -116,7 +115,15 @@ class OrganisationPDFGenerator
         top_of_table = pdf.y
       end
       pdf.line(init_pos, pdf.y, new_x_pos - 2, pdf.y).stroke if show_lines && row == table.first
-      pdf = add_row(pdf, row, table_data, init_pos, show_lines)
+      borders_to_pass = borders.clone
+      table_data_to_pass = table_data.clone
+      if row.size != borders.size then
+        borders_to_pass.pop while row.size < borders_to_pass.size
+        borders_to_pass.pop
+        borders_to_pass.push(borders.last)
+        table_data_to_pass[:borders] = borders_to_pass 
+      end
+      pdf = add_row(pdf, row, table_data_to_pass, init_pos, show_lines)
     end
     pdf.line(init_pos, top_of_table, init_pos, pdf.y).stroke if show_lines
     pdf

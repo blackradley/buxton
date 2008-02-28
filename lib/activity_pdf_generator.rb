@@ -402,7 +402,15 @@ class ActivityPDFGenerator
         top_of_table = pdf.y
       end
       pdf.line(init_pos, pdf.y, new_x_pos - 2, pdf.y).stroke if show_lines && row == table.first
-      pdf = add_row(pdf, row, table_data, init_pos, show_lines)
+      borders_to_pass = borders.clone
+      table_data_to_pass = table_data.clone
+      if row.size != borders.size then
+        borders_to_pass.pop while row.size < borders_to_pass.size
+        borders_to_pass.pop
+        borders_to_pass.push(borders.last)
+        table_data_to_pass[:borders] = borders_to_pass 
+      end
+      pdf = add_row(pdf, row, table_data_to_pass, init_pos, show_lines)
     end
     pdf.line(init_pos, top_of_table, init_pos, pdf.y).stroke if show_lines
     pdf
