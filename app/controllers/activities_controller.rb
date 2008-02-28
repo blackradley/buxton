@@ -58,18 +58,16 @@ class ActivitiesController < ApplicationController
   def new
     @activity = Activity.new
     @activity_manager = @activity.build_activity_manager
-        
     directorates = @current_user.organisation.directorates
     @directorate_term = @current_user.organisation.directorate_string
     @directorates = directorates.collect{ |d| [d.name, d.id] }
-    
     # If the params
     if params[:directorate] && directorate = directorates.find_by_id(params[:directorate]) then
       @activity.directorate = directorate
     end
   end
 
-  # Create a new activity and a new user brequire 'pdfwriter_extensions'  ased on the parameters in the form data.
+  # Create a new activity and a new user based on the parameters in the form data.
   # Available to: Organisation Manager
   def create
     @activity = Activity.new(params[:activity])
@@ -77,7 +75,10 @@ class ActivitiesController < ApplicationController
     @activity_manager.passkey = ActivityManager.generate_passkey(@activity_manager)
     @directorate_term = @current_user.organisation.directorate_string
     @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] } # Needed for the new template incase we need to re-render it
-
+    Activity.get_question_names.each do |question_name|
+      question = @activity.questions.build(:name => question_name.to_s)
+      question.update_attributes(:needed => true) if question_name.to_s.include?("purpose") 
+    end    
     Activity.transaction do
       @activity.save!
       flash[:notice] = "#{@activity.name} was created."

@@ -55,9 +55,9 @@
 -if question[:dependents][0] 
   -depString = ""
   -question[:dependents].each do |dep|
-    -depString << "setDependencyTrue('#{dep[0]}'); checkDependancy('#{question[:id]}','#{dep[0]}', '#{dep[1]}'); "
-    -unless @activity.parents[dep[0].to_s][0] == question[:id] then
-      -depString << "checkDependancy('#{@activity.parents[dep[0].to_s][0]}','#{dep[0]}', '#{@activity.parents[dep[0].to_s][1]}'); "
+    -depString << "setDependencyTrue('#{dep[0]}'); checkDependancy('#{question[:id]}','#{dep[0]}', '#{dep[1]}'); " rescue nil
+    -unless [@activity.parents[dep[0].to_s]].flatten[0] == question[:id] then
+      -depString << "checkDependancy('#{@activity.parents[dep[0].to_s][0]}','#{dep[0]}', '#{@activity.parents[dep[0].to_s][1]}'); " rescue nil
 -if question[:dependency]
   -displayString = "none"
   -if @activity.send(question[:dependency][0][0].to_sym)
