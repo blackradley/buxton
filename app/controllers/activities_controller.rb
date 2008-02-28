@@ -75,10 +75,6 @@ class ActivitiesController < ApplicationController
     @activity_manager.passkey = ActivityManager.generate_passkey(@activity_manager)
     @directorate_term = @current_user.organisation.directorate_string
     @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] } # Needed for the new template incase we need to re-render it
-    Activity.get_question_names.each do |question_name|
-      question = @activity.questions.build(:name => question_name.to_s)
-      question.update_attributes(:needed => true) if question_name.to_s.include?("purpose") 
-    end    
     Activity.transaction do
       @activity.save!
       flash[:notice] = "#{@activity.name} was created."

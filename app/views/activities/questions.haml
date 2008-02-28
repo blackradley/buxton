@@ -31,7 +31,7 @@
       %p What is the purpose of this Activity? After you have completed the purpose Assessment Section you will be asked which of the Equality Dimensions you wish to complete.
       %p 
         =image_tag("icons/view.gif")
-        =link_to "complete questions defining Overall Purpose of Activity", { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => 'overall' }, :title =>"Complete questions defining Overall Purpose of Activity"
+        =link_to "Complete questions defining the overall purpose of the activity", { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => 'overall' }, :title =>"Complete questions defining Overall Purpose of Activity"
 
   -if @activity.completed(:purpose) then
     .step#three

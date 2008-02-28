@@ -47,6 +47,7 @@ class Activity < ActiveRecord::Base
 
   attr_accessor :activity_clone, :overall_completed_issues, :completed_strategies, :made_change, :saved
   before_save :set_approved
+  before_save :create_questions_if_new
 
   after_update :save_issues
   
@@ -106,6 +107,16 @@ class Activity < ActiveRecord::Base
 
   def hashes
     @@Hashes
+  end
+  
+  def create_questions_if_new
+    # Initialise a question, for every question name, if this is a new record
+    if self.new_record? and self.questions.empty? then
+      Activity.get_question_names.each do |question_name|
+        question = self.questions.build(:name => question_name.to_s)
+        question.needed = true if question_name.to_s.include?("purpose")
+      end
+    end
   end
 
   def set_approved
@@ -378,6 +389,7 @@ class Activity < ActiveRecord::Base
       end
       if new_value == 1 then
         @@invisible_questions.each do |question|
+          debugger
           status = self.questions.find_by_name(question.to_s)
           status.update_attributes(:needed => false)
         end
