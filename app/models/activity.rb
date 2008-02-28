@@ -404,7 +404,7 @@ class Activity < ActiveRecord::Base
               re_eval = dependent[0].to_s.clone
               check_re_eval = check_question(re_eval)
               status = self.questions.find_by_name(re_eval.to_s)
-              if check_re_eval == :no_need then
+              if hashes[dependent[1]].to_i != new_store then
                 status.update_attributes(:needed => false)
               else
                 status.update_attributes(:needed => true)
