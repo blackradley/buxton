@@ -50,13 +50,13 @@ module ApplicationHelper
     else
       case @current_user.class.name
         when 'ActivityManager'
-          'Logged in as a Activity Manager'
+          'Logged in as a Activity Manager.'
         when 'OrganisationManager'
-          'Logged in as an Organisation Manager'
+          'Logged in as an Organisation Manager.'
         when 'Administrator'
-          'Logged in as an Administration Manager'
+          'Logged in as an Administration Manager.'
         else
-          'Login status unknown'
+          'Login status unknown.'
       end
     end
   end
@@ -115,7 +115,12 @@ module ApplicationHelper
   def generate_menu(links)
     link_html = ''
     links.each do |link|
-      class_name = (current_page?(link[:url])) ? 'selected' : ''
+      # Highlight the tab if it's selected, or something it should highlight on is selected
+      highlight_on = [link[:url]]
+      highlight_on += link[:highlight_on] if link[:highlight_on] 
+      highlight = highlight_on.detect{|url| current_page?(url)}
+      class_name = (highlight) ? 'selected' : ''
+      # Disable the tab if told to do so
       if link[:status] == 'disabled' then
         link_html << content_tag('li', link_to(link[:text], '#'), { :class => ['disabled', class_name].join(' ') })
       else
@@ -157,7 +162,12 @@ module ApplicationHelper
                         { :text => 'Sections',
                           :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
                           :title => 'Organisation Control Page - Sections',
-                          :status => '' }
+                          :status => '',
+                          :highlight_on => [  { :controller => 'sections', :action => 'list', :id => 'impact' },
+                                              { :controller => 'sections', :action => 'list', :id => 'consultation' },
+                                              { :controller => 'sections', :action => 'list', :id => 'additional_work' },
+                                              { :controller => 'sections', :action => 'list', :id => 'action_planning' } ]
+                          }
                         ])
       when 'ActivityManager'
          links = [
