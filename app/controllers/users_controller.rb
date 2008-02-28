@@ -22,6 +22,7 @@ class UsersController < ApplicationController
   def index
     # Log out the user if they are logged in
     logout()
+    render :layout => 'productPage'
   end
 
   # List all admins.

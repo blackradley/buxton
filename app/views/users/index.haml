@@ -1,0 +1,32 @@
+#left
+  %h1 What is Equality?
+  %p Equality is about making sure people are treated fairly and given fair chances. Equality is not about treating everyone in the same way, but it recognises that their needs are met in different ways.
+  / %p Impact Equality&trade; is a system to help public sector organisations manage and improve their equalities impact assessment process, an activity required under UK law.
+  /   %p The core purpose is to support public sector equalities performance and conformance with leading edge equality impact assessment automation &amp; services.
+  /   %p Local authorities (Councils), the health sector, regional development agencies, and all other public sector organisations must undertake equalities impact assessments and the functionality within Impact Equality&trade; helps them meet this requirement.
+  %ul
+    %li more efficient than current ad hoc paper systems [time &amp; resource]
+    %li cost effective &amp; adaptable to individual organisational needs
+    %li ensures legislative compliance, assists in mainstreaming &amp; provides a consistent solution
+    %li easy to implement &amp; use; supported by specialist consultancy & training
+    %li validated by positive market research
+    %li successful pilot case studies &amp; user testimonials
+  %p Black Radley – a recognised &amp; respected consultancy partner, specialising in refining &amp; enhancing public sector delivery of services to the community. We place real emphasis on making things happen effectively on the frontline via leading edge automation &amp; support services.
+
+#right
+  =image_tag ("Impact_Equality_TM_1.jpg", :class => "top")
+  =image_tag ("Impact_Equality_TM_2.jpg")
+  =image_tag ("Impact_Equality_TM_3.jpg")
+  
+.blue
+  %p 
+    Interested parties can request the usage of a fully functioning demo version of the product via an access key. To obtain this key, please contact Iain Wilkinson at Black Radley by email or on:<br />
+    %span.contactNumber 0845 2260363
+
+-form_tag :action => 'new_link' do
+  %fieldset
+    %p Lost the key that was emailed to you? <br />Then request a new one.
+    %label Email:
+    = text_field_tag :email,  nil, options = {:size => 50}
+    %span.button
+      = submit_tag 'Send me a new key'
