@@ -16,28 +16,28 @@ stylesheets:
   - tooltip
 # create per-customer packages for customising in the future and conditional includes
 - alisonmclean:
-  - alisonmclean
+  - organisations/alisonmclean
 - baddiley:
-  - baddiley
+  - organisations/baddiley
 - birmingham:
-  - birmingham
+  - organisations/birmingham
 - bradford:
-  - bradford
+  - organisations/bradford
 - brap:
-  - brap
+  - organisations/brap
 - brettonwood:
-  - brettonwood
+  - organisations/brettonwood
 - caret:
-  - caret
+  - organisations/caret
 - cskstrategies:
-  - cskstrategies
+  - organisations/cskstrategies
 - ealing:
-  - ealing
+  - organisations/ealing
 - hertfordshire:
-  - hertfordshire
+  - organisations/hertfordshire
 - stratford:
-  - stratford
+  - organisations/stratford
 - thechangeagency:
-  - thechangeagency
+  - organisations/thechangeagency
 - wolverhampton:
-  - wolverhampton
+  - organisations/wolverhampton
