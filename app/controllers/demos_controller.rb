@@ -28,57 +28,23 @@ class DemosController < ApplicationController
   # 
   # Available to: anybody
   def create
-    @organisation_manager = OrganisationManager.find(:first, :conditions => { :email => params[:organisation_manager][:email] })
-
-    if @organisation_manager.nil? then
-      # Create an organisation
-      @organisation = Organisation.new({ :name => 'Demo Council', :style => 'www', :directorate_term => 'department' })
-      
-      # Create a new organisation manager with the e-mail address we were given
-      @organisation_manager = @organisation.build_organisation_manager(params[:organisation_manager])
-      @organisation_manager.passkey = OrganisationManager.generate_passkey(@organisation_manager)
-
-      # Give the organisation some strategies
-      strategy_names = ['Manage resources effectively, flexibly and responsively',
-        'Investing in our staff to build an organisation that is fit for its purpose',
-        'Raising performance in our services for children, young people, families and adult',
-        'Raising performance in our housing services',
-        'Cleaner, greener and safer environment',
-        'Investing in regeneration',
-        'Improving our transport and tackling congestion',
-        'Providing more effective education and leisure opportunities']
-      strategy_names.each { |strategy_name|
-        strategy = @organisation.strategies.build
-        strategy.name = strategy_name
-        strategy.description = strategy_name
-      }
-
-      # Give the organisation five directorates
-      directorate_names = ["Adult, Community and Housing Services","Childrens Services","Finance, ICT and Procurement","Law and Property","Urban Environment"]
-      directorate_names.each { |directorate_name|
-        # Create a directorate
-        directorate = @organisation.directorates.build(:name => directorate_name)
-        # directorate.organisation = @organisation #this should be filled in directly above, don't know why not
-
-        activity_names = ['Activity 1','Activity 2','Activity 3']
-        activity_names.each { |activity_name|
-          # Create a activity
-          activity = directorate.activities.build(:name => activity_name)
-          # Create a activity manager
-          activity_manager = activity.build_activity_manager(params[:organisation_manager])
-          activity_manager.passkey = ActivityManager.generate_passkey(activity_manager)
-        }        
-      }
-      
-      Organisation.transaction do
-        @organisation.save!
-        flash[:notice] = 'Demonstration organisation was created.'
-      end
+    email = params[:organisation_manager][:email]
+    organisation_manager = OrganisationManager.find(:first, :conditions => { :email => email })
+    
+    if organisation_manager.nil? then
+      # This email is not already used by an org man, create a new demo, and return the passkey
+      demo = Demo.new(email)
+      demo.save!
+      passkey = demo.passkey
+    else
+      # This email has been used before, just log in as it
+      passkey = organisation_manager.passkey
     end
-
+    
+    flash[:notice] = 'Demonstration organisation was created.'
     # If we made it here then all of the above was successful.
-    # Log in the organisational manager (be they new or old).
-    redirect_to :controller => 'users', :action => :login, :passkey => @organisation_manager.passkey
+    # Log in as the organisational manager (be they new or old).
+    redirect_to :controller => 'users', :action => :login, :passkey => passkey
   end
 
 protected
