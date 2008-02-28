@@ -1,18 +1,14 @@
-  require 'rubygems'
-  require 'pdf/writer'
-  require 'pdf/simpletable'
+require 'rubygems'
+require 'pdf/writer'
 
 class ActivityPDFGenerator
 
   def initialize(activity)
     @pdf = PDF::Writer.new
-    a = Time.now
     methods_to_call =  [:page_numbers, :unapproved_logo_on_first_page, :footer, :header, :body, :rankings,
      :purpose, :impact, :consultation, :additional_work, :equality_objectives, :review_date, :action_plan]
     methods_to_call.each do |operation|
-      puts operation
       @pdf = self.send("build_#{operation.to_s}", @pdf, activity)
-      puts Time.now - a
     end
     @pdf.stop_page_numbering(true)
   end
@@ -311,14 +307,20 @@ class ActivityPDFGenerator
     pdf.text(" ")
     unless activity.review_on.to_s.strip.size == 0 then
       pdf.text(activity.review_on.to_s)
+      pdf.text " "
     else
       pdf.text("No review date has been decided on yet.")
+      pdf.text " "
     end
     pdf
   end
   def build_action_plan(pdf, activity)
     pdf.text("<c:uline><b>8.  Action Plan</b></c:uline>")
     pdf.text(" ")
+    if activity.issues.size == 0 then
+      pdf.text("There are no relevant issues, so no action plans are currently required.")
+      return pdf
+    end
     width = (pdf.absolute_right_margin - pdf.absolute_left_margin)
     border_gap = width/(5)
     borders = [border_gap]
@@ -373,47 +375,54 @@ class ActivityPDFGenerator
   end
 
   private  #Custom implementation on SimpleTable. Creates a table in 0.08 seconds as opposed to simpletables 0.7.
-  def generate_table(pdf, table, table_data = @table_data, x_pos = nil, show_lines = true)
-    new_x_pos = table_data[:borders].last + pdf.absolute_left_margin + 2
+  def generate_table(pdf, table, table_data = @table_data)
+    x_pos = table_data[:offset]
+    borders = table_data[:borders]
+    show_lines = table_data[:show_lines]||true
+    init_pos = x_pos||pdf.absolute_left_margin
+    init_pos = pdf.absolute_x_middle - borders.last/2 + x_pos.to_i  if table_data[:alignment] == :center
+    init_pos = pdf.absolute_right_margin - borders.last + x_pos.to_i  if table_data[:alignment] == :right
+    new_x_pos = borders.last + 2 + init_pos
     top_of_table = pdf.y
     table.each do |row|
       lines = 1
       row.each_with_index do |cell, index|
         if index == 0 then
-          width = table_data[:borders][index]
+          width = borders[index]
         else
-          width = table_data[:borders][index] - table_data[:borders][index - 1]
+          width = borders[index] - borders[index - 1]
         end
         line_count = cell.size*((150.0/27)*(pdf.font_size/10.0))/width + 1 #Approximation of a width for characters
         lines = line_count if line_count > lines
       end
       if pdf.y < (lines+1).to_i*pdf.font_height + pdf.absolute_bottom_margin then
-        pdf.line(pdf.absolute_left_margin, top_of_table, pdf.absolute_left_margin, pdf.y).stroke if show_lines && row != table.first
+        pdf.line(init_pos, top_of_table, init_pos, pdf.y).stroke if show_lines && row != table.first
         pdf.start_new_page
-        pdf.line(pdf.absolute_left_margin, pdf.y, new_x_pos, pdf.y).stroke if show_lines
+        pdf.line(init_pos, pdf.y, new_x_pos, pdf.y).stroke if show_lines
         top_of_table = pdf.y
       end
-      pdf.line(pdf.absolute_left_margin, pdf.y, new_x_pos, pdf.y).stroke if show_lines && row == table.first
-      pdf = add_row(pdf, row, table_data, x_pos, show_lines)
+      pdf.line(init_pos, pdf.y, new_x_pos - 2, pdf.y).stroke if show_lines && row == table.first
+      pdf = add_row(pdf, row, table_data, init_pos, show_lines)
     end
-    pdf.line(pdf.absolute_left_margin, top_of_table, pdf.absolute_left_margin, pdf.y).stroke if show_lines
+    pdf.line(init_pos, top_of_table, init_pos, pdf.y).stroke if show_lines
     pdf
   end
   
   def add_row(pdf, row, table_data, x_pos = nil, lines = true)
-    top = pdf.y - pdf.font_height 
+    top = pdf.y - pdf.font_height
+    borders = table_data[:borders] 
     pdf.y -= pdf.font_height
     max_height = 0
     x_pos = x_pos || pdf.absolute_left_margin
-    x_pos += 2
     init_pos = x_pos
+    x_pos += 2
     row.each_with_index do |cell, index|
       if index == 0 then
-        width = table_data[:borders][index]
+        width = borders[index]
       else
-        width = table_data[:borders][index] - table_data[:borders][index - 1]
+        width = borders[index] - borders[index - 1]
       end
-      overflow = pdf.add_text_wrap(x_pos, pdf.y, width - 2, cell, 10)
+      overflow = pdf.add_text_wrap(x_pos, pdf.y, width - 2, cell.to_s, 10)
       current_height = 1
       while overflow.length > 0 
         pdf.y -= pdf.font_height
@@ -421,15 +430,15 @@ class ActivityPDFGenerator
         current_height += 1
       end
       max_height = current_height if current_height > max_height
-      x_pos = table_data[:borders][index] + pdf.absolute_left_margin + 5
+      x_pos = borders[index] + init_pos + 5
       pdf.y = top
     end
     max_height = (max_height)*pdf.font_height
     pdf.y -= max_height
     if lines then
-      x_pos = table_data[:borders].last + init_pos
-      pdf.line(pdf.absolute_left_margin, pdf.y, x_pos, pdf.y).stroke
-      table_data[:borders].each do |border|
+      x_pos = borders.last + init_pos
+      pdf.line(init_pos, pdf.y, x_pos, pdf.y).stroke
+      borders.each do |border|
         pdf.line(border + init_pos, top + pdf.font_height, border + init_pos, top - max_height).stroke
       end
     end    

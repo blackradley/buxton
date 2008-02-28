@@ -85,20 +85,11 @@ class OrganisationsController < ApplicationController
 
   def view_pdf
     @organisation = @current_user.organisation
-    send_data  OrganisationPDFRenderer.render_pdf(:data => @organisation.generate_pdf_data),
-      :type         => "application/pdf",
-      :disposition  => "inline",
-      :filename     => "report.pdf"
+    send_data OrganisationPDFGenerator.new(@organisation).pdf.render, :disposition => 'inline',
+      :filename => "#{@organisation.name}.pdf",
+      :type => "application/pdf"
   end
-
-  def view_full_pdf
-    @organisation = @current_user.organisation
-    send_data  OrganisationPDFRenderer.render_pdf(:data => @organisation.generate_pdf_data(true)),
-      :type         => "application/pdf",
-      :disposition  => "inline",
-      :filename     => "report.pdf"
-
-  end
+  
 protected
   # Secure the relevant methods in the controller.
   def secure?
