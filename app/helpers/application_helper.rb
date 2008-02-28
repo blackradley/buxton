@@ -264,10 +264,12 @@ module ApplicationHelper
 
   # Generates all the HTML needed to display the answer to a question
   def answer(activity, section, strand, number)
+    question_name="#{section}_#{strand}_#{number}"
+    question = Question.find_by_name(question_name)
+    return "" unless question.needed
 
     # Get the label text and details for this question
     query = activity.question_wording_lookup(section, strand, number)
-    question_name="#{section}_#{strand}_#{number}"
     label = query[0]
     choices = activity.hashes['choices'][query[2]]
     # Get the answer options for this question and make an appropriate input field
@@ -284,7 +286,7 @@ module ApplicationHelper
     else
       answer = 'Not Answered Yet'
     end
-    question = Question.find_by_name(question_name)
+
     if comment = question.comment then
       tooltip_id = "comment_tooltip_#{comment.id}"
       image_id = "comment_#{comment.id}"
