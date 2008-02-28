@@ -48,7 +48,7 @@ class OrganisationsController < ApplicationController
     Organisation.transaction do
       @organisation.save!
       flash[:notice] = "#{@organisation.name} was created."
-      redirect_to organisation_url(@organisation)
+      redirect_to organisations_url
     end
   end
 
@@ -69,7 +69,7 @@ class OrganisationsController < ApplicationController
       @organisation_manager = @organisation.organisation_manager
       @organisation_manager.update_attributes!(params[:organisation_manager])
       flash[:notice] = "#{@organisation.name} was successfully changed."
-      redirect_to organisation_url(@organisation)
+      redirect_to organisations_url
     end
   end
 
