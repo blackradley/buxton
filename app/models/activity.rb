@@ -35,10 +35,12 @@ class Activity < ActiveRecord::Base
 
   has_many :activity_strategies, :dependent => :destroy
   has_many :issues, :dependent => :destroy
-
+  has_many :questions, :dependent => :destroy
+  
   validates_presence_of :name, :message => 'All activities must have a name.'
   validates_presence_of :activity_manager
   validates_associated :activity_manager
+  validates_associated :questions
   # validates_uniqueness_of :name, :scope => :directorate_id
 
   has_many :questions, :dependent => :destroy
@@ -130,7 +132,7 @@ class Activity < ActiveRecord::Base
     number_answered = 0
     total = 0
     #Check whether each question is completed. If it is, add one to the amount that are completed. Then add one to the total.
-    like = [section, strand].join('_')
+    like = [section, strand].join('\_')
     # Find all incomplete questions with the given arguments
     number_answered += self.questions.find(:all, :conditions => "name LIKE '%#{like}%' AND completed = true AND needed = true").size
     not_needed_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'  AND needed = false").size
@@ -187,7 +189,7 @@ class Activity < ActiveRecord::Base
    # and if they have, then the activity is by definition started
   def started(section = nil, strand = nil)
     return (self.existing_proposed.to_i*self.function_policy.to_i) != 0 if (section.nil? && strand.nil?)
-    like = [section, strand].join('_')
+    like = [section, strand].join('\_')
     # Find all incomplete questions with the given arguments
     answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'")
     return true if answered_questions.size > 0
@@ -265,7 +267,7 @@ class Activity < ActiveRecord::Base
         # END OLD IMPLEMENTATION
       end
     else
-      return false unless self.overall_completed_questions && self.purpose_completed && self.action_planning_completed
+      return false unless self.completed(:impact) && self.completed(:consulation) && self.completed(:action_planning) && self.completed(:purpose) && self.action_planning_completed
     end
     unless (section && !(section == :action_planning)) then
       #First we calculate all the questions, in case there is a nil.
@@ -350,10 +352,10 @@ class Activity < ActiveRecord::Base
   
   def dependencies(question=nil)
     return @@dependencies.clone unless question
-    @@dependencies[question]
-    
+    return @@dependencies[question].clone if @@dependencies[question]
+    []
   end
-  
+ 
   def after_update
     return true if @saved
     @saved = true
@@ -376,7 +378,7 @@ class Activity < ActiveRecord::Base
       end
       if new_value == 1 then
         @@invisible_questions.each do |question|
-          status = self.questions.find_or_initialize_by_name(question.to_s)
+          status = self.questions.find_by_name(question.to_s)
           status.update_attributes(:needed => false)
         end
       end
@@ -385,7 +387,7 @@ class Activity < ActiveRecord::Base
         if @activity_clone.send(strand_name) != value then
           Activity.get_question_names(nil, strand_name.to_s.gsub("_relevant", "")).each do |question_name|
             next if question_name.to_s.include? "purpose"
-            question = self.questions.find_or_initialize_by_name(question_name.to_s)
+            question = self.questions.find_by_name(question_name.to_s)
             question.update_attributes(:needed => value)
           end
         end
@@ -401,7 +403,7 @@ class Activity < ActiveRecord::Base
             dependencies(name.to_s).each do |dependent|
               re_eval = dependent[0].to_s.clone
               check_re_eval = check_question(re_eval)
-              status = self.questions.find_or_initialize_by_name(re_eval.to_s)
+              status = self.questions.find_by_name(re_eval.to_s)
               if check_re_eval == :no_need then
                 status.update_attributes(:needed => false)
               else
@@ -415,7 +417,8 @@ class Activity < ActiveRecord::Base
             section = separated_question[0]
             strand = separated_question[1]
             question_details = question_wording_lookup(*separated_question)
-            status = self.questions.find_or_initialize_by_name(question_name.to_s)
+            status = self.questions.find_by_name(question_name.to_s)
+            puts question_name
             status.update_attributes(:completed => !!completed_result) #cheap cast to bool. Not a cargocult ;)
             question_name = question_name.to_sym              
             unless separated_question[1].to_s == 'overall' then
@@ -752,7 +755,7 @@ class Activity < ActiveRecord::Base
     #This takes a method in the form of :section_strand_number and turns it into an array [section, strand, number]
   def self.question_separation(question)
     hashes = YAML.load_file("#{RAILS_ROOT}/config/questions.yml") unless hashes
-    question = question.to_s
+    question = question.to_s.clone
     if question.include?("overall") then
       query_hash = hashes['overall_questions']
     else
@@ -798,8 +801,6 @@ class Activity < ActiveRecord::Base
         return nil
       end
     end
-
-private
 
 #Check question takes a single question as an argument and checks if it has been completed, and that any dependent questions have been answered.
   def check_question(question)
