@@ -583,8 +583,8 @@ class Activity < ActiveRecord::Base
       end
     end
   end
-  def strands
-    strand_list = ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age'].map{|strand| strand if self.send("#{strand}_relevant")}
+  def strands(return_all = false)
+    strand_list = ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age'].map{|strand| strand if self.send("#{strand}_relevant")||return_all}
     strand_list.compact
   end
   def priority_ranking(strand = nil)
@@ -593,19 +593,29 @@ class Activity < ActiveRecord::Base
     ranking_boundaries = [80,70,60,50]
     rank = 5
     unless strand then
-      strand_total = strands.inject(0) do |total, strand|
+      strand_total = strands(true).inject(0) do |total, strand|
         total += priority_ranking(strand).to_i**3
       end
-      if strands.size == 0 then
-        return '-'
-      else
-        strand_total = (strand_total.to_f/strands.size)**(1.to_f/3)
-        return (strand_total.to_f + 0.5).to_i
-      end
+      strand_total = (strand_total.to_f/strands(true).size)**(1.to_f/3)
+      return (strand_total.to_f + 0.5).to_i
     else
-      return '-' unless self.send("#{strand}_relevant") && self.completed(:impact, strand) && self.completed(:consultation, strand)
-      ranking = self.send("#{strand}_percentage_importance")
-      ranking_boundaries.each{|border| rank -= 1 unless ranking > border}
+      unless self.send("#{strand}_relevant") && self.completed(:impact, strand) && self.completed(:consultation, strand) then
+        if self.completed(:purpose, strand) then
+          purpose_weights = hashes['weights'][hashes['questions']['purpose'][3]['weights'].to_i]
+          exist_prop_weight = hashes['weights'][hashes['existing_proposed']['weights'].to_i]
+          fun_pol_weight = hashes['weights'][hashes['function_policy']['weights'].to_i]
+          max_weight = 2*purpose_weights.max + fun_pol_weight.max + exist_prop_weight.max
+          total = purpose_weights[self.send("purpose_#{strand}_3".to_sym)] + purpose_weights[self.send("purpose_#{strand}_4".to_sym)]
+          total += exist_prop_weight[self.send("existing_proposed".to_sym)] + fun_pol_weight[self.send("function_policy".to_sym)]
+          per_answered = (total.to_f/max_weight)*100
+          ranking_boundaries.each{|border| rank -= 1 unless per_answered > border}
+        else
+          return '-'
+        end
+      else
+        ranking = self.send("#{strand}_percentage_importance")
+        ranking_boundaries.each{|border| rank -= 1 unless ranking > border}
+      end
       return rank
     end
   end
