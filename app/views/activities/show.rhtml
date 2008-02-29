@@ -10,7 +10,7 @@
   	<label for="activity_approved">Approved?</label> <%= f.check_box :approved -%><br />
   	<label for="activity_approver" id="activity_approver_label">By:</label><%= f.text_field :approver -%><br />
   	<label for="activity_review_on" id="activity_review_on_label">Review On:</label><%= f.text_field :review_on -%>
-	<span id="approval_submit"><%= submit_tag -%></span>
+	<span id="approval_submit"><%= submit_tag "Save", :disable_with => 'Saving...' -%></span>
 </fieldset>
 <% end -%>
 

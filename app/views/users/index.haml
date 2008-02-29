@@ -29,4 +29,4 @@
     %label E-mail:
     = text_field_tag :email,  nil, options = {:size => 50}
     %span.button
-      = submit_tag 'Send me a new key'
+      = submit_tag 'Send me a new key', :disable_with => 'Sending now...'

@@ -3,7 +3,7 @@
 <% form_for [@organisation, @strategy] do |f| %>
   <%= render :partial => 'form' %>
   	<span class="button" style="float:none;">
-  		<%= submit_tag "Create" %>
+  		<%= submit_tag "Create", :disable_with => 'Creating...' %>
   	</span>
   <% end %>
 
