@@ -95,9 +95,10 @@ class ActivitiesController < ApplicationController
     render :action => :show
   end
 
+  # Disabled until further notice
   def update_ces
     @activity = @current_user.activity
-    @activity.update_attributes!(params[:activity])
+    @activity.update_attribute('ces_question', params[:activity][:ces_question])
     flash[:notice] = "#{@activity.name} was successfully updated."
     redirect_to :controller => 'activities', :action => 'questions'
 
