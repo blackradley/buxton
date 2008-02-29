@@ -13,7 +13,7 @@
   <fieldset class="organisation_customisation">
   	<legend>Customisation</legend>
   	<p><label for="organisation_style">Style:</label><div class="labelled"><%= @organisation.style -%></div></p>
-  	<p><label for="organisation_ces_link">Link to CES document:</label><div class="labelled"><%= link_to @organisation.ces_link, @organisation.ces_link -%></div></p>
+  	<p><label for="organisation_ces_link">Link to CES document:</label><div class="labelled"><% if @organisation.ces_link -%><%= link_to @organisation.ces_link, @organisation.ces_link -%><% end -%></div></p>
   	<p><label for="organisation_directorate_term">Localised term for 'Directorate':</label><div class="labelled"><%=h @organisation.directorate_term -%></div></p>
   	<p><label for="organisation_strategies_text" class="long">Text to be used when asking about an Activities strategies:</label><br />
     	<div class="labelled long indent">
