@@ -2,7 +2,7 @@
   =h @activity.name  + " - Overall Purpose"
 #questions
   -form_for(:activity, :url => {:action => 'update'}) do |f|
-    = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [2,10,11,12]), :locals => {:f => f}
+    = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [2,11,12]), :locals => {:f => f}
     .more{:id => "more_purpose_overall_strategy", :style => "display:none"}
       %h3
         =image_tag ("icons/help.gif")

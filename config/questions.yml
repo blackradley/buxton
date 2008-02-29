@@ -14,6 +14,26 @@ function_policy:
   weight: 0
   dependent_questions: ''
 
+ces_question:
+      label:
+        -
+          - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
+          - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
+        -
+          - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
+          - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
+      help:
+        -
+          - ''
+          - ''
+        -
+          - ''
+          - ''
+      type: select
+      choices: 3
+      weights: 0
+      dependent_questions: ''
+      
 questions:
   purpose:
     3:
@@ -901,25 +921,6 @@ overall_questions:
         -
           - 'Policies which cover the way in which the Council engages with businesses are likely to have an impact on the employees of such businesses'
           - 'Policies which cover the way in which the Council engages with businesses are likely to have an impact on the employees of such businessess'
-      type: select
-      choices: 3
-      weights: 0
-      dependent_questions: ''
-    10:
-      label:
-        -
-          - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
-          - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
-        -
-          - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
-          - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
-      help:
-        -
-          - ''
-          - ''
-        -
-          - ''
-          - ''
       type: select
       choices: 3
       weights: 0
