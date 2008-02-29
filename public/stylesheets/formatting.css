@@ -1,0 +1,32 @@
+.floatLeft {
+  float: left; }
+
+.floatRight {
+  float: right; }
+
+.clear {
+  clear: both; }
+
+.clearleft {
+  clear: left; }
+
+.left {
+  text-align: left; }
+
+#pdf_link {
+  float: right;
+  margin-top: -30px;
+  height: 30px;
+  width: 105px; }
+  #pdf_link img {
+    margin-right: 5px;
+    float: left; }
+  #pdf_link a {
+    text-decoration: underline;
+    color: #515f8d; }
+    #pdf_link a:visited {
+      text-decoration: underline;
+      color: #515f8d; }
+    #pdf_link a:hover {
+      text-decoration: underline;
+      color: #515f8d; }

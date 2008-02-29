@@ -1,0 +1,16 @@
+.fieldWithErrors input {
+  background-color: #FFF0F0;
+  border: 1px solid #C00;
+  display: inline; }
+
+.errorExplanation {
+  font-size: 0.9em;
+  line-height: 1em; }
+  .errorExplanation h2 {
+    color: red;
+    font-size: 1.1em; }
+
+.dialog {
+  text-align: center; }
+  .dialog h1 {
+    color: red; }

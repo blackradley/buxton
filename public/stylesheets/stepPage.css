@@ -1,0 +1,97 @@
+.step {
+  float: left;
+  clear: left;
+  width: 100%;
+  margin-bottom: 20px;
+  display: block;
+  position: relative; }
+  .step .stepImage {
+    float: left;
+    clear: left;
+    margin-right: 10px; }
+  .step .stepBox {
+    float: left;
+    width: 580px; }
+    .step .stepBox h2 {
+      float: left;
+      width: 580px;
+      color: #515f8d;
+      font-weight: bold;
+      font-size: 1.2em;
+      margin: 0px;
+      padding: 0px; }
+    .step .stepBox p {
+      float: left;
+      width: 580px;
+      margin: 5px 0px 10px 0px; }
+      .step .stepBox p img {
+        margin: 0px 4px;
+        margin-bottom: -3px;
+        padding-bottom: 0px; }
+    .step .stepBox table {
+      float: left;
+      width: 580px; }
+    .step .stepBox td {
+      width: 107px;
+      height: 33px;
+      overflow: hidden; }
+    .step .stepBox th {
+      width: 96px;
+      padding: 5px; }
+    .step .stepBox .checkStrand {
+      width: 170px;
+      float: left;
+      margin-right: 20px; }
+      .step .stepBox .checkStrand input {
+        width: auto;
+        float: left;
+        border: none;
+        margin-top: 5px; }
+      .step .stepBox .checkStrand label {
+        float: left;
+        clear: none;
+        font-weight: bold;
+        color: #515f8d;
+        position: relative; }
+        .step .stepBox .checkStrand label .strandRelevant {
+          float: left;
+          width: 120px;
+          color: green;
+          font-weight: normal;
+          font-size: 0.9em;
+          font-style: italic;
+          margin-top: -7px; }
+    .step .stepBox fieldset {
+      width: 100%;
+      margin: 0px;
+      padding: 0px; }
+      .step .stepBox fieldset p {
+        width: auto;
+        float: left;
+        margin: 0px;
+        padding: 0px; }
+    .step .stepBox select {
+      width: 140px;
+      float: left;
+      margin: 0px;
+      padding: 0px;
+      margin-top: 4px;
+      margin-right: 20px; }
+    .step .stepBox .submit {
+      float: left;
+      width: 100px; }
+      .step .stepBox .submit img {
+        margin-top: 4px;
+        float: left;
+        margin-left: 0px; }
+      .step .stepBox .submit input {
+        clear: none;
+        float: left;
+        width: 50px;
+        background-color: transparent;
+        border: none;
+        text-align: left;
+        text-decoration: underline;
+        color: #515f8d;
+        margin-left: 0px;
+        padding-left: 0px; }

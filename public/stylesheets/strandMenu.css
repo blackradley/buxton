@@ -1,0 +1,30 @@
+#strand {
+  background-color: #F90;
+  color: #fff;
+  height: 20px;
+  width: 690px;
+  line-height: 20px;
+  text-align: right;
+  padding-right: 10px;
+  margin-top: 5px;
+  font-size: 0.9em; }
+  #strand a {
+    color: #fff;
+    text-decoration: none; }
+    #strand a:visited {
+      color: #fff;
+      text-decoration: none; }
+    #strand a:hover {
+      text-decoration: underline; }
+  #strand .selected {
+    font-weight: bold;
+    text-decoration: underline; }
+
+/* section edit page top navigation */ */
+.next {
+  margin-left: 10px;
+  margin-bottom: -0px}; }
+
+.previous {
+  margin-right: 10px;
+  margin-bottom: -0px; }

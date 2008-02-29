@@ -1,0 +1,63 @@
+#menu {
+  width: 700px;
+  background-color: #515f8d;
+  height: 30px; }
+
+#menuBar ul {
+  margin: 0 0 0 5px;
+  padding: 0;
+  list-style: none; }
+  #menuBar ul li {
+    list-style: none;
+    float: left;
+    display: block;
+    margin-right: 5px;
+    margin-top: 5px; }
+    #menuBar ul li a {
+      text-decoration: none;
+      color: #FFF;
+      display: block;
+      background-color: #a8afc6;
+      padding: 0 1em;
+      line-height: 25px;
+      font-weight: bold;
+      cursor: pointer; }
+      #menuBar ul li a:visited {
+        text-decoration: none;
+        color: #fff;
+        display: block;
+        background-color: #a8afc6;
+        padding: 0 1em;
+        line-height: 25px;
+        font-weight: bold;
+        cursor: pointer; }
+      #menuBar ul li a:hover {
+        background-color: #fff;
+        color: #515f8d; }
+  #menuBar ul .disabled a {
+    text-decoration: none;
+    color: #FFF;
+    display: block;
+    background-color: #aeb1ab;
+    padding: 0 1em;
+    line-height: 25px;
+    font-weight: bold;
+    cursor: default; }
+    #menuBar ul .disabled a:visited {
+      text-decoration: none;
+      color: #FFF;
+      display: block;
+      background-color: #aeb1ab;
+      padding: 0 1em;
+      line-height: 25px;
+      font-weight: bold;
+      cursor: default; }
+    #menuBar ul .disabled a:hover {
+      background-color: #aeb1ab;
+      color: #fff; }
+  #menuBar ul .selected a {
+    color: #515f8d;
+    background-color: #fff; }
+    #menuBar ul .selected a:visited {
+      color: #515f8d;
+      background-color: #fff; }
