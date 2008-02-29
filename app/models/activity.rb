@@ -140,6 +140,7 @@ class Activity < ActiveRecord::Base
 
   #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions.
   def percentage_answered(section = nil, strand = nil)
+    return 0 unless self.started
     issue_strand = []
     number_answered = 0
     total = 0
