@@ -1,6 +1,9 @@
 <div id="show">
 
-<h4>Action Planning by equality group</h4>
+  <table>
+  <tr><th colspan="2" class="h4">Action Planning by equality group</th></tr>
+  </table>
+  
 <% issues = @activity.issues.group_by(&:strand) -%>
 <% issues.each do |key, issue_array| %>
 	<% issue_array.each do |issue| %>
@@ -11,93 +14,100 @@
 <% end %>
 
 <% if @activity.relevant_strands.include? 'gender' then -%>
-<h5>Men and Women</h5>
+<table>
+<tr><th colspan="2">Men and Women</th></tr>
 <% if strand_issues = issues["gender"] -%>
 	<% strand_issues.each do |i| -%>
-	<p><label>Description:</label> <div class="labelled"><%=h i.description -%></div></p>
-    <p><label>Actions:</label> <div class="labelled"><%=h i.actions -%></div></p>
-    <p><label>Timescales:</label> <div class="labelled"><%=h i.timescales -%></div></p>
-    <p><label>Resources:</label> <div class="labelled"><%=h i.resources -%></div></p>
-    <p><label>Lead officer:</label> <div class="labelled"><%=h i.lead_officer -%></div></p>
+	<tr><td class="label">Description:</td><td class="labelled"><%=h i.description -%></td></tr>
+    <tr><td class="label">Actions:</td><td class="labelled"><%=h i.actions -%></td></tr>
+    <tr><td class="label">Timescales:</td><td class="labelled"><%=h i.timescales -%></td></tr>
+    <tr><td class="label">Resources:</td><td class="labelled"><%=h i.resources -%></td></tr>
+    <tr><td class="label">Lead officer:</td><td class="labelled"><%=h i.lead_officer -%></td></tr>
 	<% end -%>
 <% else -%>
-	<p><label>No issues.</label> <div class="labelled"></div></p>
-<% end -%>
+	<tr><td class="label">No issues.</td><td class="labelled"></td></tr>
+<% end -%></table>
 <% end -%>
 
 <% if @activity.relevant_strands.include? 'race' then -%>
-<h5>People from different ethnic backgrounds</h5>
+<table>
+<tr><th colspan="2">People from different ethnic backgrounds</th></tr>
 <% if strand_issues = issues["race"] -%>
 	<% strand_issues.each do |i| -%>
-	<p><label>Description:</label> <div class="labelled"><%=h i.description -%></div></p>
-    <p><label>Actions:</label> <div class="labelled"><%=h i.actions -%></div></p>
-    <p><label>Timescales:</label> <div class="labelled"><%=h i.timescales -%></div></p>
-    <p><label>Resources:</label> <div class="labelled"><%=h i.resources -%></div></p>
-    <p><label>Lead officer:</label> <div class="labelled"><%=h i.lead_officer -%></div></p>
+	<tr><td class="label">Description:</td><td class="labelled"><%=h i.description -%></td></tr>
+    <tr><td class="label">Actions:</td><td class="labelled"><%=h i.actions -%></td></tr>
+    <tr><td class="label">Timescales:</td><td class="labelled"><%=h i.timescales -%></td></tr>
+    <tr><td class="label">Resources:</td><td class="labelled"><%=h i.resources -%></td></tr>
+    <tr><td class="label">Lead officer:</td><td class="labelled"><%=h i.lead_officer -%></td></tr>
 	<% end -%>
 <% else -%>
-	<p><label>No issues.</label> <div class="labelled"></div></p>
-<% end -%>
+	<tr><td class="label">No issues.</td><td class="labelled"></td></tr>
+<% end -%></table>
 <% end -%>
 
 <% if @activity.relevant_strands.include? 'disability' then -%>
-<h5>People with different kinds of disability</h5>
+<table>
+<tr><th colspan="2">People with different kinds of disability</th></tr>
 <% if strand_issues = issues["disability"] -%>
 	<% strand_issues.each do |i| -%>
-	<p><label>Description:</label> <div class="labelled"><%=h i.description -%></div></p>
-    <p><label>Actions:</label> <div class="labelled"><%=h i.actions -%></div></p>
-    <p><label>Timescales:</label> <div class="labelled"><%=h i.timescales -%></div></p>
-    <p><label>Resources:</label> <div class="labelled"><%=h i.resources -%></div></p>
-    <p><label>Lead officer:</label> <div class="labelled"><%=h i.lead_officer -%></div></p>
+	<tr><td class="label">Description:</td><td class="labelled"><%=h i.description -%></td></tr>
+    <tr><td class="label">Actions:</td><td class="labelled"><%=h i.actions -%></td></tr>
+    <tr><td class="label">Timescales:</td><td class="labelled"><%=h i.timescales -%></td></tr>
+    <tr><td class="label">Resources:</td><td class="labelled"><%=h i.resources -%></td></tr>
+    <tr><td class="label">Lead officer:</td><td class="labelled"><%=h i.lead_officer -%></td></tr>
 	<% end -%>
 <% else -%>
-	<p><label>No issues.</label> <div class="labelled"></div></p>
-<% end -%>
+	<tr><td class="label">No issues.</td><td class="labelled"></td></tr>
+<% end -%></table>
 <% end -%>
 
 <% if @activity.relevant_strands.include? 'faith' then -%>
-<h5>People from different faith groups</h5>
+<table>
+<tr><th colspan="2">People from different faith groups</th></tr>
 <% if strand_issues = issues["faith"] -%>
 	<% strand_issues.each do |i| -%>
-	<p><label>Description:</label> <div class="labelled"><%=h i.description -%></div></p>
-    <p><label>Actions:</label> <div class="labelled"><%=h i.actions -%></div></p>
-    <p><label>Timescales:</label> <div class="labelled"><%=h i.timescales -%></div></p>
-    <p><label>Resources:</label> <div class="labelled"><%=h i.resources -%></div></p>
-    <p><label>Lead officer:</label> <div class="labelled"><%=h i.lead_officer -%></div></p>
+	<tr><td class="label">Description:</td><td class="labelled"><%=h i.description -%></td></tr>
+    <tr><td class="label">Actions:</td><td class="labelled"><%=h i.actions -%></td></tr>
+    <tr><td class="label">Timescales:</td><td class="labelled"><%=h i.timescales -%></td></tr>
+    <tr><td class="label">Resources:</td><td class="labelled"><%=h i.resources -%></td></tr>
+    <tr><td class="label">Lead officer:</td><td class="labelled"><%=h i.lead_officer -%></td></tr>
 	<% end -%>
 <% else -%>
-	<p><label>No issues.</label> <div class="labelled"></div></p>
-<% end -%>
+	<tr><td class="label">No issues.</td><td class="labelled"></td></tr>
+<% end -%></table>
 <% end -%>
 
 <% if @activity.relevant_strands.include? 'sexual_orientation' then -%>
-<h5>People of different sexual orientations</h5>
+<table>
+<tr><th colspan="2">People of different sexual orientations</th></tr>
 <% if strand_issues = issues["sexual_orientation"] -%>
 	<% strand_issues.each do |i| -%>
-  		<p><label>Description:</label> <div class="labelled"><%=h i.description -%></div></p>
-  	    <p><label>Actions:</label> <div class="labelled"><%=h i.actions -%></div></p>
-  	    <p><label>Timescales:</label> <div class="labelled"><%=h i.timescales -%></div></p>
-  	    <p><label>Resources:</label> <div class="labelled"><%=h i.resources -%></div></p>
-  	    <p><label>Lead officer:</label> <div class="labelled"><%=h i.lead_officer -%></div></p>
+  		<tr><td class="label">Description:</td><td class="labelled"><%=h i.description -%></td></tr>
+  	    <tr><td class="label">Actions:</td><td class="labelled"><%=h i.actions -%></td></tr>
+  	    <tr><td class="label">Timescales:</td><td class="labelled"><%=h i.timescales -%></td></tr>
+  	    <tr><td class="label">Resources:</td><td class="labelled"><%=h i.resources -%></td></tr>
+  	    <tr><td class="label">Lead officer:</td><td class="labelled"><%=h i.lead_officer -%></td></tr>
 	<% end -%>
 <% else -%>
-	<p><label>No issues.</label> <div class="labelled"></div></p>
-<% end -%>
+	<tr><td class="label">No issues.</td><td class="labelled"></td></tr>
+<% end -%></table>
 <% end -%>
 
 <% if @activity.relevant_strands.include? 'age' then -%>
-<h5>People of different ages</h5>
+<table>
+<tr><th colspan="2">People of different ages</th></tr>
 <% if strand_issues = issues["age"] -%>
 	<% strand_issues.each do |i| -%>
-	<p><label>Description:</label> <div class="labelled"><%=h i.description -%></div></p>
-    <p><label>Actions:</label> <div class="labelled"><%=h i.actions -%></div></p>
-    <p><label>Timescales:</label> <div class="labelled"><%=h i.timescales -%></div></p>
-    <p><label>Resources:</label> <div class="labelled"><%=h i.resources -%></div></p>
-    <p><label>Lead officer:</label> <div class="labelled"><%=h i.lead_officer -%></div></p>
+	<tr><td class="label">Description:</td><td class="labelled"><%=h i.description -%></td></tr>
+    <tr><td class="label">Actions:</td><td class="labelled"><%=h i.actions -%></td></tr>
+    <tr><td class="label">Timescales:</td><td class="labelled"><%=h i.timescales -%></td></tr>
+    <tr><td class="label">Resources:</td><td class="labelled"><%=h i.resources -%></td></tr>
+    <tr><td class="label">Lead officer:</td><td class="labelled"><%=h i.lead_officer -%></td></tr>
 	<% end -%>
 <% else -%>
-	<p><label>No issues.</label> <div class="labelled"></div></p>
-<% end -%>
+	<tr><td class="label">No issues.</td><td class="labelled"></td></tr>
+<% end -%></table>
 <% end -%>
 
+</div>
 </div>

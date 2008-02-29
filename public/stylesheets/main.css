@@ -643,3 +643,36 @@ form.new_organisation .directorates .sub_button, form.edit_organisation .directo
 	padding: 10px 20px;
 	margin-bottom: 20px;
 }
+
+#show table{
+	width:100%;
+	border:none;
+	text-align:left;
+} 
+#show table th{
+	width:100%;
+	text-align:left;
+	font-weight:bold;
+	padding:20px 10px 10px 10px;
+}
+
+#show table td.label{
+	width:60%;
+	border:none;
+	text-align:left;
+	padding:5px 10px;
+}
+
+#show table td.labelled{
+	width: 200px;
+	vertical-align:top;
+	text-align:left;
+}
+
+#show table td.labelled ul{
+	margin-left: 15px;
+	padding-left: 0px;
+}
+#show table td.labelled img{
+	margin-bottom: -2px;
+}

@@ -3,7 +3,7 @@
     %span.issueDescription
       =h review_issue.description
     %span.issueControls
-      = link_to_function image_tag('icons/cross.gif') + "delete", "mark_for_issue_destroy(this)"
+      / = link_to_function image_tag('icons/cross.gif') + "delete", "mark_for_issue_destroy(this)"
       = link_to_function image_tag('icons/edit.gif') + "show/hide details", "Element.toggle('details_#{review_issue.id}')"
       = issue_form.hidden_field :issue_destroy
     %span.issueDetails{:id => "details_#{review_issue.id}", :style => "display:none;"}

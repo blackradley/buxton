@@ -299,7 +299,7 @@ module ApplicationHelper
     else
       comment_string = ""
     end
-    %Q[<p><label title="#{label}">#{label}</label><div class="labelled">#{h answer}#{comment_string}</div></p>]
+    %Q[<tr><td class="label">#{label}</td><td class="labelled">#{h answer}#{comment_string}</td></tr>]
   end
 
   #This method produces an answer bar for the summary sections
