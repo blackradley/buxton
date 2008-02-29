@@ -389,7 +389,6 @@ class Activity < ActiveRecord::Base
       end
       if new_value == 1 then
         @@invisible_questions.each do |question|
-          debugger
           status = self.questions.find_by_name(question.to_s)
           status.update_attributes(:needed => false)
         end
@@ -430,7 +429,6 @@ class Activity < ActiveRecord::Base
             strand = separated_question[1]
             question_details = question_wording_lookup(*separated_question)
             status = self.questions.find_by_name(question_name.to_s)
-            puts question_name
             status.update_attributes(:completed => !!completed_result) #cheap cast to bool. Not a cargocult ;)
             question_name = question_name.to_sym              
             unless separated_question[1].to_s == 'overall' then
