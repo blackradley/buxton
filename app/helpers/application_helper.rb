@@ -200,12 +200,15 @@ module ApplicationHelper
                     
       when 'Administrator'
         generate_menu( [
-                        { :text => 'Organisations',
+                        { :text => 'Manage Organisations',
                           :url => organisations_url,
-                          :title => 'Organisations - Overview' },
+                          :title => 'Organisations - Organisation Overview' },
+                        { :text => 'View Log',
+                          :url => { :controller => 'logs' },
+                          :title => 'Organisations - View Log of Activity' },
                         { :text => 'New Demo',
                           :url => { :controller => 'demos', :action => 'new' },
-                          :title => 'New Demo' }
+                          :title => 'Create a New Demo' }
                         ])
       else
         'Menu Fail (admin test)'

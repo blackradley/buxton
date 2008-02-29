@@ -167,8 +167,10 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       case user.class.name
         when 'ActivityManager'
+          LoginLog.create(:message => "#{user.email}, activity manager of #{user.activity.name} for #{user.activity.organisation.name} logged in.")
           redirect_to :controller => 'activities', :action => 'index'
         when 'OrganisationManager'
+          LoginLog.create(:message => "#{user.email}, organisation manager of #{user.organisation.name} logged in.")
           redirect_to :controller => 'activities', :action => 'summary'
         when 'Administrator'
           redirect_to organisations_url
