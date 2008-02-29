@@ -1,5 +1,5 @@
 #
-# $URL
+# $URL$
 # $Rev$
 # $Author$
 # $Date$

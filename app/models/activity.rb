@@ -58,6 +58,7 @@ class Activity < ActiveRecord::Base
       '-'
     end
   end
+  
   def parents
     @@parents
   end
