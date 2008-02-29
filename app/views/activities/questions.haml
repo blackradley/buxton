@@ -45,8 +45,9 @@
           %span.checkStrand
             -if @activity.strand_relevant?(strand) then
               -selected = true
-            = check_box_tag(strand_name, strand_name, selected, :onclick =>"Element.toggle('row_#{strand_name}_on'); Element.toggle('row_#{strand_name}_off');")
-            = observe_field(strand_name, :url => {:action => 'toggle_strand', :strand => strand, :controller => 'activities'})            
+            = check_box_tag(strand_name, strand_name, selected)
+            - # Removed from above: :onclick =>"Element.toggle('row_#{strand_name}_on'); Element.toggle('row_#{strand_name}_off');"
+            = observe_field(strand_name, :url => {:action => 'toggle_strand', :strand => strand, :controller => 'activities'}, :complete => 'location.reload()')
             %label
               =h strand.titleize
               -if @activity.relevant?(strand) then
