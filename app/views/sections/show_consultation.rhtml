@@ -11,7 +11,10 @@
 <%= answer(@activity, :consultation, :gender, 3) %>
 <%= answer(@activity, :consultation, :gender, 4) %>
 <%= answer(@activity, :consultation, :gender, 5) %>
+<%= answer(@activity, :consultation, :gender, 6) %>
+<%= answer(@activity, :consultation, :gender, 7) %>
 <% issues = @activity.issues_by(@section, 'gender') -%>
+<% if issues.size > 0 then -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
@@ -21,6 +24,7 @@
   </ul>
   </div>
 </p>
+<% end -%>
 <% end -%>
 
 <% if @activity.relevant_strands.include? 'race' then -%>
@@ -30,7 +34,10 @@
 <%= answer(@activity, :consultation, :race, 3) %>
 <%= answer(@activity, :consultation, :race, 4) %>
 <%= answer(@activity, :consultation, :race, 5) %>
+<%= answer(@activity, :consultation, :race, 6) %>
+<%= answer(@activity, :consultation, :race, 7) %>
 <% issues = @activity.issues_by(@section, 'race') -%>
+<% if issues.size > 0 then -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
@@ -40,6 +47,7 @@
   </ul>
   </div>
 </p>
+<% end -%>
 <% end -%>
 
 <% if @activity.relevant_strands.include? 'disability' then -%>
@@ -49,7 +57,10 @@
 <%= answer(@activity, :consultation, :disability, 3) %>
 <%= answer(@activity, :consultation, :disability, 4) %>
 <%= answer(@activity, :consultation, :disability, 5) %>
+<%= answer(@activity, :consultation, :disability, 6) %>
+<%= answer(@activity, :consultation, :disability, 7) %>
 <% issues = @activity.issues_by(@section, 'disability') -%>
+<% if issues.size > 0 then -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
@@ -59,6 +70,7 @@
   </ul>
   </div>
 </p>
+<% end -%>
 <% end -%>
 
 <% if @activity.relevant_strands.include? 'faith' then -%>
@@ -68,7 +80,10 @@
 <%= answer(@activity, :consultation, :faith, 3) %>
 <%= answer(@activity, :consultation, :faith, 4) %>
 <%= answer(@activity, :consultation, :faith, 5) %>
+<%= answer(@activity, :consultation, :faith, 6) %>
+<%= answer(@activity, :consultation, :faith, 7) %>
 <% issues = @activity.issues_by(@section, 'faith') -%>
+<% if issues.size > 0 then -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
@@ -78,6 +93,7 @@
   </ul>
   </div>
 </p>
+<% end -%>
 <% end -%>
 
 <% if @activity.relevant_strands.include? 'sexual_orientation' then -%>
@@ -87,7 +103,10 @@
 <%= answer(@activity, :consultation, :sexual_orientation, 3) %>
 <%= answer(@activity, :consultation, :sexual_orientation, 4) %>
 <%= answer(@activity, :consultation, :sexual_orientation, 5) %>
+<%= answer(@activity, :consultation, :sexual_orientation, 6) %>
+<%= answer(@activity, :consultation, :sexual_orientation, 7) %>
 <% issues = @activity.issues_by(@section, 'sexual_orientation') -%>
+<% if issues.size > 0 then -%>
 <p><label>Please record the issues identified</label>
   <div class="issues">
   <ul>
@@ -98,6 +117,7 @@
   </div>
 </p>
 <% end -%>
+<% end -%>
 
 <% if @activity.relevant_strands.include? 'age' then -%>
 <h5>People of different ages</h5>
@@ -106,7 +126,10 @@
 <%= answer(@activity, :consultation, :age, 3) %>
 <%= answer(@activity, :consultation, :age, 4) %>
 <%= answer(@activity, :consultation, :age, 5) %>
+<%= answer(@activity, :consultation, :age, 6) %>
+<%= answer(@activity, :consultation, :age, 7) %>
 <% issues = @activity.issues_by(@section, 'age') -%>
+<% if issues.size > 0 then -%>
 <p><label>Please record the issues identified</label>
 <div class="issues">
 <ul>
@@ -116,6 +139,7 @@
 </ul>
 </div>
 </p>
+<% end -%>
 <% end -%>
 
 </div>
