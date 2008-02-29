@@ -278,7 +278,7 @@ class Activity < ActiveRecord::Base
         # END OLD IMPLEMENTATION
       end
     else
-      return false unless self.completed(:impact) && self.completed(:consulation) && self.completed(:action_planning) && self.completed(:purpose) && self.action_planning_completed
+      return false unless self.completed(:purpose) && self.completed(:impact) && self.completed(:consulation) && self.completed(:additional_work) && self.action_planning_completed
     end
     unless (section && !(section == :action_planning)) then
       #First we calculate all the questions, in case there is a nil.
