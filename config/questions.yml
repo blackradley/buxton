@@ -820,11 +820,11 @@ overall_questions:
           - 'Service users'
       help:
         -
-          - ''
-          - ''
+          - 'Service Users, people who use Council serices whether residents or visitors.  Functions which deliver front line services will have an impact on these individuals.'
+          - 'Service Users, people who use Council serices whether residents or visitors.  Functions which deliver front line services will have an impact on these individuals.'
         -
-          - ''
-          - ''
+          - 'Service Users, people who use Council serices whether residents or visitors.  Policies which deliver front line services will have an impact on these individuals.'
+          - 'Service Users, people who use Council serices whether residents or visitors.  Policies which deliver front line services will have an impact on these individuals.'
       type : select
       choices: 3
       weights: 0
@@ -839,11 +839,11 @@ overall_questions:
           - 'Staff employed by the council'
       help:
         -
-          - ''
-          - ''
+          - 'Functions on how the Council is structured and operates such as HR Functions will have an impact on staff employed by the Council.  Staff are almost certain to be Services Users as well but this question is asked in relation to their role as staff.'
+          - 'Functions on how the Council is structured and operates such as HR Functions will have an impact on staff employed by the Council.  Staff are almost certain to be Services Users as well but this question is asked in relation to their role as staff.'
         -
-          - ''
-          - ''
+          - 'Policies on how the Council is structured and operates such as HR Policies will have an impact on staff employed by the Council.  Staff are almost certain to be Services Users as well but this question is asked in relation to their role as staff.'
+          - 'Policies on how the Council is structured and operates such as HR Policies will have an impact on staff employed by the Council.  Staff are almost certain to be Services Users as well but this question is asked in relation to their role as staff.'
       type: select
       choices: 3
       weights: 0
@@ -858,11 +858,11 @@ overall_questions:
           - 'Staff of supplier organisations'
       help:
         -
-          - ''
-          - ''
+          - 'Functions relating to the way in which the Council purchases goods and services may have an impact on staff employed by supplier organisations.  Staff of supplier organisations are almost certain to be Services Users as well but this question is asked in relation to their role purely as staff of supplier organisations.'
+          - 'Functions relating to the way in which the Council purchases goods and services may have an impact on staff employed by supplier organisations.  Staff of supplier organisations are almost certain to be Services Users as well but this question is asked in relation to their role purely as staff of supplier organisations.'
         -
-          - ''
-          - ''
+          - 'Policies relating to the way in which the Council purchases goods and services may have an impact on staff employed by supplier organisations.  Staff of supplier organisations are almost certain to be Services Users as well but this question is asked in relation to their role purely as staff of supplier organisations.'
+          - 'Policies relating to the way in which the Council purchases goods and services may have an impact on staff employed by supplier organisations.  Staff of supplier organisations are almost certain to be Services Users as well but this question is asked in relation to their role purely as staff of supplier organisations.'
       type: select
       choices: 3
       weights: 0
@@ -877,11 +877,11 @@ overall_questions:
           - 'Staff of partner organisations'
       help:
         -
-          - ''
-          - ''
+          - 'Functions that cover the way the Council works with local partners are likely to affect staff of partner organisations.  Staff of partner organisations are almost certain to be Services Users as well but this question is asked in relation to their role purely as staff of partner organisations.'
+          - 'Functions that cover the way the Council works with local partners are likely to affect staff of partner organisations.  Staff of partner organisations are almost certain to be Services Users as well but this question is asked in relation to their role purely as staff of partner organisations.'
         -
-          - ''
-          - ''
+          - 'Policies that cover the way the Council works with local partners are likely to affect staff of partner organisations.  Staff of partner organisations are almost certain to be Services Users as well but this question is asked in relation to their role purely as staff of partner organisations.'
+          - 'Policies that cover the way the Council works with local partners are likely to affect staff of partner organisations.  Staff of partner organisations are almost certain to be Services Users as well but this question is asked in relation to their role purely as staff of partner organisations.'
       type: select
       choices: 3
       weights: 0
@@ -896,11 +896,11 @@ overall_questions:
           - 'Employees of businesses'
       help:
         -
-          - ''
-          - ''
+          - 'Functions which cover the way in which the Council engages with businesses are likely to have an impact on the employees of such businesses'
+          - 'Functions which cover the way in which the Council engages with businesses are likely to have an impact on the employees of such businesses'
         -
-          - ''
-          - ''
+          - 'Policies which cover the way in which the Council engages with businesses are likely to have an impact on the employees of such businesses'
+          - 'Policies which cover the way in which the Council engages with businesses are likely to have an impact on the employees of such businesses'
       type: select
       choices: 3
       weights: 0
