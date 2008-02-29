@@ -1,11 +1,13 @@
 <% @section = 'impact' %>
 
 <div id="show">
-
-<h4>Impact by Equality Group</h4>
+  <table>
+  <tr><th colspan="2" class="h4">Impact by Equality Group</th></tr>
+  </table>
 
 <% if @activity.relevant_strands.include? 'gender' then -%>
-<h5>Men and women</h5>
+<table>
+<tr><th colspan="2">Men and women</th></tr>
 <%= answer(@activity, :impact, :gender, 1) %>
 <%= answer(@activity, :impact, :gender, 2) %>
 <%= answer(@activity, :impact, :gender, 3) %>
@@ -19,20 +21,21 @@
 <%= answer(@activity, :impact, :gender, 9) %>
 <% issues = @activity.issues_by(@section, 'gender') -%>
 <% if issues.size > 0 then -%>
-<p><label>Please record the issues identified</label>
-  <div class="issues">
+<tr><td class="label">Please record the issues identified</td><td class="labelled">
   <ul>
   	<% issues.each do |issue| -%>
   	<li><%=h issue.description -%></li>
   	<% end -%>
   </ul>
-  </div>
-</p>
+  </td></tr>
 <% end -%>
+</table>
 <% end -%>
 
+
 <% if @activity.relevant_strands.include? 'race' then -%>
-<h5>People from different ethnic backgrounds</h5>
+<table>
+<tr><th colspan="2">People from different ethnic backgrounds</th></tr>
 <%= answer(@activity, :impact, :race, 1) %>
 <%= answer(@activity, :impact, :race, 2) %>
 <%= answer(@activity, :impact, :race, 3) %>
@@ -46,20 +49,20 @@
 <%= answer(@activity, :impact, :race, 9) %>
 <% issues = @activity.issues_by(@section, 'race') -%>
 <% if issues.size > 0 then -%>
-<p><label>Please record the issues identified</label>
-  <div class="issues">
+<tr><td class="label">Please record the issues identified</td><td class="labelled">
   <ul>
   	<% issues.each do |issue| -%>
   	<li><%=h issue.description -%></li>
   	<% end -%>
   </ul>
-  </div>
-</p>
+  </td></tr>
 <% end -%>
+</table>
 <% end -%>
 
 <% if @activity.relevant_strands.include? 'disability' then -%>
-<h5>People with different kinds of disability</h5>
+<table>
+<tr><th colspan="2">People with different kinds of disability</th></tr>
 <%= answer(@activity, :impact, :disability, 1) %>
 <%= answer(@activity, :impact, :disability, 2) %>
 <%= answer(@activity, :impact, :disability, 3) %>
@@ -73,20 +76,20 @@
 <%= answer(@activity, :impact, :disability, 9) %>
 <% issues = @activity.issues_by(@section, 'disability') -%>
 <% if issues.size > 0 then -%>
-<p><label>Please record the issues identified</label>
-  <div class="issues">
+<tr><td class="label">Please record the issues identified</td><td class="labelled">
   <ul>
   	<% issues.each do |issue| -%>
   	<li><%=h issue.description -%></li>
   	<% end -%>
   </ul>
-  </div>
-</p>
+  </td></tr>
 <% end -%>
+</table>
 <% end -%>
 
 <% if @activity.relevant_strands.include? 'faith' then -%>
-<h5>People from different faith groups</h5>
+<table>
+<tr><th colspan="2">People from different faith groups</th></tr>
 <%= answer(@activity, :impact, :faith, 1) %>
 <%= answer(@activity, :impact, :faith, 2) %>
 <%= answer(@activity, :impact, :faith, 3) %>
@@ -100,20 +103,20 @@
 <%= answer(@activity, :impact, :faith, 9) %>
 <% issues = @activity.issues_by(@section, 'faith') -%>
 <% if issues.size > 0 then -%>
-<p><label>Please record the issues identified</label>
-  <div class="issues">
+<tr><td class="label">Please record the issues identified</td><td class="labelled">
   <ul>
   	<% issues.each do |issue| -%>
   	<li><%=h issue.description -%></li>
   	<% end -%>
   </ul>
-  </div>
-</p>
+  </td></tr>
 <% end -%>
+</table>
 <% end -%>
 
 <% if @activity.relevant_strands.include? 'sexual_orientation' then -%>
-<h5>People of different sexual orientations</h5>          
+<table>
+<tr><th colspan="2">People of different sexual orientations</th></tr>          
 <%= answer(@activity, :impact, :sexual_orientation, 1) %>
 <%= answer(@activity, :impact, :sexual_orientation, 2) %>
 <%= answer(@activity, :impact, :sexual_orientation, 3) %>
@@ -127,20 +130,20 @@
 <%= answer(@activity, :impact, :sexual_orientation, 9) %>
 <% issues = @activity.issues_by(@section, 'sexual_orientation') -%>
 <% if issues.size > 0 then -%>
-<p><label>Please record the issues identified</label>
-  <div class="issues">
+<tr><td class="label">Please record the issues identified</td><td class="labelled">
   <ul>
   	<% issues.each do |issue| -%>
   	<li><%=h issue.description -%></li>
   	<% end -%>
   </ul>
-  </div>
-</p>
+  </td></tr>
 <% end -%>
+</table>
 <% end -%>
 
 <% if @activity.relevant_strands.include? 'age' then -%>
-<h5>People of different ages</h5>
+<table>
+<tr><th colspan="2">People of different ages</th></tr>
 <%= answer(@activity, :impact, :age, 1) %>
 <%= answer(@activity, :impact, :age, 2) %>
 <%= answer(@activity, :impact, :age, 3) %>
@@ -154,16 +157,15 @@
 <%= answer(@activity, :impact, :age, 9) %>
 <% issues = @activity.issues_by(@section, 'age') -%>
 <% if issues.size > 0 then -%>
-<p><label>Please record the issues identified</label>
-<div class="issues">
-<ul>
-	<% issues.each do |issue| -%>
-	<li><%=h issue.description -%></li>
-	<% end -%>
-</ul>
-</div>
-</p>
+<tr><td class="label">Please record the issues identified</td><td class="labelled">
+  <ul>
+  	<% issues.each do |issue| -%>
+  	<li><%=h issue.description -%></li>
+  	<% end -%>
+  </ul>
+  </td></tr>
 <% end -%>
+</table>
 <% end -%>
 
 </div>
