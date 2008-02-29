@@ -10,7 +10,7 @@ class ActivitiesController < ApplicationController
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify  :method => :post,
-          :only => [ :destroy, :create, :update, :update_activity_type, :update_contact ],
+          :only => [ :destroy, :create, :update, :update_activity_type, :update_contact, :update_ces ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
@@ -105,6 +105,7 @@ class ActivitiesController < ApplicationController
     flash[:notice] =  "Could not update the activity."
     render :action => :index
   end
+  
   # Opening page where they must choose between Activity/Policy and Existing/Proposed
   # Available to: Activity Manager
   def questions
