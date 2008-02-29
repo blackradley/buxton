@@ -1,0 +1,9 @@
+#new_activity label {
+  width: 350px; }
+#new_activity .labelled {
+  width: 180px;
+  float: left; }
+  #new_activity .labelled select,
+  #new_activity .labelled input {
+    width: 240px;
+    margin-right: 0px; }

@@ -1,0 +1,73 @@
+table {
+  width: 100%;
+  font-size: 1em; }
+  table th {
+    color: #515f8d;
+    font-weight: bold;
+    padding: 5px;
+    width: 80px;
+    text-align: center;
+    vertical-align: middle; }
+    table th .strandHeading {
+      text-align: left;
+      width: 40px; }
+  table td {
+    padding: 5px 0px;
+    text-align: center;
+    vertical-align: middle; }
+    table td img {
+      margin: 2px; }
+  table .actions a img {
+    margin: 2px; }
+
+.list {
+  width: 100%;
+  margin-bottom: 10px;
+  border-collapse: collapse;
+  align: center; }
+  .list caption {
+    font-weight: bold;
+    text-align: left;
+    background-color: #fff;
+    color: #515f8d;
+    padding: 5px;
+    text-decoration: none; }
+  .list th,
+  .list td {
+    border: 1px solid #CCC;
+    padding: 2px;
+    text-align: center; }
+    .list td .left {
+      text-align: left; }
+  .list th {
+    background-color: #EEE;
+    text-align: center; }
+  .list td {
+    vertical-align: middle; }
+  .list table {
+    text-align: left; }
+
+.listSmall {
+  width: 50%;
+  margin-bottom: 10px;
+  border-collapse: collapse;
+  align: center; }
+  .listSmall caption {
+    font-weight: bold;
+    text-align: center;
+    background-color: #fff;
+    color: #515f8d;
+    padding: 5px;
+    text-decoration: none; }
+  .listSmall th,
+  .listSmall td {
+    border: 1px solid #CCC;
+    padding: 2px;
+    text-align: center; }
+    .listSmall td .left {
+      text-align: left; }
+  .listSmall th {
+    background-color: #EEE;
+    text-align: center; }
+  .listSmall td {
+    vertical-align: middle; }

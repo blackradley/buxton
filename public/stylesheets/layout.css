@@ -1,0 +1,57 @@
+.container {
+  width: 700px;
+  background-color: #fff;
+  margin: 0px auto;
+  margin-top: 20px;
+  border: 1px solid #515f8d;
+  text-align: left; }
+
+#banner {
+  margin: 0px;
+  padding: 10px;
+  width: 100%;
+  background-color: yellow;
+  color: black;
+  font-weight: bold;
+  font-size: 1em; }
+
+.mastHead {
+  border-bottom: 2px solid #ff9900; }
+  .mastHead .logo {
+    border-bottom: 0px solid#cccce5;
+    background-color: #292c4b;
+    background-image: url(../images/default_banner.png);
+    background-repeat: no-repeat;
+    background-position: top left;
+    height: 120px;
+    width: 700px; }
+  .mastHead h1,
+  .mastHead h2 {
+    display: none; }
+
+.content .workingArea {
+  margin: 0px 20px;
+  width: 660px;
+  overflow: hidden; }
+.content .messageArea {
+  margin: 0px 20px;
+  width: 660px;
+  overflow: hidden; }
+  .content .messageArea p {
+    color: green;
+    margin-left: 0px;
+    background-image: url(../images/icons/info.gif);
+    background-repeat: no-repeat;
+    background-position: left 2px;
+    padding-left: 20px;
+    line-height: 20px;
+    margin-top: 10px; }
+
+.footer {
+  padding: 20px;
+  margin-bottom: 10px; }
+
+#body_footer {
+  padding: 30px;
+  color: #515F8D;
+  font-size: 0.9em; }

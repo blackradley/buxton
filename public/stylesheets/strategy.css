@@ -1,0 +1,35 @@
+#strategy_edit label {
+  width: 100px;
+  margin: 0px;
+  float: left; }
+#strategy_edit .labelled {
+  width: 510px;
+  float: left; }
+  #strategy_edit .labelled input,
+  #strategy_edit .labelled textarea {
+    width: 510px;
+    float: left; }
+
+#strategy_new label {
+  width: 100px;
+  margin: 0px;
+  float: left; }
+#strategy_new .labelled {
+  width: 510px;
+  float: left; }
+  #strategy_new .labelled input,
+  #strategy_new .labelled textarea {
+    width: 510px;
+    float: left; }
+
+#strategy_details label {
+  width: 100px;
+  margin: 0px;
+  float: left; }
+#strategy_details .labelled {
+  width: 510px;
+  float: left; }
+  #strategy_details .labelled input,
+  #strategy_details .labelled textarea {
+    width: 510px;
+    float: left; }
