@@ -95,6 +95,16 @@ class ActivitiesController < ApplicationController
     render :action => :show
   end
 
+  def update_ces
+    @activity = @current_user.activity
+    @activity.update_attributes!(params[:activity])
+    flash[:notice] = "#{@activity.name} was successfully updated."
+    redirect_to :controller => 'activities', :action => 'questions'
+
+  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+    flash[:notice] =  "Could not update the activity."
+    render :action => :index
+  end
   # Opening page where they must choose between Activity/Policy and Existing/Proposed
   # Available to: Activity Manager
   def questions
