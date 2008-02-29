@@ -259,7 +259,7 @@ class Activity < ActiveRecord::Base
               end           
            end
           end
-          like = [section, strand].join('_')
+          like = [section, strand].join('\_')
           # Find all incomplete questions with the given arguments
           # Either completed must be true, or needed must be false for this to evaluate. There is no need for both.
           answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%' AND (completed = true OR needed = false)")
