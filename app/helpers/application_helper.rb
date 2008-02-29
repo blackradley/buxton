@@ -128,7 +128,7 @@ module ApplicationHelper
           { :class => class_name })
       end
     end
-    content_tag('ul', link_html, :id => 'menuBar')
+    content_tag('ul', link_html)
   end
 
   # Display a coloured bar showing the level selected, produced 

@@ -1,0 +1,73 @@
+// Main menu
+
+#menu
+  :width 700px
+  :background-color #515f8d
+  :height 30px
+
+#menuBar
+  ul
+    :margin 0 0 0 5px
+    :padding 0
+    :list-style none
+
+    li
+      :list-style none
+      :float left
+      :display block
+      :margin-right 5px
+      :margin-top 5px
+      
+      a
+        :text-decoration none
+        :color #FFF
+        :display block
+        :background-color #a8afc6
+        :padding 0 1em
+        :line-height 25px
+        :font-weight bold
+        :cursor pointer
+        &:visited 
+          :text-decoration none
+          :color #fff
+          :display block
+          :background-color #a8afc6
+          :padding 0 1em
+          :line-height 25px
+          :font-weight bold
+          :cursor pointer
+        &:hover
+          :background-color #fff
+          :color #515f8d
+      
+    .disabled
+      a
+        :text-decoration none
+        :color #FFF
+        :display block
+        :background-color #aeb1ab
+        :padding 0 1em
+        :line-height 25px
+        :font-weight bold
+        :cursor default
+        &:visited 
+          :text-decoration none
+          :color #FFF
+          :display block
+          :background-color #aeb1ab
+          :padding 0 1em
+          :line-height 25px
+          :font-weight bold
+          :cursor default
+        &:hover
+          :background-color #aeb1ab
+          :color #fff
+          
+    .selected
+      a
+        :color #515f8d
+        :background-color #fff
+        &:visited 
+          :color #515f8d
+          :background-color #fff
+            

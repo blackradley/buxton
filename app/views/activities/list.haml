@@ -1,0 +1,52 @@
+%h3 Organisation Control Page - Activities
+%p The Activities are listed by Directorate. The table shows:
+%ul
+  %li how each Activity is progressing through the assessment;
+  %li when the Activity Manager was last prompted to undertake the assessment;
+  %li who is authorised to signed it off.
+
+%p 
+  It also lets you, the authorised user, manage the complete Activity list.
+  %strong
+    = "No #{@directorate_term}s created." if @directorates.blank?
+
+-@directorates.each do |directorate|
+
+  %h4
+    =h directorate.name
+    %span.h4_link
+      = link_to "#{image_tag('icons/add.gif')} Add New Activity", :action => 'new', :directorate => directorate
+  %table.list
+    %tr
+      %th.left{:style => "width:150px;"} Name
+      %th Completed
+      %th Relevant
+      %th Impact
+      %th Priority
+      %th Approved
+      %th Approver
+      %th Last&nbsp;key sent
+      %th 
+    -for activity in directorate.activities
+      %tr
+        %td.left{:style => "width:150px;"}
+          =h activity.name
+        %td
+          = completed_tag(activity)
+        %td
+          = relevance_tag(activity) 
+        %td
+          = impact_tag(activity)
+        %td
+          = priority_tag(activity)
+        %td
+          = approved_tag(activity.approved?)
+        %td
+          =h approver_or_blank(activity.approver)
+        %td
+          = date_or_blank(activity.activity_manager.reminded_on)
+        %td.actions{:nowrap => "nowrap"}
+          = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email"
+          = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_manager.email}?", :method => :post, :title =>"Key"
+          = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend" 
+          = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete" 
