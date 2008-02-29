@@ -19,10 +19,10 @@
             %label
               = activity_strategy.strategy.name
             = select('strategy_responses', activity_strategy.strategy_id, @activity.hashes['choices'][3], :selected => @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i])
-    %h4
+    %h5
       =h @activity.header(:purpose_overall_2)
     = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [5,6,7,8,9]), :locals => {:f => f}
-    %h4
+    %h5
       =h @activity.header(:purpose_overall_3)
     = render :partial => 'question', :collection => question_details(:purpose, 'gender', [3]), :locals => {:f => f}
     = render :partial => 'question', :collection => question_details(:purpose, 'race', [3]), :locals => {:f => f}
@@ -30,7 +30,7 @@
     = render :partial => 'question', :collection => question_details(:purpose, 'faith', [3]), :locals => {:f => f}
     = render :partial => 'question', :collection => question_details(:purpose, 'sexual_orientation', [3]), :locals => {:f => f}
     = render :partial => 'question', :collection => question_details(:purpose, 'age', [3]), :locals => {:f => f}
-    %h4
+    %h5
       =h @activity.header(:purpose_overall_4)
     = render :partial => 'question', :collection => question_details(:purpose, 'gender', [4]), :locals => {:f => f}
     = render :partial => 'question', :collection => question_details(:purpose, 'race', [4]), :locals => {:f => f}

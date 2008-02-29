@@ -1,0 +1,60 @@
+%h3 Organisation Summary
+%span#pdf_link{:style =>"width:auto;"}
+  = image_tag('icons/pdf.gif')
+  View PDF report: 
+  = link_to "summary", {:action => 'view_pdf', :id => @organisation.id, :controller => 'organisations'}, :target => '_blank', :title => 'PDF Report Summary' 
+%p The Progress Table below shows how many activities (i.e. functions and policies) have started or completed the equalities impact assessment process.
+%table.listSmall{:align=>"center"}
+  %caption Progress Table
+  %tr
+    %th{:style =>"width: auto; text-align:center;"} Activities
+    %th Number
+  %tr
+    %td Identified
+    %td
+      = @activities.size
+  %tr
+    %td Started Process
+    %td
+      = @started
+  %tr
+    %td Completed Process
+    %td
+      = @completed
+%p For those activities which have completed the assessment, the Results Table below shows the number where there may be a problem: the further towards the top right, the more important.  See Activities tab (above) for more detail.
+%table.listSmall{:align=>"center"}
+  %caption Results Table
+  %tr
+    %th{:style =>"width:30px;"}
+    %th{:colspan =>"3", :style =>"width: auto; text-align:center;"} Potential Impact**
+  %tr
+    %th Priority*
+    %th Low
+    %th Medium
+    %th High
+  -5.downto(1) do |priority|
+    %tr
+      %td
+        -if priority == 5 
+          = priority 
+          High
+        -elsif priority == 1
+          = priority
+          Low
+        -else
+          = priority
+      %td
+        -if @results_table[priority][:low] > 0 
+          = @results_table[priority][:low]
+      %td
+        -if @results_table[priority][:medium] > 0
+          = @results_table[priority][:medium]
+      %td
+        -if @results_table[priority][:high] > 0 
+          = @results_table[priority][:high]
+%p
+  *
+  %em Priority – a measure of how urgent it is that this activity undertake a full action planning assessment exercise.
+  %br
+  **
+  %em Potential Impact – the effect this activity could have on achieving and promoting equality.

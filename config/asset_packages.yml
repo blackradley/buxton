@@ -12,8 +12,21 @@ javascripts:
 stylesheets:
 # error.css is never called through Rails so not included here
 - base: 
-  - default
   - tooltip
+  - main
+  - general
+  - links
+  - buttons
+  - layout
+  - mainMenu
+  - sectionsMenu
+  - strandMenu
+  - tables
+  - stepPage
+  - strategy
+  - activity
+  - errors
+  - formatting
 # create per-customer packages for customising in the future and conditional includes
 - alisonmclean:
   - organisations/alisonmclean

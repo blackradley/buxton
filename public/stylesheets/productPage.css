@@ -62,7 +62,7 @@ a {
       border-style: solid;
       margin: 0px 70px 0px 20px; }
       #productPage_content form fieldset p {
-        margin-top: 5px; }
+        margin-top: 10px; }
       #productPage_content form fieldset input {
         width: 180px;
         border: 1px solid #394464; }
@@ -81,6 +81,15 @@ a {
     float: left;
     overflow: hidden;
     width: 450px; }
+    #productPage_content #left .msgArea p {
+      color: green;
+      background-image: url(../images/icons/info.gif);
+      background-repeat: no-repeat;
+      background-position: left 2px;
+      padding-left: 20px;
+      line-height: 20px;
+      margin: 5px 0px 10px 70px;
+      width: 380px; }
     #productPage_content #left h1 {
       color: #394464;
       font-size: 2em;
@@ -99,7 +108,7 @@ a {
       padding: 10px 20px 10px 30px; }
       #productPage_content #left ul li {
         line-height: 1.6em;
-        font-size: 1.2em;
+        font-size: 1em;
         font-weight: bold; }
   #productPage_content .blue {
     margin: 0px 0px 10px 70px;

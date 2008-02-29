@@ -1,0 +1,31 @@
+%h3 Organisation Control Page - Sections
+%p The Activities are listed by Directorate. Click on one of the 5 assessment sections (below) to see how each Activity is progressing through the tool.
+#sections_menu
+  #menuBar
+    = sections_menu
+%hr
+%h3
+  Section:
+  = @section.titleize
+%p This shows how far the Activity owners have completed this part of the assessment tool.  You can see more information, or provide them with further help, using the icons on the right of each entry.
+-@directorates.each do |directorate|
+  %h4
+    =h directorate.name
+  %table.list
+    %tr
+      %th.left Name
+      %th Completed 
+      %th Last key sent 
+      %th
+    -for activity in directorate.activities
+      %tr
+        %td.left{:style =>"width:300px;"}
+          =h activity.name
+        %td{:style =>"width:104px;"}
+          = progress_bar(activity.percentage_answered(@section))
+        %td 
+          = date_or_blank(activity.activity_manager.reminded_on)
+        %td.actions{:nowrap =>"nowrap"}
+          = link_to image_tag('icons/view.gif'), {:action => 'show', :id => @section, :f => activity}, :id => 'view', :title =>"View" 
+          = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"E-mail"
+          = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name}?", :method => :post, :title =>"Key"

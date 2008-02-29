@@ -1,0 +1,645 @@
+#questiontext p{
+	margin-left: 0px;
+	padding-left: 0px;
+	color: #a92c1c;
+}	
+h1#questions{
+text-align:center;
+font-size:20px;
+color: #515f8d;
+background: none;
+float: none;
+}
+
+
+#questions{
+	width: 660px;
+	background: url(../images/questions_bg.gif) repeat-y -25px;
+	clear: left;
+	float:left;
+	overflow: hidden;
+}
+#questions h4, #questions h5 {
+	width: 400px;
+	clear: none;
+	margin-top: 0px;
+	line-height:2.5em;
+}
+
+
+#questions label{
+	width: 400px;
+	float: left;
+	text-align: left;
+	padding-bottom: 2px;
+}
+
+#questions .more{
+	float:right;
+	width: 240px;
+	text-align: left;
+	margin-left: 0px;
+	margin-right: 0px;
+	overflow: hidden;
+	position: relative;
+	clear: right;
+}
+#questions .more h3{
+	width: 240px;
+	text-align: left;
+	margin:0px 0px;
+	margin-top: 10px;
+}
+#questions .more h3 img{
+	float: left;
+	margin: 0px 4px;
+}
+#questions .more h3 a, #questions .more h3 a{
+	font-size: 1em;
+	font-weight:normal;
+}
+#questions .more .help{
+	margin-left: 10px;
+	margin-top: 0px;
+	padding: 10px;
+	color:#515f8d;
+	font-size:1em;
+	background-color: #f9fdd0;
+	border: 1px solid #fff3a4;
+	width: 230px;
+}
+html/**/>body #questions .more .help{
+	width: 202px;
+}
+#questions .more p.help ul li{
+	float: left;
+}
+#questions .more p.nohelp{
+	margin-left: 5px;
+	margin-top: 0px;
+	text-align:center;
+	font-style:italic;
+}
+#questions .more p.comment, #questions .more p.note{
+	margin: 0px;
+	float: left;
+	text-align: left;
+	margin-left: 10px;
+	margin-bottom: 5px;
+	padding: 10px;
+	color:#515f8d;
+	font-size:1em;
+	width: 220px;
+	overflow: hidden;
+}
+
+html/**/>body #questions .more p.comment, html/**/>body #questions .more p.note{
+	width: 200px;
+}
+#questions .more p.comment{	
+	background-color: #dfe3f9;
+	border: 1px solid #b3beda;
+}
+#questions .more p.note{
+	background-color: #f0fddc;
+	border: 1px solid #a3bf8e;
+}
+#questions .more p.controls{
+	margin: 0px;
+}
+#questions .more .control{
+	float: left;
+	margin-right: 10px;
+	margin-left: 10px;
+}
+#questions .more .control img{
+	float: left;
+	margin-right: 5px;
+}
+
+#questions .more .commentform, #questions .more .noteform{
+	margin: 0px;
+	float: left;
+	text-align: left;
+	margin-left: 5px;
+}
+
+#questions p.question{
+	position:relative;
+	clear: left;
+	float:left;
+	width: 410px;
+	text-align: right;
+	margin-left: 0px;
+	margin-right: 0px;
+	overflow: hidden;
+	display:block;
+	margin-top: 5px;
+	margin-bottom: 0px;
+	padding-bottom:5px;
+	
+}
+
+#questions p.question label, #questions .question label{
+margin:5px 10px;
+width: 380px;	
+clear:none;
+}
+
+#questions .question input, #questions .question select, #questions .question textarea{
+	float:left;
+	margin-left: 10px;
+	margin-bottom:10px;
+	width: 380px;
+
+}
+#questions .more textarea{
+	float:left;
+	margin-bottom:10px;
+	width: 225px;
+	margin-left: 0px;
+	overflow: auto;
+}
+html>body #questions .more textarea{
+	width: 230px;
+}
+
+html/**/>body #questions .more textarea{
+	width: 220px;
+	margin-left: 10px;
+
+}
+
+#questions .more .commentform a, #questions .more .noteform a{
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#questions .button input {
+	float:right;
+	margin-right:160px;
+	width: auto;
+}
+
+
+#questions p.question.sub, #questions .question.sub{
+	margin-left: 20px;
+	width: 368px;
+	float:left;
+	clear: left;
+	overflow: hidden;
+	margin-top: 5px;
+	border-left:2px solid #515f8d;
+}
+#questions li.issue span.issueDetails p.question.sub, #questions li.issue span.issueDetails.question.sub{
+	margin-left: 0px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#questions p.question.sub label,#questions .question.sub label{
+width: 338px;
+margin:0px 30px 5px 30px;
+font-weight:normal;
+}
+
+#questions p.question.sub input, #questions .question.sub input, #questions p.question.sub select, #questions .question.sub select{
+margin-left:30px;
+width: 318px;	
+}
+#questions p.question.sub textarea, #questions .question.sub textarea{
+margin-left:10px;
+width: 318px;
+}
+
+#questions li.issue span.issueDetails p.question.sub textarea, #questions li.issue span.issueDetails.question.sub textarea{
+margin-left:30px;
+width: 318px;	
+}
+#questions li.issue span.issueDetails p.question.sub input, #questions li.issue span.issueDetails.question.sub input{
+margin-left:0px;
+width: 318px;	
+}
+html/**/>body #questions .issueDetails p.question.sub input, html/**/>body #questions .issueDetails.question.sub input, html/**/>body #questions .issueDetails p.question.sub textarea, html/**/>body #questions .issueDetails.question.sub textarea{
+margin-left:30px;
+width: 318px;	
+}
+
+#questions p img{
+	float:left;
+	margin-top: 4px;
+	margin-left: 6px;
+}
+
+#questions #issues_list{
+	float: left;
+	margin-bottom:10px;
+	}
+
+#questions .issue{
+	clear: left;
+	float:left;
+	margin-left: 0px;
+	margin-bottom: 2px;
+	/*border: 1px solid red;*/
+	width: 388px;
+}
+
+#questions p.question.sub .issue input, #questions .question.sub .issue input{
+margin-left:30px;
+width: 310px;	
+}
+
+#questions .question.sub a{
+	margin-left: 30px;
+	float:left;
+	margin-bottom:10px;
+}
+
+#questions #issues_list a img{
+	float:left;
+	margin-top: 4px;
+	margin-left: -20px;
+	position:relative;
+}
+
+#questions ul{
+	padding: 0px;
+	margin: 0px;
+}
+#questions ul li{
+	padding: 0px;
+	margin: 0px;
+	margin-left: 10px;
+	list-style: none;
+	font-weight:bold;
+}
+#questions .more ul{
+	margin-left: 10px;
+	margin-top: 5px;
+}
+#questions .more ul li{
+	list-style: disc;
+	font-weight:normal;
+	list-style-position:outside;
+}
+#questions ul li.issue{
+	margin-left: 10px;
+
+}
+#questions ul li a{
+	font-weight:normal;
+	font-size:0.9em;
+	line-height:1.em;
+}
+#questions ul li a img{
+	margin-bottom: -3px;
+	margin-left:10px;
+}
+.issueDescription{
+	width: 200px;
+	float: left;}
+.issueControls{
+	width: 180px;
+	float: left;
+}
+
+p #summarytable{
+	margin:0px;
+}
+
+#summarytable{
+	margin-bottom: 5px;
+	width:360px;
+	margin:0px;
+}
+
+#summarytable td{	
+	text-align:left;
+}
+
+#summarytable label{
+	width: 150px;
+	margin: 0px;
+}
+
+#summarytable .labelled{
+	width: 200px;
+}
+
+#summarytable .labelled img{
+	margin-top: 5px;
+}
+
+/*approval box*/
+
+.summary fieldset#approval{
+	float: right;
+	width: 250px;
+	border: 2px solid #F90;
+	margin-top: 0px;
+	padding: 10px;
+	margin-left: 5px;
+	overflow: hidden;
+}
+html/**/>body.summary fieldset#approval{
+	
+	width: 230px;
+
+}
+
+
+.summary fieldset#approval legend img{
+
+}
+
+.summary fieldset#approval legend{
+	color:#F90;
+	font-weight:bold;
+	background-color:#fff;
+	font-size:1.1em;
+}
+
+.summary fieldset#approval label{
+	width: 45px;
+	border: 0px solid red;
+	margin-bottom:5px;
+	margin-right:5px;
+	float: left;
+	clear: left;
+}
+
+.summary fieldset#approval input{
+	width: auto;
+	float: left;
+	border: 0px solid #515f8d;
+}
+
+.summary fieldset#approval img{
+	float: left;
+	border: 0px solid #515f8d;
+}
+.summary fieldset#approval legend img{
+	float: none;
+	border: 0px solid #515f8d;
+}
+
+.summary fieldset#approval label#activity_approver_label{
+	width: 20px;		
+	clear: left;
+}
+
+.summary fieldset#approval label#activity_review_on_label{
+	width: 60px;		
+}
+
+.summary fieldset#approval #activity_approver {
+	width: 198px;
+	border: 1px solid #979595;
+	margin: 0px;
+	margin-bottom: 10px;
+}
+
+.summary fieldset#approval #activity_review_on {
+	width: 155px;
+	border: 1px solid #979595;
+	margin: 0px;
+	margin-bottom: 10px;
+}
+
+.summary fieldset#approval #approval_submit input{
+	float: right;
+	width: 100px;
+	font-family: Tahoma, Verdana, Arial, Sans-Serif;
+	font-size: 1em;
+	padding: 4px 5px;
+	font-weight: bold;
+	color: #FFF;
+	background-color: #515f8d;
+	border: 2px solid #F90;
+	cursor: pointer;
+	margin-top: 10px;
+}
+
+.summary fieldset#approval .toggleHelp{
+	margin-left: 5px;
+}
+
+/*end of approval box styles*/
+
+/*section summary styles*/
+
+.summary fieldset.section_summary_header, .summary fieldset.section_summary_show{
+	border-top: 2px solid #515f8d;
+	margin-bottom:20px;
+	margin-top: 0px;
+	padding:0px 5px 20px 5px;	
+}
+
+.summary fieldset.section_summary_show{
+	border: 2px solid #515f8d;
+}
+
+.summary fieldset.section_summary_header legend, .summary fieldset.section_summary_show legend{
+	color: #515f8d;
+	font-size:1.1em;
+	font-weight:bold;	
+}
+
+.summary fieldset.section_summary_show h4{
+	margin-left: 20px;
+}
+
+.summary fieldset.section_summary_show h5{
+	margin-left: 20px;
+	line-height:2em;
+	margin-bottom:-15px;	
+}
+
+.summary fieldset.section_summary_header legend.section_summary_toggles, .summary fieldset.section_summary_show legend.section_summary_toggles{
+	float:right;
+	font-size:1em;
+	font-weight:normal;
+	margin-top: -20px;
+	padding: 0px 5px;
+	background-color:#fff;
+	text-align:right;
+	line-height:18px;
+}
+
+.summary fieldset.section_summary_header legend.section_summary_toggles{
+	width: 100px;
+} 
+
+.summary fieldset.section_summary_show legend.section_summary_toggles{
+	width: 60px;
+}
+
+.summary fieldset.section_summary_header legend.section_summary_toggles img, .summary fieldset.section_summary_show legend.section_summary_toggles img{
+	margin-left:5px;
+	margin-top:2px;
+	float: right;
+}
+
+.summary fieldset.section_summary_show label{
+	width: 380px;
+}
+
+.summary fieldset.section_summary_show #action_planning{
+	margin-bottom:20px;
+	float:left;
+	clear: left;
+}
+
+.summary fieldset.section_summary_show #action_planning label{
+	width: 100px;
+	margin-left: 20px;
+	font-weight:bold;
+}
+
+.summary fieldset.section_summary_show .labelled{
+	float: left;
+	width: 150px;
+	line-height:20px;
+	font-weight:bold;
+}
+
+.summary .issues{
+	float:left;
+	width: 150px;
+	border: 1px solid #fff;
+	margin-top: 4px;	
+	font-size: 1em;
+}
+
+.summary .issues ul{
+	padding-left:0px;
+	list-style-position: inside;
+	list-style-type: decimal-leading-zero;
+}
+
+
+/*new organisation styles*/
+form.new_organisation fieldset, form.edit_organisation fieldset, #show_organisation fieldset{
+	border-top:2px solid #F90;
+	padding-left:0px;
+}
+form.new_organisation legend, form.edit_organisation legend, #show_organisation legend{
+	color:#F90;
+	font-weight:bold;
+	background-color:#fff;
+	font-size:1.1em;
+}
+form.new_organisation label, form.edit_organisation label, #show_organisation label{
+	width: 200px;
+}
+form.new_organisation .labelled, form.edit_organisation labelled, #show_organisation .labelled{
+	float: left;
+	width: 150px;
+	line-height:20px;
+	font-weight:bold;
+}
+form#new_organisation label.long, form#new_organisation .labelled.long, form#edit_organisation label.long, form#edit_organisation .labelled.long, #show_organisation label.long{
+	width: 600px;
+}
+.help_example {
+float:left; 
+margin-left:5px;
+margin-top:10px;
+}
+
+html/**/>body .help_example {
+float:left; 
+margin-left:75px;
+margin-top:5px;
+}
+
+#show_organisation fieldset.organisation_customisation .labelled.long.indent{
+	width: 600px;
+}
+
+form#show_organisation fieldset .organisation_customisation,form#new_organisation fieldset.organisation_customisation{
+	margin-bottom:20px;
+
+}
+form#new_organisation .labelled.long input, form.edit_organisation .labelled.long input {
+	width: auto;
+	margin-left:20px;
+	border: none;
+
+}
+form#new_organisation .directorates ul, form.edit_organisation .directorates ul {
+	list-style: none;
+	padding:0px;
+	margin-left:20px;
+}
+#show_organisation .directorates ul{
+	font-weight:bold;
+	padding:0px;
+	margin-left:20px;
+	margin-top: 20px;
+	list-style-type: lower-roman;
+	list-style-position:inside;
+}
+
+form.new_organisation .directorates .sub_button, form.edit_organisation .directorates .sub_button {
+	margin-left:20px;
+}
+.indent{
+	margin-left: 20px;
+}
+
+/*directorates*/
+
+.directorates{
+	float:left;
+	width: 600px;	
+	margin-top: 4px;	
+	font-size: 1em;
+	margin-top:0px;
+	 margin-bottom:20px;
+	 text-align:left;
+	margin-right: 0px;
+}
+
+.directorates .directorate{
+	clear: left;
+	width: 100%;
+	float:left;
+	text-align: right;
+	margin-left: 0px;
+	margin-bottom: 10px;
+	margin-top:10px;
+}
+.directorates .directorate a img{
+	float:left;
+	margin-top: 4px;
+	margin-left: 6px;
+}
+
+.directorates input{
+	float:left;
+	width:400px;
+	margin-right:5px;
+	margin-left:20px;
+}
+
+#add_link{
+	float: left;
+	margin-top: 10px;
+	margin-left: 20px;
+}
+
+#add_link img{
+	margin-right:5px;
+	float: left;
+}
+
+#add_link a, #add_link a:visited, #add_link a:hover{
+	text-decoration:underline;
+	color: #515f8d;
+}
+#questiontext{
+	background-color: #e4edf7;
+	padding: 10px 20px;
+	margin-bottom: 20px;
+}

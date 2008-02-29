@@ -5,12 +5,14 @@
       = "#{controller.controller_name} : #{controller.action_name}".titleize
     %meta{'http-equiv' => 'content-type', 'content'=>'text/html;charset=UTF-8'}
     = stylesheet_link_merged :base
-    -unless @current_user.nil? then
-      -if @current_user.class.name == 'ActivityManager'
-        = stylesheet_link_merged @current_user.activity.organisation.style.to_sym
-      -elsif @current_user.class.name == 'OrganisationManager' 
-        = stylesheet_link_merged @current_user.organisation.style.to_sym
-    = javascript_include_merged :base        
+        -unless @current_user.nil? then
+          -if @current_user.class.name == 'ActivityManager'
+            = stylesheet_link_merged @current_user.activity.organisation.style.to_sym
+          -elsif @current_user.class.name == 'OrganisationManager' 
+            = stylesheet_link_merged @current_user.organisation.style.to_sym
+        = javascript_include_merged :base        
+    = "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->" 
+    = "<!--[if gte IE 7]> #{stylesheet_link_tag 'fixes_ie7'}<![endif]-->"
     %link{:href=>'/images/favicon.ico', :rel=>'icon', :type=>"image/x-icon"}
   %body
     - if DEV_MODE
@@ -21,7 +23,8 @@
         .logo
       .content
         #menu
-          = menu() unless @hide_menu
+          #menuBar
+            = menu() unless @hide_menu
         = strand_menu()
         .messageArea
           %p
@@ -30,7 +33,7 @@
           = yield
       .clear
       .footer
-        .login_status
+        .floatLeft
           = login_status() 
       .clear
     #body_footer
