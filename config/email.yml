@@ -6,12 +6,12 @@ development:
   username: Iain_Wilkinson@blackradley.com
   password: callustu
 staging:
-  server: mail.protectedservice.net
+  server: localhost
   port: 25
-  domain: www.blackradley.com
+  domain: impactstaging.org.uk
   authentication: login
-  username: Iain_Wilkinson@blackradley.com
-  password: callustu  
+  username: buxton
+  password: MineralWater
 production:
   server: mail.protectedservice.net
   port: 25
