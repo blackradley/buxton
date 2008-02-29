@@ -296,7 +296,7 @@ describe ActivitiesController, "handling POST /activities/update_activity_type" 
     @activity.stub!(:update_attributes!).and_return(nil)
     @activity.stub!(:started).and_return(false)
     post :update_activity_type
-    response.should redirect_to(:action => 'activity_type')
+    response.should redirect_to(:action => 'questions')
   end
 
   it "should assign a flash message with a valid activity and all activity_type questions answered"
