@@ -21,7 +21,7 @@
             = f.select :existing_proposed, @activity.hashes['choices'][ep_options].collect {|option| [option , @activity.hashes['choices'][ep_options].index(option)] }
         %span.submit
           =image_tag("icons/tick.gif")
-          =submit_tag "save"
+          =submit_tag "save", :disable_with => 'saving...'
 -if @activity.started
   .step#two
     .stepImage

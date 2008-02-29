@@ -3,7 +3,7 @@
 <% form_for :activity, :url => { :action => 'create'} do |f| %>
   <%= render :partial => 'contact', :locals => { :f => f } -%>
   <span class="button">
-  <%= submit_tag "Create" %>
+  <%= submit_tag "Create", :disable_with => 'Creating...' %>
   </span>
 <% end %>
 
