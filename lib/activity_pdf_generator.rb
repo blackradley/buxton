@@ -177,7 +177,7 @@ class ActivityPDFGenerator
     activity.strands.each do |strand|
       row = []
       row << strand.titleize
-      row << activity.hashes['choices'][2][activity.send("impact_#{strand}_1".to_sym)]
+      row << activity.hashes['choices'][2][activity.send("impact_#{strand}_1".to_sym).to_i]
       row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       row << planned_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
@@ -206,7 +206,7 @@ class ActivityPDFGenerator
     activity.strands.each do |strand|
       row = []
       row << strand.titleize
-      row << activity.hashes['choices'][3][activity.send("consultation_#{strand}_1")].to_s
+      row << activity.hashes['choices'][3][activity.send("consultation_#{strand}_1").to_i].to_s
       row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
     end     
@@ -227,7 +227,7 @@ class ActivityPDFGenerator
     activity.strands.each do |strand|
       row = []
       row << strand.titleize
-      row << activity.hashes['choices'][3][activity.send("consultation_#{strand}_4")].to_s
+      row << activity.hashes['choices'][3][activity.send("consultation_#{strand}_4").to_i].to_s
       row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
     end     
@@ -252,7 +252,7 @@ class ActivityPDFGenerator
     activity.strands.each do |strand|
       row = []
       row << strand.titleize
-      row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_1")].to_s
+      row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_1").to_i].to_s
       row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
     end     
@@ -277,12 +277,12 @@ class ActivityPDFGenerator
     activity.strands.each do |strand|
       row = []
       row << strand.titleize
-      row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_4")].to_s
-      row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_5")].to_s
+      row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_4").to_i].to_s
+      row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_5").to_i].to_s
       if strand.to_s == 'gender' then
         row << 'N/A'
       else
-        row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_6")].to_s
+        row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_6").to_i].to_s
       end
       table << row
     end     
