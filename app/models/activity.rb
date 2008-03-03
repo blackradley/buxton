@@ -115,7 +115,7 @@ class Activity < ActiveRecord::Base
     if self.new_record? and self.questions.empty? then
       Activity.get_question_names.each do |question_name|
         question = self.questions.build(:name => question_name.to_s)
-        question.needed = true if question_name.to_s.include?("purpose")
+        question.needed = true
       end
     end
   end
@@ -144,12 +144,24 @@ class Activity < ActiveRecord::Base
     issue_strand = []
     number_answered = 0
     total = 0
-    #Check whether each question is completed. If it is, add one to the amount that are completed. Then add one to the total.
-    like = [section, strand].join('\_')
+    if strand then
+      return 100 unless self.send("#{strand}_relevant".to_sym)
+      new_strand = strand
+    else
+      new_strand = self.strands.join("|")
+      return 100 if new_strand == ""
+    end
     # Find all incomplete questions with the given arguments
-    number_answered += self.questions.find(:all, :conditions => "name LIKE '%#{like}%' AND completed = true AND needed = true").size
-    not_needed_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'  AND needed = false").size
-    total += Activity.get_question_names(section, strand).size - not_needed_questions
+    number_answered = self.questions.find(:all, :conditions => "name REGEXP '#{section}\_(#{new_strand})' AND (completed = true AND needed = true)").size
+    if strand then
+      total = Activity.get_question_names(section, strand).size
+    else
+      total = self.strands.inject(0) do |new_total, strand_name|
+        question_total = Activity.get_question_names(section, strand_name).size
+        question_total -= self.questions.find(:all, :conditions => "name REGEXP '#{section}\_(#{strand_name})' AND needed = false").size
+        new_total += question_total
+      end
+    end
     #If you don't specify a section, or your section is action planning, consider issues as well.
     unless section && !(section == :action_planning) then
       #First we calculate all the questions, in case there is a nil.
@@ -234,40 +246,56 @@ class Activity < ActiveRecord::Base
           if (section == :impact) || (section == :consultation) then
             # TODO: have this handle when no strand is given
             if strand then
-              issues_question = case section
-              when :impact
-                "impact_#{strand}_9"
-              when :consultation
-                "consultation_#{strand}_7"
-              end
-              if self.send(issues_question.to_sym) == 1 then
-                issues = self.issues_by(section, strand)
-                return false if issues.size == 0
+              if self.send("#{strand}_relevant") then
+                issues_question = case section
+                when :impact
+                  "impact_#{strand}_9"
+                when :consultation
+                  "consultation_#{strand}_7"
+                end
+                if self.send(issues_question.to_sym) == 1 then
+                  issues = self.issues_by(section, strand)
+                  return false if issues.size == 0
+                end
               end
             end
           else
-           strands.each do |strand|
+           strands.each do |enabled_strand|
             issues_question = case section
               when :impact
-                "impact_#{strand}_9"
+                "impact_#{enabled_strand}_9"
               when :consultation
-                "consultation_#{strand}_7"
+                "consultation_#{enabled_strand}_7"
               else 
                 break
               end
               if self.send(issues_question.to_sym) == 1 then
-                issues = self.issues_by(section, strand)
+                issues = self.issues_by(section, enabled_strand)
                 return false if issues.size == 0
               end           
            end
           end
-          like = [section, strand].join('\_')
+          if strand then
+            return true unless self.send("#{strand}_relevant".to_sym)
+            new_strand = strand
+          else
+            new_strand = self.strands.join("|")
+            return true if new_strand == ""
+          end
           # Find all incomplete questions with the given arguments
           # Either completed must be true, or needed must be false for this to evaluate. There is no need for both.
-          answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%' AND (completed = true OR needed = false)")
-          all_questions = Activity.get_question_names(section, strand)
+          answered_questions = self.questions.find(:all, :conditions => "name REGEXP '#{section}\_(#{new_strand})' AND (completed = true OR needed = false)")
+          if strand then
+            all_questions = Activity.get_question_names(section, strand).size
+          else
+            all_questions = self.strands.inject(0) do |new_total, strand_name|
+              question_total = Activity.get_question_names(section, strand_name).size
+              question_total -= self.questions.find(:all, :conditions => "name REGEXP '#{section}\_(#{strand_name})' AND needed = false").size
+              new_total += question_total
+            end
+          end
           # Have all the questions been answered?
-          if answered_questions.size == (all_questions.size) then
+          if answered_questions.size >= (all_questions) then
             #if they have all been completed, then it must be done.
             return true
           else
@@ -395,16 +423,7 @@ class Activity < ActiveRecord::Base
           status.update_attributes(:needed => false)
         end
       end
-    else
-      strand_relevancies.each do |strand_name, value|
-        if @activity_clone.send(strand_name) != value then
-          Activity.get_question_names(nil, strand_name.to_s.gsub("_relevant", "")).each do |question_name|
-            next if question_name.to_s.include? "purpose"
-            question = self.questions.find_by_name(question_name.to_s)
-            question.update_attributes(:needed => value)
-          end
-        end
-      end       
+    else       
       Activity.get_question_names.each do |name|
         old_store = @activity_clone.send(name)
         new_store = self.send(name)
