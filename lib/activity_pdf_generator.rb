@@ -267,18 +267,17 @@ class ActivityPDFGenerator
     pdf.text("The assessment has identified that the Activity has a role in the following Equality Objectives")
     pdf.text(" ")
     width = (pdf.absolute_right_margin - pdf.absolute_left_margin)
-    border_gap = width/(4)
+    border_gap = width/(3)
     borders = [border_gap]
-    3.times do |i|
+    2.times do |i|
       borders << borders.last.to_i + border_gap
     end  
     table = []
-    table << ["<b>Equality Strand</b>", "<b>Eliminating discrimination & harassment</b>", "<b>Promoting equality of opportunity</b>", "<b>Promote good relations between different groups</b>"]
+    table << ["<b>Equality Strand</b>", "<b>Eliminating discrimination & harassment</b>", "<b>Promote good relations between different groups</b>"]
     activity.strands.each do |strand|
       row = []
       row << strand.titleize
       row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_4").to_i].to_s
-      row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_5").to_i].to_s
       if strand.to_s == 'gender' then
         row << 'N/A'
       else
@@ -287,6 +286,11 @@ class ActivityPDFGenerator
       table << row
     end     
     pdf = generate_table(pdf, table, :borders => borders)
+    border_gap = width/(4)
+    borders = [border_gap]
+    3.times do |i|
+      borders << borders.last.to_i + border_gap
+    end  
     pdf.text(" ")
     pdf.text("The assessment has identified that the Activity has a role in the following Equality Objectives that are specific to the Disability Equality Strand:")
     pdf.text(" ")
