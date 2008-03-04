@@ -83,7 +83,6 @@ class Activity < ActiveRecord::Base
     fun_pol
   end
 
-
   def exist_prop_number
     exist_prop = self.existing_proposed.to_i
     exist_prop -= 1
@@ -406,6 +405,7 @@ class Activity < ActiveRecord::Base
     @saved = true
     to_save = {}
     check_impact = false
+    return true if (@activity_clone.ces_question != self.ces_question)
     to_save[:overall_completed_strategies] = true if self.purpose_completed
     if @activity_clone.send(:existing_proposed) != self.send(:existing_proposed) then
       old_value = @activity_clone.send(:existing_proposed).to_i - 1
@@ -511,6 +511,7 @@ class Activity < ActiveRecord::Base
     end
     self.update_attributes(to_save)
   end
+  
   def sections
     [:purpose, :impact, :consultation, :action_planning, :additional_work]
   end

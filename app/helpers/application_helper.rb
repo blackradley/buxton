@@ -170,33 +170,47 @@ module ApplicationHelper
                           }
                         ])
       when 'ActivityManager'
-         links = [
+         home = [
                     { :text => 'Home',
                       :url => { :controller => 'activities', :action => 'index'},
                       :title => 'Activity Control Page - Home' ,
-                      :status => '' },
-                    { :text => 'Questions',
-                      :url => { :controller => 'activities', :action => 'questions'},
-                      :title => 'Activity Control Page - Questions' ,
                       :status => '' }
-                  ]
-        if @current_user.activity.started
-          links2 = [    
-                      { :text => 'Summary',
-                        :url => { :controller => 'activities', :action => 'show' },
-                        :title => 'Activity Control Page - Summary' ,
+                 ]
+        if @current_user.activity.ces_question.to_i > 0 then 
+          questions = [   { :text => 'Questions',
+                        :url => { :controller => 'activities', :action => 'questions'},
+                        :title => 'Activity Control Page - Questions' ,
                         :status => '' }
-                    ]
+                    ]   
+          if @current_user.activity.completed(:purpose)
+            summary= [    
+                        { :text => 'Summary',
+                          :url => { :controller => 'activities', :action => 'show' },
+                          :title => 'Activity Control Page - Summary' ,
+                          :status => '' }
+                      ]
+          else
+            summary = [    
+                        { :text => 'Summary',
+                          :url => { :controller => 'activities', :action => 'show' },
+                          :title => 'Activity Control Page - Summary' ,
+                          :status => 'disabled' }
+                      ]
+          end
         else
-          links2 = [    
-                      { :text => 'Summary',
-                        :url => { :controller => 'activities', :action => 'show' },
-                        :title => 'Activity Control Page - Summary' ,
+          questions = [   { :text => 'Questions',
+                        :url => { :controller => 'activities', :action => 'questions'},
+                        :title => 'Activity Control Page - Questions' ,
                         :status => 'disabled' }
                     ]
-        end
-        
-        generate_menu(links + links2)
+          summary = [    
+                         { :text => 'Summary',
+                          :url => { :controller => 'activities', :action => 'show' },
+                          :title => 'Activity Control Page - Summary' ,
+                          :status => 'disabled' }
+                      ] 
+        end      
+        generate_menu(home + questions + summary)
                     
       when 'Administrator'
         generate_menu( [
