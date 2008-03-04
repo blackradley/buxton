@@ -95,12 +95,14 @@ class ActivitiesController < ApplicationController
     render :action => :show
   end
 
-  # Disabled until further notice
   def update_ces
     @activity = @current_user.activity
-    @activity.update_attribute('ces_question', params[:activity][:ces_question])
+    puts params[:activity][:ces_question].to_i
+    @activity.update_attributes('ces_question' => params[:activity][:ces_question].to_i)
+    puts "updated"
     flash[:notice] = "#{@activity.name} was successfully updated."
-    redirect_to :controller => 'activities', :action => 'questions'
+    redirect = (params[:activity][:ces_question].to_i > 0)? 'questions' : 'index'
+    redirect_to :controller => 'activities', :action => redirect
 
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     flash[:notice] =  "Could not update the activity."
