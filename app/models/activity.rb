@@ -480,7 +480,6 @@ class Activity < ActiveRecord::Base
         end
         to_save[:impact] = new_impact if new_impact != self.impact
       end
-      sections = [:purpose, :impact, :consultation, :action_planning, :additional_work]
       sections.each do |section|
         sec_completed = true
         needed = (section != :purpose)
@@ -498,7 +497,9 @@ class Activity < ActiveRecord::Base
     end
     self.update_attributes(to_save)
   end
-
+  def sections
+    [:purpose, :impact, :consultation, :action_planning, :additional_work]
+  end
   def self.set_max(strand, increment)
     case strand.to_s
      when 'gender'
