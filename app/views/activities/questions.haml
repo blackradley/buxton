@@ -45,8 +45,7 @@
           %span.checkStrand
             -if @activity.strand_relevant?(strand) then
               -selected = true
-            = check_box_tag(strand_name, strand_name, selected)
-            = observe_field(strand_name, :url => {:action => 'toggle_strand', :strand => strand, :controller => 'activities'}, :update => "row_#{strand_name}")
+            = check_box_tag(strand_name, strand_name, selected, :onclick => remote_function(:update => "row_#{strand_name}", :url => {:action => 'toggle_strand', :controller => 'activities', :strand => strand}))
             %label
               =h strand.titleize
               -if @activity.relevant?(strand) then
