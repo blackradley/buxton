@@ -396,7 +396,11 @@ class Activity < ActiveRecord::Base
     return @@dependencies[question].clone if @@dependencies[question]
     []
   end
- 
+  def parents(question = nil)
+    return @@parents.clone unless question
+    return @@parents[question].clone if @@parents[question]
+    []  
+  end
   def after_update
     return true if @saved
     @saved = true
@@ -421,6 +425,16 @@ class Activity < ActiveRecord::Base
         @@invisible_questions.each do |question|
           status = self.questions.find_by_name(question.to_s)
           status.update_attributes(:needed => false)
+        end
+      else
+        @@invisible_questions.each do |question|
+          unless parents(question.to_s) == [] then
+            status = self.questions.find_by_name(question.to_s)
+            status.update_attributes(:needed => (parents(question.to_s)[1] == self.send(parents(question.to_s)[0].to_sym)))            
+          else
+            status = self.questions.find_by_name(question.to_s)
+            status.update_attributes(:needed => true)  
+          end        
         end
       end
     else       
@@ -653,7 +667,7 @@ class Activity < ActiveRecord::Base
       :overall_completed_issues, :overall_started, :percentage_importance, :name, :approved, :gender_percentage_importance,
       :race_percentage_importance, :disability_percentage_importance, :sexual_orientation_percentage_importance, :faith_percentage_importance, :age_percentage_importance,
       :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on, :gender_relevant, :faith_relevant,
-      :sexual_orientation_relevant, :age_relevant, :disability_relevant, :race_relevant, :review_on]
+      :sexual_orientation_relevant, :age_relevant, :disability_relevant, :race_relevant, :review_on, :ces_link]
 	  Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
 	  unnecessary_columns.each{|column| questions.delete(column)}
 	  questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section
