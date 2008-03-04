@@ -214,9 +214,11 @@ class ActivitiesController < ApplicationController
   #silent toggle method
   def toggle_strand
     @activity = @current_user.activity
+    @strand = params[:strand]
+    @strand_name = @activity.overview_strands.select{|str_nme, stran| stran == @strand}[0][0]
     @activity.send("#{params[:strand]}_relevant=", !@activity.send("#{params[:strand]}_relevant"))
     @activity.save
-    render :nothing => true    
+    render :partial => 'matrix'
   end
 protected
   # Secure the relevant methods in the controller.

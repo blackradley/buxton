@@ -1,0 +1,11 @@
+%th.strandHeading
+  =h @strand_name.to_s.titleize
+- if @activity.strand_relevant?(@strand) then
+  - @activity.sections.each do |section|
+    %td
+      = completed_tag(@activity, section.to_sym, @strand.to_sym)
+      = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => section, :equality_strand => @strand }, :title =>"Edit #{section.to_s.titleize}"
+- else
+  - @activity.sections.each do |section|
+    %td
+      %span.na -

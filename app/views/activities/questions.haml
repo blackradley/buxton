@@ -46,8 +46,7 @@
             -if @activity.strand_relevant?(strand) then
               -selected = true
             = check_box_tag(strand_name, strand_name, selected)
-            - # Removed from above: :onclick =>"Element.toggle('row_#{strand_name}_on'); Element.toggle('row_#{strand_name}_off');"
-            = observe_field(strand_name, :url => {:action => 'toggle_strand', :strand => strand, :controller => 'activities'}, :complete => 'location.reload()')
+            = observe_field(strand_name, :url => {:action => 'toggle_strand', :strand => strand, :controller => 'activities'}, :update => "row_#{strand_name}")
             %label
               =h strand.titleize
               -if @activity.relevant?(strand) then
@@ -67,38 +66,8 @@
             %th Consultation
             %th Additional Work
             %th Action Planning
-          -display_on = ""
-          -display_off = ""
           -@activity.overview_strands.each do |strand_name, strand|
-            -if @activity.strand_relevant?(strand) then
-              -display_on = "block"
-              -display_off = "none"
-            -else
-              -display_on = "none"
-              -display_off = "block"
-            %tr{:id => "row_#{strand_name}_on", :style => "display:#{display_on};"}
-              %th.strandHeading
-                =h strand_name.titleize
-              %td
-                = completed_tag(@activity, :impact, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => strand }, :title =>"Edit Impact"
-              %td
-                = completed_tag(@activity, :consultation, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => strand }, :title =>"Edit Consultation"
-              %td
-                = completed_tag(@activity, :additional_work, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => strand }, :title =>"Edit Additional Work"
-              %td
-                = completed_tag(@activity, :action_planning, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => strand }, :title =>"Edit Action Planning"                
-            %tr{:id => "row_#{strand_name}_off", :style => "display:#{display_off};"}
-              %th.strandHeading
-                =h strand_name.titleize
-              %td
-                %span.na - 
-              %td
-                %span.na -
-              %td
-                %span.na -
-              %td
-                %span.na -
+            - @strand_name = strand_name
+            - @strand = strand
+            %tr{:id => "row_#{strand_name}", :style => "display:block;"}
+              = render :partial => 'matrix'        
