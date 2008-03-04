@@ -274,11 +274,13 @@ class Activity < ActiveRecord::Base
               end           
            end
           end
+          #if section is purpose, irrelevancies should be ignored.
+          use_purpose = (section.to_s == 'purpose')
           if strand then
-            return true unless self.send("#{strand}_relevant".to_sym)
+            return true unless (self.send("#{strand}_relevant".to_sym) && !use_purpose)
             new_strand = strand
           else
-            new_strand = self.strands.join("|")
+            new_strand = self.strands(use_purpose).join("|")
             return true if new_strand == ""
           end
           # Find all incomplete questions with the given arguments
@@ -287,7 +289,7 @@ class Activity < ActiveRecord::Base
           if strand then
             all_questions = Activity.get_question_names(section, strand).size
           else
-            all_questions = self.strands.inject(0) do |new_total, strand_name|
+            all_questions = self.strands(use_purpose).inject(0) do |new_total, strand_name|
               question_total = Activity.get_question_names(section, strand_name).size
               question_total -= self.questions.find(:all, :conditions => "name REGEXP '#{section}\_(#{strand_name})' AND needed = false").size
               new_total += question_total
