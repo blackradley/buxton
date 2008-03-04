@@ -21,7 +21,7 @@
             = f.select :existing_proposed, @activity.hashes['choices'][ep_options].collect {|option| [option , @activity.hashes['choices'][ep_options].index(option)] }
         %span.submit
           =image_tag("icons/tick.gif")
-          =submit_tag "save", :disable_with => 'saving...'
+          =submit_tag "save"
 -if @activity.started
   .step#two
     .stepImage
@@ -31,7 +31,7 @@
       %p What is the purpose of this Activity? After you have completed the purpose Assessment Section you will be asked which of the Equality Dimensions you wish to complete.
       %p 
         =image_tag("icons/view.gif")
-        =link_to "Complete questions defining the overall purpose of the activity", { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => 'overall' }, :title =>"Complete questions defining Overall Purpose of Activity"
+        =link_to "complete questions defining Overall Purpose of Activity", { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => 'overall' }, :title =>"Complete questions defining Overall Purpose of Activity"
 
   -if @activity.completed(:purpose) then
     .step#three
@@ -45,7 +45,8 @@
           %span.checkStrand
             -if @activity.strand_relevant?(strand) then
               -selected = true
-            = check_box_tag(strand_name, strand_name, selected, :onclick => remote_function(:update => "row_#{strand_name}", :url => {:action => 'toggle_strand', :controller => 'activities', :strand => strand}))
+            = check_box_tag(strand_name, strand_name, selected, :onclick =>"Element.toggle('row_#{strand_name}_on'); Element.toggle('row_#{strand_name}_off');")
+            = observe_field(strand_name, :url => {:action => 'toggle_strand', :strand => strand, :controller => 'activities'})            
             %label
               =h strand.titleize
               -if @activity.relevant?(strand) then
@@ -65,8 +66,38 @@
             %th Consultation
             %th Additional Work
             %th Action Planning
+          -display_on = ""
+          -display_off = ""
           -@activity.overview_strands.each do |strand_name, strand|
-            - @strand_name = strand_name
-            - @strand = strand
-            %tr{:id => "row_#{strand_name}", :style => "display:block;"}
-              = render :partial => 'matrix'        
+            -if @activity.strand_relevant?(strand) then
+              -display_on = "block"
+              -display_off = "none"
+            -else
+              -display_on = "none"
+              -display_off = "block"
+            %tr{:id => "row_#{strand_name}_on", :style => "display:#{display_on};"}
+              %th.strandHeading
+                =h strand_name.titleize
+              %td
+                = completed_tag(@activity, :impact, strand.to_sym)
+                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => strand }, :title =>"Edit Impact"
+              %td
+                = completed_tag(@activity, :consultation, strand.to_sym)
+                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => strand }, :title =>"Edit Consultation"
+              %td
+                = completed_tag(@activity, :additional_work, strand.to_sym)
+                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => strand }, :title =>"Edit Additional Work"
+              %td
+                = completed_tag(@activity, :action_planning, strand.to_sym)
+                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => strand }, :title =>"Edit Action Planning"                
+            %tr{:id => "row_#{strand_name}_off", :style => "display:#{display_off};"}
+              %th.strandHeading
+                =h strand_name.titleize
+              %td
+                %span.na - 
+              %td
+                %span.na -
+              %td
+                %span.na -
+              %td
+                %span.na -
