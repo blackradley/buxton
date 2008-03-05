@@ -51,9 +51,8 @@
     =text_area_tag "note", question_issues[:note], :id => "#{question_issues[:id]}_note_fill_in"
     = link_to_remote "Save", :url => {:action => 'edit', :controller => :note, :question_issues_id => question_issues[:full_question].id}, :with => "'note='+document.getElementById('#{question_issues[:id]}_note_fill_in').value", :update => "#{question_issues[:id]}_note", :complete => "edit_note('#{question_issues[:id]}');"
     |
-    =link_to_function "Cancel", "cancel_note('#{question_issues[:id]}');"
--depString =''    
--depString << "checkDependancy('#{question_issues[:id]}','#{question_issues[:id]}_issues', '1'); "
+    =link_to_function "Cancel", "cancel_note('#{question_issues[:id]}');"    
+-depString = "setDependencyTrue('#{question_issues[:id]}_issues'); checkDependancy('#{question_issues[:id]}','#{question_issues[:id]}_issues', '1'); "
 %p.question{:id => "#{question_issues[:id]}", :onclick => "setFocus(\'more_#{question_issues[:id]}\',\'#{question_issues[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:block;"}
   %label
     =question_issues[:label]
@@ -71,7 +70,7 @@
   -displayString = "block"
 
 .more{:id => "more_" + "#{question_issues[:id]}_issues", :style => "display:none"}
-
+  
 .question.sub{:id => "#{question_issues[:id]}_issues", :onclick => "setFocus(\'more_#{question_issues[:id]}_issues\',\'#{question_issues[:id]}_issues\');", :style => "display:#{displayString};"}
   %label 
     Please record the issues identified
