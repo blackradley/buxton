@@ -238,6 +238,14 @@ class Activity < ActiveRecord::Base
   #that has not been answered. Hence, it is at its slowest where there is a single unanswered question in each section. In worst case it has to run
   #through every question bar n where n is the number of activitys, making it a O(n) algorithm.
   def completed(section = nil, strand = nil)
+    #check strategies first
+    unless section && !(section == :purpose) then
+      self.activity_strategies.each do |strategy|
+        unless check_response(strategy.strategy_response) then
+          return false
+        end
+      end
+    end
     if section || strand then
       unless section == :action_planning then
         # BEGIN NEW IMPLEMENTATION
@@ -275,6 +283,7 @@ class Activity < ActiveRecord::Base
            end
           end
           #if section is purpose, irrelevancies should be ignored.
+          #POSSIBLE GOTCHA: This relies on the fact that there is no impact etc questions which are overall.
           use_purpose = (section.to_s == 'purpose')
           if strand then
             return true unless (self.send("#{strand}_relevant".to_sym) && !use_purpose)
@@ -307,7 +316,7 @@ class Activity < ActiveRecord::Base
         # BEGIN OLD IMPLEMENTATION
           # Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
         # END OLD IMPLEMENTATION
-      end
+      end  
     else
       return false unless self.completed(:purpose) && self.completed(:impact) && self.completed(:consulation) && self.completed(:additional_work) && self.action_planning_completed
     end
