@@ -253,17 +253,15 @@ class Activity < ActiveRecord::Base
           if (section == :impact) || (section == :consultation) then
             # TODO: have this handle when no strand is given
             if strand then
-              if self.send("#{strand}_relevant") then
-                issues_question = case section
+              issues_question = case section
                 when :impact
                   "impact_#{strand}_9"
                 when :consultation
                   "consultation_#{strand}_7"
                 end
-                if self.send(issues_question.to_sym) == 1 then
-                  issues = self.issues_by(section, strand)
-                  return false if issues.size == 0
-                end
+              if self.send(issues_question.to_sym) == 1 then
+                issues = self.issues_by(section, strand)
+                return false if issues.size == 0
               end
             end
           else
@@ -286,11 +284,9 @@ class Activity < ActiveRecord::Base
           #POSSIBLE GOTCHA: This relies on the fact that there is no impact etc questions which are overall.
           use_purpose = (section.to_s == 'purpose')
           if strand then
-            return true unless (self.send("#{strand}_relevant".to_sym) && !use_purpose)
             new_strand = strand
           else
             new_strand = self.strands(use_purpose).push("overall").join("|")
-            puts new_strand
           end
           # Find all incomplete questions with the given arguments
           # Either completed must be true, or needed must be false for this to evaluate. There is no need for both.
@@ -328,9 +324,9 @@ class Activity < ActiveRecord::Base
       questions.each do |question|
         strand = Activity.question_separation(question)[1]
         if section
-          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?) && self.send("#{strand}_relevant".to_sym)
+          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?)
         else
-          lookups_required = (self.send(question) == 2) && !self.send("#{strand}_relevant".to_sym)
+          lookups_required = (self.send(question) == 2)
         end
         if lookups_required then
           issue_strand = self.issues.clone

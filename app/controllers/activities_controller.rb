@@ -214,10 +214,9 @@ class ActivitiesController < ApplicationController
       :type => "application/pdf"
   end
 
-  #silent toggle method
   def toggle_strand
-    @strand_name = @activity.overview_strands.select{|str_nme, stran| stran == @strand}[0][0]
-    @activity.send("#{params[:strand]}_relevant=", !@activity.send("#{params[:strand]}_relevant"))
+    @activity = @current_user.activity
+    @activity.toggle("#{params[:strand]}_relevant")
     @activity.save
     render :nothing=> true
   end
