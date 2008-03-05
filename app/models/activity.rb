@@ -280,8 +280,8 @@ class Activity < ActiveRecord::Base
             return true unless (self.send("#{strand}_relevant".to_sym) && !use_purpose)
             new_strand = strand
           else
-            new_strand = self.strands(use_purpose).join("|")
-            return true if new_strand == ""
+            new_strand = self.strands(use_purpose).push("overall").join("|")
+            puts new_strand
           end
           # Find all incomplete questions with the given arguments
           # Either completed must be true, or needed must be false for this to evaluate. There is no need for both.
@@ -289,9 +289,9 @@ class Activity < ActiveRecord::Base
           if strand then
             all_questions = Activity.get_question_names(section, strand).size
           else
-            all_questions = self.strands(use_purpose).inject(0) do |new_total, strand_name|
+            all_questions = self.strands(use_purpose).push("overall").inject(0) do |new_total, strand_name|
               question_total = Activity.get_question_names(section, strand_name).size
-              question_total -= self.questions.find(:all, :conditions => "name REGEXP '#{section}\_(#{strand_name})' AND needed = false").size
+              question_total -= self.questions.find(:all, :conditions => "name LIKE '#{section}\_#{strand_name}' AND needed = false").size
               new_total += question_total
             end
           end
