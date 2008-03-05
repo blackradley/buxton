@@ -41,7 +41,7 @@ class IssuesController < ApplicationController
       issue.update_attributes!(data)
     end
     flash[:notice] =  "Action Planning was successfully updated."
-    redirect_to :back
+    redirect_to :action => :questions, :controller => :activities
     
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     flash[:notice] =  "Could not update the activity."
