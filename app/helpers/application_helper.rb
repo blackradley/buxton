@@ -88,7 +88,7 @@ module ApplicationHelper
           end
       dependency = @activity.dependent_questions("#{section}_#{strand}_#{question}") 
       name = "#{section}_#{strand}_#{question}"
-      full_question = [*Question.find_or_initialize_by_name(name)][0]
+      full_question = [*@current_user.activity.questions.find_by_name(name)][0]
       comment = full_question.comment
       note = full_question.note
       comment_contents = (comment.nil? ? '' : comment.contents)
@@ -282,7 +282,7 @@ module ApplicationHelper
   # Generates all the HTML needed to display the answer to a question
   def answer(activity, section, strand, number)
     question_name="#{section}_#{strand}_#{number}"
-    question = Question.find_by_name(question_name)
+    question = @current_user.activity.questions.find_by_name(question_name)
     return "" unless question.needed
 
     # Get the label text and details for this question

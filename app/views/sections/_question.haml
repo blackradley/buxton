@@ -2,7 +2,7 @@
   %h3
     =image_tag ("icons/help.gif")
     Help:
-  -if question[:help]!=''
+  -if !question[:help].blank?
     .help
       =question[:help]
   -else
@@ -11,7 +11,7 @@
     =image_tag ("icons/comment.gif")
     Comment for report:
   - opt = ['none', 'block']
-  - flag = (question[:comment] !='' ? 1 : 0) 
+  - flag = (!question[:comment].blank? ? 1 : 0) 
   .normalcommentview{:id => "#{question[:id]}_comment_view", :style => "display:#{opt[flag]}"}
     %p.comment{:id => "#{question[:id]}_comment"}
       =split_long_strings(question[:comment])
@@ -33,7 +33,7 @@
   %h3
     =image_tag ("icons/note.gif")
     Note to myself:
-  - flag = (question[:note] !='' ? 1 : 0) 
+  - flag = (!question[:note].blank? ? 1 : 0) 
   .normalnoteview{:id => "#{question[:id]}_note_view", :style => "display:#{opt[flag]}"}
     %p.note{:id => "#{question[:id]}_note"}
       =split_long_strings(question[:note])
