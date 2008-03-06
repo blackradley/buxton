@@ -2,6 +2,7 @@
 # PRODUCTION SPECIFIC VARIABLES
 # =============================================================================
 set :domain, "impactengine.org.uk"
+set :rails_env, "production"
 
 # =============================================================================
 # THIS WOULD BE IN DEPLOY.RB IF IT COULD BE LAZY EVALUATED, BUT IT CAN'T
