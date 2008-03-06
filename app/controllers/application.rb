@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
     
   before_filter :authenticate
   before_filter :set_current_user
+  before_filter :set_banner if DEV_MODE
   
   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
   rescue_from NoMethodError, :with => :wrong_user?
@@ -37,6 +38,16 @@ protected
   def set_current_user
     @current_user = nil
     @current_user = User.find(session[:user_id]) unless session[:user_id].nil?
+  end
+  
+  def set_banner
+    @banner_text = "Not live. You are on a server in #{RAILS_ENV} mode."
+
+    revision_file = File.join(RAILS_ROOT, 'REVISION')
+    if File.exists?(revision_file) then
+      f = File.new(revision_file)
+      @banner_text += " Revision: #{f.readline}."
+    end
   end
 
   # Override in controller classes that should require authentication

@@ -17,7 +17,7 @@
   %body
     - if DEV_MODE
       #banner
-        = "Not live. You are on a server in #{RAILS_ENV} mode." if DEV_MODE
+        = @banner_text
     .container
       .mastHead
         .logo
