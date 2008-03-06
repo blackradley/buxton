@@ -41,7 +41,7 @@ private
     @body         = {"user" => user, "login_url" => login_url}
     @recipients   = user.email
     @from         = FROM
-    @sent_on      = Time.now.gmtime
+    @sent_on      = Time.now
     @headers      = {}
     # @content_type = "text/html"
   end

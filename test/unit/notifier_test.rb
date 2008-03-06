@@ -34,7 +34,7 @@ class NotifierTest < Test::Unit::TestCase
   def test_new_administration_key
     @expected.subject = 'Notifier#new_key'
     @expected.body    = read_fixture('new_key')
-    @expected.date    = Time.now.gmtime
+    @expected.date    = Time.now
 
     #assert_equal @expected.encoded, Notifier.create_administration_key(@user).encoded
   end
