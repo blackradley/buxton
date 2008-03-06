@@ -85,6 +85,7 @@ class OrganisationsController < ApplicationController
 
   def view_pdf
     @organisation = @current_user.organisation
+    PDFLog.create(:message => %Q[The organisation manager PDF for <strong>#{@organisation.name}</strong> was viewed.])
     send_data OrganisationPDFGenerator.new(@organisation).pdf.render, :disposition => 'inline',
       :filename => "#{@organisation.name}.pdf",
       :type => "application/pdf"

@@ -49,7 +49,10 @@ class Activity < ActiveRecord::Base
   before_save :set_approved
   before_save :create_questions_if_new
 
+  after_create :log_create_event
   after_update :save_issues
+  
+  after_destroy :log_destroy_event
   
   def activity_type
     if self.started then
@@ -118,7 +121,7 @@ class Activity < ActiveRecord::Base
       end
     end
   end
-
+  
   def set_approved
     if self.approved == 1 then
       if !self.approved_on then
@@ -375,6 +378,15 @@ class Activity < ActiveRecord::Base
     end
     list
   end
+  
+  def log_create_event
+    CreateLog.create(:message => %Q[The <strong>#{self.name}</strong> activity was created for <strong>#{self.organisation.name}</strong>.])
+  end
+  
+  def log_destroy_event
+    DestroyLog.create(:message => %Q[The <strong>#{self.name}</strong> activity for <strong>#{self.organisation.name}</strong> was deleted.])
+  end  
+    
   def save_issues
     # If we have issues
     if self.issues then
