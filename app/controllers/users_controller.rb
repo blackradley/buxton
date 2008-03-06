@@ -100,11 +100,12 @@ class UsersController < ApplicationController
             @user.save
           when 'Administrator'
             email = Notifier.create_administration_key(@user, @login_url)
-            Notifier.deliver(email)
+            Notifier.deliver(email)          
             @user.reminded_on = Time.now
             @user.save
         end
       end
+      RemindLog.create(:message => %Q[A passkey reminder was sent to <a href="mailto:#{@user.email}">#{@user.email}</a>.])
       flash[:notice] = "New link#{@users.length >= 2 ? 's' : ''} sent to #{@user.email}"
     end
     redirect_to :action => 'index'
@@ -148,6 +149,7 @@ class UsersController < ApplicationController
     end
     
     # Send the reminder e-mail
+    RemindLog.create(:message => %Q[A passkey reminder was sent to <a href="mailto:#{@user.email}">#{@user.email}</a>.])
     Notifier.deliver(email)
     # Update the time we reminded them
     @user.reminded_on = Time.now
@@ -167,10 +169,10 @@ class UsersController < ApplicationController
       session[:user_id] = user.id
       case user.class.name
         when 'ActivityManager'
-          LoginLog.create(:message => "#{user.email}, activity manager of #{user.activity.name} for #{user.activity.organisation.name} logged in.")
+          LoginLog.create(:message => %Q[<a href="mailto:#{user.email}">#{user.email}</a>, activity manager of <strong>#{user.activity.name}</strong> for <strong>#{user.activity.organisation.name}</strong> logged in.])
           redirect_to :controller => 'activities', :action => 'index'
         when 'OrganisationManager'
-          LoginLog.create(:message => "#{user.email}, organisation manager of #{user.organisation.name} logged in.")
+          LoginLog.create(:message => %Q[<a href="mailto:#{user.email}">#{user.email}</a>, organisation manager of <strong>#{user.organisation.name}</strong> logged in.])
           redirect_to :controller => 'activities', :action => 'summary'
         when 'Administrator'
           redirect_to organisations_url

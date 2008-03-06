@@ -9,7 +9,7 @@
 class LogsController < ApplicationController
 
   def index
-    @logs = LoginLog.find(:all)
+    @logs = Log.find(:all, :order => 'created_at DESC')
   end
 
 protected
