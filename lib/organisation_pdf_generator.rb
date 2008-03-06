@@ -23,7 +23,8 @@ class OrganisationPDFGenerator
       12,
       :left)
     pdf
-  end
+  end
+
   def build_header(pdf, organisation)
     pdf.fill_color Color::RGB.const_get('Black')
     pdf.image( "#{RAILS_ROOT}/public/images/pdf_logo.png", :justification => :center, :resize => 0.6)
@@ -71,7 +72,7 @@ class OrganisationPDFGenerator
         pdf.stroke_color! Color::RGB::Black
         pdf.stroke_style! pdf.class::StrokeStyle::DEFAULT
         font_size = 12
-        text = "Report Produced: #{Time.now.gmtime}"
+        text = "Report Produced: #{Time.now}"
         y = pdf.absolute_bottom_margin - (pdf.font_height(font_size) * 1.01) - 5
         width = pdf.text_width(text, font_size)
         margin = pdf.absolute_right_margin
@@ -87,7 +88,8 @@ class OrganisationPDFGenerator
     return pdf
   end
 
-  private  #Custom implementation on SimpleTable. Creates a table in 0.08 seconds as opposed to simpletables 0.7.
+  private
+  #Custom implementation on SimpleTable. Creates a table in 0.08 seconds as opposed to simpletables 0.7.
   def generate_table(pdf, table, table_data = @table_data)
     x_pos = table_data[:offset]
     borders = table_data[:borders]

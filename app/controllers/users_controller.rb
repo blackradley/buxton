@@ -91,17 +91,17 @@ class UsersController < ApplicationController
           when 'ActivityManager'
             email = Notifier.create_activity_key(@user, @login_url)
             Notifier.deliver(email)
-            @user.reminded_on = Time.now.gmtime
+            @user.reminded_on = Time.now
             @user.save
            when 'OrganisationManager'
             email = Notifier.create_organisation_key(@user, @login_url)
             Notifier.deliver(email)
-            @user.reminded_on = Time.now.gmtime
+            @user.reminded_on = Time.now
             @user.save
           when 'Administrator'
             email = Notifier.create_administration_key(@user, @login_url)
             Notifier.deliver(email)
-            @user.reminded_on = Time.now.gmtime
+            @user.reminded_on = Time.now
             @user.save
         end
       end
@@ -150,7 +150,7 @@ class UsersController < ApplicationController
     # Send the reminder e-mail
     Notifier.deliver(email)
     # Update the time we reminded them
-    @user.reminded_on = Time.now.gmtime
+    @user.reminded_on = Time.now
     @user.save
     
     redirect_to :back
