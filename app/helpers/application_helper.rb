@@ -282,7 +282,7 @@ module ApplicationHelper
   # Generates all the HTML needed to display the answer to a question
   def answer(activity, section, strand, number)
     question_name="#{section}_#{strand}_#{number}"
-    question = @current_user.activity.questions.find_by_name(question_name)
+    question = activity.questions.find_by_name(question_name)
     return "" unless question.needed
 
     # Get the label text and details for this question
