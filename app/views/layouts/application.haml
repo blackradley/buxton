@@ -5,6 +5,7 @@
       = "#{controller.controller_name} : #{controller.action_name}".titleize
     %meta{'http-equiv' => 'content-type', 'content'=>'text/html;charset=UTF-8'}
     = stylesheet_link_merged :base
+    =stylesheet_link_tag 'tables'
     -unless @current_user.nil? then
       -if @current_user.class.name == 'ActivityManager'
         = stylesheet_link_merged @current_user.activity.organisation.style.to_sym
