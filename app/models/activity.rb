@@ -752,8 +752,8 @@ class Activity < ActiveRecord::Base
         response += "Groups representing #{wordings[strand]} have #{"not " unless consulted_groups}been consulted and"
         response += " experts have #{"not " unless consulted_experts}been consulted."
         response += "\n"
-        issues_identified = (self.send("consultation_#{strand}_7".to_sym) == 1)
-        response += "The consultations did not identify any issues with the impact of the #{fun_pol_indicator} upon #{wordings[strand]}."
+        issues_identified = (self.send("impact_#{strand}_9".to_sym) == 1)||((self.send("consultation_#{strand}_7".to_sym) == 1))
+        response += "The consultations did not identify any issues with the impact of the #{fun_pol_indicator} upon #{wordings[strand]}." unless issues_identified
       when 6
         return "The #{fun_pol_indicator} has not yet been completed sufficiently to warrant calculation of impact level and the priority ranking." unless completed(:purpose, strand.to_sym)&& completed(:impact, strand.to_sym) && completed(:consultation, strand.to_sym)
         strand = "" unless strand

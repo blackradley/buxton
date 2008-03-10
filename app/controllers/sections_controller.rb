@@ -34,7 +34,7 @@ class SectionsController < ApplicationController
   #               Activity Manager
   def show
     # TODO: improve this - all a bit ugly
-    f_id = if (@current_user.class.name == 'OrganisationManager')
+    f_id = if (@current_user.class.name.to_s == 'OrganisationManager')
       params[:f]
     else
       @current_user.activity.id

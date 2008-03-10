@@ -7,18 +7,18 @@
 %table.listSmall{:align=>"center"}
   %caption Progress Table
   %tr
-    %th{:style =>"width: auto; text-align:center;"} Activities
+    %th.left{:style =>"width: auto;"} Activities
     %th Number
   %tr
-    %td Identified
+    %td.left Identified
     %td
       = @activities.size
   %tr
-    %td Started Process
+    %td.left Started Process
     %td
       = @started
   %tr
-    %td Completed Process
+    %td.left Completed Process
     %td
       = @completed
 %p For those activities which have completed the assessment, the Results Table below shows the number where there may be a problem: the further towards the top right, the more important.  See Activities tab (above) for more detail.

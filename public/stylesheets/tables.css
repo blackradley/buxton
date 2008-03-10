@@ -64,10 +64,12 @@ table {
     border: 1px solid #CCC;
     padding: 2px;
     text-align: center; }
-    .listSmall td .left {
-      text-align: left; }
+  .listSmall .left {
+    text-align: left; }
   .listSmall th {
     background-color: #EEE;
     text-align: center; }
   .listSmall td {
     vertical-align: middle; }
+    .listSmall td .left {
+      text-align: left; }
