@@ -298,9 +298,9 @@ class ActivityPDFGenerator
     table << ["<b>Equality strand</b>", "<b>Take account of disabilities even if it means treating more favourably</b>", "<b>Promote positive attitudes to disabled people</b>", "<b>Encourage participation by disabled people</b>"]
     row = []
     row << 'Disability'
-    row << activity.hashes['choices'][3][activity.send("additional_work_disability_7")].to_s  
-    row << activity.hashes['choices'][3][activity.send("additional_work_disability_8")].to_s  
-    row << activity.hashes['choices'][3][activity.send("additional_work_disability_9")].to_s  
+    row << activity.hashes['choices'][3][activity.send("additional_work_disability_7").to_i].to_s  
+    row << activity.hashes['choices'][3][activity.send("additional_work_disability_8").to_i].to_s  
+    row << activity.hashes['choices'][3][activity.send("additional_work_disability_9").to_i].to_s  
     table << row
     pdf = generate_table(pdf, table, :borders => borders)
     pdf.text(" ")
