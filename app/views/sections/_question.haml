@@ -17,7 +17,7 @@
       =split_long_strings(question[:comment])
     .control
       =image_tag ("icons/comment_delete.gif")
-      =link_to_remote "Delete", :url => {:action => 'destroy', :controller => :comment, :question_id => question[:full_question].id}, :confirm => "Delete this comment?", :update => "#{question[:id]}_comment", :complete => "cancel_comment('#{question[:id]}');"
+      =link_to_remote "Delete", :url => {:action => 'destroy', :controller => :comment, :question_id => question[:full_question].id}, :confirm => "Delete this comment?", :update => "#{question[:id]}_comment", :complete => "cancel_comment('#{question[:id]}'); document.getElementById('#{question[:id]}_comment_fill_in').value = ''"
     .control
       =image_tag ("icons/comment_edit.gif")
       =link_to_function "Edit", "edit_comment('#{question[:id]}');"
@@ -27,7 +27,7 @@
       =link_to_function "Add new comment for report", "new_comment('#{question[:id]}');"
   .commentform{:id => "#{question[:id]}_comment_form", :style => "display:none"}
     =text_area_tag "comment", question[:comment], :id => "#{question[:id]}_comment_fill_in"
-    = link_to_remote "Save", :url => {:action => 'edit', :controller => :comment, :question_id => question[:full_question].id}, :with => "'comment='+document.getElementById('#{question[:id]}_comment_fill_in').value", :update => "#{question[:id]}_comment", :complete => "edit_comment('#{question[:id]}');"
+    = link_to_remote "Save", :url => {:action => 'edit', :controller => :comment, :question_id => question[:full_question].id}, :with => "'comment='+document.getElementById('#{question[:id]}_comment_fill_in').value", :update => "#{question[:id]}_comment", :complete => "edit_comment('#{question[:id]}')"
     |
     =link_to_function "Cancel", "cancel_comment('#{question[:id]}');"
   %h3
@@ -39,7 +39,7 @@
       =split_long_strings(question[:note])
     .control
       =image_tag ("icons/note_delete.gif")
-      =link_to_remote "Delete", :url => {:action => 'destroy', :controller => :note, :question_id => question[:full_question].id}, :confirm => "Delete this note?", :update => "#{question[:id]}_note", :complete => "cancel_note('#{question[:id]}');"
+      =link_to_remote "Delete", :url => {:action => 'destroy', :controller => :note, :question_id => question[:full_question].id}, :confirm => "Delete this note?", :update => "#{question[:id]}_note", :complete => "cancel_note('#{question[:id]}'); document.getElementById('#{question[:id]}_note_fill_in').value = ''"
     .control
       =image_tag ("icons/note_edit.gif")
       =link_to_function "Edit", "edit_note('#{question[:id]}');"
