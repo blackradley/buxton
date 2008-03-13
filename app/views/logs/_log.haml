@@ -1,6 +1,8 @@
 %tr
   %td
+    = image_tag(log.icon)
+  %td
     %p{:align => "left"}
       = log.message
-  %td
-    = log.created_at
+  %td{:width => 190}
+    = log.created_at.strftime("<strong>%a #{log.created_at.day.ordinalize} %B</strong>, %Y (%k:%M)")

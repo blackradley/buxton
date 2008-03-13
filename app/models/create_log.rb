@@ -7,4 +7,7 @@
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
 class CreateLog < Log
+  
+  ICON = 'icons/add.png'
+    
 end
