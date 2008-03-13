@@ -5,4 +5,5 @@
     %p{:align => "left"}
       = log.message
   %td{:width => 190}
-    = log.created_at.strftime("<strong>%a #{log.created_at.day.ordinalize} %B</strong>, %Y (%k:%M)")
+    %p{:align => "right"}
+      = log.created_at.strftime("<strong>%a #{log.created_at.day.ordinalize} %B</strong>, %k:%M")
