@@ -9,7 +9,7 @@ class CommentController < ApplicationController
     else
       parent_question.comment.update_attributes(:contents => params[:comment])
     end
-    render :inline => @current_user.activity.questions.find(params[:question_id]).comment.contents.gsub(/\S{35}/, '\0<br />')
+    render :inline => @current_user.activity.questions.find(params[:question_id]).comment.contents.gsub(/\S{35}/, '\0<br />').gsub(/<(\script>|script>)/, "")
   end
   
   def destroy
