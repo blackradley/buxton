@@ -307,11 +307,11 @@ questions:
     8:
       label:
         -
-          - 'Does all the evidence from different sources about the impact of the Function on meeting the particular needs of #{wordings[strand]} present a consistent view?'
-          - 'Does all the evidence from different sources about the potential impact of the Function on meeting the particular needs of #{wordings[strand]} present a consistent view?'
+          - 'If there is evidence from more than one source does it present a consistent view of the impact of the Function on meeting the particular needs of #{wordings[strand]}.'
+          - 'If there is evidence from more than one source does it present a consistent view of the potential impact of the Function on meeting the particular needs of #{wordings[strand]}.'
         -
-          - 'Does all the evidence from different sources about the impact of the Policy on meeting the particular needs of #{wordings[strand]} present a consistent view?'
-          - 'Does all the evidence from different sources about the potential impact of the Policy on meeting the particular needs of #{wordings[strand]} present a consistent view?'
+          - 'If there is evidence from more than one source does it present a consistent view of the impact of the Policy on meeting the particular needs of #{wordings[strand]}.'
+          - 'If there is evidence from more than one source does it present a consistent view of the potential impact of the Policy on meeting the particular needs of #{wordings[strand]}.'
       help:
         -
           - 'This question asks you whether all the information from the range of sources gives a consistent assessment of the impact of the Function.'
