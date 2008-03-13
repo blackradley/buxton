@@ -6,7 +6,7 @@ class NoteController < ApplicationController
     else
       parent_question.note.update_attributes(:contents => params[:note])
     end
-    render :inline => Question.find(params[:question_id]).note.contents
+    render :inline => Question.find(params[:question_id]).note.contents.gsub(/\S{35}/, '\0<br />').gsub(/<(\script>|script>)/, "")
   end
   def destroy
     parent_question = Question.find(params[:question_id])
