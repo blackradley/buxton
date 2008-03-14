@@ -15,15 +15,14 @@ module Spec
           if world.errors.empty?
             @listeners.each { |l| l.scenario_succeeded(scenario.story.title, scenario.name) }
           else
-            world.errors.each do |e|
-              case e
-              when Spec::Example::ExamplePendingError
-                @listeners.each { |l| l.scenario_pending(scenario.story.title, scenario.name, e.message) }
-              else
-                @listeners.each { |l| l.scenario_failed(scenario.story.title, scenario.name, e) }
-              end
+            if Spec::Example::ExamplePendingError === (e = world.errors.first)
+              @listeners.each { |l| l.scenario_pending(scenario.story.title, scenario.name, e.message) }
+            else
+              @listeners.each { |l| l.scenario_failed(scenario.story.title, scenario.name, e) }
+              return false
             end
           end
+          true
         end
         
         def add_listener(listener)

@@ -11,13 +11,14 @@ module Spec
         end
       end
 
-      attr_reader :description_text, :description_args, :spec_path
+      attr_reader :description_text, :description_args, :description_options, :spec_path, :registration_binding_block
 
       def inherited(klass)
         super
-        klass.register
+        klass.register {}
+        Spec::Runner.register_at_exit_hook
       end
-
+      
       # Makes the describe/it syntax available from a class. For example:
       #
       #   class StackSpec < Spec::ExampleGroup
@@ -33,10 +34,17 @@ module Spec
       #   end
       #
       def describe(*args, &example_group_block)
+        args << {} unless Hash === args.last
         if example_group_block
-          self.subclass("Subclass") do
-            describe(*args)
-            module_eval(&example_group_block)
+          params = args.last
+          params[:spec_path] = eval("caller(0)[1]", example_group_block) unless params[:spec_path]
+          if params[:shared]
+            SharedExampleGroup.new(*args, &example_group_block)
+          else
+            self.subclass("Subclass") do
+              describe(*args)
+              module_eval(&example_group_block)
+            end
           end
         else
           set_description(*args)
@@ -44,6 +52,7 @@ module Spec
           self
         end
       end
+      alias :context :describe
 
       # Use this to pull in examples from shared example groups.
       # See Spec::Runner for information about shared example groups.
@@ -95,9 +104,9 @@ module Spec
       # Creates an instance of Spec::Example::Example and adds
       # it to a collection of examples of the current example group.
       def it(description=nil, &implementation)
-        example = create_example(description, &implementation)
-        example_objects << example
-        example
+        e = new(description, &implementation)
+        example_objects << e
+        e
       end
 
       alias_method :specify, :it
@@ -106,8 +115,10 @@ module Spec
       def xit(description=nil, opts={}, &block)
         Kernel.warn("Example disabled: #{description}")
       end
+      alias_method :xspecify, :xit
 
-      def run(examples=examples_to_run)
+      def run
+        examples = examples_to_run
         return true if examples.empty?
         reporter.add_example_group(self)
         return dry_run(examples) if dry_run?
@@ -121,7 +132,12 @@ module Spec
       end
 
       def description
-        ExampleGroupMethods.description_text(*description_parts)
+        result = ExampleGroupMethods.description_text(*description_parts)
+        if result.nil? || result == ""
+          return to_s
+        else
+          result
+        end
       end
 
       def described_type
@@ -139,6 +155,7 @@ module Spec
       def set_description(*args)
         args, options = args_and_options(*args)
         @description_args = args
+        @description_options = options
         @description_text = ExampleGroupMethods.description_text(*args)
         @spec_path = File.expand_path(options[:spec_path]) if options[:spec_path]
         if described_type.class == Module
@@ -229,12 +246,17 @@ module Spec
         @after_each_parts = nil
       end
 
-      def register
+      def register(&registration_binding_block)
+        @registration_binding_block = registration_binding_block
         rspec_options.add_example_group self
       end
 
       def unregister #:nodoc:
         rspec_options.remove_example_group self
+      end
+
+      def registration_backtrace
+        eval("caller", registration_binding_block.binding)
       end
 
       def run_before_each(example)
@@ -259,17 +281,15 @@ module Spec
       end
 
       def run_before_all
-        example_group_instance = new(nil)
+        before_all = new("before(:all)")
         begin
           execute_in_class_hierarchy do |example_group|
-            example_group_instance.eval_each_fail_fast(example_group.before_all_parts)
+            before_all.eval_each_fail_fast(example_group.before_all_parts)
           end
-          return [true, example_group_instance.instance_variable_hash]
+          return [true, before_all.instance_variable_hash]
         rescue Exception => e
-          # The easiest is to report this as an example failure. We don't have an Example
-          # at this point, so we'll just create a placeholder.
-          reporter.failure("before(:all)", e)
-          return [false, example_group_instance.instance_variable_hash]
+          reporter.failure(before_all, e)
+          return [false, before_all.instance_variable_hash]
         end
       end
 
@@ -277,27 +297,23 @@ module Spec
         return [success, instance_variables] unless success
 
         after_all_instance_variables = instance_variables
-        examples.each do |example|
-          example_group_instance = new(example, instance_variables)
-          success &= example_group_instance.execute(rspec_options)
+        examples.each do |example_group_instance|
+          success &= example_group_instance.execute(rspec_options, instance_variables)
           after_all_instance_variables = example_group_instance.instance_variable_hash
         end
         return [success, after_all_instance_variables]
       end
 
       def run_after_all(success, instance_variables)
-        example = new(nil, instance_variables)
+        after_all = new("after(:all)")
+        after_all.set_instance_variables_from_hash(instance_variables)
         execute_in_class_hierarchy(:superclass_first) do |example_group|
-          example.eval_each_fail_slow(example_group.after_all_parts)
+          after_all.eval_each_fail_slow(example_group.after_all_parts)
         end
         return success
       rescue Exception => e
-        reporter.failure("after(:all)", e)
+        reporter.failure(after_all, e)
         return false
-      end
-
-      def create_example(description, &implementation) #:nodoc:
-        Example.new(description, &implementation)
       end
 
       def examples_to_run
@@ -344,7 +360,7 @@ module Spec
       end
 
       def is_example_group?(klass)
-        klass.kind_of?(ExampleGroupMethods)
+        Module === klass && klass.kind_of?(ExampleGroupMethods)
       end
 
       def plugin_mock_framework
@@ -393,7 +409,7 @@ module Spec
       def add_method_examples(examples)
         instance_methods.sort.each do |method_name|
           if example_method?(method_name)
-            examples << create_example(method_name) do
+            examples << new(method_name) do
               __send__(method_name)
             end
           end

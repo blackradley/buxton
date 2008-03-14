@@ -6,7 +6,10 @@
 @@sexual_orientation_max = 0
 @@race_max = 0
 @@disability_max = 0
-Activity.force_question_max_calculation
+begin
+  Activity.force_question_max_calculation
+rescue
+end
 @@dependencies = {}
 @@invisible_questions = []
 @@weighted_questions = []
