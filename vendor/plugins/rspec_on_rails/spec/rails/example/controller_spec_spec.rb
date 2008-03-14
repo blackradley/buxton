@@ -17,6 +17,12 @@ require 'controller_spec_controller'
       session.should equal(session_before)
     end
   
+    it "should keep the same data in the session before and after the action" do
+      session[:foo] = :bar
+      get 'action_with_template'
+      session[:foo].should == :bar
+    end
+  
     it "should ensure controller.session is NOT nil before the action" do
       controller.session.should_not be_nil
       get 'action_with_template'
@@ -47,13 +53,21 @@ require 'controller_spec_controller'
       get 'action_with_partial_with_locals', :thing => "something"
     end
     
+    it "should yield to render :update" do
+      template = stub("template")
+      controller.expect_render(:update).and_yield(template)
+      template.should_receive(:replace).with(:bottom, "replace_me", :partial => "non_existent_partial")
+      get 'action_with_render_update'
+      puts response.body
+    end
+    
     it "should allow a path relative to RAILS_ROOT/app/views/ when specifying a partial" do
       get 'action_with_partial'
       response.should render_template("controller_spec/_partial")
     end
     
     it "should provide access to flash" do
-      get 'action_with_template'
+      get 'action_which_sets_flash'
       flash[:flash_key].should == "flash value"
     end
     
@@ -68,8 +82,10 @@ require 'controller_spec_controller'
     end
 
     it "should provide access to session" do
-      get 'action_with_template'
-      session[:session_key].should == "session value"
+      session[:session_key] = "session value"
+      lambda do
+        get 'action_which_gets_session', :expected => "session value"
+      end.should_not raise_error
     end
 
     it "should support custom routes" do
@@ -86,6 +102,11 @@ require 'controller_spec_controller'
     
     it "should generate params for existing routes" do
       params_from(:get, '/controller_spec/some_action').should == {:controller => "controller_spec", :action => "some_action"}
+    end
+    
+    it "should expose instance vars through the assigns hash" do
+      get 'action_setting_the_assigns_hash'
+      assigns[:indirect_assigns_key].should == :indirect_assigns_key_value
     end
     
     it "should expose the assigns hash directly" do

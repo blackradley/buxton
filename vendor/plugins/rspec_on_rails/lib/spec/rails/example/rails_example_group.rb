@@ -1,35 +1,23 @@
 require 'spec/interop/test'
 
+
 ActionView::Base.cache_template_extensions = false
 
 module Spec
   module Rails
+
+    class IllegalDataAccessException < StandardError; end
+
     module Example
       class RailsExampleGroup < Test::Unit::TestCase
-        cattr_accessor(
-          :fixture_path,
-          :use_transactional_fixtures,
-          :use_instantiated_fixtures,
-          :global_fixtures
-        )
-        
-        class << self
-          def before_eval #:nodoc:
-            super
-            configure
-          end
-          
-          def configure
-            self.fixture_table_names = []
-            self.fixture_class_names = {}
-            self.use_transactional_fixtures = Spec::Runner.configuration.use_transactional_fixtures
-            self.use_instantiated_fixtures = Spec::Runner.configuration.use_instantiated_fixtures
-            self.fixture_path = Spec::Runner.configuration.fixture_path
-            self.global_fixtures = Spec::Runner.configuration.global_fixtures
-            self.fixtures(self.global_fixtures) if self.global_fixtures
-          end
+        # Rails >= r8570 uses setup/teardown_fixtures explicitly
+        before(:each) do
+          setup_fixtures if self.respond_to?(:setup_fixtures)
         end
-
+        after(:each) do
+          teardown_fixtures if self.respond_to?(:teardown_fixtures)
+        end
+        
         include Spec::Rails::Matchers
 
         @@model_id = 1000
@@ -37,8 +25,6 @@ module Spec
         # methods stubbed out.
         # Additional methods may be easily stubbed (via add_stubs) if +stubs+ is passed.
         def mock_model(model_class, options_and_stubs = {})
-          # null = options_and_stubs.delete(:null_object)
-          # stubs = options_and_stubs
           id = @@model_id
           @@model_id += 1
           options_and_stubs = {
@@ -64,6 +50,34 @@ module Spec
           CODE
           yield m if block_given?
           m
+        end
+        
+        # Creates an instance of a +model_class+ that is prohibited
+        # from accessing the database. It comes with an id, although
+        # you can stub the id explicitly.
+        #
+        # == Examples
+        #
+        #   stub_model(Person)
+        #   stub_model(Person, :id => 37)
+        #   stub_model(Person) do |person|
+        #     model.first_name = "David"
+        #   end
+        def stub_model(model_class, stubs = {})
+          id = @@model_id
+          @@model_id += 1
+          stubs = {
+            :id => id
+          }.merge(stubs)
+          returning model_class.new do |model|
+            add_stubs(model, stubs)
+            (class << model; self; end).class_eval do
+              def connection
+                raise IllegalDataAccessException.new("stubbed models are not allowed to access the database")
+              end
+            end
+            yield model if block_given?
+          end
         end
 
         #--
