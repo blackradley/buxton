@@ -845,6 +845,24 @@ margin-left:10px;
 width: 318px;
 }
 
+#questions li.issue span.issueDetails p.question.sub input.issues_button{
+  background-color:#515F8D;
+  border:2px solid #FF9900;
+  clear:both;
+  color:#FFFFFF;
+  cursor:pointer;
+  float:right;
+  font-family:Tahoma,Verdana,Arial,Sans-Serif;
+  font-size:1em;
+  font-weight:bold;
+  margin-top:10px;
+  padding:4px 20px;
+  margin-right:160px;
+  float:right;
+  width: auto;
+}
+
+
 #questions li.issue span.issueDetails p.question.sub textarea, #questions li.issue span.issueDetails.question.sub textarea{
 margin-left:30px;
 width: 318px;	
