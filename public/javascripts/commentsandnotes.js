@@ -1,10 +1,12 @@
 function edit_comment(question_id){
   Element.toggle(question_id + '_comment_view');
   Element.toggle(question_id + '_comment_form');
+  $(question_id + '_comment_fill_in').focus();
 }
 function new_comment(question_id){
   Element.toggle(question_id + '_comment_new');
   Element.toggle(question_id + '_comment_form');
+  $(question_id + '_comment_fill_in').focus();
 }
 function cancel_comment(question_id){
   if(trim_using_recursion(document.getElementById(question_id + '_comment').innerHTML).length == 0){
@@ -29,10 +31,12 @@ function trim_using_recursion(str)
 function edit_note(question_id){
   Element.toggle(question_id + '_note_view');
   Element.toggle(question_id + '_note_form');
+  $(question_id + '_note_fill_in').focus();
 }
 function new_note(question_id){
   Element.toggle(question_id + '_note_new');
   Element.toggle(question_id + '_note_form');
+  $(question_id + '_note_fill_in').focus();
 }
 function cancel_note(question_id){
   if(trim_using_recursion(document.getElementById(question_id + '_note').innerHTML).length == 0){
