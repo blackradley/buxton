@@ -176,7 +176,7 @@ module ApplicationHelper
                       :title => 'Activity Control Page - Home' ,
                       :status => '' }
                  ]
-        if @current_user.activity.ces_question.to_i > 0 then 
+#        if @current_user.activity.ces_question.to_i > 0 then 
           questions = [   { :text => 'Questions',
                         :url => { :controller => 'activities', :action => 'questions'},
                         :title => 'Activity Control Page - Questions' ,
@@ -197,19 +197,19 @@ module ApplicationHelper
                           :status => 'disabled' }
                       ]
           end
-        else
-          questions = [   { :text => 'Questions',
-                        :url => { :controller => 'activities', :action => 'questions'},
-                        :title => 'Activity Control Page - Questions' ,
-                        :status => 'disabled' }
-                    ]
-          summary = [    
-                         { :text => 'Summary',
-                          :url => { :controller => 'activities', :action => 'show' },
-                          :title => 'Activity Control Page - Summary' ,
-                          :status => 'disabled' }
-                      ] 
-        end      
+#        else
+#          questions = [   { :text => 'Questions',
+#                        :url => { :controller => 'activities', :action => 'questions'},
+#                        :title => 'Activity Control Page - Questions' ,
+#                        :status => 'disabled' }
+#                    ]
+#          summary = [    
+#                         { :text => 'Summary',
+#                          :url => { :controller => 'activities', :action => 'show' },
+#                          :title => 'Activity Control Page - Summary' ,
+#                          :status => 'disabled' }
+#                      ] 
+#        end      
         generate_menu(home + questions + summary)
                     
       when 'Administrator'
