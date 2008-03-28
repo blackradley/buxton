@@ -220,10 +220,10 @@ questions:
     5:
       label:
         -
-          - 'Please record the nature and source of the evidence you plan to collect'
+          - 'Please record the nature and source of the evidence you plan to collect along with the timescales for doing so.'
           - ''
         -
-          - 'Please record the nature and source of the evidence you plan to collect'
+          - 'Please record the nature and source of the evidence you plan to collect along with the timescales for doing so.'
           - ''
       help:
         -
