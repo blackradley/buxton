@@ -10,7 +10,7 @@
 
 #questions
   -form_for(:issues, :url => {:controller => 'issues', :action => 'update'}) do |f|
-    %h4 Issues raised in Impact:
+    %h4 In the Impact section you identified the following issues to be addressed:
     -issues = @activity.issues_by(:impact).reject{|issue| issue.strand != @equality_strand }
     - issues.reject!{|issue| issue.section.to_s == 'impact'} unless @impact_enabled
     - if issues.size > 0
@@ -19,7 +19,7 @@
     - else
       %p.noIssue No issues to plan actions for.
       
-    %h4 Issues raised in Consultation:
+    %h4 In the Consultation section you identified the following issues to be addressed:
     -issues = @activity.issues_by(:consultation).reject{|issue| issue.strand != @equality_strand }
     - issues.reject!{|issue| issue.section.to_s == 'consultation'} unless @consultation_enabled
     - if issues.size > 0
