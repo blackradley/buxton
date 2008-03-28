@@ -410,28 +410,28 @@ questions:
         -
           - 'This question asks why groups have not been consulted on the impact of the Function.<br/><br/>
              The available answers to this question are:<ul>
-             <li>No relevant groups.  This would be the correct answer if it had been decided that there were no suitable groups representing the interests of #{wordings[strand]} to consult with.</li>
-             <li>Plans to consult.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
-             <li>No plans to consult.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
+             <li>No relevant individuals identified.  This would be the correct answer if it had been decided that there were no suitable groups representing the interests of #{wordings[strand]} to consult with.</li>
+             <li>There are plans to consult relevant individuals.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
+             <li>There are no plans to consult relevant individuals.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
              <li>Not Sure.  As always an acceptable answer if you are unsure.</li></ul>'
           - 'This question asks why groups have not been consulted on the impact of the Function.<br/><br/>
              The available answers to this question are:<ul>
-             <li>No relevant groups.  This would be the correct answer if it had been decided that there were no suitable groups representing the interests of #{wordings[strand]} to consult with.</li>
-             <li>Plans to consult.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
-             <li>No plans to consult.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
+             <li>No relevant individuals identified.  This would be the correct answer if it had been decided that there were no suitable groups representing the interests of #{wordings[strand]} to consult with.</li>
+             <li>There are plans to consult relevant individuals.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
+             <li>There are no plans to consult relevant individuals.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
              <li>Not Sure.  As always an acceptable answer if you are unsure.</li></ul>'
         -
           - 'This question asks why groups have not been consulted on the impact of the Policy.<br/><br/>
              The available answers to this question are:<ul>
-             <li>No relevant groups.  This would be the correct answer if it had been decided that there were no suitable groups representing the interests of #{wordings[strand]} to consult with.</li>
-             <li>Plans to consult.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
-             <li>No plans to consult.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
+             <li>No relevant individuals identified.  This would be the correct answer if it had been decided that there were no suitable groups representing the interests of #{wordings[strand]} to consult with.</li>
+             <li>There are plans to consult relevant individuals.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
+             <li>There are no plans to consult relevant individuals.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
              <li>Not Sure.  As always an acceptable answer if you are unsure.</li></ul>'
           - 'This question asks why groups have not been consulted on the impact of the Policy.<br/><br/>
              The available answers to this question are:<ul>
-             <li>No relevant groups.  This would be the correct answer if it had been decided that there were no suitable groups representing the interests of #{wordings[strand]} to consult with.</li>
-             <li>Plans to consult.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
-             <li>No plans to consult.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
+             <li>No relevant individuals identified.  This would be the correct answer if it had been decided that there were no suitable groups representing the interests of #{wordings[strand]} to consult with.</li>
+             <li>There are plans to consult relevant individuals.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
+             <li>There are no plans to consult relevant individuals.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
              <li>Not Sure.  As always an acceptable answer if you are unsure.</li></ul>'
       type: select
       choices: 5
@@ -523,22 +523,22 @@ questions:
              <li>Not Sure.  As always an acceptable answer if you are unsure.</li></ul>'
           - 'This question asks why stakeholders have not been consulted on the impact of the Function.<br/><br/>
              The available answers to this question are:<ul>
-             <li>No relevant stakeholders.  This would be the correct answer if it had been decided that there were no suitable stakeholders representing the interests of #{wordings[strand]} to consult with.</li>
-             <li>Plans to consult.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
-             <li>No plans to consult.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
+             <li>No relevant stakeholders identified.  This would be the correct answer if it had been decided that there were no suitable stakeholders representing the interests of #{wordings[strand]} to consult with.</li>
+             <li>There are plans to consult relevant stakeholders.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
+             <li>There are no plans to consult relevant stakeholders.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
              <li>Not Sure.  As always an acceptable answer if you are unsure.</li></ul>'
         -
           - 'This question asks why stakeholders have not been consulted on the impact of the Policy.<br/><br/>
              The available answers to this question are:<ul>
-             <li>No relevant stakeholders.  This would be the correct answer if it had been decided that there were no suitable stakeholders representing the interests of #{wordings[strand]} to consult with.</li>
-             <li>Plans to consult.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
-             <li>No plans to consult.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
+             <li>No relevant stakeholders identified.  This would be the correct answer if it had been decided that there were no suitable stakeholders representing the interests of #{wordings[strand]} to consult with.</li>
+             <li>There are plans to consult relevant stakeholders.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
+             <li>There are no plans to consult relevant stakeholders.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
              <li>Not Sure.  As always an acceptable answer if you are unsure.</li></ul>'
           - 'This question asks why stakeholders have not been consulted on the impact of the Policy.<br/><br/>
              The available answers to this question are:<ul>
-             <li>No relevant stakeholders.  This would be the correct answer if it had been decided that there were no suitable stakeholders representing the interests of #{wordings[strand]} to consult with.</li>
-             <li>Plans to consult.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
-             <li>No plans to consult.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
+             <li>No relevant stakeholders identified.  This would be the correct answer if it had been decided that there were no suitable stakeholders representing the interests of #{wordings[strand]} to consult with.</li>
+             <li>There are plans to consult relevant stakeholders.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
+             <li>There are no plans to consult relevant stakeholders.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
              <li>Not Sure.  As always an acceptable answer if you are unsure.</li></ul>'
       type: select
       choices: 6
@@ -1208,11 +1208,10 @@ choices:
     - 'Over a year'
   5:
     - 'Not Answered Yet'
-    - 'No relevant groups'
-    - 'Plans to consult'
-    - 'No plans to consult'
+    - 'No relevant individuals identified'
+    - 'There are plans to consult relevant individuals'
+    - 'There are no plans to consult relevant individuals'
     - 'Not sure'
-    - 'Not applicable'
   6:
     - 'Not Answered Yet'
     - 'No relevant stakeholders identified'
