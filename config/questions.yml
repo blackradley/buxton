@@ -320,7 +320,7 @@ questions:
           - 'This question asks you whether all the information from the range of sources gives a consistent assessment of the impact of the Policy.'
           - 'This question asks you whether all the information from the range of sources gives a consistent assessment of the potential impact of the Policy.'
       type: select
-      choices: 3
+      choices: 10
       weights: 3
       dependent_questions: ''
     9:
@@ -1235,6 +1235,11 @@ choices:
     - 'Not Answered Yet'
     - 'Function'
     - 'Policy'
+  10:
+    - 'Yes'
+    - 'No'
+    - 'Not sure'
+    - 'Not applicable'
 
 weights:
   0:
@@ -1257,6 +1262,7 @@ weights:
   3:
     - 0
     - '-5'
+    - 0
     - 0
   4:
     - 10

@@ -45,7 +45,7 @@
       =link_to_function "Edit", "edit_note('#{question_issues[:id]}');"
   .new_note{:id => "#{question_issues[:id]}_note_new", :style => "display:#{opt[1 - flag]}"}
     .control
-      =image_tag ("icons/note_add.gif")
+      =image_tag("icons/note_add.gif")
       =link_to_function "Add new note to myself", "new_note('#{question_issues[:id]}');"
   .noteform{:id => "#{question_issues[:id]}_note_form", :style => "display:none"}
     =text_area_tag "note", question_issues[:note], :id => "#{question_issues[:id]}_note_fill_in"
