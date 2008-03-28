@@ -461,11 +461,11 @@ questions:
     4:
       label:
         -
-          - 'Have you obtained the views of stakeholders on the impact of the Function on #{wordings[strand]}?'
-          - 'Have you obtained the views of stakeholders on the potential impact of the Function on #{wordings[strand]}?'
+          - 'Have you obtained the views of relevant stakeholders on the impact of the Function on #{wordings[strand]}?'
+          - 'Have you obtained the views of relevant stakeholders on the potential impact of the Function on #{wordings[strand]}?'
         -
-          - 'Have you obtained the views of stakeholders on the impact of the Policy on #{wordings[strand]}?'
-          - 'Have you obtained the views of stakeholders on the potential impact of the Policy on #{wordings[strand]}?'
+          - 'Have you obtained the views of relevant stakeholders on the impact of the Policy on #{wordings[strand]}?'
+          - 'Have you obtained the views of relevant stakeholders on the potential impact of the Policy on #{wordings[strand]}?'
       help:
         -
           - 'This question asks whether any stakeholders with knowledge and expertise on the #{"different " if strand == "gender"}interests of #{wordings[strand]} have been consulted on the impact of the Function.<br/><br/>
@@ -517,9 +517,9 @@ questions:
         -
           - 'This question asks why stakeholders have not been consulted on the impact of the Function.<br/><br/>
              The available answers to this question are:<ul>
-             <li>No relevant stakeholders.  This would be the correct answer if it had been decided that there were no suitable stakeholders representing the interests of #{wordings[strand]} to consult with.</li>
-             <li>Plans to consult.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
-             <li>No plans to consult.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
+             <li>No relevant stakeholders identified.  This would be the correct answer if it had been decided that there were no suitable stakeholders representing the interests of #{wordings[strand]} to consult with.</li>
+             <li>There are plans to consult relevant stakeholders.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
+             <li>There are no plans to consult relevant stakeholders.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li>
              <li>Not Sure.  As always an acceptable answer if you are unsure.</li></ul>'
           - 'This question asks why stakeholders have not been consulted on the impact of the Function.<br/><br/>
              The available answers to this question are:<ul>
@@ -1215,11 +1215,10 @@ choices:
     - 'Not applicable'
   6:
     - 'Not Answered Yet'
-    - 'No relevant stakeholders'
-    - 'Plans to consult'
-    - 'No plans to consult'
+    - 'No relevant stakeholders identified'
+    - 'There are plans to consult relevant stakeholders'
+    - 'There are no plans to consult relevant stakeholders'
     - 'Not sure'
-    - 'Not applicable'
   7:
     - 'Not Answered Yet'
     - 'None'
