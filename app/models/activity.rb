@@ -165,19 +165,15 @@ class Activity < ActiveRecord::Base
       end
     end
     #If you don't specify a section, or your section is action planning, consider issues as well.
-    unless section && !(section == :action_planning) then
+    if section.nil? || section == :action_planning then
       #First we calculate all the questions, in case there is a nil.
       questions = Activity.get_question_names(:consultation, strand, 7)
       questions << Activity.get_question_names(:impact, strand, 9)
       questions.flatten!
       questions.each do |question|
         strand = Activity.question_separation(question)[1]
-        if section
-          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?)
-        else
-          lookups_required = (self.send(question) == 2)
-        end
-        if lookups_required then
+        issues_required = (self.send(question) != 2)
+        if issues_required then
           issue_strand = self.issues.clone
           issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s}
           return 0 if (section == :action_planning && issue_strand.length == 0)
@@ -326,12 +322,8 @@ class Activity < ActiveRecord::Base
       questions.flatten!
       questions.each do |question|
         strand = Activity.question_separation(question)[1]
-        if section
-          lookups_required = (self.send(question) == 1 ||self.send(question) == 0 || self.send(question).nil?)
-        else
-          lookups_required = (self.send(question) == 2)
-        end
-        if lookups_required then
+        issues_required = (self.send(question) != 2)
+        if issues_required then
           issue_strand = self.issues.clone
           issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s}
           return false if (section == :action_planning && issue_strand.length == 0)
