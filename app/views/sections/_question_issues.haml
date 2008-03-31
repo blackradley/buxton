@@ -73,7 +73,7 @@
   
 .question.sub{:id => "#{question_issues[:id]}_issues", :onclick => "setFocus(\'more_#{question_issues[:id]}_issues\',\'#{question_issues[:id]}_issues\');", :style => "display:#{displayString};"}
   %label 
-    Please record the issues identified
+    Please record each of the discrete issues identified in the space below and when you have finished click save.
   %span#issues_list
     = render :partial => 'issues/issue', :collection => @activity.issues_by(@section, @equality_strand)
   = link_to_function "Add a New Issue" do |page| 
