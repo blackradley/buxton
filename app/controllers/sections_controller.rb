@@ -34,37 +34,26 @@ class SectionsController < ApplicationController
   #               Activity Manager
   def show
     # TODO: improve this - all a bit ugly
-    f_id = if (@current_user.class.name.to_s == 'OrganisationManager')
-      params[:f]
-    else
-      @current_user.activity.id
-    end
+    f_id = (@current_user.class == OrganisationManager)? params[:f] : @current_user.activity.id
     @activity = Activity.find(f_id)
     # Only display the answers if Activity/Policy Existing/Proposed are answered otherwise
     # we don't know what label text to use.
-    if @activity.started then
-      case params[:id]
-      when 'purpose'
-        strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
-        @activity_strategies = Array.new(strategies.size) do |i|
+   # begin
+      if @activity.started then
+        if params[:id] == 'purpose' then
+          strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
+          @activity_strategies = Array.new(strategies.size) do |i|
           @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
+          end
         end
-        render :template => 'sections/show_purpose'
-      when 'impact'
-        render :template => 'sections/show_impact'
-      when 'consultation'
-        render :template => 'sections/show_consultation'
-      when 'additional_work'
-        render :template => 'sections/show_additional_work'
-      when 'action_planning'
-        render :template => 'sections/show_action_planning'
-      else
-        # K: TODO: catch this - we shouldn't ever be here
-        render :inline => 'Invalid section.'
+        @section = params[:id]
+        render :template => 'sections/show'
+      else  
+        render :text => 'Function/Policy not started.', :layout => true
       end
-    else
-      render :text => 'Function/Policy not started.', :layout => true
-    end
+   # rescue
+   #   render :inline => 'Invalid section.'
+   # end 
   end
 
   # Get the activity information ready for editing using the appropriate form.

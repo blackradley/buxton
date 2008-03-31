@@ -6,7 +6,7 @@
 
 <% if @activity.relevant_strands.include? 'gender' then -%>
 <table>
-<tr><th colspan="2">Men and Women</th></tr>
+<tr><th colspan="2">Men and Women</th><th>Answers to Date</th></tr>
 <%= answer(@activity, :additional_work, :gender, 1) %>
 <%= answer(@activity, :additional_work, :gender, 2) %>
 <%= answer(@activity, :additional_work, :gender, 3) %>
@@ -16,7 +16,7 @@
 
 <% if @activity.relevant_strands.include? 'race' then -%>
 <table>
-<tr><th colspan="2">People from different ethnic backgrounds</th></tr>
+<tr><th colspan="2">People from different ethnic backgrounds</th><th>Answers to Date</th></tr>
 <%= answer(@activity, :additional_work, :race, 1) %>
 <%= answer(@activity, :additional_work, :race, 2) %>
 <%= answer(@activity, :additional_work, :race, 3) %>
@@ -27,7 +27,7 @@
 
 <% if @activity.relevant_strands.include? 'disability' then -%>
 <table>
-<tr><th colspan="2">People with different kinds of disability</th></tr>
+<tr><th colspan="2">People with different kinds of disability</th><th>Answers to Date</th></tr>
 <%= answer(@activity, :additional_work, :disability, 1) %>
 <%= answer(@activity, :additional_work, :disability, 2) %>
 <%= answer(@activity, :additional_work, :disability, 3) %>
@@ -41,7 +41,7 @@
 
 <% if @activity.relevant_strands.include? 'faith' then -%>
 <table>
-<tr><th colspan="2">People from different faith groups</th></tr>
+<tr><th colspan="2">People from different faith groups</th><th>Answers to Date</th></tr>
 <%= answer(@activity, :additional_work, :faith, 1) %>
 <%= answer(@activity, :additional_work, :faith, 2) %>
 <%= answer(@activity, :additional_work, :faith, 3) %>
@@ -52,7 +52,7 @@
 
 <% if @activity.relevant_strands.include? 'sexual_orientation' then -%>
 <table>
-<tr><th colspan="2">People of different sexual orientations</th></tr>
+<tr><th colspan="2">People of different sexual orientations</th><th>Answers to Date</th></tr>
 <%= answer(@activity, :additional_work, :sexual_orientation, 1) %>
 <%= answer(@activity, :additional_work, :sexual_orientation, 2) %>
 <%= answer(@activity, :additional_work, :sexual_orientation, 3) %>
@@ -63,7 +63,7 @@
 
 <% if @activity.relevant_strands.include? 'age' then -%>
 <table>
-<tr><th colspan="2">People of different ages</th></tr>
+<tr><th colspan="2">People of different ages</th><th>Answers to Date</th></tr>
 <%= answer(@activity, :additional_work, :age, 1) %>
 <%= answer(@activity, :additional_work, :age, 2) %>
 <%= answer(@activity, :additional_work, :age, 3) %>
