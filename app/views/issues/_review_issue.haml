@@ -5,24 +5,21 @@
     %span.issueControls
       = link_to_function image_tag('icons/cross.gif', :title => 'Delete') + "Delete", "mark_for_issue_destroy(this)"
       = link_to_function image_tag('icons/edit.gif') + "Open Action Plan", "Element.toggle('details_#{review_issue.id}'); Element.toggle('close_issue_#{review_issue.id}'); Element.toggle('open_issue_#{review_issue.id}')", :id => "open_issue_#{review_issue.id}"
-      = link_to_function image_tag('icons/edit.gif') + "Close Action Plan", "Element.toggle('details_#{review_issue.id}'); Element.toggle('open_issue_#{review_issue.id}'); Element.toggle('close_issue_#{review_issue.id}')", :id => "close_issue_#{review_issue.id}", :style => 'display:none'
+      = link_to_function image_tag('icons/edit.gif') + "Minimize Action Plan", "Element.toggle('details_#{review_issue.id}'); Element.toggle('open_issue_#{review_issue.id}'); Element.toggle('close_issue_#{review_issue.id}')", :id => "close_issue_#{review_issue.id}", :style => 'display:none'
       = issue_form.hidden_field :issue_destroy, :class => 'issue_destroy'
     %span.issueDetails{:id => "details_#{review_issue.id}", :style => "display:none;"}
       %p.question.sub
         %label
-          Description
-          = issue_form.text_field :description
-        %label
-          Actions
+          Summary actions to address the issues
         = issue_form.text_area :actions
         %label
-          Resources
+          Resources necessary to implement the actions
         = issue_form.text_area :resources
         %label
-          Timescales
+          Timescales for commencing and completing the actions
         = issue_form.text_area :timescales
         %label
-          Lead Officer
+          Lead Officer responsible for the Action Plan
         = issue_form.text_area :lead_officer
         = button_to_function " Minimise Action Plan", "Element.toggle('details_#{review_issue.id}'); Element.toggle('open_issue_#{review_issue.id}'); Element.toggle('close_issue_#{review_issue.id}')", :class => 'issues_button'
     .clear
