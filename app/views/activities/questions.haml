@@ -6,7 +6,7 @@
     =image_tag("1.png")
   .stepBox
     %h2 Activity Type
-    %p Before you can start, the assessment Impact Equality&trade; asks you to classify the activity as either a Function or Policy and as either Existing or Proposed. You will be unable to move on to the rest of the tool until you have completed these questions.
+    %p Before you can start the assessment, Impact Equality&trade; asks you to classify the activity as either a Function or Policy and as either Existing or Proposed. You will be unable to move on to the rest of the tool until you have completed these questions.
     -form_for(:activity, :url => {:action => 'update_activity_type'}) do |f|
       %fieldset
         %p
@@ -39,7 +39,7 @@
         =image_tag("3.png")
       .stepBox
         %h2 Relevant Equality Strands
-        %p The answers to your questions indicate that the activity is relevant to the marked Equality Dimensions.  Please indicate by ticking the box which you would like to include in the assessment.
+        %p The answers to your questions indicate that the activity is relevant to the marked Equality Dimensions.  Please indicate by ticking the box which Equality Dimension you would like to include in the assessment, clicking on the tick again removes that Equality Dimension.
         -@activity.overview_strands.each do |strand_name, strand|
           -selected = false
           %span.checkStrand
