@@ -1196,6 +1196,7 @@ choices:
     - '3 - Good'
     - '4 - Very good'
     - '5 - Excellent'
+    - 'Not sure'
   3:
     - 'Not Answered Yet'
     - 'Yes'
@@ -1259,6 +1260,7 @@ weights:
     - 40
     - 35
     - 30
+    - 50
   3:
     - 0
     - '-5'
