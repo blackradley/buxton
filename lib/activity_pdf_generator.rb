@@ -79,13 +79,13 @@ class ActivityPDFGenerator
       ranking_table_data[0] << "<b>#{strand.titleize}</b>"
       ranking_table_data[1] << activity.priority_ranking(strand).to_s
       impact_table_data[0] << "<b>#{strand.titleize}</b>"
-      impact_table_data[1] << activity.impact_wording(strand).to_s.titleize      
+      impact_table_data[1] << activity.impact_wording(strand).to_s.titleize
     end
     pdf = generate_table(pdf, ranking_table_data, :borders => borders)
     pdf.text(" ")
     pdf.text("<b>1.2 Impact</b>")
     pdf.text(" ")
-    pdf = generate_table(pdf, impact_table_data, :borders => borders)      
+    pdf = generate_table(pdf, impact_table_data, :borders => borders)
     pdf
   end
   def build_purpose(pdf, activity)
@@ -115,7 +115,7 @@ class ActivityPDFGenerator
     (5..9).each do |i|
       impact_quns << "<C:bullet/>#{activity.question_wording_lookup(:purpose, :overall, i)[0].to_s}" if activity.send("purpose_overall_#{i}") == 1
     end
-    if impact_quns.size > 0 then 
+    if impact_quns.size > 0 then
       pdf.text("The Activity has an impact on the following groups: ")
       impact_quns.each do |question|
         pdf.text(question, :left => 20)
@@ -157,13 +157,13 @@ class ActivityPDFGenerator
     collected_information = Activity.get_question_names('impact', nil, 3).map{|question| [question, activity.send(question)]}
     collected_information.reject! do |question, response|
       not_needed = response.to_s.strip.size == 0
-      not_needed = not_needed || activity.send(question.to_s.gsub('3','2').to_sym) != 1 
+      not_needed = not_needed || activity.send(question.to_s.gsub('3','2').to_sym) != 1
       not_needed
     end
     planned_information = Activity.get_question_names('impact', nil, 5).map{|question| [question, activity.send(question)]}
     planned_information.reject! do |question, response|
       not_needed = response.to_s.strip.size == 0
-      not_needed = not_needed || activity.send(question.to_s.gsub('5','4').to_sym) != 1 
+      not_needed = not_needed || activity.send(question.to_s.gsub('5','4').to_sym) != 1
       not_needed
     end
     width = (pdf.absolute_right_margin - pdf.absolute_left_margin)
@@ -171,7 +171,7 @@ class ActivityPDFGenerator
     borders = [border_gap]
     3.times do |i|
       borders << borders.last.to_i + border_gap
-    end  
+    end
     table = []
     table << ["<b>Equality Strand</b>", "<b>Current assessment of the impact of the Activity</b>", "<b>Information to support</b>", "<b>Planned Information to support</b>"]
     activity.strands.each do |strand|
@@ -186,7 +186,7 @@ class ActivityPDFGenerator
     pdf.text(" ")
     pdf
   end
-  
+
   def build_consultation(pdf, activity)
     pdf.text("<c:uline><b>4.  Consultation </b></c:uline>")
     pdf.text(" ")
@@ -198,7 +198,7 @@ class ActivityPDFGenerator
     collected_information = Activity.get_question_names('consultation', nil, 3).map{|question| [question, activity.send(question)]}
     collected_information.reject! do |question, response|
       not_needed = response.to_s.strip.size == 0
-      not_needed = not_needed || activity.send(question.to_s.gsub('3','1').to_sym) != 1 
+      not_needed = not_needed || activity.send(question.to_s.gsub('3','1').to_sym) != 1
       not_needed
     end
     table = []
@@ -209,7 +209,7 @@ class ActivityPDFGenerator
       row << activity.hashes['choices'][3][activity.send("consultation_#{strand}_1").to_i].to_s
       row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
-    end     
+    end
     pdf = generate_table(pdf, table, :borders => borders)
     pdf.text(" ")
     pdf.text("<b>4.2 Stakeholders</b>")
@@ -219,7 +219,7 @@ class ActivityPDFGenerator
     collected_information = Activity.get_question_names('consultation', nil, 6).map{|question| [question, activity.send(question)]}
     collected_information.reject! do |question, response|
       not_needed = response.to_s.strip.size == 0
-      not_needed = not_needed || activity.send(question.to_s.gsub('6','4').to_sym) != 1 
+      not_needed = not_needed || activity.send(question.to_s.gsub('6','4').to_sym) != 1
       not_needed
     end
     table = []
@@ -230,12 +230,12 @@ class ActivityPDFGenerator
       row << activity.hashes['choices'][3][activity.send("consultation_#{strand}_4").to_i].to_s
       row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
-    end     
+    end
     pdf = generate_table(pdf, table, :borders => borders)
     pdf.text(" ")
-    pdf   
+    pdf
   end
-  
+
   def build_additional_work(pdf, activity)
     pdf.text("<c:uline><b>5.  Additional Work</b></c:uline>")
     pdf.text(" ")
@@ -244,7 +244,7 @@ class ActivityPDFGenerator
     collected_information = Activity.get_question_names('additional_work', nil, 1).map{|question| [question, activity.send(question)]}
     collected_information.reject! do |question, response|
       not_needed = response.to_s.strip.size == 0
-      not_needed = not_needed || activity.send(question.to_s.gsub('2','1').to_sym) != 1 
+      not_needed = not_needed || activity.send(question.to_s.gsub('2','1').to_sym) != 1
       not_needed
     end
     table = []
@@ -255,12 +255,12 @@ class ActivityPDFGenerator
       row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_1").to_i].to_s
       row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
-    end     
+    end
     pdf = generate_table(pdf, table, :borders => borders)
-    pdf.text(" ") 
-    pdf 
+    pdf.text(" ")
+    pdf
   end
-  
+
   def build_equality_objectives(pdf, activity)
     pdf.text("<c:uline><b>6. Equality Objectives </b></c:uline>")
     pdf.text(" ")
@@ -271,7 +271,7 @@ class ActivityPDFGenerator
     borders = [border_gap]
     2.times do |i|
       borders << borders.last.to_i + border_gap
-    end  
+    end
     table = []
     table << ["<b>Equality Strand</b>", "<b>Eliminating discrimination & harassment</b>", "<b>Promote good relations between different groups</b>"]
     activity.strands.each do |strand|
@@ -284,13 +284,13 @@ class ActivityPDFGenerator
         row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_6").to_i].to_s
       end
       table << row
-    end     
+    end
     pdf = generate_table(pdf, table, :borders => borders)
     border_gap = width/(4)
     borders = [border_gap]
     3.times do |i|
       borders << borders.last.to_i + border_gap
-    end  
+    end
     pdf.text(" ")
     pdf.text("The assessment has identified that the Activity has a role in the following Equality Objectives that are specific to the Disability Equality Strand:")
     pdf.text(" ")
@@ -298,9 +298,9 @@ class ActivityPDFGenerator
     table << ["<b>Equality strand</b>", "<b>Take account of disabilities even if it means treating more favourably</b>", "<b>Promote positive attitudes to disabled people</b>", "<b>Encourage participation by disabled people</b>"]
     row = []
     row << 'Disability'
-    row << activity.hashes['choices'][3][activity.send("additional_work_disability_7").to_i].to_s  
-    row << activity.hashes['choices'][3][activity.send("additional_work_disability_8").to_i].to_s  
-    row << activity.hashes['choices'][3][activity.send("additional_work_disability_9").to_i].to_s  
+    row << activity.hashes['choices'][3][activity.send("additional_work_disability_7").to_i].to_s
+    row << activity.hashes['choices'][3][activity.send("additional_work_disability_8").to_i].to_s
+    row << activity.hashes['choices'][3][activity.send("additional_work_disability_9").to_i].to_s
     table << row
     pdf = generate_table(pdf, table, :borders => borders)
     pdf.text(" ")
@@ -351,18 +351,19 @@ class ActivityPDFGenerator
       row << issue.timescales.to_s
       row << issue.lead_officer.to_s
       table << row
-    end     
-    pdf = generate_table(pdf, table, :borders => borders) 
-    pdf   
+    end
+    pdf = generate_table(pdf, table, :borders => borders)
+    pdf
   end
 
   def build_appendices(pdf, activity)
+    pdf.start_new_page
     pdf.text "<c:uline><b>Appendices</b></c:uline>", :justification => :center, :font_size => 14
     pdf.text " "
     pdf.text "<b>Complete assessment summary of the responses pertaining to all individuals participating</b>", :font_size => 12
     pdf.text " "
     question_list = []
-    question_list << ["<b>Question</b>", "<b>Response</b>", "<b>Additional Comments</b>"]
+    question_list << ["<b>Question</b>", "<b>Additional Comments</b>"]
     Activity.get_question_names(nil, :overall).each do |question|
       number = question.to_s.gsub(/\D/, "").to_i
       question_details = activity.question_wording_lookup('purpose', 'overall', number)
@@ -372,10 +373,14 @@ class ActivityPDFGenerator
       next unless (question_object && question_object.needed)
       comment = question_object.comment.contents.to_s if question_object.comment
       comment = comment.to_s
-      question_list << [label, question_response(question, activity, question_details), comment.to_s]
+      question_list << [label, comment.to_s] unless comment.blank?
     end
     borders = [150, 300, 540]
-    pdf = generate_table(pdf, question_list, {:borders => borders})
+    if question_list.size > 1 then
+      pdf = generate_table(pdf, question_list, {:borders => borders})
+    else
+      pdf.text "<i>There are no questions with comments for this section</i>", :font_size => 10
+    end
     pdf.text " "
     activity.strands.each do |strand|
       pdf.start_new_page
@@ -385,25 +390,27 @@ class ActivityPDFGenerator
         pdf.text "<b><c:uline>#{index + 1}. #{section.to_s.titleize}</c:uline></b>"
         pdf.text " "
         question_list = []
-        question_list << ["<b>Question</b>", "<b>Response</b>", "<b>Additional Comments</b>"]
+        question_list << ["<b>Question</b>", "<b>Additional Comments</b>"]
         Activity.get_question_names(section, strand).each do |question|
           number = question.to_s.gsub(section.to_s, "").gsub(strand.to_s, "").gsub("_", "").to_i
           question_details = activity.question_wording_lookup(section, strand, number)
           question_object = activity.questions.find_by_name(question.to_s)
           next unless (question_object && question_object.needed)
           comment = question_object.comment.contents.to_s if question_object.comment
-          comment = comment.to_s
-          question_list << [question_details[0], question_response(question, activity, question_details), comment.to_s]
+          question_list << [question_details[0], comment] unless comment.blank?
         end
         borders = [150, 300, 540]
-        pdf = generate_table(pdf, question_list, {:borders => borders})
+        unless question_list.size == 1 then
+          pdf = generate_table(pdf, question_list, {:borders => borders})
+        else
+          pdf.text "<i>There are no questions with comments for this section</i>"
+        end
         pdf.text " "
       end
-      
     end
     pdf
   end
-  
+
   def build_footer(pdf, activity)
       pdf.open_object do |footer|
         pdf.save_state
@@ -427,20 +434,11 @@ class ActivityPDFGenerator
   end
 
   private
-  
-  def question_response(question, activity, question_details)
-    case question_details[1]
-      when 'select'
-        return activity.hashes['choices'][question_details[2]][activity.send(question)]
-      else
-        return activity.send(question)
-    end
-  end
   #Custom implementation on SimpleTable. Creates a table in 0.08 seconds as opposed to simpletables 0.7 by redoing some time consuming
   #procedures involved in working out page wraps and initializing objects as opposed to using arrays.
   #arguments to table_data is :offset => The offset of the table relative to it's alignment. :aligment => aligns the table
-  #:show lines => :all shows all lines, :borders shows only the borders of the table, :none shows no lines. 
-  #:borders => sets the borders of the table (for example [0, 100, 200, 300] sets the horizontal  
+  #:show lines => :all shows all lines, :borders shows only the borders of the table, :none shows no lines.
+  #:borders => sets the borders of the table (for example [0, 100, 200, 300] sets the horizontal
   #borders up at those intervals. A row will autosize to the correct height. A gotcha is that if you specify an offset, it takes it from the left
   # of the page instead of from the left boundary. To be fixed
   #Simple table is still enabled, so if you need functionality that isn't here, then use that.
@@ -478,7 +476,7 @@ class ActivityPDFGenerator
         borders_to_pass.pop while row.size < borders_to_pass.size
         borders_to_pass.pop
         borders_to_pass.push(borders.last)
-        table_data_to_pass[:borders] = borders_to_pass 
+        table_data_to_pass[:borders] = borders_to_pass
       end
       pdf = add_row(pdf, row, table_data_to_pass, init_pos, show_lines)
       pdf.line(init_pos, pdf.y, borders.last + init_pos, pdf.y) if show_lines == :borders && (row_index == (table.size - 1))
@@ -486,10 +484,10 @@ class ActivityPDFGenerator
     pdf.line(init_pos, top_of_table, init_pos, pdf.y).stroke if (show_lines == :all || show_lines == :borders)
     pdf
   end
-  
+
   def add_row(pdf, row, table_data, x_pos = nil, lines = :all)
     top = pdf.y - pdf.font_height
-    borders = table_data[:borders] 
+    borders = table_data[:borders]
     pdf.y -= pdf.font_height
     max_height = 0
     x_pos = x_pos || pdf.absolute_left_margin
@@ -506,7 +504,7 @@ class ActivityPDFGenerator
       end
       overflow = pdf.add_text_wrap(x_pos, pdf.y, width - 2, cell.to_s, 10, table_data[:text_alignment])
       current_height = 1
-      while overflow.length > 0 
+      while overflow.length > 0
         pdf.y -= pdf.font_height
         overflow = pdf.add_text_wrap(x_pos, pdf.y, width - 2, overflow, 10, table_data[:text_alignment])
         current_height += 1
@@ -523,7 +521,7 @@ class ActivityPDFGenerator
       borders.each do |border|
         pdf.line(border + init_pos, top + pdf.font_height, border + init_pos, top - max_height).stroke
       end
-    end    
-    pdf  
+    end
+    pdf
   end
 end
