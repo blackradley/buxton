@@ -8,11 +8,11 @@ javascripts:
   - controls
   - application
   - commentsandnotes
-  - tooltip
+  - prototip
 stylesheets:
 # error.css is never called through Rails so not included here
 - base: 
-  - tooltip
+  - prototip
   - main
   - general
   - links

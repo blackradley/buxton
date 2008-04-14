@@ -305,11 +305,9 @@ module ApplicationHelper
     end
 
     if comment = question.comment then
-      tooltip_id = "comment_tooltip_#{comment.id}"
       image_id = "comment_#{comment.id}"
-      comment_string = %Q[<div id='#{tooltip_id}' class="comment_tooltip">#{comment.contents}</div>
-      #{image_tag('icons/comment.gif', :id => image_id)}
-      <script type="text/javascript">var my_tooltip = new Tooltip('#{image_id}', '#{tooltip_id}');</script>]
+      comment_string = %Q[#{image_tag('icons/comment.gif', :id => image_id)}
+      <script type="text/javascript">new Tip('#{image_id}', '#{comment.contents}');</script>]
     else
       comment_string = ""
     end
