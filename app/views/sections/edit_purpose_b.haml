@@ -9,7 +9,7 @@
     %p.question
       %label
         =h @activity.header(:purpose_overall_2)
-    = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [5,6,7,8,9]), :locals => {:f => f}
+    = render :partial => 'question_compact', :collection => question_details(:purpose, @equality_strand, [5,6,7,8,9]), :locals => {:f => f}
     = hidden_field_tag 'id', @id 
     = hidden_field_tag 'equality_strand', @equality_strand
     %p.question
