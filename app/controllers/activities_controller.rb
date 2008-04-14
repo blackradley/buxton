@@ -15,6 +15,9 @@ class ActivitiesController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
+  
+  # Make render_to_string available to the #show action
+  helper_method :render_to_string
 
   # By default, show the summary page. Not presently referenced anywhere.
   # Available to: Organisation Manager

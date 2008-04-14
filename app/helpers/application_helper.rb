@@ -280,38 +280,36 @@ module ApplicationHelper
   end
 
   # Generates all the HTML needed to display the answer to a question
-  def answer(activity, section, strand, number)
-    question_name="#{section}_#{strand}_#{number}"
-    question = activity.questions.find_by_name(question_name)
-    return "" unless question.needed
+  def answer(activity, section, strand, ids)
+    output = Array(ids).collect do |id|
+      name = "#{section}_#{strand}_#{id}"
+      question = activity.questions.find_by_name(name)
+      next unless question.needed
+       
+      query = activity.question_wording_lookup(question.section, question.strand, question.number)
 
-    # Get the label text and details for this question
-    query = activity.question_wording_lookup(section, strand, number)
-    label = query[0]
-    choices = activity.hashes['choices'][query[2]]
-    # Get the answer options for this question and make an appropriate input field
-    question_answer = activity.send(question_name)
-    unless question_answer.nil?
-      answer = case query[1].to_sym
-      when :select
-        choices[question_answer]
-      when :text
-        activity.send(question_name)
-      when :string
-        activity.send(question_name)
+      label = query[0]
+      choices = activity.hashes['choices'][query[2]]
+      
+      # Get the answer options for this question and make an appropriate input field
+      question_answer = activity.send(question.name)
+      unless question_answer.nil?
+        answer = case query[1].to_sym
+        when :select
+          choices[question_answer]
+        when :text
+          activity.send(question.name)
+        when :string
+          activity.send(question.name)
+        end
+      else
+        answer = 'Not Answered Yet'
       end
-    else
-      answer = 'Not Answered Yet'
+      
+      render_to_string :partial => 'answer', :locals => { :label => label, :answer => answer, :question => question }
     end
 
-    if comment = question.comment then
-      image_id = "comment_#{comment.id}"
-      comment_string = %Q[#{image_tag('icons/comment.gif', :id => image_id)}
-      <script type="text/javascript">new Tip('#{image_id}', '#{comment.contents}');</script>]
-    else
-      comment_string = ""
-    end
-    %Q[<tr><td class="label">#{label}</td><td class="labelled">#{h answer}#{comment_string}</td></tr>]
+    output
   end
 
   #This method produces an answer bar for the summary sections

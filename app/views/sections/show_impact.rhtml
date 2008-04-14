@@ -4,21 +4,15 @@
   <table>
   <tr><th class="h4">Impact by Equality Group</th></tr>
   </table>
-
+  
 <% if @activity.relevant_strands.include? 'gender' then -%>
 <table>
 <tr><th>Men and women</th><th>Answers to Date</th></tr>
-<%= answer(@activity, :impact, :gender, 1) %>
-<%= answer(@activity, :impact, :gender, 2) %>
-<%= answer(@activity, :impact, :gender, 3) %>
+<%= answer(@activity, :impact, :gender, [1,2,3]) %>
 <% if @activity.existing? then -%>
-<%= answer(@activity, :impact, :gender, 4) %>
-<%= answer(@activity, :impact, :gender, 5) %>
-<%= answer(@activity, :impact, :gender, 6) %>
-<%= answer(@activity, :impact, :gender, 7) %>
+<%= answer(@activity, :impact, :gender, [4,5,6,7]) %>
 <% end -%>
-<%= answer(@activity, :impact, :gender, 8) %>
-<%= answer(@activity, :impact, :gender, 9) %>
+<%= answer(@activity, :impact, :gender, [8,9]) %>
 <% issues = @activity.issues_by(@section, 'gender') -%>
 <% if issues.size > 0 then -%>
 <tr><td class="label">Please record the issues identified</td><td class="labelled">
@@ -36,17 +30,11 @@
 <% if @activity.relevant_strands.include? 'race' then -%>
 <table>
 <tr><th>People from different ethnic backgrounds</th><th>Answers to Date</th></tr>
-<%= answer(@activity, :impact, :race, 1) %>
-<%= answer(@activity, :impact, :race, 2) %>
-<%= answer(@activity, :impact, :race, 3) %>
+<%= answer(@activity, :impact, :race, [1,2,3]) %>
 <% if @activity.existing? then -%>
-<%= answer(@activity, :impact, :race, 4) %>
-<%= answer(@activity, :impact, :race, 5) %>
-<%= answer(@activity, :impact, :race, 6) %>
-<%= answer(@activity, :impact, :race, 7) %>
+<%= answer(@activity, :impact, :race, [4,5,6,7]) %>
 <% end -%>
-<%= answer(@activity, :impact, :race, 8) %>
-<%= answer(@activity, :impact, :race, 9) %>
+<%= answer(@activity, :impact, :race, [8,9]) %>
 <% issues = @activity.issues_by(@section, 'race') -%>
 <% if issues.size > 0 then -%>
 <tr><td class="label">Please record the issues identified</td><td class="labelled">
@@ -63,17 +51,11 @@
 <% if @activity.relevant_strands.include? 'disability' then -%>
 <table>
 <tr><th>People with different kinds of disability</th><th>Answers to Date</th></tr>
-<%= answer(@activity, :impact, :disability, 1) %>
-<%= answer(@activity, :impact, :disability, 2) %>
-<%= answer(@activity, :impact, :disability, 3) %>
+<%= answer(@activity, :impact, :disability, [1,2,3]) %>
 <% if @activity.existing? then -%>
-<%= answer(@activity, :impact, :disability, 4) %>
-<%= answer(@activity, :impact, :disability, 5) %>
-<%= answer(@activity, :impact, :disability, 6) %>
-<%= answer(@activity, :impact, :disability, 7) %>
+<%= answer(@activity, :impact, :disability, [4,5,6,7]) %>
 <% end -%>
-<%= answer(@activity, :impact, :disability, 8) %>
-<%= answer(@activity, :impact, :disability, 9) %>
+<%= answer(@activity, :impact, :disability, [8,9]) %>
 <% issues = @activity.issues_by(@section, 'disability') -%>
 <% if issues.size > 0 then -%>
 <tr><td class="label">Please record the issues identified</td><td class="labelled">
@@ -90,17 +72,11 @@
 <% if @activity.relevant_strands.include? 'faith' then -%>
 <table>
 <tr><th>People from different faith groups</th><th>Answers to Date</th></tr>
-<%= answer(@activity, :impact, :faith, 1) %>
-<%= answer(@activity, :impact, :faith, 2) %>
-<%= answer(@activity, :impact, :faith, 3) %>
+<%= answer(@activity, :impact, :faith, [1,2,3]) %>
 <% if @activity.existing? then -%>
-<%= answer(@activity, :impact, :faith, 4) %>
-<%= answer(@activity, :impact, :faith, 5) %>
-<%= answer(@activity, :impact, :faith, 6) %>
-<%= answer(@activity, :impact, :faith, 7) %>
+<%= answer(@activity, :impact, :faith, [4,5,6,7]) %>
 <% end -%>
-<%= answer(@activity, :impact, :faith, 8) %>
-<%= answer(@activity, :impact, :faith, 9) %>
+<%= answer(@activity, :impact, :faith, [8,9]) %>
 <% issues = @activity.issues_by(@section, 'faith') -%>
 <% if issues.size > 0 then -%>
 <tr><td class="label">Please record the issues identified</td><td class="labelled">
@@ -117,14 +93,9 @@
 <% if @activity.relevant_strands.include? 'sexual_orientation' then -%>
 <table>
 <tr><th>People of different sexual orientations</th><th>Answers to Date</th></tr>          
-<%= answer(@activity, :impact, :sexual_orientation, 1) %>
-<%= answer(@activity, :impact, :sexual_orientation, 2) %>
-<%= answer(@activity, :impact, :sexual_orientation, 3) %>
+<%= answer(@activity, :impact, :sexual_orientation, [1,2,3]) %>
 <% if @activity.existing? then -%>
-<%= answer(@activity, :impact, :sexual_orientation, 4) %>
-<%= answer(@activity, :impact, :sexual_orientation, 5) %>
-<%= answer(@activity, :impact, :sexual_orientation, 6) %>
-<%= answer(@activity, :impact, :sexual_orientation, 7) %>
+<%= answer(@activity, :impact, :sexual_orientation, [4,5,6,7]) %>
 <% end -%>
 <%= answer(@activity, :impact, :sexual_orientation, 8) %>
 <%= answer(@activity, :impact, :sexual_orientation, 9) %>
@@ -144,17 +115,11 @@
 <% if @activity.relevant_strands.include? 'age' then -%>
 <table>
 <tr><th>People of different ages</th><th>Answers to Date</th></tr>
-<%= answer(@activity, :impact, :age, 1) %>
-<%= answer(@activity, :impact, :age, 2) %>
-<%= answer(@activity, :impact, :age, 3) %>
+<%= answer(@activity, :impact, :age, [1,2,3]) %>
 <% if @activity.existing? then -%>
-<%= answer(@activity, :impact, :age, 4) %>
-<%= answer(@activity, :impact, :age, 5) %>
-<%= answer(@activity, :impact, :age, 6) %>
-<%= answer(@activity, :impact, :age, 7) %>
+<%= answer(@activity, :impact, :age, [4,5,6,7]) %>
 <% end -%>
-<%= answer(@activity, :impact, :age, 8) %>
-<%= answer(@activity, :impact, :age, 9) %>
+<%= answer(@activity, :impact, :age, [8,9]) %>
 <% issues = @activity.issues_by(@section, 'age') -%>
 <% if issues.size > 0 then -%>
 <tr><td class="label">Please record the issues identified</td><td class="labelled">
