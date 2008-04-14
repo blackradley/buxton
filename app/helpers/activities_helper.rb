@@ -1,10 +1,10 @@
-# 
-# $URL$ 
+#
+# $URL$
 # $Rev$
 # $Author$
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
 module ActivitiesHelper
   #
@@ -12,6 +12,16 @@ module ActivitiesHelper
   #
     def completed_tag(activity, section=nil, strand=nil)
       if activity.completed(section, strand) then
+        image_tag('icons/tick.gif', :alt => "Complete", :title => "Complete")
+      else
+        image_tag('icons/cross.gif', :alt => "Incomplete", :title => "Incomplete")
+      end
+    end
+  #
+  # Show a tick or a cross if the condition is true
+  #
+    def tick_cross_display(boolean)
+      if boolean then
         image_tag('icons/tick.gif', :alt => "Complete", :title => "Complete")
       else
         image_tag('icons/cross.gif', :alt => "Incomplete", :title => "Incomplete")
@@ -28,9 +38,9 @@ module ActivitiesHelper
     end
   end
 #
-# If the approver field is blank, return some other string, otherwise the 
+# If the approver field is blank, return some other string, otherwise the
 # table of activities looks a bit odd with blanks in it.  Then again this might
-# be what you want.  On the whole I think having some kind of 'null' entry 
+# be what you want.  On the whole I think having some kind of 'null' entry
 # makes sense.
 #
   def approver_or_blank(approver)
@@ -40,7 +50,7 @@ module ActivitiesHelper
       approver
     end
   end
-  
+
   def impact_tag(activity)
     if activity.completed then
       activity.impact_wording.to_s.capitalize
@@ -56,13 +66,13 @@ module ActivitiesHelper
       '-'
     end
   end
-  
+
   def relevance_tag(activity)
     if activity.completed then
       (activity.relevant?) ? 'Yes' : 'No'
     else
       '-'
-    end    
+    end
   end
-  
+
 end
