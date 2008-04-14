@@ -74,12 +74,24 @@ class SectionsController < ApplicationController
     end
     
     case params[:id]
-    when 'purpose'
+    when 'purpose_a'
       strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
       @activity_strategies = Array.new(strategies.size) do |i|
         @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
       end
-      render :template => 'sections/edit_purpose'
+      render :template => 'sections/edit_purpose_a'
+    when 'purpose_b'
+      strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
+      @activity_strategies = Array.new(strategies.size) do |i|
+        @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
+      end
+      render :template => 'sections/edit_purpose_b'
+    when 'purpose_c'
+      strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
+      @activity_strategies = Array.new(strategies.size) do |i|
+        @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
+      end
+      render :template => 'sections/edit_purpose_c'
     when 'impact'
       @section = :impact
       render :template => 'sections/edit_impact'

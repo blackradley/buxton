@@ -1,0 +1,18 @@
+%h1#questions
+  =h @activity.name  + " - Overall Purpose"
+%h2
+  =image_tag("b.gif")
+  Impact on Individuals
+#questions
+  -form_for(:activity, :url => {:action => 'update'}) do |f|
+    = render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [5,6,7,8,9]), :locals => {:f => f}
+    %p.question
+      %label
+        =h @activity.header(:purpose_overall_2)
+    = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [5,6,7,8,9]), :locals => {:f => f}
+    = hidden_field_tag 'id', @id 
+    = hidden_field_tag 'equality_strand', @equality_strand
+    %p.question
+      %span.button
+        = submit_tag 'Save', :disable_with => 'Saving...'
+  .clear

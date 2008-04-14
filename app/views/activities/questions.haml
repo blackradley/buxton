@@ -30,9 +30,25 @@
       %h2 Overall Purpose
       %p What is the purpose of this Activity? After you have completed the purpose Assessment Section you will be asked which of the Equality Dimensions you wish to complete.
       %p 
-        =image_tag("icons/view.gif")
-        =link_to "Complete questions defining the overall purpose of the activity", { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => 'overall' }, :title =>"Complete questions defining Overall Purpose of Activity"
-
+        / =image_tag("icons/view.gif")
+        / =link_to "Complete questions defining the overall purpose of the activity", { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => 'overall' }, :title =>"Complete questions defining Overall Purpose of Activity"
+        %span.letter
+          =image_tag("a.gif")
+        =link_to "Target of Activity and Impact on Strategic Objectives", { :controller => 'sections', :action => 'edit', :id => 'purpose_a', :equality_strand => 'overall' }, :title =>"Target of Activity and Impact on Strategic Objectives"
+        %span.letter_completed
+          =image_tag("icons/tick.gif")
+        %br
+        %span.letter
+          =image_tag("b.gif")
+        =link_to "Impact on Individuals", { :controller => 'sections', :action => 'edit', :id => 'purpose_b', :equality_strand => 'overall' }, :title =>"Impact on Individuals"
+        %span.letter_completed
+          =image_tag("icons/cross.gif")
+        %br
+        %span.letter
+          =image_tag("c.gif")
+        =link_to "Impact on Equality Groups", { :controller => 'sections', :action => 'edit', :id => 'purpose_c', :equality_strand => 'overall' }, :title =>"Impact on Equality Groups"
+        %span.letter_completed
+          =image_tag("icons/cross.gif")
   -if @activity.completed(:purpose) then
     .step#three
       .stepImage

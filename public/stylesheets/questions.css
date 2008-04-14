@@ -1,0 +1,187 @@
+h1#questions {
+  text-align: center;
+  font-size: 20px;
+  color: #515f8d;
+  background: none;
+  float: none; }
+
+#questions {
+  width: 660px;
+  background-image: url(../images/questions_bg.gif);
+  background-repeat: repeat-y;
+  background-position: -25px;
+  clear: left;
+  float: left;
+  overflow: hidden; }
+  #questions ul {
+    padding: 0px;
+    margin: 0px; }
+    #questions ul li {
+      padding: 0px;
+      margin: 0px;
+      margin-left: 10px;
+      list-style: none;
+      font-weight: bold; }
+      #questions ul li a {
+        font-weight: normal;
+        font-size: 0.9em;
+        line-height: 1.em; }
+        #questions ul li a img {
+          margin-bottom: -3px;
+          margin-left: 10px; }
+  #questions p img {
+    float: left;
+    margin-top: 4px;
+    margin-left: 6px; }
+  #questions h4,
+  #questions h5 {
+    width: 400px;
+    clear: none;
+    margin-top: 0px;
+    line-height: 2.5em; }
+  #questions label {
+    width: 400px;
+    float: left;
+    text-align: left;
+    padding-bottom: 2px; }
+  #questions .more {
+    float: right;
+    width: 240px;
+    text-align: left;
+    margin: 0px;
+    overflow: hidden;
+    position: relative;
+    clear: right;
+    margin-top: -10px; }
+    #questions .more h3 {
+      width: 240px;
+      text-align: left;
+      margin: 0px;
+      margin-top: 10px; }
+      #questions .more h3 img {
+        float: left;
+        margin: 0px 4px; }
+      #questions .more h3 a {
+        font-size: 1em;
+        font-weight: normal; }
+    #questions .more .help {
+      margin: 0px 10px 0px 0px;
+      padding: 10px;
+      color: #515f8d;
+      font-size: 1em;
+      background-color: #f9fdd0;
+      border: 1px solid #fff3a4;
+      width: 202px; }
+    #questions .more .comment,
+    #questions .more .note {
+      margin: 0px 0px 5px 10px;
+      float: left;
+      text-align: left;
+      padding: 10px;
+      color: #515f8d;
+      font-size: 1em;
+      width: 200px;
+      overflow: hidden; }
+    #questions .more .comment {
+      background-color: #dfe3f9;
+      border: 1px solid #b3beda; }
+    #questions .more .note {
+      background-color: #f0fddc;
+      border: 1px solid #a3bf8e; }
+      #questions .more .note .controls {
+        margin: 0px; }
+    #questions .more .control {
+      float: left;
+      margin-right: 10px;
+      margin-left: 10px; }
+      #questions .more .control img {
+        float: left;
+        margin-right: 5px; }
+    #questions .more .commentform,
+    #questions .more .noteform {
+      margin: 0px;
+      float: left;
+      text-align: left;
+      margin-left: 5px; }
+    #questions .more .commentform a {
+      margin: 0px 10px; }
+    #questions .more .noteform a {
+      margin: 0px 10px; }
+    #questions .more textarea {
+      float: left;
+      margin-bottom: 0px 0px 10px 0px;
+      width: 220px;
+      overflow: auto;
+      margin-left: 10px; }
+    #questions .more ul {
+      margin-left: 10px;
+      margin-top: 5px; }
+      #questions .more ul li {
+        list-style: disc;
+        font-weight: normal;
+        list-style-position: outside; }
+  #questions .question {
+    position: relative;
+    clear: left;
+    float: left;
+    width: 410px;
+    text-align: left;
+    margin: 5px 0px 0px;
+    overflow: hidden;
+    display: block;
+    padding-bottom: 5px; }
+    #questions .question label {
+      margin: 5px 10px;
+      width: 380px;
+      clear: none; }
+    #questions .question input,
+    #questions .question select,
+    #questions .question textarea {
+      float: left;
+      margin: 0px 0px 10px 10px;
+      width: 380px; }
+    #questions .question .sub {
+      margin-left: 20px;
+      width: 368px;
+      float: left;
+      clear: left;
+      overflow: hidden;
+      margin-top: 5px;
+      border-left: 2px solid #515f8d; }
+      #questions .question .sub input,
+      #questions .question .sub select {
+        margin-left: 30px;
+        width: 318px; }
+      #questions .question .sub label {
+        width: 338px;
+        margin: 0px 30px 5px 30px;
+        font-weight: normal; }
+      #questions .question .sub textarea {
+        margin-left: 10px;
+        width: 318px; }
+      #questions .question .sub #issues_list {
+        float: left;
+        margin-bottom: 10px; }
+        #questions .question .sub #issues_list .issue {
+          clear: left;
+          float: left;
+          margin-left: 0px;
+          margin-bottom: 2px;
+          width: 388px; }
+          #questions .question .sub #issues_list .issue input {
+            margin-left: 30px;
+            width: 310px; }
+        #questions .question .sub #issues_list a img {
+          float: left;
+          margin-top: 4px;
+          margin-left: -20px;
+          position: relative; }
+    #questions .question img {
+      margin: 1px 0px 10px 0px; }
+    #questions .question .add_issue {
+      margin-left: 10px;
+      margin-bottom: 10px; }
+  #questions .button input {
+    float: right;
+    margin-right: 160px;
+    width: auto; }
