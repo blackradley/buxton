@@ -382,6 +382,25 @@ class ActivityPDFGenerator
       pdf.text "<i>There are no questions with comments for this section</i>", :font_size => 10
     end
     pdf.text " "
+    question_list = []
+    if activity.activity_strategies.size > 0 then
+      pdf.start_new_page
+      pdf.text "<b>Comments on any Strategy responses</b>"
+      pdf.text " "
+      question_list << ['<b>Strategy Name</b>', '<b>Additional Comments</b>']
+      activity.activity_strategies.each do |activity_strategy|
+        comment = activity_strategy.comment
+        comment = comment.contents unless comment.nil?
+        question_list << [activity_strategy.strategy.name, comment] unless comment.blank?
+      end
+      borders = [150, 300, 540]
+      if question_list.size > 1 then
+        pdf = generate_table(pdf, question_list, {:borders => borders})
+      else
+        pdf.text "<i>There are no questions with comments for this section</i>", :font_size => 10
+      end
+    end
+    pdf.text " "
     activity.strands.each do |strand|
       pdf.start_new_page
       pdf.text "<b>Complete assessment summary of the responses pertaining to #{activity.hashes['wordings'][strand]}</b>", :font_size => 12

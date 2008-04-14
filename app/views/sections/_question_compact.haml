@@ -1,4 +1,4 @@
--if question_compact[:dependents][0] 
+-if question_compact[:dependents][0]
   -depString = ""
   -question_compact[:dependents].each do |dep|
     -depString << "setDependencyTrue('#{dep[0]}'); checkDependancy('#{question_compact[:id]}','#{dep[0]}', '#{dep[1]}'); " rescue nil
@@ -9,12 +9,12 @@
   -if @activity.send(question_compact[:dependency][0][0].to_sym)
     -if @activity.send(question_compact[:dependency][0][0].to_sym).to_s == question_compact[:dependency][0][1]
       -displayString = "block"
-    
+
   %p.question.sub{:id => "#{question_compact[:id]}", :onclick => "setFocus(\'more_#{question_compact[:id]}\',\'#{question_compact[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:#{displayString};"}
     %label
-      =question_compact[:label]
+      =question_compact[:label].capitalize
     %labelled
-      -case question_compact[:input_type]    
+      -case question_compact[:input_type]
         -when :text
           = f.text_area question_compact[:id]
         -when :string
@@ -24,9 +24,9 @@
 -else
   %p.question_compact{:id => "#{question_compact[:id]}", :onclick => "setFocus(\'more_#{question_compact[:id]}\',\'#{question_compact[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:block;"}
     %label
-      =question_compact[:label]
+      =question_compact[:label].capitalize
     %labelled
-      -case question_compact[:input_type]    
+      -case question_compact[:input_type]
         -when :text
           = f.text_area question_compact[:id]
         -when :string
