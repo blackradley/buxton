@@ -5,6 +5,9 @@ h1#questions {
   background: none;
   float: none; }
 
+h2 img {
+  margin-bottom: -2px; }
+
 #questions {
   width: 660px;
   background-image: url(../images/questions_bg.gif);
@@ -181,6 +184,25 @@ h1#questions {
     #questions .question .add_issue {
       margin-left: 10px;
       margin-bottom: 10px; }
+  #questions .question_compact {
+    position: relative;
+    clear: left;
+    float: left;
+    width: 410px;
+    text-align: left;
+    margin: 5px 0px 0px;
+    overflow: hidden;
+    padding-bottom: 5px; }
+    #questions .question_compact label {
+      margin: 5px 10px;
+      width: 240px;
+      clear: none; }
+    #questions .question_compact input,
+    #questions .question_compact select,
+    #questions .question_compact textarea {
+      float: left;
+      margin: 10px 10px 5px 10px;
+      width: 125px; }
   #questions .button input {
     float: right;
     margin-right: 160px;

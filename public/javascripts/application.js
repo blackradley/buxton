@@ -43,6 +43,11 @@ function setFocus(element, element2){
 	   //Do Work on doc[i], this sets the border of the Div black
 	   ungrey[i].style.background = "#fff";
 	}
+	var ungrey = document.getElementsByClassName('question_compact');
+	for (var i = 0; i < ungrey.length; i++){
+	   //Do Work on doc[i], this sets the border of the Div black
+	   ungrey[i].style.background = "#fff";
+	}
 	var help = document.getElementById(element);
 	help.style.display = "block";
 	

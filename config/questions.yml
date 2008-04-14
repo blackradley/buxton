@@ -39,11 +39,11 @@ questions:
     3:
       label:
         -
-          - 'If the Function is performed well does it have the potential to affect #{wordings[strand]} differently?'
-          - 'If the Function is performed well will it have the potential to affect #{wordings[strand]} differently?'
+          - '#{wordings[strand]}?'
+          - '#{wordings[strand]}?'
         -
-          - 'If the Policy is operating effectively does it have the potential to affect #{wordings[strand]} differently?'
-          - 'If the Policy is operating effectively will it have the potential to affect #{wordings[strand]} differently?'
+          - '#{wordings[strand]}?'
+          - '#{wordings[strand]}?'
       help:
         -
           - 'This question asks you to identify any positive
@@ -66,11 +66,11 @@ questions:
     4:
       label:
         -
-          - 'If the Function is performed badly does it have the potential to affect #{wordings[strand]} differently?'
-          - 'If the Function is performed badly will it have the potential to affect #{wordings[strand]} differently?'
+          - '#{wordings[strand]}?'
+          - '#{wordings[strand]}?'
         -
-          - 'If the Policy is not operating effectively does it have the potential to affect #{wordings[strand]} differently?'
-          - 'If the Policy is not operating effectively will it have the potential to affect #{wordings[strand]} differently?'
+          - '#{wordings[strand]}?'
+          - '#{wordings[strand]}?'
       help:
         -
           - 'This question asks you to identify any negative
@@ -1006,18 +1006,18 @@ headers:
       - Which of these individuals will the Policy have an impact on?
   purpose_overall_3:
     -
-      - The Function has the following differential positive impact on these equality groups
-      - The Function might have the following differential positive impact on these equality groups
+      - If the Function is operating effectively will it have the potential to positively impact the following differently?
+      - If the Function was operating effectively might it have the potential to positively impact the following differently?
     -
-      - The Policy has the following differential positive impact on these equality groups
-      - The Policy might have the following differential positive impact on these equality groups
+      - If the Policy is operating effectively will it have the potential to positively impact the following differently?
+      - If the Policy was operating effectively might it have the potential to positively impact the following differently?
   purpose_overall_4:
     -
-      - The Function has the following differential negative impact on these equality groups
-      - The Function might have the following differential negative impact on these equality groups
+      - If the Function is operating effectively will it have the potential to negatively impact the following differently?
+      - If the Function was operating effectively might it have the potential to negatively impact the following differently?
     -
-      - The Policy has the following differential negative impact on these equality groups
-      - The Policy might have the following differential negative impact on these equality groups
+      - If the Policy is operating effectively will it have the potential to negatively impact the following differently?
+      - If the Policy was operating effectively might it have the potential to negatively impact the following differently?
 
 header_help_text:
   purpose_overall_1:
