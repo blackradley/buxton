@@ -16,6 +16,8 @@
 class ActivityStrategy < ActiveRecord::Base
   belongs_to :activity
   belongs_to :strategy
+  has_one :note
+  has_one :comment
 
   def after_save
     if self.activity.purpose_completed then
