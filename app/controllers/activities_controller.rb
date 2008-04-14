@@ -40,7 +40,8 @@ class ActivitiesController < ApplicationController
   # Show the summary information for a specific activity.
   # Available to: Activity Manager
   def show
-    @activity = @current_user.activity
+    @activity = Activity.find(@current_user.activity_id, :include => 'questions')
+    
     strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
     @activity_strategies = Array.new(strategies.size) do |i|
       @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
@@ -197,17 +198,6 @@ class ActivitiesController < ApplicationController
 
     flash[:notice] = 'Activity successfully deleted.'
     redirect_to :action => 'list'
-  end
-
-  # Show a printer friendly summary page
-  # Available to: Activity Manager
-  def print
-    @activity = @current_user.activity
-
-    # Set print_only true and render the normal show action, which will check this variable and include
-    # the appropriate CSS as necessary.
-    @print_only = true
-    render :action => 'show'
   end
 
   def view_pdf
