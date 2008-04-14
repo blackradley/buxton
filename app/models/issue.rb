@@ -11,7 +11,6 @@
 class Issue < ActiveRecord::Base
 	belongs_to :activity
   validates_presence_of :description
-  acts_as_reportable
   attr_accessor :issue_destroy
 
   def after_save
