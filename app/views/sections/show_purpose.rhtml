@@ -7,8 +7,18 @@
   <tr><th colspan="2"><%=h @activity.header(:purpose_overall_1) -%></th></tr>
 
   <% @activity_strategies.each do |activity_strategy| %>
-  	<tr><td class="label"><%=h activity_strategy.strategy.name -%></td><td class="labelled">
-  	<%= @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i] %></td></tr>
+      <tr>
+        <td class="label"><%=h activity_strategy.strategy.name -%></td>
+        <td class="labelled">
+          <%= @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i] %>
+          <% if comment = activity_strategy.comment then %>
+            <%= image_tag('icons/comment.gif', :id => comment.html_id)%>
+             <script 'type'= "text/javascript">
+             <%= "new Tip('#{comment.html_id}', '#{comment.contents}');" %>
+           </script>
+        <% end %>
+      </td>
+    </tr>
   <% end %>
 
   <table>
