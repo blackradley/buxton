@@ -36,7 +36,7 @@ class Activity < ActiveRecord::Base
   has_many :activity_strategies, :dependent => :destroy
   has_many :issues, :dependent => :destroy
   has_many :questions, :dependent => :destroy
-  
+
   validates_presence_of :name, :message => 'All activities must have a name.'
   validates_presence_of :activity_manager
   validates_associated :activity_manager
@@ -51,9 +51,9 @@ class Activity < ActiveRecord::Base
 
   after_create :log_create_event
   after_update :save_issues
-  
+
   after_destroy :log_destroy_event
-  
+
   def activity_type
     if self.started then
       [self.existing_proposed?, self.function_policy?].join(' ')
@@ -61,7 +61,7 @@ class Activity < ActiveRecord::Base
       '-'
     end
   end
-  
+
   def parents
     @@parents
   end
@@ -111,7 +111,7 @@ class Activity < ActiveRecord::Base
   def hashes
     @@Hashes
   end
-  
+
   def create_questions_if_new
     # Initialise a question, for every question name, if this is a new record
     if self.new_record? and self.questions.empty? then
@@ -121,7 +121,7 @@ class Activity < ActiveRecord::Base
       end
     end
   end
-  
+
   def set_approved
     if self.approved == 1 then
       if !self.approved_on then
@@ -270,13 +270,13 @@ class Activity < ActiveRecord::Base
                 "impact_#{enabled_strand}_9"
               when :consultation
                 "consultation_#{enabled_strand}_7"
-              else 
+              else
                 break
               end
               if self.send(issues_question.to_sym) == 1 then
                 issues = self.issues_by(section, enabled_strand)
                 return false if issues.size == 0
-              end           
+              end
            end
           end
           #if section is purpose, irrelevancies should be ignored.
@@ -311,7 +311,7 @@ class Activity < ActiveRecord::Base
         # BEGIN OLD IMPLEMENTATION
           # Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
         # END OLD IMPLEMENTATION
-      end  
+      end
     else
       return false unless self.completed(:purpose) && self.completed(:impact) && self.completed(:consulation) && self.completed(:additional_work) && self.action_planning_completed
     end
@@ -345,7 +345,33 @@ class Activity < ActiveRecord::Base
     end
     return true
   end
-  
+
+  def target_and_strategies_completed
+    answered_questions = self.questions.find(:all, :conditions => "name REGEXP 'purpose\_overall\_[2,11,12]' AND (completed = true OR needed = false)")
+    return false unless answered_questions.size == 3
+    self.activity_strategies.each do |strategy|
+      unless check_response(strategy.strategy_response) then
+        return false
+      end
+    end
+    return true
+  end
+
+  def impact_on_individuals_completed
+    answered_questions = self.questions.find(:all, :conditions => "name REGEXP 'purpose\_overall\_[5,6,7,8,9]' AND (completed = true OR needed = false)")
+    return false unless answered_questions.size == 5
+    return true
+  end
+
+  def impact_on_equality_groups
+    answered_questions = []
+    self.strands(true).each do |strand|
+      answered_questions += self.questions.find(:all, :conditions => "name REGEXP 'purpose\_#{strand.to_s}\_[3,4]' AND (completed = true OR needed = false)")
+    end
+    return false unless answered_questions.size == 12
+    return true
+  end
+
   def issues_by(section = nil, strand = nil)
     filtered_issues = self.issues.clone
     filtered_issues.reject!{|issue| issue.section != section.to_s } if section
@@ -370,15 +396,15 @@ class Activity < ActiveRecord::Base
     end
     list
   end
-  
+
   def log_create_event
     CreateLog.create(:message => %Q[The <strong>#{self.name}</strong> activity was created for <strong>#{self.organisation.name}</strong>.])
   end
-  
+
   def log_destroy_event
     DestroyLog.create(:message => %Q[The <strong>#{self.name}</strong> activity for <strong>#{self.organisation.name}</strong> was deleted.])
-  end  
-    
+  end
+
   def save_issues
     # If we have issues
     if self.issues then
@@ -400,7 +426,7 @@ class Activity < ActiveRecord::Base
   def invisible_questions
     @@invisible_questions.clone
   end
-  
+
   def dependencies(question=nil)
     return @@dependencies.clone unless question
     return @@dependencies[question].clone if @@dependencies[question]
@@ -409,7 +435,7 @@ class Activity < ActiveRecord::Base
   def parents(question = nil)
     return @@parents.clone unless question
     return @@parents[question].clone if @@parents[question]
-    []  
+    []
   end
   def after_update
     return true if @saved
@@ -441,14 +467,14 @@ class Activity < ActiveRecord::Base
         @@invisible_questions.each do |question|
           unless parents(question.to_s) == [] then
             status = self.questions.find_by_name(question.to_s)
-            status.update_attributes(:needed => (parents(question.to_s)[1] == self.send(parents(question.to_s)[0].to_sym)))            
+            status.update_attributes(:needed => (parents(question.to_s)[1] == self.send(parents(question.to_s)[0].to_sym)))
           else
             status = self.questions.find_by_name(question.to_s)
-            status.update_attributes(:needed => true)  
-          end        
+            status.update_attributes(:needed => true)
+          end
         end
       end
-    else       
+    else
       Activity.get_question_names.each do |name|
         old_store = @activity_clone.send(name)
         new_store = self.send(name)
@@ -476,7 +502,7 @@ class Activity < ActiveRecord::Base
             question_details = question_wording_lookup(*separated_question)
             status = self.questions.find_by_name(question_name.to_s)
             status.update_attributes(:completed => !!completed_result) #cheap cast to bool. Not a cargocult ;)
-            question_name = question_name.to_sym              
+            question_name = question_name.to_sym
             unless separated_question[1].to_s == 'overall' then
               if separated_question[0].to_s == 'purpose' && separated_question[1].to_s != "overall" then
                 check_impact = true if old_store.to_i*5 == self.impact.to_i
@@ -508,7 +534,7 @@ class Activity < ActiveRecord::Base
       sections.each do |section|
         sec_completed = true
         needed = (section != :purpose)
-        section_questions = self.questions.find(:all, :conditions => "name LIKE '%#{section.to_s}%'#{" AND needed = true" if needed}") 
+        section_questions = self.questions.find(:all, :conditions => "name LIKE '%#{section.to_s}%'#{" AND needed = true" if needed}")
         remove_qns = self.questions.find(:all, :conditions => "name LIKE '%#{section.to_s}%' AND needed = false#{" AND needed = false" if needed}").size
         total = Activity.get_question_names(section).size - remove_qns
         sec_completed = false if section_questions.size != total
@@ -522,7 +548,7 @@ class Activity < ActiveRecord::Base
     end
     self.update_attributes(to_save)
   end
-  
+
   def sections
     [:purpose, :impact, :consultation, :action_planning, :additional_work]
   end
@@ -573,21 +599,21 @@ class Activity < ActiveRecord::Base
       end
     end
   end
-  
+
   def overview_strands
     {'gender' => 'gender', 'race' => 'race', 'disability' => 'disability', 'faith' => 'faith', 'sex' => 'sexual_orientation', 'age' => 'age'}
   end
-  
+
   def relevant_strands
     self.overview_strands.values.select do |strand|
       self.send("#{strand}_relevant".to_sym)
     end
   end
-  
+
   def strand_relevant?(strand)
     self.send("#{strand}_relevant".to_sym)
   end
-  
+
   def relevant?(strand = nil)
     existing_proposed_weight = self.hashes['weights'][hashes['existing_proposed']['weight']][self.existing_proposed.to_i].to_i
     good_impact = self.questions.find(:all, :conditions => "name LIKE 'purpose_%#{strand}%_3'")
@@ -600,7 +626,7 @@ class Activity < ActiveRecord::Base
       tot += self.hashes['weights'][hashes['questions']['purpose'][4]['weights'].to_i][self.send(question.name.to_sym).to_i].to_i
     end
     max = 50.0
-    return (running_total/max) >= 0.35    
+    return (running_total/max) >= 0.35
   end
 
   def impact_wording(strand = nil)
@@ -672,20 +698,20 @@ class Activity < ActiveRecord::Base
 #It works by getting a list of all the columns, then removing any ones which aren't quesitons.
 #NOTE: Should a new column be added to activity that isn't a question, it should also be added here.
   def self.get_question_names(section = nil, strand = nil, number = nil)
-	  return ["#{section}_#{strand}_#{number}".to_sym] if section && strand && number
+    return ["#{section}_#{strand}_#{number}".to_sym] if section && strand && number
     questions = []
-	  unnecessary_columns = [:impact, :overall_completed_questions, :overall_completed_strategies, :use_purpose_completed,
+    unnecessary_columns = [:impact, :overall_completed_questions, :overall_completed_strategies, :use_purpose_completed,
       :purpose_completed, :impact_completed, :consultation_completed, :additional_work_completed, :action_planning_completed,
       :overall_completed_issues, :overall_started, :percentage_importance, :name, :approved, :gender_percentage_importance,
       :race_percentage_importance, :disability_percentage_importance, :sexual_orientation_percentage_importance, :faith_percentage_importance, :age_percentage_importance,
       :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on, :gender_relevant, :faith_relevant,
       :sexual_orientation_relevant, :age_relevant, :disability_relevant, :race_relevant, :review_on, :ces_link]
-	  Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
-	  unnecessary_columns.each{|column| questions.delete(column)}
-	  questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section
-	  questions.delete_if{ |question| !(question.to_s.include?(strand.to_s))}if strand
-	  questions.delete_if{ |question| !(question.to_s.include?(number.to_s))} if number
-	  return questions
+    Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
+    unnecessary_columns.each{|column| questions.delete(column)}
+    questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section
+    questions.delete_if{ |question| !(question.to_s.include?(strand.to_s))}if strand
+    questions.delete_if{ |question| !(question.to_s.include?(number.to_s))} if number
+    return questions
   end
   #TODO: Needs fixing. It currently makes a start at the display, but is not finished by any means. Won't throw any bugs though.
   def additional_work_text_lookup(strand, question)
@@ -769,7 +795,7 @@ class Activity < ActiveRecord::Base
     section = section.to_s
     strand = strand.to_s
     question = question.to_i unless question.nil?
-  	strands = hashes['strands']
+    strands = hashes['strands']
     wordings = hashes['wordings']
     questions = hashes['questions']
     overall_questions = hashes['overall_questions']
@@ -841,7 +867,7 @@ class Activity < ActiveRecord::Base
     return [section.to_sym, strand.to_sym, question_number] if (!section.blank? && !strand.blank? && question_number)
     return nil
   end
-  
+
   #This returns any dependencies of a question
     def dependent_questions(question)
       question = question.to_s
@@ -878,11 +904,11 @@ class Activity < ActiveRecord::Base
       response = send(question)
       dependant_correct = true
       dependency.each do #For each dependent question, check that it has the correct value
-	      |dependent|
-		    dependent[1] = dependent[1].to_i
+        |dependent|
+        dependent[1] = dependent[1].to_i
         dependent_solution = send(dependent[0])
         dependant_correct = dependant_correct && !(dependent_solution ==dependent[1] || dependent_solution == 0 || dependent_solution.nil?)
-	    end
+      end
       if dependant_correct then #If you don't need to answer this question, automatically give it a completed status
         return :no_need
       else
