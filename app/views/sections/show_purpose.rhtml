@@ -1,42 +1,36 @@
 <div id="show">
   <table>
-<%= answer(@activity, :purpose, :overall, 2) %>
-<%= answer(@activity, :purpose, :overall, 11) %>
-<%= answer(@activity, :purpose, :overall, 12) %>
-</table>
+    <%= answer(@activity, :purpose, :overall, [2,11,12]) %>
+  </table>
 
-<table>
-<tr><th colspan="2"><%=h @activity.header(:purpose_overall_1) -%></th></tr>
+  <table>
+  <tr><th colspan="2"><%=h @activity.header(:purpose_overall_1) -%></th></tr>
 
-<% @activity_strategies.each do |activity_strategy| %>
-	<tr><td class="label"><%=h activity_strategy.strategy.name -%></td><td class="labelled">
-	<%= @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i] %></td></tr>
-<% end %>
+  <% @activity_strategies.each do |activity_strategy| %>
+  	<tr><td class="label"><%=h activity_strategy.strategy.name -%></td><td class="labelled">
+  	<%= @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i] %></td></tr>
+  <% end %>
 
-<table>
-<tr><th colspan="2"><%=h @activity.header(:purpose_overall_2) -%></th></tr>
-<%= answer(@activity, :purpose, :overall, 5) %>
-<%= answer(@activity, :purpose, :overall, 6) %>
-<%= answer(@activity, :purpose, :overall, 7) %>
-<%= answer(@activity, :purpose, :overall, 8) %>
-<%= answer(@activity, :purpose, :overall, 9) %>
-</table>
-<table>
-<tr><th colspan="2"><%=h @activity.header(:purpose_overall_3) -%></th></tr>
-<%= answer(@activity, :purpose, :gender, 3) %>
-<%= answer(@activity, :purpose, :race, 3) %>
-<%= answer(@activity, :purpose, :disability, 3) %>
-<%= answer(@activity, :purpose, :faith, 3) %>
-<%= answer(@activity, :purpose, :sexual_orientation, 3) %>
-<%= answer(@activity, :purpose, :age, 3) %>
-</table>
-<table>
-<tr><th colspan="2"><%=h @activity.header(:purpose_overall_4) -%></th></tr>
-<%= answer(@activity, :purpose, :gender, 4) %>
-<%= answer(@activity, :purpose, :race, 4) %>
-<%= answer(@activity, :purpose, :disability, 4) %>
-<%= answer(@activity, :purpose, :faith, 4) %>
-<%= answer(@activity, :purpose, :sexual_orientation, 4) %>
-<%= answer(@activity, :purpose, :age, 4) %>
-</table>
+  <table>
+  <tr><th colspan="2"><%=h @activity.header(:purpose_overall_2) -%></th></tr>
+    <%= answer(@activity, :purpose, :overall, [5,6,7,8,9]) %>
+  </table>
+  <table>
+  <tr><th colspan="2"><%=h @activity.header(:purpose_overall_3) -%></th></tr>
+    <%= answer(@activity, :purpose, :gender, 3) %>
+    <%= answer(@activity, :purpose, :race, 3) %>
+    <%= answer(@activity, :purpose, :disability, 3) %>
+    <%= answer(@activity, :purpose, :faith, 3) %>
+    <%= answer(@activity, :purpose, :sexual_orientation, 3) %>
+    <%= answer(@activity, :purpose, :age, 3) %>
+  </table>
+  <table>
+  <tr><th colspan="2"><%=h @activity.header(:purpose_overall_4) -%></th></tr>
+    <%= answer(@activity, :purpose, :gender, 4) %>
+    <%= answer(@activity, :purpose, :race, 4) %>
+    <%= answer(@activity, :purpose, :disability, 4) %>
+    <%= answer(@activity, :purpose, :faith, 4) %>
+    <%= answer(@activity, :purpose, :sexual_orientation, 4) %>
+    <%= answer(@activity, :purpose, :age, 4) %>
+  </table>
 </div>
