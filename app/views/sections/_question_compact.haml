@@ -1,0 +1,36 @@
+-if question_compact[:dependents][0] 
+  -depString = ""
+  -question_compact[:dependents].each do |dep|
+    -depString << "setDependencyTrue('#{dep[0]}'); checkDependancy('#{question_compact[:id]}','#{dep[0]}', '#{dep[1]}'); " rescue nil
+    -unless [@activity.parents[dep[0].to_s]].flatten[0] == question_compact[:id] then
+      -depString << "checkDependancy('#{@activity.parents[dep[0].to_s][0]}','#{dep[0]}', '#{@activity.parents[dep[0].to_s][1]}'); " rescue nil
+-if question_compact[:dependency]
+  -displayString = "none"
+  -if @activity.send(question_compact[:dependency][0][0].to_sym)
+    -if @activity.send(question_compact[:dependency][0][0].to_sym).to_s == question_compact[:dependency][0][1]
+      -displayString = "block"
+    
+  %p.question.sub{:id => "#{question_compact[:id]}", :onclick => "setFocus(\'more_#{question_compact[:id]}\',\'#{question_compact[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:#{displayString};"}
+    %label
+      =question_compact[:label]
+    %labelled
+      -case question_compact[:input_type]    
+        -when :text
+          = f.text_area question_compact[:id]
+        -when :string
+          = f.text_field question_compact[:id]
+        -when :select
+          = f.select "#{question_compact[:id]}", question_compact[:input_choices]
+-else
+  %p.question_compact{:id => "#{question_compact[:id]}", :onclick => "setFocus(\'more_#{question_compact[:id]}\',\'#{question_compact[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:block;"}
+    %label
+      =question_compact[:label]
+    %labelled
+      -case question_compact[:input_type]    
+        -when :text
+          = f.text_area question_compact[:id]
+        -when :string
+          = f.text_field question_compact[:id]
+        -when :select
+          = f.select "#{question_compact[:id]}", question_compact[:input_choices]
+

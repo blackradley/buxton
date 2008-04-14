@@ -1,0 +1,31 @@
+%h1#questions
+  =h @activity.name  + " - Overall Purpose"
+%h2
+  =image_tag("a.gif")
+  Target of Activity and Impact on Strategic Objectives
+#questions
+  -form_for(:activity, :url => {:action => 'update'}) do |f|
+    = render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [2,11,12]), :locals => {:f => f}
+    .more{:id => "more_purpose_overall_strategy", :style => "display:none"}
+      %h3
+        =image_tag ("icons/help.gif")
+        Help:
+      .help
+        = @activity.hashes['header_help_text']['purpose_overall_1'][@activity.fun_pol_number][@activity.exist_prop_number].to_s
+    = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [2,11,12]), :locals => {:f => f}
+    %p.question{:id => "purpose_overall_strategy", :onclick => "setFocus(\'more_purpose_overall_strategy\',\'purpose_overall_strategy\');", :style => "display:block;"}
+      %label
+        =h @activity.header(:purpose_overall_1)
+      %labelled
+        -yes_no = @activity.hashes['choices'][3]
+        -@activity_strategies.each do |activity_strategy|
+          %span.strategy
+            %label
+              = activity_strategy.strategy.name
+            = select('strategy_responses', activity_strategy.strategy_id, @activity.hashes['choices'][3], :selected => @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i])
+    = hidden_field_tag 'id', @id 
+    = hidden_field_tag 'equality_strand', @equality_strand
+    %p.question
+      %span.button
+        = submit_tag 'Save', :disable_with => 'Saving...'
+  .clear
