@@ -24,12 +24,7 @@ class ActivityPDFGenerator
     pdf
   end
   def build_unapproved_logo_on_first_page(pdf, activity)
-      pdf.unapproved_status = case activity.approved
-        when 0
-         "UNAPPROVED"
-        when 1
-         ""
-      end
+      pdf.unapproved_status = (activity.approved) ? 'UNAPPROVED' : ''
       #The page numbers are started at the top, so that they will always hit the first page, but they appear at the bottom
       #This creates the grey Unapproved background.
       colour = 'Gainsboro'
@@ -54,8 +49,8 @@ class ActivityPDFGenerator
     table << ["<b>#{activity.organisation.directorate_string}</b>", activity.directorate.name.to_s]
     table << ["<b>Type</b>", "#{activity.existing_proposed_name.titleize} #{activity.function_policy?.titleize}"]
     table << ["<b>Activity Manager's Email</b>", activity.activity_manager.email]
-    table << ["<b>Date Approved</b>", activity.approved_on.to_s] if activity.approved > 0
-    table << ["<b>Approved By</b>", activity.approver.to_s] if activity.approved > 0
+    table << ["<b>Date Approved</b>", activity.approved_on.to_s] if activity.approved
+    table << ["<b>Approved By</b>", activity.approver.to_s] if activity.approved
     pdf = generate_table(pdf, table, {:borders => [150, 540]})
     pdf
   end
