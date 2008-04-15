@@ -26,6 +26,6 @@
         %td 
           = date_or_blank(activity.activity_manager.reminded_on)
         %td.actions{:nowrap =>"nowrap"}
-          = link_to image_tag('icons/view.gif'), {:action => 'show', :id => @section, :f => activity}, :id => 'view', :title =>"View" 
+          = link_to image_tag('icons/eye.gif'), {:action => 'show', :id => @section, :f => activity}, :id => 'view', :title =>"View" 
           = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"E-mail"
           = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name}?", :method => :post, :title =>"Key"
