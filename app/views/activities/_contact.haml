@@ -4,7 +4,7 @@
   -fields_for :activity_manager do |am|
     %p
       %label 
-        E-mail address of Activity Owner (who will undertake assessment)
+        E-mail address of Activity Manager (who will undertake assessment)
       .labelled
         = am.text_field :email, 'size' => 50
     %p
@@ -15,7 +15,6 @@
     %p
       %label
         = @directorate_term
-        to which it belongs
+        to which the Activity belongs
       .labelled
         = f.select(:directorate_id, @directorates)
-
