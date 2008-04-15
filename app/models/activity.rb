@@ -123,7 +123,7 @@ class Activity < ActiveRecord::Base
   end
 
   def set_approved
-    if self.approved == 1 then
+    if self.approved then
       if !self.approved_on then
         self.approved_on = Time.now
       end

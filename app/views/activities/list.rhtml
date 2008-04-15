@@ -29,7 +29,7 @@
     <td><%= relevance_tag(activity) -%></td>
     <td><%= impact_tag(activity) -%></td>
     <td><%= priority_tag(activity) -%></td>
-    <td><%= approved_tag(activity.approved?) -%></td>
+    <td><%= approved_tag(activity.approved) -%></td>
     <td><%=h approver_or_blank(activity.approver) -%></td>
     <td><%= date_or_blank(activity.activity_manager.reminded_on) -%></td>
     <td class="actions" nowrap>
