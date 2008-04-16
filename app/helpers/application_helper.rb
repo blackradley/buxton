@@ -25,7 +25,7 @@ module ApplicationHelper
     # if width then options.store(:width, width) end
     # image_tag(url_for(options))
   end
-  
+
   # Extend the date formats to include some British styley ones
   ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
     :default => "%m/%d/%Y %H:%M",
@@ -60,12 +60,12 @@ module ApplicationHelper
       end
     end
   end
-  
-  
+
+
   def question_details(section, strand, questions)
-    info_array = []   
+    info_array = []
     questions.each do |question|
-      info = @activity.question_wording_lookup(section, strand, question)  
+      info = @activity.question_wording_lookup(section, strand, question)
       look_up_choices = @activity.hashes['choices']
       choices = info[2].to_i
       choices_array=[]
@@ -78,15 +78,15 @@ module ApplicationHelper
            choices_array << [d, look_up_choices[choices].index(d)]
          end
        end
-       
+
        dependents = @activity.dependencies("#{section}_#{strand}_#{question}")
-       
+
         if dependents
             dependents.each do |da|
               dependents_array << [da[0], @activity.hashes[da[1]].to_i]
             end
           end
-      dependency = @activity.dependent_questions("#{section}_#{strand}_#{question}") 
+      dependency = @activity.dependent_questions("#{section}_#{strand}_#{question}")
       name = "#{section}_#{strand}_#{question}"
       full_question = [*@current_user.activity.questions.find_by_name(name)][0]
       comment = full_question.comment
@@ -103,13 +103,13 @@ module ApplicationHelper
                         :dependency => dependency,
                         :input_choices => choices_array,
                         :comment => comment_contents,
-                        :note => note_contents 
-                      }     
-       full_question.save      
-    end 
-    return info_array   
+                        :note => note_contents
+                      }
+       full_question.save
+    end
+    return info_array
   end
-  
+
   # Takes a list of links and generates a menu accordingly.
   # On state provided by introduction of class="selected"
   def generate_menu(links)
@@ -117,7 +117,7 @@ module ApplicationHelper
     links.each do |link|
       # Highlight the tab if it's selected, or something it should highlight on is selected
       highlight_on = [link[:url]]
-      highlight_on += link[:highlight_on] if link[:highlight_on] 
+      highlight_on += link[:highlight_on] if link[:highlight_on]
       highlight = highlight_on.detect{|url| current_page?(url)}
       class_name = (highlight) ? 'selected' : ''
       # Disable the tab if told to do so
@@ -131,7 +131,7 @@ module ApplicationHelper
     content_tag('ul', link_html)
   end
 
-  # Display a coloured bar showing the level selected, produced 
+  # Display a coloured bar showing the level selected, produced
   # entirely via div's courtessy of Sam.
   def level_bar(value, out_of, css_class)
     html = 'Not answered yet'
@@ -143,7 +143,7 @@ module ApplicationHelper
     return html
   end
 
-  # Shows a menu bar. Different for different user types. 
+  # Shows a menu bar. Different for different user types.
   def menu()
     if @current_user.nil?
       ' '
@@ -176,21 +176,21 @@ module ApplicationHelper
                       :title => 'Activity Control Page - Home' ,
                       :status => '' }
                  ]
-#        if @current_user.activity.ces_question.to_i > 0 then 
+#        if @current_user.activity.ces_question.to_i > 0 then
           questions = [   { :text => 'Questions',
                         :url => { :controller => 'activities', :action => 'questions'},
                         :title => 'Activity Control Page - Questions' ,
                         :status => '' }
-                    ]   
+                    ]
           if @current_user.activity.completed(:purpose)
-            summary= [    
+            summary= [
                         { :text => 'Summary',
                           :url => { :controller => 'activities', :action => 'show' },
                           :title => 'Activity Control Page - Summary' ,
                           :status => '' }
                       ]
           else
-            summary = [    
+            summary = [
                         { :text => 'Summary',
                           :url => { :controller => 'activities', :action => 'show' },
                           :title => 'Activity Control Page - Summary' ,
@@ -203,15 +203,15 @@ module ApplicationHelper
 #                        :title => 'Activity Control Page - Questions' ,
 #                        :status => 'disabled' }
 #                    ]
-#          summary = [    
+#          summary = [
 #                         { :text => 'Summary',
 #                          :url => { :controller => 'activities', :action => 'show' },
 #                          :title => 'Activity Control Page - Summary' ,
 #                          :status => 'disabled' }
-#                      ] 
-#        end      
+#                      ]
+#        end
         generate_menu(home + questions + summary)
-                    
+
       when 'Administrator'
         generate_menu( [
                         { :text => 'Manage Organisations',
@@ -229,28 +229,28 @@ module ApplicationHelper
       end
     end
   end
-  
+
   #generates strand nav bar
   def strand_menu()
-    id = params[:id] 
+    id = params[:id]
     if params[:equality_strand] && params[:equality_strand] != 'overall'
       purpose_sel = "#{'selected' if (id == 'purpose')}"
       impact_sel = "#{'selected' if (id == 'impact')}"
       cc_sel = "#{'selected' if (id == 'consultation')}"
       aw_sel = "#{'selected' if (id == 'additional_work')}"
       ap_sel = "#{'selected' if (id == 'action_planning')}"
-    
+
       html = '<div id="strand">'
-      html << params[:equality_strand].titleize 
+      html << params[:equality_strand].titleize
       html << " : "
-      html << link_to('Impact', { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => params[:equality_strand] }, :title => 'Edit Impact', :class => impact_sel) 
+      html << link_to('Impact', { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => params[:equality_strand] }, :title => 'Edit Impact', :class => impact_sel)
       html << ' >> '
       html << link_to('Consultation', { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => params[:equality_strand] }, :title => 'Edit Consultation', :class => cc_sel)
       html << ' >> '
       html << link_to('Additional Work', { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => params[:equality_strand] }, :title => 'Additional Work', :class => aw_sel)
       html << ' >> '
-      html << link_to('Action Planning', { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => params[:equality_strand] }, :title => 'Action Planning', :class => ap_sel) 
-      html << "</div>"		
+      html << link_to('Action Planning', { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => params[:equality_strand] }, :title => 'Action Planning', :class => ap_sel)
+      html << "</div>"
       return html
     else
       return ''
@@ -285,12 +285,12 @@ module ApplicationHelper
       name = "#{section}_#{strand}_#{id}"
       question = activity.questions.find_by_name(name)
       next unless question.needed
-       
+
       query = activity.question_wording_lookup(question.section, question.strand, question.number)
 
       label = query[0]
       choices = activity.hashes['choices'][query[2]]
-      
+
       # Get the answer options for this question and make an appropriate input field
       question_answer = activity.send(question.name)
       unless question_answer.nil?
@@ -305,8 +305,8 @@ module ApplicationHelper
       else
         answer = 'Not Answered Yet'
       end
-      
-      render_to_string :partial => 'answer', :locals => { :label => label, :answer => answer, :question => question }
+
+      render :partial => 'answer', :locals => { :label => label, :answer => answer, :question => question }
     end
 
     output
@@ -326,5 +326,5 @@ module ApplicationHelper
      </p>]
      #%Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]
    end
-   
+
 end

@@ -2,14 +2,14 @@
   %table
     %tr
       %th.h4{:colspan=>"2"} Action Planning by equality group
-  
+
   -issues = @activity.issues.group_by(&:strand)
-  -issues.each do |key, issue_array| 
+  -issues.each do |key, issue_array|
     -issue_array.each do |issue|
       -issue.attributes.each do |attribute|
-        -issues[key][(issues[key].index(issue))][attribute]; issues[key][(issues[key].index(issue))][attribute] = "Not answered yet" unless (attribute.to_s == "") 
+        -issues[key][(issues[key].index(issue))][attribute]; issues[key][(issues[key].index(issue))][attribute] = "Not answered yet" unless (attribute.to_s == "")
 
-  -if @activity.relevant_strands.include? 'gender' then 
+  -if @activity.relevant_strands.include? 'gender' then
     %table
       %tr
         %th{:colspan=>"2"}Men and Women
@@ -67,7 +67,7 @@
               =h i.lead_officer
       %tr
         %td.label No issues.
-      
+
   -if @activity.relevant_strands.include? 'disability' then
     %table
       %tr
@@ -154,7 +154,7 @@
               =h i.lead_officer
       %tr
         %td.label No issues.
-        
+
   -if @activity.relevant_strands.include? 'age' then
     %table
       %tr
@@ -183,3 +183,4 @@
               =h i.lead_officer
       %tr
         %td.label No issues.
+  = "There are no relevant equality strands to consider, therefore no questions were asked for this section of the tool." if @activity.strands.size == 0
