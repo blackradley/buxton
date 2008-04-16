@@ -308,9 +308,6 @@ class Activity < ActiveRecord::Base
             return false
           end
         # END NEW IMPLEMENTATION
-        # BEGIN OLD IMPLEMENTATION
-          # Activity.get_question_names(section, strand).each{|question| unless check_question(question) then return false end}
-        # END OLD IMPLEMENTATION
       end
     else
       return false unless self.completed(:purpose) && self.completed(:impact) && self.completed(:consulation) && self.completed(:additional_work) && self.action_planning_completed
@@ -404,7 +401,7 @@ class Activity < ActiveRecord::Base
   def log_destroy_event
     DestroyLog.create(:message => %Q[The <strong>#{self.name}</strong> activity for <strong>#{self.organisation.name}</strong> was deleted.])
   end
-
+  #" This corrects eclipse error with parsing
   def save_issues
     # If we have issues
     if self.issues then
@@ -437,6 +434,7 @@ class Activity < ActiveRecord::Base
     return @@parents[question].clone if @@parents[question]
     []
   end
+
   def after_update
     return true if @saved
     @saved = true
@@ -552,6 +550,7 @@ class Activity < ActiveRecord::Base
   def sections
     [:purpose, :impact, :consultation, :action_planning, :additional_work]
   end
+
   def self.set_max(strand, increment)
     case strand.to_s
      when 'gender'
@@ -679,8 +678,8 @@ class Activity < ActiveRecord::Base
           exist_prop_weight = hashes['weights'][hashes['existing_proposed']['weights'].to_i]
           fun_pol_weight = hashes['weights'][hashes['function_policy']['weights'].to_i]
           max_weight = 2*purpose_weights.max + fun_pol_weight.max + exist_prop_weight.max
-          total = purpose_weights[self.send("purpose_#{strand}_3".to_sym)] + purpose_weights[self.send("purpose_#{strand}_4".to_sym)]
-          total += exist_prop_weight[self.send("existing_proposed".to_sym)] + fun_pol_weight[self.send("function_policy".to_sym)]
+          total = purpose_weights[self.send("purpose_#{strand}_3".to_sym).to_i] + purpose_weights[self.send("purpose_#{strand}_4".to_sym).to_i]
+          total += exist_prop_weight[self.send("existing_proposed".to_sym).to_i] + fun_pol_weight[self.send("function_policy".to_sym).to_i]
           per_answered = (total.to_f/max_weight)*100
           ranking_boundaries.each{|border| rank -= 1 unless per_answered > border}
         else
@@ -767,8 +766,7 @@ class Activity < ActiveRecord::Base
       when 5
         consulted_groups = (self.send("consultation_#{strand}_1".to_sym) == 1)
         consulted_experts = (self.send("consultation_#{strand}_4".to_sym) == 1)
-        response += "Groups representing #{wordings[strand]} have #{"not " unless consulted_groups}been consulted and"
-        response += " experts have #{"not " unless consulted_experts}been consulted."
+        response += "#{wordings[strand].capitalize} have #{"not" unless consulted_groups} been consulted and stakeholders have #{"not" unless consulted_experts} been consulted."
         response += "\n"
         issues_identified = (self.send("impact_#{strand}_9".to_sym) == 1)||((self.send("consultation_#{strand}_7".to_sym) == 1))
         response += "The consultations did not identify any issues with the impact of the #{fun_pol_indicator} upon #{wordings[strand]}." unless issues_identified

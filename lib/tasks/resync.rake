@@ -7,28 +7,82 @@
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
 namespace :db do
-  desc "Reload every question in every activity so that the completed tags and statistics are brought up to date with the new functions"
+  desc "Reload every activity so that the completed tags and statistics are brought up to date with the new functions"
   task :resync => :environment do
-  Activity.find(:all).each do |activity|
-    activity.saved = nil
-    activity_clone = activity.clone
-    blank_question_names = Activity.get_question_names.map{|name| {name => 0}}
-    blank_question_names_hash = {}
-    blank_question_names.each{|name| blank_question_names_hash.merge!(name)}
-    blank_question_names_hash.delete(:existing_proposed)
-    blank_question_names_hash.delete(:function_policy)
-    activity.update_attributes!(blank_question_names_hash)
-    activity.saved = nil
-    activity.update_attributes(:gender_percentage_importance => 0, :disability_percentage_importance => 0, :race_percentage_importance => 0, :age_percentage_importance => 0, :faith_percentage_importance => 0, :sexual_orientation_percentage_importance => 0, :impact => 0)
-    activity.saved = nil
-    restore_data_hash = {}
-    blank_question_names_hash.keys.each{|q| restore_data_hash[q] = activity_clone.send(q)}
-    restore_data_hash.delete(:existing_proposed)
-    restore_data_hash.delete(:function_policy)
-    activity.update_attributes(restore_data_hash)
-    activity.saved = nil
-    activity.update_attributes(:existing_proposed => activity_clone.existing_proposed, :function_policy => activity_clone.function_policy)
-    activity.saved = nil
-  end
+    Activity.find(:all).each do |activity|
+      puts '------------------------'
+      puts "start #{activity.name} syncing."
+      puts 'retrieving comments'
+      #Activity strategies will take their comments with them when they are moved across.
+      comments = Hash[*activity.questions.map{|question| [question.name, question.comment]}.flatten]
+      puts 'retrieving notes'
+      notes = Hash[*activity.questions.map{|question| [question.name, question.note]}.flatten]
+      puts 'retrieving activity_strategies'
+      activity_strategies = activity.activity_strategies
+      puts 'retrieving issues'
+      issues = activity.issues
+      puts 'retrieving activity manager'
+      act_man = activity.activity_manager
+      puts 'destroying old activity'
+      act_man.destroy
+      activity.destroy
+      puts 'constructing new activity'
+      question_names = Activity.get_question_names
+      questions = Hash[*question_names.map{|question| [question.to_sym, activity.attributes[question.to_s]]}.flatten]
+      existing_proposed = activity.attributes['existing_proposed']
+      function_policy = activity.attributes['function_policy']
+      ces_question = activity.attributes['ces_question']
+      non_questions = activity.attributes.delete_if do |attribute, value|
+        (question_names.include? attribute.to_sym || attribute == 'existing_proposed' || attribute == 'function_policy')
+      end
+      new_activity = Activity.new(non_questions)
+      act_man_to_nuke = new_activity.build_activity_manager(:email => 'temporay@email.com')
+      act_man_to_nuke.passkey = ActivityManager.generate_passkey(act_man_to_nuke)
+      act_man_to_nuke.save!
+      new_activity.save!
+      puts 'restoring elements:'
+      puts 'restoring questions'
+      new_activity.update_attributes!(:existing_proposed => existing_proposed, :function_policy => function_policy)
+      new_activity.saved = nil
+      new_activity.update_attributes!(:ces_question => ces_question)
+      new_activity.saved = nil
+      new_activity.update_attributes!(questions)
+      puts 'restoring activity_strategies'
+      activity_strategies.clone.each do |activity_strategy|
+        old_attributes = activity_strategy.attributes
+        old_attributes.delete('activity_id')
+        new_act_strat = new_activity.activity_strategies.build(old_attributes)
+        new_act_strat.save
+      end
+      puts 'restoring issues'
+      issues.clone.each do |issue|
+        old_attributes = issue.attributes
+        old_attributes.delete('activity_id')
+        new_issue = new_activity.issues.build(old_attributes)
+        new_issue.save
+      end
+      puts 'restoring comments'
+      comments.each do |question_name, comment|
+        next if comment.nil?
+        comment_att = comment.attributes
+        comment_att.delete(:question_id)
+        new_comment = new_activity.questions.find_by_name(question_name).build_comment(comment_att)
+        new_comment.save!
+      end
+      puts 'restoring notes'
+      notes.each do |question_name, note|
+        next if note.nil?
+        note_att = note.attributes
+        note_att.delete(:question_id)
+        new_note = new_activity.questions.find_by_name(question_name).build_note(note_att)
+        new_note.save!
+      end
+      puts 'restoring activity manager'
+      act_man_att = act_man.attributes
+      act_man_att.delete(:activity_id)
+      act_man_to_nuke.update_attributes!(act_man_att)
+      new_activity.save!
+      puts "#{activity.name} synced."
+    end
   end
 end
