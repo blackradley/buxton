@@ -1,0 +1,9 @@
+%h2 New Organisation
+
+- form_for @organisation do |f|
+  = render :partial => 'form'
+  %span.button{:style=>"float:none;"}
+    = submit_tag "Create", :disable_with => 'Creating...'
+
+%span.button
+  = link_to 'Back', organisations_url

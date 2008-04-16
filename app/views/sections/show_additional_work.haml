@@ -1,0 +1,54 @@
+#show
+  %table
+    %tr
+      %th.h4 Additional Work by equality group
+
+  -if @activity.relevant_strands.include? 'gender' then
+    %table
+      %tr
+        %th Men and Women
+        %th Answers to Date
+      = answer(@activity, :additional_work, :gender, [1,2,3,4])
+
+  -if @activity.relevant_strands.include? 'race' then
+    %table
+      %tr
+        %th People from different ethnic backgrounds
+        %th Answers to Date
+      = answer(@activity, :additional_work, :race, [1,2,3,4])
+      = answer(@activity, :additional_work, :race, 6)
+
+  -if @activity.relevant_strands.include? 'disability' then
+    %table
+      %tr
+        %th People with different kinds of disability
+        %th Answers to Date
+      = answer(@activity, :additional_work, :disability, [1,2,3,4])
+      = answer(@activity, :additional_work, :disability, 6)
+      = answer(@activity, :additional_work, :disability, [7,8,9])
+
+
+  -if @activity.relevant_strands.include? 'faith' then
+    %table
+      %tr
+        %th People from different faith groups
+        %th Answers to Date
+      = answer(@activity, :additional_work, :faith, [1,2,3,4])
+      = answer(@activity, :additional_work, :faith, 6)
+
+
+  -if @activity.relevant_strands.include? 'sexual_orientation' then
+    %table
+      %tr
+        %th People of different sexual orientations
+        %th Answers to Date
+      = answer(@activity, :additional_work, :sexual_orientation, [1,2,3,4])
+      = answer(@activity, :additional_work, :sexual_orientation, 6)
+
+  -if @activity.relevant_strands.include? 'age' then
+    %table
+      %tr
+        %th People of different ages
+        %th Answers to Date
+      = answer(@activity, :additional_work, :age, [1,2,3,4])
+      = answer(@activity, :additional_work, :age, 6)
