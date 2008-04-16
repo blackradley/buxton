@@ -5,33 +5,33 @@
 
 <% form_for(:activity, :url => {:action => 'update'}) do |f| %>
 <fieldset id="approval">
-	<legend>Approval <%= link_to_function image_tag("icons/help.gif"), "Element.toggle('approval_help')" -%></legend>
-	<span id="approval_help" class="toggleHelp" style="display:none;"><p>The assessment should be approved by the line manager of the Activity Manager who is completing the assessment. It is the Activity Manager's responsibility to obtain evidence of this approval. The approving manager's name should be included in the text box.</p></span>
-  	<label for="activity_approved">Approved?</label> <%= f.check_box :approved -%><br />
-  	<label for="activity_approver" id="activity_approver_label">By:</label><%= f.text_field :approver -%><br />
-  	<label for="activity_review_on" id="activity_review_on_label">Review On:</label><%= f.text_field :review_on -%>
-	<span id="approval_submit"><%= submit_tag "Save", :disable_with => 'Saving...' -%></span>
+  <legend>Approval <%= link_to_function image_tag("icons/help.gif"), "Element.toggle('approval_help')" -%></legend>
+  <span id="approval_help" class="toggleHelp" style="display:none;"><p>The assessment should be approved by the line manager of the Activity Manager who is completing the assessment. It is the Activity Manager's responsibility to obtain evidence of this approval. The approving manager's name should be included in the text box.</p></span>
+    <label for="activity_approved">Approved?</label> <%= f.check_box :approved -%><br />
+    <label for="activity_approver" id="activity_approver_label">By:</label><%= f.text_field :approver -%><br />
+    <label for="activity_review_on" id="activity_review_on_label">Review On:</label><%= f.text_field :review_on -%>
+  <span id="approval_submit"><%= submit_tag "Save", :disable_with => 'Saving...' -%></span>
 </fieldset>
 <% end -%>
 
 <p>
 <table id="summarytable" cellpadding="0" cellspacing="0">
-	<tr>
-		<td><label>Contact:</label></td>
-		<td class="labelled"><%= link_to @activity.activity_manager.email, "mailto:#{h @activity.activity_manager.email}?subject=#{ h @activity.name}"-%></td>
-	</tr>
-	<tr>
-		<td><label>Last changed:</label></td>
-		<td class="labelled"><%= date_or_blank(@activity.updated_on) -%></td>
-	</tr>
-	<tr>
-		<td><label>Percentage completed:</label></td>
-		<td class="labelled"><%= progress_bar(@activity.percentage_answered) -%></td>
-	</tr>
-	<tr>
-		<td><label>Strands identified as relevant:</label></td>
-		<td class="labelled"><%= @relevant_strands_string -%></td>
-	</tr>
+  <tr>
+    <td><label>Contact:</label></td>
+    <td class="labelled"><%= link_to @activity.activity_manager.email, "mailto:#{h @activity.activity_manager.email}?subject=#{ h @activity.name}"-%></td>
+  </tr>
+  <tr>
+    <td><label>Last changed:</label></td>
+    <td class="labelled"><%= date_or_blank(@activity.updated_on) -%></td>
+  </tr>
+  <tr>
+    <td><label>Percentage completed:</label></td>
+    <td class="labelled"><%= progress_bar(@activity.percentage_answered) -%></td>
+  </tr>
+  <tr>
+    <td><label>Strands identified as relevant:</label></td>
+    <td class="labelled"><%= @relevant_strands_string -%></td>
+  </tr>
 </table>
 </p>
 
@@ -40,80 +40,80 @@
 <h4>Section Summaries:</h4>
 
 <div id="purpose_top" style="display:block;">
-	<fieldset class="section_summary_header">
-		<legend>Purpose</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary ', "Element.toggle('show_purpose'); Element.toggle('purpose_top')", :title => 'View Summary' -%></legend>
-	</fieldset>
+  <fieldset class="section_summary_header">
+    <legend>Purpose</legend>
+    <legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary ', "Element.toggle('show_purpose'); Element.toggle('purpose_top')", :title => 'View Summary' -%></legend>
+  </fieldset>
 </div>
 
-<div id="show_purpose" -%>
-	<fieldset class="section_summary_show">
-		<legend>Purpose</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_purpose'); Element.toggle('purpose_top')", :title => 'Close Summary View' -%></legend>
-		<%= render 'sections/show_purpose' -%>	
-	</fieldset>
+<div id="show_purpose" style="display:none;">
+  <fieldset class="section_summary_show">
+    <legend>Purpose</legend>
+    <legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_purpose'); Element.toggle('purpose_top')", :title => 'Close Summary View' -%></legend>
+    <%= render 'sections/show_purpose' -%>
+  </fieldset>
 </div>
 
 <% if @activity.relevant_strands.size > 0 then -%>
 <div id="impact_top" style="display:block;">
-	<fieldset class="section_summary_header">
-		<legend>Impact</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary ', "Element.toggle('show_impact'); Element.toggle('impact_top')", :title => 'View Summary' -%></legend>
-	</fieldset>
+  <fieldset class="section_summary_header">
+    <legend>Impact</legend>
+    <legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary ', "Element.toggle('show_impact'); Element.toggle('impact_top')", :title => 'View Summary' -%></legend>
+  </fieldset>
 </div>
 
-<div id="show_impact" -%>
-	<fieldset class="section_summary_show">
-		<legend>Impact</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_impact'); Element.toggle('impact_top')", :title => 'Close Summary View' -%></legend>
-		<%= render 'sections/show_impact' -%>	
-	</fieldset>
+<div id="show_impact" style="display:none;">
+  <fieldset class="section_summary_show">
+    <legend>Impact</legend>
+    <legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_impact'); Element.toggle('impact_top')", :title => 'Close Summary View' -%></legend>
+    <%= render 'sections/show_impact' -%>
+  </fieldset>
 </div>
 
 <div id="consultation_top" style="display:block;">
-	<fieldset class="section_summary_header">
-		<legend>Consultation</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_consultation'); Element.toggle('consultation_top')", :title => 'View Summary' -%></legend>
-	</fieldset>
+  <fieldset class="section_summary_header">
+    <legend>Consultation</legend>
+    <legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_consultation'); Element.toggle('consultation_top')", :title => 'View Summary' -%></legend>
+  </fieldset>
 </div>
 
-<div id="show_consultation" -%>
-	<fieldset class="section_summary_show">
-		<legend>Consultation</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_consultation'); Element.toggle('consultation_top')", :title => 'Close Summary View' -%></legend>
-		<%= render 'sections/show_consultation' -%>	
-	</fieldset>
+<div id="show_consultation" style="display:none;">
+  <fieldset class="section_summary_show">
+    <legend>Consultation</legend>
+    <legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_consultation'); Element.toggle('consultation_top')", :title => 'Close Summary View' -%></legend>
+    <%= render 'sections/show_consultation' -%>
+  </fieldset>
 </div>
 
 
 <div id="additional_work_top" style="display:block;">
-	<fieldset class="section_summary_header">
-		<legend>Additional Work</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_additional_work'); Element.toggle('additional_work_top')", :title => 'View Summary' -%></legend>
-	</fieldset>
+  <fieldset class="section_summary_header">
+    <legend>Additional Work</legend>
+    <legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_additional_work'); Element.toggle('additional_work_top')", :title => 'View Summary' -%></legend>
+  </fieldset>
 </div>
 
-<div id="show_additional_work" -%>
-	<fieldset class="section_summary_show">
-		<legend>Additional Work</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_additional_work'); Element.toggle('additional_work_top')", :title => 'Close Summary View' -%></legend>
-		<%= render 'sections/show_additional_work' -%>	
-	</fieldset>
+<div id="show_additional_work" style="display:none;">
+  <fieldset class="section_summary_show">
+    <legend>Additional Work</legend>
+    <legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_additional_work'); Element.toggle('additional_work_top')", :title => 'Close Summary View' -%></legend>
+    <%= render 'sections/show_additional_work' -%>
+  </fieldset>
 </div>
 
 
 <div id="action_planning_top" style="display:block;">
-	<fieldset class="section_summary_header">
-		<legend>Action Planning</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_action_planning'); Element.toggle('action_planning_top')", :title => 'View Summary' -%></legend>
-	</fieldset>
+  <fieldset class="section_summary_header">
+    <legend>Action Planning</legend>
+    <legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_action_planning'); Element.toggle('action_planning_top')", :title => 'View Summary' -%></legend>
+  </fieldset>
 </div>
 
-<div id="show_action_planning" -%>
-	<fieldset class="section_summary_show">
-		<legend>Action Planning</legend>
-		<legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_action_planning'); Element.toggle('action_planning_top')", :title => 'Close Summary View' -%></legend>
-		<%= render 'sections/show_action_planning' -%>	
-	</fieldset>
+<div id="show_action_planning" style="display:none;">
+  <fieldset class="section_summary_show">
+    <legend>Action Planning</legend>
+    <legend class="section_summary_toggles"><%= link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_action_planning'); Element.toggle('action_planning_top')", :title => 'Close Summary View' -%></legend>
+    <%= render 'sections/show_action_planning' -%>
+  </fieldset>
 </div>
 <% end -%>
