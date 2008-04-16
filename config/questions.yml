@@ -33,7 +33,7 @@ ces_question:
       choices: 3
       weights: 0
       dependent_questions: ''
-      
+
 questions:
   purpose:
     3:
@@ -361,7 +361,7 @@ questions:
           - 'Have you obtained the views of #{wordings[strand]} on the potential impact of the Policy?'
       help:
         -
-          - 'This question asks whether any groups representing the interests of #{wordings[strand]} have been consulted on the impact of the Function.<br/><br/>
+          - 'This question asks whether any individuals representing the interests of #{wordings[strand]} have been consulted on the impact of the Function.<br/><br/>
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
              The consultation may have been arranged specifically for this particular Function or for a number of Functions.<br/><br/>
              The available answers to this question are:<br/>
@@ -369,7 +369,7 @@ questions:
              <li>No</li>
              <li>Not Sure</li>
              </ul><br/>'
-          - 'This question asks whether any groups representing the interests of #{wordings[strand]} have been consulted on the potential impact of the Function.<br/><br/>
+          - 'This question asks whether any individuals representing the interests of #{wordings[strand]} have been consulted on the potential impact of the Function.<br/><br/>
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
              The consultation may have been arranged specifically for this particular Function or for a number of Functions.<br/><br/>
              The available answers to this question are:<br/>
@@ -378,7 +378,7 @@ questions:
              <li>Not Sure</li>
              </ul><br/>'
         -
-          - 'This question asks whether any groups representing the interests of #{wordings[strand]} have been consulted on the impact of the Policy.<br/><br/>
+          - 'This question asks whether any individuals representing the interests of #{wordings[strand]} have been consulted on the impact of the Policy.<br/><br/>
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
              The consultation may have been arranged specifically for this particular Policy or for a number of Policies.<br/><br/>
              The available answers to this question are:<br/>
@@ -386,7 +386,7 @@ questions:
              <li>No</li>
              <li>Not Sure</li>
              </ul><br/>'
-          - 'This question asks whether any groups representing the interests of #{wordings[strand]} have been consulted on the potential impact of the Policy.<br/><br/>
+          - 'This question asks whether any individuals representing the interests of #{wordings[strand]} have been consulted on the potential impact of the Policy.<br/><br/>
              #{hashes["extra_strand_wordings"]["consultation"][1][strand]}
              The consultation may have been arranged specifically for this particular Policy or for a number of Policies.<br/><br/>
              The available answers to this question are:<br/>
@@ -597,14 +597,14 @@ questions:
       label:
         -
           - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how
-		    the Function impacts, or may impact, upon #{wordings[strand]}?'
+        the Function impacts, or may impact, upon #{wordings[strand]}?'
           - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how
-		     the Function impacts, or may impact, upon #{wordings[strand]}?'
+         the Function impacts, or may impact, upon #{wordings[strand]}?'
         -
           - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how
-		     the Policy impacts, or may impact, upon #{wordings[strand]}?'
+         the Policy impacts, or may impact, upon #{wordings[strand]}?'
           - 'In the light of the information recorded above are there any areas where you feel that you need more information to obtain a comprehensive view of how
-		     the Policy impacts, or may impact, upon #{wordings[strand]}?'
+         the Policy impacts, or may impact, upon #{wordings[strand]}?'
       help:
         -
           - 'This question asks you to reflect upon whether you think that you need further information to obtain a comprehensive view of the impact of the Function.<br/><br/>
@@ -962,8 +962,8 @@ overall_questions:
       type: select
       choices: 3
       weights: 0
-      dependent_questions: 'purpose_overall_11 yes_value'          
-    
+      dependent_questions: 'purpose_overall_11 yes_value'
+
 wordings:
   gender: 'men and women'
   race: 'individuals from different ethnic backgrounds'
