@@ -1,0 +1,9 @@
+%h2 Edit Organisation
+
+- form_for @organisation do |f|
+  = render :partial => 'form'
+  %span.button{:style=>"float:none;"}
+    = submit_tag "Update", :disable_with => 'Updating...' 
+
+%span.button
+  = link_to 'Back', organisations_url

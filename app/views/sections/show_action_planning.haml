@@ -1,0 +1,185 @@
+#show
+  %table
+    %tr
+      %th.h4{:colspan=>"2"} Action Planning by equality group
+  
+  -issues = @activity.issues.group_by(&:strand)
+  -issues.each do |key, issue_array| 
+    -issue_array.each do |issue|
+      -issue.attributes.each do |attribute|
+        -issues[key][(issues[key].index(issue))][attribute]; issues[key][(issues[key].index(issue))][attribute] = "Not answered yet" unless (attribute.to_s == "") 
+
+  -if @activity.relevant_strands.include? 'gender' then 
+    %table
+      %tr
+        %th{:colspan=>"2"}Men and Women
+      -if strand_issues = issues["gender"]
+        -strand_issues.each do |i|
+          %tr
+            %td.label Description:
+            %td.labelled
+              =h i.description
+          %tr
+            %td.label Actions:
+            %td.labelled
+              =h i.actions
+          %tr
+            %td.label Timescales:
+            %td.labelled
+              =h i.timescales
+          %tr
+            %td.label Resources:
+            %td.labelled
+              =h i.resources
+          %tr
+            %td.label Lead officer:
+            %td.labelled
+              =h i.lead_officer
+        %tr
+          %td.label No issues.
+          %td.labelled
+
+  -if @activity.relevant_strands.include? 'race' then
+    %table
+      %tr
+        %th{:colspan=>"2"}People from different ethnic backgrounds
+      -if strand_issues = issues["race"]
+        -strand_issues.each do |i|
+          %tr
+            %td.label Description:
+            %td.labelled
+              =h i.description
+          %tr
+            %td.label Actions:
+            %td.labelled
+              =h i.actions
+          %tr
+            %td.label Timescales:
+            %td.labelled
+              =h i.timescales
+          %tr
+            %td.label Resources:
+            %td.labelled
+              =h i.resources
+          %tr
+            %td.label Lead officer:
+            %td.labelled
+              =h i.lead_officer
+      %tr
+        %td.label No issues.
+      
+  -if @activity.relevant_strands.include? 'disability' then
+    %table
+      %tr
+        %th{:colspan=>"2"}People with different kinds of disability
+      -if strand_issues = issues["disability"]
+        -strand_issues.each do |i|
+          %tr
+            %td.label Description:
+            %td.labelled
+              =h i.description
+          %tr
+            %td.label Actions:
+            %td.labelled
+              =h i.actions
+          %tr
+            %td.label Timescales:
+            %td.labelled
+              =h i.timescales
+          %tr
+            %td.label Resources:
+            %td.labelled
+              =h i.resources
+          %tr
+            %td.label Lead officer:
+            %td.labelled
+              =h i.lead_officer
+      %tr
+        %td.label No issues.
+
+  -if @activity.relevant_strands.include? 'faith' then
+    %table
+      %tr
+        %th{:colspan=>"2"}People from different faith groups
+      -if strand_issues = issues["faith"]
+        -strand_issues.each do |i|
+          %tr
+            %td.label Description:
+            %td.labelled
+              =h i.description
+          %tr
+            %td.label Actions:
+            %td.labelled
+              =h i.actions
+          %tr
+            %td.label Timescales:
+            %td.labelled
+              =h i.timescales
+          %tr
+            %td.label Resources:
+            %td.labelled
+              =h i.resources
+          %tr
+            %td.label Lead officer:
+            %td.labelled
+              =h i.lead_officer
+      %tr
+        %td.label No issues.
+
+  -if @activity.relevant_strands.include? 'sexual_orientation' then
+    %table
+      %tr
+        %th{:colspan=>"2"}People of different sexual orientations
+      -if strand_issues = issues["sexual_orientation"]
+        -strand_issues.each do |i|
+          %tr
+            %td.label Description:
+            %td.labelled
+              =h i.description
+          %tr
+            %td.label Actions:
+            %td.labelled
+              =h i.actions
+          %tr
+            %td.label Timescales:
+            %td.labelled
+              =h i.timescales
+          %tr
+            %td.label Resources:
+            %td.labelled
+              =h i.resources
+          %tr
+            %td.label Lead officer:
+            %td.labelled
+              =h i.lead_officer
+      %tr
+        %td.label No issues.
+        
+  -if @activity.relevant_strands.include? 'age' then
+    %table
+      %tr
+        %th{:colspan=>"2"}People of different ages
+      -if strand_issues = issues["age"]
+        -strand_issues.each do |i|
+          %tr
+            %td.label Description:
+            %td.labelled
+              =h i.description
+          %tr
+            %td.label Actions:
+            %td.labelled
+              =h i.actions
+          %tr
+            %td.label Timescales:
+            %td.labelled
+              =h i.timescales
+          %tr
+            %td.label Resources:
+            %td.labelled
+              =h i.resources
+          %tr
+            %td.label Lead officer:
+            %td.labelled
+              =h i.lead_officer
+      %tr
+        %td.label No issues.

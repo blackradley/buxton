@@ -28,6 +28,7 @@ stylesheets:
   - errors
   - formatting
   - questions
+  - organisation
 # create per-customer packages for customising in the future and conditional includes
 - alisonmclean:
   - organisations/alisonmclean
