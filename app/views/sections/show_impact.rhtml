@@ -4,7 +4,7 @@
   <table>
   <tr><th class="h4">Impact by Equality Group</th></tr>
   </table>
-  
+
 <% if @activity.relevant_strands.include? 'gender' then -%>
 <table>
 <tr><th>Men and women</th><th>Answers to Date</th></tr>
@@ -17,9 +17,9 @@
 <% if issues.size > 0 then -%>
 <tr><td class="label">Please record the issues identified</td><td class="labelled">
   <ul>
-  	<% issues.each do |issue| -%>
-  	<li><%=h issue.description -%></li>
-  	<% end -%>
+    <% issues.each do |issue| -%>
+    <li><%=h issue.description -%></li>
+    <% end -%>
   </ul>
   </td></tr>
 <% end -%>
@@ -39,9 +39,9 @@
 <% if issues.size > 0 then -%>
 <tr><td class="label">Please record the issues identified</td><td class="labelled">
   <ul>
-  	<% issues.each do |issue| -%>
-  	<li><%=h issue.description -%></li>
-  	<% end -%>
+    <% issues.each do |issue| -%>
+    <li><%=h issue.description -%></li>
+    <% end -%>
   </ul>
   </td></tr>
 <% end -%>
@@ -60,9 +60,9 @@
 <% if issues.size > 0 then -%>
 <tr><td class="label">Please record the issues identified</td><td class="labelled">
   <ul>
-  	<% issues.each do |issue| -%>
-  	<li><%=h issue.description -%></li>
-  	<% end -%>
+    <% issues.each do |issue| -%>
+    <li><%=h issue.description -%></li>
+    <% end -%>
   </ul>
   </td></tr>
 <% end -%>
@@ -81,9 +81,9 @@
 <% if issues.size > 0 then -%>
 <tr><td class="label">Please record the issues identified</td><td class="labelled">
   <ul>
-  	<% issues.each do |issue| -%>
-  	<li><%=h issue.description -%></li>
-  	<% end -%>
+    <% issues.each do |issue| -%>
+    <li><%=h issue.description -%></li>
+    <% end -%>
   </ul>
   </td></tr>
 <% end -%>
@@ -92,7 +92,7 @@
 
 <% if @activity.relevant_strands.include? 'sexual_orientation' then -%>
 <table>
-<tr><th>People of different sexual orientations</th><th>Answers to Date</th></tr>          
+<tr><th>People of different sexual orientations</th><th>Answers to Date</th></tr>
 <%= answer(@activity, :impact, :sexual_orientation, [1,2,3]) %>
 <% if @activity.existing? then -%>
 <%= answer(@activity, :impact, :sexual_orientation, [4,5,6,7]) %>
@@ -103,9 +103,9 @@
 <% if issues.size > 0 then -%>
 <tr><td class="label">Please record the issues identified</td><td class="labelled">
   <ul>
-  	<% issues.each do |issue| -%>
-  	<li><%=h issue.description -%></li>
-  	<% end -%>
+    <% issues.each do |issue| -%>
+    <li><%=h issue.description -%></li>
+    <% end -%>
   </ul>
   </td></tr>
 <% end -%>
@@ -124,13 +124,15 @@
 <% if issues.size > 0 then -%>
 <tr><td class="label">Please record the issues identified</td><td class="labelled">
   <ul>
-  	<% issues.each do |issue| -%>
-  	<li><%=h issue.description -%></li>
-  	<% end -%>
+    <% issues.each do |issue| -%>
+    <li><%=h issue.description -%></li>
+    <% end -%>
   </ul>
   </td></tr>
 <% end -%>
 </table>
 <% end -%>
+
+<%= "There are no relevant equality strands to consider, therefore no questions were asked for this section of the tool." if @activity.strands.size == 0 -%>
 
 </div>

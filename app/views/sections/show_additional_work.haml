@@ -52,3 +52,5 @@
         %th Answers to Date
       = answer(@activity, :additional_work, :age, [1,2,3,4])
       = answer(@activity, :additional_work, :age, 6)
+
+  = "There are no relevant equality strands to consider, therefore no questions were asked for this section of the tool." if @activity.strands.size == 0
