@@ -8,9 +8,12 @@
   = link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'consultation', :equality_strand => @equality_strand }, :title =>"Next Section"
 #questions
   -form_for(:activity, :url => {:action => 'update'}) do |f|
-    = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [1,2,3,8,9]), :locals => {:f => f}
-    -if @activity.existing?
-      = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [4,5,6,7]), :locals => {:f => f}
+    = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [1,2,3]), :locals => {:f => f}
+    -if @activity.existing? then
+      = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [4,5]), :locals => {:f => f}
+      = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [6,7]), :locals => {:f => f}
+    = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [8]), :locals => {:f => f}
+    = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [9]), :locals => {:f => f}
     = render :partial => 'question', :collection => question_details(:impact, @equality_strand, [1,2,3]), :locals => {:f => f}
     -if @activity.existing? then
       = render :partial => 'question', :collection => question_details(:impact, @equality_strand, [4,5]), :locals => {:f => f}
