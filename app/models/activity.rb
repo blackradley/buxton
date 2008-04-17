@@ -424,6 +424,10 @@ class Activity < ActiveRecord::Base
     @@invisible_questions.clone
   end
 
+  def invisible?(question)
+    (!@@invisible_questions.include?(question) && self.existing_proposed = 2)
+  end
+
   def dependencies(question=nil)
     return @@dependencies.clone unless question
     return @@dependencies[question].clone if @@dependencies[question]
@@ -435,7 +439,7 @@ class Activity < ActiveRecord::Base
     []
   end
 
-  def after_update
+def after_update
     return true if @saved
     @saved = true
     to_save = {}
@@ -488,7 +492,7 @@ class Activity < ActiveRecord::Base
               if hashes[dependent[1]].to_i != new_store then
                 status.update_attributes(:needed => false)
               else
-                status.update_attributes(:needed => true)
+                status.update_attributes(:needed => true) unless invisible?(dependent[0])
               end
               to_change.push([re_eval.clone, check_re_eval])
             end
