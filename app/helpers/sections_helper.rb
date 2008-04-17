@@ -15,6 +15,6 @@ module SectionsHelper
   end
    
   def split_long_strings(text)
-    text.gsub(/\S{35}/, '\0<br />')
+    text.to_s.gsub(/\S{35}/, '\0<br />')
   end
 end
