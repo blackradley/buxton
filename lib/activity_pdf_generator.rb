@@ -287,18 +287,20 @@ class ActivityPDFGenerator
       borders << borders.last.to_i + border_gap
     end
     pdf.text(" ")
-    pdf.text("The assessment has identified that the Activity has a role in the following Equality Objectives that are specific to the Disability Equality Strand:")
-    pdf.text(" ")
-    table = []
-    table << ["<b>Equality strand</b>", "<b>Take account of disabilities even if it means treating more favourably</b>", "<b>Promote positive attitudes to disabled people</b>", "<b>Encourage participation by disabled people</b>"]
-    row = []
-    row << 'Disability'
-    row << activity.hashes['choices'][3][activity.send("additional_work_disability_7").to_i].to_s
-    row << activity.hashes['choices'][3][activity.send("additional_work_disability_8").to_i].to_s
-    row << activity.hashes['choices'][3][activity.send("additional_work_disability_9").to_i].to_s
-    table << row
-    pdf = generate_table(pdf, table, :borders => borders)
-    pdf.text(" ")
+    if activity.disability_relevant then
+      pdf.text("The assessment has identified that the Activity has a role in the following Equality Objectives that are specific to the Disability Equality Strand:")
+      pdf.text(" ")
+      table = []
+      table << ["<b>Equality strand</b>", "<b>Take account of disabilities even if it means treating more favourably</b>", "<b>Promote positive attitudes to disabled people</b>", "<b>Encourage participation by disabled people</b>"]
+      row = []
+      row << 'Disability'
+      row << activity.hashes['choices'][3][activity.send("additional_work_disability_7").to_i].to_s
+      row << activity.hashes['choices'][3][activity.send("additional_work_disability_8").to_i].to_s
+      row << activity.hashes['choices'][3][activity.send("additional_work_disability_9").to_i].to_s
+      table << row
+      pdf = generate_table(pdf, table, :borders => borders)
+      pdf.text(" ")
+    end
     pdf
   end
   def build_review_date(pdf, activity)
@@ -355,31 +357,47 @@ class ActivityPDFGenerator
     pdf.start_new_page
     pdf.text "<c:uline><b>Appendices</b></c:uline>", :justification => :center, :font_size => 14
     pdf.text " "
-    pdf.text "<b>Complete assessment summary of the responses pertaining to all individuals participating</b>", :font_size => 12
-    pdf.text " "
-    question_list = []
-    question_list << ["<b>Question</b>", "<b>Additional Comments</b>"]
-    Activity.get_question_names(nil, :overall).each do |question|
-      number = question.to_s.gsub(/\D/, "").to_i
-      question_details = activity.question_wording_lookup('purpose', 'overall', number)
-      prelude = "Does the #{activity.function_policy?} have an impact on " if (5..9).include? number
-      label = "#{prelude}#{prelude.to_s.length > 0? question_details[0].downcase : question_details[0]}#{"?" if (5..9).include? number}"
-      question_object = activity.questions.find_by_name(question.to_s)
-      next unless (question_object && question_object.needed)
-      comment = question_object.comment.contents.to_s if question_object.comment
-      comment = comment.to_s
-      question_list << [label, comment.to_s] unless comment.blank?
+    has_comments = false
+    global_comments = false
+    #check if there are any questions with comments in the overall section
+    Activity.get_question_names(nil, :overall).each do |question_symbol|
+      question = activity.questions.find_by_name(question_symbol.to_s)
+      has_comments = true if question.comment && !(question.comment.contents.blank?)
     end
-    borders = [150, 300, 540]
-    if question_list.size > 1 then
-      pdf = generate_table(pdf, question_list, {:borders => borders})
-    else
-      pdf.text "<i>There are no questions with comments for this section</i>", :font_size => 10
+    #display comments if there are any for the overall section
+    if has_comments then
+      global_comments = true
+      pdf.text "<b>Complete assessment summary of the responses pertaining to all individuals participating</b>", :font_size => 12
+      pdf.text " "
+      question_list = []
+      question_list << ["<b>Question</b>", "<b>Additional Comments</b>"]
+      Activity.get_question_names(nil, :overall).each do |question|
+        number = question.to_s.gsub(/\D/, "").to_i
+        question_details = activity.question_wording_lookup('purpose', 'overall', number)
+        prelude = "Does the #{activity.function_policy?} have an impact on " if (5..9).include? number
+        label = "#{prelude}#{prelude.to_s.length > 0? question_details[0].downcase : question_details[0]}#{"?" if (5..9).include? number}"
+        question_object = activity.questions.find_by_name(question.to_s)
+        next unless (question_object && question_object.needed)
+        comment = question_object.comment.contents.to_s if question_object.comment
+        comment = comment.to_s
+        question_list << [label, comment.to_s] unless comment.blank?
+      end
+      borders = [150, 300, 540]
+      if question_list.size > 1 then
+        pdf = generate_table(pdf, question_list, {:borders => borders})
+      else
+        pdf.text "<i>There are no questions with comments for this section</i>", :font_size => 10
+      end
+      pdf.text " "
     end
-    pdf.text " "
+    #Check if there are any activity strategies with comments
+    strategy_comments = false
+    activity.activity_strategies.each do |act_strat|
+      strategy_comments = true if act_strat.comment && !(act_strat.comment.contents.blank)
+    end
     question_list = []
-    if activity.activity_strategies.size > 0 then
-      pdf.start_new_page
+    # display all strategy comments if there are any
+    if strategy_comments then
       pdf.text "<b>Comments on any Strategy responses</b>"
       pdf.text " "
       question_list << ['<b>Strategy Name</b>', '<b>Additional Comments</b>']
@@ -394,34 +412,43 @@ class ActivityPDFGenerator
       else
         pdf.text "<i>There are no questions with comments for this section</i>", :font_size => 10
       end
+      pdf.text " "
     end
-    pdf.text " "
     activity.strands.each do |strand|
-      pdf.start_new_page
-      pdf.text "<b>Complete assessment summary of the responses pertaining to #{activity.hashes['wordings'][strand]}</b>", :font_size => 12
-      pdf.text " ", :font_size => 10
-      (activity.sections - [:action_planning]).each_with_index do |section, index|
-        pdf.text "<b><c:uline>#{index + 1}. #{section.to_s.titleize}</c:uline></b>"
+      strand_needed = false
+      Activity.get_question_names(strand).each do |question_name|
+        question = activity.questions.find_by_name(question_name.to_s)
+        strand_needed = true if question.comment && !(question.comment.contents.blank?) && question.needed
+      end
+      if strand_needed then
+        global_comments = true
         pdf.text " "
-        question_list = []
-        question_list << ["<b>Question</b>", "<b>Additional Comments</b>"]
-        Activity.get_question_names(section, strand).each do |question|
-          number = question.to_s.gsub(section.to_s, "").gsub(strand.to_s, "").gsub("_", "").to_i
-          question_details = activity.question_wording_lookup(section, strand, number)
-          question_object = activity.questions.find_by_name(question.to_s)
-          next unless (question_object && question_object.needed)
-          comment = question_object.comment.contents.to_s if question_object.comment
-          question_list << [question_details[0], comment] unless comment.blank?
+        pdf.text "<b>Complete assessment summary of the responses pertaining to #{activity.hashes['wordings'][strand]}</b>", :font_size => 12
+        pdf.text " ", :font_size => 10
+        (activity.sections - [:action_planning]).each_with_index do |section, index|
+          pdf.text "<b><c:uline>#{index + 1}. #{section.to_s.titleize}</c:uline></b>"
+          pdf.text " "
+          question_list = []
+          question_list << ["<b>Question</b>", "<b>Additional Comments</b>"]
+          Activity.get_question_names(section, strand).each do |question|
+            number = question.to_s.gsub(section.to_s, "").gsub(strand.to_s, "").gsub("_", "").to_i
+            question_details = activity.question_wording_lookup(section, strand, number)
+            question_object = activity.questions.find_by_name(question.to_s)
+            next unless (question_object && question_object.needed)
+            comment = question_object.comment.contents.to_s if question_object.comment
+            question_list << [question_details[0], comment] unless comment.blank?
+          end
+          borders = [150, 300, 540]
+          unless question_list.size == 1 then
+            pdf = generate_table(pdf, question_list, {:borders => borders})
+          else
+            pdf.text "<i>There are no questions with comments for this section</i>"
+          end
+          pdf.text " "
         end
-        borders = [150, 300, 540]
-        unless question_list.size == 1 then
-          pdf = generate_table(pdf, question_list, {:borders => borders})
-        else
-          pdf.text "<i>There are no questions with comments for this section</i>"
-        end
-        pdf.text " "
       end
     end
+    pdf.text "<i>There are no questions with comments for this activity</i>" unless global_comments
     pdf
   end
 

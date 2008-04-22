@@ -425,7 +425,7 @@ class Activity < ActiveRecord::Base
   end
 
   def invisible?(question)
-    (!@@invisible_questions.include?(question) && self.existing_proposed = 2)
+    (!@@invisible_questions.include?(question) && self.existing_proposed == 2)
   end
 
   def dependencies(question=nil)
