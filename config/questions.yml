@@ -39,11 +39,11 @@ questions:
     3:
       label:
         -
-          - '#{wordings[strand]}?'
-          - '#{wordings[strand]}?'
+          - '#{wordings[strand].titleize}'
+          - '#{wordings[strand].titleize}'
         -
-          - '#{wordings[strand]}?'
-          - '#{wordings[strand]}?'
+          - '#{wordings[strand].titleize}'
+          - '#{wordings[strand].titleize}'
       help:
         -
           - 'This question asks you to identify any positive
@@ -66,11 +66,11 @@ questions:
     4:
       label:
         -
-          - '#{wordings[strand]}?'
-          - '#{wordings[strand]}?'
+          - '#{wordings[strand].titleize}'
+          - '#{wordings[strand].titleize}'
         -
-          - '#{wordings[strand]}?'
-          - '#{wordings[strand]}?'
+          - '#{wordings[strand].titleize}'
+          - '#{wordings[strand].titleize}'
       help:
         -
           - 'This question asks you to identify any negative
@@ -1005,18 +1005,18 @@ headers:
       - Which of these individuals will the Policy have an impact on?
   purpose_overall_3:
     -
-      - If the Function is operating effectively will it have the potential to positively impact the following differently?
-      - If the Function was operating effectively might it have the potential to positively impact the following differently?
+      - If the Function is operating effectively might it have the potential to positively impact members of the following groups differently?
+      - If the Function was operating effectively might it have the potential to positively impact members of the following groups differently?
     -
-      - If the Policy is operating effectively will it have the potential to positively impact the following differently?
-      - If the Policy was operating effectively might it have the potential to positively impact the following differently?
+      - If the Policy is operating effectively might it have the potential to positively impact members of the following groups differently?
+      - If the Policy was operating effectively might it have the potential to positively impact members of the following groups differently?
   purpose_overall_4:
     -
-      - If the Function is operating effectively will it have the potential to negatively impact the following differently?
-      - If the Function was operating effectively might it have the potential to negatively impact the following differently?
+      - If the Function is not operating effectively might it have the potential to negatively impact members of the following groups differently?
+      - If the Function was not operating effectively might it have the potential to negatively impact members of the following groups differently?
     -
-      - If the Policy is operating effectively will it have the potential to negatively impact the following differently?
-      - If the Policy was operating effectively might it have the potential to negatively impact the following differently?
+      - If the Policy is not operating effectively might it have the potential to negatively impact members of the following groups differently?
+      - If the Policy was not operating effectively might it have the potential to negatively impact members of the following groups differently?
 
 header_help_text:
   purpose_overall_1:

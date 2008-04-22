@@ -20,7 +20,7 @@
             -ep_options = @activity.hashes['existing_proposed']['choices']
             = f.select :existing_proposed, @activity.hashes['choices'][ep_options].collect {|option| [option , @activity.hashes['choices'][ep_options].index(option)] }
         %span.submit
-          =image_tag("icons/tick.gif")
+          =tick_cross_display(@activity.started)
           =submit_tag "save", :disable_with => 'saving...'
 -if @activity.started
   .step#two
