@@ -9,7 +9,7 @@
     Strategy Description:
   -if !activity_strategy.strategy.description.blank? then
     .help
-      =activity_strategy.strategy.description
+      = simple_format(activity_strategy.strategy.description)
   -else
     %p.nohelp Sorry - no description for this strategy.
   %h3
