@@ -50,6 +50,8 @@ stylesheets:
   - organisations/ealing
 - hertfordshire:
   - organisations/hertfordshire
+- lambeth:
+  - organisations/lambeth
 - stratford:
   - organisations/stratford
 - thechangeagency:
