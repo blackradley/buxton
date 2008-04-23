@@ -646,10 +646,7 @@ def after_update
       end
     else
       return '-' unless self.send("#{strand}_relevant")
-      good_impact = self.send("purpose_#{strand.to_s}_3".to_sym).to_i
-      bad_impact = self.send("purpose_#{strand.to_s}_4".to_sym).to_i
-      good_impact = bad_impact if bad_impact > good_impact
-      good_impact = hashes['weights'][question_wording_lookup(*Activity.question_separation("purpose_#{strand.to_s}_3".to_sym))[4]][good_impact]
+      good_impact = impact_calculation(strand)
       case good_impact
         when 15
           return :high
@@ -659,6 +656,13 @@ def after_update
           return :low
       end
     end
+  end
+  def impact_calculation(strand)
+    good_impact = self.send("purpose_#{strand.to_s}_3".to_sym).to_i
+    bad_impact = self.send("purpose_#{strand.to_s}_4".to_sym).to_i
+    good_impact = bad_impact if bad_impact > good_impact
+    good_impact = hashes['weights'][question_wording_lookup(*Activity.question_separation("purpose_#{strand.to_s}_3".to_sym))[4]][good_impact]
+    good_impact
   end
   def strands(return_all = false)
     strand_list = ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age'].map{|strand| strand if self.send("#{strand}_relevant")||return_all}

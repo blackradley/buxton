@@ -64,7 +64,7 @@
             = observe_field(strand_name, :url => {:action => 'toggle_strand', :strand => strand, :controller => 'activities'})
             %label
               =h strand.titleize
-              -if @activity.relevant?(strand) then
+              -if @activity.impact_calculation(strand).to_i > 9 then
                 <br />
                 %span.strandRelevant Recommended
         %p
