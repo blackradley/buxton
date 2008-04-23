@@ -5,7 +5,7 @@
   %li when the Activity Manger was last sent an access key to enable them to undertake the assessment;
   %li Whether it has been authorised and by whom.
 
-%p 
+%p
   It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
   %strong
     = "No #{@directorate_term}s created." if @directorates.blank?
@@ -26,7 +26,7 @@
       %th Approved
       %th Approver
       %th Last&nbsp;key sent
-      %th 
+      %th
     -for activity in directorate.activities
       %tr
         %td.left{:style => "width:150px;"}
@@ -34,7 +34,7 @@
         %td
           = completed_tag(activity)
         %td
-          = relevance_tag(activity) 
+          = relevance_tag(activity)
         %td
           = impact_tag(activity)
         %td
@@ -48,5 +48,6 @@
         %td.actions{:nowrap => "nowrap"}
           = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email"
           = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_manager.email}?", :method => :post, :title =>"Key"
-          = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend" 
-          = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete" 
+          = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend"
+          = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
+          = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"

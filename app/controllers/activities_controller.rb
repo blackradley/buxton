@@ -203,7 +203,12 @@ class ActivitiesController < ApplicationController
   end
 
   def view_pdf
-    @activity = @current_user.activity
+    if @current_user.class != ActivityManager then
+      @activity = Activity.find(params[:id])
+    else
+      @activity = @current_user.activity
+    end
+    @activity = Activity.find(126)
     PDFLog.create(:message => %Q[The activity manager PDF for the <strong>#{@activity.name}</strong> activity, within <strong>#{@activity.organisation.name}</strong>, was viewed.])
     send_data ActivityPDFGenerator.new(@activity).pdf.render, :disposition => 'inline',
       :filename => "#{@activity.name}.pdf",
