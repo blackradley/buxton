@@ -15,7 +15,7 @@ class ActivitiesController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
-  
+
   # Make render_to_string available to the #show action
   helper_method :render_to_string
 
@@ -23,6 +23,8 @@ class ActivitiesController < ApplicationController
   # Available to: Organisation Manager
   def index
     @activity = @current_user.activity
+    @organisation = @current_user.activity.organisation
+    @ces_term = @organisation.ces_term || "Corporate Equality Scheme"
     @organisation_manager = @activity.organisation.organisation_manager
   end
 
@@ -41,7 +43,7 @@ class ActivitiesController < ApplicationController
   # Available to: Activity Manager
   def show
     @activity = Activity.find(@current_user.activity_id, :include => 'questions')
-    
+
     strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
     @activity_strategies = Array.new(strategies.size) do |i|
       @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
@@ -113,7 +115,7 @@ class ActivitiesController < ApplicationController
     flash[:notice] =  "Could not update the activity."
     render :action => :index
   end
-  
+
   # Opening page where they must choose between Activity/Policy and Existing/Proposed
   # Available to: Activity Manager
   def questions
@@ -202,7 +204,7 @@ class ActivitiesController < ApplicationController
 
   def view_pdf
     @activity = @current_user.activity
-    PDFLog.create(:message => %Q[The activity manager PDF for the <strong>#{@activity.name}</strong> activity, within <strong>#{@activity.organisation.name}</strong>, was viewed.])    
+    PDFLog.create(:message => %Q[The activity manager PDF for the <strong>#{@activity.name}</strong> activity, within <strong>#{@activity.organisation.name}</strong>, was viewed.])
     send_data ActivityPDFGenerator.new(@activity).pdf.render, :disposition => 'inline',
       :filename => "#{@activity.name}.pdf",
       :type => "application/pdf"

@@ -1,8 +1,8 @@
 %h2
   =h @organisation.name
-  
+
 #show_organisation
-  
+
 %p
   %label Email
   %span.labelled
@@ -12,7 +12,7 @@
   %label Last Reminded
   %span.labelled
     = date_or_blank(@organisation_manager.reminded_on)
-  
+
 %p
   %label Created
   %span.labelled
@@ -22,13 +22,17 @@
   %label Last Updated
   %span.labelled
     = date_or_blank(@organisation.updated_on)
-  
+
 %fieldset.organisation_customisation
   %legend Customisation
   %p
     %label Style:
     %span.labelled
       = @organisation.style
+  %p
+    %label Localised term for 'CES document':
+    %span.labelled
+      = @organisation.ces_term
   %p
     %label Link to CES document:
     %span.labelled
