@@ -1,57 +1,57 @@
 #questiontext p{
-	margin-left: 0px;
-	padding-left: 0px;
-	color: #a92c1c;
+  margin-left: 0px;
+  padding-left: 0px;
+  color: #a92c1c;
 }
 .issueDescription{
-	width: 200px;
-	float: left;}
+  width: 200px;
+  float: left;}
 .issueControls{
-	width: 180px;
-	float: left;
+  width: 180px;
+  float: left;
 }
 
 p #summarytable{
-	margin:0px;
+  margin:0px;
 }
 
 #summarytable{
-	margin-bottom: 5px;
-	width:360px;
-	margin:0px;
+  margin-bottom: 5px;
+  width:360px;
+  margin:0px;
 }
 
-#summarytable td{	
-	text-align:left;
+#summarytable td{
+  text-align:left;
 }
 
 #summarytable label{
-	width: 150px;
-	margin: 0px;
+  width: 150px;
+  margin: 0px;
 }
 
 #summarytable .labelled{
-	width: 200px;
+  width: 200px;
 }
 
 #summarytable .labelled img{
-	margin-top: 5px;
+  margin-top: 5px;
 }
 
 /*approval box*/
 
 .summary fieldset#approval{
-	float: right;
-	width: 250px;
-	border: 2px solid #F90;
-	margin-top: 0px;
-	padding: 10px;
-	margin-left: 5px;
-	overflow: hidden;
+  float: right;
+  width: 250px;
+  border: 2px solid #F90;
+  margin-top: 0px;
+  padding: 10px;
+  margin-left: 5px;
+  overflow: hidden;
 }
 html/**/>body.summary fieldset#approval{
-	
-	width: 230px;
+
+  width: 230px;
 
 }
 
@@ -61,75 +61,75 @@ html/**/>body.summary fieldset#approval{
 }
 
 .summary fieldset#approval legend{
-	color:#F90;
-	font-weight:bold;
-	background-color:#fff;
-	font-size:1.1em;
+  color:#F90;
+  font-weight:bold;
+  background-color:#fff;
+  font-size:1.1em;
 }
 
 .summary fieldset#approval label{
-	width: 45px;
-	border: 0px solid red;
-	margin-bottom:5px;
-	margin-right:5px;
-	float: left;
-	clear: left;
+  width: 45px;
+  border: 0px solid red;
+  margin-bottom:5px;
+  margin-right:5px;
+  float: left;
+  clear: left;
 }
 
 .summary fieldset#approval input{
-	width: auto;
-	float: left;
-	border: 0px solid #515f8d;
+  width: auto;
+  float: left;
+  border: 0px solid #515f8d;
 }
 
 .summary fieldset#approval img{
-	float: left;
-	border: 0px solid #515f8d;
+  float: left;
+  border: 0px solid #515f8d;
 }
 .summary fieldset#approval legend img{
-	float: none;
-	border: 0px solid #515f8d;
+  float: none;
+  border: 0px solid #515f8d;
 }
 
 .summary fieldset#approval label#activity_approver_label{
-	width: 20px;		
-	clear: left;
+  width: 20px;
+  clear: left;
 }
 
 .summary fieldset#approval label#activity_review_on_label{
-	width: 60px;		
+  width: 60px;
 }
 
 .summary fieldset#approval #activity_approver {
-	width: 198px;
-	border: 1px solid #979595;
-	margin: 0px;
-	margin-bottom: 10px;
+  width: 198px;
+  border: 1px solid #979595;
+  margin: 0px;
+  margin-bottom: 10px;
 }
 
 .summary fieldset#approval #activity_review_on {
-	width: 155px;
-	border: 1px solid #979595;
-	margin: 0px;
-	margin-bottom: 10px;
+  width: 155px;
+  border: 1px solid #979595;
+  margin: 0px;
+  margin-bottom: 10px;
 }
 
 .summary fieldset#approval #approval_submit input{
-	float: right;
-	width: 100px;
-	font-family: Tahoma, Verdana, Arial, Sans-Serif;
-	font-size: 1em;
-	padding: 4px 5px;
-	font-weight: bold;
-	color: #FFF;
-	background-color: #515f8d;
-	border: 2px solid #F90;
-	cursor: pointer;
-	margin-top: 10px;
+  float: right;
+  width: 100px;
+  font-family: Tahoma, Verdana, Arial, Sans-Serif;
+  font-size: 1em;
+  padding: 4px 5px;
+  font-weight: bold;
+  color: #FFF;
+  background-color: #515f8d;
+  border: 2px solid #F90;
+  cursor: pointer;
+  margin-top: 10px;
 }
 
 .summary fieldset#approval .toggleHelp{
-	margin-left: 5px;
+  margin-left: 5px;
 }
 
 /*end of approval box styles*/
@@ -137,250 +137,250 @@ html/**/>body.summary fieldset#approval{
 /*section summary styles*/
 
 .summary fieldset.section_summary_header, .summary fieldset.section_summary_show{
-	border-top: 2px solid #515f8d;
-	margin-bottom:20px;
-	margin-top: 0px;
-	padding:0px 5px 20px 5px;	
+  border-top: 2px solid #515f8d;
+  margin-bottom:20px;
+  margin-top: 0px;
+  padding:0px 5px 20px 5px;
 }
 
 .summary fieldset.section_summary_show{
-	border: 2px solid #515f8d;
+  border: 2px solid #515f8d;
 }
 
 .summary fieldset.section_summary_header legend, .summary fieldset.section_summary_show legend{
-	color: #515f8d;
-	font-size:1.1em;
-	font-weight:bold;	
+  color: #515f8d;
+  font-size:1.1em;
+  font-weight:bold;
 }
 
 .summary fieldset.section_summary_show h4{
-	margin-left: 20px;
+  margin-left: 20px;
 }
 
 .summary fieldset.section_summary_show h5{
-	margin-left: 20px;
-	line-height:2em;
-	margin-bottom:-15px;	
+  margin-left: 20px;
+  line-height:2em;
+  margin-bottom:-15px;
 }
 
 .summary fieldset.section_summary_header legend.section_summary_toggles, .summary fieldset.section_summary_show legend.section_summary_toggles{
-	float:right;
-	font-size:1em;
-	font-weight:normal;
-	margin-top: -20px;
-	padding: 0px 5px;
-	background-color:#fff;
-	text-align:right;
-	line-height:18px;
+  float:right;
+  font-size:1em;
+  font-weight:normal;
+  margin-top: -20px;
+  padding: 0px 5px;
+  background-color:#fff;
+  text-align:right;
+  line-height:18px;
 }
 
 .summary fieldset.section_summary_header legend.section_summary_toggles{
-	width: 100px;
-} 
+  width: 100px;
+}
 
 .summary fieldset.section_summary_show legend.section_summary_toggles{
-	width: 60px;
+  width: 60px;
 }
 
 .summary fieldset.section_summary_header legend.section_summary_toggles img, .summary fieldset.section_summary_show legend.section_summary_toggles img{
-	margin-left:5px;
-	margin-top:2px;
-	float: right;
+  margin-left:5px;
+  margin-top:2px;
+  float: right;
 }
 
 .summary fieldset.section_summary_show label{
-	width: 380px;
+  width: 380px;
 }
 
 .summary fieldset.section_summary_show #action_planning{
-	margin-bottom:20px;
-	float:left;
-	clear: left;
+  margin-bottom:20px;
+  float:left;
+  clear: left;
 }
 
 .summary fieldset.section_summary_show #action_planning label{
-	width: 100px;
-	margin-left: 20px;
-	font-weight:bold;
+  width: 100px;
+  margin-left: 20px;
+  font-weight:bold;
 }
 
 .summary fieldset.section_summary_show .labelled{
-	float: left;
-	width: 150px;
-	line-height:20px;
-	font-weight:bold;
+  float: left;
+  width: 150px;
+  line-height:20px;
+  font-weight:bold;
 }
 
 .summary .issues{
-	float:left;
-	width: 150px;
-	border: 1px solid #fff;
-	margin-top: 4px;	
-	font-size: 1em;
+  float:left;
+  width: 150px;
+  border: 1px solid #fff;
+  margin-top: 4px;
+  font-size: 1em;
 }
 
 .summary .issues ul{
-	padding-left:0px;
-	list-style-position: inside;
-	list-style-type: decimal-leading-zero;
+  padding-left:0px;
+  list-style-position: inside;
+  list-style-type: decimal-leading-zero;
 }
 
 
 /*new organisation styles*/
 form.new_organisation fieldset, form.edit_organisation fieldset, #show_organisation fieldset{
-	border-top:2px solid #F90;
-	padding-left:0px;
+  border-top:2px solid #F90;
+  padding-left:0px;
 }
 form.new_organisation legend, form.edit_organisation legend, #show_organisation legend{
-	color:#F90;
-	font-weight:bold;
-	background-color:#fff;
-	font-size:1.1em;
+  color:#F90;
+  font-weight:bold;
+  background-color:#fff;
+  font-size:1.1em;
 }
 form.new_organisation label, form.edit_organisation label, #show_organisation label{
-	width: 200px;
+  width: 210px;
 }
 form.new_organisation .labelled, form.edit_organisation labelled, #show_organisation .labelled{
-	float: left;
-	width: 150px;
-	line-height:20px;
-	font-weight:bold;
+  float: left;
+  width: 150px;
+  line-height:20px;
+  font-weight:bold;
 }
 form#new_organisation label.long, form#new_organisation .labelled.long, form#edit_organisation label.long, form#edit_organisation .labelled.long, #show_organisation label.long{
-	width: 600px;
+  width: 600px;
 }
 .help_example {
-float:left; 
+float:left;
 margin-left:5px;
 margin-top:10px;
 }
 
 html/**/>body .help_example {
-float:left; 
+float:left;
 margin-left:75px;
 margin-top:5px;
 }
 
 #show_organisation fieldset.organisation_customisation .labelled.long.indent{
-	width: 600px;
+  width: 600px;
 }
 
 form#show_organisation fieldset .organisation_customisation,form#new_organisation fieldset.organisation_customisation{
-	margin-bottom:20px;
+  margin-bottom:20px;
 
 }
 form#new_organisation .labelled.long input, form.edit_organisation .labelled.long input {
-	width: auto;
-	margin-left:20px;
-	border: none;
+  width: auto;
+  margin-left:20px;
+  border: none;
 
 }
 form#new_organisation .directorates ul, form.edit_organisation .directorates ul {
-	list-style: none;
-	padding:0px;
-	margin-left:20px;
+  list-style: none;
+  padding:0px;
+  margin-left:20px;
 }
 #show_organisation .directorates ul{
-	font-weight:bold;
-	padding:0px;
-	margin-left:20px;
-	margin-top: 20px;
-	list-style-type: lower-roman;
-	list-style-position:inside;
+  font-weight:bold;
+  padding:0px;
+  margin-left:20px;
+  margin-top: 20px;
+  list-style-type: lower-roman;
+  list-style-position:inside;
 }
 
 form.new_organisation .directorates .sub_button, form.edit_organisation .directorates .sub_button {
-	margin-left:20px;
+  margin-left:20px;
 }
 .indent{
-	margin-left: 20px;
+  margin-left: 20px;
 }
 
 /*directorates*/
 
 .directorates{
-	float:left;
-	width: 600px;	
-	margin-top: 4px;	
-	font-size: 1em;
-	margin-top:0px;
-	 margin-bottom:20px;
-	 text-align:left;
-	margin-right: 0px;
+  float:left;
+  width: 600px;
+  margin-top: 4px;
+  font-size: 1em;
+  margin-top:0px;
+   margin-bottom:20px;
+   text-align:left;
+  margin-right: 0px;
 }
 
 .directorates .directorate{
-	clear: left;
-	width: 100%;
-	float:left;
-	text-align: right;
-	margin-left: 0px;
-	margin-bottom: 10px;
-	margin-top:10px;
+  clear: left;
+  width: 100%;
+  float:left;
+  text-align: right;
+  margin-left: 0px;
+  margin-bottom: 10px;
+  margin-top:10px;
 }
 .directorates .directorate a img{
-	float:left;
-	margin-top: 4px;
-	margin-left: 6px;
+  float:left;
+  margin-top: 4px;
+  margin-left: 6px;
 }
 
 .directorates input{
-	float:left;
-	width:400px;
-	margin-right:5px;
-	margin-left:20px;
+  float:left;
+  width:400px;
+  margin-right:5px;
+  margin-left:20px;
 }
 
 #add_link{
-	float: left;
-	margin-top: 10px;
-	margin-left: 20px;
+  float: left;
+  margin-top: 10px;
+  margin-left: 20px;
 }
 
 #add_link img{
-	margin-right:5px;
-	float: left;
+  margin-right:5px;
+  float: left;
 }
 
 #add_link a, #add_link a:visited, #add_link a:hover{
-	text-decoration:underline;
-	color: #515f8d;
+  text-decoration:underline;
+  color: #515f8d;
 }
 #questiontext{
-	background-color: #e4edf7;
-	padding: 10px 20px;
-	margin-bottom: 20px;
+  background-color: #e4edf7;
+  padding: 10px 20px;
+  margin-bottom: 20px;
 }
 
 #show table{
-	width:100%;
-	border:none;
-	text-align:left;
-} 
+  width:100%;
+  border:none;
+  text-align:left;
+}
 #show table th{
-	width:100%;
-	text-align:left;
-	font-weight:bold;
-	padding:20px 10px 10px 10px;
+  width:100%;
+  text-align:left;
+  font-weight:bold;
+  padding:20px 10px 10px 10px;
 }
 
 #show table td.label{
-	width:60%;
-	border:none;
-	text-align:left;
-	padding:5px 10px;
+  width:60%;
+  border:none;
+  text-align:left;
+  padding:5px 10px;
 }
 
 #show table td.labelled{
-	width: 200px;
-	vertical-align:top;
-	text-align:left;
+  width: 200px;
+  vertical-align:top;
+  text-align:left;
 }
 
 #show table td.labelled ul{
-	margin-left: 15px;
-	padding-left: 0px;
+  margin-left: 15px;
+  padding-left: 0px;
 }
 #show table td.labelled img{
-	margin-bottom: -2px;
+  margin-bottom: -2px;
 }
