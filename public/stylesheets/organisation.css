@@ -2,7 +2,7 @@
   width: 200px; }
 #show_organisation .labelled {
   float: left;
-  width: 150px;
+  width: 300px;
   line-height: 20px;
   font-weight: bold; }
 #show_organisation fieldset {
@@ -21,48 +21,146 @@
       width: 600px; }
     #show_organisation fieldset .organisation_customisation .indent {
       margin-left: 20px; }
-    #show_organisation fieldset .organisation_customisation .directorates {
+
+form.new_organisation fieldset {
+  border-top: 2px solid #F90;
+  padding-left: 0px; }
+  form.new_organisation fieldset legend {
+    color: #F90;
+    font-weight: bold;
+    background-color: #fff;
+    font-size: 1.1em; }
+  form.new_organisation fieldset label {
+    width: 200px; }
+    form.new_organisation fieldset label .long {
+      width: 600px; }
+  form.new_organisation fieldset .labelled {
+    float: left;
+    width: 300px;
+    line-height: 20px;
+    font-weight: bold; }
+    form.new_organisation fieldset .labelled .long {
+      width: 600px; }
+  form.new_organisation fieldset .labelled.long input {
+    width: auto;
+    margin-left: 0px;
+    float: left;
+    border: none; }
+  form.new_organisation fieldset .labelled.long .answer {
+    width: 250px;
+    float: left; }
+
+form.edit_organisation fieldset {
+  border-top: 2px solid #F90;
+  padding-left: 0px; }
+  form.edit_organisation fieldset legend {
+    color: #F90;
+    font-weight: bold;
+    background-color: #fff;
+    font-size: 1.1em; }
+  form.edit_organisation fieldset label {
+    width: 200px; }
+    form.edit_organisation fieldset label .long {
+      width: 600px; }
+  form.edit_organisation fieldset .labelled {
+    float: left;
+    width: 300px;
+    line-height: 20px;
+    font-weight: bold; }
+    form.edit_organisation fieldset .labelled .long {
+      width: 600px; }
+  form.edit_organisation fieldset .labelled.long input {
+    width: auto;
+    margin-left: 0px;
+    border: none;
+    float: left; }
+  form.edit_organisation fieldset .labelled.long .answer {
+    width: 250px;
+    float: left; }
+
+.directorates {
+  float: left;
+  width: 600px;
+  font-size: 1em;
+  margin: 0px 0px 20px 0px;
+  text-align: left; }
+  .directorates .directorate {
+    clear: left;
+    width: 100%;
+    float: left;
+    text-align: right;
+    margin: 10px 0px; }
+    .directorates .directorate a img {
       float: left;
-      width: 600px;
-      font-size: 1em;
-      margin: 0px 0px 20px 0px;
-      text-align: left; }
-      #show_organisation fieldset .organisation_customisation .directorates .directorate {
-        clear: left;
-        width: 100%;
-        float: left;
-        text-align: right;
-        margin: 10px 0px; }
-        #show_organisation fieldset .organisation_customisation .directorates .directorate a img {
-          float: left;
-          margin-top: 4px;
-          margin-left: 6px; }
-      #show_organisation fieldset .organisation_customisation .directorates input {
-        float: left;
-        width: 400px;
-        margin-right: 5px;
-        margin-left: 20px; }
-      #show_organisation fieldset .organisation_customisation .directorates #add_link {
-        float: left;
-        margin-top: 10px;
-        margin-left: 20px; }
-        #show_organisation fieldset .organisation_customisation .directorates #add_link img {
-          margin-right: 5px;
-          float: left; }
-        #show_organisation fieldset .organisation_customisation .directorates #add_link a,
-        #show_organisation fieldset .organisation_customisation .directorates #add_link:visited,
-        #show_organisation fieldset .organisation_customisation .directorates #add_link:hover {
-          text-decoration: underline;
-          color: #515f8d; }
-      #show_organisation fieldset .organisation_customisation .directorates ul {
-        font-weight: bold;
-        padding: 0px;
-        margin-left: 20px;
-        margin-top: 20px;
-        list-style-type: lower-roman;
-        list-style-position: inside; }
+      margin-top: 4px;
+      margin-left: 6px; }
+  .directorates input {
+    float: left;
+    width: 400px;
+    margin-right: 5px;
+    margin-left: 20px; }
+  .directorates #add_link {
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px; }
+    .directorates #add_link img {
+      margin-right: 5px;
+      float: left; }
+    .directorates #add_link a,
+    .directorates #add_link:visited,
+    .directorates #add_link:hover {
+      text-decoration: underline;
+      color: #515f8d; }
+  .directorates ul {
+    font-weight: bold;
+    padding: 0px;
+    margin-left: 20px;
+    margin-top: 20px;
+    list-style-type: lower-roman;
+    list-style-position: inside; }
+
+.organisation_managers {
+  float: left;
+  width: 600px;
+  font-size: 1em;
+  margin: 0px 0px 20px 0px;
+  text-align: left; }
+  .organisation_managers .organisation_manager {
+    clear: left;
+    width: 100%;
+    float: left;
+    text-align: right;
+    margin: 10px 0px; }
+    .organisation_managers .organisation_manager a img {
+      float: left;
+      margin-top: 4px;
+      margin-left: 6px; }
+  .organisation_managers input {
+    float: left;
+    width: 400px;
+    margin-right: 5px;
+    margin-left: 20px; }
+  .organisation_managers #add_link {
+    float: left;
+    margin-top: 10px;
+    margin-left: 20px; }
+    .organisation_managers #add_link img {
+      margin-right: 5px;
+      float: left; }
+    .organisation_managers #add_link a,
+    .organisation_managers #add_link:visited,
+    .organisation_managers #add_link:hover {
+      text-decoration: underline;
+      color: #515f8d; }
+  .organisation_managers ul {
+    font-weight: bold;
+    padding: 0px;
+    margin-left: 20px;
+    margin-top: 20px;
+    list-style-type: lower-roman;
+    list-style-position: inside; }
 
 .help_example {
   float: left;
-  margin-left: 75px;
+  margin-left: 45px;
   margin-top: 5px; }

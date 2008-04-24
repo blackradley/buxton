@@ -1,0 +1,118 @@
+%h3 Activity Summary Page
+%span#pdf_link
+  = link_to "#{image_tag('icons/pdf.gif')} View PDF report", {:action => 'view_pdf', :id => @activity.id}, :target => '_blank', :title => 'PDF Report' 
+.summary
+  %h4
+    =h @activity.name
+
+  -form_for(:activity, :url => {:action => 'update'}) do |f|
+    %fieldset#approval
+      %legend 
+        Approval
+        = link_to_function image_tag("icons/help.gif"), "Element.toggle('approval_help')"
+      %span#approval_help.toggleHelp{:style=>"display:none;"}
+        %p The assessment should be approved by the line manager of the Activity Manager who is completing the assessment. It is the Activity Manager's responsibility to obtain evidence of this approval. The approving manager's name should be included in the text box.
+      %label Approved?
+      = f.check_box :approved
+      %label#activity_approver_label By:
+      = f.text_field :approver
+      %br
+      %label#activity_review_on_label Review On:
+      = f.text_field :review_on 
+      %span#approval_submit
+        = submit_tag "Save", :disable_with => 'Saving...'
+
+
+  %table#summarytable{:cellpadding=>"0", :cellspacing=>"0"}
+    %tr
+      %td
+        %label Contact:
+      %td.labelled
+        = link_to @activity.activity_manager.email, "mailto:#{h @activity.activity_manager.email}?subject=#{ h @activity.name}"
+    %tr
+      %td
+        %label Last changed:
+      %td.labelled
+        = date_or_blank(@activity.updated_on)
+    %tr
+      %td
+        %label Percentage completed:</label></td>
+      %td.labelled
+        = progress_bar(@activity.percentage_answered)
+    %tr
+      %td
+        %label Strands identified as relevant:</label></td>
+      %td.labelled
+        = @relevant_strands_string
+
+  .clear
+  
+  %h4 Section Summaries:
+  
+  #purpose_top{:style=>"display:block;"}
+    %fieldset.section_summary_header
+      %legend Purpose
+      %legend.section_summary_toggles
+        = link_to_function '<img src="/images/arrow_out.jpg">view summary ', "Element.toggle('show_purpose'); Element.toggle('purpose_top')", :title => 'View Summary'
+
+
+  #show_purpose{:style=>"display:none;"}
+    %fieldset.section_summary_show
+      %legend Purpose
+      %legend.section_summary_toggles
+        = link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_purpose'); Element.toggle('purpose_top')", :title => 'Close Summary View'
+      = render 'sections/show_purpose'
+
+  -if @activity.relevant_strands.size > 0 then 
+    #impact_top{:style=>"display:block;"}
+      %fieldset.section_summary_header
+        %legend Impact
+        %legend.section_summary_toggles
+          = link_to_function '<img src="/images/arrow_out.jpg">view summary ', "Element.toggle('show_impact'); Element.toggle('impact_top')", :title => 'View Summary'
+
+    #show_impact{:style=>"display:none;"}
+      %fieldset.section_summary_show
+        %legend Impact
+        %legend.section_summary_toggles
+          = link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_impact'); Element.toggle('impact_top')", :title => 'Close Summary View'
+        = render 'sections/show_impact'
+
+    #consultation_top{:style=>"display:block;"}
+      %fieldset.section_summary_header
+        %legend Consultation
+        %legend.section_summary_toggles
+          = link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_consultation'); Element.toggle('consultation_top')", :title => 'View Summary'
+          
+    #show_consultation{:style=>"display:none;"}
+      %fieldset.section_summary_show
+        %legend Consultation
+        %legend.section_summary_toggles
+          = link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_consultation'); Element.toggle('consultation_top')", :title => 'Close Summary View'
+        = render 'sections/show_consultation'
+
+
+    #additional_work_top{:style=>"display:block;"}
+      %fieldset.section_summary_header
+        %legend Additional Work
+        %legend.section_summary_toggles
+          = link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_additional_work'); Element.toggle('additional_work_top')", :title => 'View Summary'
+
+    #show_additional_work{:style=>"display:none;"}
+      %fieldset.section_summary_show
+        %legend Additional Work
+        %legend.section_summary_toggles
+          = link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_additional_work'); Element.toggle('additional_work_top')", :title => 'Close Summary View'
+        = render 'sections/show_additional_work'
+
+    #action_planning_top{:style=>"display:block;"}
+      %fieldset.section_summary_header
+        %legend Action Planning
+        %legend.section_summary_toggles
+          = link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_action_planning'); Element.toggle('action_planning_top')", :title => 'View Summary'
+
+    #show_action_planning{:style=>"display:none;"}
+      %fieldset.section_summary_show
+        %legend Action Planning
+        %legend.section_summary_toggles
+          = link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_action_planning'); Element.toggle('action_planning_top')", :title => 'Close Summary View'
+        = render 'sections/show_action_planning'
