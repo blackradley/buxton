@@ -1,0 +1,26 @@
+%h1 Administrative Users
+%table
+  %tr
+    %th
+    %th Email
+    %th Last changed
+    %th
+    %th
+    %th
+  - for user in @admins
+    %tr
+      %td
+        = link_to 'Email Reminder', {:action => 'remind', :id => user}, :confirm => 'Send new key?', :method => :post
+      %td
+        =h user.email
+      %td
+        =h user.updated_on.to_formatted_s(:date_time12)
+      %td
+        =h user.activity
+      %td
+        = link_to 'Edit', :action => 'edit', :id => user
+      %td
+        = link_to 'Delete', { :action => 'destroy', :id => user }, :confirm => 'Delete?', :method => :post
+
+%br
+= link_to 'New Administrator', :action => 'new'

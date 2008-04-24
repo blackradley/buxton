@@ -1,0 +1,27 @@
+= error_messages_for 'administrator'
+
+%p
+  %label Email
+  %br
+  = text_field 'administrator', 'email'
+
+%p
+  %label Created on
+  %br
+  =h date_or_blank(@admin.created_on)
+
+%p
+  %label Updated on
+  %br
+  =h date_or_blank(@admin.updated_on)
+  
+%p
+  %label Reminded on
+  %br
+  =h date_or_blank(@admin.reminded_on)
+
+
+
+
+
+

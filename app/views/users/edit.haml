@@ -1,0 +1,8 @@
+%h1 Editing User
+
+- form_tag :action => 'update', :id => @admin do
+  = render :partial => 'form'
+	%span.button
+    = submit_tag 'Save', :disable_with => 'Saving...'
+    
+= link_to 'List Admins', :action => 'list'

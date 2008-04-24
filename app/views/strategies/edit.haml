@@ -1,0 +1,13 @@
+%h2 
+  Editing
+  = @organisation.name 
+  Strategy
+#strategy_edit
+  - form_for [@organisation, @strategy] do |f|
+    = render :partial => 'form'
+    %span.button
+      = submit_tag "Save", :disable_with => 'Saving...'
+
+
+  %span.button
+    = link_to 'Back', organisation_strategies_url(@organisation)
