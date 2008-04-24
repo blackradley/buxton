@@ -1,1 +1,0 @@
-page["directorate-#{@directorate.id}"].remove

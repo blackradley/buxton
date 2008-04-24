@@ -26,13 +26,13 @@
 # in the system.
 #
 class Organisation < ActiveRecord::Base
-  has_one :organisation_manager, :dependent => :destroy
+  has_many :organisation_managers, :dependent => :destroy
   has_many :directorates, :dependent => :destroy
   has_many :strategies, :dependent => :destroy
   has_many :activities, :through => :directorates
 
-  validates_presence_of :organisation_manager
-  validates_associated :organisation_manager
+  validates_presence_of :organisation_managers
+  validates_associated :organisation_managers
   validates_associated :directorates
   validates_associated :strategies
   validates_presence_of :name, :message => 'All organisations must have a name'
@@ -42,6 +42,7 @@ class Organisation < ActiveRecord::Base
   validates_format_of :ces_link, :with => URI::regexp(['http','https','ftp']), :unless => Proc.new { |o| o.ces_link.blank? }
 
   after_update :save_directorates
+  after_update :save_organisation_managers
 
   def strategy_text
     button_selected = self.strategy_text_selection
@@ -57,7 +58,7 @@ class Organisation < ActiveRecord::Base
   def hashes
     @@Hashes
   end
-  
+
   def progress_table
     table = []
     section_names = self.hashes['section_names']
@@ -68,7 +69,7 @@ class Organisation < ActiveRecord::Base
       table << [section, section_data.to_a]
     end
     return table
-  end  
+  end
 
   def results_table
     results_table = { 1 => { :high => 0, :medium => 0, :low => 0 },
@@ -82,9 +83,9 @@ class Organisation < ActiveRecord::Base
     for activity in self.activities
       if activity.completed then
         begin
-	results_table[activity.priority_ranking][activity.impact_wording] += 1
-	rescue
-	end
+  results_table[activity.priority_ranking][activity.impact_wording] += 1
+  rescue
+  end
       end
     end
     return results_table
@@ -127,10 +128,12 @@ class Organisation < ActiveRecord::Base
 
   def directorate_attributes=(directorate_attributes)
     directorate_attributes.each do |attributes|
+      next if attributes[:name].blank?
       if attributes[:id].blank?
         directorates.build(attributes)
       else
         directorate = directorates.detect { |d| d.id == attributes[:id].to_i }
+        #attributes.delete(:id)
         directorate.attributes = attributes
       end
     end
@@ -145,6 +148,30 @@ class Organisation < ActiveRecord::Base
       end
     end
   end
+
+  def organisation_manager_attributes=(organisation_manager_attributes)
+    organisation_manager_attributes.each do |attributes|
+      next if attributes[:email].blank?
+      if attributes[:id].blank?
+        organisation_managers.build(attributes)
+      else
+        organisation_manager = organisation_managers.detect{ |om| om.id == attributes[:id].to_i }
+        #attributes.delete(:id)
+        organisation_manager.attributes = attributes
+      end
+    end
+  end
+
+  def save_organisation_managers
+    organisation_managers.each do |om|
+      if om.should_destroy?
+        om.destroy
+      else
+        om.save(false)
+      end
+    end
+  end
+
 
   def directorate_string
     if self.directorate_term and !self.directorate_term.blank? then

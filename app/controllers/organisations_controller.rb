@@ -28,23 +28,19 @@ class OrganisationsController < ApplicationController
   def show
     @organisation = Organisation.find(params[:id])
     @directorates = @organisation.directorates
-    @organisation_manager = @organisation.organisation_manager
+    @organisation_managers = @organisation.organisation_managers
   end
 
   # Create a new Organisation and a new associated User
   # Available to: Administrator
   def new
     @organisation = Organisation.new
-    @organisation_manager = @organisation.build_organisation_manager
   end
 
   # Create a new organisation and a new user based on the parameters on the form.
   # Available to: Administrator
   def create
     @organisation = Organisation.new(params[:organisation])
-    @organisation_manager = @organisation.build_organisation_manager(params[:organisation_manager])
-    @organisation_manager.passkey = OrganisationManager.generate_passkey(@organisation_manager)
-
     Organisation.transaction do
       @organisation.save!
       flash[:notice] = "#{@organisation.name} was created."
@@ -57,7 +53,7 @@ class OrganisationsController < ApplicationController
   # Available to: Administrator
   def edit
     @organisation = Organisation.find(params[:id])
-    @organisation_manager = @organisation.organisation_manager
+    @organisation_managers = @organisation.organisation_managers
   end
 
   # Update the organisation and all of its attributes
@@ -66,8 +62,6 @@ class OrganisationsController < ApplicationController
     @organisation = Organisation.find(params[:id])
     Organisation.transaction do
       @organisation.update_attributes!(params[:organisation])
-      @organisation_manager = @organisation.organisation_manager
-      @organisation_manager.update_attributes!(params[:organisation_manager])
       flash[:notice] = "#{@organisation.name} was successfully changed."
       redirect_to organisations_url
     end
@@ -90,7 +84,7 @@ class OrganisationsController < ApplicationController
       :filename => "#{@organisation.name}.pdf",
       :type => "application/pdf"
   end
-  
+
 protected
   # Secure the relevant methods in the controller.
   def secure?

@@ -12,8 +12,11 @@
     =h @activity.activity_type
 
 %p
-  Impact Equality&trade; is an automated tool to help with equality impact assessments.  You have been asked to take a lead on the assessment of the activity identified above. If this is news to you, please contact
-  = link_to @organisation_manager.email, "mailto:#{@organisation_manager.email}"
+  Impact Equality&trade; is an automated tool to help with equality impact assessments.  You have been asked to take a lead on the assessment of the activity identified above. If this is news to you, please contact one of the following managers for your organisation:
+  %ul
+    -@organisation_managers.each do |organisation_manager|
+      %li
+        = link_to organisation_manager.email, "mailto:#{organisation_manager.email}"
 %p
   You will see three tabs at the top of this page. You are currently in the first of these (Home). The Questions tab is the starting point for the assessment itself   and the Summary tab shows you what you have done so far. To start the assessment please click on the Questions tab or Next button below.
 %p

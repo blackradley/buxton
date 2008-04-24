@@ -2,7 +2,7 @@
 
 #pdf_link{:style=>"width:auto;"}
   = image_tag('icons/add.gif')
-  = link_to 'New organisation', new_organisation_url 
+  = link_to 'New organisation', new_organisation_url
   %br
 
 %table
@@ -11,21 +11,22 @@
     %th Editor
     %th{:nowrap=>"nowrap"}Last Reminder
     %th
-  - for organisation in @organisations  
-    %tr
-      %td.left{:nowrap=>"nowrap"}
-        =h organisation.name
-      %td
-        = link_to organisation.organisation_manager.email, "mailto:#{organisation.organisation_manager.email}?subject=#{organisation.name}", :title =>"Email" 
-      %td
-        = date_or_blank(organisation.organisation_manager.reminded_on)
-      %td.actions{:nowrap=>"nowrap"}
-        = link_to image_tag('icons/login.gif'), organisation.organisation_manager.url_for_login(request) , :title =>"Login"
-        = link_to image_tag('icons/strategies.gif'), organisation_strategies_url(organisation), :title =>"Strategies" 
-        = link_to image_tag('icons/eye.gif'), organisation, :title =>"View"
-        = link_to image_tag('icons/remind.gif'), { :controller => 'users', :action => 'remind', :id => organisation.organisation_manager}, :confirm => "Send reminder for #{organisation.name} to #{organisation.organisation_manager.email}?", :method => :post, :title =>"Remind"
-        = link_to image_tag('icons/edit.gif'), edit_organisation_url(organisation), :title =>"Edit" 
-        = link_to image_tag('icons/delete.gif'), organisation, :confirm => "Delete #{organisation.name}?", :method => :delete, :title =>"Delete"
+  - for organisation in @organisations
+    - organisation.organisation_managers.each do |organisation_manager|
+      %tr
+        %td.left{:nowrap=>"nowrap"}
+          = if organisation_manager == organisation.organisation_managers.first then h organisation.name else "" end
+        %td
+          = link_to organisation_manager.email, "mailto:#{organisation_manager.email}?subject=#{organisation.name}", :title =>"Email"
+        %td
+          = date_or_blank(organisation_manager.reminded_on)
+        %td.actions{:nowrap=>"nowrap"}
+          = link_to image_tag('icons/login.gif'), organisation_manager.url_for_login(request) , :title =>"Login"
+          = link_to image_tag('icons/strategies.gif'), organisation_strategies_url(organisation), :title =>"Strategies"
+          = link_to image_tag('icons/eye.gif'), organisation, :title =>"View"
+          = link_to image_tag('icons/remind.gif'), { :controller => 'users', :action => 'remind', :id => organisation_manager}, :confirm => "Send reminder for #{organisation.name} to #{organisation_manager.email}?", :method => :post, :title =>"Remind"
+          = link_to image_tag('icons/edit.gif'), edit_organisation_url(organisation), :title =>"Edit"
+          = link_to image_tag('icons/delete.gif'), organisation, :confirm => "Delete #{organisation.name}?", :method => :delete, :title =>"Delete"
 
 %br
 = will_paginate(@organisations) unless @organisations.blank?
