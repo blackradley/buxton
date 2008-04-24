@@ -1,0 +1,24 @@
+%h2
+  = @organisation.name 
+  Strategies
+%span#pdf_link{:style=>"width:auto;"}
+  = image_tag('icons/add.gif')
+  = link_to "Add new strategy", new_organisation_strategy_url(@organisation)
+%table
+  %tr
+    %th.left{:style=>"width:90%;"} Name
+    %th
+  - for strategy in @strategies
+    %tr
+      %td.left
+        =h strategy.name
+      %td.actions{:nowrap=>"nowrap"}
+        = link_to image_tag('icons/eye.gif'), organisation_strategy_url(@organisation, strategy), :title =>"View"
+        = link_to image_tag('icons/edit.gif'), edit_organisation_strategy_url(@organisation, strategy), :title =>"Edit"
+        = link_to image_tag('icons/delete.gif'), organisation_strategy_url(@organisation, strategy), :confirm => "Delete #{strategy.name}?", :method => :delete, :title =>"Delete"
+
+%span.button{:style=>"float:right;"}
+  = link_to 'Re-order strategies', reorder_organisation_strategies_url(@organisation)
+
+%span.button
+  = link_to 'Back', organisations_url

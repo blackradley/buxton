@@ -1,0 +1,11 @@
+%h2 
+  New
+  = @organisation.name 
+  Strategy
+#strategy_new
+  - form_for [@organisation, @strategy] do |f|
+    = render :partial => 'form'
+    %span.button{:style=>"float:none;"}
+      = submit_tag "Create", :disable_with => 'Creating...'
+  %span.button
+    = link_to 'Back', organisation_strategies_url(@organisation)

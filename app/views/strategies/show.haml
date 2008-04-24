@@ -1,0 +1,17 @@
+%h2 Strategy Details
+#strategy_details
+  - for column in Strategy.content_columns  
+    %p
+      %label
+        = column.human_name
+      %span.labelled
+        =h @strategy.send(column.name)
+
+  .clear
+  
+%span.button
+  = link_to 'Back', organisation_strategies_url(@organisation)
+  
+%span.button{:style=>"float:right;"}
+  = link_to 'Edit', edit_organisation_strategy_url(@organisation, @strategy)
+.clear

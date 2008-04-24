@@ -1,0 +1,122 @@
+- @section = 'impact'
+
+#show
+  %table
+    %tr
+      %th.h4 Impact by Equality Group
+
+  - if @activity.relevant_strands.include? 'gender' then
+    %table
+      %tr
+        %th Men and Women
+        %th Answers to Date
+      = answer(@activity, :impact, :gender, [1,2,3])
+      - if @activity.existing? then
+        = answer(@activity, :impact, :gender, [4,5,6,7])
+      = answer(@activity, :impact, :gender, [8,9])
+      - issues = @activity.issues_by(@section, 'gender') 
+      - if issues.size > 0 then
+        %tr
+          %td.label Please record the issues identified
+          %td.labelled  
+            %ul
+              -issues.each do |issue| 
+                %li
+                  =h issue.description
+                  
+  - if @activity.relevant_strands.include? 'race' then
+    %table
+      %tr
+        %th People from different ethnic backgrounds
+        %th Answers to Date
+      = answer(@activity, :impact, :race, [1,2,3])
+      - if @activity.existing? then
+        = answer(@activity, :impact, :race, [4,5,6,7])
+      = answer(@activity, :impact, :race, [8,9])
+      - issues = @activity.issues_by(@section, 'race') 
+      - if issues.size > 0 then
+        %tr
+          %td.label Please record the issues identified
+          %td.labelled  
+            %ul
+              -issues.each do |issue| 
+                %li
+                  =h issue.description
+                  
+  - if @activity.relevant_strands.include? 'disability' then
+    %table
+      %tr
+        %th People with different kinds of disability
+        %th Answers to Date
+      = answer(@activity, :impact, :disability, [1,2,3])
+      - if @activity.existing? then
+        = answer(@activity, :impact, :disability, [4,5,6,7])
+      = answer(@activity, :impact, :disability, [8,9])
+      - issues = @activity.issues_by(@section, 'disability') 
+      - if issues.size > 0 then
+        %tr
+          %td.label Please record the issues identified
+          %td.labelled  
+            %ul
+              -issues.each do |issue| 
+                %li
+                  =h issue.description
+
+  - if @activity.relevant_strands.include? 'faith' then
+    %table
+      %tr
+        %th People from different faith groups
+        %th Answers to Date
+      = answer(@activity, :impact, :faith, [1,2,3])
+      - if @activity.existing? then
+        = answer(@activity, :impact, :faith, [4,5,6,7])
+      = answer(@activity, :impact, :faith, [8,9])
+      - issues = @activity.issues_by(@section, 'faith') 
+      - if issues.size > 0 then
+        %tr
+          %td.label Please record the issues identified
+          %td.labelled  
+            %ul
+              -issues.each do |issue| 
+                %li
+                  =h issue.description
+
+  - if @activity.relevant_strands.include? 'sexual_orientation' then
+    %table
+      %tr
+        %th People of different sexual orientations
+        %th Answers to Date
+      = answer(@activity, :impact, :sexual_orientation, [1,2,3])
+      - if @activity.existing? then
+        = answer(@activity, :impact, :sexual_orientation, [4,5,6,7])
+      = answer(@activity, :impact, :sexual_orientation, [8,9])
+      - issues = @activity.issues_by(@section, 'sexual_orientation') 
+      - if issues.size > 0 then
+        %tr
+          %td.label Please record the issues identified
+          %td.labelled  
+            %ul
+              -issues.each do |issue| 
+                %li
+                  =h issue.description
+
+  - if @activity.relevant_strands.include? 'age' then
+    %table
+      %tr
+        %th People of different ages
+        %th Answers to Date
+      = answer(@activity, :impact, :age, [1,2,3])
+      - if @activity.existing? then
+        = answer(@activity, :impact, :age, [4,5,6,7])
+      = answer(@activity, :impact, :age, [8,9])
+      - issues = @activity.issues_by(@section, 'age') 
+      - if issues.size > 0 then
+        %tr
+          %td.label Please record the issues identified
+          %td.labelled  
+            %ul
+              -issues.each do |issue| 
+                %li
+                  =h issue.description
+
+  = "There are no relevant equality strands to consider, therefore no questions were asked for this section of the tool." if @activity.strands.size == 0
