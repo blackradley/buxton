@@ -25,7 +25,7 @@ class ActivitiesController < ApplicationController
     @activity = @current_user.activity
     @organisation = @current_user.activity.organisation
     @ces_term = @organisation.ces_term || "Corporate Equality Scheme"
-    @organisation_manager = @activity.organisation.organisation_manager
+    @organisation_managers = @activity.organisation.organisation_managers
   end
 
   # These are summary statistics for all the activities within this organisation.

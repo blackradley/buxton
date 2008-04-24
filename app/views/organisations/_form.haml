@@ -7,15 +7,20 @@
   list.innerHTML = list.innerHTML + "<li><input id=\"directorates[]\" type=\"text\" name=\"directorates[]\"/></li>";
   }
 %p
-  %label Email
-  .labelled
-    = text_field 'organisation_manager', 'email', 'size' => 50
-
-%p
   %label Name
   .labelled
     = text_field 'organisation', 'name', 'size' => 50
-
+%fieldset.organisation_customisation
+  %legend Organisation Managers
+  -fields_for :organisation_manager do |org_man_fields|
+    .organisation_managers
+      #organisation_managers_list
+        = render :partial => 'users/organisation_manager', :collection => @organisation.organisation_managers
+      %span#add_link{:style=>"width:auto;"}
+        = image_tag('icons/add.gif')
+        = link_to_function "Add an Organisation Manager" do |page|
+          - page.insert_html :bottom, :organisation_managers_list, :partial => 'users/organisation_manager', :object => OrganisationManager.new
+      .clear
 %fieldset.organisation_customisation
   %legend Customisation
   %p

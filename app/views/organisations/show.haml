@@ -2,26 +2,28 @@
   =h @organisation.name
 
 #show_organisation
+%fieldset.organisation_customisation
+  %legend Organisation Managers
+-@organisation_managers.each do |organisation_manager|
+  %p
+    %label Email
+    %span.labelled
+      = link_to organisation_manager.email, "mailto:#{organisation_manager.email}"
+  %p
+    %label Last Reminded
+    %span.labelled
+      = date_or_blank(organisation_manager.reminded_on)
 
-%p
-  %label Email
-  %span.labelled
-    = link_to @organisation_manager.email, "mailto:#{@organisation_manager.email}"
-
-%p
-  %label Last Reminded
-  %span.labelled
-    = date_or_blank(@organisation_manager.reminded_on)
-
-%p
-  %label Created
-  %span.labelled
-    = date_or_blank(@organisation.created_on)
-
-%p
-  %label Last Updated
-  %span.labelled
-    = date_or_blank(@organisation.updated_on)
+%fieldset.organisation_customisation
+  %legend Organisation Details
+  %p
+    %label Created
+    %span.labelled
+      = date_or_blank(@organisation.created_on)
+  %p
+    %label Last Updated
+    %span.labelled
+      = date_or_blank(@organisation.updated_on)
 
 %fieldset.organisation_customisation
   %legend Customisation
