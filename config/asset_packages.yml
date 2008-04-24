@@ -13,7 +13,6 @@ stylesheets:
 # error.css is never called through Rails so not included here
 - base: 
   - prototip
-  - main
   - general
   - links
   - buttons
@@ -29,6 +28,7 @@ stylesheets:
   - formatting
   - questions
   - organisation
+  - summaryPage
 # create per-customer packages for customising in the future and conditional includes
 - alisonmclean:
   - organisations/alisonmclean

@@ -8,7 +8,7 @@
   }
 %p
   %label Name
-  .labelled
+  %span.labelled
     = text_field 'organisation', 'name', 'size' => 50
 %fieldset.organisation_customisation
   %legend Organisation Managers
@@ -25,30 +25,30 @@
   %legend Customisation
   %p
     %label Style:
-    .labelled
+    %span.labelled
       = text_field 'organisation', 'style'
   %p
     %label Localised term for 'CES document':
-    .labelled
+    %span.labelled
       = text_field 'organisation', 'ces_term'
   %p
     %label Link to CES document:
-    .labelled
+    %span.labelled
       = text_field 'organisation', 'ces_link'
     %span.help_example e.g. http://organisation.org/CES.pdf
   %p
     %label Localised term for 'Directorate':
-    .labelled
+    %span.labelled
       = text_field 'organisation', 'directorate_term'
   %p
     %label.long Text to be used when asking about an Activities strategies:
     %br
-    .labelled.long
+    %span.labelled.long
       = radio_button :organisation, :strategy_text_selection, 0
-      "How do you contribute to our goals?"
+      %span.answer "How do you contribute to our goals?"
       %br
       = radio_button :organisation, :strategy_text_selection, 1
-      "For each strategy, please decide whether it is going to be significantly aided by the activity"
+      %span.answer "For each strategy, please decide whether it is going to be significantly aided by the activity"
       %br
 %fieldset.organisation_customisation
   %legend Directorates

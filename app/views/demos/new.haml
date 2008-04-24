@@ -1,0 +1,22 @@
+%h2 Demonstration
+%p Impact Equality&trade; is a system for helping managers undertake equalities impact assessments on their own activities.
+%p At its heart are three sets of simple questions:
+%ul
+  %li Purpose (Section 1): establishes how relevant the activity is to equalities considerations 
+  %li Impact (Section 2): reviews how well the activity is performing, particularly from an equalities perspective 
+  %li Consultation (Section 3): examines how robust that performance assessment is. 
+
+%p Impact Equality&trade; has two levels of access:
+%ul
+  %li Organisation Equalities Manager: staff with equalities responsibility across the organisation who monitor and control the overall Impact Equality&trade; environment
+  %li  Activity Manager: operational staff, responsible for the various activities of the organisation.
+%p This is a demonstration version of Impact Equality&trade;. Only the impact section is functional. To start the demonstration version, input your email address below. This will enable you to set up a new organisation, or access an organisation you have already created.
+
+= error_messages_for 'organisation_manager'
+
+- form_tag demos_url do
+  %p
+    %label E-mail:
+    = text_field :organisation_manager, :email, :size => 50
+  %span.button
+    = submit_tag 'Access your demonstration organisation', :disable_with => 'Setting it up now...'
