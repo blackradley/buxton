@@ -67,18 +67,16 @@ module ApplicationHelper
     if @current_user.nil?
       ''
     else
-      case @current_user.class.name
+      organisation = case @current_user.class.name
         when 'ActivityManager'
-          @current_user.activity.organisation.organisation_terminologies.find_by_terminology_id(assoc_term.id).value.to_s
+          @current_user.activity.organisation
         when 'OrganisationManager'
-          @current_user.organisation.organisation_terminologies.find_by_terminology_id(assoc_term.id).value.to_s
+          @current_user.organisation
         when 'DirectorateManager'
-          @current_user.directorate.organisation.organisation_terminologies.find_by_terminology_id(assoc_term.id).value.to_s
-        when 'Administrator'
-          'This should not be viewable by an Administrator'
-        else
-          'Login status unknown.'
+          @current_user.directorate.organisation
       end
+      terminology = organisation.organisation_terminologies.find_by_terminology_id(assoc_term.id)
+      terminology ? terminology.value : term
     end
   end
 
