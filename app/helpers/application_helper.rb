@@ -26,6 +26,7 @@ module ApplicationHelper
     # image_tag(url_for(options))
   end
 
+
   # Extend the date formats to include some British styley ones
   ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
     :default => "%m/%d/%Y %H:%M",
@@ -61,6 +62,25 @@ module ApplicationHelper
     end
   end
 
+  def ot(term)
+    assoc_term = Terminology.find_by_term(term)
+    if @current_user.nil?
+      ''
+    else
+      case @current_user.class.name
+        when 'ActivityManager'
+          @current_user.activity.organisation.organisation_terminologies.find_by_terminology_id(assoc_term.id).value.to_s
+        when 'OrganisationManager'
+          @current_user.organisation.organisation_terminologies.find_by_terminology_id(assoc_term.id).value.to_s
+        when 'DirectorateManager'
+          @current_user.directorate.organisation.organisation_terminologies.find_by_terminology_id(assoc_term.id).value.to_s
+        when 'Administrator'
+          'This should not be viewable by an Administrator'
+        else
+          'Login status unknown.'
+      end
+    end
+  end
 
   def question_details(section, strand, questions)
     info_array = []

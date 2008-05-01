@@ -31,10 +31,11 @@
     %label Style:
     %span.labelled
       = @organisation.style
-  %p
-    %label Localised term for 'CES document':
-    %span.labelled
-      = @organisation.ces_term
+  - @organisation.organisation_terminologies.each do |org_term|
+    %p
+      %label=h "#{org_term.terminology.term.to_s}:"
+      %span.labelled
+        = org_term.value.to_s
   %p
     %label Link to CES document:
     %span.labelled

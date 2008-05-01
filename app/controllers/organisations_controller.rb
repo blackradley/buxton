@@ -35,6 +35,9 @@ class OrganisationsController < ApplicationController
   # Available to: Administrator
   def new
     @organisation = Organisation.new
+    @organisation_terminologies = Terminology.find(:all).map do |term|
+      @organisation.organisation_terminologies.build(:value => term.term, :terminology_id => term.id)
+    end
   end
 
   # Create a new organisation and a new user based on the parameters on the form.
@@ -54,6 +57,7 @@ class OrganisationsController < ApplicationController
   def edit
     @organisation = Organisation.find(params[:id])
     @organisation_managers = @organisation.organisation_managers
+    @organisation_terminologies = @organisation.organisation_terminologies
   end
 
   # Update the organisation and all of its attributes

@@ -6,12 +6,12 @@
     = @activity.hashes['header_help_text']['purpose_overall_1'][@activity.fun_pol_number][@activity.exist_prop_number].to_s
   %h3
     =image_tag ("icons/strategies.gif")
-    Strategy Description:
+    ="#{ot('strategy').titleize} Description:"
   -if !activity_strategy.strategy.description.blank? then
     .help
       = simple_format(activity_strategy.strategy.description)
   -else
-    %p.nohelp Sorry - no description for this strategy.
+    %p.nohelp=h "Sorry - no description for this #{ot('strategy')}."
   %h3
     =image_tag ("icons/comment.gif")
     Comment for report:
