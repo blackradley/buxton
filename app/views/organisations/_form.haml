@@ -28,10 +28,6 @@
     %span.labelled
       = text_field 'organisation', 'style'
   %p
-    %label Localised term for 'CES document':
-    %span.labelled
-      = text_field 'organisation', 'ces_term'
-  %p
     %label Link to CES document:
     %span.labelled
       = text_field 'organisation', 'ces_link'
@@ -50,6 +46,13 @@
       = radio_button :organisation, :strategy_text_selection, 1
       %span.answer "For each strategy, please decide whether it is going to be significantly aided by the activity"
       %br
+%fieldset.organisation_customisation
+  %legend Localised terminologies
+  -fields_for :organisation_terminologies do |org_term_field|
+    .organisation_terminologies
+      #organisation_terminologies_list
+        = render :partial => 'organisation_terminologies/organisation_terminology', :collection => @organisation_terminologies
+      .clear
 %fieldset.organisation_customisation
   %legend Directorates
   -fields_for :directorate do |directorate_fields|

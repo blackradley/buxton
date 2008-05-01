@@ -24,7 +24,6 @@ class ActivitiesController < ApplicationController
   def index
     @activity = @current_user.activity
     @organisation = @current_user.activity.organisation
-    @ces_term = @organisation.ces_term || "Corporate Equality Scheme"
     @organisation_managers = @activity.organisation.organisation_managers
   end
 

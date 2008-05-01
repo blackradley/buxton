@@ -30,9 +30,10 @@ class Organisation < ActiveRecord::Base
   has_many :directorates, :dependent => :destroy
   has_many :strategies, :dependent => :destroy
   has_many :activities, :through => :directorates
+  has_many :organisation_terminologies, :dependent => :destroy
 
   validates_presence_of :organisation_managers
-  validates_associated :organisation_managers
+  validates_associated :organisation_terminologies
   validates_associated :directorates
   validates_associated :strategies
   validates_presence_of :name, :message => 'All organisations must have a name'
@@ -133,7 +134,7 @@ class Organisation < ActiveRecord::Base
         directorates.build(attributes)
       else
         directorate = directorates.detect { |d| d.id == attributes[:id].to_i }
-        #attributes.delete(:id)
+        attributes.delete(:id)
         directorate.attributes = attributes
       end
     end
@@ -156,7 +157,7 @@ class Organisation < ActiveRecord::Base
         organisation_managers.build(attributes)
       else
         organisation_manager = organisation_managers.detect{ |om| om.id == attributes[:id].to_i }
-        #attributes.delete(:id)
+        attributes.delete(:id)
         organisation_manager.attributes = attributes
       end
     end
@@ -172,9 +173,20 @@ class Organisation < ActiveRecord::Base
     end
   end
 
+  def organisation_terminology_attributes=(org_term_attributes)
+    org_term_attributes.each do |attributes|
+      unless attributes['id'].blank? then
+        organisation_terminology = self.organisation_terminologies.find(attributes['id'])
+        organisation_terminology.update_attributes(:value => attributes[:value])
+      else
+        attributes.delete('id')
+        self.organisation_terminologies.build(attributes).save
+      end
+    end
+  end
 
   def directorate_string
-    if self.directorate_term and !self.directorate_term.blank? then
+    unless self.directorate_term.blank? then
       self.directorate_term.capitalize
     else
       "Directorate"
