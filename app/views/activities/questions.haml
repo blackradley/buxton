@@ -20,7 +20,7 @@
             -ep_options = @activity.hashes['existing_proposed']['choices']
             = f.select :existing_proposed, @activity.hashes['choices'][ep_options].collect {|option| [option , @activity.hashes['choices'][ep_options].index(option)] }
         %span.submit
-          =submit_tag "save", :disable_with => 'saving...'
+          =submit_tag "save", {:disable_with => 'saving...', :id => 'save_activity_type_button'}
 -if @activity.started
   .step#two
     .stepImage
