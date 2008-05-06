@@ -110,7 +110,7 @@ form.edit_organisation fieldset {
     .directorates #add_link:visited,
     .directorates #add_link:hover {
       text-decoration: underline;
-      color: #515f8d; }
+      color: #4e979e; }
   .directorates ul {
     font-weight: bold;
     padding: 0px;
@@ -151,7 +151,7 @@ form.edit_organisation fieldset {
     .organisation_managers #add_link:visited,
     .organisation_managers #add_link:hover {
       text-decoration: underline;
-      color: #515f8d; }
+      color: #4e979e; }
   .organisation_managers ul {
     font-weight: bold;
     padding: 0px;

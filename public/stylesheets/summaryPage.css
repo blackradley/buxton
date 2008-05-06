@@ -29,7 +29,7 @@
     font-size: 1.1em; }
     .summary fieldset#approval legend img {
       float: none;
-      border: 0px solid #515f8d;
+      border: 0px solid #4e979e;
       margin-bottom: -3px; }
   .summary fieldset#approval label {
     width: 45px;
@@ -46,10 +46,10 @@
   .summary fieldset#approval input {
     width: auto;
     float: left;
-    border: 0px solid #515f8d; }
+    border: 0px solid #4e979e; }
   .summary fieldset#approval img {
     float: left;
-    border: 0px solid #515f8d; }
+    border: 0px solid #4e979e; }
   .summary fieldset#approval #activity_approver {
     width: 198px;
     border: 1px solid #979595;
@@ -68,17 +68,17 @@
     padding: 4px 5px;
     font-weight: bold;
     color: #FFF;
-    background-color: #515f8d;
+    background-color: #4e979e;
     border: 2px solid #F90;
     cursor: pointer;
     margin-top: 10px; }
 .summary fieldset.section_summary_header {
-  border-top: 2px solid #515f8d;
+  border-top: 2px solid #4e979e;
   margin-bottom: 20px;
   margin-top: 0px;
   padding: 0px 5px 20px 5px; }
   .summary fieldset.section_summary_header legend {
-    color: #515f8d;
+    color: #4e979e;
     font-size: 1.1em;
     font-weight: bold; }
   .summary fieldset.section_summary_header legend.section_summary_toggles {
@@ -95,13 +95,13 @@
       margin-top: 2px;
       float: right; }
 .summary fieldset.section_summary_show {
-  border-top: 2px solid #515f8d;
+  border-top: 2px solid #4e979e;
   margin-bottom: 20px;
   margin-top: 0px;
   padding: 0px 5px 20px 5px;
-  border: 2px solid #515f8d; }
+  border: 2px solid #4e979e; }
   .summary fieldset.section_summary_show legend {
-    color: #515f8d;
+    color: #4e979e;
     font-size: 1.1em;
     font-weight: bold; }
   .summary fieldset.section_summary_show legend.section_summary_toggles {

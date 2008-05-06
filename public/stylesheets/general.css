@@ -10,7 +10,7 @@ h2,
 h3,
 h4,
 h5 {
-  color: #515f8d;
+  color: #4e979e;
   font-weight: bold;
   margin: 0px;
   padding: 10px 0px;
@@ -22,7 +22,7 @@ h1 {
 
 h2 {
   font-weight: normal;
-  color: #F90;
+  color: #4e979e;
   font-size: 1.5em; }
 
 h3 {
@@ -65,13 +65,13 @@ label {
 select,
 input {
   width: 224px;
-  border: 1px solid #515f8d;
+  border: 1px solid #4e979e;
   margin-top: 4px;
   font-size: 1em; }
 
 textarea {
   width: 220px;
-  border: 1px solid #515f8d;
+  border: 1px solid #4e979e;
   margin-top: 4px;
   height: 60px;
   font-family: Tahoma, Verdana, Arial, Sans-Serif;

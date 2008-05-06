@@ -15,7 +15,7 @@
     .step .stepBox h2 {
       float: left;
       width: 580px;
-      color: #515f8d;
+      color: #4e979e;
       font-weight: bold;
       font-size: 1.2em;
       margin: 0px;
@@ -51,7 +51,7 @@
         float: left;
         clear: none;
         font-weight: bold;
-        color: #515f8d;
+        color: #4e979e;
         position: relative; }
         .step .stepBox .checkStrand label .strandRelevant {
           float: left;
@@ -92,6 +92,6 @@
         border: none;
         text-align: left;
         text-decoration: underline;
-        color: #515f8d;
+        color: #4e979e;
         margin-left: 0px;
         padding-left: 0px; }
