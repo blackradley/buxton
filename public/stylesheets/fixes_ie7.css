@@ -26,3 +26,8 @@ h4 .h4_link {
 #questions .more textarea {
   width: 230px;
   margin-left: 0px; }
+
+.help_example {
+  float: left;
+  margin-left: 65px;
+  margin-top: 0px; }
