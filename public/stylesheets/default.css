@@ -31,7 +31,7 @@ BODY
 
 #body_footer {
 	padding: 30px;
-	color: #515F8D;
+	color: #4e979e;
 	font-size:0.9em;
 }
 
@@ -846,7 +846,7 @@ width: 318px;
 }
 
 #questions li.issue span.issueDetails p.question.sub input.issues_button{
-  background-color:#515F8D;
+  background-color:#4e979e;
   border:2px solid #FF9900;
   clear:both;
   color:#FFFFFF;

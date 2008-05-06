@@ -1,6 +1,6 @@
 #menu {
   width: 700px;
-  background-color: #515f8d;
+  background-color: #4e979e;
   height: 30px; }
 
 #menuBar ul {
@@ -17,7 +17,7 @@
       text-decoration: none;
       color: #FFF;
       display: block;
-      background-color: #a8afc6;
+      background-color: #7ab9c0;
       padding: 0 1em;
       line-height: 25px;
       font-weight: bold;
@@ -33,7 +33,7 @@
         cursor: pointer; }
       #menuBar ul li a:hover {
         background-color: #fff;
-        color: #515f8d; }
+        color: #4e979e; }
   #menuBar ul .disabled a {
     text-decoration: none;
     color: #FFF;
@@ -56,8 +56,8 @@
       background-color: #aeb1ab;
       color: #fff; }
   #menuBar ul .selected a {
-    color: #515f8d;
+    color: #4e979e;
     background-color: #fff; }
     #menuBar ul .selected a:visited {
-      color: #515f8d;
+      color: #4e979e;
       background-color: #fff; }

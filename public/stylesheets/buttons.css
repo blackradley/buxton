@@ -8,9 +8,12 @@
   padding: 4px 20px;
   font-weight: bold;
   color: #FFF;
-  background-color: #515f8d;
-  border: 2px solid #F90;
+  background-color: #4e979e;
+  background-image: url(../images/button_bg.gif);
+  border: 2px solid #7ab9c0;
   cursor: pointer; }
+  .button input:hover {
+    background-image: url(../images/button_on_bg.gif); }
 
 .button a {
   float: left;
@@ -21,8 +24,9 @@
   padding: 5px 20px;
   font-weight: bold;
   color: #FFF;
-  background-color: #515f8d;
-  border: 2px solid #F90;
+  background-color: #4e979e;
+  background-image: url(../images/button_bg.gif);
+  border: 2px solid #7ab9c0;
   text-decoration: none; }
   .button a:visited {
     float: left;
@@ -33,6 +37,8 @@
     padding: 5px 20px;
     font-weight: bold;
     color: #FFF;
-    background-color: #515f8d;
-    border: 2px solid #F90;
+    background-color: #4e979e;
+    border: 2px solid #7ab9c0;
     text-decoration: none; }
+  .button a:hover {
+    background-image: url(../images/button_on_bg.gif); }
