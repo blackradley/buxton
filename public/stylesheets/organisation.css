@@ -1,32 +1,35 @@
 #show_organisation label {
   width: 200px; }
+#show_organisation legend {
+  color: #4e979e;
+  font-weight: bold;
+  background-color: #fff;
+  font-size: 1.1em; }
 #show_organisation .labelled {
   float: left;
   width: 300px;
   line-height: 20px;
   font-weight: bold; }
 #show_organisation fieldset {
-  border-top: 2px solid #F90;
+  border-top: 2px solid #4e979e;
   padding-left: 0px; }
-  #show_organisation fieldset .organisation_customisation {
-    margin-bottom: 20px; }
-    #show_organisation fieldset .organisation_customisation legend {
-      color: #F90;
-      font-weight: bold;
-      background-color: #fff;
-      font-size: 1.1em; }
-    #show_organisation fieldset .organisation_customisation label {
-      float: none; }
-    #show_organisation fieldset .organisation_customisation .long {
+#show_organisation .organisation_customisation {
+  margin-bottom: 20px; }
+  #show_organisation .organisation_customisation fieldset {
+    border-top: 2px solid #F90;
+    padding-left: 0px; }
+    #show_organisation .organisation_customisation fieldset labelled {
+      float: left; }
+    #show_organisation .organisation_customisation fieldset .long {
       width: 600px; }
-    #show_organisation fieldset .organisation_customisation .indent {
+    #show_organisation .organisation_customisation fieldset .indent {
       margin-left: 20px; }
 
 form.new_organisation fieldset {
-  border-top: 2px solid #F90;
+  border-top: 2px solid #4e979e;
   padding-left: 0px; }
   form.new_organisation fieldset legend {
-    color: #F90;
+    color: #4e979e;
     font-weight: bold;
     background-color: #fff;
     font-size: 1.1em; }
@@ -51,10 +54,10 @@ form.new_organisation fieldset {
     float: left; }
 
 form.edit_organisation fieldset {
-  border-top: 2px solid #F90;
+  border-top: 2px solid #4e979e;
   padding-left: 0px; }
   form.edit_organisation fieldset legend {
-    color: #F90;
+    color: #4e979e;
     font-weight: bold;
     background-color: #fff;
     font-size: 1.1em; }
