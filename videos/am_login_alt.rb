@@ -12,15 +12,13 @@ if LIVE
   ishowu_start_recording
 end
 
-# Activity Manager opens their email
-
-# Clicks on the access key for a new activity
+# Act Mgr log in for ‘Develop service user engagement strategy’
 launch 'Safari', at(100, 50, 1024, 768)
 url 'http://192.168.0.2:3000/cc533d9de98744a379c47b8df037242c6738ed4f'
 
 pause 4
 
-# Move to drop-down
+# Click no for CES question and then click on link to CES.
 move to_element('#activity_ces_question')
 pause 1
 
@@ -38,24 +36,23 @@ highlight do
   click
 end
 
-# Go to the activity type page
 pause 3
 
-# Move to drop-down
+# Click next, then Policy, then Proposed, then save, show section 2 appearing.
 move to_element('#activity_function_policy')
 pause 1
 
 highlight do
   pause 2  
-  # Select existing function
-  drag by(0, 10)
+  # Select proposed policy
+  drag by(0, 20)
   
   # Pause a bit
   pause 1
     
   move to_element('#activity_existing_proposed')
   pause 1
-  drag by(0, 10)
+  drag by(0, 20)
   
   # Pause a bit
   pause 2  
