@@ -1,10 +1,4 @@
-%h1#questions
-  =h @activity.name 
-  <br />
-  =link_to image_tag('icons/previous.gif', :class =>'previous'), { :action => 'edit', :id => 'consultation', :equality_strand => @equality_strand }, :title =>"Previous Section"  
-  = @equality_strand.titleize + " - "
-  Additional Work
-  = link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'action_planning', :equality_strand => @equality_strand }, :title =>"Next Section" 
+%h1#questions=h @activity.name + " - " + @equality_strand.titleize + " - Additional Work"
 #questiontext
   %p Below is some feedback generated from your previous answers:
   %ul

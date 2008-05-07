@@ -1,10 +1,4 @@
-%h1#questions
-  =h @activity.name 
-  <br />
-  = link_to image_tag('icons/previous.gif', :class =>'previous'), { :action => 'edit', :id => 'additional_work', :equality_strand => @equality_strand }, :title =>"Previous Section"
-  = @equality_strand.titleize + " - "
-  Action Planning
-  = image_tag('icons/no_next.gif', :class =>'next')
+%h1#questions=h @activity.name + " - " + @equality_strand.titleize + " - Action Planning"
 
 -hashes = @activity.hashes
 
