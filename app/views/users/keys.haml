@@ -20,6 +20,8 @@
             %li
               %h4
                 = directorate.name
+                - if DirectorateManager.find_by_directorate_id(directorate.id)
+                  = link_to DirectorateManager.find_by_directorate_id(directorate.id).email, DirectorateManager.find_by_directorate_id(directorate.id).url_for_login(request)
               %ul
                 - directorate.activities.each do |activity|
                   %li

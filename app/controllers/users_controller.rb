@@ -171,6 +171,9 @@ class UsersController < ApplicationController
         when 'ActivityManager'
           LoginLog.create(:message => %Q[<a href="mailto:#{user.email}">#{user.email}</a>, activity manager of <strong>#{user.activity.name}</strong> for <strong>#{user.activity.organisation.name}</strong> logged in.])
           redirect_to :controller => 'activities', :action => 'index'
+        when 'DirectorateManager'
+          LoginLog.create(:message => %Q[<a href="mailto:#{user.email}">#{user.email}</a>, directorate manager of <strong>#{user.directorate.name}</strong> logged in.])
+          redirect_to :controller => 'activities', :action => 'summary'
         when 'OrganisationManager'
           LoginLog.create(:message => %Q[<a href="mailto:#{user.email}">#{user.email}</a>, organisation manager of <strong>#{user.organisation.name}</strong> logged in.])
           redirect_to :controller => 'activities', :action => 'summary'
@@ -184,6 +187,7 @@ class UsersController < ApplicationController
     return unless DEV_MODE
     @administrators = Administrator.find(:all)
     @organisation_managers = OrganisationManager.find(:all, :include => {:organisation => {:activities => :activity_manager}})
+    @directorate_managers = DirectorateManager.find(:all)
     render :layout => 'keys'
   end
   
