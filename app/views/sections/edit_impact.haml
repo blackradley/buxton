@@ -1,11 +1,5 @@
 -@section = 'impact'
-%h1#questions
-  =h @activity.name
-  %br
-  = link_to image_tag('icons/no_previous.gif', :class =>'previous')
-  = @equality_strand.titleize + " - "
-  Impact
-  = link_to image_tag('icons/next.gif', :class =>'next'), { :action => 'edit', :id => 'consultation', :equality_strand => @equality_strand }, :title =>"Next Section"
+%h1#questions=h @activity.name + " - " + @equality_strand.titleize + " - Impact"
 #questions
   -form_for(:activity, :url => {:action => 'update'}) do |f|
     = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [1,2,3]), :locals => {:f => f}
