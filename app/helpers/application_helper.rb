@@ -238,6 +238,9 @@ module ApplicationHelper
                         { :text => 'View Log',
                           :url => { :controller => 'logs' },
                           :title => 'Organisations - View Log of Activity' },
+                        { :text => 'Edit Help Text',
+                          :url => {:controller => 'help_text', :action => 'edit'},
+                          :title =>'View and Edit Question Help Texts' },
                         { :text => 'New Demo',
                           :url => { :controller => 'demos', :action => 'new' },
                           :title => 'Create a New Demo' }
