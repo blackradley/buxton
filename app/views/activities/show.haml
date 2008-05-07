@@ -5,22 +5,22 @@
   %h4
     =h @activity.name
 
-  -form_for(:activity, :url => {:action => 'update'}) do |f|
-    %fieldset#approval
-      %legend 
-        Approval
-        = link_to_function image_tag("icons/help.gif"), "Element.toggle('approval_help')"
-      %span#approval_help.toggleHelp{:style=>"display:none;"}
-        %p The assessment should be approved by the line manager of the Activity Manager who is completing the assessment. It is the Activity Manager's responsibility to obtain evidence of this approval. The approving manager's name should be included in the text box.
-      %label Approved?
-      = f.check_box :approved
-      %label#activity_approver_label By:
-      = f.text_field :approver
-      %br
-      %label#activity_review_on_label Review On:
-      = f.text_field :review_on 
-      %span#approval_submit
-        = submit_tag "Save", :disable_with => 'Saving...'
+  / -form_for(:activity, :url => {:action => 'update'}) do |f|
+  /   %fieldset#approval
+  /     %legend 
+  /       Approval
+  /       = link_to_function image_tag("icons/help.gif"), "Element.toggle('approval_help')"
+  /     %span#approval_help.toggleHelp{:style=>"display:none;"}
+  /       %p The assessment should be approved by the line manager of the Activity Manager who is completing the assessment. It is the Activity Manager's responsibility to obtain evidence of this approval. The approving manager's name should be included in the text box.
+  /     %label Approved?
+  /     = f.check_box :approved
+  /     %label#activity_approver_label By:
+  /     = f.text_field :approver
+  /     %br
+  /     %label#activity_review_on_label Review On:
+  /     = f.text_field :review_on 
+  /     %span#approval_submit
+  /       = submit_tag "Save", :disable_with => 'Saving...'
 
 
   %table#summarytable{:cellpadding=>"0", :cellspacing=>"0"}
