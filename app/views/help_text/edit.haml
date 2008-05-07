@@ -1,0 +1,23 @@
+#help_questions
+  -form_for(:help_text, :url => {:controller => 'help_text', :action => 'update'}) do |f|
+    -Activity.sections.each do |section|
+      - unless @split_texts.select{|text_options| text_options[0][0].to_s == section.to_s}.blank? then
+        .help_text_controls
+          %h4= section.to_s.titleize
+          %p
+            = link_to_function image_tag('arrow_out.png' ), "Element.toggle(help_#{section.to_s}); Element.toggle('close_help_#{section.to_s}'); Element.toggle('open_help_#{section.to_s}'); document.getElementById('close_help_#{section.to_s}').focus()", :id => "open_help_#{section.to_s}" unless @split_texts.select{|text_options| text_options[0][0].to_s == section.to_s}.blank?
+            = link_to_function image_tag('arrow_in.png'), "Element.toggle(help_#{section.to_s}); Element.toggle('open_help_#{section.to_s}'); Element.toggle('close_help_#{section.to_s}'); document.getElementById('open_help_#{section.to_s}').focus()", :id => "close_help_#{section.to_s}", :style => 'display:none'
+        .help_section{:id => "help_#{section}".to_s, :style => 'display:none'}
+          - Activity.strands.each do |strand|
+            .help_text_controls
+              %h5= strand.to_s.titleize
+              %p
+                = link_to_function image_tag('arrow_out.png' ), "Element.toggle('help_#{section}_#{strand}'); Element.toggle('close_help_#{section}_#{strand}'); Element.toggle('open_help_#{section}_#{strand}'); document.getElementById('close_help_#{section}_#{strand}').focus()", :id => "open_help_#{section}_#{strand}" unless @split_texts.select{|text_options| text_options[0][0] == section.to_s && text_options[0][1].to_s == strand.to_s}.blank?
+                = link_to_function image_tag('arrow_in.png'), "Element.toggle('help_#{section}_#{strand}'); Element.toggle('open_help_#{section}_#{strand}'); Element.toggle('close_help_#{section}_#{strand}'); document.getElementById('open_help_#{section}_#{strand}').focus()", :id => "close_help_#{section}_#{strand}", :style => 'display:none'
+            .help_strand{:id => "help_#{section}_#{strand}".to_s, :style => 'display:none'}
+              - @split_texts.select{|sel| sel[0][0].to_s == section.to_s && sel[0][1].to_s == strand.to_s}.sort.each do |sect_strands|
+                %ul
+                  = render :partial => 'question', :collection => [sect_strands[1]]
+    %p.question
+      %span.button
+        = submit_tag 'Save', :disable_with => 'Saving...'

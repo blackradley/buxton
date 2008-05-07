@@ -6,7 +6,7 @@ class AddingTerminologies < ActiveRecord::Migration
   end
 
   def self.down
-    Terminology.find_by_term('strategy').destroy
-    Terminology.find_by_term('corporate equality scheme').destroy
+    #Terminology.find_by_term('strategy').destroy
+    #Terminology.find_by_term('corporate equality scheme').destroy
   end
 end
