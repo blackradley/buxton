@@ -1,0 +1,21 @@
+.help_section {
+  margin-left: 20px; }
+
+.help_strand {
+  margin-left: 20px; }
+  .help_strand ul {
+    padding: 0px 0px 0px 0px; }
+  .help_strand li {
+    list-style-type: none;
+    clear: left;
+    padding: 0px 10px 10px 0px; }
+  .help_strand textarea {
+    clear: left;
+    width: 500px;
+    padding: 5px 5px 0px 0px; }
+  .help_strand h5 {
+    padding: 0px 0px 0px 5px; }
+
+.help_text_controls h5, .help_text_controls h4, .help_text_controls img {
+  float: left;
+  padding: 0px 10px 10px 0px; }

@@ -805,6 +805,14 @@ def after_update
       else
         "---------"
     end
+    exist_prop_indicator = case exist_prop_number
+      when
+        "existing"
+      when 1
+        "proposed"
+      else
+        "---------"
+    end
     section = section.to_s
     strand = strand.to_s
     question = question.to_i unless question.nil?
@@ -850,13 +858,19 @@ def after_update
     label = query_hash[section][question]['label'][self.fun_pol_number][self.exist_prop_number].to_s
     type = query_hash[section][question]['type']
     choices = query_hash[section][question]['choices']
-    help = query_hash[section][question]['help'][self.fun_pol_number][self.exist_prop_number].to_s
+    help_object = HelpText.find_by_question_name("#{section}_#{strand}_#{question}")
+    if help_object.nil?
+      help_text = ""
+    else
+      text_to_send = "#{exist_prop_indicator}_#{fun_pol_indicator}"
+      help_text = help_object.send(text_to_send.to_sym)
+    end
     weights = query_hash[section][question]['weights']
     label = eval(%Q{<<"DELIM"\n} + label.to_s + "\nDELIM\n") rescue nil
-    help = eval(%Q{<<"DELIM"\n} + help.to_s + "\nDELIM\n") rescue nil
+    help_text = eval(%Q{<<"DELIM"\n} + help_text.to_s + "\nDELIM\n") rescue nil
     label.chop! unless label.nil?
-    help.chop! unless help.nil?
-    return [label, type, choices, help, weights]
+    help_text.chop! unless help_text.nil?
+    return [label, type, choices, help_text, weights]
   end
 
     #This takes a method in the form of :section_strand_number and turns it into an array [section, strand, number]

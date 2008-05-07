@@ -1,7 +1,7 @@
 # The order matters!
---- 
-javascripts: 
-- base: 
+---
+javascripts:
+- base:
   - prototype
   - effects
   - dragdrop
@@ -11,7 +11,8 @@ javascripts:
   - prototip
 stylesheets:
 # error.css is never called through Rails so not included here
-- base: 
+- base:
+  - help_text
   - prototip
   - general
   - links

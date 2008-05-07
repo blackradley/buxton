@@ -223,7 +223,7 @@ class ActivitiesController < ApplicationController
   def toggle_strand
     @activity = @current_user.activity
     @activity.toggle("#{params[:strand]}_relevant")
-    @activity.save
+    @activity.save!
     render :nothing => true
   end
 protected
