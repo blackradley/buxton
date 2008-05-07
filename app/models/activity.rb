@@ -319,7 +319,7 @@ class Activity < ActiveRecord::Base
       questions.flatten!
       questions.each do |question|
         strand = Activity.question_separation(question)[1]
-        issues_required = (self.send(question) != 2)
+        issues_required = (self.send(question) != 2 && self.send(question) != 3)
         if issues_required then
           issue_strand = self.issues.clone
           issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s}
@@ -552,9 +552,16 @@ def after_update
   end
 
   def sections
+    Activity.sections
+  end
+
+  def self.sections
     [:purpose, :impact, :consultation, :action_planning, :additional_work]
   end
 
+  def self.strands
+    Activity.find(:first).strands(true)
+  end
   def self.set_max(strand, increment)
     case strand.to_s
      when 'gender'

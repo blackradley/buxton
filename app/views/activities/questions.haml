@@ -60,7 +60,7 @@
           %span.checkStrand
             -if @activity.strand_relevant?(strand) then
               -selected = true
-            = check_box_tag(strand_name, strand_name, selected, :onclick =>"Element.toggle('row_#{strand_name}_on'); Element.toggle('row_#{strand_name}_off');")
+            = check_box_tag(strand_name, strand_name, selected, :onclick =>"Element.toggle('row_#{strand_name}_on'); Element.toggle('row_#{strand_name}_off');(#{@tag_test})? Element.hide('four'): Element.show('four');", :id => "#{strand}_checkbox")
             = observe_field(strand_name, :url => {:action => 'toggle_strand', :strand => strand, :controller => 'activities'})
             %label
               =h strand.titleize
@@ -116,18 +116,18 @@
                 %span.na -
               %td
                 %span.na -
-                
-  -if true then
-    .step#four
-      .stepImage
-        =image_tag("4.png")
-      .stepBox
-        %h2 Submit Your Answers
-        %p
-          If you are happy with your answers, all that remains for you to do is submit them to be approved. Upon submission you will no longer be able to change any of your answers. Your approver will be able to see all your answers and comments, though not your notes.
-        %p#submit_answers{:style=>"display:block;"}
-          =image_tag('icons/view.gif')
-          =link_to_function "Submit answers", "$('disable').toggle(); $('submitted_answers').toggle(); $('submit_answers').toggle();"
-        %p#submitted_answers{:style=>"display:none;"}
-          =image_tag('icons/tick.gif')
-          Thank you for submitting your answers.
+
+  .step#four{:style => (@activity.completed ? 'display:block' : 'display:none')}
+    .stepImage
+      =image_tag("4.png")
+    .stepBox
+      %h2 Submit Your Answers
+      %p
+        If you are happy with your answers, all that remains for you to do is submit them to be approved. Upon submission you will no longer be able to change any of your answers. Your approver will be able to see all your answers and comments, though not your notes.
+      %p#submit_answers{:style=>"display:block;"}
+        =image_tag('icons/view.gif')
+        =link_to_function "Submit answers", "$('disable').toggle(); $('submitted_answers').toggle(); $('submit_answers').toggle();"
+      %p#submitted_answers{:style=>"display:none;"}
+        =image_tag('icons/tick.gif')
+        Thank you for submitting your answers.
+

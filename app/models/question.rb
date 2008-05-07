@@ -41,6 +41,7 @@ class Question < ActiveRecord::Base
   #44 seconds for 1M iterations
   private
   def self.fast_split(string)
+    string = string.to_s
     splits = string.split("_")
     number_to_return = splits.last
     section_to_return = @@Hashes['questions'].keys.select{|key| key.include?(splits.first)}.first

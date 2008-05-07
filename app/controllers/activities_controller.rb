@@ -119,6 +119,12 @@ class ActivitiesController < ApplicationController
   # Available to: Activity Manager
   def questions
     @activity = @current_user.activity
+    completed_status_array = @activity.strands(true).map{|strand| [strand.to_sym, @activity.completed(nil, strand)]}
+    completed_status_hash = Hash[*completed_status_array.flatten]
+    tag_test = completed_status_hash.select{|k,v| !v}.map(&:first).map do |strand_status|
+      "($('#{strand_status.to_s}_checkbox').checked)"
+    end
+    @tag_test = "(#{tag_test.join('||')})"
   end
 
   # Update the activity status and proceed, or not, accordingly
@@ -218,7 +224,7 @@ class ActivitiesController < ApplicationController
     @activity = @current_user.activity
     @activity.toggle("#{params[:strand]}_relevant")
     @activity.save
-    render :nothing=> true
+    render :nothing => true
   end
 protected
   # Secure the relevant methods in the controller.
