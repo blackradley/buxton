@@ -27,13 +27,13 @@ end
         @@dependencies[temp[0]].push(["#{section}_#{strand}_#{question_name}", temp[1]])
       end
       if HelpText.find_by_question_name("#{section}_#{strand}_#{question_name}").blank? then
-        new_text = HelpText.new(:question_name => "#{section}_#{strand}_#{question_name}")
-        new_text.existing_function = question_data['help'][0][0].to_s
-        new_text.proposed_function = question_data['help'][0][1].to_s
-        new_text.existing_policy = question_data['help'][1][0].to_s
-        new_text.proposed_policy = question_data['help'][1][1].to_s
-        new_text.save
-      end
+              new_text = HelpText.new(:question_name => "#{section}_#{strand}_#{question_name}")
+              new_text.existing_function = question_data['help'][0][0].to_s
+              new_text.proposed_function = question_data['help'][0][1].to_s
+              new_text.existing_policy = question_data['help'][1][0].to_s
+              new_text.proposed_policy = question_data['help'][1][1].to_s
+              new_text.save
+            end
     end
   end
 end
@@ -47,13 +47,13 @@ end
       @@dependencies[temp[0]].push(["#{section}_overall_#{question_name}", temp[1]])
     end
     if HelpText.find_by_question_name("#{section}_overall_#{question_name}").blank? then
-      new_text = HelpText.new(:question_name => "#{section}_overall_#{question_name}")
-      new_text.existing_function = question_data['help'][0][0].to_s
-      new_text.proposed_function = question_data['help'][0][1].to_s
-      new_text.existing_policy = question_data['help'][1][0].to_s
-      new_text.proposed_policy = question_data['help'][1][1].to_s
-      new_text.save
-    end
+          new_text = HelpText.new(:question_name => "#{section}_overall_#{question_name}")
+          new_text.existing_function = question_data['help'][0][0].to_s
+          new_text.proposed_function = question_data['help'][0][1].to_s
+          new_text.existing_policy = question_data['help'][1][0].to_s
+          new_text.proposed_policy = question_data['help'][1][1].to_s
+          new_text.save
+        end
   end
 end
 @@dependencies.each do |dependent, children|
