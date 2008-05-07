@@ -127,4 +127,5 @@
           If you are happy with your answers, all that remains for you to do is submit them to be approved. Upon submission you will no longer be able to change any of your answers. Your approver will be able to see all your answers and comments, though not your notes.
         %p
           =image_tag('icons/view.gif')
-          =link_to  "Submit answers", { :controller => 'users', :action => 'approve', :confirm => "Submit answers for review and approval to activity approver?", :method => :post, :title =>"Submit answers"}
+          =link_to_function "Submit answers", "$('disable').toggle()", :confirm => "hi"
+

@@ -29,23 +29,26 @@
   .mastHead h2 {
     display: none; }
 
-.content .workingArea {
-  margin: 0px 20px;
-  width: 660px;
-  overflow: hidden; }
-.content .messageArea {
-  margin: 0px 20px;
-  width: 660px;
-  overflow: hidden; }
-  .content .messageArea p {
-    color: green;
-    margin-left: 0px;
-    background-image: url(../images/icons/info.gif);
-    background-repeat: no-repeat;
-    background-position: left 2px;
-    padding-left: 20px;
-    line-height: 20px;
-    margin-top: 10px; }
+.content {
+  position: relative; }
+  .content .workingArea {
+    margin: 0px 20px;
+    width: 660px;
+    overflow: hidden;
+    position: relative; }
+  .content .messageArea {
+    margin: 0px 20px;
+    width: 660px;
+    overflow: hidden; }
+    .content .messageArea p {
+      color: green;
+      margin-left: 0px;
+      background-image: url(../images/icons/info.gif);
+      background-repeat: no-repeat;
+      background-position: left 2px;
+      padding-left: 20px;
+      line-height: 20px;
+      margin-top: 10px; }
 
 .footer {
   padding: 20px;
