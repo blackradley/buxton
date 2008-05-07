@@ -11,10 +11,11 @@ module ActivitiesHelper
   # Show a tick or cross, if all the questions in the section of this activity have been answered
   #
     def completed_tag(activity, section=nil, strand=nil)
+      id = "#{strand}_#{section}_completed"
       if activity.completed(section, strand) then
-        image_tag('icons/tick.gif', :alt => "Complete", :title => "Complete")
+        image_tag('icons/tick.gif', :alt => "Complete", :title => "Complete", :id => id)
       else
-        image_tag('icons/cross.gif', :alt => "Incomplete", :title => "Incomplete")
+        image_tag('icons/cross.gif', :alt => "Incomplete", :title => "Incomplete", :id => id)
       end
     end
   #

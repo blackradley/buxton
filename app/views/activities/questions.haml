@@ -95,16 +95,16 @@
                 =h strand_name.titleize
               %td
                 = completed_tag(@activity, :impact, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => strand }, :title =>"Edit Impact"
+                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => strand }, :title =>"Edit Impact", :id => "#{strand_name}_impact_pencil"
               %td
                 = completed_tag(@activity, :consultation, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => strand }, :title =>"Edit Consultation"
+                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => strand }, :title =>"Edit Consultation", :id => "#{strand_name}_consultation_pencil"
               %td
                 = completed_tag(@activity, :additional_work, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => strand }, :title =>"Edit Additional Work"
+                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => strand }, :title =>"Edit Additional Work", :id => "#{strand_name}_additional_work_pencil"
               %td
                 = completed_tag(@activity, :action_planning, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => strand }, :title =>"Edit Action Planning"
+                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => strand }, :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
             %tr{:id => "row_#{strand_name}_off", :style => "display:#{display_off};"}
               %th.strandHeading
                 =h strand_name.titleize
@@ -122,9 +122,9 @@
       .stepImage
         =image_tag("4.png")
       .stepBox
-        %h2 Submit your Answers
+        %h2 Submit Your Answers
         %p
           Now you are happy with your answers, all that remains for you to do is submit them to be approved. Upon submission you will no longer be able to change any of your answers. Your approver will be able to see all your answers and comments, though not your notes.
         %p
           =image_tag('icons/view.gif')
-          =link_to  "Submit Answers", { :controller => 'users', :action => 'approve', :confirm => "Submit answers for review and approval to activity approver?", :method => :post, :title =>"Submit Answers"}
+          =link_to  "Submit answers", { :controller => 'users', :action => 'approve', :confirm => "Submit answers for review and approval to activity approver?", :method => :post, :title =>"Submit answers"}

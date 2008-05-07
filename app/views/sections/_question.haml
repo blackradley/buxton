@@ -16,11 +16,11 @@
     %labelled
       -case question[:input_type]    
         -when :text
-          = f.text_area question[:id]
+          = f.text_area question[:id], :id => question[:name]
         -when :string
-          = f.text_field question[:id]
+          = f.text_field question[:id], :id => question[:name]
         -when :select
-          = f.select "#{question[:id]}", question[:input_choices]
+          = f.select "#{question[:id]}", question[:input_choices], :id => question[:name]
 -else
   %p.question{:id => "#{question[:id]}", :onclick => "setFocus(\'more_#{question[:id]}\',\'#{question[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:block;"}
     %label
@@ -28,9 +28,8 @@
     %labelled
       -case question[:input_type]    
         -when :text
-          = f.text_area question[:id]
+          = f.text_area question[:id], :id => question[:name]
         -when :string
-          = f.text_field question[:id]
+          = f.text_field question[:id], :id => question[:name]
         -when :select
-          = f.select "#{question[:id]}", question[:input_choices]
-
+          = f.select "#{question[:id]}", question[:input_choices], :id => question[:name]
