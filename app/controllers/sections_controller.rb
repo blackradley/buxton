@@ -19,7 +19,16 @@ class SectionsController < ApplicationController
   # Manager to scan down.
   # Available to: Organisation Manager
   def list
-    @directorates = @current_user.organisation.directorates
+    case @current_user.class.to_s
+    when 'DirectorateManager'
+      @organisation = @current_user.directorate.organisation
+      @directorates = [@current_user.directorate]
+    when 'OrganisationManager'
+      @organisation = @current_user.organisation
+      @directorates = @organisation.directorates
+    else
+      # TODO throw an error - shouldn't ever get here
+    end
     
     unless params[:id] then
       redirect_to :id => 'purpose'

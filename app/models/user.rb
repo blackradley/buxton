@@ -51,6 +51,8 @@ class User < ActiveRecord::Base
     subdomain = case self.class.name
     when 'ActivityManager'
       subdomain_string = self.activity.organisation.style + '.'
+    when 'DirectorateManager'
+      subdomain_string = self.directorate.organisation.style + '.'
     when 'OrganisationManager'
       subdomain_string = self.organisation.style + '.'
     when 'Administrator'

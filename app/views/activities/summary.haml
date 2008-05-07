@@ -1,4 +1,9 @@
-%h3 Organisation Summary
+-case @current_user.class.to_s
+-when 'DirectorateManager'
+  %h3 Directorate Summary
+-when 'OrganisationManager'
+  %h3 Organisation Summary
+
 %span#pdf_link{:style =>"width:auto;"}
   = image_tag('icons/pdf.gif')
   View PDF report: 

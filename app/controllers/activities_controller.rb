@@ -30,14 +30,24 @@ class ActivitiesController < ApplicationController
   # These are summary statistics for all the activities within this organisation.
   # Available to: Organisation Manager
   def summary
-    @organisation = @current_user.organisation
-    @activities = @organisation.activities
-    @started = @activities.select{|a| a.started }.size
-    @completed = @activities.select{|a| a.completed }.size
-
+    case @current_user.class.to_s
+    when 'DirectorateManager'
+      @organisation = @current_user.directorate.organisation
+      @activities = @current_user.directorate.activities
+      @started = @activities.select{|a| a.started }.size
+      @completed = @activities.select{|a| a.completed }.size
+    when 'OrganisationManager'
+      @organisation = @current_user.organisation
+      @activities = @organisation.activities
+      @started = @activities.select{|a| a.started }.size
+      @completed = @activities.select{|a| a.completed }.size
+    else
+      # TODO throw an error - shouldn't ever get here
+    end
+    
     @results_table = @organisation.results_table
   end
-
+  
   # Show the summary information for a specific activity.
   # Available to: Activity Manager
   def show
@@ -53,9 +63,17 @@ class ActivitiesController < ApplicationController
   # List and provide a summary of the state of all the activities in this organisation.
   # Available to: Organisation Manager
   def list
-    @organisation = @current_user.organisation
+    case @current_user.class.to_s
+    when 'DirectorateManager'
+      @organisation = @current_user.directorate.organisation
+      @directorates = [@current_user.directorate]
+    when 'OrganisationManager'
+      @organisation = @current_user.organisation
+      @directorates = @organisation.directorates
+    else
+      # TODO throw an error - shouldn't ever get here
+    end
     @directorate_term = @organisation.directorate_string
-    @directorates = @organisation.directorates
   end
 
   # Create a new Activity and a new associated user, all activities must have single a valid User.

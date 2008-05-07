@@ -187,6 +187,26 @@ module ApplicationHelper
                                               { :controller => 'sections', :action => 'list', :id => 'action_planning' } ]
                           }
                         ])
+      when 'DirectorateManager'
+        generate_menu( [
+                        { :text => 'Summary',
+                          :url => { :controller => 'activities', :action => 'summary' },
+                          :title => 'Directorate Control Page - Summary',
+                          :status => '' },
+                        { :text => 'Activities',
+                          :url => { :controller => 'activities', :action => 'list' },
+                          :title => 'Directorate Control Page - Activities' ,
+                          :status => '' },
+                        { :text => 'Sections',
+                          :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
+                          :title => 'Directorate Control Page - Sections',
+                          :status => '',
+                          :highlight_on => [  { :controller => 'sections', :action => 'list', :id => 'impact' },
+                                              { :controller => 'sections', :action => 'list', :id => 'consultation' },
+                                              { :controller => 'sections', :action => 'list', :id => 'additional_work' },
+                                              { :controller => 'sections', :action => 'list', :id => 'action_planning' } ]
+                          }
+                        ])
       when 'ActivityManager'
          home = [
                     { :text => 'Home',

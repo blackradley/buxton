@@ -1,5 +1,11 @@
-%h3 Organisation Control Page - Sections
-%p The Activities are listed by Directorate. Click on one of the 5 assessment sections (below) to see how each Activity is progressing through the tool.
+-case @current_user.class.to_s
+-when 'DirectorateManager'
+  %h3 Directorate Control Page - Sections
+  %p Click on one of the 5 assessment sections (below) to see how each Activity is progressing through the tool.
+-when 'OrganisationManager'
+  %h3 Organisation Control Page - Sections
+  %p The Activities are listed by Directorate. Click on one of the 5 assessment sections (below) to see how each Activity is progressing through the tool.
+
 #sections_menu
   #menuBar
     = sections_menu
@@ -9,8 +15,9 @@
   = @section.titleize
 %p This shows how far the Activity owners have completed this part of the assessment tool.  You can see more information, or provide them with further help, using the icons on the right of each entry.
 -@directorates.each do |directorate|
-  %h4
-    =h directorate.name
+  -if @current_user.class.to_s == 'OrganisationManager'
+    %h4
+      =h directorate.name
   %table.list
     %tr
       %th.left Name
