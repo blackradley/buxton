@@ -8,13 +8,17 @@
       = help_text_form.hidden_field :question_name
       %h5 Existing Function Wording
       %p
+        = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][0][0] + "\nDELIM\n")
         =help_text_form.text_area :existing_function
       %h5 Proposed Function Wording
       %p
+        = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][0][1] + "\nDELIM\n")
         =help_text_form.text_area :proposed_function
       %h5 Existing Policy Wording
       %p
+        = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][1][0] + "\nDELIM\n")
         =help_text_form.text_area :existing_policy
       %h5 Proposed Policy Wording
       %p
+        = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][1][1] + "\nDELIM\n")
         =help_text_form.text_area :proposed_policy
