@@ -57,14 +57,6 @@ move to_element('#activity_impact_disability_3')
 click
 type 'strategy designed specifically to engage with people with disabilities'
 
-# # Click No for next question.
-move to_element('#activity_impact_disability_8')
-move to_element('#activity_impact_disability_6'), offset(0, -30)
-click
-pause 2
-move to_element('#activity_impact_disability_6')
-drag by(0, 30)
-
 # Click not applicable for next question.
 move to_element('#activity_impact_disability_8'), offset(0, -30)
 click
