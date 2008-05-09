@@ -52,11 +52,14 @@ class ActivitiesController < ApplicationController
   # Available to: Activity Manager
   def show
     @activity = Activity.find(@current_user.activity_id, :include => 'questions')
-
-    strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
-    @activity_strategies = Array.new(strategies.size) do |i|
-      @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
-    end
+    org_strategies = @activity.organisation.organisation_strategies 
+     @activity_org_strategies = Array.new(org_strategies.size) do |i|
+       @activity.activity_strategies.find_or_create_by_strategy_id(org_strategies[i].id)
+     end
+     dir_strategies = @activity.directorate.directorate_strategies 
+     @activity_dir_strategies = Array.new(dir_strategies.size) do |i|
+       @activity.activity_strategies.find_or_create_by_strategy_id(dir_strategies[i].id)
+     end
     @relevant_strands_string = @activity.relevant_strands.map!{|s| s.titleize}.join(', ')
   end
 
@@ -226,7 +229,7 @@ class ActivitiesController < ApplicationController
   end
 
   def view_pdf
-    if @current_user.class != ActivityManager then
+    if @current_user.class.to_s != "ActivityManager" then
       @activity = Activity.find(params[:id])
     else
       @activity = @current_user.activity
