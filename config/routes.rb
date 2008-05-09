@@ -10,14 +10,16 @@ ActionController::Routing::Routes.draw do |map|
   # The priority is based upon order of creation: first created -> highest priority.
   map.resources :organisations do |organisations|
     organisations.resources :strategies, :collection => { :reorder => :get, :update_strategy_order => :post }
+    organisations.resources :directorates
   end
-  
+
+
   # Manually create a subset of the RESTful named routes for the DemosController
   map.new_demo 'demos/new', :controller => 'demos', :action => 'new', :conditions => { :method => :get }
   map.demos 'demos', :controller => 'demos', :action => 'create', :conditions => { :method => :post }
-  
+
   map.connect 'sections/edit/:id/:equality_strand', :controller => 'sections', :action => 'edit'
-  
+
   map.keys 'keys', :controller => 'users', :action => 'keys' if DEV_MODE
 
   # Sample of regular route:
@@ -51,7 +53,7 @@ ActionController::Routing::Routes.draw do |map|
   # Install the default routes as the lowest priority.
   map.connect ':controller/:action/:id'
   map.connect ':controller/:action/:id.:format'
-  
+
   # If all else fails, may be it's a passkey?
-  map.connect ':passkey', :controller => 'users', :action => 'login', :requirements => {:passkey => /[a-f0-9]{40}/}  
+  map.connect ':passkey', :controller => 'users', :action => 'login', :requirements => {:passkey => /[a-f0-9]{40}/}
 end

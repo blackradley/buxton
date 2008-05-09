@@ -16,6 +16,11 @@
   .help_strand h5 {
     padding: 0px 0px 0px 5px; }
 
-.help_text_controls h5, .help_text_controls h4, .help_text_controls img {
-  float: left;
-  padding: 0px 10px 10px 0px; }
+.help_text_controls {
+  width: 300px; }
+  .help_text_controls h5, .help_text_controls h4 {
+    float: left;
+    padding: 0px 10px 10px 0px; }
+  .help_text_controls img, .help_text_controls a {
+    float: right;
+    padding: 0px 0px 0px 0px; }

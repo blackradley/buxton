@@ -1,0 +1,44 @@
+%h2
+  =h @directorate.name
+
+#show_organisation
+  %fieldset.organisation_customisation
+    -if @directorate.directorate_manager then
+      %legend Directorate Manager
+      %label Email
+      %span.labelled
+        = link_to @directorate.directorate_manager.email, "mailto:#{@directorate.directorate_manager.email}"
+      %p
+        %label Last Reminded
+        %span.labelled
+          = date_or_blank(@directorate.directorate_manager.reminded_on)
+
+  %fieldset.organisation_customisation
+    %legend Directorate Details
+    %p
+      %label Created
+      %span.labelled
+        = date_or_blank(@directorate.created_on)
+    %p
+      %label Last Updated
+      %span.labelled
+        = date_or_blank(@directorate.updated_on)
+
+  %fieldset.organisation_customisation
+    %legend Strategies
+    -fields_for :directorate_strategies do |directorate_strategies_fields|
+      .directorates
+        %ul#directorates_list
+          -for strategy in @directorate.directorate_strategies
+            %li
+              %h5
+                =h strategy.name
+              %p
+                =h strategy.description
+        .clear
+
+%span.button{:style=>"float:right;"}
+  = link_to 'Edit', {:action => 'edit', :id => @directorate}
+
+%span.button
+  = link_to 'Back', {:controller => 'directorates'}
