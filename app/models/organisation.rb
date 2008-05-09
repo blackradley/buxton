@@ -28,22 +28,22 @@
 class Organisation < ActiveRecord::Base
   has_many :organisation_managers, :dependent => :destroy
   has_many :directorates, :dependent => :destroy
-  has_many :strategies, :dependent => :destroy
+  has_many :organisation_strategies, :dependent => :destroy
   has_many :activities, :through => :directorates
   has_many :organisation_terminologies, :dependent => :destroy
 
   validates_presence_of :organisation_managers
   validates_associated :organisation_terminologies
   validates_associated :directorates
-  validates_associated :strategies
+  validates_associated :organisation_strategies
   validates_presence_of :name, :message => 'All organisations must have a name'
   validates_presence_of :style, :message => 'Please provide a CSS style name, all organisations must have a style'
   validates_format_of :style, :with => /^[\w]*$/
   # validates_uniqueness_of :style
   validates_format_of :ces_link, :with => URI::regexp(['http','https','ftp']), :unless => Proc.new { |o| o.ces_link.blank? }
 
-  after_update :save_directorates
   after_update :save_organisation_managers
+  after_update :save_organisation_strategies
 
   def strategy_text
     button_selected = self.strategy_text_selection
@@ -127,25 +127,25 @@ class Organisation < ActiveRecord::Base
     data << full_report
   end
 
-  def directorate_attributes=(directorate_attributes)
-    directorate_attributes.each do |attributes|
+  def organisation_strategy_attributes=(organisation_strategy_attributes)
+    organisation_strategy_attributes.each do |attributes|
       next if attributes[:name].blank?
       if attributes[:id].blank?
-        directorates.build(attributes)
+        organisation_strategies.build(attributes)
       else
-        directorate = directorates.detect { |d| d.id == attributes[:id].to_i }
+        organisation_strategy = organisation_strategies.detect { |d| d.id == attributes[:id].to_i }
         attributes.delete(:id)
-        directorate.attributes = attributes
+        organisation_strategy.attributes = attributes
       end
     end
   end
 
-  def save_directorates
-    directorates.each do |d|
-      if d.should_destroy?
-        d.destroy
+  def save_organisation_strategies
+    self.organisation_strategies.each do |os|
+      if os.should_destroy?
+        os.destroy
       else
-        d.save(false)
+        os.save(false)
       end
     end
   end

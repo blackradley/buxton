@@ -11,6 +11,11 @@ function mark_for_organisation_manager_destroy(element) {
   $(element).up('.organisation_manager').hide();
 }
 
+function mark_for_strategy_destroy(element) {
+  $(element).next('.should_destroy').value = 1;
+  $(element).up('.strategy').hide();
+}
+
 function mark_for_issue_destroy(element) {
   $(element).next('.issue_destroy').value = 1;
   $(element).up('.issue').hide();

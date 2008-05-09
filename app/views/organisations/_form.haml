@@ -44,7 +44,7 @@
       %span.answer "How do you contribute to our goals?"
       %br
       = radio_button :organisation, :strategy_text_selection, 1
-      %span.answer "For each strategy, please decide whether it is going to be significantly aided by the activity" 
+      %span.answer "For each strategy, please decide whether it is going to be significantly aided by the activity"
 %fieldset.organisation_customisation
   %legend Localised terminologies
   -fields_for :organisation_terminologies do |org_term_field|
@@ -53,13 +53,13 @@
         = render :partial => 'organisation_terminologies/organisation_terminology', :collection => @organisation_terminologies
       .clear
 %fieldset.organisation_customisation
-  %legend Directorates
-  -fields_for :directorate do |directorate_fields|
-    .directorates
-      #directorates_list
-        = render :partial => 'directorates/directorate', :collection => @organisation.directorates
+  %legend Organisation Wide Strategies
+  -fields_for :organisation_strategy do |strategy_fields|
+    .strategies
+      #strategies_list
+        = render :partial => 'strategies/strategy', :collection => @organisation.organisation_strategies, :locals => {:string_parent => 'organisation', :string_type => 'organisation_strategy'}
       %span#add_link{:style=>"width:auto;"}
         = image_tag('icons/add.gif')
-        = link_to_function "Add a Directorate" do |page|
-          -page.insert_html :bottom, :directorates_list, :partial => 'directorates/directorate', :object => Directorate.new
+        = link_to_function "Add a Strategy" do |page|
+          -page.insert_html :bottom, :strategies_list, :partial => 'strategies/strategy', :object => OrganisationStrategy.new, :locals => {:string_parent => 'organisation', :string_type => 'organisation_strategy'}
       .clear

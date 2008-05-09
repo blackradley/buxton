@@ -33,3 +33,20 @@
   #strategy_details .labelled textarea {
     width: 510px;
     float: left; }
+
+.strategy {
+  position: relative;
+  border: solid 1px #4E979E;
+  margin: 10px;
+  width: 500;
+  padding: 5px; }
+  .strategy label {
+    width: 200px;
+    padding: 5px; }
+  .strategy input, .strategy textarea, .strategy p {
+    width: 260px;
+    margin: 2px; }
+  .strategy img {
+    position: absolute;
+    top: 2;
+    right: 2; }

@@ -1,0 +1,23 @@
+.directorate
+  %fieldset.directorate_customisation
+    %legend Directorate Properties
+    %label Name
+    %span.labelled
+      = text_field 'directorate', 'name', 'size' => 50
+    = hidden_field 'directorate', 'organisation_id'
+    -fields_for @directorate.directorate_manager do |dm|
+      %label Email of the Directorate Manager
+      %span.labelled
+        = dm.text_field :email, 'size' => 50
+
+  %fieldset.directorate_customisation
+    %legend Directorate Wide Strategies
+    -fields_for :directorate_strategy do |strategy_fields|
+      .strategies
+        #strategies_list
+          = render :partial => 'strategies/strategy', :collection => @directorate.directorate_strategies, :locals => {:string_parent => 'directorate', :string_type => 'directorate_strategy'}
+        %span#add_link{:style=>"width:auto;"}
+          = image_tag('icons/add.gif')
+          = link_to_function "Add a Strategy" do |page|
+            -page.insert_html :bottom, :strategies_list, :partial => 'strategies/strategy', :object => DirectorateStrategy.new, :locals => {:string_parent => 'directorate', :string_type => 'directorate_strategy'}
+        .clear
