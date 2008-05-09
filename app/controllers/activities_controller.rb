@@ -44,10 +44,10 @@ class ActivitiesController < ApplicationController
     else
       # TODO throw an error - shouldn't ever get here
     end
-    
+
     @results_table = @organisation.results_table
   end
-  
+
   # Show the summary information for a specific activity.
   # Available to: Activity Manager
   def show
@@ -231,7 +231,6 @@ class ActivitiesController < ApplicationController
     else
       @activity = @current_user.activity
     end
-    @activity = Activity.find(126)
     PDFLog.create(:message => %Q[The activity manager PDF for the <strong>#{@activity.name}</strong> activity, within <strong>#{@activity.organisation.name}</strong>, was viewed.])
     send_data ActivityPDFGenerator.new(@activity).pdf.render, :disposition => 'inline',
       :filename => "#{@activity.name}.pdf",
