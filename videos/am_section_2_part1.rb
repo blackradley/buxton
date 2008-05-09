@@ -23,8 +23,6 @@ if LIVE
   pause 4
 end
 
-# START VIDEO 1
-
 # Click on a.
 move to_element('#two a')
 pause 3
@@ -33,6 +31,9 @@ click
 pause 4
 
 # Scroll down and click on first strategic objective, then show the answers,
+move to_element('#strategy_responses_1', :area => ["left"]), offset(-30, 0)
+click
+pause 2
 move to_element('#strategy_responses_1')
 
 # Click yes then save.
@@ -50,6 +51,9 @@ click
 
 pause 4
 
+move to_element('#activity_purpose_overall_5', :area => ["left"]), offset(-30, 0)
+click
+pause 2
 move to_element('#activity_purpose_overall_5')
 drag by(0, 15)
 
@@ -58,13 +62,7 @@ pause 3
 move to_element('#section_save_button')
 click
 
-# Show a & b incomplete ie red cross then complete ie green tick.
-move to_element('.letter_completed', :index => 0)
-highlight do
-  pause 2
-  move to_element('.letter_completed', :index => 1)
-  pause 2
-end
+pause 4
 
 # Click on c.
 move to_element('#two a', :index => 2)
@@ -74,6 +72,9 @@ click
 pause 4
 
 # Click on men and women question, click on none at all,
+move to_element('#activity_purpose_gender_3', :area => ["left"]), offset(-30, 0)
+click
+pause 2
 move to_element('#activity_purpose_gender_3')
 drag by(0, 15)
 
@@ -85,9 +86,10 @@ drag by(0, 15)
 
 pause 3
 
-# END VIDEO 1
+move to_element('#section_save_button')
+click
 
-# START VIDEO 2
+pause 4
 
 # Show all green ticks against a, b, c and section 3.
 move to_element('.letter_completed', :index => 0)
@@ -97,14 +99,6 @@ highlight do
   pause 2
   move to_element('.letter_completed', :index => 2)
   pause 2
-  move to_element('#disability_impact_completed')
-  pause 2
-  move to_element('#disability_consultation_completed')
-  pause 2
-  move to_element('#disability_additional_work_completed')
-  pause 2
-  move to_element('#disability_action_planning_completed')
-  pause 2  
 end
 
-# END VIDEO 2
+pause 4
