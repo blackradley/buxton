@@ -50,10 +50,14 @@ class SectionsController < ApplicationController
    # begin
       if @activity.started then
         if params[:id] == 'purpose' then
-          strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
-          @activity_strategies = Array.new(strategies.size) do |i|
-          @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
-          end
+          org_strategies = @activity.organisation.organisation_strategies 
+           @activity_org_strategies = Array.new(org_strategies.size) do |i|
+             @activity.activity_strategies.find_or_create_by_strategy_id(org_strategies[i].id)
+           end
+           dir_strategies = @activity.directorate.directorate_strategies 
+           @activity_dir_strategies = Array.new(dir_strategies.size) do |i|
+             @activity.activity_strategies.find_or_create_by_strategy_id(dir_strategies[i].id)
+           end
         end
         @section = params[:id]
         render :template => 'sections/show'
@@ -84,22 +88,18 @@ class SectionsController < ApplicationController
     
     case params[:id]
     when 'purpose_a'
-      strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
-      @activity_strategies = Array.new(strategies.size) do |i|
-        @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
+     org_strategies = @activity.organisation.organisation_strategies 
+      @activity_org_strategies = Array.new(org_strategies.size) do |i|
+        @activity.activity_strategies.find_or_create_by_strategy_id(org_strategies[i].id)
+      end
+      dir_strategies = @activity.directorate.directorate_strategies 
+      @activity_dir_strategies = Array.new(dir_strategies.size) do |i|
+        @activity.activity_strategies.find_or_create_by_strategy_id(dir_strategies[i].id)
       end
       render :template => 'sections/edit_purpose_a'
     when 'purpose_b'
-      strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
-      @activity_strategies = Array.new(strategies.size) do |i|
-        @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
-      end
       render :template => 'sections/edit_purpose_b'
     when 'purpose_c'
-      strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
-      @activity_strategies = Array.new(strategies.size) do |i|
-        @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
-      end
       render :template => 'sections/edit_purpose_c'
     when 'impact'
       @section = :impact

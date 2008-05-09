@@ -6,18 +6,47 @@
     %tr
       %th{:colspan=>"2"}
         =h @activity.header(:purpose_overall_1)
-
-    - @activity_strategies.each do |activity_strategy|
+    %tr
+      %td{:colspan=>"2"}
+        %strong
+          = @activity.organisation.name  
+          Strategies   
+    -if @activity_org_strategies.size >= 1
+      -@activity_org_strategies.each do |activity_strategy|
+        %tr
+          %td.label
+            =h activity_strategy.strategy.name
+          %td.labelled
+            = @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i]
+            - if comment = activity_strategy.comment then
+              = image_tag('icons/comment.gif', :id => comment.html_id)
+              %script{:type => "text/javascript"}
+                = "new Tip('#{comment.html_id}', '#{comment.contents}');"
+    - else
       %tr
-        %td.label
-          =h activity_strategy.strategy.name
-        %td.labelled
-          = @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i]
-          - if comment = activity_strategy.comment then
-            = image_tag('icons/comment.gif', :id => comment.html_id)
-            %script{:type => "text/javascript"}
-              = "new Tip('#{comment.html_id}', '#{comment.contents}');"
-
+        %td{:colspan=>"2"}
+          None
+          
+    %tr
+      %td{:colspan=>"2"}
+        %strong
+          = @activity.directorate.name  
+          Strategies   
+    -if @activity_dir_strategies.size >= 1
+      -@activity_dir_strategies.each do |activity_strategy|
+        %tr
+          %td.label
+            =h activity_strategy.strategy.name
+          %td.labelled
+            = @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i]
+            - if comment = activity_strategy.comment then
+              = image_tag('icons/comment.gif', :id => comment.html_id)
+              %script{:type => "text/javascript"}
+                = "new Tip('#{comment.html_id}', '#{comment.contents}');"
+    -else
+      %tr
+        %td{:colspan=>"2"}
+          None
   %table
     %tr
       %th{:colspan=>"2"}
