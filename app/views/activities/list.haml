@@ -25,23 +25,19 @@
 
   %p
     It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
+  %p
+    View Activites by: 
+    =link_to_function "Directorates", "$('show_directorates').show(); $('show_projects').hide()"
+    =link_to_function "Projects", "$('show_projects').show(); $('show_directorates').hide()"
 
 -if @current_user.class.to_s == 'OrganisationManager'
   %p
     %strong
       = "No #{@directorate_term}s created." if @directorates.blank?
 
--if @current_user.class.to_s == 'OrganisationManager' || @current_user.class.to_s == 'DirectorateManager'
+-if @current_user.class.to_s == 'DirectorateManager'
 
   -@directorates.each do |directorate|
-
-    -if @current_user.class.to_s == 'OrganisationManager'
-      %h4
-        =h directorate.name
-        %span.h4_link
-          = link_to image_tag('icons/email.gif'), "mailto:#{User.find_by_directorate_id(directorate.id).email}", :title =>"Email"  unless directorate.directorate_manager.nil?
-          = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => directorate.directorate_manager.id }, :confirm => "Send access key reminder to #{directorate.name} to #{User.find_by_directorate_id(directorate.id).email}?", :method => :post, :title =>"Key" unless directorate.directorate_manager.nil?
-          = link_to "#{image_tag('icons/add.gif')} Add New Activity", :action => 'new', :directorate => directorate
     %table.list
       %tr
         %th.left{:style => "width:150px;"} Name
@@ -79,16 +75,9 @@
               = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
             = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
             
--if @current_user.class.to_s == 'OrganisationManager' || @current_user.class.to_s == 'ProjectManager'
+-if @current_user.class.to_s == 'ProjectManager'
 
   -@projects.each do |project|
-
-    -if @current_user.class.to_s == 'OrganisationManager'
-      %h4
-        =h project.name
-        %span.h4_link
-          = link_to image_tag('icons/email.gif'), "mailto:#{User.find_by_project_id(project.id).email}", :title =>"Email"  unless project.project_manager.nil?
-          = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => project.project_manager.id }, :confirm => "Send access key reminder to #{project.name} to #{User.find_by_project_id(project.id).email}?", :method => :post, :title =>"Key" unless project.project_manager.nil?
     %table.list
       %tr
         %th.left{:style => "width:150px;"} Name
@@ -125,3 +114,93 @@
               = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend"
               = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
             = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
+
+-if @current_user.class.to_s == 'OrganisationManager'
+  #show_directorates{:style=>"display:block;"}
+    -@directorates.each do |directorate|
+      %h4
+        =h directorate.name
+        %span.h4_link
+          = link_to image_tag('icons/email.gif'), "mailto:#{User.find_by_directorate_id(directorate.id).email}", :title =>"Email"  unless directorate.directorate_manager.nil?
+          = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => directorate.directorate_manager.id }, :confirm => "Send access key reminder to #{directorate.name} to #{User.find_by_directorate_id(directorate.id).email}?", :method => :post, :title =>"Key" unless directorate.directorate_manager.nil?
+          = link_to "#{image_tag('icons/add.gif')} Add New Activity", :action => 'new', :directorate => directorate
+      %table.list
+        %tr
+          %th.left{:style => "width:150px;"} Name
+          %th Completed
+          %th Relevant
+          %th Impact
+          %th Priority
+          %th Approved
+          %th Approver
+          %th Last&nbsp;key sent
+          %th
+        -for activity in directorate.activities
+          %tr
+            %td.left{:style => "width:150px;"}
+              =h activity.name
+            %td
+              = completed_tag(activity)
+            %td
+              = relevance_tag(activity)
+            %td
+              = impact_tag(activity)
+            %td
+              = priority_tag(activity)
+            %td
+              = approved_tag(activity.approved)
+            %td
+              =h approver_or_blank(activity.approver)
+            %td
+              = date_or_blank(activity.activity_manager.reminded_on)
+            %td.actions{:nowrap => "nowrap"}
+              = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email"
+              = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_manager.email}?", :method => :post, :title =>"Key"
+              -if @current_user.class.to_s == 'OrganisationManager'
+                = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend"
+                = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
+              = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
+            
+  #show_projects{:style=>"display:none;"}
+    -@projects.each do |project|      
+      %h4
+        =h project.name
+        %span.h4_link
+          = link_to image_tag('icons/email.gif'), "mailto:#{User.find_by_project_id(project.id).email}", :title =>"Email"  unless project.project_manager.nil?
+          = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => project.project_manager.id }, :confirm => "Send access key reminder to #{project.name} to #{User.find_by_project_id(project.id).email}?", :method => :post, :title =>"Key" unless project.project_manager.nil?
+      %table.list
+        %tr
+          %th.left{:style => "width:150px;"} Name
+          %th Completed
+          %th Relevant
+          %th Impact
+          %th Priority
+          %th Approved
+          %th Approver
+          %th Last&nbsp;key sent
+          %th
+        -for activity in project.activities
+          %tr
+            %td.left{:style => "width:150px;"}
+              =h activity.name
+            %td
+              = completed_tag(activity)
+            %td
+              = relevance_tag(activity)
+            %td
+              = impact_tag(activity)
+            %td
+              = priority_tag(activity)
+            %td
+              = approved_tag(activity.approved)
+            %td
+              =h approver_or_blank(activity.approver)
+            %td
+              = date_or_blank(activity.activity_manager.reminded_on)
+            %td.actions{:nowrap => "nowrap"}
+              = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email"
+              = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_manager.email}?", :method => :post, :title =>"Key"
+              -if @current_user.class.to_s == 'OrganisationManager'
+                = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend"
+                = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
+              = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
