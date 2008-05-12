@@ -3,16 +3,25 @@
 %fieldset#new_activity
   -fields_for :activity_manager do |am|
     %p
-      %label 
+      %label
         E-mail address of Activity Manager (who will undertake assessment)
       %span.labelled
         = am.text_field :email, 'size' => 50
     %p
-      %label 
+      %label
         Name of Activity
       %span.labelled
         = f.text_field :name, 'size' => 50
+
+    %h4= "#{@directorate_term.to_s.titleize} and Projects to which the Activity belongs"
     %p
-      %label Division to which the Activity belongs
+      %label= "#{@directorate_term.to_s.titleize}"
       %span.labelled
         = f.select(:directorate_id, @directorates)
+    %p
+      %label Projects
+      - @projects.each do |project|
+        -options = :selected if (@activity.projects.include? project)
+        %span.labelled
+          = check_box_tag "projects[]", project.id, options
+          =project.name

@@ -96,6 +96,7 @@ class ActivitiesController < ApplicationController
     directorates = @current_user.organisation.directorates
     @directorate_term = @current_user.organisation.directorate_string
     @directorates = directorates.collect{ |d| [d.name, d.id] }
+    @projects = @current_user.organisation.projects
     # If the params
     if params[:directorate] && directorate = directorates.find_by_id(params[:directorate]) then
       @activity.directorate = directorate
@@ -105,11 +106,16 @@ class ActivitiesController < ApplicationController
   # Create a new activity and a new user based on the parameters in the form data.
   # Available to: Organisation Manager
   def create
+    @project_ids = (params[:projects].nil? ? [] : params[:projects])
+    @projects = @current_user.organisation.projects
     @activity = Activity.new(params[:activity])
     @activity_manager = @activity.build_activity_manager(params[:activity_manager])
     @activity_manager.passkey = ActivityManager.generate_passkey(@activity_manager)
     @directorate_term = @current_user.organisation.directorate_string
     @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] } # Needed for the new template incase we need to re-render it
+    @project_ids.each do |p_id|
+      @activity.projects << Project.find(p_id)
+    end
     Activity.transaction do
       @activity.save!
       flash[:notice] = "#{@activity.name} was created."
@@ -122,6 +128,7 @@ class ActivitiesController < ApplicationController
   def update
     @activity = @current_user.activity
     @activity.update_attributes!(params[:activity])
+
     flash[:notice] = "#{@activity.name} was successfully updated."
     redirect_to :controller => 'activities', :action => 'show'
 
@@ -193,6 +200,7 @@ class ActivitiesController < ApplicationController
     @activity_manager = @activity.activity_manager
     @directorate_term = @activity.organisation.directorate_string
     @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] }
+    @projects = @current_user.organisation.projects
   end
 
   # Update the contact email and activity name
@@ -206,11 +214,13 @@ class ActivitiesController < ApplicationController
     @activity_manager = @activity.activity_manager # Get this ready in case we need to re-render the edit template
     @directorate_term = @activity.organisation.directorate_string
     @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] } # Get this ready in case we need to re-render the edit template
-
+    @project_ids = (params[:projects].nil? ? [] : params[:projects])
     # Update the activity
     @activity.activity_manager.attributes = params[:activity_manager]
     @activity.attributes = params[:activity]
-
+    @project_ids.each do |p_id|
+      @activity.projects << Project.find(p_id)
+    end
     if @activity.valid? && @activity.activity_manager.valid? then
       @activity.activity_manager.save!
       @activity.save!
