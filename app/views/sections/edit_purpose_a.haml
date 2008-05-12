@@ -15,7 +15,9 @@
         =h @activity.header(:purpose_overall_1)
     %p.question{:style => "display:block;"}
       %labelled
-        %h5 Organisation Strategies
+        %h5
+          = @activity.organisation.name 
+          Strategies
         -yes_no = @activity.hashes['choices'][3]
         -if @activity_org_strategies.size >= 1
           -@activity_org_strategies.each do |activity_strategy|
@@ -25,7 +27,9 @@
               = select('strategy_responses', activity_strategy.strategy_id, @activity.hashes['choices'][3], :selected => @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i])
         -else
           None
-        %h5 Directorate Strategies
+        %h5
+          = @activity.directorate.name 
+          Strategies
         -if @activity_dir_strategies.size >= 1
           -@activity_dir_strategies.each do |activity_strategy|
             %span{:class => :question_compact, :id => "activity_strategy_#{activity_strategy.id}", :onclick => "setFocus(\'more_activity_strategy_#{activity_strategy.id}\',\'activity_strategy_#{activity_strategy.id}\');", :style => "display:block;"}
@@ -34,6 +38,21 @@
               = select('strategy_responses', activity_strategy.strategy_id, @activity.hashes['choices'][3], :selected => @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i])
         -else
           None
+        
+        -@projects.each do |project|
+          %h5
+            =project.name
+          - project_strategies = project.project_strategies 
+          - @activity_project_strategies = Array.new(project_strategies.size) do |i|
+            -@activity.activity_strategies.find_or_create_by_strategy_id(project_strategies[i].id)
+          -if @activity_project_strategies.size >= 1
+            -@activity_project_strategies.each do |activity_strategy|
+              %span{:class => :question_compact, :id => "activity_strategy_#{activity_strategy.id}", :onclick => "setFocus('more_activity_strategy_#{activity_strategy.id}','activity_strategy_#{activity_strategy.id}');", :style => "display:block;"}
+                %label
+                  = Strategy.find(activity_strategy.strategy_id).name
+                = select('strategy_responses', activity_strategy.strategy_id, @activity.hashes['choices'][3], :selected => @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i])
+          -else
+            None
     = hidden_field_tag 'id', @id
     = hidden_field_tag 'equality_strand', @equality_strand
     %p.question
