@@ -18,11 +18,11 @@
     %p
       %label Created
       %span.labelled
-        = date_or_blank(@project.created_on)
+        = date_or_blank(@project.created_at)
     %p
       %label Last Updated
       %span.labelled
-        = date_or_blank(@project.updated_on)
+        = date_or_blank(@project.updated_at)
 
   %fieldset.organisation_customisation
     %legend Strategies

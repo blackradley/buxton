@@ -1,7 +1,7 @@
 %h2= "#{@organisation.name.titleize} Directorates"
 
 #pdf_link{:style=>"width:auto;"}
-  = image_tag('icons/add.gif')
+  = image_tag('icons/chart_organisation_add.png')
   = link_to 'New directorate', {:action => 'new', :controller => 'directorates', :organisation_id => @organisation.id}
   %br
 
