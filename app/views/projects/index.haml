@@ -1,7 +1,7 @@
 %h2= "#{@organisation.name.titleize} Projects"
 
 #pdf_link{:style=>"width:auto;"}
-  = image_tag('icons/add.gif')
+  = image_tag('icons/lightbulb_add.png')
   = link_to 'New project', {:action => 'new', :controller => 'projects', :organisation_id => @organisation.id}
   %br
 
