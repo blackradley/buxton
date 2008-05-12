@@ -57,11 +57,11 @@ class ActivitiesController < ApplicationController
   # Available to: Activity Manager
   def show
     @activity = Activity.find(@current_user.activity_id, :include => 'questions')
-    org_strategies = @activity.organisation.organisation_strategies 
+    org_strategies = @activity.organisation.organisation_strategies
      @activity_org_strategies = Array.new(org_strategies.size) do |i|
        @activity.activity_strategies.find_or_create_by_strategy_id(org_strategies[i].id)
      end
-     dir_strategies = @activity.directorate.directorate_strategies 
+     dir_strategies = @activity.directorate.directorate_strategies
      @activity_dir_strategies = Array.new(dir_strategies.size) do |i|
        @activity.activity_strategies.find_or_create_by_strategy_id(dir_strategies[i].id)
      end
@@ -218,6 +218,7 @@ class ActivitiesController < ApplicationController
     # Update the activity
     @activity.activity_manager.attributes = params[:activity_manager]
     @activity.attributes = params[:activity]
+    @activity.projects = []
     @project_ids.each do |p_id|
       @activity.projects << Project.find(p_id)
     end
