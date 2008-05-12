@@ -51,7 +51,11 @@ module ApplicationHelper
     else
       case @current_user.class.name
         when 'ActivityManager'
-          'Logged in as a Activity Manager.'
+          'Logged in as an Activity Manager.'
+        when 'ProjectManager'
+          'Logged in as a Project Manager.'
+        when 'DirectorateManager'
+          'Logged in as a Directorate Manager.'
         when 'OrganisationManager'
           'Logged in as an Organisation Manager.'
         when 'Administrator'
@@ -74,6 +78,8 @@ module ApplicationHelper
           @current_user.organisation
         when 'DirectorateManager'
           @current_user.directorate.organisation
+       when 'ProjectManager'
+          @current_user.project.organisation
       end
       terminology = organisation.organisation_terminologies.find_by_terminology_id(assoc_term.id)
       terminology ? terminology.value : term
@@ -200,6 +206,26 @@ module ApplicationHelper
                         { :text => 'Sections',
                           :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
                           :title => 'Directorate Control Page - Sections',
+                          :status => '',
+                          :highlight_on => [  { :controller => 'sections', :action => 'list', :id => 'impact' },
+                                              { :controller => 'sections', :action => 'list', :id => 'consultation' },
+                                              { :controller => 'sections', :action => 'list', :id => 'additional_work' },
+                                              { :controller => 'sections', :action => 'list', :id => 'action_planning' } ]
+                          }
+                        ])
+      when 'ProjectManager'
+        generate_menu( [
+                        { :text => 'Summary',
+                          :url => { :controller => 'activities', :action => 'summary' },
+                          :title => 'Project Control Page - Summary',
+                          :status => '' },
+                        { :text => 'Activities',
+                          :url => { :controller => 'activities', :action => 'list' },
+                          :title => 'Project Control Page - Activities' ,
+                          :status => '' },
+                        { :text => 'Sections',
+                          :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
+                          :title => 'Project Control Page - Sections',
                           :status => '',
                           :highlight_on => [  { :controller => 'sections', :action => 'list', :id => 'impact' },
                                               { :controller => 'sections', :action => 'list', :id => 'consultation' },

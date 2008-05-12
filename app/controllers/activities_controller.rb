@@ -36,6 +36,11 @@ class ActivitiesController < ApplicationController
       @activities = @current_user.directorate.activities
       @started = @activities.select{|a| a.started }.size
       @completed = @activities.select{|a| a.completed }.size
+    when 'ProjectManager'
+      @organisation = @current_user.project.organisation
+      @activities = @current_user.project.activities
+      @started = @activities.select{|a| a.started }.size
+      @completed = @activities.select{|a| a.completed }.size
     when 'OrganisationManager'
       @organisation = @current_user.organisation
       @activities = @organisation.activities
@@ -73,6 +78,10 @@ class ActivitiesController < ApplicationController
     when 'OrganisationManager'
       @organisation = @current_user.organisation
       @directorates = @organisation.directorates
+      @projects = @organisation.projects
+    when 'ProjectManager'
+      @organisation = @current_user.project.organisation
+      @projects = [@current_user.project]
     else
       # TODO throw an error - shouldn't ever get here
     end

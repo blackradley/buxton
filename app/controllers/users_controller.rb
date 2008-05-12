@@ -174,6 +174,9 @@ class UsersController < ApplicationController
         when 'DirectorateManager'
           LoginLog.create(:message => %Q[<a href="mailto:#{user.email}">#{user.email}</a>, directorate manager of <strong>#{user.directorate.name}</strong> logged in.])
           redirect_to :controller => 'activities', :action => 'summary'
+        when 'ProjectManager'
+          LoginLog.create(:message => %Q[<a href="mailto:#{user.email}">#{user.email}</a>, project manager of <strong>#{user.project.name}</strong> logged in.])
+          redirect_to :controller => 'activities', :action => 'summary'
         when 'OrganisationManager'
           LoginLog.create(:message => %Q[<a href="mailto:#{user.email}">#{user.email}</a>, organisation manager of <strong>#{user.organisation.name}</strong> logged in.])
           redirect_to :controller => 'activities', :action => 'summary'
@@ -186,6 +189,7 @@ class UsersController < ApplicationController
   def keys
     return unless DEV_MODE
     @administrators = Administrator.find(:all)
+    @organisations = Organisation.find(:all)
     @organisation_managers = OrganisationManager.find(:all, :include => {:organisation => {:activities => :activity_manager}})
     @directorate_managers = DirectorateManager.find(:all)
     render :layout => 'keys'
