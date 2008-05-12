@@ -36,6 +36,7 @@ class Activity < ActiveRecord::Base
   has_many :activity_strategies, :dependent => :destroy
   has_many :issues, :dependent => :destroy
   has_many :questions, :dependent => :destroy
+  has_and_belongs_to_many :projects
 
   validates_presence_of :name, :message => 'All activities must have a name.'
   validates_presence_of :activity_manager

@@ -22,7 +22,8 @@
           = date_or_blank(organisation_manager.reminded_on)
         %td.actions{:nowrap=>"nowrap"}
           = link_to image_tag('icons/login.gif'), organisation_manager.url_for_login(request) , :title =>"Login"
-          = link_to image_tag('icons/strategies.gif'), organisation_directorates_url(organisation), :title =>"Strategies"
+          = link_to image_tag('icons/strategies.gif'), organisation_directorates_url(organisation), :title =>"Directorates"
+          = link_to image_tag('icons/strategies.gif'), organisation_projects_url(organisation), :title =>"Projects"
           = link_to image_tag('icons/eye.gif'), organisation, :title =>"View"
           = link_to image_tag('icons/remind.gif'), { :controller => 'users', :action => 'remind', :id => organisation_manager}, :confirm => "Send reminder for #{organisation.name} to #{organisation_manager.email}?", :method => :post, :title =>"Remind"
           = link_to image_tag('icons/edit.gif'), edit_organisation_url(organisation), :title =>"Edit"
