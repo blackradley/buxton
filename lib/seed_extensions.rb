@@ -13,10 +13,14 @@ module Seed
     self.update_attributes!(hash)
   end
 
+  def add_value(hash)
+    self.update_attributes(hash)
+  end
   #warning, remove seed does not remove children elements unless they have dependent destroy set on them.
   def remove_seed(class_name, variables)
     object_to_remove = find_class class_name
-    object_to_remove.send("find_by_#{variables.keys.join('_and_')}".to_sym, variables.values).destroy
+    to_delete = object_to_remove.send("find_by_#{variables.keys.join('_and_')}".to_sym, variables.values)
+    to_delete.destroy if to_delete
   end
 
   def has_parent(class_name, variables)
