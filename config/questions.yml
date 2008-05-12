@@ -55,7 +55,7 @@ questions:
         -
           - 'This question asks you to identify any positive
              differential impact that the Policy has on #{wordings[strand]}.<br/><br/>  #{hashes["extra_strand_wordings"]["purpose"][strand]}
-             Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed well.'
+             Please indicate whether the Policy could affect #{wordings[strand]} differently if it were performed well.'
           - 'This question asks you to identify any positive
              differential impact that the Policy has on #{wordings[strand]}.<br/><br/>  #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the Policy could affect #{wordings[strand]} differently if it were performed well.'
