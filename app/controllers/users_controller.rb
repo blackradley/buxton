@@ -16,7 +16,7 @@ class UsersController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
-  
+
   # Present a form to request a lost passkey by entering your e-mail address.
   # Available to: anybody
   def index
@@ -40,7 +40,7 @@ class UsersController < ApplicationController
   # You can only create an administrative user, the other users have
   # to be created in conjunction with the organisation or activity
   # that they will be responsible for.
-  # Available to: Administrator  
+  # Available to: Administrator
   def create
     @admin = Administrator.new(params[:admin])
     @admin.passkey = Administrator.generate_passkey(@admin)
@@ -50,7 +50,7 @@ class UsersController < ApplicationController
   end
 
   # Edit screen for a user.
-  # Available to: Administrator  
+  # Available to: Administrator
   def edit
     @admin = Administrator.find(params[:id])
   end
@@ -77,7 +77,7 @@ class UsersController < ApplicationController
   # TODO: I am not sure that this actually works, check that if you have
   # a user that is operational user and a number of activityal users, do
   # the links actually match up with the activities.
-  # 
+  #
   # Available to: anybody
   def new_link
     @users = User.find_all_by_email(params[:email])
@@ -100,7 +100,17 @@ class UsersController < ApplicationController
             @user.save
           when 'Administrator'
             email = Notifier.create_administration_key(@user, @login_url)
-            Notifier.deliver(email)          
+            Notifier.deliver(email)
+            @user.reminded_on = Time.now
+            @user.save
+          when 'DirectorateManager'
+            email = Notifier.create_directorate_key(@user, @login_url)
+            Notifier.deliver(email)
+            @user.reminded_on = Time.now
+            @user.save
+          when 'ProjectManager'
+            email = Notifier.create_project_key(@user, @login_url)
+            Notifier.deliver(email)
             @user.reminded_on = Time.now
             @user.save
         end
@@ -116,11 +126,11 @@ class UsersController < ApplicationController
   def destroy
     @admin = Administrator.find(params[:id])
     @admin.destroy
-    
+
     flash[:notice] = 'User successfully deleted.'
     redirect_to :action => 'list'
   end
-  
+
   # Send a passkey reminder to the email associated with this user. Only one e-mail will be sent and
   # it will use the Organisation Manager or Activity Manager template accordingly.
   # The system currently does not allow for a user to be both types of manager. If it did, this would not work.
@@ -129,13 +139,19 @@ class UsersController < ApplicationController
   #               Organisation Manager
   def remind
     @user = User.find(params[:id])
-    @login_url = @user.url_for_login(request)    
+    @login_url = @user.url_for_login(request)
 
     # Are they a activity manager?
     case @user.class.name
     when 'ActivityManager'
       email = Notifier.create_activity_key(@user, @login_url)
       flash[:notice] = 'Reminder for ' + @user.activity.name + ' sent to ' + @user.email
+    when 'DirectorateManager'
+      email = Notifier.create_directorate_key(@user, @login_url)
+      flash[:notice] = 'Reminder for ' + @user.directorate.name + ' sent to ' + @user.email
+    when 'ProjectManager'
+      email = Notifier.create_project_key(@user, @login_url)
+      flash[:notice] = 'Reminder for ' + @user.project.name + ' sent to ' + @user.email
     # Nope, are they an organisation manager?
     when 'OrganisationManager'
       email = Notifier.create_organisation_key(@user, @login_url)
@@ -147,14 +163,14 @@ class UsersController < ApplicationController
       flash[:notice] = 'No reminder e-mail sent. This user does not manage anything.'
       redirect_to :back
     end
-    
+
     # Send the reminder e-mail
     RemindLog.create(:message => %Q[A passkey reminder was sent to <a href="mailto:#{@user.email}">#{@user.email}</a>.])
     Notifier.deliver(email)
     # Update the time we reminded them
     @user.reminded_on = Time.now
     @user.save
-    
+
     redirect_to :back
   end
 
@@ -185,7 +201,7 @@ class UsersController < ApplicationController
       end
     end
   end
-  
+
   def keys
     return unless DEV_MODE
     @administrators = Administrator.find(:all)
@@ -194,7 +210,7 @@ class UsersController < ApplicationController
     @directorate_managers = DirectorateManager.find(:all)
     render :layout => 'keys'
   end
-  
+
 protected
   # No methods are secure
   def secure?
@@ -203,6 +219,6 @@ protected
 
   def show_errors(exception)
     flash[:notice] = 'User could not be updated.'
-    render :action => (exception.record.new_record? ? :new : :edit) 
+    render :action => (exception.record.new_record? ? :new : :edit)
   end
 end

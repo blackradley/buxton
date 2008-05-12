@@ -11,9 +11,9 @@
 # names or passwords to remember, but quite insecure.  Then again no one
 # remembers the user names and passwords so they are a hassle.  It is all a
 # bit of a compromise between hassle and security.
-# 
+#
 class Notifier < ActionMailer::Base
-    
+
   # Constant for the origin of all the emails.
   FROM = 'equality_support@blackradley.com'
 
@@ -32,6 +32,16 @@ class Notifier < ActionMailer::Base
   # Request a new key for the activity manager
   def activity_key(user, login_url)
     @subject      = 'New Activity Key for ' + user.activity.name
+    email_details(user, login_url)
+  end
+
+  def directorate_key(user, login_url)
+    @subject      = 'Impact Engine Version 3.0'
+    email_details(user, login_url)
+  end
+
+  def project_key(user, login_url)
+    @subject      = 'Impact Engine Version 3.0'
     email_details(user, login_url)
   end
 
