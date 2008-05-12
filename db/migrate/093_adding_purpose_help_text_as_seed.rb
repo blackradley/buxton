@@ -7,11 +7,9 @@ class AddingPurposeHelpTextAsSeed < ActiveRecord::Migration
       :sexual_orientation => 'individuals of different sexual orientations',
       :age => 'individuals of different ages'}
 
-
     #purpose_strand_3 help text
     Activity.strands.each do |strand|
-      question_name = "purpose_#{strand}_3"
-      add_seed :help_text, :question_name => question_name do
+      add_seed :help_text, :question_name => "purpose_#{strand}_3" do
         add_value :existing_function => "This question asks you to identify any positive
              differential impact that the Function has on #{wordings[strand]}.<br/><br/> #{'It is important to have regards for all types of
              disability including physical, sensory, learning and mental health.  <br/><br/>' if strand == 'disability'}
@@ -31,8 +29,7 @@ class AddingPurposeHelpTextAsSeed < ActiveRecord::Migration
       end
 
       #purpose_strand_4 help text
-      question_name = "purpose_#{strand}_4"
-      add_seed :help_text, :question_name => question_name do
+      add_seed :help_text, :question_name => "purpose_#{strand}_4" do
         add_value :existing_function => "This question asks you to identify any negative
            differential impact that the Function has on #{wordings[strand]}.<br/><br/> #{'It is important to have regards for all types of
            disability including physical, sensory, learning and mental health.  <br/><br/>' if strand == 'disability'}
