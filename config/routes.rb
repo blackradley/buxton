@@ -11,6 +11,7 @@ ActionController::Routing::Routes.draw do |map|
   map.resources :organisations do |organisations|
     organisations.resources :strategies, :collection => { :reorder => :get, :update_strategy_order => :post }
     organisations.resources :directorates
+    organisations.resources :projects
   end
 
 

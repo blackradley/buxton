@@ -1,0 +1,23 @@
+.project
+  %fieldset.project_customisation
+    %legend Project Properties
+    %label Name
+    %span.labelled
+      = text_field 'project', 'name', 'size' => 50
+    = hidden_field 'project', 'organisation_id'
+    -fields_for @project.project_manager do |dm|
+      %label Email of the Project Manager
+      %span.labelled
+        = dm.text_field :email, 'size' => 50
+
+  %fieldset.project_customisation
+    %legend Project Wide Strategies
+    -fields_for :project_strategy do |strategy_fields|
+      .strategies
+        #strategies_list
+          = render :partial => 'strategies/strategy', :collection => @project.project_strategies, :locals => {:string_parent => 'project', :string_type => 'project_strategy'}
+        %span#add_link{:style=>"width:auto;"}
+          = image_tag('icons/add.gif')
+          = link_to_function "Add a Strategy" do |page|
+            -page.insert_html :bottom, :strategies_list, :partial => 'strategies/strategy', :object => ProjectStrategy.new, :locals => {:string_parent => 'project', :string_type => 'project_strategy'}
+        .clear

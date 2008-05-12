@@ -1,0 +1,44 @@
+%h2
+  =h @project.name
+
+#show_organisation
+  %fieldset.organisation_customisation
+    -if @project.project_manager then
+      %legend Project Manager
+      %label Email
+      %span.labelled
+        = link_to @project.project_manager.email, "mailto:#{@project.project_manager.email}"
+      %p
+        %label Last Reminded
+        %span.labelled
+          = date_or_blank(@project.project_manager.reminded_on)
+
+  %fieldset.organisation_customisation
+    %legend Project Details
+    %p
+      %label Created
+      %span.labelled
+        = date_or_blank(@project.created_on)
+    %p
+      %label Last Updated
+      %span.labelled
+        = date_or_blank(@project.updated_on)
+
+  %fieldset.organisation_customisation
+    %legend Strategies
+    -fields_for :project_strategies do |project_strategies_fields|
+      .projects
+        %ul#projects_list
+          -for strategy in @project.project_strategies
+            %li
+              %h5
+                =h strategy.name
+              %p
+                =h strategy.description
+        .clear
+
+%span.button{:style=>"float:right;"}
+  = link_to 'Edit', {:action => 'edit', :id => @project}
+
+%span.button
+  = link_to 'Back', {:controller => 'projects'}
