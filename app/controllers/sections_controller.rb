@@ -62,6 +62,10 @@ class SectionsController < ApplicationController
            @activity_dir_strategies = Array.new(dir_strategies.size) do |i|
              @activity.activity_strategies.find_or_create_by_strategy_id(dir_strategies[i].id)
            end
+           project_strategies = @activity.project.project_strategies 
+           @activity_project_strategies = Array.new(project_strategies.size) do |i|
+             @activity.activity_strategies.find_or_create_by_strategy_id(project_strategies[i].id)
+           end
         end
         @section = params[:id]
         render :template => 'sections/show'
@@ -92,7 +96,7 @@ class SectionsController < ApplicationController
     
     case params[:id]
     when 'purpose_a'
-     org_strategies = @activity.organisation.organisation_strategies 
+      org_strategies = @activity.organisation.organisation_strategies 
       @activity_org_strategies = Array.new(org_strategies.size) do |i|
         @activity.activity_strategies.find_or_create_by_strategy_id(org_strategies[i].id)
       end
@@ -100,6 +104,14 @@ class SectionsController < ApplicationController
       @activity_dir_strategies = Array.new(dir_strategies.size) do |i|
         @activity.activity_strategies.find_or_create_by_strategy_id(dir_strategies[i].id)
       end
+      @projects = @activity.projects
+      # project_strategies = []
+      #      @activity.projects.each do |pro|
+      #        project_strategies << pro.project_strategies 
+      #      end
+      #      @activity_project_strategies = Array.new(project_strategies.size) do |i|
+      #        @activity.activity_strategies.find_or_create_by_strategy_id(project_strategies[i].id)
+      # end
       render :template => 'sections/edit_purpose_a'
     when 'purpose_b'
       render :template => 'sections/edit_purpose_b'
