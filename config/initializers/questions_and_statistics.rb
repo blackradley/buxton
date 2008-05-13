@@ -3,16 +3,16 @@ include Seed
 
 # Load entire question hash into memory
 @@Hashes = YAML.load_file("#{RAILS_ROOT}/config/questions.yml")
-@@age_max = 0
-@@gender_max = 0
-@@faith_max = 0
-@@sexual_orientation_max = 0
-@@race_max = 0
-@@disability_max = 0
-begin
-  Activity.force_question_max_calculation
-rescue
-end
+@@age_max = 160 #0
+@@gender_max = 160 #0
+@@faith_max = 160 #0
+@@sexual_orientation_max = 160 #0
+@@race_max = 160 #0
+@@disability_max = 160 #0
+#begin
+#  Activity.force_question_max_calculation
+#rescue
+#end
 @@dependencies = {}
 @@invisible_questions = []
 @@weighted_questions = []

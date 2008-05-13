@@ -4,7 +4,7 @@
 # $Author$
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
 class SectionsController < ApplicationController
 
@@ -33,11 +33,11 @@ class SectionsController < ApplicationController
     else
       # TODO throw an error - shouldn't ever get here
     end
-    
+
     unless params[:id] then
       redirect_to :id => 'purpose'
     end
-    
+
     # Validate
     @section = params[:id]
   end
@@ -54,27 +54,27 @@ class SectionsController < ApplicationController
    # begin
       if @activity.started then
         if params[:id] == 'purpose' then
-          org_strategies = @activity.organisation.organisation_strategies 
+          org_strategies = @activity.organisation.organisation_strategies
            @activity_org_strategies = Array.new(org_strategies.size) do |i|
              @activity.activity_strategies.find_or_create_by_strategy_id(org_strategies[i].id)
            end
-           dir_strategies = @activity.directorate.directorate_strategies 
+           dir_strategies = @activity.directorate.directorate_strategies
            @activity_dir_strategies = Array.new(dir_strategies.size) do |i|
              @activity.activity_strategies.find_or_create_by_strategy_id(dir_strategies[i].id)
            end
-           project_strategies = @activity.project.project_strategies 
+           project_strategies = @activity.project.project_strategies
            @activity_project_strategies = Array.new(project_strategies.size) do |i|
              @activity.activity_strategies.find_or_create_by_strategy_id(project_strategies[i].id)
            end
         end
         @section = params[:id]
         render :template => 'sections/show'
-      else  
+      else
         render :text => 'Function/Policy not started.', :layout => true
       end
    # rescue
    #   render :inline => 'Invalid section.'
-   # end 
+   # end
   end
 
   # Get the activity information ready for editing using the appropriate form.
@@ -83,7 +83,7 @@ class SectionsController < ApplicationController
     strand = params[:equality_strand]
     @activity = @current_user.activity
     @activity_manager = @activity.activity_manager
-    
+
     @equality_strand = ''
     valid_equality_strands = ['overall','gender','race','sexual_orientation','disability','faith','age']
     if valid_equality_strands.include? params[:equality_strand]
@@ -93,21 +93,21 @@ class SectionsController < ApplicationController
       # throw error
       raise RecordNotFound
     end
-    
+
     case params[:id]
     when 'purpose_a'
-      org_strategies = @activity.organisation.organisation_strategies 
+      org_strategies = @activity.organisation.organisation_strategies
       @activity_org_strategies = Array.new(org_strategies.size) do |i|
         @activity.activity_strategies.find_or_create_by_strategy_id(org_strategies[i].id)
       end
-      dir_strategies = @activity.directorate.directorate_strategies 
+      dir_strategies = @activity.directorate.directorate_strategies
       @activity_dir_strategies = Array.new(dir_strategies.size) do |i|
         @activity.activity_strategies.find_or_create_by_strategy_id(dir_strategies[i].id)
       end
       @projects = @activity.projects
       # project_strategies = []
       #      @activity.projects.each do |pro|
-      #        project_strategies << pro.project_strategies 
+      #        project_strategies << pro.project_strategies
       #      end
       #      @activity_project_strategies = Array.new(project_strategies.size) do |i|
       #        @activity.activity_strategies.find_or_create_by_strategy_id(project_strategies[i].id)
@@ -145,11 +145,10 @@ class SectionsController < ApplicationController
       #marks all previously existing issues that had their description field blanked for destruction
       params[:activity][:issue_attributes].each{|i| i['issue_destroy'] = 1 if i['description'].blank?}
     end
-    
+
     # Update the answers in the activity table
     @activity = @current_user.activity
     @activity.update_attributes!(params[:activity])
-    
     # Update the activity strategy answers if we have any (currently only in the Purpose section)
     if params[:strategy_responses] then
       params[:strategy_responses].each do |strategy_response|
@@ -159,18 +158,18 @@ class SectionsController < ApplicationController
         activity_strategy.save!
       end
     end
-    
+
     flash[:notice] =  "#{@activity.name} was successfully updated."
     redirect_to :controller => 'activities', :action => 'questions'
-    
+
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     flash[:notice] =  "Could not update the activity."
     @equality_strand = params[:equality_strand]
-    @id = params[:id]    
-    
+    @id = params[:id]
+
     case @id
     when 'purpose'
-      strategies = @activity.organisation.strategies.sort_by(&:position) # sort by position
+      strategies = @activity.organisation.organisation_strategies.sort_by(&:position) # sort by position
       @activity_strategies = Array.new(strategies.size) do |i|
         @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
       end
@@ -191,5 +190,5 @@ protected
   # Secure the relevant methods in the controller.
   def secure?
     true
-  end  
+  end
 end
