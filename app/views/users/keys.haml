@@ -15,13 +15,16 @@
           (
           = link_to OrganisationManager.find_by_organisation_id(org.id).email, OrganisationManager.find_by_organisation_id(org.id).url_for_login(request)
           )
+        %h4 Directorates
         %ul
           - org.directorates.each do |directorate|
             %li
-              %h4
+              %h5
                 = directorate.name
                 - if DirectorateManager.find_by_directorate_id(directorate.id)
+                  (
                   = link_to DirectorateManager.find_by_directorate_id(directorate.id).email, DirectorateManager.find_by_directorate_id(directorate.id).url_for_login(request)
+                  )
               %ul
                 - directorate.activities.each do |activity|
                   %li
@@ -30,14 +33,16 @@
                     = link_to activity.activity_manager.email, activity.activity_manager.url_for_login(request)
                     )
         %hr
-        
+        %h4 Projects
         %ul
           - org.projects.each do |project|
             %li
-              %h4
+              %h5
                 = project.name
                 - if ProjectManager.find_by_project_id(project.id)
+                  (
                   = link_to ProjectManager.find_by_project_id(project.id).email, ProjectManager.find_by_project_id(project.id).url_for_login(request)
+                  )
               %ul
                 - project.activities.each do |activity|
                   %li
