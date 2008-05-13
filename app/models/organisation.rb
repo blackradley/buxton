@@ -35,8 +35,6 @@ class Organisation < ActiveRecord::Base
 
   validates_presence_of :organisation_managers
   validates_associated :organisation_terminologies
-  validates_associated :directorates
-  validates_associated :projects
   validates_associated :organisation_strategies
   validates_presence_of :name, :message => 'All organisations must have a name'
   validates_presence_of :style, :message => 'Please provide a CSS style name, all organisations must have a style'
