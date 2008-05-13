@@ -1,3 +1,4 @@
+- section_check = "block"
 #help_questions
   #help_text_navigation
     %ul#help_text_sections
@@ -27,11 +28,13 @@
 
   -form_for(:help_text, :url => {:controller => 'help_text', :action => 'update'}) do |f|
     -Activity.sections.each do |section|
-      %span{:id =>"#{section.to_s}", :style =>"display:none;"}
+      %span{:id =>"#{section.to_s}", :style =>"display:#{section_check};"}
         - unless @split_texts.select{|text_options| text_options[0][0].to_s == section.to_s}.blank? then
           .help_section{:id => "help_#{section}".to_s, :style => 'display:block'}
             - (Activity.strands + [:overall]).each do |strand|
-              %span{:class =>"#{strand.to_s}", :style =>"display:none;"}
+              %span{:class =>"#{strand.to_s}", :style =>"display:#{section_check};"}
+                -if section_check == "block"
+                  - section_check = "none"
                 - answers = ((strand.to_s == 'overall')? 'overall_questions' : 'questions')
                 - unless @split_texts.select{|text_options| text_options[0][0] == section.to_s && text_options[0][1].to_s == strand.to_s}.blank? then
                   %h4
