@@ -218,12 +218,20 @@ class ActivitiesController < ApplicationController
 
     @activity = Activity.find(params[:id])
     @activity_manager = @activity.activity_manager # Get this ready in case we need to re-render the edit template
-    @activity_approver = @activity.activity_approver
+    @activity_approver = @activity.activity_approver # Get this ready in case we need to re-render the edit template
     @directorate_term = @activity.organisation.directorate_string
     @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] } # Get this ready in case we need to re-render the edit template
     @project_ids = (params[:projects].nil? ? [] : params[:projects])
     # Update the activity
     @activity.activity_manager.attributes = params[:activity_manager]
+    
+    # Only needed during the db transition where we have some Activities without Approvers
+    # Can be deleted when this is no longer the case
+    if @activity.activity_approver.nil?
+      @activity.build_activity_approver
+    end
+    
+    @activity.activity_approver.attributes = params[:activity_approver]
     @activity.activity_approver.attributes = params[:activity_approver]
     @activity.attributes = params[:activity]
     @activity.projects = []

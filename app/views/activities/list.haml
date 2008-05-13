@@ -6,16 +6,16 @@
   %p The table shows:
   %ul
     %li how each Activity is progressing through the assessment;
-    %li when the Activity Manger was last sent an access key to enable them to undertake the assessment;
-    %li Whether it has been authorised and by whom.
+    %li when the Activity Manager was last sent an access key to enable them to undertake the assessment;
+    %li whether it has been authorised and by whom.
     
 -when 'ProjectManager'
   %h3 Project Control Page - Activities
   %p The table shows:
   %ul
     %li how each Activity is progressing through the assessment;
-    %li when the Activity Manger was last sent an access key to enable them to undertake the assessment;
-    %li Whether it has been authorised and by whom.
+    %li when the Activity Manager was last sent an access key to enable them to undertake the assessment;
+    %li whether it has been authorised and by whom.
 
 -when 'OrganisationManager'
   #view_activities_by
@@ -27,8 +27,8 @@
   %p The Activities are listed by Directorate. The table shows:
   %ul
     %li how each Activity is progressing through the assessment;
-    %li when the Activity Manger was last sent an access key to enable them to undertake the assessment;
-    %li Whether it has been authorised and by whom.
+    %li when the Activity Manager was last sent an access key to enable them to undertake the assessment;
+    %li whether it has been authorised and by whom.
   %p
     It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
 
@@ -48,7 +48,6 @@
         %th Impact
         %th Priority
         %th Approved
-        %th Approver
         %th Last&nbsp;key sent
         %th
       -for activity in directorate.activities
@@ -65,8 +64,6 @@
             = priority_tag(activity)
           %td
             = approved_tag(activity.approved)
-          %td
-            =h approver_or_blank(activity.approver)
           %td
             = date_or_blank(activity.activity_manager.reminded_on)
           %td.actions{:nowrap => "nowrap"}
@@ -88,7 +85,6 @@
         %th Impact
         %th Priority
         %th Approved
-        %th Approver
         %th Last&nbsp;key sent
         %th
       -for activity in project.activities
@@ -105,8 +101,6 @@
             = priority_tag(activity)
           %td
             = approved_tag(activity.approved)
-          %td
-            =h approver_or_blank(activity.approver)
           %td
             = date_or_blank(activity.activity_manager.reminded_on)
           %td.actions{:nowrap => "nowrap"}
@@ -134,7 +128,6 @@
           %th Impact
           %th Priority
           %th Approved
-          %th Approver
           %th Last&nbsp;key sent
           %th
         -for activity in directorate.activities
@@ -151,8 +144,6 @@
               = priority_tag(activity)
             %td
               = approved_tag(activity.approved)
-            %td
-              =h approver_or_blank(activity.approver)
             %td
               = date_or_blank(activity.activity_manager.reminded_on)
             %td.actions{:nowrap => "nowrap"}
@@ -178,7 +169,6 @@
           %th Impact
           %th Priority
           %th Approved
-          %th Approver
           %th Last&nbsp;key sent
           %th
         -for activity in project.activities
@@ -195,8 +185,6 @@
               = priority_tag(activity)
             %td
               = approved_tag(activity.approved)
-            %td
-              =h approver_or_blank(activity.approver)
             %td
               = date_or_blank(activity.activity_manager.reminded_on)
             %td.actions{:nowrap => "nowrap"}
