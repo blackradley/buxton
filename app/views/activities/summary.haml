@@ -1,11 +1,14 @@
 -case @current_user.class.to_s
 -when 'DirectorateManager'
   %h3
-    = @current_user.organisation.directorate_term
+    = (ot 'directorate').titleize
     Summary
 -when 'OrganisationManager'
   %h3 Organisation Summary
-
+-when 'ProjectManager'
+  %h3
+    = (ot 'project').titleize
+    Summary
 %span#pdf_link{:style =>"width:auto;"}
   = image_tag('icons/pdf.gif')
   View PDF report: 

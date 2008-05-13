@@ -1,11 +1,13 @@
 -case @current_user.class.to_s
 -when 'DirectorateManager'
   %h3
-    = @current_user.organisation.directorate_term
+    = (ot 'directorate').titleize
     Control Page - Sections
   %p Click on one of the 5 assessment sections (below) to see how each Activity is progressing through the tool.
 -when 'ProjectManager'
-  %h3 Project Control Page - Sections
+  %h3 
+    =(ot 'project').titleize
+    Control Page - Sections
   %p Click on one of the 5 assessment sections (below) to see how each Activity is progressing through the tool.
 -when 'OrganisationManager'
   %h3 Organisation Control Page - Sections

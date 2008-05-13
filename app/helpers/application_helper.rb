@@ -53,9 +53,9 @@ module ApplicationHelper
         when 'ActivityManager'
           'Logged in as an Activity Manager.'
         when 'ProjectManager'
-          'Logged in as a Project Manager.'
+          "Logged in as a #{(ot 'project').titleize} Manager."
         when 'DirectorateManager'
-          'Logged in as a Directorate Manager.'
+          "Logged in as a #{(ot 'directorate').titleize} Manager."
         when 'OrganisationManager'
           'Logged in as an Organisation Manager.'
         when 'Administrator'
