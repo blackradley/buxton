@@ -29,6 +29,7 @@
 #
 class Activity < ActiveRecord::Base
   has_one :activity_manager, :dependent => :destroy
+  has_one :activity_approver, :dependent => :destroy
   belongs_to :directorate
   # Fake belongs_to :organisation, :through => :directorate
   delegate :organisation, :organisation=, :to => :directorate
@@ -41,6 +42,8 @@ class Activity < ActiveRecord::Base
   validates_presence_of :name, :message => 'All activities must have a name.'
   validates_presence_of :activity_manager
   validates_associated :activity_manager
+  validates_presence_of :activity_approver
+  validates_associated :activity_approver
   validates_associated :questions
   # validates_uniqueness_of :name, :scope => :directorate_id
 
