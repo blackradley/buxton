@@ -26,6 +26,15 @@ class ApplicationController < ActionController::Base
   consider_local "82.69.170.6"
     
 protected
+  def log_event(type, text)
+    # If this is a secret login, disable the creating of logs by returning false here
+    return false if session[:secret]
+    # e.g. Convert :PDF to PDFLog
+    class_name = "#{type}Log"
+    # Log this type of event
+    instance_eval("#{class_name}.create(:message => '#{text}')")
+  end
+
   # Check that the user in the session is for real.
   def authenticate
     if secure? && session[:user_id].nil?

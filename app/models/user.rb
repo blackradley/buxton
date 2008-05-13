@@ -49,7 +49,7 @@ class User < ActiveRecord::Base
   end
   
   # Generate a login URL for a given subdomain and passkey
-  def url_for_login(request)
+  def url_for_login(request, secret=false)
     domain = request.domain(TLD_LENGTH)
 
     subdomain = case self.class.name
@@ -64,13 +64,24 @@ class User < ActiveRecord::Base
     else
       # TODO throw an error - shouldn't ever get here
     end
+    
+    # Passkeys that end in an i don't leave any audit trail
+    if secret
+      passkey = self.passkey + 'i'
+    else
+      passkey = self.passkey
+    end
 
     # unfortunately needed until we set up wildcard DNS on staging/dev server
     if domain == '27stars.co.uk' || domain == 'localhost'
-      "#{request.protocol}#{request.host_with_port}/#{self.passkey}"
+      "#{request.protocol}#{request.host_with_port}/#{passkey}"
     else
-      "#{request.protocol}#{subdomain_string}#{domain}#{request.port_string}/#{self.passkey}"
+      "#{request.protocol}#{subdomain_string}#{domain}#{request.port_string}/#{passkey}"
     end
+  end
+  
+  def url_for_secret_login(request)
+    url_for_login(request, true)
   end
   
 end

@@ -4,7 +4,7 @@
   %ul
     - @administrators.each do |admin|
       %li
-        = link_to admin.email, admin.url_for_login(request)
+        = link_to admin.email, admin.url_for_secret_login(request)
   %hr
   %h2 Organisations
   %ul
@@ -13,7 +13,7 @@
         %h3
           = org.name
           (
-          = link_to OrganisationManager.find_by_organisation_id(org.id).email, OrganisationManager.find_by_organisation_id(org.id).url_for_login(request)
+          = link_to OrganisationManager.find_by_organisation_id(org.id).email, OrganisationManager.find_by_organisation_id(org.id).url_for_secret_login(request)
           )
         %h4 Directorates
         %ul
@@ -23,14 +23,14 @@
                 = directorate.name
                 - if DirectorateManager.find_by_directorate_id(directorate.id)
                   (
-                  = link_to DirectorateManager.find_by_directorate_id(directorate.id).email, DirectorateManager.find_by_directorate_id(directorate.id).url_for_login(request)
+                  = link_to DirectorateManager.find_by_directorate_id(directorate.id).email, DirectorateManager.find_by_directorate_id(directorate.id).url_for_secret_login(request)
                   )
               %ul
                 - directorate.activities.each do |activity|
                   %li
                     = activity.name
                     (
-                    = link_to activity.activity_manager.email, activity.activity_manager.url_for_login(request)
+                    = link_to activity.activity_manager.email, activity.activity_manager.url_for_secret_login(request)
                     )
         %hr
         %h4 Projects
@@ -41,13 +41,13 @@
                 = project.name
                 - if ProjectManager.find_by_project_id(project.id)
                   (
-                  = link_to ProjectManager.find_by_project_id(project.id).email, ProjectManager.find_by_project_id(project.id).url_for_login(request)
+                  = link_to ProjectManager.find_by_project_id(project.id).email, ProjectManager.find_by_project_id(project.id).url_for_secret_login(request)
                   )
               %ul
                 - project.activities.each do |activity|
                   %li
                     = activity.name
                     (
-                    = link_to activity.activity_manager.email, activity.activity_manager.url_for_login(request)
+                    = link_to activity.activity_manager.email, activity.activity_manager.url_for_secret_login(request)
                     )
         %hr

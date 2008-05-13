@@ -115,7 +115,7 @@ class UsersController < ApplicationController
             @user.save
         end
       end
-      RemindLog.create(:message => %Q[A passkey reminder was sent to <a href="mailto:#{@user.email}">#{@user.email}</a>.])
+      log_event('Remind', %Q[A passkey reminder was sent to <a href="mailto:#{@user.email}">#{@user.email}</a>.])
       flash[:notice] = "New link#{@users.length >= 2 ? 's' : ''} sent to #{@user.email}"
     end
     redirect_to :action => 'index'
@@ -165,7 +165,7 @@ class UsersController < ApplicationController
     end
 
     # Send the reminder e-mail
-    RemindLog.create(:message => %Q[A passkey reminder was sent to <a href="mailto:#{@user.email}">#{@user.email}</a>.])
+    log_event('Remind', %Q[A passkey reminder was sent to <a href="mailto:#{@user.email}">#{@user.email}</a>.])
     Notifier.deliver(email)
     # Update the time we reminded them
     @user.reminded_on = Time.now
@@ -176,25 +176,41 @@ class UsersController < ApplicationController
 
   # Log the user in and then direct them to the right place based on the user type
   # Available to: anybody
-  def login
-    user = User.find_by_passkey(params[:passkey])
+  def login  
+    passkey_param = params[:passkey]
+
+    # Passkeys that end in an i shouldn't leave any audit trail
+    if passkey_param[-1,1] == 'i'
+      secret = true
+      passkey = passkey_param[0,passkey_param.length-1]
+    else
+      secret = false
+      passkey = passkey_param
+    end
+    
+    user = User.find_by_passkey(passkey)
     if user.nil? # the key is not in the user table
       flash[:notice] = 'Out of date link, enter your email to receive a new one'
       redirect_to :action => 'index'
     else # the key is in the table so stash the user
       session[:user_id] = user.id
+      
+      # Store the secret status, to be paid attention to by the activity loggers
+      session[:secret] = secret
+      
+      # Log the log-in event
       case user.class.name
         when 'ActivityManager'
-          LoginLog.create(:message => %Q[<a href="mailto:#{user.email}">#{user.email}</a>, activity manager of <strong>#{user.activity.name}</strong> for <strong>#{user.activity.organisation.name}</strong> logged in.])
+          log_event('Login', %Q[<a href="mailto:#{user.email}">#{user.email}</a>, activity manager of <strong>#{user.activity.name}</strong> for <strong>#{user.activity.organisation.name}</strong> logged in.])
           redirect_to :controller => 'activities', :action => 'index'
         when 'DirectorateManager'
-          LoginLog.create(:message => %Q[<a href="mailto:#{user.email}">#{user.email}</a>, directorate manager of <strong>#{user.directorate.name}</strong> logged in.])
+          log_event('Login', %Q[<a href="mailto:#{user.email}">#{user.email}</a>, directorate manager of <strong>#{user.directorate.name}</strong> logged in.])
           redirect_to :controller => 'activities', :action => 'summary'
         when 'ProjectManager'
-          LoginLog.create(:message => %Q[<a href="mailto:#{user.email}">#{user.email}</a>, project manager of <strong>#{user.project.name}</strong> logged in.])
+          log_event('Login', %Q[<a href="mailto:#{user.email}">#{user.email}</a>, project manager of <strong>#{user.project.name}</strong> logged in.])
           redirect_to :controller => 'activities', :action => 'summary'
         when 'OrganisationManager'
-          LoginLog.create(:message => %Q[<a href="mailto:#{user.email}">#{user.email}</a>, organisation manager of <strong>#{user.organisation.name}</strong> logged in.])
+          log_event('Login', %Q[<a href="mailto:#{user.email}">#{user.email}</a>, organisation manager of <strong>#{user.organisation.name}</strong> logged in.])
           redirect_to :controller => 'activities', :action => 'summary'
         when 'Administrator'
           redirect_to organisations_url
