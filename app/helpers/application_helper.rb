@@ -9,6 +9,7 @@
 # Methods added to this helper will be available to all templates in the application.
 #
 module ApplicationHelper
+  
   # Display the users progress through the questions, this is used both in the
   # Activity and on the Organisation, hence it is here in the ApplicationHelper.
   def progress_bar(percentage, width=100)
@@ -25,7 +26,6 @@ module ApplicationHelper
     # if width then options.store(:width, width) end
     # image_tag(url_for(options))
   end
-
 
   # Extend the date formats to include some British styley ones
   ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(

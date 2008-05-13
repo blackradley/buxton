@@ -123,6 +123,7 @@ class ActivitiesController < ApplicationController
     end
     Activity.transaction do
       @activity.save!
+      log_event('Create', %Q[The <strong>#{@activity.name}</strong> activity was created for <strong>#{@activity.organisation.name}</strong>.])
       flash[:notice] = "#{@activity.name} was created."
       redirect_to :action => :list
     end
@@ -260,6 +261,7 @@ class ActivitiesController < ApplicationController
     # Destroy the activity and go back to the list of activities for this organisation
     @activity = Activity.find(params[:id])
     @activity.destroy
+    log_event('Destroy', %Q[The <strong>#{@activity.name}</strong> activity for <strong>#{@activity.organisation.name}</strong> was deleted.])    
 
     flash[:notice] = 'Activity successfully deleted.'
     redirect_to :action => 'list'
@@ -271,7 +273,7 @@ class ActivitiesController < ApplicationController
     else
       @activity = @current_user.activity
     end
-    PDFLog.create(:message => %Q[The activity manager PDF for the <strong>#{@activity.name}</strong> activity, within <strong>#{@activity.organisation.name}</strong>, was viewed.])
+    log_event('PDF', %Q[The activity manager PDF for the <strong>#{@activity.name}</strong> activity, within <strong>#{@activity.organisation.name}</strong>, was viewed.])
     send_data ActivityPDFGenerator.new(@activity).pdf.render, :disposition => 'inline',
       :filename => "#{@activity.name}.pdf",
       :type => "application/pdf"

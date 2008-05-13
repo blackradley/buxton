@@ -57,5 +57,6 @@ ActionController::Routing::Routes.draw do |map|
   map.connect ':controller/:action/:id.:format'
 
   # If all else fails, may be it's a passkey?
-  map.connect ':passkey', :controller => 'users', :action => 'login', :requirements => {:passkey => /[a-f0-9]{40}/}
+  # n.b. Passkeys that end in an i don't leave any audit trail
+  map.connect ':passkey', :controller => 'users', :action => 'login', :requirements => {:passkey => /[a-f0-9]{40}i{0,1}/}
 end
