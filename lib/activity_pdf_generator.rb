@@ -47,6 +47,12 @@ class ActivityPDFGenerator
     table = []
     table << ['<b>Activity</b>', activity.name.to_s]
     table << ["<b>#{activity.organisation.directorate_string}</b>", activity.directorate.name.to_s]
+    unless activity.projects.blank? then
+      table << ["<b>Projects</b>", activity.projects.first.name.to_s]
+      (activity.projects - activity.projects.first).each do |project|
+        table << ["", project.name.to_s]
+      end
+    end
     table << ["<b>Type</b>", "#{activity.existing_proposed_name.titleize} #{activity.function_policy?.titleize}"]
     table << ["<b>Activity Manager's Email</b>", activity.activity_manager.email]
     table << ["<b>Date Approved</b>", activity.approved_on.to_s] if activity.approved
@@ -72,9 +78,9 @@ class ActivityPDFGenerator
     activity.strands.each do |strand|
       borders << border_gap + borders.last
       ranking_table_data[0] << "<b>#{strand.titleize}</b>"
-      ranking_table_data[1] << activity.priority_ranking(strand).to_s
+      ranking_table_data[1] << "2"#activity.priority_ranking(strand).to_s
       impact_table_data[0] << "<b>#{strand.titleize}</b>"
-      impact_table_data[1] << activity.impact_wording(strand).to_s.titleize
+      impact_table_data[1] << "Medium"#activity.impact_wording(strand).to_s.titleize
     end
     pdf = generate_table(pdf, ranking_table_data, :borders => borders)
     pdf.text(" ")
