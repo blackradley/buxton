@@ -38,19 +38,6 @@ module ActivitiesHelper
       return image_tag('icons/cross.gif', :alt => "Not approved yet", :title => "Not approved yet")
     end
   end
-#
-# If the approver field is blank, return some other string, otherwise the
-# table of activities looks a bit odd with blanks in it.  Then again this might
-# be what you want.  On the whole I think having some kind of 'null' entry
-# makes sense.
-#
-  def approver_or_blank(approver)
-    if approver.nil? or approver.blank?
-      return 'Not answered'
-    else
-      approver
-    end
-  end
 
   def impact_tag(activity)
     if activity.completed then
