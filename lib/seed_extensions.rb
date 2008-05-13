@@ -19,6 +19,34 @@ module Seed
   def add_value(hash)
     self.update_attributes(hash)
   end
+  
+  def change_seed(class_name, variables, &block)
+    print "Changing seed data for #{(find_class class_name).to_s} with "
+    print variables.to_a.map{|s| s.join(" => ")}.to_sentence
+    object_to_create = find_class class_name
+    instance_of_object = object_to_create.send("find_by_#{variables.keys.join('_and_')}".to_sym, variables.values)
+    possible_parent_list = possible_parents instance_of_object
+    parent_instance = self unless possible_parent_list.select{|parent| parent == self.class.to_s}.blank?
+    instance_of_object.send("#{parent_instance.class.to_s.downcase.to_sym}=", parent_instance) if parent_instance
+    instance_of_object.instance_eval(&block) if block
+    instance_of_object.save
+    puts ""  
+  end
+  
+  def add_or_change_seed(class_name, variables, &block)
+    print "Changing seed data for #{(find_class class_name).to_s} with "
+    print variables.to_a.map{|s| s.join(" => ")}.to_sentence
+    object_to_create = find_class class_name
+    instance_of_object = object_to_create.send("find_by_#{variables.keys.join('_and_')}".to_sym, variables.values)
+    instance_of_object = object_to_create.new(variables) unless instance_of_object
+    possible_parent_list = possible_parents instance_of_object
+    parent_instance = self unless possible_parent_list.select{|parent| parent == self.class.to_s}.blank?
+    instance_of_object.send("#{parent_instance.class.to_s.downcase.to_sym}=", parent_instance) if parent_instance
+    instance_of_object.instance_eval(&block) if block
+    instance_of_object.save
+    puts ""   
+  end
+  
   #warning, remove seed does not remove children elements unless they have dependent destroy set on them.
   def remove_seed(class_name, variables)
     print "Removing Seed Data for #{(find_class class_name).to_s} with "
