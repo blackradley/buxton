@@ -105,13 +105,14 @@ class SectionsController < ApplicationController
         @activity.activity_strategies.find_or_create_by_strategy_id(dir_strategies[i].id)
       end
       @projects = @activity.projects
-      # project_strategies = []
-      #      @activity.projects.each do |pro|
-      #        project_strategies << pro.project_strategies
-      #      end
-      #      @activity_project_strategies = Array.new(project_strategies.size) do |i|
-      #        @activity.activity_strategies.find_or_create_by_strategy_id(project_strategies[i].id)
-      # end
+      @activity_project_strategies = [
+        @projects.map do |p|
+          p.project_strategies.map do |ps|
+            @activity.activity_strategies.find_or_create_by_strategy_id(ps.id)
+          end
+        end
+      ]
+      @activity_project_strategies = @activity_project_strategies.flatten
       render :template => 'sections/edit_purpose_a'
     when 'purpose_b'
       render :template => 'sections/edit_purpose_b'
