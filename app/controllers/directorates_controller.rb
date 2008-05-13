@@ -25,13 +25,36 @@ class DirectoratesController < GroupingsController
 
   def edit
     @directorate = @organisation.directorates.find(params[:id])
+    
+    # If we already have a directorate manager, use it
+    unless @directorate.directorate_manager.nil?
+      @directorate_manager = @directorate.directorate_manager
+    else
+      # If not, create a new one
+      # This second step is needed where we have some directorates without directorate managers
+      # since the introduction of directorate managers.
+      # This can be removed in the future where no installations in this state.
+      @directorate_manager = @directorate.build_directorate_manager
+    end    
   end
 
   def update
     @directorate = @organisation.directorates.find(params[:id])
     Directorate.transaction do
       @directorate.update_attributes(params[:directorate])
-      @directorate.directorate_manager.update_attributes(params[:directorate_manager])
+
+      # If we already have a directorate manager, use it
+      unless @directorate.directorate_manager.nil?
+        @directorate.directorate_manager.update_attributes(params[:directorate_manager])
+      else
+        # If not, create a new one
+        # This second step is needed where we have some directorates without directorate managers
+        # since the introduction of directorate managers.
+        # This can be removed in the future where no installations in this state.
+        directorate_manager = @directorate.build_directorate_manager(params[:directorate_manager])
+        directorate_manager.save
+      end
+      
       flash[:notice] = "#{@directorate.name} was successfully changed."
       redirect_to organisation_directorates_url
     end
