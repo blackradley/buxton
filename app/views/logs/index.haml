@@ -1,5 +1,8 @@
 %h2 Activity Log
-%p
-  Clear log
+
+- form_tag clear_logs_url do
+  %p
+    = submit_tag 'Clear logs', :onclick => "return #{confirm_javascript_function("Are you sure you want to delete all of the logs?")}" 
+
 %table
   = render :partial => 'log', :collection => @logs

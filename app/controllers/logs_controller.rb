@@ -11,6 +11,11 @@ class LogsController < ApplicationController
   def index
     @logs = Log.find(:all, :order => 'created_at DESC')
   end
+  
+  def clear
+    Log.destroy_all
+    redirect_to :back
+  end
 
 protected
 

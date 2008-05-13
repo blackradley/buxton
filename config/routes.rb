@@ -13,7 +13,8 @@ ActionController::Routing::Routes.draw do |map|
     organisations.resources :directorates
     organisations.resources :projects
   end
-
+  
+  map.resources :logs, :collection => { :clear => :post }
 
   # Manually create a subset of the RESTful named routes for the DemosController
   map.new_demo 'demos/new', :controller => 'demos', :action => 'new', :conditions => { :method => :get }
