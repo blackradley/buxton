@@ -93,6 +93,8 @@ class ActivitiesController < ApplicationController
   def new
     @activity = Activity.new
     @activity_manager = @activity.build_activity_manager
+    @activity_approver = @activity.build_activity_approver
+    @activity_approver.email = @current_user.email
     directorates = @current_user.organisation.directorates
     @directorate_term = @current_user.organisation.directorate_string
     @directorates = directorates.collect{ |d| [d.name, d.id] }
@@ -111,6 +113,8 @@ class ActivitiesController < ApplicationController
     @activity = Activity.new(params[:activity])
     @activity_manager = @activity.build_activity_manager(params[:activity_manager])
     @activity_manager.passkey = ActivityManager.generate_passkey(@activity_manager)
+    @activity_approver = @activity.build_activity_approver(params[:activity_approver])
+    @activity_approver.passkey = ActivityApprover.generate_passkey(@activity_approver)
     @directorate_term = @current_user.organisation.directorate_string
     @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] } # Needed for the new template incase we need to re-render it
     @project_ids.each do |p_id|
@@ -198,6 +202,7 @@ class ActivitiesController < ApplicationController
     # Get the Activity and User details ready for the view
     @activity = Activity.find(params[:id])
     @activity_manager = @activity.activity_manager
+    @activity_approver = @activity.activity_approver
     @directorate_term = @activity.organisation.directorate_string
     @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] }
     @projects = @current_user.organisation.projects
@@ -212,18 +217,21 @@ class ActivitiesController < ApplicationController
 
     @activity = Activity.find(params[:id])
     @activity_manager = @activity.activity_manager # Get this ready in case we need to re-render the edit template
+    @activity_approver = @activity.activity_approver
     @directorate_term = @activity.organisation.directorate_string
     @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] } # Get this ready in case we need to re-render the edit template
     @project_ids = (params[:projects].nil? ? [] : params[:projects])
     # Update the activity
     @activity.activity_manager.attributes = params[:activity_manager]
+    @activity.activity_approver.attributes = params[:activity_approver]
     @activity.attributes = params[:activity]
     @activity.projects = []
     @project_ids.each do |p_id|
       @activity.projects << Project.find(p_id)
     end
-    if @activity.valid? && @activity.activity_manager.valid? then
+    if @activity.valid? && @activity.activity_manager.valid? && @activity.activity_approver.valid?then
       @activity.activity_manager.save!
+      @activity.activity_approver.save!
       @activity.save!
       flash[:notice] =  "#{@activity.name} was successfully changed."
       redirect_to :action => 'list'

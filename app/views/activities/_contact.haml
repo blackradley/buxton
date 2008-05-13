@@ -12,6 +12,13 @@
         Name of Activity
       %span.labelled
         = f.text_field :name, 'size' => 50
+        
+    -fields_for :activity_approver do |aa|
+      %p
+        %label
+          E-mail address of Activity Approver
+        %span.labelled
+          = aa.text_field :email, 'size' => 50
 
     %h4= "#{@directorate_term.to_s.titleize} and Projects to which the Activity belongs"
     %p
@@ -23,5 +30,6 @@
       - @projects.each do |project|
         -options = :selected if (@activity.projects.include? project)
         %span.labelled
-          = check_box_tag "projects[]", project.id, options
+          %span.checkbox
+            = check_box_tag "projects[]", project.id, options
           =project.name
