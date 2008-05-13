@@ -3,10 +3,13 @@ class Project < ActiveRecord::Base
    belongs_to :organisation
    has_one :project_manager
    has_many :project_strategies, :dependent => :destroy
+   
    validates_uniqueness_of :name, :scope => :organisation_id
-   validates_presence_of :name
+   validates_presence_of :name, :project_manager
    validates_associated :activities
+   
    after_update :save_project_strategies
+   
    attr_accessor :should_destroy
 
    def should_destroy?

@@ -1,6 +1,8 @@
 -case @current_user.class.to_s
 -when 'DirectorateManager'
-  %h3 Directorate Summary
+  %h3
+    = @current_user.organisation.directorate_term
+    Summary
 -when 'OrganisationManager'
   %h3 Organisation Summary
 

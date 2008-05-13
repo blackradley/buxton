@@ -10,7 +10,7 @@
       %td{:colspan=>"2"}
         %strong
           = @activity.organisation.name  
-          Strategies   
+          = ot('strategy').pluralize
     -if @activity_org_strategies.size >= 1
       -@activity_org_strategies.each do |activity_strategy|
         %tr
@@ -31,7 +31,7 @@
       %td{:colspan=>"2"}
         %strong
           = @activity.directorate.name  
-          Strategies   
+          = ot('strategy').pluralize
     -if @activity_dir_strategies.size >= 1
       -@activity_dir_strategies.each do |activity_strategy|
         %tr
@@ -52,8 +52,8 @@
       %tr
         %td{:colspan=>"2"}
           %strong
-            =project.name  
-            Strategies        
+            = project.name  
+            = ot('strategy').pluralize
       - project_strategies = project.project_strategies 
       - @activity_project_strategies = Array.new(project_strategies.size) do |i|
         -@activity.activity_strategies.find_or_create_by_strategy_id(project_strategies[i].id)

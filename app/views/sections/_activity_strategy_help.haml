@@ -5,7 +5,6 @@
   .help
     = @activity.hashes['header_help_text']['purpose_overall_1'][@activity.fun_pol_number][@activity.exist_prop_number].to_s
   %h3
-    =image_tag ("icons/strategies.gif")
     ="#{ot('strategy').titleize} Description:"
   -if !activity_strategy.strategy.description.blank? then
     .help

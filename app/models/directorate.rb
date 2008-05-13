@@ -3,9 +3,11 @@ class Directorate < ActiveRecord::Base
   has_one :directorate_manager, :dependent => :destroy
   has_many :activities, :dependent => :destroy
   has_many :directorate_strategies, :dependent => :destroy
+  
   validates_uniqueness_of :name, :scope => :organisation_id
-  validates_presence_of :name
+  validates_presence_of :name, :directorate_manager
   validates_associated :activities
+  
   after_update :save_directorate_strategies
 
   attr_accessor :should_destroy

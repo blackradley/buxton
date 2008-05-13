@@ -1,11 +1,20 @@
-class ProjectsController < ApplicationController
+class ProjectsController < GroupingsController
+
+  def index
+    @projects = @organisation.projects
+  end
+
+  def show
+    @project = @organisation.projects.find(params[:id])
+  end
+
   def new
-    @project = Project.new(:organisation_id => params[:organisation_id])
+    @project = @organisation.projects.build
     @project_manager = @project.build_project_manager
   end
 
   def create
-    @project = Project.new(params[:project])
+    @project = @organisation.projects.build(params[:project])
     Project.transaction do
       @project.build_project_manager(params[:project_manager])
       @project.save!
@@ -15,15 +24,11 @@ class ProjectsController < ApplicationController
   end
 
   def edit
-    @project = Project.find(params[:id])
-  end
-
-  def show
-    @project = Project.find(params[:id])
+    @project = @organisation.projects.find(params[:id])
   end
 
   def update
-    @project = Project.find(params[:id])
+    @project = @organisation.projects.find(params[:id])
     Project.transaction do
       @project.update_attributes!(params[:project])
       @project.project_manager.update_attributes(params[:project_manager])
@@ -32,15 +37,10 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def index
-    @organisation = Organisation.find(params[:organisation_id])
-    @projects = @organisation.projects
-  end
-
   def destroy
-    @project = Project.find(params[:id])
-    org = @project.organisation
+    @project = @organisation.projects.find(params[:id])
     @project.destroy
     redirect_to organisation_projects_url
   end
+
 end

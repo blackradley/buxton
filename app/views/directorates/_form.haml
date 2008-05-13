@@ -6,12 +6,12 @@
       = text_field 'directorate', 'name', 'size' => 50
     = hidden_field 'directorate', 'organisation_id'
     -fields_for @directorate.directorate_manager do |dm|
-      %label Email of the Directorate Manager
+      %label E-mail of the Directorate Manager
       %span.labelled
         = dm.text_field :email, 'size' => 50
 
   %fieldset.directorate_customisation
-    %legend Directorate Wide Strategies
+    %legend Directorate-Wide Strategies
     -fields_for :directorate_strategy do |strategy_fields|
       .strategies
         #strategies_list
