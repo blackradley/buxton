@@ -1,11 +1,11 @@
 class HelpTextForConsultation < ActiveRecord::Migration
   def self.up
-      wordings = {:gender => 'men and women',
-      :race => 'individuals from different ethnic backgrounds',
-      :disability => 'individuals with different kinds of disability',
-      :faith => 'individuals of different faiths',
-      :sexual_orientation => 'individuals of different sexual orientations',
-      :age => 'individuals of different ages'}
+    wordings = {'gender' => 'men and women',
+      'race' => 'individuals from different ethnic backgrounds',
+      'disability' => 'individuals with different kinds of disability',
+      'faith' => 'individuals of different faiths',
+      'sexual_orientation' => 'individuals of different sexual orientations',
+      'age' => 'individuals of different ages'}
       
       Activity.strands.each do |strand|
         #consultation_strand_1 help text
@@ -147,12 +147,12 @@ class HelpTextForConsultation < ActiveRecord::Migration
                If any future consultations are planned please record these details as well."
         end
         
-        strand_examples = {:gender => 'This means that the impact on one particular group of individuals, men or women, is different than for the other group.',
-          :race => 'This means that the impact on one particular group of individuals, say Polish people, is different than for another group.',
-          :disability => 'This means that the impact on one particular group of individuals, say people with mental health conditions, is different than for another group.',
-          :age => 'This means that the impact on one particular group of individuals, say elderly people, is different than for another group.',
-          :faith => 'This means that the impact on one particular group of individuals, say people from the Sikh religion, is different than for another group.  ',
-          :sexual_orientation => 'This means that the impact on one particular group of individuals, say bisexuals, is different than for another group.'}
+        strand_examples = {'gender' => 'This means that the impact on one particular group of individuals, men or women, is different than for the other group.',
+          'race' => 'This means that the impact on one particular group of individuals, say Polish people, is different than for another group.',
+          'disability' => 'This means that the impact on one particular group of individuals, say people with mental health conditions, is different than for another group.',
+          'age' => 'This means that the impact on one particular group of individuals, say elderly people, is different than for another group.',
+          'faith' => 'This means that the impact on one particular group of individuals, say people from the Sikh religion, is different than for another group.  ',
+          'sexual_orientation' => 'This means that the impact on one particular group of individuals, say bisexuals, is different than for another group.'}
 
         #consultation_strand_7 help text
         add_seed :help_text, :question_name => "consultation_#{strand}_7" do

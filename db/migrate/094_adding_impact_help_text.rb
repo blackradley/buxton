@@ -6,12 +6,12 @@ class AddingImpactHelpText < ActiveRecord::Migration
       :faith => 'individuals of different faiths',
       :sexual_orientation => 'individuals of different sexual orientations',
       :age => 'individuals of different ages'}
-    descriptive_term = {:gender => 'gender',
-      :race => 'ethnicity',
-      :disability => 'disability',
-      :faith => 'faith',
-      :sexual_orientation => 'sexuality',
-      :age =>  'age'}
+      descriptive_term = {'gender' => 'gender',
+      'race' => 'ethnicity',
+      'disability' => 'disability',
+      'faith' => 'faith',
+      'sexual_orientation' => 'sexuality',
+      'age' =>  'age'}
 
     #impact_strand_1 help text
     Activity.strands.each do |strand|

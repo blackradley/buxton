@@ -1,18 +1,18 @@
 class HelpTextForAdditionalWork < ActiveRecord::Migration
   def self.up
-      wordings = {:gender => 'men and women',
-      :race => 'individuals from different ethnic backgrounds',
-      :disability => 'individuals with different kinds of disability',
-      :faith => 'individuals of different faiths',
-      :sexual_orientation => 'individuals of different sexual orientations',
-      :age => 'individuals of different ages'}
+    wordings = {'gender' => 'men and women',
+      'race' => 'individuals from different ethnic backgrounds',
+      'disability' => 'individuals with different kinds of disability',
+      'faith' => 'individuals of different faiths',
+      'sexual_orientation' => 'individuals of different sexual orientations',
+      'age' => 'individuals of different ages'}
       
-      descriptive_term = {:gender => 'gender',
-      :race => 'ethnicity',
-      :disability => 'disability',
-      :faith => 'faith',
-      :sexual_orientation => 'sexuality',
-      :age =>  'age'}
+      descriptive_term = {'gender' => 'gender',
+      'race' => 'ethnicity',
+      'disability' => 'disability',
+      'faith' => 'faith',
+      'sexual_orientation' => 'sexuality',
+      'age' =>  'age'}
       
       Activity.strands.each do |strand|
         #additional_work_strand_1 help text

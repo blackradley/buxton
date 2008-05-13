@@ -1,12 +1,12 @@
 class AddingPurposeHelpTextAsSeed < ActiveRecord::Migration
   def self.up
     HelpText.find(:all).each{|ht| ht.destroy}
-    wordings = {:gender => 'men and women',
-      :race => 'individuals from different ethnic backgrounds',
-      :disability => 'individuals with different kinds of disability',
-      :faith => 'individuals of different faiths',
-      :sexual_orientation => 'individuals of different sexual orientations',
-      :age => 'individuals of different ages'}
+    wordings = {'gender' => 'men and women',
+      'race' => 'individuals from different ethnic backgrounds',
+      'disability' => 'individuals with different kinds of disability',
+      'faith' => 'individuals of different faiths',
+      'sexual_orientation' => 'individuals of different sexual orientations',
+      'age' => 'individuals of different ages'}
 
     #purpose_strand_3 help text
     Activity.strands.each do |strand|
