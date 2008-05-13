@@ -1,7 +1,7 @@
 -case @current_user.class.to_s
 -when 'DirectorateManager'
   %h3
-    = @current_user.organisation.directorate_term
+    = (ot 'directorate').titleize
     Control Page - Activities
   %p The table shows:
   %ul
@@ -10,7 +10,9 @@
     %li whether it has been authorised and by whom.
     
 -when 'ProjectManager'
-  %h3 Project Control Page - Activities
+  %h3
+    = (ot 'project').titleize
+    Control Page - Activities
   %p The table shows:
   %ul
     %li how each Activity is progressing through the assessment;
@@ -20,22 +22,15 @@
 -when 'OrganisationManager'
   #view_activities_by
     View activities by: 
-    =link_to_function "Directorates", "$('show_directorates').show(); $('show_projects').hide()"
+    =link_to_function ((ot 'directorate').titleize.pluralize, "$('show_directorates').show(); $('show_projects').hide()")
     |
-    =link_to_function "Projects", "$('show_projects').show(); $('show_directorates').hide()"
+    =link_to_function ((ot 'project').titleize.pluralize, "$('show_projects').show(); $('show_directorates').hide()")
   %h3 Organisation Control Page - Activities
-  %p The Activities are listed by Directorate. The table shows:
-  %ul
-    %li how each Activity is progressing through the assessment;
-    %li when the Activity Manager was last sent an access key to enable them to undertake the assessment;
-    %li whether it has been authorised and by whom.
-  %p
-    It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
 
 -if @current_user.class.to_s == 'OrganisationManager'
   %p
     %strong
-      = "No #{@directorate_term}s created." if @directorates.blank?
+      = "No #{ot 'directorate'}s created." if @directorates.blank?
 
 -if @current_user.class.to_s == 'DirectorateManager'
 
@@ -113,6 +108,16 @@
 
 -if @current_user.class.to_s == 'OrganisationManager'
   #show_directorates{:style=>"display:block;"}
+    %p 
+      The Activities are listed by 
+      =(ot 'directorate').titleize
+      \. The table shows:
+    %ul
+      %li how each Activity is progressing through the assessment;
+      %li when the Activity Manager was last sent an access key to enable them to undertake the assessment;
+      %li whether it has been authorised and by whom.
+    %p
+    It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
     -@directorates.each do |directorate|
       %h4
         =h directorate.name
@@ -155,6 +160,16 @@
               = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
             
   #show_projects{:style=>"display:none;"}
+    %p 
+      The Activities are listed by 
+      =(ot 'project').titleize
+      \. The table shows:
+    %ul
+      %li how each Activity is progressing through the assessment;
+      %li when the Activity Manager was last sent an access key to enable them to undertake the assessment;
+      %li whether it has been authorised and by whom.
+    %p
+    It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
     -@projects.each do |project|      
       %h4
         =h project.name
