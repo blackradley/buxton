@@ -17,7 +17,7 @@
       %labelled
         %h5
           = @activity.organisation.name 
-          Strategies
+          = ot('strategy').pluralize
         -yes_no = @activity.hashes['choices'][3]
         -if @activity_org_strategies.size >= 1
           -@activity_org_strategies.each do |activity_strategy|
@@ -29,7 +29,7 @@
           None
         %h5
           = @activity.directorate.name 
-          Strategies
+          = ot('strategy').pluralize
         -if @activity_dir_strategies.size >= 1
           -@activity_dir_strategies.each do |activity_strategy|
             %span{:class => :question_compact, :id => "activity_strategy_#{activity_strategy.id}", :onclick => "setFocus(\'more_activity_strategy_#{activity_strategy.id}\',\'activity_strategy_#{activity_strategy.id}\');", :style => "display:block;"}
@@ -41,7 +41,8 @@
         
         -@projects.each do |project|
           %h5
-            =project.name
+            = project.name
+            = ot('strategy').pluralize            
           - project_strategies = project.project_strategies 
           - @activity_project_strategies = Array.new(project_strategies.size) do |i|
             -@activity.activity_strategies.find_or_create_by_strategy_id(project_strategies[i].id)

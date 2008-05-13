@@ -6,12 +6,12 @@
       = text_field 'project', 'name', 'size' => 50
     = hidden_field 'project', 'organisation_id'
     -fields_for @project.project_manager do |dm|
-      %label Email of the Project Manager
+      %label E-mail of the Project Manager
       %span.labelled
         = dm.text_field :email, 'size' => 50
 
   %fieldset.project_customisation
-    %legend Project Wide Strategies
+    %legend Project-Wide Strategies
     -fields_for :project_strategy do |strategy_fields|
       .strategies
         #strategies_list

@@ -34,7 +34,7 @@ class OrganisationsController < ApplicationController
   # Create a new Organisation and a new associated User
   # Available to: Administrator
   def new
-    @organisation = Organisation.new
+    @organisation = Organisation.new    
     @organisation_terminologies = Terminology.find(:all).map do |term|
       @organisation.organisation_terminologies.build(:value => term.term, :terminology_id => term.id)
     end
@@ -57,13 +57,19 @@ class OrganisationsController < ApplicationController
   def edit
     @organisation = Organisation.find(params[:id])
     @organisation_managers = @organisation.organisation_managers
-    @organisation_terminologies = @organisation.organisation_terminologies
+    @organisation_terminologies = Terminology.find(:all).map do |term|
+      @organisation.organisation_terminologies.build(:value => term.term, :terminology_id => term.id)
+    end
   end
 
   # Update the organisation and all of its attributes
   # Available to: Administrator
   def update
     @organisation = Organisation.find(params[:id])
+    @organisation_managers = @organisation.organisation_managers
+    @organisation_terminologies = Terminology.find(:all).map do |term|
+      @organisation.organisation_terminologies.build(:value => term.term, :terminology_id => term.id)
+    end
     Organisation.transaction do
       @organisation.update_attributes!(params[:organisation])
       flash[:notice] = "#{@organisation.name} was successfully changed."

@@ -1,6 +1,8 @@
 -case @current_user.class.to_s
 -when 'DirectorateManager'
-  %h3 Directorate Control Page - Activities
+  %h3
+    = @current_user.organisation.directorate_term
+    Control Page - Activities
   %p The table shows:
   %ul
     %li how each Activity is progressing through the assessment;
@@ -16,19 +18,19 @@
     %li Whether it has been authorised and by whom.
 
 -when 'OrganisationManager'
+  #view_activities_by
+    View activities by: 
+    =link_to_function "Directorates", "$('show_directorates').show(); $('show_projects').hide()"
+    |
+    =link_to_function "Projects", "$('show_projects').show(); $('show_directorates').hide()"
   %h3 Organisation Control Page - Activities
   %p The Activities are listed by Directorate. The table shows:
   %ul
     %li how each Activity is progressing through the assessment;
     %li when the Activity Manger was last sent an access key to enable them to undertake the assessment;
     %li Whether it has been authorised and by whom.
-
   %p
     It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
-  %p
-    View Activites by: 
-    =link_to_function "Directorates", "$('show_directorates').show(); $('show_projects').hide()"
-    =link_to_function "Projects", "$('show_projects').show(); $('show_directorates').hide()"
 
 -if @current_user.class.to_s == 'OrganisationManager'
   %p

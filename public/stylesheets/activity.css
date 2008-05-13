@@ -7,3 +7,6 @@
   #new_activity .labelled input {
     width: 240px;
     margin-right: 0px; }
+
+#view_activities_by {
+  float: right; }

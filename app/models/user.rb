@@ -14,10 +14,6 @@
 # surname) this is associated with the organisation or function that they are
 # associated with.  Does this have a data protection implication???
 #
-# TODO: if the user "email" of the user has changed then the "reminded_on"
-# date should be set to null.  Because the reminder is when the user was
-# reminded so is no longer valid if it is a new user.
-# 
 require 'digest/sha1'
 
 class User < ActiveRecord::Base
@@ -29,14 +25,22 @@ class User < ActiveRecord::Base
     :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,
     :message => 'E-mail must be valid'
 
+  def before_create
+    self.passkey = User.generate_passkey(self)
+  end
+
   # Generate a new pass key.
   # There is no built in method for creating a GUID in Ruby so I have knocked
   # one up from the email, date and a random number.
   def self.generate_passkey(user)
+    # If the user isn't valid then the attributes we need may not be available, abort
+    return unless user.valid?
+    
     email = user.email
     date = user.created_on.nil? ? DateTime::now() : user.created_on
     number = rand(999999)
     passkey = Digest::SHA1.hexdigest(email.to_s + date.to_s + number.to_s)
+    
     if User.find_by_passkey(passkey) then 
       User.generate_passkey(user)
     else
