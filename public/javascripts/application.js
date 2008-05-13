@@ -77,4 +77,17 @@ function checkDependancy(main_question, sub_question, value){
   }
 }
 
-
+function hideall(element){//we hide all of them
+    var hide = document.getElementsByClassName(element);
+	  for (var i = 0; i < hide.length; i++){
+	     //Do Work on doc[i], this sets the border of the Div black
+	     hide[i].style.display = "none";
+	  }
+}
+function showall(element){//we hide all of them
+    var show = document.getElementsByClassName(element);
+	  for (var i = 0; i < show.length; i++){
+	     //Do Work on doc[i], this sets the border of the Div black
+	     show[i].style.display = "block";
+	  }
+}
