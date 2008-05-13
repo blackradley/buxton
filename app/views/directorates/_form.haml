@@ -5,7 +5,7 @@
     %span.labelled
       = text_field 'directorate', 'name', 'size' => 50
     = hidden_field 'directorate', 'organisation_id'
-    -fields_for @directorate.directorate_manager do |dm|
+    -fields_for :directorate_manager do |dm|
       %label E-mail of the Directorate Manager
       %span.labelled
         = dm.text_field :email, 'size' => 50
