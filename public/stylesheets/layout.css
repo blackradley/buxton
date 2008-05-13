@@ -32,8 +32,8 @@
 .content {
   position: relative; }
   .content .workingArea {
-    margin: 0px 20px;
-    width: 660px;
+    margin: 0px;
+    width: 700px;
     overflow: hidden;
     position: relative; }
   .content .messageArea {

@@ -14,143 +14,146 @@
     #summarytable .labelled img {
       margin-top: 5px; }
 
-.summary fieldset#approval {
-  float: right;
-  width: 250px;
-  border: 2px solid #F90;
-  margin-top: 0px;
-  padding: 10px;
-  margin-left: 5px;
-  overflow: hidden; }
-  .summary fieldset#approval legend {
-    color: #F90;
-    font-weight: bold;
-    background-color: #fff;
-    font-size: 1.1em; }
-    .summary fieldset#approval legend img {
-      float: none;
-      border: 0px solid #4e979e;
-      margin-bottom: -3px; }
-  .summary fieldset#approval label {
-    width: 45px;
-    border: 0px solid red;
-    margin-bottom: 5px;
-    margin-right: 5px;
-    float: left;
-    clear: left; }
-  .summary fieldset#approval #activity_approver_label {
-    width: 20px;
-    clear: left; }
-  .summary fieldset#approval #activity_review_on_label {
-    width: 60px; }
-  .summary fieldset#approval input {
-    width: auto;
-    float: left;
-    border: 0px solid #4e979e; }
-  .summary fieldset#approval img {
-    float: left;
-    border: 0px solid #4e979e; }
-  .summary fieldset#approval #activity_approver {
-    width: 198px;
-    border: 1px solid #979595;
-    margin: 0px;
-    margin-bottom: 10px; }
-  .summary fieldset#approval #activity_review_on {
-    width: 155px;
-    border: 1px solid #979595;
-    margin: 0px;
-    margin-bottom: 10px; }
-  .summary fieldset#approval #approval_submit input {
+.summary {
+  width: 660px;
+  margin: 0px 20px; }
+  .summary fieldset#approval {
     float: right;
-    width: 100px;
-    font-family: Tahoma, Verdana, Arial, Sans-Serif;
-    font-size: 1em;
-    padding: 4px 5px;
-    font-weight: bold;
-    color: #FFF;
-    background-color: #4e979e;
+    width: 250px;
     border: 2px solid #F90;
-    cursor: pointer;
-    margin-top: 10px; }
-.summary fieldset.section_summary_header {
-  border-top: 2px solid #4e979e;
-  margin-bottom: 20px;
-  margin-top: 0px;
-  padding: 0px 5px 20px 5px; }
-  .summary fieldset.section_summary_header legend {
-    color: #4e979e;
-    font-size: 1.1em;
-    font-weight: bold; }
-  .summary fieldset.section_summary_header legend.section_summary_toggles {
-    float: right;
-    font-size: 1em;
-    font-weight: normal;
-    margin-top: -20px;
-    padding: 0px 5px;
-    background-color: #fff;
-    text-align: right;
-    line-height: 18px; }
-    .summary fieldset.section_summary_header legend.section_summary_toggles img {
-      margin-left: 5px;
-      margin-top: 2px;
-      float: right; }
-.summary fieldset.section_summary_show {
-  border-top: 2px solid #4e979e;
-  margin-bottom: 20px;
-  margin-top: 0px;
-  padding: 0px 5px 20px 5px;
-  border: 2px solid #4e979e; }
-  .summary fieldset.section_summary_show legend {
-    color: #4e979e;
-    font-size: 1.1em;
-    font-weight: bold; }
-  .summary fieldset.section_summary_show legend.section_summary_toggles {
-    float: right;
-    font-size: 1em;
-    font-weight: normal;
-    margin-top: -20px;
-    padding: 0px 5px;
-    background-color: #fff;
-    text-align: right;
-    line-height: 18px;
-    width: 60px; }
-    .summary fieldset.section_summary_show legend.section_summary_toggles img {
-      margin-left: 5px;
-      margin-top: 2px;
-      float: right; }
-  .summary fieldset.section_summary_show h4 {
-    margin-left: 20px; }
-  .summary fieldset.section_summary_show h5 {
-    margin-left: 20px;
-    line-height: 2em;
-    margin-bottom: -15px; }
-  .summary fieldset.section_summary_show label {
-    width: 380px; }
-  .summary fieldset.section_summary_show #action_planning {
-    margin-bottom: 20px;
-    float: left;
-    clear: left; }
-    .summary fieldset.section_summary_show #action_planning label {
+    margin-top: 0px;
+    padding: 10px;
+    margin-left: 5px;
+    overflow: hidden; }
+    .summary fieldset#approval legend {
+      color: #F90;
+      font-weight: bold;
+      background-color: #fff;
+      font-size: 1.1em; }
+      .summary fieldset#approval legend img {
+        float: none;
+        border: 0px solid #4e979e;
+        margin-bottom: -3px; }
+    .summary fieldset#approval label {
+      width: 45px;
+      border: 0px solid red;
+      margin-bottom: 5px;
+      margin-right: 5px;
+      float: left;
+      clear: left; }
+    .summary fieldset#approval #activity_approver_label {
+      width: 20px;
+      clear: left; }
+    .summary fieldset#approval #activity_review_on_label {
+      width: 60px; }
+    .summary fieldset#approval input {
+      width: auto;
+      float: left;
+      border: 0px solid #4e979e; }
+    .summary fieldset#approval img {
+      float: left;
+      border: 0px solid #4e979e; }
+    .summary fieldset#approval #activity_approver {
+      width: 198px;
+      border: 1px solid #979595;
+      margin: 0px;
+      margin-bottom: 10px; }
+    .summary fieldset#approval #activity_review_on {
+      width: 155px;
+      border: 1px solid #979595;
+      margin: 0px;
+      margin-bottom: 10px; }
+    .summary fieldset#approval #approval_submit input {
+      float: right;
       width: 100px;
-      margin-left: 20px;
+      font-family: Tahoma, Verdana, Arial, Sans-Serif;
+      font-size: 1em;
+      padding: 4px 5px;
+      font-weight: bold;
+      color: #FFF;
+      background-color: #4e979e;
+      border: 2px solid #F90;
+      cursor: pointer;
+      margin-top: 10px; }
+  .summary fieldset.section_summary_header {
+    border-top: 2px solid #4e979e;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    padding: 0px 5px 20px 5px; }
+    .summary fieldset.section_summary_header legend {
+      color: #4e979e;
+      font-size: 1.1em;
       font-weight: bold; }
-  .summary fieldset.section_summary_show .labelled {
-    float: left;
-    width: 150px;
-    line-height: 20px;
-    font-weight: bold; }
-  .summary fieldset.section_summary_show .section_summary_header legend .section_summary_toggles {
-    width: 100px; }
-  .summary fieldset.section_summary_show .issues {
-    float: left;
-    width: 150px;
-    border: 1px solid #fff;
-    margin-top: 4px;
-    font-size: 1em; }
-    .summary fieldset.section_summary_show .issues ul {
-      padding-left: 0px;
-      list-style-position: inside;
-      list-style-type: decimal-leading-zero; }
+    .summary fieldset.section_summary_header legend.section_summary_toggles {
+      float: right;
+      font-size: 1em;
+      font-weight: normal;
+      margin-top: -20px;
+      padding: 0px 5px;
+      background-color: #fff;
+      text-align: right;
+      line-height: 18px; }
+      .summary fieldset.section_summary_header legend.section_summary_toggles img {
+        margin-left: 5px;
+        margin-top: 2px;
+        float: right; }
+  .summary fieldset.section_summary_show {
+    border-top: 2px solid #4e979e;
+    margin-bottom: 20px;
+    margin-top: 0px;
+    padding: 0px 5px 20px 5px;
+    border: 2px solid #4e979e; }
+    .summary fieldset.section_summary_show legend {
+      color: #4e979e;
+      font-size: 1.1em;
+      font-weight: bold; }
+    .summary fieldset.section_summary_show legend.section_summary_toggles {
+      float: right;
+      font-size: 1em;
+      font-weight: normal;
+      margin-top: -20px;
+      padding: 0px 5px;
+      background-color: #fff;
+      text-align: right;
+      line-height: 18px;
+      width: 60px; }
+      .summary fieldset.section_summary_show legend.section_summary_toggles img {
+        margin-left: 5px;
+        margin-top: 2px;
+        float: right; }
+    .summary fieldset.section_summary_show h4 {
+      margin-left: 20px; }
+    .summary fieldset.section_summary_show h5 {
+      margin-left: 20px;
+      line-height: 2em;
+      margin-bottom: -15px; }
+    .summary fieldset.section_summary_show label {
+      width: 380px; }
+    .summary fieldset.section_summary_show #action_planning {
+      margin-bottom: 20px;
+      float: left;
+      clear: left; }
+      .summary fieldset.section_summary_show #action_planning label {
+        width: 100px;
+        margin-left: 20px;
+        font-weight: bold; }
+    .summary fieldset.section_summary_show .labelled {
+      float: left;
+      width: 150px;
+      line-height: 20px;
+      font-weight: bold; }
+    .summary fieldset.section_summary_show .section_summary_header legend .section_summary_toggles {
+      width: 100px; }
+    .summary fieldset.section_summary_show .issues {
+      float: left;
+      width: 150px;
+      border: 1px solid #fff;
+      margin-top: 4px;
+      font-size: 1em; }
+      .summary fieldset.section_summary_show .issues ul {
+        padding-left: 0px;
+        list-style-position: inside;
+        list-style-type: decimal-leading-zero; }
 
 #show table {
   width: 100%;
