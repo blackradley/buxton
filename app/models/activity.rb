@@ -865,7 +865,7 @@ def after_update
     if help_object.nil?
       help_text = ""
     else
-      if exist_prop_indicator.include? "-" || fun_pol_indicator.include? "-" then
+      if (exist_prop_indicator.include? "-") || (fun_pol_indicator.include? "-") then
         help_text = ""
       else
         text_to_send = "#{exist_prop_indicator}_#{fun_pol_indicator}"
