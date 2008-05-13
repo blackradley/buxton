@@ -78,9 +78,9 @@ class ActivityPDFGenerator
     activity.strands.each do |strand|
       borders << border_gap + borders.last
       ranking_table_data[0] << "<b>#{strand.titleize}</b>"
-      ranking_table_data[1] << "2"#activity.priority_ranking(strand).to_s
+      ranking_table_data[1] << activity.priority_ranking(strand).to_s
       impact_table_data[0] << "<b>#{strand.titleize}</b>"
-      impact_table_data[1] << "Medium"#activity.impact_wording(strand).to_s.titleize
+      impact_table_data[1] << activity.impact_wording(strand).to_s.titleize
     end
     pdf = generate_table(pdf, ranking_table_data, :borders => borders)
     pdf.text(" ")
