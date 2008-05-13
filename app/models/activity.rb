@@ -865,8 +865,12 @@ def after_update
     if help_object.nil?
       help_text = ""
     else
-      text_to_send = "#{exist_prop_indicator}_#{fun_pol_indicator}"
-      help_text = help_object.send(text_to_send.to_sym)
+      if exist_prop_indicator.include? "-" || fun_pol_indicator.include? "-" then
+        help_text = ""
+      else
+        text_to_send = "#{exist_prop_indicator}_#{fun_pol_indicator}"
+        help_text = help_object.send(text_to_send.to_sym)
+      end
     end
     weights = query_hash[section][question]['weights']
     label = eval(%Q{<<"DELIM"\n} + label.to_s + "\nDELIM\n") rescue nil
