@@ -66,6 +66,7 @@ class ActivitiesController < ApplicationController
        @activity.activity_strategies.find_or_create_by_strategy_id(dir_strategies[i].id)
      end
     @relevant_strands_string = @activity.relevant_strands.map!{|s| s.titleize}.join(', ')
+    @projects = @activity.projects
   end
 
   # List and provide a summary of the state of all the activities in this organisation.
