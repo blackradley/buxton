@@ -231,7 +231,7 @@ class ActivitiesController < ApplicationController
     if @activity.activity_approver.nil?
       @activity.build_activity_approver
     end
-    
+    @projects = @current_user.organisation.projects
     @activity.activity_approver.attributes = params[:activity_approver]
     @activity.activity_approver.attributes = params[:activity_approver]
     @activity.attributes = params[:activity]
