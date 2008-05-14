@@ -9,4 +9,5 @@
 class ActivityApprover < User
   # The user approves an activity.
   belongs_to :activity
+  delegate :organisation, :organisation=, :to => :activity
 end

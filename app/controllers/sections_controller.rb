@@ -19,16 +19,15 @@ class SectionsController < ApplicationController
   # Manager to scan down.
   # Available to: Organisation Manager
   def list
+    @organisation = @current_user.organisation
+
     case @current_user.class.to_s
     when 'DirectorateManager'
-      @organisation = @current_user.directorate.organisation
       @directorates = [@current_user.directorate]
     when 'OrganisationManager'
-      @organisation = @current_user.organisation
       @directorates = @organisation.directorates
       @projects = @organisation.projects
     when 'ProjectManager'
-      @organisation = @current_user.project.organisation
       @projects = [@current_user.project]
     else
       # TODO throw an error - shouldn't ever get here

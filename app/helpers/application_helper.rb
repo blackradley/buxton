@@ -71,17 +71,7 @@ module ApplicationHelper
     if @current_user.nil?
       ''
     else
-      organisation = case @current_user.class.name
-        when 'ActivityManager'
-          @current_user.activity.organisation
-        when 'OrganisationManager'
-          @current_user.organisation
-        when 'DirectorateManager'
-          @current_user.directorate.organisation
-       when 'ProjectManager'
-          @current_user.project.organisation
-      end
-      terminology = organisation.organisation_terminologies.find_by_terminology_id(assoc_term.id)
+      terminology = @current_user.organisation.organisation_terminologies.find_by_terminology_id(assoc_term.id)
       terminology ? terminology.value : term
     end
   end
