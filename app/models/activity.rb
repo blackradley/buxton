@@ -443,14 +443,13 @@ end
     []
   end
 
-def after_update
+  def after_update
     return true if @saved
     @saved = true
     to_save = {}
     return true if (@activity_clone.ces_question != self.ces_question)
-    to_save[:overall_completed_strategies] = true if self.purpose_completed
     if @activity_clone.send(:existing_proposed) != self.send(:existing_proposed) then
-      if new_value == 1 then
+      if proposed? then
         @@invisible_questions.each do |question|
           status = self.questions.find_by_name(question.to_s)
           status.update_attributes(:needed => false)
@@ -497,19 +496,8 @@ def after_update
         to_save["#{strand}_percentage_importance".to_sym] = strand_percentage_importance(strand).to_i
       end
       sections.each do |section|
-        sec_completed = true
-        needed = (section != :purpose)
-        section_questions = self.questions.find(:all, :conditions => "name LIKE '%#{section.to_s}%'#{" AND needed = true" if needed}")
-        remove_qns = self.questions.find(:all, :conditions => "name LIKE '%#{section.to_s}%' AND needed = false#{" AND needed = false" if needed}").size
-        total = Activity.get_question_names(section).size - remove_qns
-        sec_completed = false if section_questions.size != total
-        section_questions.each{|question| sec_completed = false unless question.completed || (!question.needed && needed)}
-        to_save["#{section}_completed".to_sym] = sec_completed
+        to_save["#{section}_completed".to_sym] = completed(section)
       end
-      to_save[:overall_completed_strategies] = to_save[:purpose_completed] if to_save[:overall_completed_strategies]
-      overall_comp = !(self.questions.find(:all, :conditions => 'completed = false').size > 0)
-      overall_comp = false if self.questions.size != Activity.get_question_names.size
-      to_save[:overall_completed_questions] = overall_comp unless overall_comp == self.overall_completed_questions
     end
     self.update_attributes(to_save)
   end
@@ -678,9 +666,9 @@ def after_update
   def self.get_question_names(section = nil, strand = nil, number = nil)
     return ["#{section}_#{strand}_#{number}".to_sym] if section && strand && number
     questions = []
-    unnecessary_columns = [:impact, :overall_completed_questions, :overall_completed_strategies, :use_purpose_completed,
+    unnecessary_columns = [:impact, :use_purpose_completed,
       :purpose_completed, :impact_completed, :consultation_completed, :additional_work_completed, :action_planning_completed,
-      :overall_completed_issues, :overall_started, :percentage_importance, :name, :approved, :gender_percentage_importance,
+      :overall_completed_issues, :percentage_importance, :name, :approved, :gender_percentage_importance,
       :race_percentage_importance, :disability_percentage_importance, :sexual_orientation_percentage_importance, :faith_percentage_importance, :age_percentage_importance,
       :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on, :gender_relevant, :faith_relevant,
       :sexual_orientation_relevant, :age_relevant, :disability_relevant, :race_relevant, :review_on, :ces_link]
