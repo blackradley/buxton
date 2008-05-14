@@ -139,6 +139,10 @@ class Activity < ActiveRecord::Base
   def existing_proposed_name
     hashes['choices'][8][self.existing_proposed.to_i]
   end
+  
+  def approved?
+    self.approved == "approved"
+  end
 
   #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions.
   def percentage_answered(section = nil, strand = nil)

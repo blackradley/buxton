@@ -62,7 +62,7 @@ class Demo
       'Improving our transport and tackling congestion',
       'Providing more effective education and leisure opportunities']
     strategy_names.each { |strategy_name|
-      strategy = @organisation.strategies.build
+      strategy = @organisation.organisation_strategies.build
       strategy.name = strategy_name
       strategy.description = strategy_name
     }
@@ -97,6 +97,7 @@ class Demo
                               "Culture and Community Services",
                               "Environmental Management Division",
                               "Economic Regeneration Division" ] }
+    
                               
     directorates = [dir1,dir2,dir3,dir4,dir5]
 

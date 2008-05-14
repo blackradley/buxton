@@ -55,8 +55,8 @@ class ActivityPDFGenerator
     end
     table << ["<b>Type</b>", "#{activity.existing_proposed_name.titleize} #{activity.function_policy?.titleize}"]
     table << ["<b>Activity Manager's Email</b>", activity.activity_manager.email]
-    table << ["<b>Date Approved</b>", activity.approved_on.to_s] if activity.approved
-    table << ["<b>Approved By</b>", activity.approver.to_s] if activity.approved
+    table << ["<b>Date Approved</b>", activity.approved_on.to_s] if activity.approved?
+    table << ["<b>Approver</b>", activity.activity_approver.email.to_s] if activity.activity_approver
     pdf = generate_table(pdf, table, {:borders => [150, 540]})
     pdf
   end
