@@ -28,28 +28,12 @@ class ActivitiesController < ApplicationController
   end
 
   # These are summary statistics for all the activities within this organisation.
-  # Available to: Organisation Manager
+  # Available to: Organisation Manager, Directorate Manager, Project Manager
   def summary
-    case @current_user.class.to_s
-    when 'DirectorateManager'
-      @organisation = @current_user.directorate.organisation
-      @activities = @current_user.directorate.activities
-      @started = @activities.select{|a| a.started }.size
-      @completed = @activities.select{|a| a.completed }.size
-    when 'ProjectManager'
-      @organisation = @current_user.project.organisation
-      @activities = @current_user.project.activities
-      @started = @activities.select{|a| a.started }.size
-      @completed = @activities.select{|a| a.completed }.size
-    when 'OrganisationManager'
-      @organisation = @current_user.organisation
-      @activities = @organisation.activities
-      @started = @activities.select{|a| a.started }.size
-      @completed = @activities.select{|a| a.completed }.size
-    else
-      # TODO throw an error - shouldn't ever get here
-    end
-
+    @organisation = @current_user.organisation
+    @activities = @current_user.activities
+    @started = @activities.select{|a| a.started }.size
+    @completed = @activities.select{|a| a.completed }.size
     @results_table = @organisation.results_table
   end
 
@@ -72,16 +56,15 @@ class ActivitiesController < ApplicationController
   # List and provide a summary of the state of all the activities in this organisation.
   # Available to: Organisation Manager
   def list
+    @organisation = @current_user.organisation
+
     case @current_user.class.to_s
     when 'DirectorateManager'
-      @organisation = @current_user.directorate.organisation
       @directorates = [@current_user.directorate]
     when 'OrganisationManager'
-      @organisation = @current_user.organisation
       @directorates = @organisation.directorates
       @projects = @organisation.projects
     when 'ProjectManager'
-      @organisation = @current_user.project.organisation
       @projects = [@current_user.project]
     else
       # TODO throw an error - shouldn't ever get here

@@ -1,7 +1,7 @@
 -case @current_user.class.to_s
 -when 'DirectorateManager'
   %h3
-    = (ot 'directorate').titleize
+    = ot('directorate').titleize
     Control Page - Activities
   %p The table shows:
   %ul
@@ -11,7 +11,7 @@
     
 -when 'ProjectManager'
   %h3
-    = (ot 'project').titleize
+    = ot('project').titleize
     Control Page - Activities
   %p The table shows:
   %ul
@@ -110,7 +110,7 @@
   #show_directorates{:style=>"display:block;"}
     %p 
       The Activities are listed by 
-      =(ot 'directorate').titleize
+      = ot('directorate').titleize
       \. The table shows:
     %ul
       %li how each Activity is progressing through the assessment;
@@ -162,7 +162,7 @@
   #show_projects{:style=>"display:none;"}
     %p 
       The Activities are listed by 
-      =(ot 'project').titleize
+      = ot('project').titleize
       \. The table shows:
     %ul
       %li how each Activity is progressing through the assessment;
