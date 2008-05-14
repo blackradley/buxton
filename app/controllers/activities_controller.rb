@@ -36,7 +36,7 @@ class ActivitiesController < ApplicationController
     @completed = @activities.select{|a| a.completed }.size
     @results_table = @organisation.results_table
   end
-
+  
   # Show the summary information for a specific activity.
   # Available to: Activity Manager
   def show

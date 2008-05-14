@@ -9,6 +9,7 @@
 class OrganisationManager < User
   # The user controls an organisation.
   belongs_to :organisation
+  delegate :activities, :to => :organisation
   
   attr_accessor :should_destroy
 
