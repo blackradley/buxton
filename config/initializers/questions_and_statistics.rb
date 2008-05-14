@@ -17,11 +17,13 @@ end
 @@invisible_questions = []
 @@weighted_questions = []
 @@parents = {}
+@@weight_ids = {}
 @@Hashes['questions'].each do |section, section_data|
   section_data.each do |question_name, question_data|
     @@Hashes['wordings'].keys.each do |strand|
       @@invisible_questions.push("#{section}_#{strand}_#{question_name}".to_sym) if question_data['label'][0][1].blank?
       @@weighted_questions << ["#{section}_#{strand}_#{question_name}", @@Hashes['weights'][question_data['weights']]] if question_data['weights'].to_i != 0
+      @@weight_ids["#{section}_#{strand}_#{question_name}".to_sym] = question_data['weights']
       unless question_data['dependent_questions'].blank? then
         temp = question_data['dependent_questions'].split(" ")
         temp[0]=  eval(%Q{<<"DELIM"\n} + temp[0] + "\nDELIM").chomp
@@ -29,14 +31,6 @@ end
         @@dependencies[temp[0]] = [] if @@dependencies[temp[0]].nil?
         @@dependencies[temp[0]].push(["#{section}_#{strand}_#{question_name}", temp[1]])
       end
-#      if HelpText.find_by_question_name("#{section}_#{strand}_#{question_name}").blank? then
-#        new_text = HelpText.new(:question_name => "#{section}_#{strand}_#{question_name}")
-#        new_text.existing_function = question_data['help'][0][0].to_s
-#        new_text.proposed_function = question_data['help'][0][1].to_s
-#        new_text.existing_policy = question_data['help'][1][0].to_s
-#        new_text.proposed_policy = question_data['help'][1][1].to_s
-#        new_text.save
-#      end
     end
   end
 end
@@ -49,14 +43,6 @@ end
       @@dependencies[temp[0]] = [] if @@dependencies[temp[0]].nil?
       @@dependencies[temp[0]].push(["#{section}_overall_#{question_name}", temp[1]])
     end
-#    if HelpText.find_by_question_name("#{section}_overall_#{question_name}").blank? then
-#      new_text = HelpText.new(:question_name => "#{section}_overall_#{question_name}")
-#      new_text.existing_function = question_data['help'][0][0].to_s
-#      new_text.proposed_function = question_data['help'][0][1].to_s
-#      new_text.existing_policy = question_data['help'][1][0].to_s
-#      new_text.proposed_policy = question_data['help'][1][1].to_s
-#      new_text.save
-#    end
   end
 end
 @@dependencies.each do |dependent, children|

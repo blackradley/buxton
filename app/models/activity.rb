@@ -107,7 +107,14 @@ class Activity < ActiveRecord::Base
   def policy?
     self.function_policy == 2
   end
-
+def strand_percentage_importance(strand)
+  statistics_questions = self.questions.find(:all, :conditions => "needed = true")
+  statistics_questions.reject!{|question| !question.name.to_s.include?(strand.to_s) || question.invisible? || question.weights.max == 0}
+  total_score = statistics_questions.inject(0){|total, question| total += question.weight}
+  maximum_score = statistics_questions.inject(0){|total, question| total += question.weights.max}
+  return 0 if maximum_score == 0
+  (total_score.to_f/maximum_score.to_f)*100
+end
   def hashes
     @@Hashes
   end
@@ -440,23 +447,9 @@ def after_update
     return true if @saved
     @saved = true
     to_save = {}
-    check_impact = false
     return true if (@activity_clone.ces_question != self.ces_question)
     to_save[:overall_completed_strategies] = true if self.purpose_completed
     if @activity_clone.send(:existing_proposed) != self.send(:existing_proposed) then
-      old_value = @activity_clone.send(:existing_proposed).to_i - 1
-      new_value = self.send(:existing_proposed).to_i - 1
-      old_weight = self.hashes['weights'][self.hashes['existing_proposed']['weight']][old_value]
-      new_weight = self.hashes['weights'][self.hashes['existing_proposed']['weight']][new_value]
-      old_weight = 0 if @activity_clone.send(:existing_proposed).to_i == 0
-      new_weight = 0 if self.send(:existing_proposed).to_i == 0
-      strands.each do |strand|
-        strand_max = Activity.get_strand_max(strand)
-        old_importance = self.send("#{strand}_percentage_importance".to_sym)
-        new_importance = old_importance + (new_weight.to_f - old_weight.to_f)*100/strand_max
-        new_importance += 0.5 #true integer conversion with rounding
-        to_save["#{strand}_percentage_importance".to_sym] = new_importance.to_i
-      end
       if new_value == 1 then
         @@invisible_questions.each do |question|
           status = self.questions.find_by_name(question.to_s)
@@ -495,40 +488,13 @@ def after_update
             end
           end
           to_change.each do |question_name, completed_result|
-            separated_question = Activity.question_separation(question_name)
-            section = separated_question[0]
-            strand = separated_question[1]
-            question_details = question_wording_lookup(*separated_question)
             status = self.questions.find_by_name(question_name.to_s)
-            status.update_attributes(:completed => !!completed_result) #cheap cast to bool. Not a cargocult ;)
-            question_name = question_name.to_sym
-            unless separated_question[1].to_s == 'overall' then
-              if separated_question[0].to_s == 'purpose' && separated_question[1].to_s != "overall" then
-                check_impact = true if old_store.to_i*5 == self.impact.to_i
-              end
-              old_importance = self.send("#{separated_question[1]}_percentage_importance".to_sym)
-              old_importance = to_save["#{separated_question[1]}_percentage_importance".to_sym] if to_save["#{separated_question[1]}_percentage_importance".to_sym]
-              old_position = old_store.to_i - 1 unless old_store.to_i == 0
-              new_position = new_store.to_i - 1 unless new_store.to_i == 0
-              old_weight = self.hashes['weights'][question_details[4].to_i][old_store.to_i].to_i unless old_store.to_i == 0
-              weight = self.hashes['weights'][question_details[4].to_i][new_store.to_i].to_i unless new_store.to_i == 0
-              old_weight = 0 if old_store.to_i == 0
-              new_weight = 0 if new_store.to_i == 0
-              new_importance = ((weight.to_f - old_weight.to_f)/Activity.get_strand_max(separated_question[1]))*100 + old_importance.to_i
-              if new_importance != old_importance then
-                to_save["#{separated_question[1]}_percentage_importance".to_sym] = (new_importance + 0.5).to_i
-              end
-            end
+            status.update_attributes(:completed => !!completed_result) 
           end
         end
       end
-      if check_impact then
-        new_impact = 5
-        impact_questions = Activity.get_question_names('purpose', nil, 3) + Activity.get_question_names('purpose', nil, 4)
-        impact_questions.each do |iq|
-          new_impact = self.send(iq).to_i*5 if new_impact < self.send(iq).to_i*5
-        end
-        to_save[:impact] = new_impact if new_impact != self.impact
+      strands(true).each do |strand|
+        to_save["#{strand}_percentage_importance".to_sym] = strand_percentage_importance(strand).to_i
       end
       sections.each do |section|
         sec_completed = true
@@ -559,6 +525,29 @@ def after_update
   def self.strands
     Activity.find(:first).strands(true)
   end
+  
+  def impact
+    strands(true).map{|strand| impact_calculation(strand)}.max
+  end
+  
+  def strand_percentage_importance(strand)
+    existing_proposed_weight = self.hashes['weights'][hashes['existing_proposed']['weight']][self.existing_proposed.to_i].to_i
+    exist_proposed_max = self.hashes['weights'][hashes['existing_proposed']['weight']].max
+    if self.send("#{strand}_relevant") then
+      statistics_questions = self.questions.find(:all, :conditions => "needed = true")
+      statistics_questions.reject!{|question| !question.name.to_s.include?(strand.to_s) || question.invisible? || question.weights.max == 0}
+      total_score = statistics_questions.inject(0){|total, question| total += question.weight} + existing_proposed_weight
+      maximum_score = statistics_questions.inject(0){|total, question| total += question.weights.max} + exist_proposed_max
+    else
+      pos_qn = self.questions.find_by_name("purpose_#{strand}_3")
+      neg_qn = self.questions.find_by_name("purpose_#{strand}_4")
+      total_score = pos_qn.weight + neg_qn.weight + existing_proposed_weight
+      maximum_score = pos_qn.weights.max + neg_qn.weights.max + exist_proposed_max
+    end
+    return 0 if maximum_score == 0
+    return (total_score.to_f/maximum_score.to_f)*100
+  end
+
   def self.set_max(strand, increment)
     case strand.to_s
      when 'gender'
@@ -638,29 +627,21 @@ def after_update
 
   def impact_wording(strand = nil)
     unless strand then
-      case self.impact
-        when 15
-          return :high
-        when 10
-          return :medium
-        when 5
-          return :low
-        else
-          return '-'
-      end
+      impact_figure = impact 
     else
       return '-' unless self.send("#{strand}_relevant")
-      good_impact = impact_calculation(strand)
-      case good_impact
-        when 15
-          return :high
-        when 10
-          return :medium
-        when 5
-          return :low
-      end
+      impact_figure = impact_calculation(strand)
+    end
+    case impact_figure
+      when 15
+        return :high
+      when 10
+        return :medium
+      when 5
+        return :low
     end
   end
+  
   def impact_calculation(strand)
     good_impact = self.send("purpose_#{strand.to_s}_3".to_sym).to_i
     bad_impact = self.send("purpose_#{strand.to_s}_4".to_sym).to_i
@@ -668,13 +649,14 @@ def after_update
     good_impact = hashes['weights'][question_wording_lookup(*Activity.question_separation("purpose_#{strand.to_s}_3".to_sym))[4]][good_impact]
     good_impact
   end
+  
   def strands(return_all = false)
     strand_list = ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age'].map{|strand| strand if self.send("#{strand}_relevant")||return_all}
     strand_list.compact
   end
+  
   def priority_ranking(strand = nil)
     # FIXME: database should set this default for us
-    self.update_attribute(:percentage_importance, 0) unless self.percentage_importance
     ranking_boundaries = [80,70,60,50]
     rank = 5
     unless strand then
@@ -684,23 +666,8 @@ def after_update
       strand_total = (strand_total.to_f/strands(true).size)**(1.to_f/3)
       return (strand_total.to_f + 0.5).to_i
     else
-      unless self.send("#{strand}_relevant") && self.completed(:impact, strand) && self.completed(:consultation, strand) then
-        if self.completed(:purpose, strand) then
-          purpose_weights = hashes['weights'][hashes['questions']['purpose'][3]['weights'].to_i]
-          exist_prop_weight = hashes['weights'][hashes['existing_proposed']['weights'].to_i]
-          fun_pol_weight = hashes['weights'][hashes['function_policy']['weights'].to_i]
-          max_weight = 2*purpose_weights.max + fun_pol_weight.max + exist_prop_weight.max
-          total = purpose_weights[self.send("purpose_#{strand}_3".to_sym).to_i] + purpose_weights[self.send("purpose_#{strand}_4".to_sym).to_i]
-          total += exist_prop_weight[self.send("existing_proposed".to_sym).to_i] + fun_pol_weight[self.send("function_policy".to_sym).to_i]
-          per_answered = (total.to_f/max_weight)*100
-          ranking_boundaries.each{|border| rank -= 1 unless per_answered > border}
-        else
-          return '-'
-        end
-      else
-        ranking = self.send("#{strand}_percentage_importance")
-        ranking_boundaries.each{|border| rank -= 1 unless ranking > border}
-      end
+      ranking = self.send("#{strand}_percentage_importance")
+      ranking_boundaries.each{|border| rank -= 1 unless ranking > border}
       return rank
     end
   end

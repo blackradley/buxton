@@ -4,8 +4,9 @@ class Question < ActiveRecord::Base
   has_one :note, :dependent => :destroy
   validates_uniqueness_of :name, :scope => :activity_id
   attr_reader :section, :strand, :number
+  
   def weights
-    [*@@Hashes['weights'][self.activity.question_wording_lookup(section, strand, number)[4]]].map(&:to_i)
+    [*@@Hashes['weights'][@@weight_ids[self.name.to_sym]]].map(&:to_i)
   end
 
   def weight
@@ -13,7 +14,7 @@ class Question < ActiveRecord::Base
   end
 
   def invisible?
-    (!@@invisible_questions.include?(self.name) && self.activity.existing_proposed == 2)
+    (@@invisible_questions.include?(self.name) && self.activity.proposed?)
   end
 
   def response
