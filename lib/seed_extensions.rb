@@ -74,3 +74,28 @@ module Seed
     parents.map!{|parent| parent.chop.chop.chop.camelize}
   end
 end
+
+#module ActiveRecord
+#  class SchemaDumper
+#    def dump(stream)
+#      header(stream)
+#      tables(stream)
+#      seed_data(stream)
+#      trailer(stream)
+#      stream
+#    end
+#    
+#    def seed_data(stream)
+#      #look up seed info in table
+#      seed_info.each do |ar_object|
+#        stream.puts "add_seed :#{ar_object.class.to_s.underscore} do"
+#        ar_object.content_columns.each do |content_column|
+#          name = content_column.name.to_s.to_sym
+#          stream.puts "\t add_value #{name} => '#{ar_object.send(name.to_sym)}'"
+#        end
+#        stream.puts "end"
+#        stream.puts ""
+#      end
+#    end
+#  end
+#end

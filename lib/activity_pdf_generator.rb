@@ -49,7 +49,7 @@ class ActivityPDFGenerator
     table << ["<b>#{activity.organisation.directorate_string}</b>", activity.directorate.name.to_s]
     unless activity.projects.blank? then
       table << ["<b>Projects</b>", activity.projects.first.name.to_s]
-      (activity.projects - activity.projects.first).each do |project|
+      (activity.projects - [activity.projects.first]).each do |project|
         table << ["", project.name.to_s]
       end
     end
