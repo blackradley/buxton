@@ -22,9 +22,9 @@
 -when 'OrganisationManager'
   #view_activities_by
     View activities by: 
-    =link_to_function ((ot 'directorate').titleize.pluralize, "$('show_directorates').show(); $('show_projects').hide()")
+    =link_to_function (ot('directorate').titleize.pluralize, "$('show_directorates').show(); $('show_projects').hide()")
     |
-    =link_to_function ((ot 'project').titleize.pluralize, "$('show_projects').show(); $('show_directorates').hide()")
+    =link_to_function (ot('project').titleize.pluralize, "$('show_projects').show(); $('show_directorates').hide()")
   %h3 Organisation Control Page - Activities
 
 -if @current_user.class.to_s == 'OrganisationManager'

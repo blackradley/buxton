@@ -185,12 +185,4 @@ class Organisation < ActiveRecord::Base
     end
   end
 
-  def directorate_string
-    unless self.directorate_term.blank? then
-      self.directorate_term.capitalize
-    else
-      "Directorate"
-    end
-  end
-
 end
