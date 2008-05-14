@@ -34,7 +34,12 @@ class Notifier < ActionMailer::Base
     @subject      = 'New Activity Key for ' + user.activity.name
     email_details(user, login_url)
   end
-
+  
+  def approver_key(user, login_url)
+    @subject      = 'New Activity Approver Key for ' + user.activity.name
+    email_details(user, login_url)
+  end
+  
   def directorate_key(user, login_url)
     @subject      = 'Impact Engine Version 3.0'
     email_details(user, login_url)

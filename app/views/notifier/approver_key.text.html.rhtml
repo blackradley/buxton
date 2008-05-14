@@ -1,0 +1,21 @@
+<html>
+<head>
+  <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+  <style type="text/css" media="screen">
+    body { padding: 10px; background-color: #f8f8f8; font-family: Tahoma, Verdana, Arial, Sans-Serif; font-size: 0.8em; }
+    #content { margin: 0; width: 700px; border: 1px solid #4e979e; background-color: #fff; color: #666; padding: 10px 20px 10px 20px; }
+    h2 { color: #4e979e; margin: 0px; padding: 10px 0px; font-size: 1.2em; }
+  </style>
+</head>
+<body>
+  <div id="content">
+    <h2>Activity Submitted for Approval</h2>
+    <p>This e-mail is from the Impact Equality&trade; assessment tool.</p>
+    <p>You have received this e-mail as you have been identified as the relevant approver for the Activity: <strong><%=h @user.activity.name -%></strong>.</p>
+    <p>The Equalities Team should have already notified you of this. If you are not the relevant approver please contact the Equalities Team.</p>
+    <p>This Activity has now been submitted and is waiting for your approval. The link below will take you to the Activity summary page for <%=h @user.activity.name -%>.</p>
+    <p><%= link_to @login_url, @login_url %></p>
+    <p>Thank you.</p>
+  </div>
+</body>
+</html>

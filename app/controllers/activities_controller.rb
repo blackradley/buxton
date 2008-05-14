@@ -145,8 +145,14 @@ class ActivitiesController < ApplicationController
   
   def submit
     @activity = @current_user.activity
+    @user = @current_user.activity.activity_approver
     @activity.approved = "submitted"
-    @activity.save!
+    @activity.save
+    @login_url = @user.url_for_login(request)
+    email = Notifier.create_approver_key(@user, @login_url)
+    Notifier.deliver(email)
+    @user.reminded_on = Time.now
+    @user.save
     redirect_to :controller => 'activities', :action => 'show'
   end
 
