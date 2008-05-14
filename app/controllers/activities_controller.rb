@@ -86,7 +86,6 @@ class ActivitiesController < ApplicationController
     else
       # TODO throw an error - shouldn't ever get here
     end
-    @directorate_term = @organisation.directorate_string
   end
 
   # Create a new Activity and a new associated user, all activities must have single a valid User.
@@ -97,7 +96,6 @@ class ActivitiesController < ApplicationController
     @activity_approver = @activity.build_activity_approver
     @activity_approver.email = @current_user.email
     directorates = @current_user.organisation.directorates
-    @directorate_term = @current_user.organisation.directorate_string
     @directorates = directorates.collect{ |d| [d.name, d.id] }
     @projects = @current_user.organisation.projects
     # If the params
@@ -116,7 +114,6 @@ class ActivitiesController < ApplicationController
     @activity_manager.passkey = ActivityManager.generate_passkey(@activity_manager)
     @activity_approver = @activity.build_activity_approver(params[:activity_approver])
     @activity_approver.passkey = ActivityApprover.generate_passkey(@activity_approver)
-    @directorate_term = @current_user.organisation.directorate_string
     @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] } # Needed for the new template incase we need to re-render it
     @project_ids.each do |p_id|
       @activity.projects << Project.find(p_id)
@@ -218,7 +215,6 @@ class ActivitiesController < ApplicationController
     @activity = Activity.find(params[:id])
     @activity_manager = @activity.activity_manager
     @activity_approver = @activity.activity_approver
-    @directorate_term = @activity.organisation.directorate_string
     @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] }
     @projects = @current_user.organisation.projects
   end
@@ -233,7 +229,6 @@ class ActivitiesController < ApplicationController
     @activity = Activity.find(params[:id])
     @activity_manager = @activity.activity_manager # Get this ready in case we need to re-render the edit template
     @activity_approver = @activity.activity_approver # Get this ready in case we need to re-render the edit template
-    @directorate_term = @activity.organisation.directorate_string
     @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] } # Get this ready in case we need to re-render the edit template
     @project_ids = (params[:projects].nil? ? [] : params[:projects])
     # Update the activity

@@ -46,7 +46,7 @@ class ActivityPDFGenerator
   def build_body(pdf, activity)
     table = []
     table << ['<b>Activity</b>', activity.name.to_s]
-    table << ["<b>#{activity.organisation.directorate_string}</b>", activity.directorate.name.to_s]
+    table << ["<b>#{ot('directorate')}</b>", activity.directorate.name.to_s]
     unless activity.projects.blank? then
       table << ["<b>Projects</b>", activity.projects.first.name.to_s]
       (activity.projects - [activity.projects.first]).each do |project|

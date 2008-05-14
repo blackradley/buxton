@@ -20,9 +20,9 @@
         %span.labelled
           = aa.text_field :email, 'size' => 50
 
-    %h4= "#{@directorate_term.to_s.titleize} and Projects to which the Activity belongs"
+    %h4= "#{ot('directorate').titleize} and Projects to which the Activity belongs"
     %p
-      %label= "#{@directorate_term.to_s.titleize}"
+      %label= "#{ot('directorate').titleize}"
       %span.labelled
         = f.select(:directorate_id, @directorates)
     %p
