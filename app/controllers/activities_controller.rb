@@ -142,6 +142,13 @@ class ActivitiesController < ApplicationController
     flash[:notice] =  "Could not update the activity."
     render :action => :show
   end
+  
+  def submit
+    @activity = @current_user.activity
+    @activity.approved = "submitted"
+    @activity.save!
+    redirect_to :controller => 'activities', :action => 'show'
+  end
 
   def update_ces
     @activity = @current_user.activity
@@ -285,6 +292,9 @@ class ActivitiesController < ApplicationController
     @activity.save!
     render :nothing => true
   end
+  
+
+  
 protected
   # Secure the relevant methods in the controller.
   def secure?
