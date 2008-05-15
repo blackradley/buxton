@@ -458,7 +458,7 @@ end
         @@invisible_questions.each do |question|
           unless parents(question.to_s) == [] then
             status = self.questions.find_by_name(question.to_s)
-            status.update_attributes(:needed => (parents(question.to_s)[1] == self.send(parents(question.to_s)[0].to_sym)))
+            status.update_attributes(:needed => status.check_needed)
           else
             status = self.questions.find_by_name(question.to_s)
             status.update_attributes(:needed => true)
@@ -470,33 +470,17 @@ end
         old_store = @activity_clone.send(name)
         new_store = self.send(name)
         if old_store != new_store then
-          to_change = []
-          check_result = check_question(name)
-          to_change.push([name, check_result])
-          unless dependencies(name.to_s).nil? then
-            dependencies(name.to_s).each do |dependent|
-              re_eval = dependent[0].to_s.clone
-              check_re_eval = check_question(re_eval)
-              status = self.questions.find_by_name(re_eval.to_s)
-              if hashes[dependent[1]].to_i != new_store then
-                status.update_attributes(:needed => false)
-              else
-                status.update_attributes(:needed => true) unless invisible?(dependent[0])
-              end
-              to_change.push([re_eval.clone, check_re_eval])
-            end
-          end
-          to_change.each do |question_name, completed_result|
-            status = self.questions.find_by_name(question_name.to_s)
-            status.update_attributes(:completed => !!completed_result) 
-          end
+          self.questions.find_by_name(name.to_s).update_status
         end
       end
       strands(true).each do |strand|
         to_save["#{strand}_percentage_importance".to_sym] = strand_percentage_importance(strand).to_i
       end
       sections.each do |section|
-        to_save["#{section}_completed".to_sym] = completed(section)
+        to_save["#{section}_completed".to_sym] = true
+        strands.each do |strand|
+          to_save["#{section}_completed".to_sym] = to_save["#{section}_completed".to_sym] && completed(section.to_s, strand.to_s)
+        end
       end
     end
     self.update_attributes(to_save)
