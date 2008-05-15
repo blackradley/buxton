@@ -430,8 +430,8 @@ class Activity < ActiveRecord::Base
     if self.send("#{strand}_relevant") then
       statistics_questions = self.questions.find(:all, :conditions => "needed = true")
       statistics_questions.reject!{|question| !question.name.to_s.include?(strand.to_s) || question.invisible? || question.weights.max == 0}
-      total_score = statistics_questions.inject(0){|total, question| total += question.weight} + existing_proposed_weight
-      maximum_score = statistics_questions.inject(0){|total, question| total += question.weights.max} + exist_proposed_max
+      total_score = statistics_questions.inject(0){|total, question| total += question.weight.to_i} + existing_proposed_weight.to_i
+      maximum_score = statistics_questions.inject(0){|total, question| total += question.weights.max.to_i} + exist_proposed_max.to_i
     else
       pos_qn = self.questions.find_by_name("purpose_#{strand}_3")
       neg_qn = self.questions.find_by_name("purpose_#{strand}_4")
