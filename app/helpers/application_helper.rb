@@ -230,7 +230,6 @@ module ApplicationHelper
                       :title => 'Activity Control Page - Home' ,
                       :status => '' }
                  ]
-#        if @current_user.activity.ces_question.to_i > 0 then
           questions = [   { :text => 'Questions',
                         :url => { :controller => 'activities', :action => 'questions'},
                         :title => 'Activity Control Page - Questions' ,
@@ -251,21 +250,35 @@ module ApplicationHelper
                           :status => 'disabled' }
                       ]
           end
-#        else
-#          questions = [   { :text => 'Questions',
-#                        :url => { :controller => 'activities', :action => 'questions'},
-#                        :title => 'Activity Control Page - Questions' ,
-#                        :status => 'disabled' }
-#                    ]
-#          summary = [
-#                         { :text => 'Summary',
-#                          :url => { :controller => 'activities', :action => 'show' },
-#                          :title => 'Activity Control Page - Summary' ,
-#                          :status => 'disabled' }
-#                      ]
-#        end
         generate_menu(home + questions + summary)
-
+      when 'ActivityApprover'
+         home = [
+                    { :text => 'Home',
+                      :url => { :controller => 'activities', :action => 'index'},
+                      :title => 'Activity Control Page - Home' ,
+                      :status => '' }
+                 ]
+          questions = [   { :text => 'Questions',
+                        :url => { :controller => 'activities', :action => 'questions'},
+                        :title => 'Activity Control Page - Questions' ,
+                        :status => '' }
+                    ]
+          if @current_user.activity.completed(:purpose)
+            summary= [
+                        { :text => 'Summary',
+                          :url => { :controller => 'activities', :action => 'show' },
+                          :title => 'Activity Control Page - Summary' ,
+                          :status => '' }
+                      ]
+          else
+            summary = [
+                        { :text => 'Summary',
+                          :url => { :controller => 'activities', :action => 'show' },
+                          :title => 'Activity Control Page - Summary' ,
+                          :status => 'disabled' }
+                      ]
+          end
+        generate_menu(home + questions + summary)
       when 'Administrator'
         generate_menu( [
                         { :text => 'Manage Organisations',

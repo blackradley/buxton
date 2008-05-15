@@ -211,6 +211,9 @@ class UsersController < ApplicationController
         when 'ActivityManager'
           log_event('Login', %Q[<a href="mailto:#{user.email}">#{user.email}</a>, activity manager of <strong>#{user.activity.name}</strong> for <strong>#{user.activity.organisation.name}</strong> logged in.])
           redirect_to :controller => 'activities', :action => 'index'
+        when 'ActivityApprover'
+          log_event('Login', %Q[<a href="mailto:#{user.email}">#{user.email}</a>, activity approver for <strong>#{user.activity.name}</strong>, <strong>#{user.activity.organisation.name}</strong> logged in.])
+          redirect_to :controller => 'activities', :action => 'show'
         when 'DirectorateManager'
           log_event('Login', %Q[<a href="mailto:#{user.email}">#{user.email}</a>, directorate manager of <strong>#{user.directorate.name}</strong> logged in.])
           redirect_to :controller => 'activities', :action => 'summary'

@@ -135,6 +135,13 @@ class ActivitiesController < ApplicationController
     @user.save
     redirect_to :controller => 'activities', :action => 'show'
   end
+  
+  def approve
+    @activity = @current_user.activity
+    @activity.approved = "approved"
+    @activity.save
+    redirect_to :controller => 'activities', :action => 'show'
+  end
 
   def update_ces
     @activity = @current_user.activity
