@@ -154,7 +154,13 @@
           %p#approve_answers{:style=>"display:block;"}
             =image_tag('icons/view.gif')
             =link_to "Approve activity answers",  {:controller => 'activities', :action => 'approve'}
+          %p#approved_answers{:style=>"display:none;"}
+            =image_tag('icons/tick.gif')
+            Thank you for approving this activity.
         -else
+          %p#approve_answers{:style=>"display:none;"}
+            =image_tag('icons/view.gif')
+            =link_to "Approve activity answers",  {:controller => 'activities', :action => 'approve'}
           %p#approved_answers{:style=>"display:block;"}
             =image_tag('icons/tick.gif')
             Thank you for approving this activity.
@@ -162,3 +168,9 @@
   #disable{:style=>"display:none;"}
 -else
   #disable{:style=>"display:block;"}
+  -if @activity.approved == "approved" && @current_user.class.to_s == "ActivityApprover"
+    #unapprove_box{:style=>"display:block;"}
+      =image_tag("icons/delete.gif")
+      =link_to_remote "Remove Approved status", :url => {:action => 'unapprove', :controller => 'activities'}, :before => "$('unapprove_box').toggle(); $('disable').toggle(); $('approved_answers').toggle(); $('approve_answers').toggle();"
+  
+  
