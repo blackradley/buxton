@@ -21,6 +21,7 @@
             = f.select :existing_proposed, @activity.hashes['choices'][ep_options].collect {|option| [option , @activity.hashes['choices'][ep_options].index(option)] }
         %span.submit
           =submit_tag "save", {:disable_with => 'saving...', :id => 'save_activity_type_button'}
+  .clear
 -if @activity.started
   .step#two
     .stepImage
@@ -48,6 +49,7 @@
         =link_to "Potential differential impact", { :controller => 'sections', :action => 'edit', :id => 'purpose_c', :equality_strand => 'overall' }, :title =>"Impact on Equality Groups"
         %span.letter_completed
           =tick_cross_display(@activity.impact_on_equality_groups)
+    .clear
   -if @activity.completed(:purpose) then
     .step#three
       .stepImage
@@ -116,6 +118,7 @@
                 %span.na -
               %td
                 %span.na -
+      .clear
   - if @current_user.class.to_s == "ActivityManager"
     .step#four{:style => (@activity.completed ? 'display:block' : 'display:none')}
       .stepImage
@@ -132,45 +135,59 @@
           %p#submitted_answers{:style=>"display:block;"}
             =image_tag('icons/tick.gif')
             Thank you for submitting your answers.
-
+      .clear
   - if @current_user.class.to_s == "ActivityApprover"
-    .step#four{:style => "display:block"}
+    .step#four_b{:style => "display:block"}
       .stepImage
         =image_tag("4.png")    
       .stepBox
         %h2 Submit Your Answers
         %p
           If you are happy with your answers, all that remains for you to do is submit them to be approved. Upon submission you will no longer be able to change any of your answers. Your approver will be able to see all your answers and comments, though not your notes.
-        %p#submitted_answers
-          =image_tag('icons/tick.gif')
-          Activity answers submitted for approval.
-    .step#five{:style =>"display:block"}
-      .stepImage
-        =image_tag("5.png")    
-      .stepBox
-        %h2 Approve Activity Answers
-        %p If you are happy with the answers, all that remains for you to do is declare them to be approved.
-        -if @activity.approved == "submitted" 
-          %p#approve_answers{:style=>"display:block;"}
-            =image_tag('icons/view.gif')
-            =link_to "Approve activity answers",  {:controller => 'activities', :action => 'approve'}
-          %p#approved_answers{:style=>"display:none;"}
-            =image_tag('icons/tick.gif')
-            Thank you for approving this activity.
+        -if @activity.approved == "not submitted"
+          %p#submitted_answers
+            =image_tag('icons/cross.gif')
+            Activity answers have not been submitted for approval.
         -else
-          %p#approve_answers{:style=>"display:none;"}
-            =image_tag('icons/view.gif')
-            =link_to "Approve activity answers",  {:controller => 'activities', :action => 'approve'}
-          %p#approved_answers{:style=>"display:block;"}
+          %p#submitted_answers
             =image_tag('icons/tick.gif')
-            Thank you for approving this activity.
+            Activity answers submitted for approval.
+      .clear
+    -if @activity.approved == "submitted" || @activity.approved == "approved"
+      .step#five{:style =>"display:block"}
+        .stepImage
+          =image_tag("5.png")    
+        .stepBox
+          %h2 Approve / Reject Submitted Activity Answers
+          %p If you are happy with the answers, all that remains for you to do is declare them to be approved. If you are not happy with the answers that have been submitted, you can return the activity to its Manager for further review.
+          -if @activity.approved == "submitted" 
+            %p#approve_answers{:style=>"display:block;"}
+              =image_tag('icons/delete.gif')
+              =link_to "Reject activity answers - send back to Activity Manager",  {:controller => 'activities', :action => 'unsubmit'}
+              %br
+              %br
+              =image_tag('icons/view.gif')
+              =link_to "Approve activity answers",  {:controller => 'activities', :action => 'approve'}
+            %p#approved_answers{:style=>"display:none;"}
+              =image_tag('icons/tick.gif')
+              Thank you for approving this activity.
+          -else
+            %p#approved_answers{:style=>"display:block;"}
+              =image_tag('icons/tick.gif')
+              Thank you for approving this activity.
+            %p#approve_answers{:style=>"display:none;"}
+              =image_tag('icons/view.gif')
+              =link_to "Approve activity answers",  {:controller => 'activities', :action => 'approve'}
+
+        .clear
 -if @activity.approved == "not submitted" || (@current_user.class.to_s == "ActivityApprover" && @activity.approved == "submitted")
   #disable{:style=>"display:none;"}
 -else
   #disable{:style=>"display:block;"}
   -if @activity.approved == "approved" && @current_user.class.to_s == "ActivityApprover"
     #unapprove_box{:style=>"display:block;"}
-      =image_tag("icons/delete.gif")
-      =link_to_remote "Remove Approved status", :url => {:action => 'unapprove', :controller => 'activities'}, :before => "$('unapprove_box').toggle(); $('disable').toggle(); $('approved_answers').toggle(); $('approve_answers').toggle();"
-  
-  
+      %p
+        =image_tag("icons/delete.gif")
+        =link_to_remote "Remove Approved status", :url => {:action => 'unapprove', :controller => 'activities'}, :before => "$('unapprove_box').toggle(); $('disable').toggle(); $('approved_answers').toggle(); $('approve_answers').toggle()"
+      .clear
+.clear

@@ -1,21 +1,22 @@
 /*
 Sass::SyntaxError: Illegal Indentation: Only two space characters are allowed as tabulation.
-on line 4 of /Users/heather/buxton/buxton/public/stylesheets/sass/main_ie7.sass
+on line 35 of /Users/heather/buxton/buxton/public/stylesheets/sass/main_ie7.sass
 
-1: .content
-2:   .messageArea
-3:     p
-4: 	    :margin-top 0px
-5: 	    
-6: #strand
-7:   :width 700px
-8:   
-9: #questions
-10:   .more
+31: .step
+32:   .stepBox
+33:     p
+34:       img
+35:     	  :margin-bottom -2px        
+36:         :padding-bottom 4px
+37: 	      
+38: 	  .checkStrand
+39: 	    input
+40:         :margin-top 2px
+41: 
 
 
 Backtrace:
-/Users/heather/buxton/buxton/public/stylesheets/sass/main_ie7.sass:4
+/Users/heather/buxton/buxton/public/stylesheets/sass/main_ie7.sass:35
 /opt/local/lib/ruby/gems/1.8/gems/haml-1.8.2/lib/sass/engine.rb:160:in `count_tabs'
 /opt/local/lib/ruby/gems/1.8/gems/haml-1.8.2/lib/sass/engine.rb:131:in `split_lines'
 /Users/heather/buxton/buxton/vendor/rails/activesupport/lib/active_support/inflector.rb:257:in `each_with_index'
