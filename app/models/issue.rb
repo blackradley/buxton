@@ -31,4 +31,10 @@ class Issue < ActiveRecord::Base
     checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
     return checker
   end
+  
+  def check_responses
+    Issue.content_columns.each do |cc|
+      return false unless self.check_response(self.send(cc.name.to_sym))
+    end
+  end
 end

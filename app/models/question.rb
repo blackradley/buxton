@@ -59,7 +59,8 @@ class Question < ActiveRecord::Base
   
   def check_needed
     parent_okay = self.parent.nil? ? true : (self.parent.response.to_s == parent_value.to_s)
-    parent_okay && invisible?
+    return false if invisible?
+    parent_okay
   end
   
   def update_status
@@ -86,6 +87,7 @@ class Question < ActiveRecord::Base
   #44 seconds for 1M iterations
   private
   def self.fast_split(string)
+    @@Hashes = YAML.load_file("#{RAILS_ROOT}/config/questions.yml") unless @@Hashes
     string = string.to_s
     splits = string.split("_")
     number_to_return = splits.last
