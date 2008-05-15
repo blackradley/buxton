@@ -48,7 +48,7 @@ class Activity < ActiveRecord::Base
 
   has_many :questions, :dependent => :destroy
 
-  attr_accessor :activity_clone, :overall_completed_issues, :completed_strategies, :saved
+  attr_accessor :activity_clone, :saved
   before_save :set_approved
   before_save :create_questions_if_new
 
@@ -251,18 +251,23 @@ class Activity < ActiveRecord::Base
     #check if we need to check issues?
     strands.each do |enabled_strand|
       next unless enabled_strand.to_s.include? strand.to_s
-      issues_question = case section
-        when :impact
-          "impact_#{enabled_strand}_9"
-        when :consultation
-          "consultation_#{enabled_strand}_7"
-        else
-          next
-      end
-      if self.send(issues_question.to_sym) == 1 then
-        issues_to_check = self.issues_by(section, enabled_strand)
+      impact_qn = "impact_#{enabled_strand}_9"
+      consultation_qn = "consultation_#{enabled_strand}_7"
+      impact_answer = self.send(impact_qn.to_sym).to_i
+      consultation_answer = self.send(consultation_qn.to_sym).to_i
+      impact_needed = (section.to_s == 'impact' || section.to_s == 'action_planning' || section.nil?)
+      consultation_needed = (section.to_s == 'consultation' || section.to_s == 'action_planning'  || section.nil?)
+      return false if impact_answer == 0 && impact_needed
+      return false if consultation_answer == 0 && consultation_needed
+      issues_to_check = []
+      if impact_answer == 1  && impact_needed then
+        issues_to_check << self.issues_by(section, enabled_strand)
         return false if issues.size == 0
       end
+      if consultation_answer == 1 && consultation_needed then
+        issues_to_check << self.issues_by(section, enabled_strand)
+        return false if issues.size == 0
+      end      
     end
     #check the issues are correct from their presence earlier
     issues.each{|issue| return false unless issue.check_responses} if (section.nil? || section.to_s == 'action_planning')
@@ -567,7 +572,7 @@ class Activity < ActiveRecord::Base
     questions = []
     unnecessary_columns = [:impact, :use_purpose_completed,
       :purpose_completed, :impact_completed, :consultation_completed, :additional_work_completed, :action_planning_completed,
-      :overall_completed_issues, :percentage_importance, :name, :approved, :gender_percentage_importance,
+      :percentage_importance, :name, :approved, :gender_percentage_importance,
       :race_percentage_importance, :disability_percentage_importance, :sexual_orientation_percentage_importance, :faith_percentage_importance, :age_percentage_importance,
       :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on, :gender_relevant, :faith_relevant,
       :sexual_orientation_relevant, :age_relevant, :disability_relevant, :race_relevant, :review_on, :ces_link]
