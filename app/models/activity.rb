@@ -249,6 +249,7 @@ class Activity < ActiveRecord::Base
     search_conditions = "name REGEXP '(#{new_section})\_(#{new_strand})' AND completed = false AND needed = true"
     return false if self.questions.find(:all, :conditions => search_conditions).size > 0
     #check if we need to check issues?
+    issues_to_check = []
     strands.each do |enabled_strand|
       next unless enabled_strand.to_s.include? strand.to_s
       impact_qn = "impact_#{enabled_strand}_9"
@@ -259,18 +260,19 @@ class Activity < ActiveRecord::Base
       consultation_needed = (section.to_s == 'consultation' || section.to_s == 'action_planning'  || section.nil?)
       return false if impact_answer == 0 && impact_needed
       return false if consultation_answer == 0 && consultation_needed
-      issues_to_check = []
       if impact_answer == 1  && impact_needed then
-        issues_to_check << self.issues_by(section, enabled_strand)
+        issues = self.issues_by(section, enabled_strand)
         return false if issues.size == 0
+        issues_to_check << issues
       end
       if consultation_answer == 1 && consultation_needed then
-        issues_to_check << self.issues_by(section, enabled_strand)
+        issues = self.issues_by(section, enabled_strand)
         return false if issues.size == 0
+        issues_to_check << issues
       end      
     end
     #check the issues are correct from their presence earlier
-    issues.each{|issue| return false unless issue.check_responses} if (section.nil? || section.to_s == 'action_planning')
+    issues_to_check.flatten.each{|issue| return false unless issue.check_responses} if (section.nil? || section.to_s == 'action_planning')
     return true
   end
 

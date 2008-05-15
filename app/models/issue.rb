@@ -31,5 +31,6 @@ class Issue < ActiveRecord::Base
     Issue.content_columns.each do |cc|
       return false unless self.check_response(self.send(cc.name.to_sym))
     end
+    return true
   end
 end
