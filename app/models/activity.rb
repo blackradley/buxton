@@ -48,7 +48,7 @@ class Activity < ActiveRecord::Base
 
   has_many :questions, :dependent => :destroy
 
-  attr_accessor :activity_clone, :overall_completed_issues, :completed_strategies, :made_change, :saved
+  attr_accessor :activity_clone, :overall_completed_issues, :completed_strategies, :saved
   before_save :set_approved
   before_save :create_questions_if_new
 
@@ -107,14 +107,7 @@ class Activity < ActiveRecord::Base
   def policy?
     self.function_policy == 2
   end
-def strand_percentage_importance(strand)
-  statistics_questions = self.questions.find(:all, :conditions => "needed = true")
-  statistics_questions.reject!{|question| !question.name.to_s.include?(strand.to_s) || question.invisible? || question.weights.max == 0}
-  total_score = statistics_questions.inject(0){|total, question| total += question.weight}
-  maximum_score = statistics_questions.inject(0){|total, question| total += question.weights.max}
-  return 0 if maximum_score == 0
-  (total_score.to_f/maximum_score.to_f)*100
-end
+
   def hashes
     @@Hashes
   end
@@ -244,113 +237,35 @@ end
     return false
   end
 
-  #This allows you to check whether a activity, section or strand has been completed. It runs like started, but only breaking when it finds a question
-  #that has not been answered. Hence, it is at its slowest where there is a single unanswered question in each section. In worst case it has to run
-  #through every question bar n where n is the number of activitys, making it a O(n) algorithm.
+  #This allows you to check whether a activity, section or strand has been completed. 
   def completed(section = nil, strand = nil)
-    #check strategies first
-    unless section && !(section == :purpose) then
-      self.activity_strategies.each do |strategy|
-        unless check_response(strategy.strategy_response) then
-          return false
-        end
+    is_purpose = (section.to_s == 'purpose')
+    #are all the strategies completed if they need to be?
+    strategies_not_completed = self.activity_strategies.find(:all, :conditions => 'strategy_response LIKE 0').size > 0
+    return false if strategies_not_completed && (is_purpose || section.nil?)
+    #Are there any questions which are required and not completed?
+    new_section = section.nil? ? self.sections.map(&:to_s).join("|") : section
+    new_strand = strand.nil? ? self.strands(is_purpose).push("overall").join("|") : strand
+    search_conditions = "name REGEXP '(#{new_section})\_(#{new_strand})' AND completed = false AND needed = true"
+    return false if self.questions.find(:all, :conditions => search_conditions).size > 0
+    #check if we need to check issues?
+    strands.each do |enabled_strand|
+      next unless enabled_strand.to_s.include? strand.to_s
+      issues_question = case section
+        when :impact
+          "impact_#{enabled_strand}_9"
+        when :consultation
+          "consultation_#{enabled_strand}_7"
+        else
+          next
+      end
+      if self.send(issues_question.to_sym) == 1 then
+        issues_to_check = self.issues_by(section, enabled_strand)
+        return false if issues.size == 0
       end
     end
-    if section || strand then
-      unless section == :action_planning then
-        # BEGIN NEW IMPLEMENTATION
-          # Check on issues first, if appropriate
-          if (section == :impact) || (section == :consultation) then
-            # TODO: have this handle when no strand is given
-            if strand then
-              issues_question = case section
-                when :impact
-                  "impact_#{strand}_9"
-                when :consultation
-                  "consultation_#{strand}_7"
-                end
-              if self.send(issues_question.to_sym) == 1 then
-                issues = self.issues_by(section, strand)
-                return false if issues.size == 0
-              end
-            end
-          else
-           strands.each do |enabled_strand|
-            issues_question = case section
-              when :impact
-                "impact_#{enabled_strand}_9"
-              when :consultation
-                "consultation_#{enabled_strand}_7"
-              else
-                break
-              end
-              if self.send(issues_question.to_sym) == 1 then
-                issues = self.issues_by(section, enabled_strand)
-                return false if issues.size == 0
-              end
-           end
-          end
-          #if section is purpose, irrelevancies should be ignored.
-          #POSSIBLE GOTCHA: This relies on the fact that there is no impact etc questions which are overall.
-          use_purpose = (section.to_s == 'purpose')
-          if strand then
-            new_strand = strand
-          else
-            new_strand = self.strands(use_purpose).push("overall").join("|")
-          end
-          # Find all incomplete questions with the given arguments
-          # Either completed must be true, or needed must be false for this to evaluate. There is no need for both.
-          answered_questions = self.questions.find(:all, :conditions => "name REGEXP '#{section}\_(#{new_strand})' AND (completed = true OR needed = false)")
-          if strand then
-            all_questions = Activity.get_question_names(section, strand).size
-          else
-            all_questions = self.strands(use_purpose).push("overall").inject(0) do |new_total, strand_name|
-              question_total = Activity.get_question_names(section, strand_name).size
-              question_total -= self.questions.find(:all, :conditions => "name LIKE '#{section}\_#{strand_name}' AND needed = false").size
-              new_total += question_total
-            end
-          end
-          # Have all the questions been answered?
-          if answered_questions.size >= (all_questions) then
-            #if they have all been completed, then it must be done.
-            return true
-          else
-            # If some questions have not been answered, we must not be complete
-            return false
-          end
-        # END NEW IMPLEMENTATION
-      end
-    else
-      return false unless self.completed(:purpose) && self.completed(:impact) && self.completed(:consulation) && self.completed(:additional_work) && self.action_planning_completed
-    end
-    unless (section && !(section == :action_planning)) then
-      #First we calculate all the questions, in case there is a nil.
-      questions = Activity.get_question_names(:consultation, strand, 7)
-      questions << Activity.get_question_names(:impact, strand, 9)
-      questions.flatten!
-      questions.each do |question|
-        strand = Activity.question_separation(question)[1]
-        issues_required = (self.send(question) != 2 && self.send(question) != 3)
-        if issues_required then
-          issue_strand = self.issues.clone
-          issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s}
-          return false if (section == :action_planning && issue_strand.length == 0)
-          issue_names = []
-          Issue.content_columns.each{|column| issue_names.push(column.name)}
-          issue_names.delete('strand')
-          issue_strand.each do |issue_name|
-            issue_names.each do |name|
-              unless check_response(issue_name.send(name.to_sym)) then
-                return false
-              end
-            end
-          end
-        end
-      end
-      unless self.overall_completed_issues then
-        self.update_attributes(:overall_completed_issues => true, :action_planning_completed => true) unless (section || strand)
-      end
-    end
+    #check the issues are correct from their presence earlier
+    issues.each{|issue| return false unless issue.check_responses} if (section.nil? || section.to_s == 'action_planning')
     return true
   end
 
@@ -397,6 +312,7 @@ end
       end
     end
   end
+  
   def strand_relevancies
     list = {}
     hashes['wordings'].keys.each do |strand|
@@ -405,7 +321,6 @@ end
     list
   end
 
-  #" This corrects eclipse error with parsing
   def save_issues
     # If we have issues
     if self.issues then
@@ -588,10 +503,10 @@ end
     bad_impact =  self.questions.find(:all, :conditions => "name LIKE 'purpose_%#{strand}%_4'")
     running_total = existing_proposed_weight
     running_total += good_impact.inject(0) do |tot, question|
-      tot += self.hashes['weights'][hashes['questions']['purpose'][3]['weights'].to_i][self.send(question.name.to_sym).to_i].to_i
+      tot += question.weight
     end
     running_total += bad_impact.inject(0) do |tot, question|
-      tot += self.hashes['weights'][hashes['questions']['purpose'][4]['weights'].to_i][self.send(question.name.to_sym).to_i].to_i
+      tot += question.weight
     end
     max = 50.0
     return (running_total/max) >= 0.35
@@ -663,6 +578,7 @@ end
     questions.delete_if{ |question| !(question.to_s.include?(number.to_s))} if number
     return questions
   end
+  
   #TODO: Needs fixing. It currently makes a start at the display, but is not finished by any means. Won't throw any bugs though.
   def additional_work_text_lookup(strand, question)
     strand = strand.to_s
@@ -815,24 +731,7 @@ end
 
     #This takes a method in the form of :section_strand_number and turns it into an array [section, strand, number]
   def self.question_separation(question)
-    hashes = YAML.load_file("#{RAILS_ROOT}/config/questions.yml") unless hashes
-    question = question.to_s.clone
-    if question.include?("overall") then
-      query_hash = hashes['overall_questions']
-    else
-      query_hash = hashes['questions']
-    end
-    section = ""
-    question_number = ""
-    query_hash.keys.each{|section_name|section = section_name.to_sym if question.include?(section_name.to_s)}
-    question.gsub!(section.to_s, "")
-    question = question.split("_")
-    question_number = question.pop
-    strand = question.inject(""){|init_name, parts_name| init_name += "#{parts_name} "}
-    strand.strip!
-    strand.gsub!(" ", "_")
-    return [section.to_sym, strand.to_sym, question_number] if (!section.blank? && !strand.blank? && question_number)
-    return nil
+    Question.fast_split(question)
   end
 
   #This returns any dependencies of a question
@@ -862,30 +761,6 @@ end
         return nil
       end
     end
-
-#Check question takes a single question as an argument and checks if it has been completed, and that any dependent questions have been answered.
-  def check_question(question)
-    question = question.to_sym
-    dependency = dependent_questions(question)
-    if dependency then
-      response = send(question)
-      dependant_correct = true
-      dependency.each do #For each dependent question, check that it has the correct value
-        |dependent|
-        dependent[1] = dependent[1].to_i
-        dependent_solution = send(dependent[0])
-        dependant_correct = dependant_correct && !(dependent_solution ==dependent[1] || dependent_solution == 0 || dependent_solution.nil?)
-      end
-      if dependant_correct then #If you don't need to answer this question, automatically give it a completed status
-        return :no_need
-      else
-        return check_response(response) #Else check it as normal
-      end
-     else
-       response = send(question) #If it has no dependent questions, check it as normal, then return the value.
-       return check_response(response)
-     end
-  end
 
   def check_response(response) #Check response verifies whether a response to a question is correct or not.
     checker = !(response.to_i == 0)
