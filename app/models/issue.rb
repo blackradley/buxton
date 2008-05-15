@@ -15,11 +15,6 @@ class Issue < ActiveRecord::Base
 
   def after_save
     self.destroy if self.issue_destroy?
-    Issue.content_columns.each do |column|
-      if self.activity.overall_completed_issues then
-        self.activity.update_attributes(:overall_completed_issues => false, :action_planning_completed => false) unless check_response(self.send(column.name.to_sym))
-      end
-    end
   end
 
   def issue_destroy?
