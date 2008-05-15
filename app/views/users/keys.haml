@@ -32,6 +32,10 @@
                     (
                     = link_to activity.activity_manager.email, activity.activity_manager.url_for_secret_login(request)
                     )
+                    ( Approver : 
+                    - if activity.id == 26
+                      = link_to activity.activity_approver.email, activity.activity_approver.url_for_secret_login(request)
+                    )
         %hr
         %h4 Projects
         %ul
