@@ -9,4 +9,5 @@
 class ActivityManager < User
   # The user controls a activity.
   belongs_to :activity
+  delegate :organisation, :organisation=, :to => :activity
 end
