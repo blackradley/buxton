@@ -31,3 +31,12 @@ h4 .h4_link {
   float: left;
   margin-left: 65px;
   margin-top: 0px; }
+
+#disable {
+  position: absolute;
+  width: 700px;
+  height: 1200px;
+  bottom: 0px;
+  top: 50px;
+  left: 0px;
+  background-color: #ccc; }
