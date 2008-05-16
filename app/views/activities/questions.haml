@@ -57,12 +57,13 @@
       .stepBox
         %h2 Relevant Equality Strands
         %p The answers to your questions indicate that the activity is relevant to the marked Equality Dimensions.  Please indicate by ticking the box which Equality Dimension you would like to include in the assessment, clicking on the tick again removes that Equality Dimension.
+        = @tag_test
         -@activity.overview_strands.each do |strand_name, strand|
           -selected = false
           %span.checkStrand
             -if @activity.strand_relevant?(strand) then
               -selected = true
-            = check_box_tag("#{strand}_checkbox", strand_name, selected, :onclick =>"Element.toggle('row_#{strand_name}_on'); Element.toggle('row_#{strand_name}_off');(#{@tag_test})? Element.hide('four'): Element.show('four');")
+            = check_box_tag("#{strand}_checkbox", strand_name, selected, :onclick =>"Element.toggle('row_#{strand_name}_on'); Element.toggle('row_#{strand_name}_off'); #{@conditional_flip}")
             = observe_field("#{strand}_checkbox", :url => {:action => 'toggle_strand', :strand => strand, :controller => 'activities'})
             %label
               =h strand.titleize
@@ -166,8 +167,9 @@
               =link_to "Reject activity answers - send back to Activity Manager",  {:controller => 'activities', :action => 'unsubmit'}
               %br
               %br
-              =image_tag('icons/view.gif')
-              =link_to "Approve activity answers",  {:controller => 'activities', :action => 'approve'}
+              %span#approve_now{:style => 'display:block;'}
+                =image_tag('icons/view.gif')
+                =link_to "Approve activity answers",  {:controller => 'activities', :action => 'approve'}
             %p#approved_answers{:style=>"display:none;"}
               =image_tag('icons/tick.gif')
               Thank you for approving this activity.
