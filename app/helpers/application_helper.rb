@@ -50,6 +50,8 @@ module ApplicationHelper
       ''
     else
       case @current_user.class.name
+        when 'ActivityApprover'
+          'Logged in as an Approver'
         when 'ActivityManager'
           'Logged in as an Activity Manager.'
         when 'ProjectManager'
