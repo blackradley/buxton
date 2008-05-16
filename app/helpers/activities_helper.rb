@@ -31,8 +31,8 @@ module ActivitiesHelper
 #
 # Show a tick or cross, if the activity is approved or not.
 #
-  def approved_tag(is_ticked)
-    if is_ticked
+  def approved_tag(approval_status)
+    if approval_status == 'approved'
       return image_tag('icons/tick.gif', :alt => "Approved", :title => "Approved")
     else
       return image_tag('icons/cross.gif', :alt => "Not approved yet", :title => "Not approved yet")
