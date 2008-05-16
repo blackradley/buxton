@@ -182,6 +182,11 @@ class ActivitiesController < ApplicationController
       "($('#{strand_status.to_s}_checkbox').checked)"
     end
     @tag_test = "(#{tag_test.join('||')})"
+    @conditional_flip = if @current_user.class.to_s == 'ActivityApprover' then
+      "(#{@tag_test}) ? Element.hide('approve_now') : Element.show('approve_now');"
+     elsif @current_user.class.to_s == 'ActivityManager'
+      "(#{@tag_test}) ? Element.hide('four') : Element.show('four');"
+     end
   end
 
   # Update the activity status and proceed, or not, accordingly
