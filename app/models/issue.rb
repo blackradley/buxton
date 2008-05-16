@@ -33,4 +33,13 @@ class Issue < ActiveRecord::Base
     end
     return true
   end
+  
+  def percentage_answered
+    total = Issue.content_columns.size - 2
+    answered = 0
+    Issue.content_columns.each do |cc|
+      answered += 1 if cc.name.to_sym != :strand && cc.name.to_sym != :section && self.check_response(self.send(cc.name.to_sym))
+    end
+    answered.to_f/total 
+  end
 end
