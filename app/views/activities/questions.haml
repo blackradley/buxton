@@ -167,7 +167,7 @@
               =link_to "Reject activity answers - send back to Activity Manager",  {:controller => 'activities', :action => 'unsubmit'}
               %br
               %br
-              %span#approve_now{:style => 'display:block;'}
+              %span#approve_now{:style => (@activity.completed ? 'display:block' : 'display:none')}
                 =image_tag('icons/view.gif')
                 =link_to "Approve activity answers",  {:controller => 'activities', :action => 'approve'}
             %p#approved_answers{:style=>"display:none;"}
