@@ -147,67 +147,98 @@ class Activity < ActiveRecord::Base
   #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions.
   def percentage_answered(section = nil, strand = nil)
     return 0 unless self.started
-    issue_strand = []
-    number_answered = 0
-    total = 0
-    if strand then
-      return 100 unless self.send("#{strand}_relevant".to_sym)
-      new_strand = strand
-    else
-      new_strand = self.strands.join("|")
-      return 100 if new_strand == ""
+    #check purpose is completed for anything except purpose
+    if section.to_s != 'purpose' then
+      return 0 unless self.completed('purpose')
     end
-    # Find all incomplete questions with the given arguments
-    number_answered = self.questions.find(:all, :conditions => "name REGEXP '#{section}\_(#{new_strand})' AND (completed = true AND needed = true)").size
-    if strand then
-      total = Activity.get_question_names(section, strand).size
+    percentages = {}
+    if section.nil? then
+      sections.each do |section|
+        percentages[section.to_sym] = self.send("calculate_#{section.to_s}_percentage_answered#{('(' + strand.to_s + ')') unless strand.nil?}".to_sym)
+      end
     else
-      total = self.strands.inject(0) do |new_total, strand_name|
-        question_total = Activity.get_question_names(section, strand_name).size
-        question_total -= self.questions.find(:all, :conditions => "name REGEXP '#{section}\_(#{strand_name})' AND needed = false").size
-        new_total += question_total
+      percentages[section.to_sym] =  self.send("calculate_#{section.to_s}_percentage_answered#{('(' + strand.to_s + ')') unless strand.nil?}".to_sym)
+    end  
+    overall_total = 0
+    if section.nil? then
+      percentages.values.each{|total| overall_total += total/percentages.values.size}
+    else
+      overall_total = percentages[section.to_sym]
+    end
+    (overall_total*100).to_i
+  end
+  
+  def calculate_purpose_percentage_answered(strand = nil)
+    new_strand = strand.nil? ? self.strands(true).push("overall").join("|") : strand
+    purpose_answered = self.questions.find(:all, :conditions => "name REGEXP 'purpose\_(#{new_strand})' AND (completed = true AND needed = true)").size
+    number_of_unanswered_strategies = self.activity_strategies.find(:all, :conditions => 'strategy_response LIKE 0').size
+    number_of_strategies = self.activity_strategies.find(:all).size
+    number_of_answered_strategies  = number_of_strategies - number_of_unanswered_strategies
+    purpose_total = self.questions.find(:all, :conditions => "name REGEXP 'purpose\_(#{new_strand})' AND (needed = true)").size
+    #to_f used to cascade cast to floats  
+    (purpose_answered.to_f + number_of_answered_strategies)/(number_of_strategies + purpose_total) 
+  end
+  
+  def calculate_generic_percentage_answered(section = nil, strand = nil)
+    new_strand = strand.nil? ? self.strands.push("overall").join("|") : strand
+    answered = self.questions.find(:all, :conditions => "name REGEXP '#{strand.to_s}\_(#{new_strand})' AND (completed = true AND needed = true)").size
+    total = self.questions.find(:all, :conditions => "name REGEXP '#{strand.to_s}\_(#{new_strand})' AND (needed = true)").size
+    strands.each do |enabled_strand|
+      next unless enabled_strand.to_s.include? strand.to_s
+      if section == 'impact' && self.send("impact_#{enabled_strand}_9") == 1 then
+        answered -= 1 if self.issues.find(:all, :conditions => "section REGEXP 'impact' AND strand REGEXP '#{enabled_strand.to_s}'").size == 0
+      end
+      if section == 'consultation' && self.send("consultation_#{enabled_strand}_7") == 1 then
+        answered -= 1 if self.issues.find(:all, :conditions => "section REGEXP 'consultation' AND strand REGEXP '#{enabled_strand.to_s}'").size == 0
       end
     end
-    #If you don't specify a section, or your section is action planning, consider issues as well.
-    if section.nil? || section == :action_planning then
-      #First we calculate all the questions, in case there is a nil.
-      questions = Activity.get_question_names(:consultation, strand, 7)
-      questions << Activity.get_question_names(:impact, strand, 9)
-      questions.flatten!
-      questions.each do |question|
-        strand = Activity.question_separation(question)[1]
-        issues_required = (self.send(question) != 2)
-        if issues_required then
-          issue_strand = self.issues.clone
-          issue_strand.delete_if{|issue_name| issue_name.strand != strand.to_s}
-          return 0 if (section == :action_planning && issue_strand.length == 0)
-          issue_names = []
-          Issue.content_columns.each{|column| issue_names.push(column.name)}
-          issue_names.delete('strand')
-          issue_strand.each do |issue_name|
-            issue_names.each do |name|
-              if check_response(issue_name.send(name.to_sym)) then
-                number_answered += 1
-              end
-              total += 1
-            end
-          end
+    return 1.0 if total == 0    
+    (answered.to_f)/(total) #to_f used to cascade cast to floats
+  end
+
+  def calculate_impact_percentage_answered(strand = nil)
+    calculate_generic_percentage_answered('impact', strand)
+  end
+  
+  def calculate_consultation_percentage_answered(strand = nil)
+    calculate_generic_percentage_answered('consultation', strand)
+  end
+  
+  def calculate_additional_work_percentage_answered(strand = nil)
+    calculate_generic_percentage_answered('additional_work', strand)
+  end
+  
+  def calculate_action_planning_percentage_answered(strand = nil)
+    issue_total = 0
+    answered = 0
+    unanswered_sections = 0
+    sections_total = 0
+    strands.each do |enabled_strand|
+      next unless enabled_strand.to_s.include? strand.to_s
+      impact_answer = self.send("impact_#{enabled_strand}_9")
+      unanswered_sections += 1 if impact_answer == 0
+      sections_total += 1
+      if impact_answer == 1 then
+        search_string = "section REGEXP 'impact' AND strand REGEXP '#{enabled_strand.to_s}'"
+        answered += self.issues.find(:all, :conditions => search_string).inject(0) do |total, issue|
+          issue_total += 1
+          total += issue.percentage_answered
         end
       end
-    end
-    #If you don't suggest a section, or your section is purpose, then consider strategies as well.
-    unless section && !(section == :purpose) then
-      self.activity_strategies.each do |strategy|
-        if check_response(strategy.strategy_response) then
-          total += 1
-          number_answered += 1
-        else
-          total += 1
+      consultation_answer = self.send("consultation_#{enabled_strand}_7")
+      unanswered_sections += 1 if consultation_answer == 0
+      sections_total += 1
+      if consultation_answer == 1 then
+        search_string = "section REGEXP 'consultation' AND strand REGEXP '#{enabled_strand.to_s}'"
+        answered += self.issues.find(:all, :conditions => search_string).inject(0) do |total, issue|
+          issue_total += 1
+          total += issue.percentage_answered
         end
       end
-    end
-    return ((Float(number_answered)/total)*100).round unless total == 0  #Calculate percentage as long as there are questions.
-    return 100  #If there are no questions in a section, return complete for it. TODO: See if Iain wants this behavior.
+    end  
+    return 0.0 if sections_total == unanswered_sections
+    return 1.0 if issue_total == 0
+    (answered.to_f/issue_total)*((sections_total - unanswered_sections.to_f)/sections_total)    
   end
 
    #The started tag allows you to check whether a activity, section, or strand has been started. This is basically works by running check_percentage, but as
