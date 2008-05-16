@@ -57,7 +57,6 @@
       .stepBox
         %h2 Relevant Equality Strands
         %p The answers to your questions indicate that the activity is relevant to the marked Equality Dimensions.  Please indicate by ticking the box which Equality Dimension you would like to include in the assessment, clicking on the tick again removes that Equality Dimension.
-        = @tag_test
         -@activity.overview_strands.each do |strand_name, strand|
           -selected = false
           %span.checkStrand
