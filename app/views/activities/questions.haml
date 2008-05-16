@@ -160,25 +160,17 @@
         .stepBox
           %h2 Approve / Reject Submitted Activity Answers
           %p If you are happy with the answers, all that remains for you to do is declare them to be approved. If you are not happy with the answers that have been submitted, you can return the activity to its Manager for further review.
-          -if @activity.approved == "submitted" 
-            %p#approve_answers{:style=>"display:block;"}
-              =image_tag('icons/delete.gif')
-              =link_to "Reject activity answers - send back to Activity Manager",  {:controller => 'activities', :action => 'unsubmit'}
-              %br
-              %br
-              %span#approve_now{:style => (@activity.completed ? 'display:block' : 'display:none')}
-                =image_tag('icons/view.gif')
-                =link_to "Approve activity answers",  {:controller => 'activities', :action => 'approve'}
-            %p#approved_answers{:style=>"display:none;"}
-              =image_tag('icons/tick.gif')
-              Thank you for approving this activity.
-          -else
-            %p#approved_answers{:style=>"display:block;"}
-              =image_tag('icons/tick.gif')
-              Thank you for approving this activity.
-            %p#approve_answers{:style=>"display:none;"}
+          %p#reject_answers{:style=> (@activity.approved.to_s == "submitted"? 'display:block' : 'display:none')}
+            =image_tag('icons/delete.gif')
+            =link_to "Reject activity answers - send back to Activity Manager",  {:controller => 'activities', :action => 'unsubmit'}
+            %br
+            %br
+            %span#approve_now{:style => (@activity.completed ? 'display:block' : 'display:none')}
               =image_tag('icons/view.gif')
               =link_to "Approve activity answers",  {:controller => 'activities', :action => 'approve'}
+          %p#approved_answers{:style=>(@activity.approved.to_s == "approved" ? 'display:block' : 'display:none')}
+            =image_tag('icons/tick.gif')
+            Thank you for approving this activity.
 
         .clear
 -if @activity.approved == "not submitted" || (@current_user.class.to_s == "ActivityApprover" && @activity.approved == "submitted")
@@ -189,6 +181,6 @@
     #unapprove_box{:style=>"display:block;"}
       %p
         =image_tag("icons/delete.gif")
-        =link_to_remote "Remove Approved status", :url => {:action => 'unapprove', :controller => 'activities'}, :before => "$('unapprove_box').toggle(); $('disable').toggle(); $('approved_answers').toggle(); $('approve_answers').toggle()"
+        =link_to_remote "Remove Approved status", :url => {:action => 'unapprove', :controller => 'activities'}, :before => "$('unapprove_box').toggle(); $('disable').toggle(); $('approved_answers').toggle(); $('reject_answers').toggle()"
       .clear
 .clear

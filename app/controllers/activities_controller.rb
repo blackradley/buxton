@@ -150,7 +150,7 @@ class ActivitiesController < ApplicationController
     redirect_to :controller => 'activities', :action => 'questions'
   end
   
-  def unapprove
+  def unsubmit
     @activity = @current_user.activity
     @activity.approved = "not submitted"
     @activity.save
