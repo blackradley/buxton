@@ -30,7 +30,7 @@
 -if @current_user.class.to_s == 'OrganisationManager'
   %p
     %strong
-      = "No #{ot 'directorate'}s created." if @directorates.blank?
+      = "No #{ot 'directorate'}s created." if @directorates.empty?
 
 -if @current_user.class.to_s == 'DirectorateManager'
 
