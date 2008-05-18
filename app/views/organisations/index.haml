@@ -23,5 +23,5 @@
           = link_to image_tag('icons/delete.gif'), organisation, :confirm => "Delete #{organisation.name}?", :method => :delete, :title =>"Delete"
 
 %br
-= will_paginate(@organisations) unless @organisations.blank?
+= will_paginate(@organisations) unless @organisations.empty?
 .clear

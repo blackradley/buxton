@@ -26,13 +26,13 @@
 -form_for(:activity, :url => {:action => 'update_ces'}) do |f|
   %p
     %label
-      = "Have you read the #{"<a href=\"#{@activity.organisation.ces_link}\">" unless @activity.organisation.ces_link.blank?}#{ot('corporate equality scheme').titleize}#{"</a>" unless @activity.organisation.ces_link.blank?}?"
+      = "Have you read the #{"<a href=\"#{@activity.organisation.ces_link}\">" unless @activity.organisation.ces_link?}#{(ot 'corporate equality scheme').titleize}#{"</a>" unless @activity.organisation.ces_link?}?"
     %labelled
       = f.select "ces_question", @activity.hashes['choices'][@activity.hashes['ces_question']['choices'].to_i].map{|x| [x, @activity.hashes['choices'][3].index(x)]}
   .clear
   %p
     If you have not read the Scheme you may find it useful to do so before completing the assessment.
-  - unless @activity.organisation.ces_link.blank? then
+  - unless @activity.organisation.ces_link? then
     %p
       The Scheme can be accessed by the following link.
       = link_to(ot('corporate equality scheme').titleize, @activity.organisation.ces_link.to_s)
