@@ -70,6 +70,37 @@ class ActivitiesController < ApplicationController
       # TODO throw an error - shouldn't ever get here
     end
   end
+  
+  def unapproved
+    @organisation = @current_user.organisation
+
+    case @current_user.class.to_s
+    when 'DirectorateManager'
+      @directorates = [@current_user.directorate]
+    when 'OrganisationManager'
+      @directorates = @organisation.directorates
+      @projects = @organisation.projects
+    when 'ProjectManager'
+      @projects = [@current_user.project]
+    else
+      # TODO throw an error - shouldn't ever get here
+    end
+  end
+  
+  def approved
+    @organisation = @current_user.organisation
+    case @current_user.class.to_s
+    when 'DirectorateManager'
+      @directorates = [@current_user.directorate]
+    when 'OrganisationManager'
+      @directorates = @organisation.directorates
+      @projects = @organisation.projects
+    when 'ProjectManager'
+      @projects = [@current_user.project]
+    else
+      # TODO throw an error - shouldn't ever get here
+    end
+  end
 
   # Create a new Activity and a new associated user, all activities must have single a valid User.
   # Available to: Organisation Manager

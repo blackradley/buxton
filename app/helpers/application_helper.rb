@@ -167,63 +167,48 @@ module ApplicationHelper
       case @current_user.class.name
       when 'OrganisationManager'
         generate_menu( [
-                        { :text => 'Summary',
+                        { :text => 'Overview',
                           :url => { :controller => 'activities', :action => 'summary' },
-                          :title => 'Organisation Control Page - Summary',
+                          :title => 'Organisation Control Page - Overview',
                           :status => '' },
-                        { :text => 'Activities',
-                          :url => { :controller => 'activities', :action => 'list' },
-                          :title => 'Organisation Control Page - Activities' ,
+                        { :text => 'Unapproved Activities',
+                          :url => { :controller => 'activities', :action => 'unapproved' },
+                          :title => 'Organisation Control Page - Unapproved Activities' ,
                           :status => '' },
-                        { :text => 'Sections',
-                          :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
-                          :title => 'Organisation Control Page - Sections',
-                          :status => '',
-                          :highlight_on => [  { :controller => 'sections', :action => 'list', :id => 'impact' },
-                                              { :controller => 'sections', :action => 'list', :id => 'consultation' },
-                                              { :controller => 'sections', :action => 'list', :id => 'additional_work' },
-                                              { :controller => 'sections', :action => 'list', :id => 'action_planning' } ]
-                          }
+                        { :text => 'Approved Activities',
+                          :url => { :controller => 'activities', :action => 'approved' },
+                          :title => 'Organisation Control Page - Approved Activities',
+                          :status => ''}
                         ])
       when 'DirectorateManager'
         generate_menu( [
-                        { :text => 'Summary',
+                        { :text => 'Overview',
                           :url => { :controller => 'activities', :action => 'summary' },
-                          :title => "#{ot('directorate')} Control Page - Summary",
+                          :title => 'Organisation Control Page - Overview',
                           :status => '' },
-                        { :text => 'Activities',
-                          :url => { :controller => 'activities', :action => 'list' },
-                          :title => "#{ot('directorate')} Control Page - Activities",
+                        { :text => 'Unapproved Activities',
+                          :url => { :controller => 'activities', :action => 'unapproved' },
+                          :title => 'Organisation Control Page - Unapproved Activities' ,
                           :status => '' },
-                        { :text => 'Sections',
-                          :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
-                          :title => "#{ot('directorate')} Control Page - Sections",
-                          :status => '',
-                          :highlight_on => [  { :controller => 'sections', :action => 'list', :id => 'impact' },
-                                              { :controller => 'sections', :action => 'list', :id => 'consultation' },
-                                              { :controller => 'sections', :action => 'list', :id => 'additional_work' },
-                                              { :controller => 'sections', :action => 'list', :id => 'action_planning' } ]
-                          }
+                        { :text => 'Approved Activities',
+                          :url => { :controller => 'activities', :action => 'approved' },
+                          :title => 'Organisation Control Page - Approved Activities',
+                          :status => ''}
                         ])
       when 'ProjectManager'
         generate_menu( [
-                        { :text => 'Summary',
+                        { :text => 'Overview',
                           :url => { :controller => 'activities', :action => 'summary' },
-                          :title => 'Project Control Page - Summary',
+                          :title => 'Organisation Control Page - Overview',
                           :status => '' },
-                        { :text => 'Activities',
-                          :url => { :controller => 'activities', :action => 'list' },
-                          :title => 'Project Control Page - Activities' ,
+                        { :text => 'Unapproved Activities',
+                          :url => { :controller => 'activities', :action => 'unapproved' },
+                          :title => 'Organisation Control Page - Unapproved Activities' ,
                           :status => '' },
-                        { :text => 'Sections',
-                          :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
-                          :title => 'Project Control Page - Sections',
-                          :status => '',
-                          :highlight_on => [  { :controller => 'sections', :action => 'list', :id => 'impact' },
-                                              { :controller => 'sections', :action => 'list', :id => 'consultation' },
-                                              { :controller => 'sections', :action => 'list', :id => 'additional_work' },
-                                              { :controller => 'sections', :action => 'list', :id => 'action_planning' } ]
-                          }
+                        { :text => 'Approved Activities',
+                          :url => { :controller => 'activities', :action => 'approved' },
+                          :title => 'Organisation Control Page - Approved Activities',
+                          :status => ''}
                         ])
       when 'ActivityManager'
          home = [

@@ -1,0 +1,146 @@
+-case @current_user.class.to_s
+-when 'DirectorateManager'
+  %h3
+    = ot('directorate').titleize
+    Control Page - Approved Activities
+    
+-when 'ProjectManager'
+  %h3
+    = ot('project').titleize
+    Control Page - Approved Activities
+
+-when 'OrganisationManager'
+  #view_activities_by
+    View activities by: 
+    =link_to_function (ot('directorate').titleize.pluralize, "$('show_directorates').show(); $('show_projects').hide()")
+    |
+    =link_to_function (ot('project').titleize.pluralize, "$('show_projects').show(); $('show_directorates').hide()")
+  %h3 Organisation Control Page - Approved Activities
+
+%p The table shows all approved Activities.
+
+-if @current_user.class.to_s == 'OrganisationManager'
+  %p
+    %strong
+      = "No #{ot 'directorate'}s created." if @directorates.empty?
+
+-case @current_user.class.to_s
+  -when 'DirectorateManager'
+    -@groups = @directorates
+  -when 'ProjectManager'
+    -@groups = @projects
+-if @groups
+  -@groups.each do |group|
+    -@approved = group.activities.find_all_by_approved("approved")
+    -if @approved.size > 0
+      %table.list
+        %tr
+          %th.left{:style => "width:250px;", :rowspan =>"2"} Name
+          %th{:rowspan =>"2"} Priority
+          %th{:rowspan =>"2"} Impact
+          %th{:colspan =>"2"} Activity
+          %th{:rowspan =>"2"}
+        %tr
+          %th Manager
+          %th Approver
+        -@approved.each do |activity|
+          %tr
+            %td.left{:style => "width:250px;"}
+              =h activity.name
+            %td
+              = priority_tag(activity)            
+            %td
+              = impact_tag(activity)
+            %td.actions{:nowrap => "nowrap"}
+              = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email Manager"
+            %td.actions{:nowrap => "nowrap"}
+              = link_to image_tag('icons/email.gif'), "mailto:", :title =>"Email Approver"
+            %td.actions{:style => "width:1%"}
+              = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
+    -else 
+      %p.no_info
+        No Activities Approved.
+            
+
+
+-if @current_user.class.to_s == 'OrganisationManager'
+  #show_directorates{:style=>"display:block;"}
+    %p It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
+    -@directorates.each do |directorate|
+      %h4
+        =h directorate.name
+        %span.h4_link
+          = link_to image_tag('icons/email.gif'), "mailto:#{User.find_by_directorate_id(directorate.id).email}", :title =>"Email"  unless directorate.directorate_manager.nil?
+          = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => directorate.directorate_manager.id }, :confirm => "Send access key reminder to #{directorate.name} to #{User.find_by_directorate_id(directorate.id).email}?", :method => :post, :title =>"Key" unless directorate.directorate_manager.nil?
+          = link_to "#{image_tag('icons/add.gif')} Add New Activity", :action => 'new', :directorate => directorate
+      -@approved = directorate.activities.find_all_by_approved("approved")
+      -if @approved.size > 0
+        %table.list
+          %tr
+            %th.left{:style => "width:250px;", :rowspan =>"2"} Name
+            %th{:rowspan =>"2"} Priority
+            %th{:rowspan =>"2"} Impact
+            %th{:colspan =>"2"} Activity
+            %th{:rowspan =>"2"}
+          %tr
+            %th Manager
+            %th Approver
+          -@approved.each do |activity|
+            %tr
+              %td.left{:style => "width:250px;"}
+                =h activity.name
+              %td
+                = priority_tag(activity)            
+              %td
+                = impact_tag(activity)
+              %td.actions{:nowrap => "nowrap"}
+                = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email Manager"
+              %td.actions{:nowrap => "nowrap"}
+                = link_to image_tag('icons/email.gif'), "mailto:", :title =>"Email Approver"
+              %td.actions{:style => "width:1%"}
+                = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
+                = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend"
+                = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
+      -else 
+        %p.no_info
+          No Activities Approved.
+                  
+  #show_projects{:style=>"display:none;"}
+    %p It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
+    -@projects.each do |project|      
+      %h4
+        =h project.name
+        %span.h4_link
+          = link_to image_tag('icons/email.gif'), "mailto:#{User.find_by_project_id(project.id).email}", :title =>"Email"  unless project.project_manager.nil?
+          = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => project.project_manager.id }, :confirm => "Send access key reminder to #{project.name} to #{User.find_by_project_id(project.id).email}?", :method => :post, :title =>"Key" unless project.project_manager.nil?
+      -@approved = project.activities.find_all_by_approved("approved")
+      -if @approved.size > 0
+        %table.list
+          %tr
+            %th.left{:style => "width:250px;", :rowspan =>"2"} Name
+            %th{:rowspan =>"2"} Priority
+            %th{:rowspan =>"2"} Impact
+            %th{:colspan =>"2"} Activity
+            %th{:rowspan =>"2"}
+          %tr
+            %th Manager
+            %th Approver
+          -@approved.each do |activity|
+            %tr
+              %td.left{:style => "width:250px;"}
+                =h activity.name
+              %td
+                = priority_tag(activity)            
+              %td
+                = impact_tag(activity)
+              %td.actions{:nowrap => "nowrap"}
+                = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email Manager"
+              %td.actions{:nowrap => "nowrap"}
+                = link_to image_tag('icons/email.gif'), "mailto:", :title =>"Email Approver"
+              %td.actions{:style => "width:1%"}
+                = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
+                = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend"
+                = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
+      -else 
+        %p.no_info
+          No Activities Approved.
