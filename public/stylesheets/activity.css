@@ -12,3 +12,22 @@
 
 #view_activities_by {
   float: right; }
+
+.name_update a, .name_update input {
+  float: left;
+  line-height: 2em;
+  margin-left: 5px; }
+
+span.left_float {
+  float: left;
+  margin-left: 5px;
+  line-height: 2em; }
+
+span.simulate_left_link {
+  float: left;
+  line-height: 2em;
+  margin-left: 5px;
+  color: #4E979E; }
+
+#activity_name_display {
+  float: left; }

@@ -1,0 +1,21 @@
+#activity_name_form
+  %label
+    %strong Activity Name:
+  - form_remote_for(:activity, :html => {:id => 'name_form'}, :url => {:action => 'update_name'}, :update => 'activity_name_form') do |f|
+    #update_name{:style => "display:none;"}   
+      .name_update
+        = f.text_field 'name'
+        #name_update_save{:style => 'display:block'}
+          = link_to_function 'save changes',"$('name_update_save').hide(); $('name_update_saving').show(); $('name_form').onsubmit()"
+          %span.left_float="|"
+          = link_to_function "cancel","$('activity_name').value='#{@activity.name}';$('update_name').toggle();$('show_name').toggle()"
+        #name_update_saving{:style => 'display:none'}
+          %span.simulate_left_link saving...  
+    #show_name
+      %span.labelled
+        #activity_name_display
+          = @activity.name
+      .name_update
+        = link_to_function "(edit)","$('update_name').toggle();$('show_name').toggle()",:class=>"edit_name", :id=>"edit_name"
+      .clear
+.clear
