@@ -1,10 +1,6 @@
 %h1 Welcome to the Impact Equality&trade; Tool
 %h3 Activity Home Page
-%p
-  %label
-    %strong Activity Name:
-  %span.labelled
-    =h @activity.name
+= render :partial => 'activity_name_form'
 %p
   %label
     %strong Activity Type:

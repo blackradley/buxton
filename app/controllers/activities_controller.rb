@@ -210,6 +210,15 @@ class ActivitiesController < ApplicationController
     flash[:notice] =  "Could not update the activity."
     render :action => :questions
   end
+  
+  def update_name
+    @activity = @current_user.activity
+    @activity.update_attributes!(:name => params['activity']['name'])
+    render :partial => 'activity_name_form'
+    rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+    render :partial => 'activity_name_form'
+    
+  end
 
   # Get both the activity and user information ready for editing, since they
   # are both edited at the same time. The organisational manager edits these

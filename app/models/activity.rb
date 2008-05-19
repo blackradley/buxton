@@ -281,7 +281,7 @@ class Activity < ActiveRecord::Base
     return false if self.questions.find(:all, :conditions => search_conditions).size > 0
     #check if we need to check issues?
     issues_to_check = []
-    strands.each do |enabled_strand|
+    strands(!strand.to_s.blank?).each do |enabled_strand|
       next unless enabled_strand.to_s.include? strand.to_s
       impact_qn = "impact_#{enabled_strand}_9"
       consultation_qn = "consultation_#{enabled_strand}_7"
