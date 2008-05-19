@@ -46,9 +46,9 @@ class ActivityPDFGenerator
   def build_body(pdf, activity)
     table = []
     table << ['<b>Activity</b>', activity.name.to_s]
-    table << ["<b>#{ot('directorate')}</b>", activity.directorate.name.to_s]
+    table << ["<b>#{ot('directorate', activity).titleize}</b>", activity.directorate.name.to_s]
     unless activity.projects.blank? then
-      table << ["<b>Projects</b>", activity.projects.first.name.to_s]
+      table << ["<b>#{ot('project', activity).titleize}</b>", activity.projects.first.name.to_s]
       (activity.projects - [activity.projects.first]).each do |project|
         table << ["", project.name.to_s]
       end
@@ -373,7 +373,7 @@ class ActivityPDFGenerator
     #Check if there are any activity strategies with comments
     strategy_comments = false
     activity.activity_strategies.each do |act_strat|
-      if act_strat.comment && !(act_strat.comment.contents.blank) then
+      if act_strat.comment && !(act_strat.comment.contents.blank?) then
         strategy_comments = true
         global_comments = true
       end
@@ -583,5 +583,10 @@ class ActivityPDFGenerator
       end
     end
     pdf
+  end
+  def ot(term, activity)
+    assoc_term = Terminology.find_by_term(term)
+    terminology = activity.organisation.organisation_terminologies.find_by_terminology_id(assoc_term.id)
+    terminology ? terminology.value : term
   end
 end
