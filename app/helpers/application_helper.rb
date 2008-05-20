@@ -62,6 +62,8 @@ module ApplicationHelper
           'Logged in as an Organisation Manager.'
         when 'Administrator'
           'Logged in as an Administration Manager.'
+        when 'ActivityCreator'
+          ""
         else
           'Login status unknown.'
       end
@@ -238,6 +240,13 @@ module ApplicationHelper
                       ]
           end
         generate_menu(home + questions + summary)
+      when 'ActivityCreator'
+        home = [
+                  {:text => 'Create an Activity',
+                   :url => {:controller => 'activities', :action => 'signup'},
+                   :status => ''}
+               ]
+        generate_menu(home)
       when 'ActivityApprover'
          home = [
                     { :text => 'Home',

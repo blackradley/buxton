@@ -19,11 +19,6 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   validates_presence_of :type,
     :message => 'User type is required'
-  validates_presence_of :email, 
-    :message => 'Please provide an email'
-  validates_format_of :email,
-    :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,
-    :message => 'E-mail must be valid'
 
   def before_create
     self.passkey = User.generate_passkey(self)
@@ -36,7 +31,7 @@ class User < ActiveRecord::Base
     # If the user isn't valid then the attributes we need may not be available, abort
     return unless user.valid?
     
-    email = user.email
+    email = user.email.nil? ? rand(999999999) : user.email?
     date = user.created_on.nil? ? DateTime::now() : user.created_on
     number = rand(999999)
     passkey = Digest::SHA1.hexdigest(email.to_s + date.to_s + number.to_s)

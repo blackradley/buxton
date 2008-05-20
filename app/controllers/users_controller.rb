@@ -225,6 +225,9 @@ class UsersController < ApplicationController
           redirect_to :controller => 'activities', :action => 'summary'
         when 'Administrator'
           redirect_to organisations_url
+        when 'ActivityCreator'
+          log_event('Login', "The activity creation screen for #{user.organisation.name} was viewed")
+          redirect_to :controller => 'activities', :action => 'signup'
       end
     end
   end
