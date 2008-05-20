@@ -71,12 +71,10 @@ module ApplicationHelper
   end
 
   def ot(term)
-    assoc_term = Terminology.find_by_term(term)
     if @current_user.nil?
       ''
     else
-      terminology = @current_user.organisation.organisation_terminologies.find_by_terminology_id(assoc_term.id)
-      terminology ? terminology.value : term
+      @current_user.term(term)
     end
   end
 
@@ -163,136 +161,59 @@ module ApplicationHelper
 
   # Shows a menu bar. Different for different user types.
   def menu()
-    if @current_user.nil?
-      ' '
-    else
-      case @current_user.class.name
-      when 'OrganisationManager'
-        generate_menu( [
-                        { :text => 'Overview',
-                          :url => { :controller => 'activities', :action => 'summary' },
-                          :title => 'Organisation Control Page - Overview',
-                          :status => '' },
-                        { :text => 'Unapproved Activities',
-                          :url => { :controller => 'activities', :action => 'unapproved' },
-                          :title => 'Organisation Control Page - Unapproved Activities' ,
-                          :status => '' },
-                        { :text => 'Approved Activities',
-                          :url => { :controller => 'activities', :action => 'approved' },
-                          :title => 'Organisation Control Page - Approved Activities',
-                          :status => ''}
-                        ])
-      when 'DirectorateManager'
-        generate_menu( [
-                        { :text => 'Overview',
-                          :url => { :controller => 'activities', :action => 'summary' },
-                          :title => 'Organisation Control Page - Overview',
-                          :status => '' },
-                        { :text => 'Unapproved Activities',
-                          :url => { :controller => 'activities', :action => 'unapproved' },
-                          :title => 'Organisation Control Page - Unapproved Activities' ,
-                          :status => '' },
-                        { :text => 'Approved Activities',
-                          :url => { :controller => 'activities', :action => 'approved' },
-                          :title => 'Organisation Control Page - Approved Activities',
-                          :status => ''}
-                        ])
-      when 'ProjectManager'
-        generate_menu( [
-                        { :text => 'Overview',
-                          :url => { :controller => 'activities', :action => 'summary' },
-                          :title => 'Organisation Control Page - Overview',
-                          :status => '' },
-                        { :text => 'Unapproved Activities',
-                          :url => { :controller => 'activities', :action => 'unapproved' },
-                          :title => 'Organisation Control Page - Unapproved Activities' ,
-                          :status => '' },
-                        { :text => 'Approved Activities',
-                          :url => { :controller => 'activities', :action => 'approved' },
-                          :title => 'Organisation Control Page - Approved Activities',
-                          :status => ''}
-                        ])
-      when 'ActivityManager'
-         home = [
-                    { :text => 'Home',
-                      :url => { :controller => 'activities', :action => 'index'},
-                      :title => 'Activity Control Page - Home' ,
-                      :status => '' }
-                 ]
-          questions = [   { :text => 'Questions',
+    return ' ' if @current_user.nil?
+
+    case @current_user.class.name
+    when 'OrganisationManager', 'DirectorateManager', 'ProjectManager'
+      generate_menu( [
+                      { :text => 'Overview',
+                        :url => { :controller => 'activities', :action => 'summary' },
+                        :title => 'Organisation Control Page - Overview',
+                        :status => '' },
+                      { :text => 'Incomplete',
+                        :url => { :controller => 'activities', :action => 'incomplete' },
+                        :title => 'Organisation Control Page - Incomplete Activities' ,
+                        :status => '' },
+                      { :text => 'Awaiting Approval',
+                        :url => { :controller => 'activities', :action => 'awaiting_approval' },
+                        :title => 'Organisation Control Page - Activities Awaiting Approval' ,
+                        :status => '' },
+                      { :text => 'Approved Activities',
+                        :url => { :controller => 'activities', :action => 'approved' },
+                        :title => 'Organisation Control Page - Approved Activities',
+                        :status => ''}
+                      ])
+    when 'ActivityManager', 'ActivityApprover'
+      status = (@current_user.activity.completed(:purpose)) ? '' : 'disabled'
+      generate_menu( [
+                      { :text => 'Home',
+                        :url => { :controller => 'activities', :action => 'index'},
+                        :title => 'Activity Control Page - Home' ,
+                        :status => '' },
+                      { :text => 'Questions',
                         :url => { :controller => 'activities', :action => 'questions'},
                         :title => 'Activity Control Page - Questions' ,
-                        :status => '' }
-                    ]
-          if @current_user.activity.completed(:purpose)
-            summary= [
-                        { :text => 'Summary',
-                          :url => { :controller => 'activities', :action => 'show' },
-                          :title => 'Activity Control Page - Summary' ,
-                          :status => '' }
-                      ]
-          else
-            summary = [
-                        { :text => 'Summary',
-                          :url => { :controller => 'activities', :action => 'show' },
-                          :title => 'Activity Control Page - Summary' ,
-                          :status => 'disabled' }
-                      ]
-          end
-        generate_menu(home + questions + summary)
-      when 'ActivityCreator'
-        home = [
-                  {:text => 'Create an Activity',
-                   :url => {:controller => 'activities', :action => 'signup'},
-                   :status => ''}
-               ]
-        generate_menu(home)
-      when 'ActivityApprover'
-         home = [
-                    { :text => 'Home',
-                      :url => { :controller => 'activities', :action => 'index'},
-                      :title => 'Activity Control Page - Home' ,
-                      :status => '' }
-                 ]
-          questions = [   { :text => 'Questions',
-                        :url => { :controller => 'activities', :action => 'questions'},
-                        :title => 'Activity Control Page - Questions' ,
-                        :status => '' }
-                    ]
-          if @current_user.activity.completed(:purpose)
-            summary= [
-                        { :text => 'Summary',
-                          :url => { :controller => 'activities', :action => 'show' },
-                          :title => 'Activity Control Page - Summary' ,
-                          :status => '' }
-                      ]
-          else
-            summary = [
-                        { :text => 'Summary',
-                          :url => { :controller => 'activities', :action => 'show' },
-                          :title => 'Activity Control Page - Summary' ,
-                          :status => 'disabled' }
-                      ]
-          end
-        generate_menu(home + questions + summary)
-      when 'Administrator'
-        generate_menu( [
-                        { :text => 'Manage Organisations',
-                          :url => organisations_url,
-                          :title => 'Organisations - Organisation Overview' },
-                        { :text => 'View Log',
-                          :url => { :controller => 'logs' },
-                          :title => 'Organisations - View Log of Activity' },
-                        { :text => 'Edit Help Text',
-                          :url => {:controller => 'help_text', :action => 'edit'},
-                          :title =>'View and Edit Question Help Texts' },
-                        { :text => 'New Demo',
-                          :url => { :controller => 'demos', :action => 'new' },
-                          :title => 'Create a New Demo' }
-                        ])
-      else
-        'Menu Fail (admin test)'
-      end
+                        :status => '' },
+                      { :text => 'Summary',
+                        :url => { :controller => 'activities', :action => 'show' },
+                        :title => 'Activity Control Page - Summary' ,
+                        :status => status }
+                      ])
+    when 'Administrator'
+      generate_menu( [
+                      { :text => 'Manage Organisations',
+                        :url => organisations_url,
+                        :title => 'Organisations - Organisation Overview' },
+                      { :text => 'View Log',
+                        :url => { :controller => 'logs' },
+                        :title => 'Organisations - View Log of Activity' },
+                      { :text => 'Edit Help Text',
+                        :url => {:controller => 'help_text', :action => 'edit'},
+                        :title =>'View and Edit Question Help Texts' },
+                      { :text => 'New Demo',
+                        :url => { :controller => 'demos', :action => 'new' },
+                        :title => 'Create a New Demo' }
+                      ])
     end
   end
 

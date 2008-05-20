@@ -23,6 +23,16 @@ class User < ActiveRecord::Base
   def before_create
     self.passkey = User.generate_passkey(self)
   end
+  
+  def role
+    self.class.name
+  end
+  
+  def term(term)
+    assoc_term = Terminology.find_by_term(term)
+    terminology = self.organisation.organisation_terminologies.find_by_terminology_id(assoc_term.id)
+    terminology ? terminology.value : term
+  end
 
   # Generate a new pass key.
   # There is no built in method for creating a GUID in Ruby so I have knocked
