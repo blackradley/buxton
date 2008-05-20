@@ -22,4 +22,8 @@ class OrganisationManager < User
   def should_destroy?
     should_destroy.to_i == 1
   end
+  
+  def level
+    'organisation'
+  end
 end

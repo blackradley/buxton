@@ -71,7 +71,23 @@ class ActivitiesController < ApplicationController
     end
   end
   
-  def unapproved
+  def incomplete
+    @organisation = @current_user.organisation
+
+    case @current_user.class.to_s
+    when 'DirectorateManager'
+      @directorates = [@current_user.directorate]
+    when 'OrganisationManager'
+      @directorates = @organisation.directorates
+      @projects = @organisation.projects
+    when 'ProjectManager'
+      @projects = [@current_user.project]
+    else
+      # TODO throw an error - shouldn't ever get here
+    end
+  end
+  
+  def awaiting_approval
     @organisation = @current_user.organisation
 
     case @current_user.class.to_s
