@@ -1,7 +1,18 @@
 %h2 Organisational Control Page - Add New Activity
 - form_for :activity, :url => { :action => 'create'} do |f|
   = render :partial => 'contact', :locals => { :f => f }
-  %p Click 'Create' to add the Activity and you will be taken back to the Activities page where you will be able to send an access key to the Activity Manager.
+  %p
+    Click 'Create' to add the Activity and you will be taken back to the Activities page where you will be able to send an access key to the Activity Manager.
+  #activity_creator{:style => @activity_creator.nil? ? 'display:none' : 'display:block'} 
+    %p
+      Alternately you can send this link to anyone to allow them to create activities inside your organisation:
+      %span#activity_link
+        =link_to @activity_creator_url
+  #activity_link_creator{:style => @activity_creator.nil? ? 'display:block' : 'display:none'} 
+    %p
+      If you wish to create a link which other people can use to create activities within your organisation, please click
+      %span#here_link
+        =link_to_remote 'here.', :url => {:action => 'generate_activity_creator', :controller => 'activities'}, :update => 'activity_link', :complete => "$('activity_link_creator').hide(); $('activity_creator').show()"        
   %span.button
     = submit_tag "Create", :disable_with => 'Creating...'
 %span.button

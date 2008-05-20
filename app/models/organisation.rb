@@ -32,6 +32,8 @@ class Organisation < ActiveRecord::Base
   has_many :organisation_strategies, :dependent => :destroy
   has_many :activities, :through => :directorates
   has_many :organisation_terminologies, :dependent => :destroy
+  has_one :activity_creator, :dependent => :destroy
+
 
   validates_presence_of :organisation_managers
   validates_associated :organisation_terminologies

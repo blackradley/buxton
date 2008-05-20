@@ -110,6 +110,8 @@ class ActivitiesController < ApplicationController
     @activity_approver = @activity.build_activity_approver
     @activity_approver.email = @current_user.email
     directorates = @current_user.organisation.directorates
+    @activity_creator = @current_user.organisation.activity_creator
+    @activity_creator_url = @activity_creator.url_for_login(request) if @activity_creator
     @directorates = directorates.collect{ |d| [d.name, d.id] }
     @projects = @current_user.organisation.projects
     # If the params
@@ -126,17 +128,21 @@ class ActivitiesController < ApplicationController
     @activity = Activity.new(params[:activity])
     @activity_manager = @activity.build_activity_manager(params[:activity_manager])
     @activity_manager.passkey = ActivityManager.generate_passkey(@activity_manager)
-    @activity_approver = @activity.build_activity_approver(params[:activity_approver])
-    @activity_approver.passkey = ActivityApprover.generate_passkey(@activity_approver)
     @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] } # Needed for the new template incase we need to re-render it
     @project_ids.each do |p_id|
       @activity.projects << Project.find(p_id)
     end
+    @activity_approver = @activity.build_activity_approver(:email => @activity.directorate.directorate_manager.email)
+    @activity_approver.passkey = ActivityApprover.generate_passkey(@activity_approver)
     Activity.transaction do
       @activity.save!
       log_event('Create', %Q[The <strong>#{@activity.name}</strong> activity was created for <strong>#{@activity.organisation.name}</strong>.])
       flash[:notice] = "#{@activity.name} was created."
-      redirect_to :action => :list
+      if @current_user.class.to_s == 'ActivityCreator' then
+        redirect_to :action => 'login', :controller => 'users', :passkey => @activity_manager.passkey
+      else
+        redirect_to :action => :list
+      end
     end
   end
 
@@ -344,7 +350,22 @@ class ActivitiesController < ApplicationController
     render :nothing => true
   end
   
-
+  def signup
+    @activity = Activity.new
+    @activity_manager = @activity.build_activity_manager
+    @activity_approver = @activity.build_activity_approver
+    @activity_approver.email = @current_user.organisation.organisation_managers.first.email
+    directorates = @current_user.organisation.directorates
+    @directorates = directorates.collect{ |d| [d.name, d.id] }
+    @projects = @current_user.organisation.projects
+  end
+  
+  def generate_activity_creator
+    @activity_creator = @current_user.organisation.build_activity_creator
+    @activity_creator.save!
+    @activity_creator_url = @activity_creator.url_for_login(request) if @activity_creator
+    render :text => "<a href=\"#{@activity_creator_url}>#{@activity_creator_url}</a>"
+  end
   
 protected
   # Secure the relevant methods in the controller.
