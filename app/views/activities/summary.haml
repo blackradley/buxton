@@ -12,26 +12,19 @@
 %span#pdf_link{:style =>"width:auto;"}
   = image_tag('icons/pdf.gif')
   View PDF report: 
-  = link_to "summary", {:action => 'view_pdf', :id => @organisation.id, :controller => 'organisations'}, :target => '_blank', :title => 'PDF Report Summary' 
-%p The Progress Table below shows how many activities (i.e. functions and policies) have started or completed the equalities impact assessment process.
-%table.listSmall{:align=>"center"}
-  %caption Progress Table
-  %tr
-    %th.left{:style =>"width: auto;"} Activities
-    %th Number
-  %tr
-    %td.left Identified
-    %td
-      = @activities.size
-  %tr
-    %td.left Started Process
-    %td
-      = @started
-  %tr
-    %td.left Completed Process
-    %td
-      = @completed
-%p For those activities which have completed the assessment, the Results Table below shows the number where there may be a problem: the further towards the top right, the more important.  See Activities tab (above) for more detail.
+  = link_to "summary", {:action => 'view_pdf', :id => @organisation.id, :controller => 'organisations'}, :target => '_blank', :title => 'PDF Report Summary'
+  
+%p The Progress Chart below shows how many activities (i.e. functions and policies) have started or completed the equalities impact assessment process.
+
+#graph{:align=>"center"}
+  = @progress_chart
+
+%br
+
+%p For those activities which have completed the assessment, the Results Table below shows the number where there may be a problem: the further towards the top right, the more important. See the Approved Activities tab (above) for more detail.
+
+%br
+
 %table.listSmall{:align=>"center"}
   %caption Results Table
   %tr
@@ -68,3 +61,21 @@
   %br
   **
   %em Potential Impact – the effect this activity could have on achieving and promoting equality.
+
+/ %table.listSmall{:align=>"center"}
+/   %caption Progress Table
+/   %tr
+/     %th.left{:style =>"width: auto;"} Activities
+/     %th Number
+/   %tr
+/     %td.left Identified
+/     %td
+/       = @activities.size
+/   %tr
+/     %td.left Started Process
+/     %td
+/       = @started
+/   %tr
+/     %td.left Completed Process
+/     %td
+/       = @completed

@@ -1,11 +1,3 @@
-#
-# $URL$
-# $Rev$
-# $Author$
-# $Date$
-#
-# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
-#
 # Settings specified here will take precedence over those in config/environment.rb
 
 # The test environment is used exclusively to run your application's

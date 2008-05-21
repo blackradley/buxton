@@ -35,6 +35,7 @@ class ActivitiesController < ApplicationController
     @started = @activities.select{|a| a.started }.size
     @completed = @activities.select{|a| a.completed }.size
     @results_table = @organisation.results_table
+    @progress_chart = open_flash_chart_object(350, 250, '/graphs/progress_chart', true)
   end
   
   # Show the summary information for a specific activity.
