@@ -43,8 +43,14 @@ class OrganisationsController < ApplicationController
   # Create a new organisation and a new user based on the parameters on the form.
   # Available to: Administrator
   def create
+    ot_attributes = params['organisation']['organisation_terminology_attributes']
+    params['organisation'].delete('organisation_terminology_attributes')
     @organisation = Organisation.new(params[:organisation])
     Organisation.transaction do
+      org_terms = @organisation.organisation_terminologies
+      ot_attributes.each do |ot|
+        org_terms.build(:value => ot['value'], :terminology_id => ot['terminology_id']).save
+      end
       @organisation.save!
       flash[:notice] = "#{@organisation.name} was created."
       redirect_to organisations_url

@@ -146,13 +146,12 @@ class ActivitiesController < ApplicationController
     @activity_manager = @activity.build_activity_manager(params[:activity_manager])
     @activity_manager.passkey = ActivityManager.generate_passkey(@activity_manager)
     @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] } # Needed for the new template incase we need to re-render it
+    @activity_approver = @activity.build_activity_approver(:email => @activity.directorate.directorate_manager.email)
+    @activity_approver.passkey = ActivityApprover.generate_passkey(@activity_approver)
     @project_ids.each do |p_id|
       @activity.projects << Project.find(p_id)
     end
     Activity.transaction do
-      @activity.save!
-      @activity_approver = @activity.build_activity_approver(:email => @activity.directorate.directorate_manager.email)
-      @activity_approver.passkey = ActivityApprover.generate_passkey(@activity_approver)
       @activity.save!
       log_event('Create', %Q[The <strong>#{@activity.name}</strong> activity was created for <strong>#{@activity.organisation.name}</strong>.])
       flash[:notice] = "#{@activity.name} was created."
