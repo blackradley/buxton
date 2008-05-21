@@ -15,7 +15,7 @@
 class Notifier < ActionMailer::Base
 
   # Constant for the origin of all the emails.
-  FROM = 'equality_support@blackradley.com'
+  FROM = 'support@impactequality.org.uk'
 
   # A new key for the system administrator
   def administration_key(user, login_url)
@@ -25,28 +25,28 @@ class Notifier < ActionMailer::Base
 
   # A new key for the organisation administrator
   def organisation_key(user, login_url)
-    @subject      = 'Impact Engine Version 3.0'
+    @subject      = "impactequality™ – Organisation Manager access key"
     email_details(user, login_url)
   end
 
   # Request a new key for the activity manager
   def activity_key(user, login_url)
-    @subject      = 'New Activity Key for ' + user.activity.name
+    @subject      = "impactequality™ – Activity Manager access key"
     email_details(user, login_url)
   end
   
   def approver_key(user, login_url)
-    @subject      = 'New Activity Approver Key for ' + user.activity.name
+    @subject      = "impactequality™ – Approval access key"
     email_details(user, login_url)
   end
   
   def directorate_key(user, login_url)
-    @subject      = 'Impact Engine Version 3.0'
+    @subject      = "impactequality™ – #{ot('directorate').titleize} Manager access key"
     email_details(user, login_url)
   end
 
   def project_key(user, login_url)
-    @subject      = 'Impact Engine Version 3.0'
+    @subject      = "impactequality™ – #{ot('project').titleize} Manager access key"
     email_details(user, login_url)
   end
 

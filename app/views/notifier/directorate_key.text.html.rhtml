@@ -10,11 +10,11 @@
 <body>
   <div id="content">
     <h2>Access Key</h2>
-    <p>This e-mail is from the Impact Equality&trade; assessment tool.</p>
-    <p>You have received this e-mail as you have been identified as the relevant manager for completing the equalities impact assessment for the directorate: <strong><%=h @user.directorate.name -%></strong>.</p>
-    <p>The Equalities Team should have already notified you of this. If you are not the relevant manager please contact the Equalities Team.</p>
-    <p>The link below will take you to the directorate summary page for <%=h @user.directorate.name -%>.</p>
+    <p>This email is from the impactequality&trade; assessment tool.</p>
+    <p>You have received this email as you have been identified as the relevant manager for the <%= @user.directorate.name -%> <%= ot('directorate').titleize -%>.</p>
+    <p>The link below will take you to the <%= @user.directorate.name -%> summary page where you will be able to view the progress in completing activities assigned to the <%= ot('directorate') -%>.</p>
     <p><%= link_to @login_url, @login_url %></p>
+    <p>If you have any queries about the assessment process please contact a member of your equalities team.</p>
     <p>Thank you.</p>
   </div>
 </body>
