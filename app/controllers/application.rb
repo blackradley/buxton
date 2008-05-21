@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
-  protect_from_forgery # :secret => '370c47b86a8ff547b2b472693b0980a4'  
+  protect_from_forgery :secret => '370c47b86a8ff547b2b472693b0980a4'  
     
 protected
   def log_event(type, text)
