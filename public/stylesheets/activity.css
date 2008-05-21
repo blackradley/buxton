@@ -18,6 +18,11 @@
   line-height: 2em;
   margin-left: 5px; }
 
+.approver_update a, .approver_update input {
+  float: left;
+  line-height: 2em;
+  margin-left: 5px; }
+
 span.left_float {
   float: left;
   margin-left: 5px;
@@ -29,5 +34,14 @@ span.simulate_left_link {
   margin-left: 5px;
   color: #4E979E; }
 
+span.error_labelled {
+  line-height: 2em;
+  color: #DC143C;
+  margin-left: 5px;
+  float: left; }
+
 #activity_name_display {
+  float: left; }
+
+#activity_approver_display {
   float: left; }
