@@ -2,7 +2,7 @@ class ProjectManager < User
   belongs_to :project
   delegate :organisation, :organisation=, :to => :project
   delegate :activities, :to => :project
-  
+
   validates_presence_of :email, 
     :message => 'Please provide an email'
   validates_format_of :email,

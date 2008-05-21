@@ -40,9 +40,9 @@ class Activity < ActiveRecord::Base
   has_and_belongs_to_many :projects
 
   validates_presence_of :name, :message => 'All activities must have a name.'
-  validates_presence_of :activity_manager
-  validates_associated :activity_manager
-  validates_associated :activity_approver
+  validates_presence_of :activity_manager, :activity_approver  
+  validates_presence_of :directorate
+  validates_associated :activity_manager, :activity_approver
   validates_associated :questions
   # validates_uniqueness_of :name, :scope => :directorate_id
 
