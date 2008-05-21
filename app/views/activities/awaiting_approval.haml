@@ -6,6 +6,11 @@
     =link_to_function (ot('project').titleize.pluralize, "$('show_projects').show(); $('show_directorates').hide()")
   
 %h3
+  - case @current_user.role
+  - when 'DirectorateManager'
+    = @current_user.directorate.name.titleize
+  - when 'ProjectManager'
+    = @current_user.project.name.titleize
   = @current_user.level.titleize
   Control Page - Activities Awaiting Approval
 
