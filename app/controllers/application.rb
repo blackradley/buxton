@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_banner if DEV_MODE
   
   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
-  rescue_from NoMethodError, :with => :wrong_user?
+  rescue_from NoMethodError, :with => :wrong_user? unless DEV_MODE
   
   # Consider requests made from 27stars router as local. This will enable more details error reports in-page
   # and no automatic e-mails sent out. Reducing false positives.
