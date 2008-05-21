@@ -11,12 +11,11 @@ class ActivityApprover < User
   belongs_to :activity
   delegate :organisation, :organisation=, :to => :activity
 
-  validates_presence_of :email, 
+  validates_presence_of :email,
     :message => 'Please provide an email'
   validates_format_of :email,
     :with => /^([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})$/i,
-    :message => 'E-mail must be valid'
-    
+    :message => 'E-mail must be valid'    
     
   def before_create
     self.passkey = ActivityCreator.generate_passkey(self) unless self.passkey
