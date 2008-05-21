@@ -178,7 +178,7 @@ module ApplicationHelper
                         :url => { :controller => 'activities', :action => 'awaiting_approval' },
                         :title => 'Organisation Control Page - Activities Awaiting Approval' ,
                         :status => '' },
-                      { :text => 'Approved Activities',
+                      { :text => 'Approved',
                         :url => { :controller => 'activities', :action => 'approved' },
                         :title => 'Organisation Control Page - Approved Activities',
                         :status => ''}
