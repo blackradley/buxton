@@ -15,8 +15,9 @@ class DirectoratesController < GroupingsController
 
   def create
     @directorate = @organisation.directorates.build(params[:directorate])
+    puts params
     Directorate.transaction do
-      @directorate.build_directorate_manager(params[:directorate_manager])
+      @directorate.build_directorate_manager(:email => params['directorate_manager']['email'].strip).save!
       @directorate.save!
       flash[:notice] = "#{@directorate.name} was created."
       redirect_to organisation_directorates_url
@@ -51,8 +52,8 @@ class DirectoratesController < GroupingsController
         # This second step is needed where we have some directorates without directorate managers
         # since the introduction of directorate managers.
         # This can be removed in the future where no installations in this state.
-        directorate_manager = @directorate.build_directorate_manager(params[:directorate_manager])
-        directorate_manager.save
+        directorate_manager = @directorate.build_directorate_manager(:email => params['directorate_manager']['email'].strip)
+        directorate_manager.save!
       end
       
       flash[:notice] = "#{@directorate.name} was successfully changed."
