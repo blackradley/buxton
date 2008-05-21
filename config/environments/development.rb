@@ -17,5 +17,8 @@ config.action_view.cache_template_extensions         = false
 # Don't care if the mailer can't send
 config.action_mailer.raise_delivery_errors = false
 
+# Don't send emails
+config.action_mailer.perform_deliveries = false
+
 # We shouldn't have a TLD as we'll be running on localhost
 TLD_LENGTH = 0
