@@ -34,7 +34,8 @@
     %p It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
     -@directorates.each do |directorate|
       %h4
-        =h directorate.name
+        =h directorate.name.titleize
+        = ot('directorate').titleize
         %span.h4_link
           = link_to image_tag('icons/email.gif'), "mailto:#{User.find_by_directorate_id(directorate.id).email}", :title =>"Email"  unless directorate.directorate_manager.nil?
           = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => directorate.directorate_manager.id }, :confirm => "Send access key reminder to #{directorate.name} to #{User.find_by_directorate_id(directorate.id).email}?", :method => :post, :title =>"Key" unless directorate.directorate_manager.nil?
@@ -73,7 +74,8 @@
     %p It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
     -@projects.each do |project|      
       %h4
-        =h project.name
+        =h project.name.titleize
+        = ot('project').titleize
         %span.h4_link
           = link_to image_tag('icons/email.gif'), "mailto:#{User.find_by_project_id(project.id).email}", :title =>"Email"  unless project.project_manager.nil?
           = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => project.project_manager.id }, :confirm => "Send access key reminder to #{project.name} to #{User.find_by_project_id(project.id).email}?", :method => :post, :title =>"Key" unless project.project_manager.nil?

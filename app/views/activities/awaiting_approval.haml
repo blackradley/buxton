@@ -65,7 +65,8 @@
     %p It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
     -@directorates.each do |directorate|
       %h4
-        =h directorate.name
+        =h directorate.name.titleize
+        = ot('directorate').titleize
       -@approved = directorate.activities.find_all_by_approved("submitted")
       -if @approved.size > 0
         %table.list
@@ -100,7 +101,8 @@
     %p It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
     -@projects.each do |project|      
       %h4
-        =h project.name
+        =h project.name.titleize
+        = ot('project').titleize
       -@approved = project.activities.find_all_by_approved("submitted")
       -if @approved.size > 0
         %table.list

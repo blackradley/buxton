@@ -63,7 +63,8 @@
   #show_directorates{:style=>"display:block;"}
     -@directorates.each do |directorate|
       %h4
-        =h directorate.name
+        =h directorate.name.titleize
+        = ot('directorate').titleize
       -@approved = directorate.activities.find_all_by_approved("approved")
       -if @approved.size > 0
         %table.list
@@ -97,7 +98,8 @@
   #show_projects{:style=>"display:none;"}
     -@projects.each do |project|      
       %h4
-        =h project.name
+        =h project.name.titleize
+        = ot('project').titleize
       -@approved = project.activities.find_all_by_approved("approved")
       -if @approved.size > 0
         %table.list
