@@ -149,9 +149,10 @@ class ActivitiesController < ApplicationController
     @project_ids.each do |p_id|
       @activity.projects << Project.find(p_id)
     end
-    @activity_approver = @activity.build_activity_approver(:email => @activity.directorate.directorate_manager.email)
-    @activity_approver.passkey = ActivityApprover.generate_passkey(@activity_approver)
     Activity.transaction do
+      @activity.save!
+      @activity_approver = @activity.build_activity_approver(:email => @activity.directorate.directorate_manager.email)
+      @activity_approver.passkey = ActivityApprover.generate_passkey(@activity_approver)
       @activity.save!
       log_event('Create', %Q[The <strong>#{@activity.name}</strong> activity was created for <strong>#{@activity.organisation.name}</strong>.])
       flash[:notice] = "#{@activity.name} was created."
@@ -269,7 +270,7 @@ class ActivitiesController < ApplicationController
     @activity = @current_user.activity
     @name = @current_user.activity.name
     @activity.update_attributes!(:name => params['activity']['name'])
-    render :partial => 'activity_name_form', :locals => {'errors' => 'nil'}
+    render :partial => 'activity_name_form', :locals => {'errors' => nil}
     rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     render :partial => 'activity_name_form', :locals => {'errors' => 'Name cannot be blank'}
   end
