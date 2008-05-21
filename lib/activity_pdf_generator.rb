@@ -53,7 +53,11 @@ class ActivityPDFGenerator
         table << ["", project.name.to_s]
       end
     end
-    table << ["<b>Type</b>", "#{activity.existing_proposed_name.titleize} #{activity.function_policy?.titleize}"]
+    if activity.existing_proposed.to_i > 0 && activity.function_policy.to_i > 0 then
+      table << ["<b>Type</b>", "#{activity.existing_proposed_name.titleize} #{activity.function_policy?.titleize}"]
+    else
+      table << ['<b>Type</b>', 'Insufficient questions have been answered to determine the type of this activity.']
+    end
     table << ["<b>Activity Manager's Email</b>", activity.activity_manager.email]
     table << ["<b>Date Approved</b>", activity.approved_on.to_s] if activity.approved?
     table << ["<b>Approver</b>", activity.activity_approver.email.to_s] if activity.activity_approver
@@ -126,7 +130,7 @@ class ActivityPDFGenerator
     end
     pdf.text(" ")
     good_impact_questions = Activity.get_question_names('purpose', nil, 3).map{|question| [question, activity.send(question)]}
-    good_impact_questions.reject!{|question, response| response <= 1}
+    good_impact_questions.reject!{|question, response| response.to_i <= 1}
     unless good_impact_questions.size == 0 then
       pdf.text("The Activity has a potential positive differential impact on the following equality groups:")
       good_impact_questions.each do |question, response|
@@ -138,7 +142,7 @@ class ActivityPDFGenerator
     end
     pdf.text(" ")
     bad_impact_questions = Activity.get_question_names('purpose', nil, 4).map{|question| [question, activity.send(question)]}
-    bad_impact_questions.reject!{|question, response| response <= 1}
+    bad_impact_questions.reject!{|question, response| response.to_i <= 1}
     unless bad_impact_questions.size == 0 then
       pdf.text("The Activity has a potential negative differential impact on the following equality groups:")
       bad_impact_questions.each do |question, response|
