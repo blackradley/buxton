@@ -267,10 +267,11 @@ class ActivitiesController < ApplicationController
   
   def update_name
     @activity = @current_user.activity
+    @name = @current_user.activity.name
     @activity.update_attributes!(:name => params['activity']['name'])
-    render :partial => 'activity_name_form'
+    render :partial => 'activity_name_form', :locals => {'errors' => 'nil'}
     rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-    render :partial => 'activity_name_form'
+    render :partial => 'activity_name_form', :locals => {'errors' => 'Name cannot be blank'}
   end
 
   def update_approver

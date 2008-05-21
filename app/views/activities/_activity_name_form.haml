@@ -2,19 +2,20 @@
   %label
     %strong Activity Name:
   - form_remote_for(:activity, :html => {:id => 'name_form'}, :url => {:action => 'update_name'}, :update => 'activity_name_form') do |f|
-    #update_name{:style => "display:none;"}   
+    #update_name{:style => errors.nil? ? "display:none;" : 'display:block'}   
       .name_update
-        = f.text_field 'name'
+        = f.text_field 'name', :value => @activity.name.blank? ? @name : @activity.name
         #name_update_save{:style => 'display:block'}
           = link_to_function 'save changes',"$('name_update_save').hide(); $('name_update_saving').show(); $('name_form').onsubmit()"
           %span.left_float="|"
-          = link_to_function "cancel","$('activity_name').value='#{@activity.name}';$('update_name').toggle();$('show_name').toggle()"
+          = link_to_function "cancel","$('activity_name').value='#{@activity.name.blank? ? @name : @activity.name}';$('update_name').toggle();$('show_name').toggle()"
+          %span.error_labelled= "(#{errors})" if errors
         #name_update_saving{:style => 'display:none'}
           %span.simulate_left_link saving...  
-    #show_name
+    #show_name{:style => errors.nil? ? "display:block;" : 'display:none'}   
       %span.labelled
         #activity_name_display
-          = @activity.name
+          = @activity.name.blank? ? @name : @activity.name
       .name_update
         = link_to_function "(edit)","$('update_name').toggle();$('show_name').toggle()",:class=>"edit_name", :id=>"edit_name"
       .clear
