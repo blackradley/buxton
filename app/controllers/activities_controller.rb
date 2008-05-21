@@ -271,7 +271,28 @@ class ActivitiesController < ApplicationController
     render :partial => 'activity_name_form'
     rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     render :partial => 'activity_name_form'
-    
+  end
+
+  def update_approver
+    errors = nil
+    email = params[:activity_approver].to_s
+    @activity = @current_user.activity
+    Activity.transaction do 
+      @approver = ActivityApprover.new(:email => email)
+      if @approver.save then
+        old_approver = @activity.activity_approver
+        if old_approver.nil? || old_approver.email != @approver.email then
+          @activity.activity_approver = @approver
+          @activity.save!
+          old_approver.destroy unless old_approver.nil?
+        end
+      else
+        errors = 'Email Invalid'
+      end
+    end
+    render :partial => 'activity_approver_form', :locals => {'errors' => errors, 'wrong_email' => params[:activity_approver]}
+    rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+    render :partial => 'activity_approver_form', :locals => {'errors' => 'Email invalid', 'wrong_email' => params[:activity_approver]}
   end
 
   # Get both the activity and user information ready for editing, since they

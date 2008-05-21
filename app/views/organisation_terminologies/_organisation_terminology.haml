@@ -1,7 +1,6 @@
 .organisation_terminology
   -fields_for "organisation[organisation_terminology_attributes][]", organisation_terminology do |organisation_terminology_form|
     = organisation_terminology_form.hidden_field :terminology_id, :value => organisation_terminology.terminology_id, :index => nil
-    = organisation_terminology_form.hidden_field :id, :value => organisation_terminology.id.to_s, :index => nil
     %p
       %label
         = organisation_terminology.terminology.term

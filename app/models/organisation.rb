@@ -175,16 +175,4 @@ class Organisation < ActiveRecord::Base
     end
   end
 
-  def organisation_terminology_attributes=(org_term_attributes)
-    org_term_attributes.each do |attributes|
-      unless attributes['id'].blank? then
-        organisation_terminology = self.organisation_terminologies.find(attributes['id'])
-        organisation_terminology.update_attributes(:value => attributes[:value])
-      else
-        attributes.delete('id')
-        self.organisation_terminologies.build(attributes).save
-      end
-    end
-  end
-
 end
