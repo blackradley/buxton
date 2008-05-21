@@ -168,19 +168,19 @@ module ApplicationHelper
       generate_menu( [
                       { :text => 'Overview',
                         :url => { :controller => 'activities', :action => 'summary' },
-                        :title => 'Organisation Control Page - Overview',
+                        :title => 'Control Page - Overview',
                         :status => '' },
                       { :text => 'Incomplete',
                         :url => { :controller => 'activities', :action => 'incomplete' },
-                        :title => 'Organisation Control Page - Incomplete Activities' ,
+                        :title => 'Control Page - Incomplete Activities' ,
                         :status => '' },
                       { :text => 'Awaiting Approval',
                         :url => { :controller => 'activities', :action => 'awaiting_approval' },
-                        :title => 'Organisation Control Page - Activities Awaiting Approval' ,
+                        :title => 'Control Page - Activities Awaiting Approval' ,
                         :status => '' },
                       { :text => 'Approved',
                         :url => { :controller => 'activities', :action => 'approved' },
-                        :title => 'Organisation Control Page - Approved Activities',
+                        :title => 'Control Page - Approved Activities',
                         :status => ''}
                       ])
     when 'ActivityManager', 'ActivityApprover'
