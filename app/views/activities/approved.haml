@@ -88,7 +88,7 @@
               %td.actions{:nowrap => "nowrap"}
                 = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email Manager"
               %td.actions{:nowrap => "nowrap"}
-                = link_to image_tag('icons/email.gif'), "mailto:", :title =>"Email Approver"
+                = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_approver.email}", :title =>"Email Approver"
               %td.actions{:style => "width:1%"}
                 = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
       -else 
@@ -123,7 +123,7 @@
               %td.actions{:nowrap => "nowrap"}
                 = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email Manager"
               %td.actions{:nowrap => "nowrap"}
-                = link_to image_tag('icons/email.gif'), "mailto:", :title =>"Email Approver"
+                = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_approver.email}", :title =>"Email Approver"
               %td.actions{:style => "width:1%"}
                 = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
       -else 
