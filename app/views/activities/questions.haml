@@ -119,7 +119,7 @@
               %td
                 %span.na -
       .clear
-  - if @current_user.class.to_s == "ActivityManager"
+  - if @current_user.class.name == "ActivityManager"
     .step#four{:style => (@activity.completed ? 'display:block' : 'display:none')}
       .stepImage
         =image_tag("4.png")    
@@ -136,7 +136,7 @@
             =image_tag('icons/tick.gif')
             Thank you for submitting your answers.
       .clear
-  - if @current_user.class.to_s == "ActivityApprover"
+  - if @current_user.class.name == "ActivityApprover"
     .step#four_b{:style => "display:block"}
       .stepImage
         =image_tag("4.png")    
@@ -172,11 +172,11 @@
             =image_tag('icons/tick.gif')
             Thank you for approving this activity.
         .clear
--if @activity.approved == "not submitted" || (@current_user.class.to_s == "ActivityApprover" && @activity.approved == "submitted")
+-if @activity.approved == "not submitted" || (@current_user.class.name == "ActivityApprover" && @activity.approved == "submitted")
   #disable{:style=>"display:none;"}
 -else
   #disable{:style=>"display:block;"}
-  -if @activity.approved == "approved" && @current_user.class.to_s == "ActivityApprover"
+  -if @activity.approved == "approved" && @current_user.class.name == "ActivityApprover"
     #unapprove_box{:style=>"display:block;"}
       %p
         = image_tag("icons/delete.gif")

@@ -19,12 +19,12 @@
   %li activities that have progressed through the assessment and have been submitted for approval,
   %li when the Activity Approver was last sent an access key to enable them to undertake the approval.
 
--if @current_user.class.to_s == 'OrganisationManager'
+-if @current_user.class.name == 'OrganisationManager'
   %p
     %strong
       = "No #{ot 'directorate'}s created." if @directorates.empty?
 
--case @current_user.class.to_s
+-case @current_user.class.name
   -when 'DirectorateManager'
     -@groups = @directorates
   -when 'ProjectManager'
@@ -54,7 +54,7 @@
       %p.no_info
         No Activities Unapproved.
 
--if @current_user.class.to_s == 'OrganisationManager'
+-if @current_user.class.name == 'OrganisationManager'
   #show_directorates{:style=>"display:block;"}
     %p It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
     -@directorates.each do |directorate|
