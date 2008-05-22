@@ -40,6 +40,7 @@ end
     unless question_data['dependent_questions'].blank? then
       temp = question_data['dependent_questions'].split(" ")
       temp[0]=  eval(%Q{<<"DELIM"\n} + temp[0] + "\nDELIM").chomp
+      @@parents["#{section}_overall_#{question_name}"] = [temp[0], @@Hashes[temp[1]]]
       @@dependencies[temp[0]] = [] if @@dependencies[temp[0]].nil?
       @@dependencies[temp[0]].push(["#{section}_overall_#{question_name}", temp[1]])
     end
