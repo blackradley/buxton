@@ -4,7 +4,7 @@
 # $Author: 27stars-karl $
 # $Date: 2008-02-29 15:02:15 +0000 (Fri, 29 Feb 2008) $
 #
-# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
+# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
 class ActivityApprover < User
   # The user approves an activity.
