@@ -187,6 +187,7 @@ class ActivitiesController < ApplicationController
     Notifier.deliver(email)
     @user.reminded_on = Time.now
     @user.save
+    flash[:notice] = 'Your activity has been successfully submitted for approval.'
     redirect_to :controller => 'activities', :action => 'show'
   end
   
