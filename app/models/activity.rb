@@ -297,12 +297,12 @@ class Activity < ActiveRecord::Base
       return false if impact_answer == 0 && impact_needed
       return false if consultation_answer == 0 && consultation_needed
       if impact_answer == 1  && impact_needed then
-        issues = self.issues_by(section, enabled_strand)
+        issues = self.issues_by('impact', enabled_strand)
         return false if issues.size == 0
         issues_to_check << issues
       end
       if consultation_answer == 1 && consultation_needed then
-        issues = self.issues_by(section, enabled_strand)
+        issues = self.issues_by('consultation', enabled_strand)
         return false if issues.size == 0
         issues_to_check << issues
       end      
