@@ -1,3 +1,11 @@
+#
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
+#
 class Generate
   # def self.event(options={})
   #   attendees = options.delete(:attendees) || []

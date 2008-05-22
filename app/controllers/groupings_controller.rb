@@ -1,3 +1,11 @@
+#
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
+#
 class GroupingsController < ApplicationController
   # Groupings are nested resources underneath Organisations,
   # so we'll always have an Organisation to load first.

@@ -1,3 +1,11 @@
+#
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
+#
 require File.dirname(__FILE__) + '/../test_helper'
 
 #This suite tests that all the basic model abilities work, and all the tag calculations and statistics are right 
