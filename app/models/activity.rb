@@ -274,9 +274,14 @@ class Activity < ActiveRecord::Base
     #are all the strategies completed if they need to be?
     strategies_not_completed = self.activity_strategies.find(:all, :conditions => 'strategy_response LIKE 0').size > 0
     return false if strategies_not_completed && (is_purpose || section.nil?)
+    #Special check for the unique conditions where section and strand are nil
+    if section.nil? && strand.nil? then
+      search_conditions = "name REGEXP 'purpose' AND completed = false AND needed = true"
+      return false if self.questions.find(:all, :conditions => search_conditions).size > 0
+    end
     #Are there any questions which are required and not completed?
     new_section = section.nil? ? self.sections.map(&:to_s).join("|") : section
-    new_strand = strand.nil? ? self.strands(is_purpose).push("overall").join("|") : strand
+    new_strand = strand.nil? ? self.strands(is_purpose).join("|") : strand
     search_conditions = "name REGEXP '(#{new_section})\_(#{new_strand})' AND completed = false AND needed = true"
     return false if self.questions.find(:all, :conditions => search_conditions).size > 0
     #check if we need to check issues?
