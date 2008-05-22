@@ -6,7 +6,7 @@
     = @activity.hashes['header_help_text']['purpose_overall_1'][@activity.fun_pol_number][@activity.exist_prop_number].to_s
   %h3
     ="#{ot('strategy').titleize} Description:"
-  -if !activity_strategy.strategy.description? then
+  -if !activity_strategy.strategy.description.blank? then
     .help
       = simple_format(activity_strategy.strategy.description)
   -else
