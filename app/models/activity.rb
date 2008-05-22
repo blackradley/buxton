@@ -405,7 +405,6 @@ class Activity < ActiveRecord::Base
     return true if @saved
     @saved = true
     to_save = {}
-    return true if (@activity_clone.ces_question != self.ces_question)
     if @activity_clone.send(:existing_proposed) != self.send(:existing_proposed) then
       if proposed? then
         @@invisible_questions.each do |question|
