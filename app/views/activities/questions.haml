@@ -171,7 +171,6 @@
           %p#approved_answers{:style=>(@activity.approved.to_s == "approved" ? 'display:block' : 'display:none')}
             =image_tag('icons/tick.gif')
             Thank you for approving this activity.
-
         .clear
 -if @activity.approved == "not submitted" || (@current_user.class.to_s == "ActivityApprover" && @activity.approved == "submitted")
   #disable{:style=>"display:none;"}
@@ -180,7 +179,7 @@
   -if @activity.approved == "approved" && @current_user.class.to_s == "ActivityApprover"
     #unapprove_box{:style=>"display:block;"}
       %p
-        =image_tag("icons/delete.gif")
-        =link_to_remote "Remove Approved status", :url => {:action => 'unapprove', :controller => 'activities'}, :before => "$('unapprove_box').toggle(); $('disable').toggle(); $('approved_answers').toggle(); $('reject_answers').toggle()"
+        = image_tag("icons/delete.gif")
+        = link_to_remote "Remove approved status", :url => {:action => 'unapprove', :controller => 'activities'}, :before => "$('unapprove_box').toggle(); $('disable').toggle(); $('approved_answers').toggle(); $('reject_answers').toggle()"
       .clear
 .clear
