@@ -14,11 +14,12 @@ module ApplicationHelper
   # Activity and on the Organisation, hence it is here in the ApplicationHelper.
   def progress_bar(percentage, width=100)
     if percentage > 100 then percentage = 100 end
+    label = "#{percentage}%"
     case width
     when 100
-      image_tag("bars/small/#{percentage}.png")
+      image_tag("bars/small/#{percentage}.png", :alt => label, :title => label)
     when 200
-      image_tag("bars/large/#{percentage}.png")
+      image_tag("bars/large/#{percentage}.png", :alt => label, :title => label)
     else
       "A progress bar of this size doesn't exist. Please contact an administrator"
     end
