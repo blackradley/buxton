@@ -281,7 +281,7 @@ class Activity < ActiveRecord::Base
     end
     #Are there any questions which are required and not completed?
     new_section = section.nil? ? self.sections.map(&:to_s).join("|") : section
-    new_strand = strand.nil? ? self.strands(is_purpose).join("|") : strand
+    new_strand = strand.nil? ? self.strands(is_purpose).push("overall").join("|") : strand
     search_conditions = "name REGEXP '(#{new_section})\_(#{new_strand})' AND completed = false AND needed = true"
     return false if self.questions.find(:all, :conditions => search_conditions).size > 0
     #check if we need to check issues?
