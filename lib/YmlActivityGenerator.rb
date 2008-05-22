@@ -4,7 +4,7 @@
 # $Author$
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
+# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
 class YmlActivityGenerator
   #In script/console run require 'YmlActivityGenerator.rb', then YmlActivityGenerator.to_yaml(25) to reinvoke 25 fixtures. 25 is the max.

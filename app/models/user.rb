@@ -4,7 +4,7 @@
 # $Author$
 # $Date$
 #
-# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. 
+# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved. 
 #
 # Users are identified by their email address only.  No other information is 
 # retained about the users so as to avoid data protection problems and to 

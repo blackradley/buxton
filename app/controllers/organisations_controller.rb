@@ -4,7 +4,7 @@
 # $Author: 27stars-karl $
 # $Date: 2007-12-17 09:20:53 +0000 (Mon, 17 Dec 2007) $
 #
-# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
+# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
 class OrganisationsController < ApplicationController
 
