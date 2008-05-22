@@ -74,20 +74,10 @@ protected
     render :file => "#{RAILS_ROOT}/public/404.html",  :status => "404 Not Found"
   end
   
-  # Do your best to detect invalid user type and show a better error:
-  # - Act Man pages with Org Man
-  # - Org Man pages with Act Man, etc.
+  # Do your best to detect invalid user type and show a better error.
   # This is quick and temporary until we have proper user access control when going in to production.
   def wrong_user?(exception)
-    message = exception.message
-    if message =~ /^undefined method `activity' for #<OrganisationManager/ then
-      @hide_menu = true
-      render :text => "<h3>Access Denied</h3><p>Organisation Managers cannot access Activity Manager pages.</p>", :layout => true
-    elsif message =~ /^undefined method `organisation' for #<ActivityManager/ then
-      @hide_menu = true      
-      render :text => "<h3>Access Denied</h3><p>Activity Managers cannot access Organisation Manager pages.</p>", :layout => true
-    end
-    # Tested: all other NoMethodErrors are passed on and cause proper exceptions.
+    render :text => "<h3>Access Denied</h3><p>You do not have sufficient privileges.</p>", :layout => true
   end
   
   # To reduce code duplication in the controllers, we override rescue_action to catch RecordInvalid and RecordNotFound 
