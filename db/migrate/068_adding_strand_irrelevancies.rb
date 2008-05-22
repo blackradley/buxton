@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved. 
+#
 class AddingStrandIrrelevancies < ActiveRecord::Migration
   def self.up
     add_column :activities, :gender_irrelevant, :boolean, :default => false

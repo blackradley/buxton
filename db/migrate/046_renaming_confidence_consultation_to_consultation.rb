@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved. 
+#
 class RenamingConfidenceConsultationToConsultation < ActiveRecord::Migration
   def self.up
     rename_column :functions, :confidence_consultation_age_1, :consultation_age_1
