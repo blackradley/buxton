@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved. 
+#
 class DisplayOrderToPosition < ActiveRecord::Migration
   def self.up
   	rename_column :strategies, :display_order,	:position

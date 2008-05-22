@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved. 
+#
 class FlippingManagerAndBody < ActiveRecord::Migration
   def self.up
     # activity_pairings = Activity.find(:all).reject{|a| a.activity_manager_id.blank?}

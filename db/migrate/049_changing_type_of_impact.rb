@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved. 
+#
 class ChangingTypeOfImpact < ActiveRecord::Migration
   def self.up
     change_column :functions, :impact_gender_2, :text

@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved. 
+#
 class RemovingAddWorkQuestion < ActiveRecord::Migration
   def self.up
     remove_column :activities, :additional_work_gender_5

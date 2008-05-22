@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved. 
+#
 class RenameAdditionalWork < ActiveRecord::Migration
   def self.up
 	rename_column :functions, :additional_work_race_5, :additional_work_race_1

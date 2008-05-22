@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved. 
+#
 class AddingImpactHelpText < ActiveRecord::Migration
   def self.up
     wordings = {:gender => 'men and women',

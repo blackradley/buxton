@@ -1,3 +1,11 @@
+#  
+# $URL$ 
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved. 
+#
 class CreateHelpTexts < ActiveRecord::Migration
   def self.up
     create_table :help_texts do |t|
