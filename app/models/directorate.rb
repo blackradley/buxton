@@ -1,3 +1,11 @@
+#
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
+#
 class Directorate < ActiveRecord::Base
   belongs_to :organisation
   has_one :directorate_manager, :dependent => :destroy

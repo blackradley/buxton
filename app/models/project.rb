@@ -1,3 +1,11 @@
+#
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
+#
 class Project < ActiveRecord::Base
    has_and_belongs_to_many :activities
    belongs_to :organisation

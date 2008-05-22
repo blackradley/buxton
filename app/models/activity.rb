@@ -810,5 +810,4 @@ class Activity < ActiveRecord::Base
     return checker
   end
 
-
 end

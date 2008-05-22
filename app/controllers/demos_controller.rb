@@ -1,9 +1,11 @@
-# 
-# $URL$ 
-# $Author$
 #
-# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.  
-# 
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
+#
 class DemosController < ApplicationController
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)

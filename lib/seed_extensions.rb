@@ -1,3 +1,11 @@
+#
+# $URL$
+# $Rev$
+# $Author$
+# $Date$
+#
+# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
+#
 module Seed
   def add_seed(class_name, variables = nil, &block)
     print "Adding seed data for #{(find_class class_name).to_s} with "
