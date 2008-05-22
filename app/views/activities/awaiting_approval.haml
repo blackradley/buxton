@@ -37,25 +37,19 @@
       %table.list
         %tr
           %th.left{:style => "width:250px;", :rowspan =>"2"} Name
-          %th{:rowspan =>"2"} Completed
-          %th{:colspan =>"2"} Activity Manager
-          %th{:rowspan =>"2"}
+          %th{:colspan =>"2"} Activity Approver
         %tr
-          %th Last&nbsp;key sent
+          %th Last key sent
           %th Actions
         -@approved.each do |activity|
           %tr
             %td.left{:style => "width:150px;"}
               =h activity.name
             %td
-              = progress_bar(activity.percentage_answered)
-            %td
-              = date_or_blank(activity.activity_manager.reminded_on)
+              = date_or_blank(activity.activity_approver.reminded_on)
             %td.actions{:nowrap => "nowrap"}
-              = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email"
-              = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_manager.email}?", :method => :post, :title =>"Key"
-            %td.actions
-              = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
+              = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_approver.email}", :title =>"Email"
+              = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_approver.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_approver.email}?", :method => :post, :title =>"Key"
     -else 
       %p.no_info
         No Activities Unapproved.
@@ -72,9 +66,8 @@
         %table.list
           %tr
             %th.left{:style => "width:250px;", :rowspan =>"2"} Name
-            %th{:rowspan =>"2"} Completed
-            %th{:colspan =>"2"} Activity Manager
-            %th{:rowspan =>"2"}
+            %th{:colspan =>"2"} Activity Approver
+            %th{:rowspan =>"2"}            
           %tr
             %th Last&nbsp;key sent
             %th Actions
@@ -83,14 +76,11 @@
               %td.left{:style => "width:150px;"}
                 =h activity.name
               %td
-                = progress_bar(activity.percentage_answered)
-              %td
-                = date_or_blank(activity.activity_manager.reminded_on)
+                = date_or_blank(activity.activity_approver.reminded_on)
               %td.actions{:nowrap => "nowrap"}
-                = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email"
-                = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_manager.email}?", :method => :post, :title =>"Key"
+                = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_approver.email}", :title =>"Email"
+                = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_approver.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_approver.email}?", :method => :post, :title =>"Key"
               %td.actions
-                = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
                 = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend"
                 = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
       -else 
@@ -108,25 +98,21 @@
         %table.list
           %tr
             %th.left{:style => "width:250px;", :rowspan =>"2"} Name
-            %th{:rowspan =>"2"} Completed
-            %th{:colspan =>"2"} Activity Manager
-            %th{:rowspan =>"2"}
+            %th{:colspan =>"2"} Activity Approver
+            %th{:rowspan =>"2"}            
           %tr
-            %th Last&nbsp;key sent
+            %th Last key sent
             %th Actions
           -@approved.each do |activity|
             %tr
               %td.left{:style => "width:150px;"}
                 =h activity.name
               %td
-                = progress_bar(activity.percentage_answered)
-              %td
-                = date_or_blank(activity.activity_manager.reminded_on)
+                = date_or_blank(activity.activity_approver.reminded_on)
               %td.actions{:nowrap => "nowrap"}
-                = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email"
-                = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_manager.email}?", :method => :post, :title =>"Key"
+                = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_approver.email}", :title =>"Email"
+                = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_approver.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_approver.email}?", :method => :post, :title =>"Key"
               %td.actions
-                = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
                 = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend"
                 = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
       -else 

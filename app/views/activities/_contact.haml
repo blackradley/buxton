@@ -1,28 +1,33 @@
 = error_messages_for 'activity_manager'
 = error_messages_for 'activity'
 %fieldset#new_activity
-  -fields_for :activity_manager do |am|
+  %p
+    %label
+      Name of Activity
+    %span.labelled
+      = f.text_field :name, 'size' => 50
+  - fields_for :activity_manager do |am|
     %p
       %label
         E-mail address of Activity Manager (who will undertake assessment)
       %span.labelled
         = am.text_field :email, 'size' => 50
+  - fields_for :activity_approver do |aa|
     %p
       %label
-        Name of Activity
+        E-mail address of Activity Approver (who will approve the answers)
       %span.labelled
-        = f.text_field :name, 'size' => 50
-
-    %h4= "#{ot('directorate').titleize} and Projects to which the Activity belongs"
-    %p
-      %label= "#{ot('directorate').titleize}"
+        = aa.text_field :email, 'size' => 50
+  %h4= "#{ot('directorate').titleize} and Projects to which the Activity belongs"
+  %p
+    %label= "#{ot('directorate').titleize}"
+    %span.labelled
+      = f.select(:directorate_id, @directorates)
+  %p
+    %label Projects
+    - @projects.each do |project|
+      -options = :selected if (@activity.projects.include? project)
       %span.labelled
-        = f.select(:directorate_id, @directorates)
-    %p
-      %label Projects
-      - @projects.each do |project|
-        -options = :selected if (@activity.projects.include? project)
-        %span.labelled
-          %span.checkbox
-            = check_box_tag "projects[]", project.id, options
-          =project.name
+        %span.checkbox
+          = check_box_tag "projects[]", project.id, options
+        =project.name

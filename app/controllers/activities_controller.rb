@@ -53,24 +53,6 @@ class ActivitiesController < ApplicationController
     @relevant_strands_string = @activity.relevant_strands.map!{|s| s.titleize}.join(', ')
     @projects = @activity.projects
   end
-
-  # List and provide a summary of the state of all the activities in this organisation.
-  # Available to: Organisation Manager
-  def list
-    @organisation = @current_user.organisation
-
-    case @current_user.class.to_s
-    when 'DirectorateManager'
-      @directorates = [@current_user.directorate]
-    when 'OrganisationManager'
-      @directorates = @organisation.directorates
-      @projects = @organisation.projects
-    when 'ProjectManager'
-      @projects = [@current_user.project]
-    else
-      # TODO throw an error - shouldn't ever get here
-    end
-  end
   
   def incomplete
     @organisation = @current_user.organisation
@@ -335,8 +317,8 @@ class ActivitiesController < ApplicationController
       @activity.build_activity_approver
     end
     @projects = @current_user.organisation.projects #ready for rerendering
-    @activity.approved = "not submitted" if @activity.activity_approver.attributes != params[:activity_approver]
-    @activity.activity_approver.attributes = params[:activity_approver]
+    @activity.approved = "not submitted" if @activity.activity_approver.email != params[:activity_approver][:email]
+    @activity.activity_manager.attributes = params[:activity_manager]
     @activity.activity_approver.attributes = params[:activity_approver]
     @activity.attributes = params[:activity]
     @activity.projects = []
@@ -348,7 +330,13 @@ class ActivitiesController < ApplicationController
       @activity.activity_approver.save!
       @activity.save!
       flash[:notice] =  "#{@activity.name} was successfully changed."
-      redirect_to :action => 'list'
+      
+      case @activity.approved
+      when 'not submitted', nil
+        redirect_to :action => 'incomplete'
+      when 'submitted'
+        redirect_to :action => 'awaiting_approval'
+      end #n.b. can't edit from Approved page
     else
       # Something went wrong
       render :action => :edit_contact
