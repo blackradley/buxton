@@ -5,8 +5,8 @@ module Seed
     object_to_create = find_class class_name
     instance_of_object = object_to_create.new(variables)
     possible_parent_list = possible_parents instance_of_object
-    parent_instance = self unless possible_parent_list.select{|parent| parent == self.class.to_s}.blank?
-    instance_of_object.send("#{parent_instance.class.to_s.downcase.to_sym}=", parent_instance) if parent_instance
+    parent_instance = self unless possible_parent_list.select{|parent| parent == self.class.name}.blank?
+    instance_of_object.send("#{parent_instance.class.name.downcase.to_sym}=", parent_instance) if parent_instance
     instance_of_object.instance_eval(&block) if block
     instance_of_object.save
     puts ""
@@ -26,8 +26,8 @@ module Seed
     object_to_create = find_class class_name
     instance_of_object = object_to_create.send("find_by_#{variables.keys.join('_and_')}".to_sym, variables.values)
     possible_parent_list = possible_parents instance_of_object
-    parent_instance = self unless possible_parent_list.select{|parent| parent == self.class.to_s}.blank?
-    instance_of_object.send("#{parent_instance.class.to_s.downcase.to_sym}=", parent_instance) if parent_instance
+    parent_instance = self unless possible_parent_list.select{|parent| parent == self.class.name}.blank?
+    instance_of_object.send("#{parent_instance.class.name.downcase.to_sym}=", parent_instance) if parent_instance
     instance_of_object.instance_eval(&block) if block
     instance_of_object.save
     puts ""  
@@ -40,8 +40,8 @@ module Seed
     instance_of_object = object_to_create.send("find_by_#{variables.keys.join('_and_')}".to_sym, variables.values)
     instance_of_object = object_to_create.new(variables) unless instance_of_object
     possible_parent_list = possible_parents instance_of_object
-    parent_instance = self unless possible_parent_list.select{|parent| parent == self.class.to_s}.blank?
-    instance_of_object.send("#{parent_instance.class.to_s.downcase.to_sym}=", parent_instance) if parent_instance
+    parent_instance = self unless possible_parent_list.select{|parent| parent == self.class.name}.blank?
+    instance_of_object.send("#{parent_instance.class.name.downcase.to_sym}=", parent_instance) if parent_instance
     instance_of_object.instance_eval(&block) if block
     instance_of_object.save
     puts ""   
@@ -60,7 +60,7 @@ module Seed
   def has_parent(class_name, variables)
     object_to_create = find_class class_name
     parent_instance = object_to_create.send("find_by_#{variables.keys.join('_and_')}".to_sym, variables.values)
-    self.update_attributes!("#{parent_instance.class.to_s.underscore}_id" => parent_instance.id)
+    self.update_attributes!("#{parent_instance.class.name.underscore}_id" => parent_instance.id)
   end
 #Methods to be re-written!
   def find_class(class_name)
@@ -88,7 +88,7 @@ end
 #    def seed_data(stream)
 #      #look up seed info in table
 #      seed_info.each do |ar_object|
-#        stream.puts "add_seed :#{ar_object.class.to_s.underscore} do"
+#        stream.puts "add_seed :#{ar_object.class.name.underscore} do"
 #        ar_object.content_columns.each do |content_column|
 #          name = content_column.name.to_s.to_sym
 #          stream.puts "\t add_value #{name} => '#{ar_object.send(name.to_sym)}'"

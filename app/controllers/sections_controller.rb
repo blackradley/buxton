@@ -21,7 +21,7 @@ class SectionsController < ApplicationController
   def list
     @organisation = @current_user.organisation
 
-    case @current_user.class.to_s
+    case @current_user.class.name
     when 'DirectorateManager'
       @directorates = [@current_user.directorate]
     when 'OrganisationManager'

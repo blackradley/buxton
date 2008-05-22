@@ -16,12 +16,12 @@
 
 %p The tables show all approved activities.
 
--if @current_user.class.to_s == 'OrganisationManager'
+-if @current_user.class.name == 'OrganisationManager'
   %p
     %strong
       = "No #{ot 'directorate'}s created." if @directorates.empty?
 
--case @current_user.class.to_s
+-case @current_user.class.name
   -when 'DirectorateManager'
     -@groups = @directorates
   -when 'ProjectManager'
@@ -59,7 +59,7 @@
       %p.no_info
         No Activities Approved.
             
--if @current_user.class.to_s == 'OrganisationManager'
+-if @current_user.class.name == 'OrganisationManager'
   #show_directorates{:style=>"display:block;"}
     -@directorates.each do |directorate|
       %h4

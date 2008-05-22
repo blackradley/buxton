@@ -57,7 +57,7 @@ class ActivitiesController < ApplicationController
   def incomplete
     @organisation = @current_user.organisation
 
-    case @current_user.class.to_s
+    case @current_user.class.name
     when 'DirectorateManager'
       @directorates = [@current_user.directorate]
     when 'OrganisationManager'
@@ -73,7 +73,7 @@ class ActivitiesController < ApplicationController
   def awaiting_approval
     @organisation = @current_user.organisation
 
-    case @current_user.class.to_s
+    case @current_user.class.name
     when 'DirectorateManager'
       @directorates = [@current_user.directorate]
     when 'OrganisationManager'
@@ -88,7 +88,7 @@ class ActivitiesController < ApplicationController
   
   def approved
     @organisation = @current_user.organisation
-    case @current_user.class.to_s
+    case @current_user.class.name
     when 'DirectorateManager'
       @directorates = [@current_user.directorate]
     when 'OrganisationManager'
@@ -137,7 +137,7 @@ class ActivitiesController < ApplicationController
       @activity.save!
       log_event('Create', %Q[The <strong>#{@activity.name}</strong> activity was created for <strong>#{@activity.organisation.name}</strong>.])
       flash[:notice] = "#{@activity.name} was created."
-      if @current_user.class.to_s == 'ActivityCreator' then
+      if @current_user.class.name == 'ActivityCreator' then
         redirect_to :action => 'login', :controller => 'users', :passkey => @activity_manager.passkey
       else
         redirect_to :action => :list
@@ -219,9 +219,9 @@ class ActivitiesController < ApplicationController
       "($('#{strand_status.to_s}_checkbox').checked)"
     end
     @tag_test = "(#{tag_test.join('||')})"
-    @conditional_flip = if @current_user.class.to_s == 'ActivityApprover' then
+    @conditional_flip = if @current_user.class.name == 'ActivityApprover' then
       "(#{@tag_test}) ? Element.hide('approve_now') : Element.show('approve_now');"
-     elsif @current_user.class.to_s == 'ActivityManager'
+     elsif @current_user.class.name == 'ActivityManager'
       "(#{@tag_test}) ? Element.hide('four') : Element.show('four');"
      end
   end
@@ -360,7 +360,7 @@ class ActivitiesController < ApplicationController
   end
 
   def view_pdf
-    if @current_user.class.to_s != "ActivityManager" then
+    if @current_user.class.name != "ActivityManager" then
       @activity = Activity.find(params[:id])
     else
       @activity = @current_user.activity

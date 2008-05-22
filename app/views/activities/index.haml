@@ -2,7 +2,7 @@
 %h3 Activity Home Page
 
 = render :partial => 'activity_name_form', :locals => {'errors' => nil}
--unless @current_user.class.to_s == 'ActivityApprover' then
+-unless @current_user.class.name == 'ActivityApprover' then
   = render :partial => 'activity_approver_form', :locals => {'errors' => nil, 'wrong_email' => nil}
 %p
   %label
