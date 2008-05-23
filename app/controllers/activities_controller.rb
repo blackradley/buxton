@@ -356,7 +356,7 @@ class ActivitiesController < ApplicationController
     log_event('Destroy', %Q[The <strong>#{@activity.name}</strong> activity for <strong>#{@activity.organisation.name}</strong> was deleted.])    
 
     flash[:notice] = 'Activity successfully deleted.'
-    redirect_to :action => 'list'
+    redirect_to :action => 'incomplete'
   end
 
   def view_pdf
