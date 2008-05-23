@@ -74,7 +74,7 @@ class Organisation < ActiveRecord::Base
     return table
   end
 
-  def results_table
+  def Organisation.results_table(org)
     results_table = { 1 => { :high => 0, :medium => 0, :low => 0 },
                       2 => { :high => 0, :medium => 0, :low => 0 },
                       3 => { :high => 0, :medium => 0, :low => 0 },
@@ -83,7 +83,7 @@ class Organisation < ActiveRecord::Base
 
     # Loop through all the activities this organisation has, generate statistics for
     # the completed ones and fill in the results table accordingly.
-    for activity in self.activities
+    for activity in org.activities
       if activity.approved == 'approved' then
         begin
   results_table[activity.priority_ranking][activity.impact_wording] += 1
@@ -92,6 +92,10 @@ class Organisation < ActiveRecord::Base
       end
     end
     return results_table
+  end
+
+  def results_table
+    Organisation.results_table(self)
   end
 
   def generate_pdf_data(full_report = false)

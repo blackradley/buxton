@@ -46,4 +46,8 @@ class Directorate < ActiveRecord::Base
       end
     end
   end
+
+  def results_table
+    Organisation.results_table(self)
+  end  
 end

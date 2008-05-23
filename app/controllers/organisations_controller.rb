@@ -104,10 +104,17 @@ class OrganisationsController < ApplicationController
   end
 
   def view_pdf
-    @organisation = @current_user.organisation
-    log_event('PDF', %Q[The organisation manager PDF for <strong>#{@organisation.name}</strong> was viewed.])
-    send_data OrganisationPDFGenerator.new(@organisation).pdf.render, :disposition => 'inline',
-      :filename => "#{@organisation.name}.pdf",
+    @belonging = case @current_user.class.name
+      when 'OrganisationManager'
+        @current_user.organisation
+      when 'DirectorateManager'
+        @current_user.directorate
+      when 'ProjectManager'
+        @current_user.project
+    end
+    log_event('PDF', %Q[The #{@current_user.level} manager PDF for <strong>#{@belonging.name}</strong> was viewed.])
+    send_data OrganisationPDFGenerator.new(@belonging).pdf.render, :disposition => 'inline',
+      :filename => "#{@belonging.name}.pdf",
       :type => "application/pdf"
   end
 

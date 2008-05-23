@@ -75,4 +75,11 @@ class DirectoratesController < GroupingsController
     redirect_to organisation_directorates_url
   end
   
+  def view_pdf
+    @directorate = @current_user.directorate
+    log_event('PDF', %Q[The directorate manager PDF for <strong>#{@directorate.name}</strong> was viewed.])
+    send_data OrganisationPDFGenerator.new(@directorate).pdf.render, :disposition => 'inline',
+      :filename => "#{@directorate.name}.pdf",
+      :type => "application/pdf"
+  end
 end
