@@ -22,7 +22,7 @@ class Question < ActiveRecord::Base
   end
 
   def invisible?
-    (@@invisible_questions.include?(self.name) && self.activity.proposed?)
+    (@@invisible_questions.include?(self.name.to_sym) && self.activity.proposed?)
   end
 
   def response
