@@ -37,7 +37,7 @@ class OrganisationPDFGenerator
     pdf.fill_color Color::RGB.const_get('Black')
     pdf.image( "#{RAILS_ROOT}/public/images/pdf_logo.png", :justification => :center, :resize => 0.6)
     pdf.text "<b>#{organisation.name}</b>", :justification => :center, :font_size => 19
-    pdf.text "Impact Equality#{153.chr} Organisation Summary Report", :justification => :center, :font_size => 12
+    pdf.text "Impact Equality#{153.chr} #{organisation.class.name.titleize} Summary Report", :justification => :center, :font_size => 12
     pdf.text "" #Serves as a new line character. Is this more readable than moving the cursor manually?
     pdf.text " "
     return pdf

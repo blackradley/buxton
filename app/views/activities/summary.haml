@@ -9,10 +9,13 @@
   %h3
     = ot('project').titleize
     Summary
+
+
 %span#pdf_link{:style =>"width:auto;"}
   = image_tag('icons/pdf.gif')
   View PDF report: 
-  = link_to "summary", {:action => 'view_pdf', :id => @organisation.id, :controller => 'organisations'}, :target => '_blank', :title => 'PDF Report Summary'
+  = link_to "summary", pdf_url, :target => '_blank', :title => 'PDF Report Summary'
+
   
 %p The Progress Chart below shows how many activities (i.e. functions and policies) have started or completed the equalities impact assessment process.
 

@@ -50,5 +50,4 @@ class ProjectsController < GroupingsController
     @project.destroy
     redirect_to organisation_projects_url
   end
-
 end
