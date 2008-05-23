@@ -21,6 +21,10 @@ describe Activity do
       ActivityManager.stub!(:find).and_return(@activity_manager)
       @activity_manager.stub!(:valid?).and_return(true)
       @activity_manager.stub!(:class).and_return(ActivityManager)
+      @activity_approver = mock_model(ActivityApprover)      
+      ActivityApprover.stub!(:find).and_return(@activity_approver)
+      @activity_approver.stub!(:valid?).and_return(true)
+      @activity_approver.stub!(:class).and_return(ActivityManager)
       @activity = Activity.new(:name => "Testing Activity")
     end
   
@@ -28,6 +32,8 @@ describe Activity do
       @activity.should_not be_valid
       @activity.activity_manager = @activity_manager
       @activity.should_not be_valid
+      @activity.activity_approver = @activity_approver
+      @activity.should_not be_valid      
       @activity.directorate = @directorate
       @activity.should be_valid
     end
