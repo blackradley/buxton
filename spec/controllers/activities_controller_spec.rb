@@ -58,12 +58,7 @@ describe ActivitiesController, "should not allow access to secured actions when 
     get :show
     response.should be_redirect
   end
-  
-  it "#overview should not be successful" do
-    get :overview
-    response.should be_redirect
-  end
-  
+    
   it "#list should not be successful" do
     get :list
     response.should be_redirect
@@ -141,21 +136,31 @@ describe ActivitiesController, "handling GET /activities/show" do
   
 end
 
-describe ActivitiesController, "handling GET /activities/overview" do
+describe ActivitiesController, "handling GET /activities/incomplete" do
 
   it "should be successful" do
-    login_as :activity_manager
-    get :overview
+    login_as :organisation_manager
+    get :incomplete
     response.should be_success
   end
   
 end
 
-describe ActivitiesController, "handling GET /activities/list" do
+describe ActivitiesController, "handling GET /activities/awaiting_approval" do
 
   it "should be successful" do
     login_as :organisation_manager
-    get :list
+    get :awaiting_approval
+    response.should be_success
+  end
+  
+end
+
+describe ActivitiesController, "handling GET /activities/approved" do
+
+  it "should be successful" do
+    login_as :organisation_manager
+    get :approved
     response.should be_success
   end
   
@@ -218,7 +223,12 @@ describe ActivitiesController, "handling POST /activities/create" do
     post :create
   end
   
-  it "should redirect to 'activities/list' with a valid activity" do
+  it "should tell the new activities to create a new approver associated with itself" do
+    @activity.should_receive(:build_activity_approver).and_return(@activity_approver)
+    post :create
+  end  
+  
+  it "should redirect to 'activities/incomplete' with a valid activity" do
     @activity.stub!(:save!).and_return(nil)
     post :create
     response.should be_redirect
@@ -266,22 +276,6 @@ describe ActivitiesController, "handling POST /activities/update" do
   end
   
   it "should assign a flash message with an invalid activity"  
-  
-end
-
-describe ActivitiesController, "handling GET /activities/activity_type" do
-  
-  it "should be successful" do
-    login_as :activity_manager
-    get :activity_type
-    response.should be_success
-  end
-  
-  it "should re-show the activity_type page if the status questions remain unanswered"
-
-  it "should not allow access to an organisation manager"
-  
-  it "should not allow access to an administrator"
   
 end
 

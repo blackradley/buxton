@@ -140,7 +140,7 @@ class ActivitiesController < ApplicationController
       if @current_user.class.name == 'ActivityCreator' then
         redirect_to :action => 'login', :controller => 'users', :passkey => @activity_manager.passkey
       else
-        redirect_to :action => :list
+        redirect_to :action => :incomplete
       end
     end
   end
