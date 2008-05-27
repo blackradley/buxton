@@ -19,12 +19,12 @@ h4 .h4_link {
   margin-top: 10px; }
 
 #questions .more .help {
-  width: 230px; }
+  width: 202px; }
 #questions .more p .comment,
 #questions .more p .note {
-  width: 220px; }
+  width: 202px; }
 #questions .more textarea {
-  width: 225px;
+  width: 202px;
   margin-left: 0px; }
 
 .help_example {
@@ -34,3 +34,7 @@ h4 .h4_link {
 
 .section_summary_toggles {
   width: 100px; }
+
+#content_holder {
+  height: 1000px;
+  width: 100%; }
