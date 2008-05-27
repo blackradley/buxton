@@ -31,3 +31,6 @@ h4 .h4_link {
   float: left;
   margin-left: 65px;
   margin-top: 0px; }
+
+.section_summary_toggles {
+  width: 100px; }
