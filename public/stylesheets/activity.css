@@ -13,14 +13,20 @@
 #view_activities_by {
   float: right; }
 
-.name_update a, .name_update input {
+.name_update a {
   float: left;
   line-height: 2em;
   margin-left: 5px; }
+.name_update input {
+  float: left;
+  margin-left: 5px; }
 
-.approver_update a, .approver_update input {
+.approver_update a {
   float: left;
   line-height: 2em;
+  margin-left: 5px; }
+.approver_update input {
+  float: left;
   margin-left: 5px; }
 
 span.left_float {
