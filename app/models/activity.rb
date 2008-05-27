@@ -40,7 +40,7 @@ class Activity < ActiveRecord::Base
   has_and_belongs_to_many :projects
 
   validates_presence_of :name, :message => 'All activities must have a name.'
-  validates_presence_of :activity_manager, :activity_approver  
+  validates_presence_of :activity_manager, :activity_approver
   validates_presence_of :directorate
   validates_associated :activity_manager, :activity_approver
   validates_associated :questions
@@ -139,7 +139,7 @@ class Activity < ActiveRecord::Base
   def existing_proposed_name
     hashes['choices'][8][self.existing_proposed.to_i]
   end
-  
+
   def approved?
     self.approved == "approved"
   end
@@ -158,7 +158,7 @@ class Activity < ActiveRecord::Base
       end
     else
       percentages[section.to_sym] =  self.send("calculate_#{section.to_s}_percentage_answered#{('(' + strand.to_s + ')') unless strand.nil?}".to_sym)
-    end  
+    end
     overall_total = 0
     if section.nil? then
       percentages.values.each{|total| overall_total += total/percentages.values.size}
@@ -167,7 +167,7 @@ class Activity < ActiveRecord::Base
     end
     (overall_total*100).to_i
   end
-  
+
   def calculate_purpose_percentage_answered(strand = nil)
     new_strand = strand.nil? ? self.strands(true).push("overall").join("|") : strand
     purpose_answered = self.questions.find(:all, :conditions => "name REGEXP 'purpose\_(#{new_strand})' AND (completed = true AND needed = true)").size
@@ -175,10 +175,10 @@ class Activity < ActiveRecord::Base
     number_of_strategies = self.activity_strategies.find(:all).size
     number_of_answered_strategies  = number_of_strategies - number_of_unanswered_strategies
     purpose_total = self.questions.find(:all, :conditions => "name REGEXP 'purpose\_(#{new_strand})' AND (needed = true)").size
-    #to_f used to cascade cast to floats  
-    (purpose_answered.to_f + number_of_answered_strategies)/(number_of_strategies + purpose_total) 
+    #to_f used to cascade cast to floats
+    (purpose_answered.to_f + number_of_answered_strategies)/(number_of_strategies + purpose_total)
   end
-  
+
   def calculate_generic_percentage_answered(section = nil, strand = nil)
     new_strand = strand.nil? ? self.strands.push("overall").join("|") : strand
     answered = self.questions.find(:all, :conditions => "name REGEXP '#{strand.to_s}\_(#{new_strand})' AND (completed = true AND needed = true)").size
@@ -192,22 +192,22 @@ class Activity < ActiveRecord::Base
         answered -= 1 if self.issues.find(:all, :conditions => "section REGEXP 'consultation' AND strand REGEXP '#{enabled_strand.to_s}'").size == 0
       end
     end
-    return 1.0 if total == 0    
+    return 1.0 if total == 0
     (answered.to_f)/(total) #to_f used to cascade cast to floats
   end
 
   def calculate_impact_percentage_answered(strand = nil)
     calculate_generic_percentage_answered('impact', strand)
   end
-  
+
   def calculate_consultation_percentage_answered(strand = nil)
     calculate_generic_percentage_answered('consultation', strand)
   end
-  
+
   def calculate_additional_work_percentage_answered(strand = nil)
     calculate_generic_percentage_answered('additional_work', strand)
   end
-  
+
   def calculate_action_planning_percentage_answered(strand = nil)
     issue_total = 0
     answered = 0
@@ -235,10 +235,10 @@ class Activity < ActiveRecord::Base
           total += issue.percentage_answered
         end
       end
-    end  
+    end
     return 0.0 if sections_total == unanswered_sections
     return 1.0 if issue_total == 0
-    (answered.to_f/issue_total)*((sections_total - unanswered_sections.to_f)/sections_total)    
+    (answered.to_f/issue_total)*((sections_total - unanswered_sections.to_f)/sections_total)
   end
 
    #The started tag allows you to check whether a activity, section, or strand has been started. This is basically works by running check_percentage, but as
@@ -268,7 +268,7 @@ class Activity < ActiveRecord::Base
     return false
   end
 
-  #This allows you to check whether a activity, section or strand has been completed. 
+  #This allows you to check whether a activity, section or strand has been completed.
   def completed(section = nil, strand = nil)
     is_purpose = (section.to_s == 'purpose')
     #are all the strategies completed if they need to be?
@@ -305,7 +305,7 @@ class Activity < ActiveRecord::Base
         issues = self.issues_by('consultation', enabled_strand)
         return false if issues.size == 0
         issues_to_check << issues
-      end      
+      end
     end
     #check the issues are correct from their presence earlier
     issues_to_check.flatten.each{|issue| return false unless issue.check_responses} if (section.nil? || section.to_s == 'action_planning')
@@ -355,7 +355,7 @@ class Activity < ActiveRecord::Base
       end
     end
   end
-  
+
   def strand_relevancies
     list = {}
     hashes['wordings'].keys.each do |strand|
@@ -454,11 +454,11 @@ class Activity < ActiveRecord::Base
   def self.strands
     Activity.find(:first).strands(true)
   end
-  
+
   def impact
     strands(true).map{|strand| impact_calculation(strand)}.max
   end
-  
+
   def strand_percentage_importance(strand)
     existing_proposed_weight = self.hashes['weights'][hashes['existing_proposed']['weight']][self.existing_proposed.to_i].to_i
     exist_proposed_max = self.hashes['weights'][hashes['existing_proposed']['weight']].max
@@ -556,7 +556,7 @@ class Activity < ActiveRecord::Base
 
   def impact_wording(strand = nil)
     unless strand then
-      impact_figure = impact 
+      impact_figure = impact
     else
       return '-' unless self.send("#{strand}_relevant")
       impact_figure = impact_calculation(strand)
@@ -570,7 +570,7 @@ class Activity < ActiveRecord::Base
         return :low
     end
   end
-  
+
   def impact_calculation(strand)
     good_impact = self.send("purpose_#{strand.to_s}_3".to_sym).to_i
     bad_impact = self.send("purpose_#{strand.to_s}_4".to_sym).to_i
@@ -578,12 +578,15 @@ class Activity < ActiveRecord::Base
     good_impact = hashes['weights'][question_wording_lookup(*Activity.question_separation("purpose_#{strand.to_s}_3".to_sym))[4]][good_impact]
     good_impact
   end
-  
+
   def strands(return_all = false)
     strand_list = ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age'].map{|strand| strand if self.send("#{strand}_relevant")||return_all}
     strand_list.compact
   end
-  
+
+  def self.strands
+    ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age']
+  end
   def priority_ranking(strand = nil)
     # FIXME: database should set this default for us
     ranking_boundaries = [80,70,60,50]
@@ -620,7 +623,7 @@ class Activity < ActiveRecord::Base
     questions.delete_if{ |question| !(question.to_s.include?(number.to_s))} if number
     return questions
   end
-  
+
   #TODO: Needs fixing. It currently makes a start at the display, but is not finished by any means. Won't throw any bugs though.
   def additional_work_text_lookup(strand, question)
     strand = strand.to_s

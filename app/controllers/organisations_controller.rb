@@ -34,7 +34,7 @@ class OrganisationsController < ApplicationController
   # Create a new Organisation and a new associated User
   # Available to: Administrator
   def new
-    @organisation = Organisation.new    
+    @organisation = Organisation.new
     @organisation_terminologies = Terminology.find(:all).map do |term|
       @organisation.organisation_terminologies.build(:value => term.term, :terminology_id => term.id)
     end
@@ -45,6 +45,9 @@ class OrganisationsController < ApplicationController
   def create
     ot_attributes = params['organisation']['organisation_terminology_attributes']
     params['organisation'].delete('organisation_terminology_attributes')
+    @organisation_terminologies = Terminology.find(:all).map do |term|
+      Organisation.new.organisation_terminologies.build(:value => term.term, :terminology_id => term.id)
+    end
     @organisation = Organisation.new(params[:organisation])
     Organisation.transaction do
       org_terms = @organisation.organisation_terminologies
@@ -65,7 +68,7 @@ class OrganisationsController < ApplicationController
     @organisation_managers = @organisation.organisation_managers
     @organisation_terminologies = Terminology.find(:all).map do |term|
       if term = @organisation.organisation_terminologies.find_by_terminology_id(term.id) then
-        term  
+        term
       else
         @organisation.organisation_terminologies.build(:value => term.term, :terminology_id => term.id)
       end
@@ -77,13 +80,13 @@ class OrganisationsController < ApplicationController
   def update
     @organisation = Organisation.find(params[:id])
     @organisation_managers = @organisation.organisation_managers
-    org_terms = @organisation.organisation_terminologies
+    @organisation_terminologies = @organisation.organisation_terminologies
     Organisation.transaction do
       params['organisation']['organisation_terminology_attributes'].each do |ot|
-        if org_term = org_terms.find_by_terminology_id(ot['terminology_id']) then
+        if org_term = @organisation_terminologies.find_by_terminology_id(ot['terminology_id']) then
           org_term.update_attributes!(:value => ot['value']) unless ot['value'] == org_term.value
         else
-          org_terms.build(:value => ot['value'], :terminology_id => ot['terminology_id']).save
+          @organisation_terminologies.build(:value => ot['value'], :terminology_id => ot['terminology_id']).save
         end
       end
       params['organisation'].delete('organisation_terminology_attributes')
