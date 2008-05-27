@@ -12,18 +12,23 @@
       %li
         %h3
           = org.name
-          (
-          = link_to OrganisationManager.find_by_organisation_id(org.id).email, OrganisationManager.find_by_organisation_id(org.id).url_for_secret_login(request)
-          )
+        %p
+          Manager(s):
+          - org.organisation_managers.each do |om|
+            = link_to om.email, om.url_for_secret_login(request)
+        -if org.activity_creator
+          %p
+            Activity Creator:
+            = link_to org.activity_creator.email, org.activity_creator.url_for_secret_login(request)
         %h4 Directorates
         %ul
           - org.directorates.each do |directorate|
             %li
               %h5
                 = directorate.name
-                - if DirectorateManager.find_by_directorate_id(directorate.id)
+                - if directorate.directorate_manager
                   (
-                  = link_to DirectorateManager.find_by_directorate_id(directorate.id).email, DirectorateManager.find_by_directorate_id(directorate.id).url_for_secret_login(request)
+                  = link_to directorate.directorate_manager.email, directorate.directorate_manager.url_for_secret_login(request)
                   )
               %ul
                 - directorate.activities.each do |activity|
@@ -43,10 +48,9 @@
             %li
               %h5
                 = project.name
-                - if ProjectManager.find_by_project_id(project.id)
-                  (
-                  = link_to ProjectManager.find_by_project_id(project.id).email, ProjectManager.find_by_project_id(project.id).url_for_secret_login(request)
-                  )
+                (
+                = link_to project.project_manager.email, project.project_manager.url_for_secret_login(request)
+                )
               %ul
                 - project.activities.each do |activity|
                   %li
