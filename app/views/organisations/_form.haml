@@ -30,7 +30,10 @@
   %p
     %label Link to CES document:
     %span.labelled
-      = text_field 'organisation', 'ces_link'
+      - if @organisation.ces_link?
+        = text_field 'organisation', 'ces_link'
+      - else
+        = text_field 'organisation', 'ces_link', :value => 'http://'
     %span.help_example e.g. http://organisation.org/CES.pdf
   %p
     %label.long Text to be used when asking about an Activities strategies:
