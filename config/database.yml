@@ -15,8 +15,7 @@ development:
   adapter: mysql
   database: buxton_development
   username: root
-  password: 
-  socket: /tmp/mysql/mysql.sock
+  password: root
 
 # Warning: The database defined as 'test' will be erased and
 # re-generated from your development database when you run 'rake'.
@@ -25,26 +24,26 @@ test:
   adapter: mysql
   database: buxton_test
   username: root
-  password: 
+  password:
   socket: /tmp/mysql/mysql.sock
 
 demonstration:
   adapter: mysql
   database: buxton_demonstration
   username: root
-  password: 
+  password:
   socket: /tmp/mysql/mysql.sock
 
 staging:
   adapter: mysql
   database: buxton_staging
   username: root
-  password: 
+  password:
   host: localhost
 
 production:
   adapter: mysql
   database: buxton_production
   username: root
-  password: 
+  password:
   host: localhost
