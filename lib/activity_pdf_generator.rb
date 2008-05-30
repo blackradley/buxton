@@ -104,25 +104,29 @@ class ActivityPDFGenerator
   def build_purpose(pdf, activity)
     pdf.text(" ")
     pdf.text("<c:uline><b>2.  Purpose </b></c:uline>")
-    strategies = [[],[],[]]
+    types = [:organisation, :directorate, :project]
+    strategies = [[], [],[]]
     activity.activity_strategies.each do |activity_strategy|
-      case activity_strategy.strategy_response
-        when 0
-          strategies[0] << activity_strategy.strategy.name
-        when 1
-          strategies[1] << activity_strategy.strategy.name
-        when 2
-          strategies[2] << activity_strategy.strategy.name
+      case activity_strategy.strategy.class.name
+        when "OrganisationStrategy"
+          strategies[0] << activity_strategy.strategy.name if activity_strategy.strategy_response == 1
+        when "DirectorateStrategy"
+          strategies[1] << activity_strategy.strategy.name if activity_strategy.strategy_response == 1
+        when "ProjectStrategy"
+          strategies[2] << activity_strategy.strategy.name if activity_strategy.strategy_response == 1
       end
     end
-    unless strategies[1].size == 0 then
-      pdf.text("The Activity assists in delivering the following strategic objectives:")
-      strategies[1].each do |strategy|
-        pdf.text("<C:bullet/> #{strategy}", :left => 20)
+    strategies.each_with_index do |child_strategies, index|
+     type = types[index]      
+      unless child_strategies.size == 0 then
+        pdf.text("The Activity assists in delivering the following strategic objectives on the #{type.to_s.titleize} level:")
+        child_strategies.each do |strategy|
+          pdf.text("<C:bullet/> #{strategy}", :left => 20)
+        end
+      else
+        pdf.text("The Activity does not assist in delivering any strategic objectives on on the #{type.to_s.titleize} level.")
       end
-    else
-      pdf.text("The Activity does not assist in delivering any strategic objectives.")
-    end
+    end    
     pdf.text(" ")
     impact_quns = []
     (5..9).each do |i|
