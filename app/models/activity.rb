@@ -703,7 +703,7 @@ class Activity < ActiveRecord::Base
         "---------"
     end
     exist_prop_indicator = case exist_prop_number
-      when
+      when 0
         "existing"
       when 1
         "proposed"
