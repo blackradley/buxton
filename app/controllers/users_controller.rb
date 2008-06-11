@@ -241,6 +241,11 @@ class UsersController < ApplicationController
     render :layout => 'keys'
   end
 
+  def terms_and_conditions
+  end
+  
+  def privacy_protection
+  end
 protected
   # No methods are secure
   def secure?

@@ -1,19 +1,20 @@
 %h1#questions=h @activity.name + " - " + @equality_strand.titleize + " - Additional Work"
-#questiontext
-  %p Below is some feedback generated from your previous answers:
-  %ul
-    %li
-      =h @activity.additional_work_text_lookup(@equality_strand, 1)
-    %li
-      =h @activity.additional_work_text_lookup(@equality_strand, 2)
-    %li
-      =h @activity.additional_work_text_lookup(@equality_strand, 3)
-    %li
-      =h @activity.additional_work_text_lookup(@equality_strand, 4)
-    %li
-      =h @activity.additional_work_text_lookup(@equality_strand, 5)
-    %li
-      =h @activity.additional_work_text_lookup(@equality_strand, 6)
+-#
+  #questiontext
+    %p Below is some feedback generated from your previous answers:
+    %ul
+      %li
+        =h @activity.additional_work_text_lookup(@equality_strand, 1)
+      %li
+        =h @activity.additional_work_text_lookup(@equality_strand, 2)
+      %li
+        =h @activity.additional_work_text_lookup(@equality_strand, 3)
+      %li
+        =h @activity.additional_work_text_lookup(@equality_strand, 4)
+      %li
+        =h @activity.additional_work_text_lookup(@equality_strand, 5)
+      %li
+        =h @activity.additional_work_text_lookup(@equality_strand, 6)
 #questions
   -form_for(:activity, :url => {:action => 'update'}) do |f| 
     = render :partial => 'question_help', :collection => question_details(:additional_work, @equality_strand, [1,2,3,4]), :locals => {:f => f}
