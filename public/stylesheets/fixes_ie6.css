@@ -40,3 +40,8 @@ h4 .h4_link {
 
 #disable {
   width: 700px; }
+
+#menuBar ul li .tab_left {
+  background-image: url(../images/tab_left.gif); }
+#menuBar ul li .tab_right {
+  background-image: url(../images/tab_right.gif); }
