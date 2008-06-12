@@ -267,7 +267,7 @@ module ApplicationHelper
         answer = 'Not Answered Yet'
       end
 
-      render :partial => 'answer', :locals => { :label => label, :answer => answer, :question => question }
+      render :partial => '/activities/answer', :locals => { :label => label, :answer => answer, :question => question }
     end
 
     output
