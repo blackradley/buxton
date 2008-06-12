@@ -2,7 +2,7 @@
  * $Date$
  * Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. */
 
-.mastHead .logo
-{	
-	background: #292c4b url(/images/organisations/birmingham.png) no-repeat top left;
+#menuBar #organisation{
+    background-image:url(/images/organisations/birmingham.png) no-repeat top right;
+    width: 326px;
 }

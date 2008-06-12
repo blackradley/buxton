@@ -139,10 +139,10 @@ module ApplicationHelper
       class_name = (highlight) ? 'selected' : ''
       # Disable the tab if told to do so
       if link[:status] == 'disabled' then
-        link_html << content_tag('li', link_to(link[:text], '#'), { :class => ['disabled', class_name].join(' ') })
+        link_html << content_tag('li', link_to("<span class='tab_left'></span><span class='tab_center'>#{link[:text]}</span><span class='tab_right'></span>", '#'),{ :class => ['disabled', class_name].join(' ') })
       else
-        link_html << content_tag('li', link_to(link[:text], link[:url], :title => link[:title]),
-          { :class => class_name })
+        link_html << content_tag('li', link_to("<span class='tab_left'></span><span class='tab_center'>#{link[:text]}</span><span class='tab_right'></span>", link[:url], :title => link[:title]),
+            { :class => class_name })
       end
     end
     content_tag('ul', link_html)
