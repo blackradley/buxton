@@ -2,70 +2,111 @@
 
 #menu
   :width 700px
-  :background-color #4e979e
+  :background-image url(../images/tab_bar_bg.png)
+  :background-repeat repeat-x
   :height 30px
 
 #menuBar
+  #organisation
+    :float right
+    :height 30px
+    :background-image url(../images/organisations/demo.png)
+    :width 326px
   ul
     :margin 0 0 0 5px
     :padding 0
     :list-style none
+    :float left
 
     li
       :list-style none
+      :background-image url(../images/tab_bg.png)
       :float left
       :display block
       :margin-right 5px
-      :margin-top 5px
-      
+      :margin-top 0px
+      :height 30px
+      :overflow hidden
+      img
+        :float left
+        
+      img.right
+        :float left
       a
         :text-decoration none
-        :color #FFF
-        :display block
-        :background-color #7ab9c0
-        :padding 0 1em
-        :line-height 25px
-        :font-weight bold
+        :color #4e979e
+        :display block        
+        :padding 0 0em
+        :line-height 30px
+        :font-weight normal
+        :font-size 12px
         :cursor pointer
         &:visited 
           :text-decoration none
-          :color #fff
+          :color #4e979e
           :display block
-          :background-color #7ab9c0
-          :padding 0 1em
-          :line-height 25px
-          :font-weight bold
+          :padding 0 0em
+          :line-height 30px
+          :font-weight normal
           :cursor pointer
         &:hover
           :background-color #fff
           :color #4e979e
+      .tab_left
+        :background-image url(../images/tab_left.png)
+        :width 12px
+        :height 30px
+        :float left
+      .tab_center
+        :float left
+      .tab_right
+        :background-image url(../images/tab_right.png)
+        :float left
+        :width 12px
+        :height 30px
       
-    .disabled
+    li.disabled
+      :background-image none
+      :background-color #ddd
       a
         :text-decoration none
-        :color #FFF
+        :color #999
         :display block
-        :background-color #aeb1ab
-        :padding 0 1em
-        :line-height 25px
-        :font-weight bold
+        :padding 0 0em
+        :line-height 30px
+        :font-weight normal
         :cursor default
         &:visited 
           :text-decoration none
-          :color #FFF
+          :color #999
           :display block
           :background-color #aeb1ab
-          :padding 0 1em
-          :line-height 25px
-          :font-weight bold
+          :padding 0 0em
+          :line-height 30px
+          :font-weight normal
           :cursor default
         &:hover
-          :background-color #aeb1ab
-          :color #fff
+          :background-color #ccc
+          :color #999
+      .tab_left
+        :background-image url(../images/tab_left.png)
+        :width 12px
+        :height 30px
+        :float left
+      .tab_center
+        :float left
+      .tab_right
+        :background-image url(../images/tab_right.png)
+        :float left
+        :width 12px
+        :height 30px
           
-    .selected
+    li.selected
+      :background-image none
+      :background-color #fff
       a
         :color #4e979e
+        
         :background-color #fff
         &:visited 
           :color #4e979e
