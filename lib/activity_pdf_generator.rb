@@ -405,6 +405,16 @@ class ActivityPDFGenerator
         end
       end
     end
+    purpose_strand_needed = strand_needed.clone
+    activity.strands(true).each do |strand|
+      Activity.get_question_names('purpose', strand).each do |question_name|
+        question = activity.questions.find_by_name(question_name.to_s)
+        if question.comment && !(question.comment.contents.blank?) && question.needed then
+          purpose_strand_needed[strand] = true
+          global_comments = true
+        end        
+      end
+    end
     if global_comments then
       pdf.start_new_page
       pdf.text "<c:uline><b>Appendices</b></c:uline>", :justification => :center, :font_size => 14
@@ -454,13 +464,14 @@ class ActivityPDFGenerator
         end
         pdf.text " "
       end
-      activity.strands.each do |strand|
-        if strand_needed[strand] then
+      activity.strands(true).each do |strand|
+        if strand_needed[strand] || purpose_strand_needed[strand] then
           global_comments = true
           pdf.text " "
           pdf.text "<b>Complete assessment summary of the responses pertaining to #{activity.hashes['wordings'][strand]}</b>", :font_size => 12
           pdf.text " ", :font_size => 10
           (activity.sections - [:action_planning]).each_with_index do |section, index|
+            next if !(strand_needed[strand]) && purpose_strand_needed[strand] && (section != :purpose) 
             pdf.text "<b><c:uline>#{index + 1}. #{section.to_s.titleize}</c:uline></b>"
             pdf.text " "
             question_list = []
@@ -471,7 +482,12 @@ class ActivityPDFGenerator
               question_object = activity.questions.find_by_name(question.to_s)
               next unless (question_object && question_object.needed)
               comment = question_object.comment.contents.to_s if question_object.comment
-              question_list << [question_details[0], comment] unless comment.blank?
+              question_text = question_details[0]
+              if section == :purpose then
+                question_text = activity.header(:purpose_overall_3).gsub("members of the following groups", question_text) if number == 3
+                question_text = activity.header(:purpose_overall_4).gsub("members of the following groups", question_text) if number == 4
+              end
+              question_list << [question_text, comment] unless comment.blank?
             end
             borders = [150, 300, 540]
             unless question_list.size == 1 then
