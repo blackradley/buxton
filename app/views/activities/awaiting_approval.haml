@@ -81,6 +81,7 @@
                 = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_approver.email}", :title =>"Email"
                 = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_approver.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_approver.email}?", :method => :post, :title =>"Key"
               %td.actions
+                = link_to image_tag('icons/eye.gif'), {:controller => 'activities', :action => 'view', :activity_id => activity.id}
                 = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend"
                 = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
       -else 
@@ -113,6 +114,7 @@
                 = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_approver.email}", :title =>"Email"
                 = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_approver.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_approver.email}?", :method => :post, :title =>"Key"
               %td.actions
+                = link_to image_tag('icons/eye.gif'), {:controller => 'activities', :action => 'view', :activity_id => activity.id}
                 = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend"
                 = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
       -else 
