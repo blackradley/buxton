@@ -17,42 +17,36 @@
         =h @activity.header(:purpose_overall_1)
     %p.question{:style => "display:block;"}
       %labelled
-        %h5
-          = @activity.organisation.name
-          = ot('strategy').pluralize
-        -yes_no = @activity.hashes['choices'][3]
         -if @activity_org_strategies.size >= 1
+          %h5
+            = @activity.organisation.name
+            = ot('strategy').pluralize
+          -yes_no = @activity.hashes['choices'][3]
           -@activity_org_strategies.each do |activity_strategy|
             %span{:class => :question_compact, :id => "activity_strategy_#{activity_strategy.id}", :onclick => "setFocus(\'more_activity_strategy_#{activity_strategy.id}\',\'activity_strategy_#{activity_strategy.id}\');", :style => "display:block;"}
               %label
                 = activity_strategy.strategy.name
-              = select('strategy_responses', activity_strategy.strategy_id, @activity.hashes['choices'][3], :selected => @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i])
-        -else
-          None
-        %h5
-          = @activity.directorate.name
-          = ot('strategy').pluralize
+                = select('strategy_responses', activity_strategy.strategy_id, @activity.hashes['choices'][3], :selected => @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i])
         -if @activity_dir_strategies.size >= 1
+          %h5
+            = @activity.directorate.name
+            = ot('strategy').pluralize
           -@activity_dir_strategies.each do |activity_strategy|
             %span{:class => :question_compact, :id => "activity_strategy_#{activity_strategy.id}", :onclick => "setFocus(\'more_activity_strategy_#{activity_strategy.id}\',\'activity_strategy_#{activity_strategy.id}\');", :style => "display:block;"}
               %label
                 = activity_strategy.strategy.name
               = select('strategy_responses', activity_strategy.strategy_id, @activity.hashes['choices'][3], :selected => @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i])
-        -else
-          None
 
         -@projects.each do |project|
-          %h5
-            = project.name
-            = ot('strategy').pluralize
           -if @activity_project_strategies.size >= 1
+            %h5
+              = project.name
+              = ot('strategy').pluralize
             -@activity_project_strategies.each do |activity_strategy|
               %span{:class => :question_compact, :id => "activity_strategy_#{activity_strategy.id}", :onclick => "setFocus('more_activity_strategy_#{activity_strategy.id}','activity_strategy_#{activity_strategy.id}');", :style => "display:block;"}
                 %label
                   = Strategy.find(activity_strategy.strategy_id).name
                 = select('strategy_responses', activity_strategy.strategy_id, @activity.hashes['choices'][3], :selected => @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i])
-          -else
-            None
     = hidden_field_tag 'id', @id
     = hidden_field_tag 'equality_strand', @equality_strand
     %p.question

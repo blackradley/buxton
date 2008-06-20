@@ -200,10 +200,8 @@ class ActivitiesController < ApplicationController
     @activity.update_attributes('ces_question' => params[:activity][:ces_question].to_i)
     puts "updated"
     flash[:notice] = "#{@activity.name} was successfully updated."
-    #redirects not answered yet on first page to index so it can't hop past
-    redirect = (params[:activity][:ces_question].to_i > 0)? 'questions' : 'index'
-    redirect_to :controller => 'activities', :action => redirect
-
+    redirect_to :controller => 'activities', :action => 'questions'
+    
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     flash[:notice] =  "Could not update the activity."
     render :action => :index
