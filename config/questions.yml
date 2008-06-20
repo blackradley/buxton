@@ -568,11 +568,11 @@ questions:
     7:
       label:
         -
-          - 'Did any of the consultations identify any issues with the impact of the Function on the particular needs of #{wordings[strand]}?'
-          - 'Did any of the consultations identify any issues with the potential impact of the Function on the particular needs of #{wordings[strand]}?'
+          - 'Did any of the consultations identify any issues with the impact of the Function on the particular needs of #{wordings[strand]}? If there are no consultations, please answer no.'
+          - 'Did any of the consultations identify any issues with the potential impact of the Function on the particular needs of #{wordings[strand]}? If there are no consultations, please answer no.'
         -
-          - 'Did any of the consultations identify any issues with the impact of the Policy on the particular needs of #{wordings[strand]}?'
-          - 'Did any of the consultations identify any issues with the potential impact of the Policy on the particular needs of #{wordings[strand]}?'
+          - 'Did any of the consultations identify any issues with the impact of the Policy on the particular needs of #{wordings[strand]}? If there are no consultations, please answer no.'
+          - 'Did any of the consultations identify any issues with the potential impact of the Policy on the particular needs of #{wordings[strand]}? If there are no consultations, please answer no.'
       help:
         -
           - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact.  #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>

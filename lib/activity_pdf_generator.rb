@@ -119,12 +119,12 @@ class ActivityPDFGenerator
     strategies.each_with_index do |child_strategies, index|
      type = types[index]      
       unless child_strategies.size == 0 then
-        pdf.text("The Activity assists in delivering the following strategic objectives on the #{type.to_s.titleize} level:")
+        pdf.text("#{activity.name} assists in delivering the following strategic objectives on the #{type.to_s.titleize} level:")
         child_strategies.each do |strategy|
           pdf.text("<C:bullet/> #{strategy}", :left => 20)
         end
       else
-        pdf.text("The Activity does not assist in delivering any strategic objectives on on the #{type.to_s.titleize} level.")
+        pdf.text("#{activity.name} does not assist in delivering any strategic objectives on on the #{type.to_s.titleize} level.")
       end
     end    
     pdf.text(" ")
@@ -133,36 +133,36 @@ class ActivityPDFGenerator
       impact_quns << "<C:bullet/>#{activity.question_wording_lookup(:purpose, :overall, i)[0].to_s}" if activity.send("purpose_overall_#{i}") == 1
     end
     if impact_quns.size > 0 then
-      pdf.text("The Activity has an impact on the following groups: ")
+      pdf.text("#{activity.name} has an impact on the following groups: ")
       impact_quns.each do |question|
         pdf.text(question, :left => 20)
       end
     else
-      pdf.text("The Activity has no impact on any relevant groups.")
+      pdf.text("#{activity.name} has no impact on any relevant groups.")
     end
     pdf.text(" ")
     good_impact_questions = Activity.get_question_names('purpose', nil, 3).map{|question| [question, activity.send(question)]}
     good_impact_questions.reject!{|question, response| response.to_i <= 1}
     unless good_impact_questions.size == 0 then
-      pdf.text("The Activity has a potential positive differential impact on the following equality groups:")
+      pdf.text("#{activity.name} has a potential positive differential impact on the following equality groups:")
       good_impact_questions.each do |question, response|
         strand = Activity.question_separation(question)[1]
         pdf.text("<C:bullet/>#{strand.to_s.titleize}", :left => 20)
       end
     else
-      pdf.text("The Activity has a potential positive differential impact on no equality groups.")
+      pdf.text("#{activity.name} has a potential positive differential impact on no equality groups.")
     end
     pdf.text(" ")
     bad_impact_questions = Activity.get_question_names('purpose', nil, 4).map{|question| [question, activity.send(question)]}
     bad_impact_questions.reject!{|question, response| response.to_i <= 1}
     unless bad_impact_questions.size == 0 then
-      pdf.text("The Activity has a potential negative differential impact on the following equality groups:")
+      pdf.text("#{activity.name} has a potential negative differential impact on the following equality groups:")
       bad_impact_questions.each do |question, response|
         strand = Activity.question_separation(question)[1]
         pdf.text("<C:bullet/>#{strand.to_s.titleize}", :left => 20)
       end
     else
-      pdf.text("The Activity has a potential negative differential impact on no equality groups.")
+      pdf.text("#{activity.name} has a potential negative differential impact on no equality groups.")
     end
     pdf.text(" ")
     pdf
@@ -190,7 +190,7 @@ class ActivityPDFGenerator
       borders << borders.last.to_i + border_gap
     end
     table = []
-    table << ["<b>Equality Strand</b>", "<b>Current assessment of the impact of the Activity</b>", "<b>Information to support</b>", "<b>Planned Information to support</b>"]
+    table << ["<b>Equality Strand</b>", "<b>Current assessment of the impact of #{activity.name}</b>", "<b>Information to support</b>", "<b>Planned Information to support</b>"]
     activity.strands.each do |strand|
       row = []
       row << strand.titleize
@@ -281,7 +281,7 @@ class ActivityPDFGenerator
   def build_equality_objectives(pdf, activity)
     pdf.text("<c:uline><b>6. Equality Objectives </b></c:uline>")
     pdf.text(" ")
-    pdf.text("The assessment has identified that the Activity has a role in the following Equality Objectives")
+    pdf.text("The assessment has identified that #{activity.name} has a role in the following Equality Objectives")
     pdf.text(" ")
     width = (pdf.absolute_right_margin - pdf.absolute_left_margin)
     border_gap = width/(3)
@@ -310,7 +310,7 @@ class ActivityPDFGenerator
     end
     pdf.text(" ")
     if activity.disability_relevant then
-      pdf.text("The assessment has identified that the Activity has a role in the following Equality Objectives that are specific to the Disability Equality Strand:")
+      pdf.text("The assessment has identified that #{activity.name} has a role in the following Equality Objectives that are specific to the Disability Equality Strand:")
       pdf.text(" ")
       table = []
       table << ["<b>Equality strand</b>", "<b>Take account of disabilities even if it means treating more favourably</b>", "<b>Promote positive attitudes to disabled people</b>", "<b>Encourage participation by disabled people</b>"]
@@ -471,9 +471,7 @@ class ActivityPDFGenerator
           pdf.text "<b>Complete assessment summary of the responses pertaining to #{activity.hashes['wordings'][strand]}</b>", :font_size => 12
           pdf.text " ", :font_size => 10
           (activity.sections - [:action_planning]).each_with_index do |section, index|
-            next if !(strand_needed[strand]) && purpose_strand_needed[strand] && (section != :purpose) 
-            pdf.text "<b><c:uline>#{index + 1}. #{section.to_s.titleize}</c:uline></b>"
-            pdf.text " "
+            next if !(strand_needed[strand]) && purpose_strand_needed[strand] && (section != :purpose)
             question_list = []
             question_list << ["<b>Question</b>", "<b>Additional Comments</b>"]
             Activity.get_question_names(section, strand).each do |question|
@@ -491,9 +489,9 @@ class ActivityPDFGenerator
             end
             borders = [150, 300, 540]
             unless question_list.size == 1 then
+              pdf.text "<b><c:uline>#{section.to_s.titleize}</c:uline></b>"
+              pdf.text " "
               pdf = generate_table(pdf, question_list, {:borders => borders})
-            else
-              pdf.text "<i>There are no questions with comments for this section</i>"
             end
             pdf.text " "
           end
