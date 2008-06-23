@@ -19,3 +19,10 @@ production:
   authentication: login
   username: Iain_Wilkinson@blackradley.com
   password: callustu
+demonstration:
+  server: localhost
+  port: 25
+  domain: localhost
+  authentication: login
+  username: none
+  password: none
