@@ -16,7 +16,8 @@
   font-size: 1em; }
 
 .mastHead {
-  border-bottom: 0px solid #ff9900; }
+  border-bottom: 0px solid #ff9900;
+  position: relative; }
   .mastHead .logo {
     border-bottom: 0px solid #cccce5;
     background-color: #4f959c;
