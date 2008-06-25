@@ -5,7 +5,9 @@
 ENV['RAILS_ENV'] ||= 'production'
 
 # Set constant for use in /keys and banner development benefits
-DEV_MODE = (['development','staging'].include? ENV['RAILS_ENV'])
+BANNER    = (['development','staging'].include? ENV['RAILS_ENV'])
+KEYS      = (['development','demonstration','staging'].include? ENV['RAILS_ENV'])
+DEV_MODE  = BANNER
 
 # Specifies gem version of Rails to use when vendor/rails is not present
 RAILS_GEM_VERSION = '2.1' unless defined? RAILS_GEM_VERSION
