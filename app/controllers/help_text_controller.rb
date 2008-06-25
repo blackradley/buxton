@@ -7,6 +7,12 @@
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
 class HelpTextController < ApplicationController
+  
+  def index
+    @help_texts = HelpText.find(:all, :order => 'question_name')
+    render :layout => 'keys'
+  end
+  
   def edit
     @help_texts = HelpText.find(:all)
     @split_texts = @help_texts.map{|text| [Question.fast_split(text.question_name), text]}
