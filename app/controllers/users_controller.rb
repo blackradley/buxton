@@ -233,7 +233,7 @@ class UsersController < ApplicationController
   end
 
   def keys
-    return unless DEV_MODE
+    return unless KEYS
     @administrators = Administrator.find(:all)
     @organisations = Organisation.find(:all)
     @organisation_managers = OrganisationManager.find(:all, :include => {:organisation => {:activities => :activity_manager}})
