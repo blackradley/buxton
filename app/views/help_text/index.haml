@@ -1,0 +1,23 @@
+- @help_texts.each do |ht|
+  %h4= ht.question_name.titleize
+  %table{:border => '1px', :cellpadding => '5px', :width => '100%'}
+    %tr{:valign => 'top'}
+      %td{:width => '130px'}
+        %h5 Existing Function
+      %td
+        %p= ht.existing_function
+    %tr{:valign => 'top'}
+      %td
+        %h5 Proposed Function
+      %td
+        %p= ht.proposed_function
+    %tr{:valign => 'top'}
+      %td
+        %h5 Existing Policy
+      %td
+        %p= ht.existing_policy
+    %tr{:valign => 'top'}
+      %td
+        %h5 Proposed Policy
+      %td
+        %p= ht.proposed_policy

@@ -211,6 +211,9 @@ module ApplicationHelper
                       { :text => 'Edit Help Text',
                         :url => {:controller => 'help_text', :action => 'edit'},
                         :title =>'View and Edit Question Help Texts' },
+                      { :text => 'Export Help Text',
+                        :url => {:controller => 'help_text'},
+                        :title =>'Export Help Text as HTML file' },
                       { :text => 'New Demo',
                         :url => { :controller => 'demos', :action => 'new' },
                         :title => 'Create a New Demo' }
