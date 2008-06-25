@@ -16,7 +16,7 @@
     = "<!--[if gte IE 7]> #{stylesheet_link_tag 'fixes_ie7'}<![endif]-->"
     %link{:href=>'/images/favicon.ico', :rel=>'icon', :type=>"image/x-icon"}
   %body
-    - if DEV_MODE
+    - if @banner_text
       #banner
         = @banner_text
     .container

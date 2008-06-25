@@ -18,7 +18,7 @@ class ApplicationController < ActionController::Base
     
   before_filter :authenticate
   before_filter :set_current_user
-  before_filter :set_banner if DEV_MODE
+  before_filter :set_banner if BANNER
   
   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
   rescue_from NoMethodError, :with => :wrong_user? unless DEV_MODE
@@ -29,7 +29,7 @@ class ApplicationController < ActionController::Base
   
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
-  protect_from_forgery :secret => '370c47b86a8ff547b2b472693b0980a4'  
+  # protect_from_forgery :secret => '370c47b86a8ff547b2b472693b0980a4'  
     
 protected
   def log_event(type, text)
