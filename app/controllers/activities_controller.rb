@@ -356,6 +356,19 @@ class ActivitiesController < ApplicationController
     flash[:notice] = 'Activity successfully deleted.'
     redirect_to :action => 'incomplete'
   end
+  
+  def view
+    @activity = Activity.find(params[:id], :include => 'questions')
+    org_strategies = @activity.organisation.organisation_strategies
+     @activity_org_strategies = Array.new(org_strategies.size) do |i|
+       @activity.activity_strategies.find_or_create_by_strategy_id(org_strategies[i].id)
+     end
+     dir_strategies = @activity.directorate.directorate_strategies
+     @activity_dir_strategies = Array.new(dir_strategies.size) do |i|
+       @activity.activity_strategies.find_or_create_by_strategy_id(dir_strategies[i].id)
+     end
+    @projects = @activity.projects       
+  end
 
   def view_pdf
     if @current_user.class.name != "ActivityManager" then
