@@ -20,9 +20,8 @@ class UsersController < ApplicationController
   # Present a form to request a lost passkey by entering your e-mail address.
   # Available to: anybody
   def index
-    # Log out the user if they are logged in
-    logout()
-    render :layout => 'productPage'
+    # This is currently the root url, if they appear here redirect them to the marketing site
+    redirect_to 'http://www.impactequality.co.uk'
   end
 
   # List all admins.
