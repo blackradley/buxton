@@ -245,6 +245,12 @@ class UsersController < ApplicationController
   
   def privacy_protection
   end
+  
+  def logout
+    session[:user_id] = nil
+    redirect_to root_url
+  end
+  
 protected
   # No methods are secure
   def secure?
