@@ -9,7 +9,6 @@ javascripts:
   - application
   - commentsandnotes
   - prototip
-  - swfobject
 stylesheets:
 # error.css is never called through Rails so not included here
 - base:
