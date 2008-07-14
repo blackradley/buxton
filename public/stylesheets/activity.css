@@ -10,6 +10,9 @@
     width: 240px;
     margin-right: 0px; }
 
+#activity_link {
+  font-weight: bold; }
+
 #view_activities_by {
   float: right; }
 
