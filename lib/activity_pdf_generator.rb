@@ -482,8 +482,8 @@ class ActivityPDFGenerator
               comment = question_object.comment.contents.to_s if question_object.comment
               question_text = question_details[0]
               if section == :purpose then
-                question_text = activity.header(:purpose_overall_3).gsub("members of the following groups", question_text) if number == 3
-                question_text = activity.header(:purpose_overall_4).gsub("members of the following groups", question_text) if number == 4
+                question_text = activity.header(:purpose_overall_3).gsub(":", " " + question_text.downcase + "?") if number == 3
+                question_text = activity.header(:purpose_overall_4).gsub(":", " " +question_text.downcase + "?") if number == 4
               end
               question_list << [question_text, comment] unless comment.blank?
             end
