@@ -2,7 +2,6 @@
  * $Date$
  * Copyright (c) 2007 Black Radley Systems Limited. All rights reserved. */
 
-.mastHead .logo
-{	
-	background: #292c4b url(/images/organisations/The_Change_Agency.png) no-repeat top left;
+.mastHead .logo {
+	background-image: url(/images/organisations/The_Change_Agency.png) no-repeat top left;	
 }

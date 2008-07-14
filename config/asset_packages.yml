@@ -55,6 +55,8 @@ stylesheets:
   - organisations/hertfordshire
 - lambeth:
   - organisations/lambeth
+- metropolitan:
+  - organisations/metropolitan
 - stratford:
   - organisations/stratford
 - thechangeagency:
