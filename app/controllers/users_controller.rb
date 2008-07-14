@@ -183,7 +183,8 @@ class UsersController < ApplicationController
 
   # Log the user in and then direct them to the right place based on the user type
   # Available to: anybody
-  def login  
+  def login
+    session[:user_id] = nil  
     passkey_param = params[:passkey]
 
     # Passkeys that end in an i shouldn't leave any audit trail
