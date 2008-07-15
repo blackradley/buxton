@@ -21,5 +21,4 @@
         %label
           Lead Officer responsible for the Action Plan
         = issue_form.text_area :lead_officer
-        = button_to_function " Minimise Action Plan", "Element.toggle('details_#{review_issue.id}'); Element.toggle('open_issue_#{review_issue.id}'); Element.toggle('close_issue_#{review_issue.id}')", :class => 'issues_button'
     .clear
