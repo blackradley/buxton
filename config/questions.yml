@@ -39,11 +39,11 @@ questions:
     3:
       label:
         -
-          - '#{wordings[strand].titleize}'
+          - '#{wordings[strand].titleize}, because of their #{if(strand.to_s == "race") then "ethnicity" else strand.to_s.titleize.downcase end}?'
           - '#{wordings[strand].titleize}'
         -
-          - '#{wordings[strand].titleize}'
-          - '#{wordings[strand].titleize}'
+          - '#{wordings[strand].titleize}, because of their #{if(strand.to_s == "race") then "ethnicity" else strand.to_s.titleize.downcase end}?'
+          - '#{wordings[strand].titleize}, because of their #{if(strand.to_s == "race") then "ethnicity" else strand.to_s.titleize.downcase end}?'
       help:
         -
           - 'This question asks you to identify any positive
@@ -66,11 +66,11 @@ questions:
     4:
       label:
         -
-          - '#{wordings[strand].titleize}'
-          - '#{wordings[strand].titleize}'
+          - '#{wordings[strand].titleize}, because of their #{if(strand.to_s == "race") then "ethnicity" else strand.to_s.titleize.downcase end}?'
+          - '#{wordings[strand].titleize}, because of their #{if(strand.to_s == "race") then "ethnicity" else strand.to_s.titleize.downcase end}?'
         -
-          - '#{wordings[strand].titleize}'
-          - '#{wordings[strand].titleize}'
+          - '#{wordings[strand].titleize}, because of their #{if(strand.to_s == "race") then "ethnicity" else strand.to_s.titleize.downcase end}?'
+          - '#{wordings[strand].titleize}, because of their #{if(strand.to_s == "race") then "ethnicity" else strand.to_s.titleize.downcase end}?'
       help:
         -
           - 'This question asks you to identify any negative
