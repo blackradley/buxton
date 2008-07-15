@@ -93,98 +93,98 @@
       .toggleHelp
         margin-left 5px
   
-  fieldset.section_summary_header
-    :border-top 2px solid #4e979e
-    :margin-bottom 20px
-    :margin-top 0px
-    :padding 0px 5px 20px 5px
-    legend
-      :color #4e979e
-      :font-size 1.1em
-      :font-weight bold
-  	
-    legend.section_summary_toggles
+fieldset.section_summary_header
+  :border-top 2px solid #4e979e
+  :margin-bottom 20px
+  :margin-top 0px
+  :padding 0px 5px 20px 5px
+  legend
+    :color #4e979e
+    :font-size 1.1em
+    :font-weight bold
+	
+  legend.section_summary_toggles
+    :float right
+    :font-size 1em
+    :font-weight normal
+    :margin-top -20px
+    :padding 0px 5px
+    :background-color #fff
+    :text-align right
+    :line-height 18px
+    img
+      :margin-left 5px
+      :margin-top 2px
       :float right
-      :font-size 1em
-      :font-weight normal
-      :margin-top -20px
-      :padding 0px 5px
-      :background-color #fff
-      :text-align right
-      :line-height 18px
-      img
-        :margin-left 5px
-        :margin-top 2px
-        :float right
-        
-  fieldset.section_summary_show
-    :border-top 2px solid #4e979e
-    :margin-bottom 20px
-    :margin-top 0px
-    :padding 0px 5px 20px 5px
-    :border 2px solid #4e979e
-    legend
-      :color #4e979e
-      :font-size 1.1em
-      :font-weight bold
-
-    legend.section_summary_toggles
-      :float right
-      :font-size 1em
-      :font-weight normal
-      :margin-top -20px
-      :padding 0px 5px
-      :background-color #fff
-      :text-align right
-      :line-height 18px
-      :width 60px
-      img
-        :margin-left 5px
-        :margin-top 2px
-        :float right
- 
-    h4
-      :margin-left 20px
-  
-    h5
-      :margin-left 20px
-      :line-height 2em
-      :margin-bottom -15px
-  
-    label
-      :width 380px
-  
-    #action_planning
-      :margin-bottom 20px
-      :float left
-      :clear left
-      label
-        :width 100px
-        :margin-left 20px
-        :font-weight bold
-  
-    .labelled
-      :float left
-      :width 150px
-      :line-height 20px
-      :font-weight bold
       
-    .section_summary_header
-      legend
-        .section_summary_toggles
-          :width 100px
+fieldset.section_summary_show
+  :border-top 2px solid #4e979e
+  :margin-bottom 20px
+  :margin-top 0px
+  :padding 0px 5px 20px 5px
+  :border 2px solid #4e979e
+  legend
+    :color #4e979e
+    :font-size 1.1em
+    :font-weight bold
 
-    .issues
-      :float left
-      :width 150px
-      :border 1px solid #fff
-      :margin-top 4px	
-      :font-size 1em
+  legend.section_summary_toggles
+    :float right
+    :font-size 1em
+    :font-weight normal
+    :margin-top -20px
+    :padding 0px 5px
+    :background-color #fff
+    :text-align right
+    :line-height 18px
+    :width 60px
+    img
+      :margin-left 5px
+      :margin-top 2px
+      :float right
 
-      ul
-        :padding-left 0px
-        :list-style-position inside
-        :list-style-type decimal-leading-zero
+  h4
+    :margin-left 20px
+
+  h5
+    :margin-left 20px
+    :line-height 2em
+    :margin-bottom -15px
+
+  label
+    :width 380px
+
+  #action_planning
+    :margin-bottom 20px
+    :float left
+    :clear left
+    label
+      :width 100px
+      :margin-left 20px
+      :font-weight bold
+
+  .labelled
+    :float left
+    :width 150px
+    :line-height 20px
+    :font-weight bold
+    
+  .section_summary_header
+    legend
+      .section_summary_toggles
+        :width 100px
+
+  .issues
+    :float left
+    :width 150px
+    :border 1px solid #fff
+    :margin-top 4px	
+    :font-size 1em
+
+    ul
+      :padding-left 0px
+      :list-style-position inside
+      :list-style-type decimal-leading-zero
     
 #show
   table
@@ -198,24 +198,23 @@
       :font-weight bold
       :vertical-align middle
       :padding 20px 10px 10px 10px
+      :nowrap nowrap
     
     td
       :text-align left
-      :padding 5px 10px      
+      :padding 5px 10px  
+      :vertical-align top 
+      :text-align left   
 
-    td.label
-      :width 60%
-      :border none
-      :text-align left
-      :padding 5px 10px
-      :vertical-align top
-      :width 1000px
+      .label
+        :width 400px
+        :display block
 
-    td.labelled
-      :padding 5px 10px
-      :vertical-align top
-      :text-align left
-      :width 200px
+      .labelled
+        :width 200px
+        :display block
+        :overflow hidden
+        :text-overflow ellipsis
 
       ul
         :margin-left 15px

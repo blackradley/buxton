@@ -1,9 +1,11 @@
 %tr
-  %td.label
-    = label
-  %td.labelled
-    =h answer
-    - if comment = question.comment then
-      = image_tag('icons/comment.gif', :id => comment.html_id)
-      %script{:type=>"text/javascript"}
-        = "new Tip('#{comment.html_id}', '#{comment.contents}');"
+  %td
+    %span.label
+      = label
+  %td
+    %span.labelled
+      =h answer
+      - if comment = question.comment then
+        = image_tag('icons/comment.gif', :id => comment.html_id)
+        %script{:type=>"text/javascript"}
+          = "new Tip('#{comment.html_id}', '#{comment.contents}');"
