@@ -62,7 +62,8 @@ h2 img {
       width: 240px;
       text-align: left;
       margin: 0px;
-      margin-top: 10px; }
+      margin-top: 10px;
+      clear: both; }
       #questions .more h3 img {
         float: left;
         margin: 0px 4px; }
@@ -70,13 +71,13 @@ h2 img {
         font-size: 1em;
         font-weight: normal; }
     #questions .more .help {
-      margin: 0px 0px 0px 10px;
+      margin: 0px 0px 0px 5px;
       padding: 10px;
       color: #515f8d;
       font-size: 1em;
       background-color: #f9fdd0;
       border: 1px solid #fff3a4;
-      width: 202px; }
+      width: 210px; }
       #questions .more .help p {
         margin: 0;
         padding: 0 0 5px 0; }
@@ -88,15 +89,17 @@ h2 img {
       padding: 10px;
       color: #4e979e;
       font-size: 1em;
-      width: 200px;
+      width: 210px;
       overflow: hidden; }
-    #questions .more .comment {
+    #questions .more p.comment {
       background-color: #dfe3f9;
-      border: 1px solid #b3beda; }
-    #questions .more .note {
+      border: 1px solid #b3beda;
+      margin-left: 5px; }
+    #questions .more p.note {
       background-color: #f0fddc;
-      border: 1px solid #a3bf8e; }
-      #questions .more .note .controls {
+      border: 1px solid #a3bf8e;
+      margin-left: 5px; }
+      #questions .more p.note .controls {
         margin: 0px; }
     #questions .more .control {
       float: left;
@@ -110,17 +113,18 @@ h2 img {
       margin: 0px;
       float: left;
       text-align: left;
+      margin-bottom: 20px;
       margin-left: 5px; }
     #questions .more .commentform a {
-      margin: 0px 10px; }
+      margin: 0px 0px; }
     #questions .more .noteform a {
-      margin: 0px 10px; }
+      margin: 0px 0px; }
     #questions .more textarea {
       float: left;
-      margin-bottom: 0px 0px 10px 0px;
-      width: 220px;
+      margin-bottom: 10px;
+      width: 230px;
       overflow: auto;
-      margin-left: 10px; }
+      margin-left: 0px; }
     #questions .more ul {
       margin-left: 10px;
       margin-top: 5px; }
@@ -132,7 +136,7 @@ h2 img {
     position: relative;
     clear: left;
     float: left;
-    width: 410px;
+    width: 400px;
     text-align: left;
     margin: 5px 0px 0px;
     overflow: hidden;
@@ -167,23 +171,23 @@ h2 img {
       #questions .question .sub textarea {
         margin-left: 10px;
         width: 318px; }
-      #questions .question .sub #issues_list {
+    #questions .question #issues_list {
+      float: left;
+      margin-bottom: 10px; }
+      #questions .question #issues_list .issue {
+        clear: left;
         float: left;
-        margin-bottom: 10px; }
-        #questions .question .sub #issues_list .issue {
-          clear: left;
-          float: left;
-          margin-left: 0px;
-          margin-bottom: 2px;
-          width: 388px; }
-          #questions .question .sub #issues_list .issue input {
-            margin-left: 30px;
-            width: 310px; }
-        #questions .question .sub #issues_list a img {
-          float: left;
-          margin-top: 4px;
-          margin-left: -20px;
-          position: relative; }
+        margin-left: 0px;
+        margin-bottom: 2px;
+        width: 388px; }
+        #questions .question #issues_list .issue input {
+          margin-left: 10px;
+          width: 350px; }
+      #questions .question #issues_list a img {
+        float: left;
+        margin-top: 0px;
+        margin-left: 10px;
+        position: relative; }
     #questions .question img {
       margin: 1px 0px 10px 0px; }
     #questions .question .add_issue {
