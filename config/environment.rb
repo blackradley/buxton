@@ -10,7 +10,7 @@ KEYS      = (['development','demonstration','staging'].include? ENV['RAILS_ENV']
 DEV_MODE  = BANNER
 
 # Specifies gem version of Rails to use when vendor/rails is not present
-RAILS_GEM_VERSION = '2.1' unless defined? RAILS_GEM_VERSION
+RAILS_GEM_VERSION = '2.1.0' unless defined? RAILS_GEM_VERSION
 
 # Bootstrap the Rails environment, frameworks, and default configuration
 require File.join(File.dirname(__FILE__), 'boot')
@@ -21,9 +21,17 @@ Rails::Initializer.run do |config|
   # -- all .rb files in that directory are automatically loaded.
   # See Rails::Configuration for more options.
 
-  # Skip frameworks you're not going to use (only works if using vendor/rails).
-  # To use Rails without a database, you must remove the Active Record framework
+  # Skip frameworks you're not going to use. To use Rails without a database
+  # you must remove the Active Record framework.
   # config.frameworks -= [ :active_record, :active_resource, :action_mailer ]
+
+  # Specify gems that this application depends on. 
+  # They can then be installed with "rake gems:install" on new installations.
+  # config.gem "bj"
+  # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
+  # config.gem "aws-s3", :lib => "aws/s3"
+  config.gem 'will_paginate'
+  # config.gem 'mislav-will_paginate', :version => '~>2.3', :lib => 'will_paginate', :source => 'http://gems.github.com/'
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
@@ -59,10 +67,13 @@ Rails::Initializer.run do |config|
   # Activate observers that should always be running
   # config.active_record.observers = :cacher, :garbage_collector
 
+  # Make Time.zone default to the specified zone, and make Active Record store time values
+  # in the database in UTC, and return them converted to the specified local zone.
+  # Run "rake -D time" for a list of tasks for finding time zone names. Uncomment to use default local time.
+  config.time_zone = 'UTC'
+
+  # Commented out for now due to config.time_zone and the following link
+  # http://b.lesseverything.com/2008/6/9/converting-tzinfo-from-rails-2-0-to-2-1
   # Make Active Record use UTC-base instead of local time
-  config.active_record.default_timezone = :utc
-  
-  # Gem dependencies
-  # config.gem 'mislav-will_paginate', :version => '~>2.3', :lib => 'will_paginate', :source => 'http://gems.github.com/'
-  config.gem 'will_paginate'
+  # config.active_record.default_timezone = :utc
 end

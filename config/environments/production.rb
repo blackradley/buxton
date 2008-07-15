@@ -12,11 +12,18 @@ config.action_controller.consider_all_requests_local = false
 config.action_controller.perform_caching             = true
 config.action_view.cache_template_loading            = true
 
+# Use a different cache store in production
+# config.cache_store = :mem_cache_store
+
 # Enable serving of images, stylesheets, and javascripts from an asset server
 # config.action_controller.asset_host                  = "http://assets.example.com"
 
 # Disable delivery errors, bad email addresses will be ignored
 # config.action_mailer.raise_delivery_errors = false
+
+# Use the database for sessions instead of the file system
+# (create the session table with 'rake db:sessions:create')
+config.action_controller.session_store = :active_record_store
 
 # We presently run on a .org.uk domain
 TLD_LENGTH = 2
