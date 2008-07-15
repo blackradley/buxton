@@ -72,16 +72,17 @@
     border: 2px solid #F90;
     cursor: pointer;
     margin-top: 10px; }
-.summary fieldset.section_summary_header {
+
+fieldset.section_summary_header {
   border-top: 2px solid #4e979e;
   margin-bottom: 20px;
   margin-top: 0px;
   padding: 0px 5px 20px 5px; }
-  .summary fieldset.section_summary_header legend {
+  fieldset.section_summary_header legend {
     color: #4e979e;
     font-size: 1.1em;
     font-weight: bold; }
-  .summary fieldset.section_summary_header legend.section_summary_toggles {
+  fieldset.section_summary_header legend.section_summary_toggles {
     float: right;
     font-size: 1em;
     font-weight: normal;
@@ -90,21 +91,22 @@
     background-color: #fff;
     text-align: right;
     line-height: 18px; }
-    .summary fieldset.section_summary_header legend.section_summary_toggles img {
+    fieldset.section_summary_header legend.section_summary_toggles img {
       margin-left: 5px;
       margin-top: 2px;
       float: right; }
-.summary fieldset.section_summary_show {
+
+fieldset.section_summary_show {
   border-top: 2px solid #4e979e;
   margin-bottom: 20px;
   margin-top: 0px;
   padding: 0px 5px 20px 5px;
   border: 2px solid #4e979e; }
-  .summary fieldset.section_summary_show legend {
+  fieldset.section_summary_show legend {
     color: #4e979e;
     font-size: 1.1em;
     font-weight: bold; }
-  .summary fieldset.section_summary_show legend.section_summary_toggles {
+  fieldset.section_summary_show legend.section_summary_toggles {
     float: right;
     font-size: 1em;
     font-weight: normal;
@@ -114,40 +116,40 @@
     text-align: right;
     line-height: 18px;
     width: 60px; }
-    .summary fieldset.section_summary_show legend.section_summary_toggles img {
+    fieldset.section_summary_show legend.section_summary_toggles img {
       margin-left: 5px;
       margin-top: 2px;
       float: right; }
-  .summary fieldset.section_summary_show h4 {
+  fieldset.section_summary_show h4 {
     margin-left: 20px; }
-  .summary fieldset.section_summary_show h5 {
+  fieldset.section_summary_show h5 {
     margin-left: 20px;
     line-height: 2em;
     margin-bottom: -15px; }
-  .summary fieldset.section_summary_show label {
+  fieldset.section_summary_show label {
     width: 380px; }
-  .summary fieldset.section_summary_show #action_planning {
+  fieldset.section_summary_show #action_planning {
     margin-bottom: 20px;
     float: left;
     clear: left; }
-    .summary fieldset.section_summary_show #action_planning label {
+    fieldset.section_summary_show #action_planning label {
       width: 100px;
       margin-left: 20px;
       font-weight: bold; }
-  .summary fieldset.section_summary_show .labelled {
+  fieldset.section_summary_show .labelled {
     float: left;
     width: 150px;
     line-height: 20px;
     font-weight: bold; }
-  .summary fieldset.section_summary_show .section_summary_header legend .section_summary_toggles {
+  fieldset.section_summary_show .section_summary_header legend .section_summary_toggles {
     width: 100px; }
-  .summary fieldset.section_summary_show .issues {
+  fieldset.section_summary_show .issues {
     float: left;
     width: 150px;
     border: 1px solid #fff;
     margin-top: 4px;
     font-size: 1em; }
-    .summary fieldset.section_summary_show .issues ul {
+    fieldset.section_summary_show .issues ul {
       padding-left: 0px;
       list-style-position: inside;
       list-style-type: decimal-leading-zero; }
@@ -161,24 +163,23 @@
     text-align: left;
     font-weight: bold;
     vertical-align: middle;
-    padding: 20px 10px 10px 10px; }
+    padding: 20px 10px 10px 10px;
+    nowrap: nowrap; }
   #show table td {
     text-align: left;
-    padding: 5px 10px; }
-  #show table td.label {
-    width: 60%;
-    border: none;
-    text-align: left;
     padding: 5px 10px;
     vertical-align: top;
-    width: 1000px; }
-  #show table td.labelled {
-    padding: 5px 10px;
-    vertical-align: top;
-    text-align: left;
-    width: 200px; }
-    #show table td.labelled ul {
+    text-align: left; }
+    #show table td .label {
+      width: 400px;
+      display: block; }
+    #show table td .labelled {
+      width: 200px;
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis; }
+    #show table td ul {
       margin-left: 15px;
       padding-left: 0px; }
-    #show table td.labelled img {
+    #show table td img {
       margin-bottom: -2px; }

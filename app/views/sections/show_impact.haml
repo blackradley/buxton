@@ -8,8 +8,8 @@
   - if @activity.relevant_strands.include? 'gender' then
     %table
       %tr
-        %th Men and Women
-        %th Answers to Date
+        %th{:width=>"500px"} Men and Women
+        %th{:width=>"200px"} Answers to Date
       = answer(@activity, :impact, :gender, [1,2,3])
       - if @activity.existing? then
         = answer(@activity, :impact, :gender, [4,5,6,7])
@@ -17,12 +17,14 @@
       - issues = @activity.issues_by(@section, 'gender') 
       - if issues.size > 0 then
         %tr
-          %td.label Please record the issues identified
-          %td.labelled  
-            %ul
-              -issues.each do |issue| 
-                %li
-                  =h issue.description
+          %td
+            %span.label Please record the issues identified
+          %td
+            %span.labelled  
+              %ul
+                -issues.each do |issue| 
+                  %li
+                    =h issue.description
                   
   - if @activity.relevant_strands.include? 'race' then
     %table
@@ -36,12 +38,14 @@
       - issues = @activity.issues_by(@section, 'race') 
       - if issues.size > 0 then
         %tr
-          %td.label Please record the issues identified
-          %td.labelled  
-            %ul
-              -issues.each do |issue| 
-                %li
-                  =h issue.description
+          %td
+            %span.label Please record the issues identified
+          %td
+            %span.labelled  
+              %ul
+                -issues.each do |issue| 
+                  %li
+                    =h issue.description
                   
   - if @activity.relevant_strands.include? 'disability' then
     %table
@@ -55,12 +59,14 @@
       - issues = @activity.issues_by(@section, 'disability') 
       - if issues.size > 0 then
         %tr
-          %td.label Please record the issues identified
-          %td.labelled  
-            %ul
-              -issues.each do |issue| 
-                %li
-                  =h issue.description
+          %td
+            %span.label Please record the issues identified
+          %td
+            %span.labelled  
+              %ul
+                -issues.each do |issue| 
+                  %li
+                    =h issue.description
 
   - if @activity.relevant_strands.include? 'faith' then
     %table
@@ -74,12 +80,14 @@
       - issues = @activity.issues_by(@section, 'faith') 
       - if issues.size > 0 then
         %tr
-          %td.label Please record the issues identified
-          %td.labelled  
-            %ul
-              -issues.each do |issue| 
-                %li
-                  =h issue.description
+          %td
+            %span.label Please record the issues identified
+          %td
+            %span.labelled  
+              %ul
+                -issues.each do |issue| 
+                  %li
+                    =h issue.description
 
   - if @activity.relevant_strands.include? 'sexual_orientation' then
     %table
@@ -93,12 +101,14 @@
       - issues = @activity.issues_by(@section, 'sexual_orientation') 
       - if issues.size > 0 then
         %tr
-          %td.label Please record the issues identified
-          %td.labelled  
-            %ul
-              -issues.each do |issue| 
-                %li
-                  =h issue.description
+          %td
+            %span.label Please record the issues identified
+          %td
+            %span.labelled  
+              %ul
+                -issues.each do |issue| 
+                  %li
+                    =h issue.description
 
   - if @activity.relevant_strands.include? 'age' then
     %table
@@ -112,11 +122,13 @@
       - issues = @activity.issues_by(@section, 'age') 
       - if issues.size > 0 then
         %tr
-          %td.label Please record the issues identified
-          %td.labelled  
-            %ul
-              -issues.each do |issue| 
-                %li
-                  =h issue.description
+          %td
+            %span.label Please record the issues identified
+          %td
+            %span.labelled  
+              %ul
+                -issues.each do |issue| 
+                  %li
+                    =h issue.description
 
   = "There are no relevant equality strands to consider, therefore no questions were asked for this section of the tool." if @activity.strands.size == 0

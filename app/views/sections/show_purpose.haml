@@ -14,14 +14,16 @@
     -if @activity_org_strategies.size >= 1
       -@activity_org_strategies.each do |activity_strategy|
         %tr
-          %td.label
-            =h activity_strategy.strategy.name
-          %td.labelled
-            = @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i]
-            - if comment = activity_strategy.comment then
-              = image_tag('icons/comment.gif', :id => comment.html_id)
-              %script{:type => "text/javascript"}
-                = "new Tip('#{comment.html_id}', '#{comment.contents}');"
+          %td
+            %span.label
+              =h activity_strategy.strategy.name
+          %td
+            %span.labelled
+              = @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i]
+              - if comment = activity_strategy.comment then
+                = image_tag('icons/comment.gif', :id => comment.html_id)
+                %script{:type => "text/javascript"}
+                  = "new Tip('#{comment.html_id}', '#{comment.contents}');"
     - else
       %tr
         %td{:colspan=>"2"}
@@ -35,14 +37,16 @@
     -if @activity_dir_strategies.size >= 1
       -@activity_dir_strategies.each do |activity_strategy|
         %tr
-          %td.label
-            =h activity_strategy.strategy.name
-          %td.labelled
-            = @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i]
-            - if comment = activity_strategy.comment then
-              = image_tag('icons/comment.gif', :id => comment.html_id)
-              %script{:type => "text/javascript"}
-                = "new Tip('#{comment.html_id}', '#{comment.contents}');"
+          %td
+            %span.label
+              =h activity_strategy.strategy.name
+          %td
+            %span.labelled
+              = @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i]
+              - if comment = activity_strategy.comment then
+                = image_tag('icons/comment.gif', :id => comment.html_id)
+                %script{:type => "text/javascript"}
+                  = "new Tip('#{comment.html_id}', '#{comment.contents}');"
     -else
       %tr
         %td{:colspan=>"2"}
@@ -60,14 +64,16 @@
       -if @activity_project_strategies.size >= 1
         -@activity_project_strategies.each do |activity_strategy|
           %tr
-            %td.label
-              =h Strategy.find(activity_strategy.strategy_id).name
-            %td.labelled
-              = @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i]
-              - if comment = activity_strategy.comment then
-                = image_tag('icons/comment.gif', :id => comment.html_id)
-                %script{:type => "text/javascript"}
-                  = "new Tip('#{comment.html_id}', '#{comment.contents}');"
+            %td
+              %span.label
+                =h Strategy.find(activity_strategy.strategy_id).name
+            %td
+              %span.labelled
+                = @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i]
+                - if comment = activity_strategy.comment then
+                  = image_tag('icons/comment.gif', :id => comment.html_id)
+                  %script{:type => "text/javascript"}
+                    = "new Tip('#{comment.html_id}', '#{comment.contents}');"
       -else
         %tr
           %td{:colspan=>"2"}

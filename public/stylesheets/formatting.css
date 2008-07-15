@@ -1,5 +1,6 @@
 .floatLeft {
-  float: left; }
+  float: left;
+  color: #aaa; }
 
 .floatRight {
   float: right; }
