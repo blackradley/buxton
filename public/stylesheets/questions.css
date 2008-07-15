@@ -197,14 +197,14 @@ h2 img {
     position: relative;
     clear: left;
     float: left;
-    width: 410px;
+    width: 400px;
     text-align: left;
     margin: 5px 0px 0px;
     overflow: hidden;
     padding-bottom: 5px; }
     #questions .question_compact label {
       margin: 5px 10px;
-      width: 240px;
+      width: 230px;
       clear: none; }
     #questions .question_compact input,
     #questions .question_compact select,
