@@ -1,10 +1,19 @@
+#new_activity p {
+  float: left; }
 #new_activity label {
   width: 350px; }
 #new_activity .labelled {
-  width: 180px;
-  float: left; }
+  width: 240px;
+  float: right;
+  clear: right;
+  line-height: 1em;
+  margin-bottom: 5px; }
   #new_activity .labelled .checkbox input {
-    width: auto; }
+    width: auto;
+    border: 0px solid #fff;
+    margin-top: 0px;
+    margin-right: 3px;
+    float: left; }
   #new_activity .labelled select,
   #new_activity .labelled input {
     width: 240px;
@@ -14,7 +23,10 @@
   font-weight: bold; }
 
 #view_activities_by {
-  float: right; }
+  float: right;
+  margin-top: 10px;
+  height: 30px;
+  width: 201px; }
 
 .name_update a {
   float: left;

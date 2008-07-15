@@ -36,7 +36,7 @@ h4 .h4_link {
   width: 100px; }
 
 #content_holder {
-  height: 1000px; }
+  height: auto; }
 
 #disable {
   width: 700px; }
@@ -45,3 +45,9 @@ h4 .h4_link {
   background-image: url(../images/tab_left.gif); }
 #menuBar ul li .tab_right {
   background-image: url(../images/tab_right.gif); }
+
+#new_activity .labelled .checkbox input {
+  margin-top: -3px; }
+
+#pdf_link {
+  margin-top: -20px; }
