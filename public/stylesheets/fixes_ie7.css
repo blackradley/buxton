@@ -43,3 +43,9 @@ h4 .h4_link {
 
 .section_summary_toggles {
   width: 100px; }
+
+#new_activity .labelled .checkbox input {
+  margin-top: -3px; }
+
+#pdf_link {
+  margin-top: -20px; }
