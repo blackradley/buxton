@@ -18,15 +18,6 @@ h4 .h4_link {
   margin-left: 5px;
   margin-top: 10px; }
 
-#questions .more .help {
-  width: 202px; }
-#questions .more p .comment,
-#questions .more p .note {
-  width: 202px; }
-#questions .more textarea {
-  width: 202px;
-  margin-left: 0px; }
-
 .help_example {
   float: left;
   margin-left: 65px;
@@ -64,3 +55,22 @@ h3 {
 .content .workingArea #content_holder h1#questions {
   margin-top: 10px;
   margin-left: -2px; }
+
+#questions .more {
+  margin-top: -20px; }
+  #questions .more .help {
+    width: 235px; }
+  #questions .more .comment,
+  #questions .more .note {
+    width: 235px; }
+  #questions .more p.comment {
+    margin-left: 2px; }
+  #questions .more p.note {
+    margin-left: 2px; }
+  #questions .more .commentform,
+  #questions .more .noteform {
+    width: 235px;
+    margin-bottom: 0px;
+    margin-left: 2px; }
+  #questions .more textarea {
+    width: 220px; }
