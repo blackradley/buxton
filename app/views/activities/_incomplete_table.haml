@@ -25,7 +25,7 @@
                 = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_manager.email}?", :method => :post, :title =>"Key"
     -else 
       %p.no_info
-        No Activities Unapproved.
+        No Activities Started.
         
 -if @current_user.role == 'OrganisationManager'
   #show_directorates{:style=>"display:block;"}
@@ -66,7 +66,7 @@
                 = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
       -else 
         %p.no_info
-          No Activities Unapproved.  
+          No Activities Started.  
 
   #show_projects{:style=>"display:none;"}
     %p It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
@@ -105,4 +105,4 @@
                 = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
       -else 
         %p.no_info
-          No Activities Unapproved.
+          No Activities Started.
