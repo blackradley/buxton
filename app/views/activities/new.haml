@@ -7,8 +7,7 @@
     %p
       Alternatively, you can send this link to anyone to allow them to create activities inside your organisation:
       %br
-      %span#activity_link
-        = @activity_creator_url
+      = text_field_tag 'activity_creator_url', @activity_creator_url, :onclick => 'this.select()', :style => 'width:400px'
   #activity_link_creator{:style => @activity_creator.nil? ? 'display:block' : 'display:none'} 
     %p
       If you wish to create a link, which other people can follow to create activities within your organisation, please click
