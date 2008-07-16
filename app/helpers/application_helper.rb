@@ -39,7 +39,7 @@ module ApplicationHelper
   # a blank or the date from the begining of the epoch.
   def date_or_blank(date)
     if date.nil?
-      return 'no date'
+      return 'unsent'
     else
       return date.to_formatted_s(:date_time12)
     end

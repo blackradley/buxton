@@ -105,8 +105,11 @@
                 = completed_tag(@activity, :additional_work, strand.to_sym)
                 = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => strand }, :title =>"Edit Additional Work", :id => "#{strand_name}_additional_work_pencil"
               %td
-                = completed_tag(@activity, :action_planning, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => strand }, :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
+                - if @activity.issues.find_by_strand(strand.to_s) then              
+                  = completed_tag(@activity, :action_planning, strand.to_sym)
+                  = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => strand }, :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
+                - else
+                  %span.na -
             %tr{:id => "row_#{strand_name}_off", :style => "display:#{display_off};"}
               %th.strandHeading
                 =h strand_name.titleize
