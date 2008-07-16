@@ -11,13 +11,13 @@
     =h @activity.activity_type
 
 %p
-  Impact Equality&trade; is an automated tool to help with equality impact assessments.  You have been asked to take a lead on the assessment of the activity identified above. If this is news to you, please contact one of the following managers for your organisation:
+  Impact Equality&trade; is an automated tool to help with equality impact assessments.  You have been asked to take a lead on the assessment of the activity identified above. If this is new to you, please contact one of the following managers for your organisation:
   %ul
     -@organisation_managers.each do |organisation_manager|
       %li
         = link_to organisation_manager.email, "mailto:#{organisation_manager.email}"
 %p
-  You will see three tabs at the top of this page. You are currently in the first of these (Home). The Questions tab is the starting point for the assessment itself   and the Summary tab shows you what you have done so far. To start the assessment please click on the Questions tab or Next button below.
+  You will see three tabs at the top of this page. You are currently in the first of these (Home). The Questions tab is the starting point for the assessment itself and the Summary tab shows you what you have done so far. To start the assessment, please click on the Questions tab or Next button below.
 %p
   The Council will have outlined its planned approach to assessing the impact of its activities on equalities in its
   = ot('corporate equality scheme').titleize
@@ -36,6 +36,6 @@
       The Scheme can be accessed by the following link.
       = link_to(ot('corporate equality scheme').titleize, @activity.organisation.ces_link.to_s)
   %p
-    When completing the assessment help text is shown in the right hand column of the screen. You also have the option to make a private note to yourself, perhaps to remind you of why you answered a question a particular way or remind you to check something. There is also the option to include a comment for the report, perhaps to explain or expand upon your answer to the question.
+    When completing the assessment, help text is shown in the right-hand column of the screen. You also have the option to make a private note to yourself, perhaps to remind you of why you answered a question a particular way or to remind you to check something. There is also the option to include a comment for the report, perhaps to explain or expand upon your answer to the question.
   .button.floatRight
     = submit_tag 'Next', {:disable_with => 'Processing...', :id => 'next_button'}

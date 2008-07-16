@@ -56,7 +56,7 @@
 
 -if @current_user.class.name == 'OrganisationManager'
   #show_directorates{:style=>"display:block;"}
-    %p It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
+    %p It also lets you, as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
     -@directorates.each do |directorate|
       %h4
         =h directorate.name.titleize
@@ -89,7 +89,7 @@
           No Activities Unapproved.  
           
   #show_projects{:style=>"display:none;"}
-    %p It also lets you as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
+    %p It also lets you, as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
     -@projects.each do |project|      
       %h4
         =h project.name.titleize
