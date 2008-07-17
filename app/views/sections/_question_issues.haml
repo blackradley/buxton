@@ -24,6 +24,7 @@
     = render :partial => 'issues/issue', :collection => @activity.issues_by(@section, @equality_strand)
   .clear
   %span.add_issue
+    = image_tag ('icons/add.gif')
     = link_to_function "Add a New Issue" do |page| 
       - page.insert_html :bottom, :issues_list, :partial => 'issues/issue', :object => Issue.new
   .clear
