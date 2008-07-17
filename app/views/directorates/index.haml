@@ -21,7 +21,7 @@
         = date_or_blank(directorate.directorate_manager.reminded_on) if directorate.directorate_manager
       %td.actions{:nowrap=>"nowrap"}
         = link_to image_tag('icons/login.gif'), directorate.directorate_manager.url_for_login(request) , :title =>"Login" if directorate.directorate_manager
-        = link_to image_tag('icons/eye.gif'), organisation_directorate_url(@organisation, directorate), :title =>"View"
+        = link_to image_tag('icons/view.gif'), organisation_directorate_url(@organisation, directorate), :title =>"View"
         = link_to image_tag('icons/remind.gif'), { :controller => 'users', :action => 'remind', :id => directorate.directorate_manager}, :confirm => "Send reminder for #{directorate.name} to #{directorate.directorate_manager.email}?", :method => :post, :title =>"Remind" if directorate.directorate_manager
         = link_to image_tag('icons/edit.gif'), edit_organisation_directorate_url(@organisation, directorate), :title =>"Edit"
         = link_to image_tag('icons/delete.gif'), organisation_directorate_url(@organisation, directorate), :method => :delete, :confirm => "Delete #{directorate.name}?", :title =>"Delete"
