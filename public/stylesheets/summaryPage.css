@@ -178,8 +178,17 @@ fieldset.section_summary_show {
       display: block;
       overflow: hidden;
       text-overflow: ellipsis; }
+    #show table td .short {
+      width: 100px; }
+    #show table td .long {
+      width: 400px; }
     #show table td ul {
       margin-left: 15px;
       padding-left: 0px; }
     #show table td img {
       margin-bottom: -2px; }
+#show table.issueTable {
+  background-color: #f8f8f8;
+  margin-bottom: 20px;
+  width: 620px;
+  overflow: hidden; }
