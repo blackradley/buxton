@@ -30,8 +30,7 @@
       %h2 Overall Purpose
       %p What is the purpose of this Activity? After you have completed the purpose Assessment Section you will be asked which of the Equality Dimensions you wish to complete.
       %p
-        / =image_tag("icons/view.gif")
-        / =link_to "Complete questions defining the overall purpose of the activity", { :controller => 'sections', :action => 'edit', :id => 'purpose', :equality_strand => 'overall' }, :title =>"Complete questions defining Overall Purpose of Activity"
+      
         %span.letter
           =image_tag("a.gif")
         =link_to "Target outcome and relevant strategic objectives", { :controller => 'sections', :action => 'edit', :id => 'purpose_a', :equality_strand => 'overall' }, :title =>"Target of Activity and Impact on Strategic Objectives"
@@ -132,7 +131,7 @@
           If you are happy with your answers, all that remains for you to do is submit them to be approved. Upon submission you will no longer be able to change any of your answers. Your approver will be able to see all your answers and comments, though not your notes.
         -if @activity.approved == "not submitted"
           %p#submit_answers{:style=>"display:block;"}
-            =image_tag('icons/view.gif')
+            =image_tag('icons/go.gif')
             =link_to "Submit",  {:controller => 'activities', :action => 'submit'}
         -else
           %p#submitted_answers{:style=>"display:block;"}
@@ -169,7 +168,7 @@
             %br
             %br
             %span#approve_now{:style => (@activity.completed ? 'display:block' : 'display:none')}
-              =image_tag('icons/view.gif')
+              =image_tag('icons/go.gif')
               =link_to "Approve activity answers",  {:controller => 'activities', :action => 'approve'}
           %p#approved_answers{:style=>(@activity.approved.to_s == "approved" ? 'display:block' : 'display:none')}
             =image_tag('icons/tick.gif')
