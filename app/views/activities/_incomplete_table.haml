@@ -5,22 +5,22 @@
       .sort_by_name{:style =>"display:block;"}
         %table.list
           %tr
-            %th.left{:style => "width:350px;", :rowspan =>"2"} Name
-            %th{:rowspan =>"2"} Completed
-            %th{:colspan =>"2"} Activity Manager
+            %th.left{:style => "width:300px;", :rowspan =>"2"} Name
+            %th{:rowspan =>"2", :align=>"center", :style => "width:110px;"} Completed
+            %th{:colspan =>"2", :nowrap => "nowrap", :style => "width:200px", :align=>"center"} Activity Manager
           %tr
-            %th Last Key Sent
-            %th Actions
+            %th{:align=>"center", :style => "width:100px;"} Last Key Sent
+            %th{:align=>"center", :style => "width:100px;"} Actions
           -@approved.each do |activity|
             %tr
-              %td.left{:style => "width:150px;"}
+              %td.left{:style => "width:300px;"}
                 =h activity.name
               %td
                 = progress_bar(activity.percentage_answered)
-              %td
+              %td{:style => "width:100px;"}
                 = date_or_blank(activity.activity_manager.reminded_on)
               %td.actions{:nowrap => "nowrap"}
-                = link_to image_tag('icons/eye.gif'), {:controller => 'activities', :action => 'view', :id => activity.id}
+                = link_to image_tag('icons/eye.gif'), {:controller => 'activities', :action => 'view', :id => activity.id}, :title =>"View"
                 = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email"
                 = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_manager.email}?", :method => :post, :title =>"Key"
     -else 
@@ -42,26 +42,26 @@
       -if @approved.size > 0
         %table.list
           %tr
-            %th.left{:style => "width:250px;", :rowspan =>"2"} Name
-            %th{:rowspan =>"2"} Completed
-            %th{:colspan =>"2"} Activity Manager
+            %th.left{:style => "width:300px;", :rowspan =>"2"} Name
+            %th{:rowspan =>"2", :align=>"center", :style => "width:110px;"} Completed
+            %th{:colspan =>"2", :nowrap => "nowrap", :style => "width:200px", :align=>"center"} Activity Manager
             %th{:rowspan =>"2"}
           %tr
-            %th Last&nbsp;key sent
-            %th Actions
+            %th{:align=>"center", :style => "width:100px;"} Last&nbsp;key sent
+            %th{:align=>"center", :style => "width:100px;"} Actions
           -@approved.each do |activity|
             %tr
-              %td.left{:style => "width:150px;"}
+              %td.left{:style => "width:300px;"}
                 =h activity.name
               %td
                 = progress_bar(activity.percentage_answered)
-              %td
+              %td{:style => "width:100px;"}
                 = date_or_blank(activity.activity_manager.reminded_on)
               %td.actions{:nowrap => "nowrap"}
                 = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email"
                 = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_manager.email}?", :method => :post, :title =>"Key"
               %td.actions
-                = link_to image_tag('icons/eye.gif'), {:controller => 'activities', :action => 'view', :id => activity.id}
+                = link_to image_tag('icons/eye.gif'), {:controller => 'activities', :action => 'view', :id => activity.id}, :title =>"View"
                 = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend"
                 = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
       -else 
@@ -81,16 +81,16 @@
       -if @approved.size > 0
         %table.list
           %tr
-            %th.left{:style => "width:250px;", :rowspan =>"2"} Name
-            %th{:rowspan =>"2"} Completed
-            %th{:colspan =>"2"} Activity Manager
+            %th.left{:style => "width:300px;", :rowspan =>"2"} Name
+            %th{:rowspan =>"2", :align=>"center", :style => "width:110px;"} Completed
+            %th{:colspan =>"2", :nowrap => "nowrap", :style => "width:200px", :align=>"center"} Activity Manager
             %th{:rowspan =>"2"}
           %tr
-            %th Last&nbsp;key sent
-            %th Actions
+            %th{:align=>"center", :style => "width:100px;"} Last&nbsp;key sent
+            %th{:align=>"center", :style => "width:100px;"} Actions
           -@approved.each do |activity|
             %tr
-              %td.left{:style => "width:150px;"}
+              %td.left{:style => "width:300px;"}
                 =h activity.name
               %td
                 = progress_bar(activity.percentage_answered)
@@ -100,7 +100,7 @@
                 = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email"
                 = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_manager.email}?", :method => :post, :title =>"Key"
               %td.actions
-                = link_to image_tag('icons/eye.gif'), {:controller => 'activities', :action => 'view', :id => activity.id}
+                = link_to image_tag('icons/eye.gif'), {:controller => 'activities', :action => 'view', :id => activity.id}, :title =>"View"
                 = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend"
                 = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
       -else 
