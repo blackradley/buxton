@@ -21,7 +21,7 @@
         = date_or_blank(project.project_manager.reminded_on) if project.project_manager
       %td.actions{:nowrap=>"nowrap"}
         = link_to image_tag('icons/login.gif'), project.project_manager.url_for_login(request) , :title =>"Login" if project.project_manager
-        = link_to image_tag('icons/eye.gif'), organisation_project_url(@organisation, project), :title =>"View"
+        = link_to image_tag('icons/view.gif'), organisation_project_url(@organisation, project), :title =>"View"
         = link_to image_tag('icons/remind.gif'), { :controller => 'users', :action => 'remind', :id => project.project_manager}, :confirm => "Send reminder for #{project.name} to #{project.project_manager.email}?", :method => :post, :title =>"Remind" if project.project_manager
         = link_to image_tag('icons/edit.gif'), edit_organisation_project_url(@organisation, project), :title =>"Edit"
         = link_to image_tag('icons/delete.gif'), organisation_project_url(@organisation, project), :method => :delete, :confirm => "Delete #{project.name}?", :title =>"Delete"
