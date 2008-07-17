@@ -33,14 +33,14 @@
     -if @approved.size > 0
       %table.list
         %tr
-          %th.left{:style => "width:250px;", :rowspan =>"2"} Name
-          %th{:rowspan =>"2"} Priority
-          %th{:rowspan =>"2"} Impact
-          %th{:colspan =>"2"} Activity
-          %th{:rowspan =>"2"} Report
+          %th.left{:style => "width:300px;", :rowspan =>"2"} Name
+          %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Priority
+          %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Impact
+          %th{:colspan =>"2", :align=>"center", :style => "width:160px;"} Activity
+          %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Report
         %tr
-          %th Manager
-          %th Approver
+          %th{:align=>"center", :style => "width:80px;"} Manager
+          %th{:align=>"center", :style => "width:80px;"} Approver
         -@approved.each do |activity|
           %tr
             %td.left{:style => "width:250px;"}
@@ -69,14 +69,14 @@
       -if @approved.size > 0
         %table.list
           %tr
-            %th.left{:style => "width:250px;", :rowspan =>"2"} Name
-            %th{:rowspan =>"2"} Priority
-            %th{:rowspan =>"2"} Impact
-            %th{:colspan =>"2"} Activity
-            %th{:rowspan =>"2"} Report
+            %th.left{:style => "width:300px;", :rowspan =>"2"} Name
+            %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Priority
+            %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Impact
+            %th{:colspan =>"2", :align=>"center", :style => "width:160px;"} Activity
+            %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Report
           %tr
-            %th Manager
-            %th Approver
+            %th{:align=>"center", :style => "width:80px;"} Manager
+            %th{:align=>"center", :style => "width:80px;"} Approver
           -@approved.each do |activity|
             %tr
               %td.left{:style => "width:250px;"}
@@ -104,14 +104,14 @@
       -if @approved.size > 0
         %table.list
           %tr
-            %th.left{:style => "width:250px;", :rowspan =>"2"} Name
-            %th{:rowspan =>"2"} Priority
-            %th{:rowspan =>"2"} Impact
-            %th{:colspan =>"2"} Activity
-            %th{:rowspan =>"2"} Report
+            %th.left{:style => "width:300px;", :rowspan =>"2"} Name
+            %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Priority
+            %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Impact
+            %th{:colspan =>"2", :align=>"center", :style => "width:160px;"} Activity
+            %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Report
           %tr
-            %th Manager
-            %th Approver
+            %th{:align=>"center", :style => "width:80px;"} Manager
+            %th{:align=>"center", :style => "width:80px;"} Approver
           -@approved.each do |activity|
             %tr
               %td.left{:style => "width:250px;"}
