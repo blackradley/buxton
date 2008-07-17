@@ -20,7 +20,7 @@
               %td{:style => "width:100px;"}
                 = date_or_blank(activity.activity_manager.reminded_on)
               %td.actions{:nowrap => "nowrap"}
-                = link_to image_tag('icons/eye.gif'), {:controller => 'activities', :action => 'view', :id => activity.id}, :title =>"View"
+                = link_to image_tag('icons/view.gif'), {:controller => 'activities', :action => 'view', :id => activity.id}, :title =>"View"
                 = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email"
                 = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_manager.email}?", :method => :post, :title =>"Key"
     -else 
@@ -61,7 +61,7 @@
                 = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email"
                 = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_manager.email}?", :method => :post, :title =>"Key"
               %td.actions
-                = link_to image_tag('icons/eye.gif'), {:controller => 'activities', :action => 'view', :id => activity.id}, :title =>"View"
+                = link_to image_tag('icons/view.gif'), {:controller => 'activities', :action => 'view', :id => activity.id}, :title =>"View"
                 = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend"
                 = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
       -else 
@@ -100,7 +100,7 @@
                 = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email"
                 = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => activity.activity_manager.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h activity.activity_manager.email}?", :method => :post, :title =>"Key"
               %td.actions
-                = link_to image_tag('icons/eye.gif'), {:controller => 'activities', :action => 'view', :id => activity.id}, :title =>"View"
+                = link_to image_tag('icons/view.gif'), {:controller => 'activities', :action => 'view', :id => activity.id}, :title =>"View"
                 = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend"
                 = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
       -else 
