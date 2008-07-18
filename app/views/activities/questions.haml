@@ -184,4 +184,8 @@
         = image_tag("icons/delete.gif")
         = link_to_remote "Remove approved status", :url => {:action => 'unapprove', :controller => 'activities'}, :before => "$('unapprove_box').toggle(); $('disable').toggle(); $('approved_answers').toggle(); $('reject_answers').toggle()"
       .clear
+  -if @activity.approved == "submitted" && @current_user.class.name == "ActivityManager" || @activity.approved == "approved" && @current_user.class.name == "ActivityManager"
+    #unapprove_box{:style=>"display:block;"}
+      %p This activity has been submitted for approval, thank you.
+      .clear
 .clear

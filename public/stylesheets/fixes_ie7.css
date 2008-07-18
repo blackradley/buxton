@@ -64,7 +64,8 @@ h3 {
   padding-top: 20px; }
 
 #view_activities_by {
-  margin-top: 20px; }
+  margin-top: 20px;
+  width: 201px; }
 
 #questions.no_help .button input {
   margin-right: 290px; }
