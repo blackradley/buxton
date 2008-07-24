@@ -852,11 +852,11 @@ overall_questions:
     6:
       label:
         -
-          - 'Staff employed by the council'
-          - 'Staff employed by the council'
+          - 'Staff employed by the organisation'
+          - 'Staff employed by the organisation'
         -
-          - 'Staff employed by the council'
-          - 'Staff employed by the council'
+          - 'Staff employed by the organisation'
+          - 'Staff employed by the organisation'
       help:
         -
           - 'Functions on how the Council is structured and operates such as HR Functions will have an impact on staff employed by the Council.  Staff are almost certain to be Services Users as well but this question is asked in relation to their role as staff.'
