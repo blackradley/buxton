@@ -124,7 +124,7 @@ class ActivityPDFGenerator
           pdf.text("<C:bullet/> #{strategy}", :left => 20)
         end
       else
-        pdf.text("#{activity.name} does not assist in delivering any strategic objectives on on the #{type.to_s.titleize} level.")
+        pdf.text("#{activity.name} does not assist in delivering any strategic objectives on the #{type.to_s.titleize} level.")
       end
     end    
     pdf.text(" ")
