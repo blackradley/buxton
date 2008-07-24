@@ -100,7 +100,7 @@ private
       # Which of these individuals does the Function have an impact on?
       # Service users
       :purpose_overall_5 => 3, # Not Sure
-      # Staff employed by the council
+      # Staff employed by the organisation
       :purpose_overall_6 => 3, # Not Sure
       # Staff of supplier organisations
       :purpose_overall_7 => 3, # Not Sure
