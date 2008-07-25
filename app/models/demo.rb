@@ -15,7 +15,7 @@ class Demo
   attr_accessor :email, :organisation, :passkey
   
   def build
-    # Demo Council
+    # Demo Organisation
     # 
     #    * Adult, Community and Housing Services
     #          o Libraries, Archives and Adult Learning
@@ -53,7 +53,7 @@ class Demo
     #          o Economic Regeneration Division
     
     # Create an organisation
-    @organisation = Organisation.new({:name => 'Demo Council', :style => 'www'})
+    @organisation = Organisation.new({:name => 'Demo Organisation', :style => 'www'})
       
     # Create a new organisation manager with the e-mail address we were given
     @organisation_manager = @organisation.build_organisation_manager(:email => email)
