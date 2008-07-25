@@ -30,8 +30,8 @@ Rails::Initializer.run do |config|
   # config.gem "bj"
   # config.gem "hpricot", :version => '0.6', :source => "http://code.whytheluckystiff.net"
   # config.gem "aws-s3", :lib => "aws/s3"
-  config.gem 'will_paginate'
-  # config.gem 'mislav-will_paginate', :version => '~>2.3', :lib => 'will_paginate', :source => 'http://gems.github.com/'
+  #config.gem 'will_paginate'
+   #config.gem 'mislav-will_paginate', :version => '~>2.3', :lib => 'will_paginate', :source => 'http://gems.github.com/'
 
   # Only load the plugins named here, in the order given. By default, all plugins 
   # in vendor/plugins are loaded in alphabetical order.
@@ -44,7 +44,10 @@ Rails::Initializer.run do |config|
   # Force all environments to use the same logger level
   # (by default production uses :info, the others :debug)
   # config.log_level = :debug
-
+  #set the load paths to load unpacked gems
+  config.load_paths += Dir["#{RAILS_ROOT}/vendor/gems/**"].map do |dir| 
+    File.directory?(lib = "#{dir}/lib") ? lib : dir
+  end
   # Your secret key for verifying cookie session data integrity.
   # If you change this key, all old sessions will become invalid!
   # Make sure the secret is at least 30 characters and all random, 
