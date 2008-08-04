@@ -56,10 +56,10 @@ class ActivityPDFGenerator
     table << ['<b>Activity</b>', activity.name.to_s]
     table << ["<b>#{ot('directorate', activity).titleize}</b>", activity.directorate.name.to_s]
     unless activity.projects.blank? then
-      table << ["<b>#{ot('project', activity).titleize}</b>", activity.projects.first.name.to_s]
-      (activity.projects - [activity.projects.first]).each do |project|
-        table << ["", project.name.to_s]
-      end
+      type = ot('project', activity).titleize
+      type = type.pluralize if (activity.projects.size > 1)
+      project_list = activity.projects.map{|project| project.name.to_s}.join(", ")
+      table << ["<b>#{type}</b>", project_list.to_s]
     end
     if activity.existing_proposed.to_i > 0 && activity.function_policy.to_i > 0 then
       table << ["<b>Type</b>", "#{activity.existing_proposed_name.titleize} #{activity.function_policy?.titleize}"]
@@ -104,6 +104,7 @@ class ActivityPDFGenerator
   def build_purpose(pdf, activity)
     pdf.text(" ")
     pdf.text("<c:uline><b>2.  Purpose </b></c:uline>")
+    pdf.text " "
     types = [:organisation, :directorate, :project]
     strategies = [[], [],[]]
     activity.activity_strategies.each do |activity_strategy|
@@ -123,11 +124,12 @@ class ActivityPDFGenerator
         child_strategies.each do |strategy|
           pdf.text("<C:bullet/> #{strategy}", :left => 20)
         end
+        pdf.text " "
       else
         pdf.text("#{activity.name} does not assist in delivering any strategic objectives on the #{type.to_s.titleize} level.")
+        pdf.text " "
       end
     end    
-    pdf.text(" ")
     impact_quns = []
     (5..9).each do |i|
       impact_quns << "<C:bullet/>#{activity.question_wording_lookup(:purpose, :overall, i)[0].to_s}" if activity.send("purpose_overall_#{i}") == 1
@@ -172,17 +174,9 @@ class ActivityPDFGenerator
     pdf.text("<c:uline><b>3.  Impact </b></c:uline>")
     pdf.text(" ")
     collected_information = Activity.get_question_names('impact', nil, 3).map{|question| [question, activity.send(question)]}
-    collected_information.reject! do |question, response|
-      not_needed = response.to_s.strip.size == 0
-      not_needed = not_needed || activity.send(question.to_s.gsub('3','2').to_sym) != 1
-      not_needed
-    end
+    collected_information = remove_unneeded(activity, collected_information)
     planned_information = Activity.get_question_names('impact', nil, 5).map{|question| [question, activity.send(question)]}
-    planned_information.reject! do |question, response|
-      not_needed = response.to_s.strip.size == 0
-      not_needed = not_needed || activity.send(question.to_s.gsub('5','4').to_sym) != 1
-      not_needed
-    end
+    planned_information = remove_unneeded(activity, planned_information)
     width = (pdf.absolute_right_margin - pdf.absolute_left_margin)
     border_gap = width/(4)
     borders = [border_gap]
@@ -213,11 +207,7 @@ class ActivityPDFGenerator
     pdf.text(" ")
     borders = [150, 300, 540]
     collected_information = Activity.get_question_names('consultation', nil, 3).map{|question| [question, activity.send(question)]}
-    collected_information.reject! do |question, response|
-      not_needed = response.to_s.strip.size == 0
-      not_needed = not_needed || activity.send(question.to_s.gsub('3','1').to_sym) != 1
-      not_needed
-    end
+    collected_information = remove_unneeded(activity, collected_information)
     table = []
     table << ["<b>Equality Strand</b>", "<b>Consulted</b>", "<b>Consultation Details</b>"]
     activity.strands.each do |strand|
@@ -234,11 +224,7 @@ class ActivityPDFGenerator
     pdf.text("The table below shows the equality strands for which stakeholders have been consulted, the details of those consultations and any planned consultations..")
     pdf.text(" ")
     collected_information = Activity.get_question_names('consultation', nil, 6).map{|question| [question, activity.send(question)]}
-    collected_information.reject! do |question, response|
-      not_needed = response.to_s.strip.size == 0
-      not_needed = not_needed || activity.send(question.to_s.gsub('6','4').to_sym) != 1
-      not_needed
-    end
+    collected_information = remove_unneeded(activity, collected_information)
     table = []
     table << ["<b>Equality Strand</b>", "<b>Consulted</b>", "<b>Consultation Details</b>"]
     activity.strands.each do |strand|
@@ -258,12 +244,8 @@ class ActivityPDFGenerator
     pdf.text(" ")
     width = (pdf.absolute_right_margin - pdf.absolute_left_margin)
     borders = [150, 300, 540]
-    collected_information = Activity.get_question_names('additional_work', nil, 1).map{|question| [question, activity.send(question)]}
-    collected_information.reject! do |question, response|
-      not_needed = response.to_s.strip.size == 0
-      not_needed = not_needed || activity.send(question.to_s.gsub('2','1').to_sym) != 1
-      not_needed
-    end
+    collected_information = Activity.get_question_names('additional_work', nil, 2).map{|question| [question, activity.send(question)]}
+    collected_information = remove_unneeded(activity, collected_information)
     table = []
     table << ["<b>Equality Strand</b>", "<b>Additional Work Required</b>", "<b>Nature of Work required</b>"]
     activity.strands.each do |strand|
@@ -482,8 +464,8 @@ class ActivityPDFGenerator
               comment = question_object.comment.contents.to_s if question_object.comment
               question_text = question_details[0]
               if section == :purpose then
-                question_text = activity.header(:purpose_overall_3).gsub(":", " " + question_text.downcase + "?") if number == 3
-                question_text = activity.header(:purpose_overall_4).gsub(":", " " +question_text.downcase + "?") if number == 4
+                question_text = activity.header(:purpose_overall_3).gsub(":", " " + question_text.downcase) if number == 3
+                question_text = activity.header(:purpose_overall_4).gsub(":", " " +question_text.downcase) if number == 4
               end
               question_list << [question_text, comment] unless comment.blank?
             end
@@ -614,9 +596,20 @@ class ActivityPDFGenerator
     end
     pdf
   end
+  
   def ot(term, activity)
     assoc_term = Terminology.find_by_term(term)
     terminology = activity.organisation.organisation_terminologies.find_by_terminology_id(assoc_term.id)
     terminology ? terminology.value : term
+  end
+  
+  def remove_unneeded(activity, question_array)
+    return question_array.map do |question, response|
+      if (activity.questions.find_by_name(question.to_s) && activity.questions.find_by_name(question.to_s).check_needed) then
+        [question, response]
+      else
+        [question, "N/A"]
+      end
+    end    
   end
 end
