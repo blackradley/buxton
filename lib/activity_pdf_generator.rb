@@ -9,6 +9,9 @@
 require 'rubygems'
 require 'pdf/writer'
 
+require 'evensimplertable'
+include PDFExtensions
+
 class ActivityPDFGenerator
 
   def initialize(activity)
@@ -69,7 +72,7 @@ class ActivityPDFGenerator
     table << ["<b>Activity Manager's Email</b>", activity.activity_manager.email]
     table << ["<b>Date Approved</b>", activity.approved_on.to_s] if activity.approved?
     table << ["<b>Approver</b>", activity.activity_approver.email.to_s] if activity.activity_approver
-    pdf = generate_table(pdf, table, {:borders => [150, 540]})
+    pdf = generate_table(pdf, table, {:borders => [150, 540], :v_padding => 5})
     pdf
   end
   def build_rankings(pdf, activity)
@@ -506,96 +509,6 @@ class ActivityPDFGenerator
   end
 
   private
-  #Custom implementation on SimpleTable. Creates a table in 0.08 seconds as opposed to simpletables 0.7 by redoing some time consuming
-  #procedures involved in working out page wraps and initializing objects as opposed to using arrays.
-  #arguments to table_data is :offset => The offset of the table relative to it's alignment. :aligment => aligns the table
-  #:show lines => :all shows all lines, :borders shows only the borders of the table, :none shows no lines.
-  #:borders => sets the borders of the table (for example [0, 100, 200, 300] sets the horizontal
-  #borders up at those intervals. A row will autosize to the correct height. A gotcha is that if you specify an offset, it takes it from the left
-  # of the page instead of from the left boundary. To be fixed
-  #Simple table is still enabled, so if you need functionality that isn't here, then use that.
-  def generate_table(pdf, table, table_data = @table_data)
-    x_pos = table_data[:offset]
-    borders = table_data[:borders]
-    show_lines = table_data[:show_lines].nil? ? :all : table_data[:show_lines]
-    table_data[:text_alignment] = :left unless table_data[:text_alignment]
-    init_pos = x_pos||pdf.absolute_left_margin
-    init_pos = pdf.absolute_x_middle - borders.last/2 + x_pos.to_i  if table_data[:alignment] == :center
-    init_pos = pdf.absolute_right_margin - borders.last + x_pos.to_i  if table_data[:alignment] == :right
-    new_x_pos = borders.last + 2 + init_pos
-    top_of_table = pdf.y
-    table.each_with_index do |row, row_index|
-      lines = 1
-      row.each_with_index do |cell, index|
-        if index == 0 then
-          width = borders[index]
-        else
-          width = borders[index] - borders[index - 1]
-        end
-        line_count = cell.size*((150.0/27)*(pdf.font_size/10.0))/width + 1 #Approximation of a width for characters
-        lines = line_count if line_count > lines
-      end
-      if pdf.y < (lines+1).to_i*pdf.font_height + pdf.absolute_bottom_margin then
-        pdf.line(init_pos, top_of_table, init_pos, pdf.y).stroke if show_lines && row.id != table.first.id
-        pdf.start_new_page
-        pdf.line(init_pos, pdf.y, new_x_pos - 2, pdf.y).stroke if (show_lines == :all || show_lines == :borders)
-        top_of_table = pdf.y
-      end
-      pdf.line(init_pos, pdf.y, new_x_pos - 2, pdf.y).stroke if (show_lines == :all || show_lines == :borders) && (row_index == 0)
-      borders_to_pass = borders.clone
-      table_data_to_pass = table_data.clone
-      if row.size != borders.size then
-        borders_to_pass.pop while row.size < borders_to_pass.size
-        borders_to_pass.pop
-        borders_to_pass.push(borders.last)
-        table_data_to_pass[:borders] = borders_to_pass
-      end
-      pdf = add_row(pdf, row, table_data_to_pass, init_pos, show_lines)
-      pdf.line(init_pos, pdf.y, borders.last + init_pos, pdf.y) if show_lines == :borders && (row_index == (table.size - 1))
-    end
-    pdf.line(init_pos, top_of_table, init_pos, pdf.y).stroke if (show_lines == :all || show_lines == :borders)
-    pdf
-  end
-
-  def add_row(pdf, row, table_data, x_pos = nil, lines = :all)
-    top = pdf.y - pdf.font_height
-    borders = table_data[:borders]
-    pdf.y -= pdf.font_height
-    max_height = 0
-    x_pos = x_pos || pdf.absolute_left_margin
-    init_pos = x_pos
-    x_pos += 2
-    row.each_with_index do |cell, index|
-      if index == 0 then
-        width = borders[index]
-      else
-        width = borders[index] - borders[index - 1]
-      end
-      if table_data[:text_alignment] == :right then
-        x_pos -= 4
-      end
-      overflow = pdf.add_text_wrap(x_pos, pdf.y, width - 2, cell.to_s, 10, table_data[:text_alignment])
-      current_height = 1
-      while overflow.length > 0
-        pdf.y -= pdf.font_height
-        overflow = pdf.add_text_wrap(x_pos, pdf.y, width - 2, overflow, 10, table_data[:text_alignment])
-        current_height += 1
-      end
-      max_height = current_height if current_height > max_height
-      x_pos = borders[index] + init_pos + 5
-      pdf.y = top
-    end
-    max_height = (max_height)*pdf.font_height
-    pdf.y -= max_height
-    if lines != :none then
-      x_pos = borders.last + init_pos
-      pdf.line(init_pos, pdf.y, x_pos, pdf.y).stroke if lines == :all
-      borders.each do |border|
-        pdf.line(border + init_pos, top + pdf.font_height, border + init_pos, top - max_height).stroke
-      end
-    end
-    pdf
-  end
   
   def ot(term, activity)
     assoc_term = Terminology.find_by_term(term)
