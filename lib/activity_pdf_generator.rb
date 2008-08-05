@@ -187,7 +187,8 @@ class ActivityPDFGenerator
       borders << borders.last.to_i + border_gap
     end
     table = []
-    table << ["<b>Equality Strand</b>", "<b>Current assessment of the impact of #{activity.name}</b>", "<b>Information to support</b>", "<b>Planned Information to support</b>"]
+    heading_information = [["<b>Equality Strand</b>", "<b>Current assessment of the impact of #{activity.name}</b>", "<b>Information to support</b>", "<b>Planned Information to support</b>"]]
+    #table << ["<b>Equality Strand</b>", "<b>Current assessment of the impact of #{activity.name}</b>", "<b>Information to support</b>", "<b>Planned Information to support</b>"]
     activity.strands.each do |strand|
       row = []
       row << strand.titleize
@@ -196,7 +197,7 @@ class ActivityPDFGenerator
       row << planned_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
     end
-    pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5})
+    pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5, :header => table_header, :header_args => [heading_information, {:borders => borders, :v_padding => 5}]})
     pdf.text(" ")
     pdf
   end
@@ -524,5 +525,12 @@ class ActivityPDFGenerator
         [question, "N/A"]
       end
     end    
+  end
+  
+  def table_header
+    Proc.new do |pdf, data, table_data| 
+      pdf = generate_table(pdf, data, table_data)
+      pdf
+    end
   end
 end

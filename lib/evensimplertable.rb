@@ -38,6 +38,9 @@ module PDFExtensions
     init_pos = pdf.absolute_right_margin - borders.last + x_pos.to_i  if table_data[:alignment] == :right
     new_x_pos = borders.last + 2 + init_pos
     top_of_table = pdf.y
+    #insert heading
+    pdf = table_data[:header].call(pdf, *table_data[:header_args]) if table_data[:header]
+    #draw table
     table.each_with_index do |row, row_index|
       lines = 1
       row_data(row).each_with_index do |cell, index|
