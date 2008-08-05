@@ -113,12 +113,18 @@ module PDFExtensions
       pdf.fill_color! cell_settings[:text_colour]  if cell_settings[:text_colour]
       pdf.y -= t_pad
       max_v_pad = t_pad + b_pad  if t_pad + b_pad > max_v_pad
-      overflow = pdf.add_text_wrap(x_pos + indent, pdf.y + 2, width - 2 - 2*indent, cell.to_s, 10, cell_settings[:text_alignment])
+      text_lines = cell.to_s.split(/\n/)
+      puts text_lines[1]
       current_height = cell_settings[:empty_lines] || 0
-      while overflow.length > 0
-        pdf.y -= pdf.font_height
-        overflow = pdf.add_text_wrap(x_pos + indent, pdf.y + 2, width - 2 - 2*indent, overflow, 10, cell_settings[:text_alignment])
-        current_height += 1
+      text_lines.each_with_index do |line, line_index|
+        pdf.y -= pdf.font_height unless line_index == 0
+        overflow = pdf.add_text_wrap(x_pos + indent, pdf.y + 2, width - 2 - 2*indent, line, 10, cell_settings[:text_alignment])
+        current_height += 1  unless line_index == 0 
+        while overflow.length > 0
+          pdf.y -= pdf.font_height
+          overflow = pdf.add_text_wrap(x_pos + indent, pdf.y + 2, width - 2 - 2*indent, overflow, 10, cell_settings[:text_alignment])
+          current_height += 1
+        end
       end
       max_height = current_height if current_height > max_height
       x_pos = borders[index] + init_pos + 5

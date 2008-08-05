@@ -61,8 +61,8 @@ class ActivityPDFGenerator
     unless activity.projects.blank? then
       type = ot('project', activity).titleize
       type = type.pluralize if (activity.projects.size > 1)
-      project_list = activity.projects.map{|project| project.name.to_s}.join(", ")
-      table << ["<b>#{type}</b>", project_list.to_s]
+      project_list = activity.projects.map{|project| project.name.to_s}.join("\n")
+      table << ["<b>#{type}</b>", project_list]
     end
     if activity.existing_proposed.to_i > 0 && activity.function_policy.to_i > 0 then
       table << ["<b>Type</b>", "#{activity.existing_proposed_name.titleize} #{activity.function_policy?.titleize}"]
