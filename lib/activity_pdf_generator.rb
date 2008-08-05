@@ -16,6 +16,8 @@ class ActivityPDFGenerator
 
   def initialize(activity)
     @pdf = PDF::Writer.new
+    @table_data = {:v_padding => 5, :header => table_header}
+    @header_data = {:v_padding => 5}
     methods_to_call =  [:page_numbers, :unapproved_logo_on_first_page, :footer, :header, :body, :rankings,
      :purpose, :impact, :consultation, :additional_work, :equality_objectives, :review_date, :action_plan, :appendices]
     methods_to_call.each do |operation|
@@ -72,7 +74,8 @@ class ActivityPDFGenerator
     table << ["<b>Activity Manager's Email</b>", activity.activity_manager.email]
     table << ["<b>Date Approved</b>", activity.approved_on.to_s] if activity.approved?
     table << ["<b>Approver</b>", activity.activity_approver.email.to_s] if activity.activity_approver
-    pdf = generate_table(pdf, table, {:borders => [150, 540], :v_padding => 5})
+    specific_data = {:borders => [150, 540], :header => nil}#to overwrite the need for a header
+    pdf = generate_table(pdf, table, @table_data.clone.merge(specific_data))
     pdf
   end
   def build_rankings(pdf, activity)
@@ -97,11 +100,13 @@ class ActivityPDFGenerator
       impact_table_data[0] << "<b>#{strand.titleize}</b>"
       impact_table_data[1] << activity.impact_wording(strand).to_s.titleize
     end
-    pdf = generate_table(pdf, ranking_table_data, {:borders => borders, :v_padding => 5})
+    specific_data = {:borders => borders, :header_args => [[ranking_table_data.delete_at(0)], @header_data.clone.merge(:borders => borders)]}
+    pdf = generate_table(pdf, ranking_table_data, @table_data.clone.merge(specific_data))
     pdf.text(" ")
     pdf.text("<b>1.2 Impact</b>")
     pdf.text(" ")
-    pdf = generate_table(pdf, impact_table_data, {:borders => borders, :v_padding => 5})
+    specific_data = {:borders => borders, :header_args => [[impact_table_data.delete_at(0)], @header_data.clone.merge(:borders => borders)]}
+    pdf = generate_table(pdf, impact_table_data, @table_data.clone.merge(specific_data))
     pdf
   end
   def build_purpose(pdf, activity)
@@ -188,7 +193,6 @@ class ActivityPDFGenerator
     end
     table = []
     heading_information = [["<b>Equality Strand</b>", "<b>Current assessment of the impact of #{activity.name}</b>", "<b>Information to support</b>", "<b>Planned Information to support</b>"]]
-    #table << ["<b>Equality Strand</b>", "<b>Current assessment of the impact of #{activity.name}</b>", "<b>Information to support</b>", "<b>Planned Information to support</b>"]
     activity.strands.each do |strand|
       row = []
       row << strand.titleize
@@ -197,7 +201,8 @@ class ActivityPDFGenerator
       row << planned_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
     end
-    pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5, :header => table_header, :header_args => [heading_information, {:borders => borders, :v_padding => 5}]})
+    specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
+    pdf = generate_table(pdf, table, @table_data.clone.merge(specific_data))
     pdf.text(" ")
     pdf
   end
@@ -213,7 +218,7 @@ class ActivityPDFGenerator
     collected_information = Activity.get_question_names('consultation', nil, 3).map{|question| [question, activity.send(question)]}
     collected_information = remove_unneeded(activity, collected_information)
     table = []
-    table << ["<b>Equality Strand</b>", "<b>Consulted</b>", "<b>Consultation Details</b>"]
+    heading_information = [["<b>Equality Strand</b>", "<b>Consulted</b>", "<b>Consultation Details</b>"]]
     activity.strands.each do |strand|
       row = []
       row << strand.titleize
@@ -221,7 +226,8 @@ class ActivityPDFGenerator
       row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
     end
-    pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5})
+    specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
+    pdf = generate_table(pdf, table, @table_data.clone.merge(specific_data))
     pdf.text(" ")
     pdf.text("<b>4.2 Stakeholders</b>")
     pdf.text(" ")
@@ -230,7 +236,7 @@ class ActivityPDFGenerator
     collected_information = Activity.get_question_names('consultation', nil, 6).map{|question| [question, activity.send(question)]}
     collected_information = remove_unneeded(activity, collected_information)
     table = []
-    table << ["<b>Equality Strand</b>", "<b>Consulted</b>", "<b>Consultation Details</b>"]
+    heading_information = [["<b>Equality Strand</b>", "<b>Consulted</b>", "<b>Consultation Details</b>"]]
     activity.strands.each do |strand|
       row = []
       row << strand.titleize
@@ -238,7 +244,8 @@ class ActivityPDFGenerator
       row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
     end
-    pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5})
+    specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
+    pdf = generate_table(pdf, table, @table_data.clone.merge(specific_data))
     pdf.text(" ")
     pdf
   end
@@ -251,7 +258,7 @@ class ActivityPDFGenerator
     collected_information = Activity.get_question_names('additional_work', nil, 2).map{|question| [question, activity.send(question)]}
     collected_information = remove_unneeded(activity, collected_information)
     table = []
-    table << ["<b>Equality Strand</b>", "<b>Additional Work Required</b>", "<b>Nature of Work required</b>"]
+    heading_information = [["<b>Equality Strand</b>", "<b>Additional Work Required</b>", "<b>Nature of Work required</b>"]]
     activity.strands.each do |strand|
       row = []
       row << strand.titleize
@@ -259,7 +266,8 @@ class ActivityPDFGenerator
       row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
     end
-    pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5})
+    specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
+    pdf = generate_table(pdf, table, @table_data.clone.merge(specific_data))
     pdf.text(" ")
     pdf
   end
@@ -276,7 +284,7 @@ class ActivityPDFGenerator
       borders << borders.last.to_i + border_gap
     end
     table = []
-    table << ["<b>Equality Strand</b>", "<b>Eliminating discrimination & harassment</b>", "<b>Promote good relations between different groups</b>"]
+    heading_information =  [["<b>Equality Strand</b>", "<b>Eliminating discrimination & harassment</b>", "<b>Promote good relations between different groups</b>"]]
     activity.strands.each do |strand|
       row = []
       row << strand.titleize
@@ -288,7 +296,8 @@ class ActivityPDFGenerator
       end
       table << row
     end
-    pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5})
+    specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
+    pdf = generate_table(pdf, table, @table_data.clone.merge(specific_data))
     border_gap = width/(4)
     borders = [border_gap]
     3.times do |i|
@@ -299,14 +308,15 @@ class ActivityPDFGenerator
       pdf.text("The assessment has identified that #{activity.name} has a role in the following Equality Objectives that are specific to the Disability Equality Strand:")
       pdf.text(" ")
       table = []
-      table << ["<b>Equality strand</b>", "<b>Take account of disabilities even if it means treating more favourably</b>", "<b>Promote positive attitudes to disabled people</b>", "<b>Encourage participation by disabled people</b>"]
+      heading_information =  [["<b>Equality strand</b>", "<b>Take account of disabilities even if it means treating more favourably</b>", "<b>Promote positive attitudes to disabled people</b>", "<b>Encourage participation by disabled people</b>"]]
       row = []
       row << 'Disability'
       row << activity.hashes['choices'][3][activity.send("additional_work_disability_7").to_i].to_s
       row << activity.hashes['choices'][3][activity.send("additional_work_disability_8").to_i].to_s
       row << activity.hashes['choices'][3][activity.send("additional_work_disability_9").to_i].to_s
       table << row
-      pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5})
+      specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
+      pdf = generate_table(pdf, table, @table_data.clone.merge(specific_data))
       pdf.text(" ")
     end
     pdf
@@ -347,7 +357,7 @@ class ActivityPDFGenerator
     end
     issues.flatten!
     table = []
-    table << ["<b>Issue</b>", "<b>Action</b>", "<b>Resources</b>", "<b>Timescales</b>", "<b>Lead Officer</b>"]
+    heading_information = [["<b>Issue</b>", "<b>Action</b>", "<b>Resources</b>", "<b>Timescales</b>", "<b>Lead Officer</b>"]]
     issues.each do |issue|
       row = []
       row << issue.description.titleize
@@ -357,7 +367,8 @@ class ActivityPDFGenerator
       row << issue.lead_officer.to_s
       table << row
     end
-    pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5})
+    specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
+    pdf = generate_table(pdf, table, @table_data.clone.merge(specific_data))
     pdf
   end
 
@@ -411,7 +422,7 @@ class ActivityPDFGenerator
         pdf.text "<b>Complete assessment summary of the responses pertaining to all individuals participating</b>", :font_size => 12
         pdf.text " "
         question_list = []
-        question_list << ["<b>Question</b>", "<b>Additional Comments</b>"]
+        table_heading = ["<b>Question</b>", "<b>Additional Comments</b>"]
         Activity.get_question_names(nil, :overall).each do |question|
           number = question.to_s.gsub(/\D/, "").to_i
           question_details = activity.question_wording_lookup('purpose', 'overall', number)
@@ -424,8 +435,9 @@ class ActivityPDFGenerator
           question_list << [label, comment.to_s] unless comment.blank?
         end
         borders = [150, 300, 540]
-        if question_list.size > 1 then
-          pdf = generate_table(pdf, question_list, {:borders => borders, :v_padding => 5})
+        if question_list.size > 0 then
+          specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
+          pdf = generate_table(pdf, question_list, @table_data.clone.merge(specific_data))
         else
           pdf.text "<i>There are no questions with comments for this section</i>", :font_size => 10
         end
@@ -436,15 +448,16 @@ class ActivityPDFGenerator
       if strategy_comments then
         pdf.text "<b>Comments on any Strategy responses</b>"
         pdf.text " "
-        question_list << ['<b>Strategy Name</b>', '<b>Additional Comments</b>']
+        heading_information = [['<b>Strategy Name</b>', '<b>Additional Comments</b>']]
         activity.activity_strategies.each do |activity_strategy|
           comment = activity_strategy.comment
           comment = comment.contents unless comment.nil?
           question_list << [activity_strategy.strategy.name, comment] unless comment.blank?
         end
         borders = [150, 300, 540]
-        if question_list.size > 1 then
-          pdf = generate_table(pdf, question_list, {:borders => borders, :v_padding => 5})
+        if question_list.size > 0 then
+          specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
+          pdf = generate_table(pdf, question_list, @table_data.clone.merge(specific_data))
         else
           pdf.text "<i>There are no questions with comments for this section</i>", :font_size => 10
         end
@@ -459,7 +472,7 @@ class ActivityPDFGenerator
           (activity.sections - [:action_planning]).each_with_index do |section, index|
             next if !(strand_needed[strand]) && purpose_strand_needed[strand] && (section != :purpose)
             question_list = []
-            question_list << ["<b>Question</b>", "<b>Additional Comments</b>"]
+            heading_information = [["<b>Question</b>", "<b>Additional Comments</b>"]]
             Activity.get_question_names(section, strand).each do |question|
               number = question.to_s.gsub(section.to_s, "").gsub(strand.to_s, "").gsub("_", "").to_i
               question_details = activity.question_wording_lookup(section, strand, number)
@@ -474,10 +487,11 @@ class ActivityPDFGenerator
               question_list << [question_text, comment] unless comment.blank?
             end
             borders = [150, 300, 540]
-            unless question_list.size == 1 then
+            unless question_list.size == 0 then
               pdf.text "<b><c:uline>#{section.to_s.titleize}</c:uline></b>"
               pdf.text " "
-              pdf = generate_table(pdf, question_list, {:borders => borders, :v_padding => 5})
+              specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
+              pdf = generate_table(pdf, question_list, @table_data.clone.merge(specific_data))
             end
             pdf.text " "
           end
