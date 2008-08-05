@@ -97,11 +97,11 @@ class ActivityPDFGenerator
       impact_table_data[0] << "<b>#{strand.titleize}</b>"
       impact_table_data[1] << activity.impact_wording(strand).to_s.titleize
     end
-    pdf = generate_table(pdf, ranking_table_data, :borders => borders)
+    pdf = generate_table(pdf, ranking_table_data, {:borders => borders, :v_padding => 5})
     pdf.text(" ")
     pdf.text("<b>1.2 Impact</b>")
     pdf.text(" ")
-    pdf = generate_table(pdf, impact_table_data, :borders => borders)
+    pdf = generate_table(pdf, impact_table_data, {:borders => borders, :v_padding => 5})
     pdf
   end
   def build_purpose(pdf, activity)
@@ -196,7 +196,7 @@ class ActivityPDFGenerator
       row << planned_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
     end
-    pdf = generate_table(pdf, table, :borders => borders)
+    pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5})
     pdf.text(" ")
     pdf
   end
@@ -220,7 +220,7 @@ class ActivityPDFGenerator
       row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
     end
-    pdf = generate_table(pdf, table, :borders => borders)
+    pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5})
     pdf.text(" ")
     pdf.text("<b>4.2 Stakeholders</b>")
     pdf.text(" ")
@@ -237,7 +237,7 @@ class ActivityPDFGenerator
       row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
     end
-    pdf = generate_table(pdf, table, :borders => borders)
+    pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5})
     pdf.text(" ")
     pdf
   end
@@ -258,7 +258,7 @@ class ActivityPDFGenerator
       row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
       table << row
     end
-    pdf = generate_table(pdf, table, :borders => borders)
+    pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5})
     pdf.text(" ")
     pdf
   end
@@ -287,7 +287,7 @@ class ActivityPDFGenerator
       end
       table << row
     end
-    pdf = generate_table(pdf, table, :borders => borders)
+    pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5})
     border_gap = width/(4)
     borders = [border_gap]
     3.times do |i|
@@ -305,7 +305,7 @@ class ActivityPDFGenerator
       row << activity.hashes['choices'][3][activity.send("additional_work_disability_8").to_i].to_s
       row << activity.hashes['choices'][3][activity.send("additional_work_disability_9").to_i].to_s
       table << row
-      pdf = generate_table(pdf, table, :borders => borders)
+      pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5})
       pdf.text(" ")
     end
     pdf
@@ -356,7 +356,7 @@ class ActivityPDFGenerator
       row << issue.lead_officer.to_s
       table << row
     end
-    pdf = generate_table(pdf, table, :borders => borders)
+    pdf = generate_table(pdf, table, {:borders => borders, :v_padding => 5})
     pdf
   end
 
@@ -424,7 +424,7 @@ class ActivityPDFGenerator
         end
         borders = [150, 300, 540]
         if question_list.size > 1 then
-          pdf = generate_table(pdf, question_list, {:borders => borders})
+          pdf = generate_table(pdf, question_list, {:borders => borders, :v_padding => 5})
         else
           pdf.text "<i>There are no questions with comments for this section</i>", :font_size => 10
         end
@@ -443,7 +443,7 @@ class ActivityPDFGenerator
         end
         borders = [150, 300, 540]
         if question_list.size > 1 then
-          pdf = generate_table(pdf, question_list, {:borders => borders})
+          pdf = generate_table(pdf, question_list, {:borders => borders, :v_padding => 5})
         else
           pdf.text "<i>There are no questions with comments for this section</i>", :font_size => 10
         end
@@ -476,7 +476,7 @@ class ActivityPDFGenerator
             unless question_list.size == 1 then
               pdf.text "<b><c:uline>#{section.to_s.titleize}</c:uline></b>"
               pdf.text " "
-              pdf = generate_table(pdf, question_list, {:borders => borders})
+              pdf = generate_table(pdf, question_list, {:borders => borders, :v_padding => 5})
             end
             pdf.text " "
           end
