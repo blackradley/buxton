@@ -33,10 +33,10 @@ module PDFExtensions
     pdf.fill_color table_data[:text_colour]  if table_data[:text_colour]
     show_lines = table_data[:show_lines].nil? ? :all : table_data[:show_lines]
     table_data[:text_alignment] = :left unless table_data[:text_alignment]
-    init_pos = x_pos||pdf.absolute_left_margin
+    init_pos = x_pos || pdf.absolute_left_margin
     init_pos = pdf.absolute_x_middle - borders.last/2 + x_pos.to_i  if table_data[:alignment] == :center
     init_pos = pdf.absolute_right_margin - borders.last + x_pos.to_i  if table_data[:alignment] == :right
-    new_x_pos = borders.last + 2 + init_pos
+    right_edge = borders.last + init_pos
     top_of_table = pdf.y
     #insert heading
     pdf = table_data[:header].call(pdf, *table_data[:header_args]) if table_data[:header]
@@ -54,11 +54,10 @@ module PDFExtensions
       end
       #insert new page if table would overflow page
       if (pdf.y < (lines+1).to_i*pdf.font_height + pdf.absolute_bottom_margin) then
-         pdf = page_overflow(pdf, show_lines, row_index, init_pos, top_of_table, new_x_pos, table_data)
+         pdf = page_overflow(pdf, show_lines, row_index, init_pos, top_of_table, right_edge, table_data)
          top_of_table = pdf.y
          is_one_page = false
       end
-      pdf.line(init_pos, pdf.y, new_x_pos - 2, pdf.y).stroke if (show_lines == :all || show_lines == :borders || show_lines == :edges) && (row_index == 0)
       borders_to_pass = borders.clone
       table_data_to_pass = table_data.clone
       if row.size != borders.size then
@@ -68,12 +67,7 @@ module PDFExtensions
         table_data_to_pass[:borders] = borders_to_pass
       end
       pdf = add_row(pdf, row_index, row, table_data_to_pass, init_pos, show_lines)
-      if (show_lines == :borders || show_lines == :edges) && (row_index == (table.size - 1)) then
-        pdf.y -= 4
-        pdf.line(init_pos, pdf.y, borders.last + init_pos, pdf.y)
-      end
     end
-    pdf.line(init_pos, top_of_table, init_pos, pdf.y).stroke if (show_lines == :all || show_lines == :borders || show_lines == :edges)
     pdf = table_data[:footer].call(pdf, @current_page_number, *table_data[:footer_args].flatten) if table_data[:footer] && is_one_page
     pdf
   end
@@ -81,9 +75,9 @@ module PDFExtensions
   private
   
   def add_row(pdf, row_index, row, table_data, x_pos = nil, lines = :all)
-#    cell_data = table_data[:cell_data].nil? [] : table_data[:cell_data]
     #variable definitions for later in the method
-    top = pdf.y - pdf.font_height
+    top_of_table = pdf.y
+    text_top = pdf.y - pdf.font_height
     cell_settings = cell_details(row, table_data)
     borders = cell_settings[:borders]
     text_alignment = cell_settings[:text_alignment]
@@ -94,12 +88,17 @@ module PDFExtensions
     max_v_pad = 0
     x_pos = x_pos || pdf.absolute_left_margin
     init_pos = x_pos
-    x_pos += 5
+    x_pos += 2
+    cells_filled_to = []
     row_data(row).each_with_index do |cell, index|
       if index == 0 then
         width = borders[index]
+        left_edge = pdf.absolute_left_margin
+        right_edge = borders[index]
       else
         width = borders[index] - borders[index - 1]
+        left_edge = borders[index - 1] + init_pos
+        right_edge = borders[index]
       end
       cell_settings = cell_details(row, table_data)
       cell_settings = cell_details(table_data[:row_format][row_index], cell_settings) if table_data[:row_format]
@@ -109,46 +108,81 @@ module PDFExtensions
       end
       t_pad = cell_settings[:t_padding] || cell_settings[:v_padding].to_i
       b_pad = cell_settings[:b_padding] || cell_settings[:v_padding].to_i
-      indent = cell_settings[:h_padding].to_i
+      indent = cell_settings[:h_padding] || 2
       if cell_settings[:text_alignment] == :right then
-        x_pos -= 5
+        x_pos -= 2
       end
       pdf.fill_color! cell_settings[:text_colour]  if cell_settings[:text_colour]
       pdf.y -= t_pad
+      shade_area(pdf, cell_settings[:shading], left_edge, top_of_table, width, -(t_pad + 2))
       max_v_pad = t_pad + b_pad  if t_pad + b_pad > max_v_pad
       text_lines = cell.to_s.split(/\n/)
-      puts text_lines[1]
       current_height = cell_settings[:empty_lines] || 0
       text_lines.each_with_index do |line, line_index|
-        pdf.y -= pdf.font_height unless line_index == 0
+        pdf.y -= pdf.font_height  unless line_index == 0
+        shade_area(pdf, cell_settings[:shading], left_edge, pdf.y - 2, width, pdf.font_height + 1)
         overflow = pdf.add_text_wrap(x_pos + indent, pdf.y + 2, width - 2 - 2*indent, line, 10, cell_settings[:text_alignment])
         current_height += 1  unless line_index == 0 
         while overflow.length > 0
           pdf.y -= pdf.font_height
+          shade_area(pdf, cell_settings[:shading], left_edge, pdf.y - 2, width, pdf.font_height + 1)
           overflow = pdf.add_text_wrap(x_pos + indent, pdf.y + 2, width - 2 - 2*indent, overflow, 10, cell_settings[:text_alignment])
           current_height += 1
         end
       end
+      cells_filled_to << [pdf.y, cell_settings[:shading]]
       max_height = current_height if current_height > max_height
-      x_pos = borders[index] + init_pos + 5
-      pdf.y = top
+      x_pos = borders[index] + init_pos + 2
+      pdf.y = text_top
     end
     max_height = (max_height)*(pdf.font_height) + max_v_pad
     pdf.y -= max_height
-    if lines == :all || lines == :borders then
-      x_pos = borders.last + init_pos
-      if lines == :all then
-        pdf.y -= 4
-        pdf.line(init_pos, pdf.y, x_pos, pdf.y).stroke
-      end 
-      borders.each do |border|
-        pdf.line(border + init_pos, top + pdf.font_height, border + init_pos, top - max_height - 4).stroke
+    borders.each_index do |index|
+      if index == 0
+        start = pdf.absolute_left_margin
+        width = borders[0]
+      else
+        start = borders[index - 1] + init_pos
+        width = borders[index] - borders[index - 1]
       end
+      shade_area(pdf, cells_filled_to[index][1], start, cells_filled_to[index][0], width, pdf.y - cells_filled_to[index][0] - 4)
     end
-    if lines == :edges then
-      pdf.line(borders.last + init_pos, top + pdf.font_height, borders.last + init_pos, top - max_height - 4).stroke
-    end
+    pdf.y -= 4
+    draw_lines(init_pos, top_of_table, pdf.y, borders, lines, row_index)
     pdf
+  end
+
+  def draw_lines(left, top, bottom, borders, lines, index)
+    right = borders.last + left
+    if (lines == :all || lines == :borders || lines == :edges)
+      # top line
+      if lines == :all || index == 0
+        pdf.line(left, top, right, top).stroke # if index == 0
+      end
+      # left line
+      pdf.line(left, top, left, bottom).stroke
+      # right line
+      pdf.line(right, top, right, bottom).stroke
+      # bottom line
+      pdf.line(left, bottom, right, bottom).stroke
+      # Other vertical lines
+      if lines == :all || lines == :borders
+        borders.each_with_index do |border, index|
+          pdf.line(border + left, top, border + left, bottom).stroke
+        end
+      end
+    end    
+  end
+
+
+  def shade_area(pdf, colour, x, y, width, height)
+    if colour
+      pdf_background = pdf.fill_color?
+      line_weight = pdf.stroke_style?.width
+      pdf.fill_color colour
+      pdf.rectangle(x, y, width, height).fill
+      pdf.fill_color pdf_background
+    end
   end
 
   def row_data(row)
@@ -169,19 +203,19 @@ module PDFExtensions
     cell_settings
   end 
   
-  def page_overflow(pdf, show_lines, row_index, init_pos, top_of_table, new_x_pos, table_data)
+  def page_overflow(pdf, show_lines, row_index, init_pos, top_of_table, right_edge, table_data)
     color = pdf.stroke_color?
     fill_color = pdf.fill_color?
-    pdf.line(init_pos, top_of_table, init_pos, pdf.y - 4).stroke if (show_lines == :all || show_lines == :borders) && row_index != 0
-    pdf.line(init_pos, pdf.y - 4, new_x_pos - 2, pdf.y - 4).stroke if (show_lines == :all || show_lines == :borders)
+#    pdf.line(init_pos, top_of_table, init_pos, pdf.y - 4).stroke if (show_lines == :all || show_lines == :borders) && row_index != 0
+#    pdf.line(init_pos, pdf.y - 4, right_edge, pdf.y - 4).stroke if (show_lines == :all || show_lines == :borders)
     pdf.y -= 5
-    pdf = table_data[:footer].call(pdf, @current_page_number, *table_data[:footer_args].flatten) if table_data[:footer]
+    pdf = table_data[:footer].call(pdf, @current_page_number, *table_data[:footer_args]) if table_data[:footer]
     pdf.start_new_page
     @current_page_number += 1
-    pdf = table_data[:header].call(pdf, *[table_data[:header_args]].flatten) if table_data[:header]
+    pdf = table_data[:header].call(pdf, *table_data[:header_args]) if table_data[:header]
     pdf.stroke_color! color
     pdf.fill_color! fill_color
-    pdf.line(init_pos, pdf.y, new_x_pos - 2, pdf.y).stroke if (show_lines == :all || show_lines == :borders)
+#    pdf.line(init_pos, pdf.y, right_edge, pdf.y).stroke if (show_lines == :all || show_lines == :borders)
     top_of_table = pdf.y
     pdf    
   end

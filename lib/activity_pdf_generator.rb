@@ -14,6 +14,8 @@ include PDFExtensions
 
 class ActivityPDFGenerator
 
+  SHADE_COLOUR = Color::RGB::Grey70
+
   def initialize(activity, type)
     @pdf = PDF::Writer.new
     @table_data = {:v_padding => 5, :header => table_header}
@@ -59,21 +61,25 @@ class ActivityPDFGenerator
       pdf.text " "
     return pdf
   end
+  
   def build_body(pdf, activity)
     table = []
     table << ['<b>Activity</b>', activity.name.to_s]
     table << ["<b>#{ot('directorate', activity).titleize}</b>", activity.directorate.name.to_s]
+    
     unless activity.projects.blank? then
       type = ot('project', activity).titleize
       type = type.pluralize if (activity.projects.size > 1)
       project_list = activity.projects.map{|project| project.name.to_s}.join("\n")
       table << ["<b>#{type}</b>", project_list]
     end
+    
     if activity.existing_proposed.to_i > 0 && activity.function_policy.to_i > 0 then
       table << ["<b>Type</b>", "#{activity.existing_proposed_name.titleize} #{activity.function_policy?.titleize}"]
     else
       table << ['<b>Type</b>', 'Insufficient questions have been answered to determine the type of this activity.']
     end
+    
     table << ["<b>Activity Manager's Email</b>", activity.activity_manager.email]
     table << ["<b>Date Approved</b>", activity.approved_on.to_s] if activity.approved?
     table << ["<b>Approver</b>", activity.activity_approver.email.to_s] if activity.activity_approver
@@ -81,6 +87,7 @@ class ActivityPDFGenerator
     pdf = generate_table(pdf, table, @table_data.clone.merge(specific_data))
     pdf
   end
+  
   def build_rankings(pdf, activity)
     pdf.text(" ")
     pdf.text("<c:uline><b>1.  Rankings</b></c:uline>")
@@ -96,6 +103,7 @@ class ActivityPDFGenerator
     impact_table_data = []
     impact_table_data[0] = ["<b>Equality strand</b>"]
     impact_table_data[1] = ['Impact Rating']
+    
     activity.strands.each do |strand|
       borders << border_gap + borders.last
       ranking_table_data[0] << "<b>#{strand.titleize}</b>"
@@ -103,6 +111,7 @@ class ActivityPDFGenerator
       impact_table_data[0] << "<b>#{strand.titleize}</b>"
       impact_table_data[1] << activity.impact_wording(strand).to_s.titleize
     end
+    
     specific_data = {:borders => borders, :header_args => [[ranking_table_data.delete_at(0)], @header_data.clone.merge(:borders => borders)]}
     pdf = generate_table(pdf, ranking_table_data, @table_data.clone.merge(specific_data))
     pdf.text(" ")
@@ -112,9 +121,10 @@ class ActivityPDFGenerator
     pdf = generate_table(pdf, impact_table_data, @table_data.clone.merge(specific_data))
     pdf
   end
+  
   def build_purpose(pdf, activity)
     pdf.text(" ")
-    pdf.text("<c:uline><b>2.  Purpose </b></c:uline>")
+    pdf.text("<c:uline><b>2.  Purpose</b></c:uline>")
     pdf.text " "
     types = [:organisation, :directorate, :project]
     strategies = [[], [],[]]
@@ -129,7 +139,7 @@ class ActivityPDFGenerator
       end
     end
     strategies.each_with_index do |child_strategies, index|
-     type = types[index]      
+      type = types[index]
       unless child_strategies.size == 0 then
         pdf.text("#{activity.name} assists in delivering the following strategic objectives on the #{type.to_s.titleize} level:")
         child_strategies.each do |strategy|
@@ -140,11 +150,13 @@ class ActivityPDFGenerator
         pdf.text("#{activity.name} does not assist in delivering any strategic objectives on the #{type.to_s.titleize} level.")
         pdf.text " "
       end
-    end    
+    end
+    
     impact_quns = []
     (5..9).each do |i|
       impact_quns << "<C:bullet/>#{activity.question_wording_lookup(:purpose, :overall, i)[0].to_s}" if activity.send("purpose_overall_#{i}") == 1
     end
+    
     if impact_quns.size > 0 then
       pdf.text("#{activity.name} has an impact on the following groups: ")
       impact_quns.each do |question|
@@ -153,9 +165,11 @@ class ActivityPDFGenerator
     else
       pdf.text("#{activity.name} has no impact on any relevant groups.")
     end
+    
     pdf.text(" ")
     good_impact_questions = Activity.get_question_names('purpose', nil, 3).map{|question| [question, activity.send(question)]}
     good_impact_questions.reject!{|question, response| response.to_i <= 1}
+    
     unless good_impact_questions.size == 0 then
       pdf.text("#{activity.name} has a potential positive differential impact on the following equality groups:")
       good_impact_questions.each do |question, response|
@@ -165,9 +179,11 @@ class ActivityPDFGenerator
     else
       pdf.text("#{activity.name} has a potential positive differential impact on no equality groups.")
     end
+    
     pdf.text(" ")
     bad_impact_questions = Activity.get_question_names('purpose', nil, 4).map{|question| [question, activity.send(question)]}
     bad_impact_questions.reject!{|question, response| response.to_i <= 1}
+    
     unless bad_impact_questions.size == 0 then
       pdf.text("#{activity.name} has a potential negative differential impact on the following equality groups:")
       bad_impact_questions.each do |question, response|
@@ -181,8 +197,33 @@ class ActivityPDFGenerator
     pdf
   end
 
+  def build_table_data(activity, data_array, choices_elem = nil, col_text = nil)
+    table = []
+    table_cell_format = []
+    activity.strands.each do |strand|
+      row = []
+      row_cell_format = []
+      row << strand.titleize
+      row_cell_format << nil
+      unless col_text.nil?
+        row << activity.hashes['choices'][choices_elem][activity.send(col_text[0] + strand + col_text[1]).to_i].to_s
+        row_cell_format << nil
+      end
+      
+      data_array.each do |question, response, format|
+        if question.to_s.include?(strand)
+          row << response
+          row_cell_format << format
+        end
+      end
+      table << row
+      table_cell_format << row_cell_format
+    end
+    return [table, table_cell_format]
+  end
+
   def build_impact(pdf, activity)
-    pdf.text("<c:uline><b>3.  Impact </b></c:uline>")
+    pdf.text("<c:uline><b>3.  Impact</b></c:uline>")
     pdf.text(" ")
     collected_information = Activity.get_question_names('impact', nil, 3).map{|question| [question, activity.send(question)]}
     collected_information = remove_unneeded(activity, collected_information)
@@ -194,24 +235,17 @@ class ActivityPDFGenerator
     3.times do |i|
       borders << borders.last.to_i + border_gap
     end
-    table = []
     heading_information = [["<b>Equality Strand</b>", "<b>Current assessment of the impact of #{activity.name}</b>", "<b>Information to support</b>", "<b>Planned Information to support</b>"]]
-    activity.strands.each do |strand|
-      row = []
-      row << strand.titleize
-      row << activity.hashes['choices'][2][activity.send("impact_#{strand}_1".to_sym).to_i]
-      row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
-      row << planned_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
-      table << row
-    end
+    table_info = build_table_data(activity, collected_information + planned_information, 2, ["impact_","_1"])
     specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
-    pdf = generate_table(pdf, table, @table_data.clone.merge(specific_data))
+    specific_data[:cell_format] = table_info[1]
+    pdf = generate_table(pdf, table_info[0], @table_data.clone.merge(specific_data))
     pdf.text(" ")
     pdf
   end
 
   def build_consultation(pdf, activity)
-    pdf.text("<c:uline><b>4.  Consultation </b></c:uline>")
+    pdf.text("<c:uline><b>4.  Consultation</b></c:uline>")
     pdf.text(" ")
     pdf.text("<b>4.1 Groups</b>")
     pdf.text(" ")
@@ -220,17 +254,11 @@ class ActivityPDFGenerator
     borders = [150, 300, 540]
     collected_information = Activity.get_question_names('consultation', nil, 3).map{|question| [question, activity.send(question)]}
     collected_information = remove_unneeded(activity, collected_information)
-    table = []
     heading_information = [["<b>Equality Strand</b>", "<b>Consulted</b>", "<b>Consultation Details</b>"]]
-    activity.strands.each do |strand|
-      row = []
-      row << strand.titleize
-      row << activity.hashes['choices'][3][activity.send("consultation_#{strand}_1").to_i].to_s
-      row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
-      table << row
-    end
+    table_info = build_table_data(activity, collected_information, 3, ["consultation_", "_1"])
     specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
-    pdf = generate_table(pdf, table, @table_data.clone.merge(specific_data))
+    specific_data[:cell_format] = table_info[1]
+    pdf = generate_table(pdf, table_info[0], @table_data.clone.merge(specific_data))
     pdf.text(" ")
     pdf.text("<b>4.2 Stakeholders</b>")
     pdf.text(" ")
@@ -238,17 +266,11 @@ class ActivityPDFGenerator
     pdf.text(" ")
     collected_information = Activity.get_question_names('consultation', nil, 6).map{|question| [question, activity.send(question)]}
     collected_information = remove_unneeded(activity, collected_information)
-    table = []
     heading_information = [["<b>Equality Strand</b>", "<b>Consulted</b>", "<b>Consultation Details</b>"]]
-    activity.strands.each do |strand|
-      row = []
-      row << strand.titleize
-      row << activity.hashes['choices'][3][activity.send("consultation_#{strand}_4").to_i].to_s
-      row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
-      table << row
-    end
+    table_info = build_table_data(activity, collected_information, 3, ["consultation_", "_4"])
     specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
-    pdf = generate_table(pdf, table, @table_data.clone.merge(specific_data))
+    specific_data[:cell_format] = table_info[1]
+    pdf = generate_table(pdf, table_info[0], @table_data.clone.merge(specific_data))
     pdf.text(" ")
     pdf
   end
@@ -260,23 +282,17 @@ class ActivityPDFGenerator
     borders = [150, 300, 540]
     collected_information = Activity.get_question_names('additional_work', nil, 2).map{|question| [question, activity.send(question)]}
     collected_information = remove_unneeded(activity, collected_information)
-    table = []
     heading_information = [["<b>Equality Strand</b>", "<b>Additional Work Required</b>", "<b>Nature of Work required</b>"]]
-    activity.strands.each do |strand|
-      row = []
-      row << strand.titleize
-      row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_1").to_i].to_s
-      row << collected_information.select{|question, response| question.to_s.include?(strand)}.flatten[1].to_s
-      table << row
-    end
+    table_info = build_table_data(activity, collected_information, 3, ["additional_work_", "_1"])
     specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
-    pdf = generate_table(pdf, table, @table_data.clone.merge(specific_data))
+    specific_data[:cell_format] = table_info[1]
+    pdf = generate_table(pdf, table_info[0], @table_data.clone.merge(specific_data))
     pdf.text(" ")
     pdf
   end
 
   def build_equality_objectives(pdf, activity)
-    pdf.text("<c:uline><b>6. Equality Objectives </b></c:uline>")
+    pdf.text("<c:uline><b>6. Equality Objectives</b></c:uline>")
     pdf.text(" ")
     pdf.text("The assessment has identified that #{activity.name} has a role in the following Equality Objectives")
     pdf.text(" ")
@@ -287,19 +303,27 @@ class ActivityPDFGenerator
       borders << borders.last.to_i + border_gap
     end
     table = []
+    table_cell_format = []
     heading_information =  [["<b>Equality Strand</b>", "<b>Eliminating discrimination & harassment</b>", "<b>Promote good relations between different groups</b>"]]
     activity.strands.each do |strand|
       row = []
+      row_cell_format = []
       row << strand.titleize
+      row_cell_format << nil
       row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_4").to_i].to_s
+      row_cell_format << nil
       if strand.to_s == 'gender' then
-        row << 'N/A'
+        row << " "
+        row_cell_format << {:shading => SHADE_COLOUR}
       else
         row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_6").to_i].to_s
+        row_cell_format << nil
       end
       table << row
+      table_cell_format << row_cell_format
     end
     specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
+    specific_data[:cell_format] = table_cell_format
     pdf = generate_table(pdf, table, @table_data.clone.merge(specific_data))
     border_gap = width/(4)
     borders = [border_gap]
@@ -664,9 +688,9 @@ class ActivityPDFGenerator
   def remove_unneeded(activity, question_array)
     return question_array.map do |question, response|
       if (activity.questions.find_by_name(question.to_s) && activity.questions.find_by_name(question.to_s).check_needed) then
-        [question, response]
+        [question, response, nil]
       else
-        [question, "N/A"]
+        [question, " ", {:shading => SHADE_COLOUR}]
       end
     end    
   end
