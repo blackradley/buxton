@@ -449,7 +449,7 @@ class ActivityPDFGenerator
         pdf.text "<b>Complete assessment summary of the responses pertaining to all individuals participating</b>", :font_size => 12
         pdf.text " "
         question_list = []
-        table_heading = ["<b>Question</b>", "<b>Additional Comments</b>"]
+        heading_information = ["<b>Question</b>", "<b>Additional Comments</b>"]
         Activity.get_question_names(nil, :overall).each do |question|
           number = question.to_s.gsub(/\D/, "").to_i
           question_details = activity.question_wording_lookup('purpose', 'overall', number)
@@ -576,7 +576,7 @@ class ActivityPDFGenerator
         pdf.text "<b>Complete assessment summary of the notes on the responses pertaining to all individuals participating</b>", :font_size => 12
         pdf.text " "
         question_list = []
-        table_heading = ["<b>Question</b>", "<b>Additional Comments</b>"]
+        heading_information = ["<b>Question</b>", "<b>Additional Comments</b>"]
         Activity.get_question_names(nil, :overall).each do |question|
           number = question.to_s.gsub(/\D/, "").to_i
           question_details = activity.question_wording_lookup('purpose', 'overall', number)
