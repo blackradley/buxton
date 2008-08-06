@@ -1,6 +1,13 @@
 %h1 Activity Summary Page
 %span#pdf_link
-  = link_to "#{image_tag('icons/pdf.gif')} View PDF report", {:action => 'view_pdf', :id => @activity.id}, :target => '_blank', :title => 'PDF Report' 
+  - if @current_user.class.to_s == 'ActivityManager' then
+    #activity_manager_view
+      = link_to "#{image_tag('icons/pdf.gif')} View public PDF report", {:action => 'view_pdf', :id => @activity.id, :type => :public}, :target => '_blank', :title => 'PDF Report'
+      |
+      = link_to "#{image_tag('icons/pdf.gif')} View private PDF report", {:action => 'view_pdf', :id => @activity.id, :type => :private}, :target => '_blank', :title => 'PDF Report' 
+  - else
+    #approver_view
+      = link_to "#{image_tag('icons/pdf.gif')} View PDF report", {:action => 'view_pdf', :id => @activity.id, :type => :private}, :target => '_blank', :title => 'PDF Report'    
 .summary
   %h4
     =h @activity.name
