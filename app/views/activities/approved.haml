@@ -33,14 +33,16 @@
     -if @approved.size > 0
       %table.list
         %tr
-          %th.left{:style => "width:300px;", :rowspan =>"2"} Name
+          %th.left{:style => "width:220px;", :rowspan =>"2"} Name
           %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Priority
           %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Impact
           %th{:colspan =>"2", :align=>"center", :style => "width:160px;"} Activity
-          %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Report
+          %th{:colspan =>"2", :align=>"center", :style => "width:160px;"} Report
         %tr
           %th{:align=>"center", :style => "width:80px;"} Manager
           %th{:align=>"center", :style => "width:80px;"} Approver
+          %th{:align => "center", :style => "width: 80px"} Private
+          %th{:align => "center", :style => "width: 80px"} Public
         -@approved.each do |activity|
           %tr
             %td.left{:style => "width:250px;"}
@@ -53,8 +55,10 @@
               = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email Manager"
             %td.actions{:nowrap => "nowrap"}
               = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_approver.email}", :title =>"Email Approver"
-            %td.actions{:style => "width:1%"}
-              = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
+            %td.actions
+              = link_to image_tag('icons/pdf_lock.gif'), {:action => 'view_pdf', :id => activity.id, :type => :private}, :title => "View private activity report"
+            %td.actions
+              = link_to image_tag('icons/pdf_unlock.gif'), {:action => 'view_pdf', :id => activity.id, :type => :public}, :title => "View public activity report"
     -else 
       %p.no_info
         No Activities Approved.
@@ -69,14 +73,16 @@
       -if @approved.size > 0
         %table.list
           %tr
-            %th.left{:style => "width:300px;", :rowspan =>"2"} Name
+            %th.left{:style => "width:220px;", :rowspan =>"2"} Name
             %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Priority
             %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Impact
             %th{:colspan =>"2", :align=>"center", :style => "width:160px;"} Activity
-            %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Report
+            %th{:colspan =>"2", :align=>"center", :style => "width:160px;"} Report
           %tr
             %th{:align=>"center", :style => "width:80px;"} Manager
             %th{:align=>"center", :style => "width:80px;"} Approver
+            %th{:align => "center", :style => "width: 80px"} Private
+            %th{:align => "center", :style => "width: 80px"} Public
           -@approved.each do |activity|
             %tr
               %td.left{:style => "width:250px;"}
@@ -89,8 +95,10 @@
                 = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email Manager"
               %td.actions{:nowrap => "nowrap"}
                 = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_approver.email}", :title =>"Email Approver"
-              %td.actions{:style => "width:1%"}
-                = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
+              %td.actions
+                = link_to image_tag('icons/pdf_lock.gif'), {:action => 'view_pdf', :id => activity.id, :type => :private}, :title => "View private activity report"
+              %td.actions
+                = link_to image_tag('icons/pdf_unlock.gif'), {:action => 'view_pdf', :id => activity.id, :type => :public}, :title => "View public activity report"
       -else 
         %p.no_info
           No Activities Approved.
@@ -104,14 +112,16 @@
       -if @approved.size > 0
         %table.list
           %tr
-            %th.left{:style => "width:300px;", :rowspan =>"2"} Name
+            %th.left{:style => "width:220px;", :rowspan =>"2"} Name
             %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Priority
             %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Impact
             %th{:colspan =>"2", :align=>"center", :style => "width:160px;"} Activity
-            %th{:rowspan =>"2", :align=>"center", :style => "width:80px;"} Report
+            %th{:colspan =>"2", :align=>"center", :style => "width:160px;"} Report
           %tr
             %th{:align=>"center", :style => "width:80px;"} Manager
             %th{:align=>"center", :style => "width:80px;"} Approver
+            %th{:align => "center", :style => "width: 80px"} Private
+            %th{:align => "center", :style => "width: 80px"} Public
           -@approved.each do |activity|
             %tr
               %td.left{:style => "width:250px;"}
@@ -124,8 +134,10 @@
                 = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_manager.email}", :title =>"Email Manager"
               %td.actions{:nowrap => "nowrap"}
                 = link_to image_tag('icons/email.gif'), "mailto:#{h activity.activity_approver.email}", :title =>"Email Approver"
-              %td.actions{:style => "width:1%"}
-                = link_to image_tag('icons/pdf.gif'), {:action => 'view_pdf', :id => activity.id}, :title => "View activity report"
+              %td.actions
+                = link_to image_tag('icons/pdf_lock.gif'), {:action => 'view_pdf', :id => activity.id, :type => :private}, :title => "View private activity report"
+              %td.actions
+                = link_to image_tag('icons/pdf_unlock.gif'), {:action => 'view_pdf', :id => activity.id, :type => :public}, :title => "View public activity report"
       -else 
         %p.no_info
           No Activities Approved.

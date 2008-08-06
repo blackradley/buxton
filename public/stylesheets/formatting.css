@@ -17,11 +17,16 @@
 #pdf_link {
   float: right;
   margin-top: -30px;
-  height: 30px;
-  width: 105px; }
-  #pdf_link img {
-    margin-right: 5px;
-    float: left; }
+  height: 30px; }
+  #pdf_link #activity_manager_view {
+    width: 300px; }
+    #pdf_link #activity_manager_view img {
+      margin-right: 5px; }
+  #pdf_link #approver_view {
+    width: 105px; }
+    #pdf_link #approver_view img {
+      margin-right: 5px;
+      float: left; }
   #pdf_link a {
     text-decoration: underline;
     color: #4e979e; }

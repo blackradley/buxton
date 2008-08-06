@@ -14,12 +14,15 @@ include PDFExtensions
 
 class ActivityPDFGenerator
 
-  def initialize(activity)
+  def initialize(activity, type)
     @pdf = PDF::Writer.new
     @table_data = {:v_padding => 5, :header => table_header}
     @header_data = {:v_padding => 5}
     methods_to_call =  [:page_numbers, :unapproved_logo_on_first_page, :footer, :header, :body, :rankings,
-     :purpose, :impact, :consultation, :additional_work, :equality_objectives, :review_date, :action_plan, :appendices]
+     :purpose, :impact, :consultation, :additional_work, :equality_objectives, :review_date, :action_plan, :comments]
+    if type == 'private' then
+      methods_to_call.push(:notes)
+    end
     methods_to_call.each do |operation|
       @pdf = self.send("build_#{operation.to_s}", @pdf, activity)
     end
@@ -372,7 +375,7 @@ class ActivityPDFGenerator
     pdf
   end
 
-  def build_appendices(pdf, activity)
+  def build_comments(pdf, activity)
     global_comments = false
     has_comments = false
     #check if there are any questions with comments in the overall section
@@ -485,6 +488,133 @@ class ActivityPDFGenerator
                 question_text = activity.header(:purpose_overall_4).gsub(":", " " +question_text.downcase) if number == 4
               end
               question_list << [question_text, comment] unless comment.blank?
+            end
+            borders = [150, 300, 540]
+            unless question_list.size == 0 then
+              pdf.text "<b><c:uline>#{section.to_s.titleize}</c:uline></b>"
+              pdf.text " "
+              specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
+              pdf = generate_table(pdf, question_list, @table_data.clone.merge(specific_data))
+            end
+            pdf.text " "
+          end
+        end
+      end
+    end
+    pdf
+  end
+
+  def build_notes(pdf, activity)
+    global_notes = false
+    has_notes = false
+    #check if there are any questions with notes in the overall section
+    Activity.get_question_names(nil, :overall).each do |question_symbol|
+      question = activity.questions.find_by_name(question_symbol.to_s)
+      if question.note && !(question.note.contents.blank?) then
+        has_notes = true
+        global_notes = true
+      end
+    end
+    #Check if there are any activity strategies with notes
+    strategy_notes = false
+    activity.activity_strategies.each do |act_strat|
+      if act_strat.note && !(act_strat.note.contents.blank?) then
+        strategy_notes = true
+        global_notes = true
+      end
+    end
+    strand_needed = {}
+    activity.strands.each do |strand|
+      strand_needed[strand] = false
+      Activity.get_question_names(strand).each do |question_name|
+        question = activity.questions.find_by_name(question_name.to_s)
+        if question.note && !(question.note.contents.blank?) && question.needed then
+          strand_needed[strand] = true
+          global_notes = true
+        end
+      end
+    end
+    purpose_strand_needed = strand_needed.clone
+    activity.strands(true).each do |strand|
+      Activity.get_question_names('purpose', strand).each do |question_name|
+        question = activity.questions.find_by_name(question_name.to_s)
+        if question.note && !(question.note.contents.blank?) && question.needed then
+          purpose_strand_needed[strand] = true
+          global_notes = true
+        end        
+      end
+    end
+    if global_notes then
+      pdf.start_new_page
+      #display notes if there are any for the overall section
+      if has_notes then
+        global_notes = true
+        pdf.text "<b>Complete assessment summary of the notes on the responses pertaining to all individuals participating</b>", :font_size => 12
+        pdf.text " "
+        question_list = []
+        table_heading = ["<b>Question</b>", "<b>Additional Comments</b>"]
+        Activity.get_question_names(nil, :overall).each do |question|
+          number = question.to_s.gsub(/\D/, "").to_i
+          question_details = activity.question_wording_lookup('purpose', 'overall', number)
+          prelude = "Does the #{activity.function_policy?} have an impact on " if (5..9).include? number
+          label = "#{prelude}#{prelude.to_s.length > 0? question_details[0].downcase : question_details[0]}#{"?" if (5..9).include? number}"
+          question_object = activity.questions.find_by_name(question.to_s)
+          next unless (question_object && question_object.needed)
+          note = question_object.note.contents.to_s if question_object.note
+          note = note.to_s
+          question_list << [label, note.to_s] unless note.blank?
+        end
+        borders = [150, 300, 540]
+        if question_list.size > 0 then
+          specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
+          pdf = generate_table(pdf, question_list, @table_data.clone.merge(specific_data))
+        else
+          pdf.text "<i>There are no questions with notes for this section</i>", :font_size => 10
+        end
+        pdf.text " "
+      end
+      question_list = []
+      # display all strategy notes if there are any
+      if strategy_notes then
+        pdf.text "<b>Comments on any Strategy responses</b>"
+        pdf.text " "
+        heading_information = [['<b>Strategy Name</b>', '<b>Additional Comments</b>']]
+        activity.activity_strategies.each do |activity_strategy|
+          note = activity_strategy.note
+          note = note.contents unless note.nil?
+          question_list << [activity_strategy.strategy.name, note] unless note.blank?
+        end
+        borders = [150, 300, 540]
+        if question_list.size > 0 then
+          specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
+          pdf = generate_table(pdf, question_list, @table_data.clone.merge(specific_data))
+        else
+          pdf.text "<i>There are no questions with notes for this section</i>", :font_size => 10
+        end
+        pdf.text " "
+      end
+      activity.strands(true).each do |strand|
+        if strand_needed[strand] || purpose_strand_needed[strand] then
+          global_notes = true
+          pdf.text " "
+          pdf.text "<b>Complete assessment summary of the notes on the responses pertaining to #{activity.hashes['wordings'][strand]}</b>", :font_size => 12
+          pdf.text " ", :font_size => 10
+          (activity.sections - [:action_planning]).each_with_index do |section, index|
+            next if !(strand_needed[strand]) && purpose_strand_needed[strand] && (section != :purpose)
+            question_list = []
+            heading_information = [["<b>Question</b>", "<b>Additional Comments</b>"]]
+            Activity.get_question_names(section, strand).each do |question|
+              number = question.to_s.gsub(section.to_s, "").gsub(strand.to_s, "").gsub("_", "").to_i
+              question_details = activity.question_wording_lookup(section, strand, number)
+              question_object = activity.questions.find_by_name(question.to_s)
+              next unless (question_object && question_object.needed)
+              note = question_object.note.contents.to_s if question_object.note
+              question_text = question_details[0]
+              if section == :purpose then
+                question_text = activity.header(:purpose_overall_3).gsub(":", " " + question_text.downcase) if number == 3
+                question_text = activity.header(:purpose_overall_4).gsub(":", " " +question_text.downcase) if number == 4
+              end
+              question_list << [question_text, note] unless note.blank?
             end
             borders = [150, 300, 540]
             unless question_list.size == 0 then

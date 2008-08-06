@@ -376,8 +376,9 @@ class ActivitiesController < ApplicationController
     else
       @activity = @current_user.activity
     end
+    type = params[:type]
     log_event('PDF', %Q[The activity manager PDF for the <strong>#{@activity.name}</strong> activity, within <strong>#{@activity.organisation.name}</strong>, was viewed.])
-    send_data ActivityPDFGenerator.new(@activity).pdf.render, :disposition => 'inline',
+    send_data ActivityPDFGenerator.new(@activity, type).pdf.render, :disposition => 'inline',
       :filename => "#{@activity.name}.pdf",
       :type => "application/pdf"
   end
