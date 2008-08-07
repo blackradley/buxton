@@ -18,6 +18,7 @@ class ActivityPDFGenerator
 
   def initialize(activity, type)
     @pdf = PDF::Writer.new
+    @act_name = activity.name.titlecase
     @table_data = {:v_padding => 5, :header => table_header}
     @header_data = {:v_padding => 5}
     methods_to_call =  [:page_numbers, :unapproved_logo_on_first_page, :footer, :header, :body, :rankings,
@@ -42,7 +43,7 @@ class ActivityPDFGenerator
     pdf
   end
   def build_unapproved_logo_on_first_page(pdf, activity)
-      pdf.unapproved_status = (activity.approved) ? '' : 'UNAPPROVED'
+      pdf.unapproved_status = (activity.approved?) ? '' : 'UNAPPROVED'
       #The page numbers are started at the top, so that they will always hit the first page, but they appear at the bottom
       #This creates the grey Unapproved background.
       colour = 'Gainsboro'
@@ -55,32 +56,32 @@ class ActivityPDFGenerator
   def build_header(pdf, activity)
       pdf.fill_color Color::RGB.const_get('Black')
       pdf.image( "#{RAILS_ROOT}/public/images/pdf_logo.png", :justification => :center, :resize => 0.5)
-      pdf.text "<b>#{activity.organisation.name}</b>", :justification => :center, :font_size => 18
-      pdf.text "Impact Equality#{153.chr} Activity Report", :justification => :center, :font_size => 12
-      pdf.text "", :justification => :center, :font_size => 10 #Serves as a new line character. Is this more readable than moving the cursor manually?
-      pdf.text " "
+      pdf.text "<b>#{activity.organisation.name.titlecase}</b>", :justification => :center, :font_size => 18
+      pdf.text " ", :justification => :center, :font_size => 10
+      pdf.text "Activity Report", :justification => :center, :font_size => 12
+      pdf.text " ", :justification => :center, :font_size => 10 #Serves as a new line character. Is this more readable than moving the cursor manually?
     return pdf
   end
   
   def build_body(pdf, activity)
     table = []
-    table << ['<b>Activity</b>', activity.name.to_s]
-    table << ["<b>#{ot('directorate', activity).titleize}</b>", activity.directorate.name.to_s]
+    table << ['<b>Activity</b>', @act_name]
+    table << ["<b>#{ot('directorate', activity).titlecase}</b>", activity.directorate.name.titlecase]
     
     unless activity.projects.blank? then
-      type = ot('project', activity).titleize
+      type = ot('project', activity).titlecase
       type = type.pluralize if (activity.projects.size > 1)
-      project_list = activity.projects.map{|project| project.name.to_s}.join("\n")
+      project_list = activity.projects.map{|project| project.name.to_s.titlecase}.join("\n")
       table << ["<b>#{type}</b>", project_list]
     end
     
     if activity.existing_proposed.to_i > 0 && activity.function_policy.to_i > 0 then
-      table << ["<b>Type</b>", "#{activity.existing_proposed_name.titleize} #{activity.function_policy?.titleize}"]
+      table << ["<b>Type</b>", "#{activity.existing_proposed_name.titlecase} #{activity.function_policy?.titlecase}"]
     else
       table << ['<b>Type</b>', 'Insufficient questions have been answered to determine the type of this activity.']
     end
     
-    table << ["<b>Activity Manager's Email</b>", activity.activity_manager.email]
+    table << ["<b>Activity Manager</b>", activity.activity_manager.email]
     table << ["<b>Date Approved</b>", activity.approved_on.to_s] if activity.approved?
     table << ["<b>Approver</b>", activity.activity_approver.email.to_s] if activity.activity_approver
     specific_data = {:borders => [150, 540], :header => nil}#to overwrite the need for a header
@@ -98,18 +99,18 @@ class ActivityPDFGenerator
     border_gap = length/(activity.strands.size + 1)
     borders = [border_gap]
     ranking_table_data = []
-    ranking_table_data[0] = ["<b>Scores(1 to 5)</b>"]
-    ranking_table_data[1] = ['Scores - 1 lowest to 5 highest']
+    ranking_table_data[0] = ["<b>Equality Strand</b>"]
+    ranking_table_data[1] = ['Score - 1 lowest to 5 highest']
     impact_table_data = []
-    impact_table_data[0] = ["<b>Equality strand</b>"]
+    impact_table_data[0] = ["<b>Equality Strand</b>"]
     impact_table_data[1] = ['Impact Rating']
     
     activity.strands.each do |strand|
       borders << border_gap + borders.last
-      ranking_table_data[0] << "<b>#{strand.titleize}</b>"
+      ranking_table_data[0] << "<b>#{strand.titlecase}</b>"
       ranking_table_data[1] << activity.priority_ranking(strand).to_s
-      impact_table_data[0] << "<b>#{strand.titleize}</b>"
-      impact_table_data[1] << activity.impact_wording(strand).to_s.titleize
+      impact_table_data[0] << "<b>#{strand.titlecase}</b>"
+      impact_table_data[1] << activity.impact_wording(strand).to_s.titlecase
     end
     
     specific_data = {:borders => borders, :header_args => [[ranking_table_data.delete_at(0)], @header_data.clone.merge(:borders => borders)]}
@@ -131,23 +132,23 @@ class ActivityPDFGenerator
     activity.activity_strategies.each do |activity_strategy|
       case activity_strategy.strategy.class.name
         when "OrganisationStrategy"
-          strategies[0] << activity_strategy.strategy.name if activity_strategy.strategy_response == 1
+          strategies[0] << activity_strategy.strategy.name.titlecase if activity_strategy.strategy_response == 1
         when "DirectorateStrategy"
-          strategies[1] << activity_strategy.strategy.name if activity_strategy.strategy_response == 1
+          strategies[1] << activity_strategy.strategy.name.titlecase if activity_strategy.strategy_response == 1
         when "ProjectStrategy"
-          strategies[2] << activity_strategy.strategy.name if activity_strategy.strategy_response == 1
+          strategies[2] << activity_strategy.strategy.name.titlecase if activity_strategy.strategy_response == 1
       end
     end
     strategies.each_with_index do |child_strategies, index|
       type = types[index]
       unless child_strategies.size == 0 then
-        pdf.text("#{activity.name} assists in delivering the following strategic objectives on the #{type.to_s.titleize} level:")
+        pdf.text("#{@act_name} assists in delivering the following strategic objectives on the #{type.to_s.titlecase} level:")
         child_strategies.each do |strategy|
           pdf.text("<C:bullet/> #{strategy}", :left => 20)
         end
         pdf.text " "
       else
-        pdf.text("#{activity.name} does not assist in delivering any strategic objectives on the #{type.to_s.titleize} level.")
+        pdf.text("#{@act_name} does not assist in delivering any strategic objectives on the #{type.to_s.titlecase} level.")
         pdf.text " "
       end
     end
@@ -158,12 +159,12 @@ class ActivityPDFGenerator
     end
     
     if impact_quns.size > 0 then
-      pdf.text("#{activity.name} has an impact on the following groups: ")
+      pdf.text("#{@act_name} has an impact on the following groups: ")
       impact_quns.each do |question|
         pdf.text(question, :left => 20)
       end
     else
-      pdf.text("#{activity.name} has no impact on any relevant groups.")
+      pdf.text("#{@act_name} has no impact on any relevant groups.")
     end
     
     pdf.text(" ")
@@ -171,13 +172,13 @@ class ActivityPDFGenerator
     good_impact_questions.reject!{|question, response| response.to_i <= 1}
     
     unless good_impact_questions.size == 0 then
-      pdf.text("#{activity.name} has a potential positive differential impact on the following equality groups:")
+      pdf.text("#{@act_name} has a potential positive differential impact on the following equality groups:")
       good_impact_questions.each do |question, response|
         strand = Activity.question_separation(question)[1]
-        pdf.text("<C:bullet/>#{strand.to_s.titleize}", :left => 20)
+        pdf.text("<C:bullet/>#{strand.to_s.titlecase}", :left => 20)
       end
     else
-      pdf.text("#{activity.name} has a potential positive differential impact on no equality groups.")
+      pdf.text("#{@act_name} has a potential positive differential impact on no equality groups.")
     end
     
     pdf.text(" ")
@@ -185,13 +186,13 @@ class ActivityPDFGenerator
     bad_impact_questions.reject!{|question, response| response.to_i <= 1}
     
     unless bad_impact_questions.size == 0 then
-      pdf.text("#{activity.name} has a potential negative differential impact on the following equality groups:")
+      pdf.text("#{@act_name} has a potential negative differential impact on the following equality groups:")
       bad_impact_questions.each do |question, response|
         strand = Activity.question_separation(question)[1]
-        pdf.text("<C:bullet/>#{strand.to_s.titleize}", :left => 20)
+        pdf.text("<C:bullet/>#{strand.to_s.titlecase}", :left => 20)
       end
     else
-      pdf.text("#{activity.name} has a potential negative differential impact on no equality groups.")
+      pdf.text("#{@act_name} has a potential negative differential impact on no equality groups.")
     end
     pdf.text(" ")
     pdf
@@ -203,7 +204,7 @@ class ActivityPDFGenerator
     activity.strands.each do |strand|
       row = []
       row_cell_format = []
-      row << strand.titleize
+      row << strand.titlecase
       row_cell_format << nil
       unless col_text.nil?
         row << activity.hashes['choices'][choices_elem][activity.send(col_text[0] + strand + col_text[1]).to_i].to_s
@@ -235,7 +236,7 @@ class ActivityPDFGenerator
     3.times do |i|
       borders << borders.last.to_i + border_gap
     end
-    heading_information = [["<b>Equality Strand</b>", "<b>Current assessment of the impact of #{activity.name}</b>", "<b>Information to support</b>", "<b>Planned Information to support</b>"]]
+    heading_information = [["<b>Equality Strand</b>", "<b>Current Assessment of the Impact of #{@act_name}</b>", "<b>Information to Support</b>", "<b>Planned Information to Support</b>"]]
     table_info = build_table_data(activity, collected_information + planned_information, 2, ["impact_","_1"])
     specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
     specific_data[:cell_format] = table_info[1]
@@ -282,7 +283,7 @@ class ActivityPDFGenerator
     borders = [150, 300, 540]
     collected_information = Activity.get_question_names('additional_work', nil, 2).map{|question| [question, activity.send(question)]}
     collected_information = remove_unneeded(activity, collected_information)
-    heading_information = [["<b>Equality Strand</b>", "<b>Additional Work Required</b>", "<b>Nature of Work required</b>"]]
+    heading_information = [["<b>Equality Strand</b>", "<b>Additional Work Required</b>", "<b>Nature of Work Required</b>"]]
     table_info = build_table_data(activity, collected_information, 3, ["additional_work_", "_1"])
     specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
     specific_data[:cell_format] = table_info[1]
@@ -294,7 +295,7 @@ class ActivityPDFGenerator
   def build_equality_objectives(pdf, activity)
     pdf.text("<c:uline><b>6. Equality Objectives</b></c:uline>")
     pdf.text(" ")
-    pdf.text("The assessment has identified that #{activity.name} has a role in the following Equality Objectives")
+    pdf.text("The assessment has identified that #{@act_name} has a role in the following Equality Objectives")
     pdf.text(" ")
     width = (pdf.absolute_right_margin - pdf.absolute_left_margin)
     border_gap = width/(3)
@@ -304,11 +305,11 @@ class ActivityPDFGenerator
     end
     table = []
     table_cell_format = []
-    heading_information =  [["<b>Equality Strand</b>", "<b>Eliminating discrimination & harassment</b>", "<b>Promote good relations between different groups</b>"]]
+    heading_information =  [["<b>Equality Strand</b>", "<b>Eliminating Discrimination & Harassment</b>", "<b>Promote Good Relations Between Different Groups</b>"]]
     activity.strands.each do |strand|
       row = []
       row_cell_format = []
-      row << strand.titleize
+      row << strand.titlecase
       row_cell_format << nil
       row << activity.hashes['choices'][3][activity.send("additional_work_#{strand}_4").to_i].to_s
       row_cell_format << nil
@@ -332,10 +333,10 @@ class ActivityPDFGenerator
     end
     pdf.text(" ")
     if activity.disability_relevant then
-      pdf.text("The assessment has identified that #{activity.name} has a role in the following Equality Objectives that are specific to the Disability Equality Strand:")
+      pdf.text("The assessment has identified that #{@act_name} has a role in the following Equality Objectives that are specific to the Disability Equality Strand:")
       pdf.text(" ")
       table = []
-      heading_information =  [["<b>Equality strand</b>", "<b>Take account of disabilities even if it means treating more favourably</b>", "<b>Promote positive attitudes to disabled people</b>", "<b>Encourage participation by disabled people</b>"]]
+      heading_information =  [["<b>Equality Strand</b>", "<b>Take Account of Disabilities Even if it Means Treating More Favourably</b>", "<b>Promote Positive Attitudes to Disabled People</b>", "<b>Encourage Participation by Disabled People</b>"]]
       row = []
       row << 'Disability'
       row << activity.hashes['choices'][3][activity.send("additional_work_disability_7").to_i].to_s
@@ -348,6 +349,7 @@ class ActivityPDFGenerator
     end
     pdf
   end
+  
   def build_review_date(pdf, activity)
     pdf.text("<c:uline><b>7.  Review Date</b></c:uline>")
     pdf.text(" ")
@@ -387,7 +389,7 @@ class ActivityPDFGenerator
     heading_information = [["<b>Issue</b>", "<b>Action</b>", "<b>Resources</b>", "<b>Timescales</b>", "<b>Lead Officer</b>"]]
     issues.each do |issue|
       row = []
-      row << issue.description.titleize
+      row << issue.description.titlecase
       row << issue.actions.to_s
       row << issue.resources.to_s
       row << issue.timescales.to_s
@@ -446,7 +448,7 @@ class ActivityPDFGenerator
       #display comments if there are any for the overall section
       if has_comments then
         global_comments = true
-        pdf.text "<b>Complete assessment summary of the responses pertaining to all individuals participating</b>", :font_size => 12
+        pdf.text "<b>Complete Assessment Summary of the Responses Pertaining to all Individuals Participating</b>", :font_size => 12
         pdf.text " "
         question_list = []
         heading_information = [["<b>Question</b>", "<b>Additional Comments</b>"]]
@@ -473,7 +475,7 @@ class ActivityPDFGenerator
       question_list = []
       # display all strategy comments if there are any
       if strategy_comments then
-        pdf.text "<b>Comments on any Strategy responses</b>"
+        pdf.text "<b>Comments on any Strategy Responses</b>"
         pdf.text " "
         heading_information = [['<b>Strategy Name</b>', '<b>Additional Comments</b>']]
         activity.activity_strategies.each do |activity_strategy|
@@ -494,7 +496,7 @@ class ActivityPDFGenerator
         if strand_needed[strand] || purpose_strand_needed[strand] then
           global_comments = true
           pdf.text " "
-          pdf.text "<b>Complete assessment summary of the responses pertaining to #{activity.hashes['wordings'][strand]}</b>", :font_size => 12
+          pdf.text "<b>Complete Assessment Summary of the Responses Pertaining to #{activity.hashes['wordings'][strand].titlecase}</b>", :font_size => 12
           pdf.text " ", :font_size => 10
           (activity.sections - [:action_planning]).each_with_index do |section, index|
             next if !(strand_needed[strand]) && purpose_strand_needed[strand] && (section != :purpose)
@@ -515,7 +517,7 @@ class ActivityPDFGenerator
             end
             borders = [150, 300, 540]
             unless question_list.size == 0 then
-              pdf.text "<b><c:uline>#{section.to_s.titleize}</c:uline></b>"
+              pdf.text "<c:uline><b>#{section.to_s.titlecase}</b></c:uline>"
               pdf.text " "
               specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
               pdf = generate_table(pdf, question_list, @table_data.clone.merge(specific_data))
@@ -573,10 +575,10 @@ class ActivityPDFGenerator
       #display notes if there are any for the overall section
       if has_notes then
         global_notes = true
-        pdf.text "<b>Complete assessment summary of the notes on the responses pertaining to all individuals participating</b>", :font_size => 12
+        pdf.text "<b>Complete Assessment Summary of the Notes on the Responses Pertaining to all Individuals Participating</b>", :font_size => 12
         pdf.text " "
         question_list = []
-        heading_information = [["<b>Question</b>", "<b>Additional Comments</b>"]]
+        heading_information = [["<b>Question</b>", "<b>Additional Notes</b>"]]
         Activity.get_question_names(nil, :overall).each do |question|
           number = question.to_s.gsub(/\D/, "").to_i
           question_details = activity.question_wording_lookup('purpose', 'overall', number)
@@ -600,9 +602,9 @@ class ActivityPDFGenerator
       question_list = []
       # display all strategy notes if there are any
       if strategy_notes then
-        pdf.text "<b>Comments on any Strategy responses</b>"
+        pdf.text "<b>Notes on any Strategy Responses</b>"
         pdf.text " "
-        heading_information = [['<b>Strategy Name</b>', '<b>Additional Comments</b>']]
+        heading_information = [['<b>Strategy Name</b>', '<b>Additional Notes</b>']]
         activity.activity_strategies.each do |activity_strategy|
           note = activity_strategy.note
           note = note.contents unless note.nil?
@@ -621,12 +623,12 @@ class ActivityPDFGenerator
         if strand_needed[strand] || purpose_strand_needed[strand] then
           global_notes = true
           pdf.text " "
-          pdf.text "<b>Complete assessment summary of the notes on the responses pertaining to #{activity.hashes['wordings'][strand]}</b>", :font_size => 12
+          pdf.text "<b>Complete Assessment Summary of the Notes on the Responses Pertaining to #{activity.hashes['wordings'][strand].titlecase}</b>", :font_size => 12
           pdf.text " ", :font_size => 10
           (activity.sections - [:action_planning]).each_with_index do |section, index|
             next if !(strand_needed[strand]) && purpose_strand_needed[strand] && (section != :purpose)
             question_list = []
-            heading_information = [["<b>Question</b>", "<b>Additional Comments</b>"]]
+            heading_information = [["<b>Question</b>", "<b>Additional Notes</b>"]]
             Activity.get_question_names(section, strand).each do |question|
               number = question.to_s.gsub(section.to_s, "").gsub(strand.to_s, "").gsub("_", "").to_i
               question_details = activity.question_wording_lookup(section, strand, number)
@@ -642,7 +644,7 @@ class ActivityPDFGenerator
             end
             borders = [150, 300, 540]
             unless question_list.size == 0 then
-              pdf.text "<b><c:uline>#{section.to_s.titleize}</c:uline></b>"
+              pdf.text "<c:uline><b>#{section.to_s.titlecase}</b></c:uline>"
               pdf.text " "
               specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
               pdf = generate_table(pdf, question_list, @table_data.clone.merge(specific_data))
