@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 103) do
+ActiveRecord::Schema.define(:version => 20080814144823) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -36,32 +36,32 @@ ActiveRecord::Schema.define(:version => 103) do
     t.string   "updated_by"
     t.integer  "impact_gender_1",                          :limit => 11
     t.integer  "impact_gender_2",                          :limit => 11
-    t.string   "impact_gender_3"
+    t.text     "impact_gender_3"
     t.integer  "impact_gender_4",                          :limit => 11
     t.text     "impact_gender_5"
     t.integer  "impact_race_1",                            :limit => 11
     t.integer  "impact_race_2",                            :limit => 11
-    t.string   "impact_race_3"
+    t.text     "impact_race_3"
     t.integer  "impact_race_4",                            :limit => 11
     t.text     "impact_race_5"
     t.integer  "impact_disability_1",                      :limit => 11
     t.integer  "impact_disability_2",                      :limit => 11
-    t.string   "impact_disability_3"
+    t.text     "impact_disability_3"
     t.integer  "impact_disability_4",                      :limit => 11
     t.text     "impact_disability_5"
     t.integer  "impact_faith_1",                           :limit => 11
     t.integer  "impact_faith_2",                           :limit => 11
-    t.string   "impact_faith_3"
+    t.text     "impact_faith_3"
     t.integer  "impact_faith_4",                           :limit => 11
     t.text     "impact_faith_5"
     t.integer  "impact_sexual_orientation_1",              :limit => 11
     t.integer  "impact_sexual_orientation_2",              :limit => 11
-    t.string   "impact_sexual_orientation_3"
+    t.text     "impact_sexual_orientation_3"
     t.integer  "impact_sexual_orientation_4",              :limit => 11
     t.text     "impact_sexual_orientation_5"
     t.integer  "impact_age_1",                             :limit => 11
     t.integer  "impact_age_2",                             :limit => 11
-    t.string   "impact_age_3"
+    t.text     "impact_age_3"
     t.integer  "impact_age_4",                             :limit => 11
     t.text     "impact_age_5"
     t.integer  "impact_gender_6",                          :limit => 11
@@ -233,7 +233,7 @@ ActiveRecord::Schema.define(:version => 103) do
     t.integer "activity_id",  :limit => 11
     t.text    "description"
     t.text    "actions"
-    t.text    "timescales"
+    t.integer "timescales",   :limit => 11, :default => 0
     t.text    "resources"
     t.text    "lead_officer"
     t.string  "strand"
