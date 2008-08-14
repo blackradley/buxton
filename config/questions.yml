@@ -991,11 +991,11 @@ section_names:
 headers:
   purpose_overall_1:
     -
-      - For each strategic objective below please indicate whether it is significantly aided by the Function.
-      - For each strategic objective below please indicate whether it will be significantly aided by the Function.
+      - "For each #{organisation.term('strategy')} below please indicate whether it is significantly aided by the Function."
+      - "For each #{organisation.term('strategy')} below please indicate whether it will be significantly aided by the Function."
     -
-      - For each strategic objective below please indicate whether it is significantly aided by the Policy.
-      - For each strategic objective below please indicate whether it will be significantly aided by the Policy.
+      - "For each #{organisation.term('strategy')} below please indicate whether it is significantly aided by the Policy."
+      - "For each #{organisation.term('strategy')} below please indicate whether it will be significantly aided by the Policy."
   purpose_overall_2:
     -
       - Which of these individuals does the Function have an impact on?
@@ -1021,10 +1021,10 @@ headers:
 header_help_text:
   purpose_overall_1:
     -
-      - 'This questions asks you to identify which of the Council’s strategic objective or objectives the Function assists in delivering.<br/><br/>
+      - "This questions asks you to identify which of the Council’s strategic objective or objectives the Function assists in delivering.<br/><br/>
          The Function may not have a direct role in delivering one or more strategic objectives but may play more of a supporting role, such roles are just as relevant as more direct roles.<br/><br/>
          As the Council has committed to deliver the Function it is likely that it will assist in delivering at least one strategic objective in either a direct or supporting role.<br/><br/>
-         The latest Council strategic objectives are listed and the available answers for each objective are yes no and not sure.'
+         The latest Council strategic objectives are listed and the available answers for each objective are yes no and not sure."
       - 'This questions asks you to identify which of the Council’s strategic objective or objectives the Function assists in delivering.<br/><br/>
          The Function may not have a direct role in delivering one or more strategic objectives but may play more of a supporting role, such roles are just as relevant as more direct roles.<br/><br/>
          As the Council has committed to deliver the Function it is likely that it will assist in delivering at least one strategic objective in either a direct or supporting role.<br/><br/>

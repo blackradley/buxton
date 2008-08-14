@@ -142,13 +142,13 @@ class ActivityPDFGenerator
     strategies.each_with_index do |child_strategies, index|
       type = types[index]
       unless child_strategies.size == 0 then
-        pdf.text("#{@act_name} assists in delivering the following strategic objectives on the #{type.to_s.titlecase} level:")
+        pdf.text("#{@act_name} assists in delivering the following #{activity.organisation.term('strategy').pluralize} on the #{type.to_s.titlecase} level:")
         child_strategies.each do |strategy|
           pdf.text("<C:bullet/> #{strategy}", :left => 20)
         end
         pdf.text " "
       else
-        pdf.text("#{@act_name} does not assist in delivering any strategic objectives on the #{type.to_s.titlecase} level.")
+        pdf.text("#{@act_name} does not assist in delivering any #{activity.organisation.term('strategy').pluralize} on the #{type.to_s.titlecase} level.")
         pdf.text " "
       end
     end

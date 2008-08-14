@@ -178,5 +178,11 @@ class Organisation < ActiveRecord::Base
       end
     end
   end
+  
+  def term(term)
+    assoc_term = Terminology.find_by_term(term)
+    terminology = self.organisation_terminologies.find_by_terminology_id(assoc_term.id)
+    terminology ? terminology.value : term
+  end
 
 end

@@ -53,7 +53,7 @@ class Activity < ActiveRecord::Base
   before_save :create_questions_if_new
 
   after_update :save_issues
-
+  
   def activity_type
     if self.started then
       [self.existing_proposed?, self.function_policy?].join(' ')
