@@ -14,7 +14,7 @@
   - flag = (!question_help[:comment].blank? ? 1 : 0) 
   .normalcommentview{:id => "#{question_help[:id]}_comment_view", :style => "display:#{opt[flag]}"}
     %p.comment{:id => "#{question_help[:id]}_comment"}
-      =split_long_strings(question_help[:comment])
+      =h split_long_strings(question_help[:comment])
     .control
       =image_tag ("icons/comment_delete.gif")
       =link_to_remote "Delete", :url => {:action => 'destroy', :controller => :comment, :question_id => question_help[:full_question].id}, :confirm => "Delete this comment?", :update => "#{question_help[:id]}_comment", :complete => "cancel_comment('#{question_help[:id]}'); document.getElementById('#{question_help[:id]}_comment_fill_in').value = ''"
@@ -36,7 +36,7 @@
   - flag = (!question_help[:note].blank? ? 1 : 0) 
   .normalnoteview{:id => "#{question_help[:id]}_note_view", :style => "display:#{opt[flag]}"}
     %p.note{:id => "#{question_help[:id]}_note"}
-      =split_long_strings(question_help[:note])
+      =h split_long_strings(question_help[:note])
     .control
       =image_tag ("icons/note_delete.gif")
       =link_to_remote "Delete", :url => {:action => 'destroy', :controller => :note, :question_id => question_help[:full_question].id}, :confirm => "Delete this note?", :update => "#{question_help[:id]}_note", :complete => "cancel_note('#{question_help[:id]}'); document.getElementById('#{question_help[:id]}_note_fill_in').value = ''"
