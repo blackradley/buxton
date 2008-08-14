@@ -15,8 +15,12 @@ class CommentController < ApplicationController
     else
       parent_question.comment.update_attributes(:contents => params[:comment])
     end
-    text_to_render = @current_user.activity.questions.find(params[:question_id]).comment.contents.gsub(/\S{35}/, '\0<br />').gsub(/<(\script>|script>)/, "")
-    text_to_render = " " if params[:comment].blank?
+    text_to_render = " "
+    if params[:comment].strip.blank? then
+      parent_question.comment.destroy
+    else
+      text_to_render = @current_user.activity.questions.find(params[:question_id]).comment.contents.gsub(/\S{35}/, '\0<br />').gsub(/<(\script>|script>)/, "")
+    end
     render :inline => text_to_render
   end
 

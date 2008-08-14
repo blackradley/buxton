@@ -8,4 +8,4 @@
       - if comment = question.comment then
         = image_tag('icons/comment.gif', :id => comment.html_id)
         %script{:type=>"text/javascript"}
-          = "new Tip('#{comment.html_id}', '#{comment.contents}');"
+          = "new Tip('#{comment.html_id}', '#{h comment.contents}');"
