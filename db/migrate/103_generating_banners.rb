@@ -1,11 +1,10 @@
-namespace :images do
-  desc "regenerate banners for all organisations"
-  task :generate_banners => :environment do
-    
-    require 'rmagick'
-    include Magick
-    include BannerGeneration
-        
+require 'rmagick'
+include Magick
+include BannerGeneration
+
+class GeneratingBanners < ActiveRecord::Migration
+  def self.up
+            
     organisations= Organisation.find(:all)
     organisations.each do |org|
       create_organisation_banner(org.name, org.id)
@@ -13,5 +12,8 @@ namespace :images do
     end
     create_organisation_banner('Demo', 'demo')
     
-  end  
+  end
+
+  def self.down
+  end
 end
