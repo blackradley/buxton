@@ -13,7 +13,9 @@
 # bit of a compromise between hassle and security.
 #
 class Notifier < ActionMailer::Base
-
+  include ApplicationHelper
+  
+  helper :application
   # Constant for the origin of all the emails.
   FROM = 'support@impactequality.org.uk'
 
@@ -49,6 +51,7 @@ class Notifier < ActionMailer::Base
     @subject      = "impactequality™ – #{ot('project').titleize} Manager access key"
     email_details(user, login_url)
   end
+  
 
 # Set the bits and pieces in the email
 private
