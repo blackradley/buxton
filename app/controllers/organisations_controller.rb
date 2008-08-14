@@ -6,6 +6,11 @@
 #
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
+
+include Magick
+include BannerGeneration
+
+
 class OrganisationsController < ApplicationController
 
   # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
@@ -55,6 +60,7 @@ class OrganisationsController < ApplicationController
         org_terms.build(:value => ot['value'], :terminology_id => ot['terminology_id']).save
       end
       @organisation.save!
+      create_organisation_banner(@organisation.name, @organisation.id)
       flash[:notice] = "#{@organisation.name} was created."
       redirect_to organisations_url
     end
@@ -91,6 +97,7 @@ class OrganisationsController < ApplicationController
       end
       params['organisation'].delete('organisation_terminology_attributes')
       @organisation.update_attributes!(params[:organisation])
+      create_organisation_banner(@organisation.name, @organisation.id)
       flash[:notice] = "#{@organisation.name} was successfully changed."
       redirect_to organisations_url
     end
@@ -124,7 +131,7 @@ class OrganisationsController < ApplicationController
       :filename => "#{@belonging.name}.pdf",
       :type => "application/pdf"
   end
-
+  
 protected
   # Secure the relevant methods in the controller.
   def secure?
@@ -135,4 +142,10 @@ protected
     flash[:notice] = 'Organisation could not be updated.'
     render :action => (exception.record.new_record? ? :new : :edit)
   end
+  
+  
+  
+
+  
+  
 end
