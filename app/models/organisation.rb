@@ -39,11 +39,7 @@ class Organisation < ActiveRecord::Base
   validates_associated :organisation_terminologies
   validates_associated :organisation_strategies
   validates_presence_of :name, :message => 'All organisations must have a name'
-  validates_presence_of :style, :message => 'Please provide a CSS style name, all organisations must have a style'
-  validates_format_of :style, :with => /^[\w]*$/
-  # validates_uniqueness_of :style
-  validates_format_of :ces_link, :with => URI::regexp(['http','https','ftp']), :unless => Proc.new { |o| o.ces_link.blank? }
-
+  
   after_update :save_organisation_managers
   after_update :save_organisation_strategies
 

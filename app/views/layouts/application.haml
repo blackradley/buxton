@@ -8,9 +8,9 @@
     = stylesheet_link_tag 'tables'
     -unless @current_user.nil? then
       -if @current_user.class.name == 'ActivityManager'
-        = stylesheet_link_merged @current_user.activity.organisation.style.to_sym
+        ="<style>.mastHead .logo { background-image:url(../images/organisations/#{@current_user.activity.organisation.id}.png);}</style>"
       -elsif @current_user.class.name == 'OrganisationManager' 
-        = stylesheet_link_merged @current_user.organisation.style.to_sym
+        ="<style>.mastHead .logo { background-image:url(../images/organisations/#{@current_user.organisation.id}.png);}</style>"
     = javascript_include_merged :base
     = "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->" 
     = "<!--[if gte IE 7]> #{stylesheet_link_tag 'fixes_ie7'}<![endif]-->"

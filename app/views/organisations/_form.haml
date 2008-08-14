@@ -24,10 +24,6 @@
 %fieldset.organisation_customisation
   %legend Customisation
   %p
-    %label Style:
-    %span.labelled
-      = text_field 'organisation', 'style'
-  %p
     %label Link to CES document:
     %span.labelled
       - if @organisation.ces_link?
