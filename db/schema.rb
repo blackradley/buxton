@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 101) do
+ActiveRecord::Schema.define(:version => 103) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -273,7 +273,6 @@ ActiveRecord::Schema.define(:version => 101) do
 
   create_table "organisations", :force => true do |t|
     t.string   "name"
-    t.string   "style"
     t.datetime "created_on"
     t.datetime "updated_on"
     t.integer  "strategy_text_selection", :limit => 11, :default => 0
