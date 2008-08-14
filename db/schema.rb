@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080814144823) do
+ActiveRecord::Schema.define(:version => 20080814160051) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -233,7 +233,7 @@ ActiveRecord::Schema.define(:version => 20080814144823) do
     t.integer "activity_id",  :limit => 11
     t.text    "description"
     t.text    "actions"
-    t.text    "timescales"
+    t.integer "timescales",   :limit => 11, :default => 0
     t.text    "resources"
     t.text    "lead_officer"
     t.string  "strand"
