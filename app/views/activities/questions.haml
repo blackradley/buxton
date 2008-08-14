@@ -33,7 +33,7 @@
       
         %span.letter
           =image_tag("a.gif")
-        =link_to "Target outcome and relevant strategic objectives", { :controller => 'sections', :action => 'edit', :id => 'purpose_a', :equality_strand => 'overall' }, :title =>"Target of Activity and Impact on Strategic Objectives"
+        =link_to "Target outcome and relevant #{ot('strategy').pluralize}", { :controller => 'sections', :action => 'edit', :id => 'purpose_a', :equality_strand => 'overall' }, :title =>"Target of Activity and Impact on Strategic Objectives"
         %span.letter_completed
           =tick_cross_display(@activity.target_and_strategies_completed)
         %br
