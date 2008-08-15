@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080814160051) do
+ActiveRecord::Schema.define(:version => 20080815085403) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -278,6 +278,7 @@ ActiveRecord::Schema.define(:version => 20080814160051) do
     t.integer  "strategy_text_selection", :limit => 11, :default => 0
     t.string   "ces_link"
     t.string   "ces_term",                              :default => "Corporate Equality Scheme"
+    t.string   "subdomain",                             :default => "www"
   end
 
   create_table "projects", :force => true do |t|

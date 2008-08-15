@@ -10,6 +10,9 @@
   %label Name
   %span.labelled
     = text_field 'organisation', 'name', 'size' => 50
+  %label Subdomain
+  %span.labelled
+    = text_field 'organisation', 'subdomain', 'size' => 50
 %fieldset.organisation_customisation
   %legend Organisation Managers
   -fields_for :organisation_manager do |org_man_fields|

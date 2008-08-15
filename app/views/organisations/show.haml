@@ -29,9 +29,9 @@
   %fieldset.organisation_customisation
     %legend Customisation
     %p
-      %label Style:
+      %label Subdomain:
       %span.labelled
-        = @organisation.style
+        = @organisation.subdomain
     - @organisation.organisation_terminologies.each do |org_term|
       %p
         %label=h "#{org_term.terminology.term.to_s}:"
