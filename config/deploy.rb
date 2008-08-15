@@ -43,12 +43,6 @@ task :after_update_code, :roles => [:web] do
   end
 end
 
-task :after_update_code, :roles => [:web] do
-  # Make symlink for database and mongrel_cluster yaml files
-  run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
-  run "ln -nfs #{shared_path}/config/mongrel_cluster.yml #{release_path}/config/mongrel_cluster.yml"  
-end
-
 task :after_deploy, :roles => [:web] do
   campfire = Tinder::Campfire.new 'stars.campfirenow.com'
   campfire.login 'bot-deploy@27stars.co.uk', 'Bot27'
