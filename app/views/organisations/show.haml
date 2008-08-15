@@ -32,11 +32,6 @@
       %label Subdomain:
       %span.labelled
         = @organisation.subdomain
-    - @organisation.organisation_terminologies.each do |org_term|
-      %p
-        %label=h "#{org_term.terminology.term.to_s}:"
-        %span.labelled
-          = org_term.value.to_s
     %p
       %label Link to CES document:
       %span.labelled
@@ -46,6 +41,14 @@
       %label.long Text to be used when asking about an Activities strategies:
       %span.labelled.long.indent
         =h @organisation.strategy_text
+
+  %fieldset.organisation_customisation
+    %legend Terminologies
+    - @organisation.organisation_terminologies.each do |org_term|
+      %p
+        %label=h "#{org_term.terminology.term}:"
+        %span.labelled
+          = org_term.value.to_s
         
   %fieldset.organisation_customisation
     %legend Directorates
