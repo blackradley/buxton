@@ -14,7 +14,7 @@
     = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [2,11,12]), :locals => {:f => f}
     %p.question{:id => "purpose_overall_strategy", :style => "display:block;"}
       %label
-        =h @activity.header(:purpose_overall_1)
+        =@activity.organisation.strategy_text
     / %p.question{:style => "display:block;"}
     /   %labelled
     -if @activity_org_strategies.size >= 1
