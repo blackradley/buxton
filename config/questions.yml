@@ -720,8 +720,8 @@ questions:
           - 'Do you think that the Function could assist #{wordings[strand]} to get on better with each other?'
           - 'Do you think that the Function could assist #{wordings[strand]} to get on better with each other?'
         -
-          - 'Do you think that the Function could assist #{wordings[strand]} to get on better with each other?'
-          - 'Do you think that the Function could assist #{wordings[strand]} to get on better with each other?'
+          - 'Do you think that the Policy could assist #{wordings[strand]} to get on better with each other?'
+          - 'Do you think that the Policy could assist #{wordings[strand]} to get on better with each other?'
       help:
         -
           - 'This question asks you to assess whether the Function could have a role in assisting #{wordings[strand]} to get on better with each other.<br/><br/>
@@ -743,8 +743,8 @@ questions:
           - 'Do you think that the function will take account of disabilities even if it means treating #{wordings[strand]} more favourably?'
           - 'Do you think that the function will take account of disabilities even if it means treating #{wordings[strand]} more favourably?'
         -
-          - 'Do you think that the function will take account of disabilities even if it means treating #{wordings[strand]} more favourably?'
-          - 'Do you think that the function will take account of disabilities even if it means treating #{wordings[strand]} more favourably?'
+          - 'Do you think that the policy will take account of disabilities even if it means treating #{wordings[strand]} more favourably?'
+          - 'Do you think that the policy will take account of disabilities even if it means treating #{wordings[strand]} more favourably?'
       help:
         -
           - 'The question asks whether the Function takes account of disabilities even if it means treating people with disabilities more favourably.<br/><br/>
