@@ -23,11 +23,27 @@ set :rake, "/usr/local/rubygems/gems/bin/rake"
 # TASKS
 # =============================================================================
 task :after_update_code, :roles => [:web] do
-  # Build/merge all of the assets
-  run <<-EOF
-    cd #{release_path} &&
-    rake RAILS_ENV=#{rails_env} asset:packager:build_all
-  EOF
+  # Make symlink for shared files
+  SHARED_FILES = ['/config/database.yml',
+                  '/config/mongrel_cluster.yml',
+                  '/public/images/organisations']
+  SHARED_FILES.each do |file|
+    run "ln -nfs #{shared_path}/#{file} #{release_path}/#{file}"
+  end
+  
+  # Produce CSS files ready for asset_packager, then build assets
+  # (General SASS files first, then template colour schemes, then asset_packager)
+  TASKS = ['asset:packager:delete_all',
+           'asset:packager:build_all']
+  TASKS.each do |task|
+    run <<-EOF
+      cd #{release_path} &&
+      rake RAILS_ENV=#{rails_env} #{task}
+    EOF
+  end
+end
+
+task :after_update_code, :roles => [:web] do
   # Make symlink for database and mongrel_cluster yaml files
   run "ln -nfs #{shared_path}/config/database.yml #{release_path}/config/database.yml"
   run "ln -nfs #{shared_path}/config/mongrel_cluster.yml #{release_path}/config/mongrel_cluster.yml"  
