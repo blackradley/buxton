@@ -19,7 +19,7 @@ class NoteController < ApplicationController
     if params[:note].strip.blank? then
       parent_question.note.destroy
     else
-      text_to_render = @current_user.activity.questions.find(params[:question_id]).note.contents.gsub(/\S{35}/, '\0<br />').gsub(/<(\script>|script>)/, "")
+      text_to_render = CGI.escapeHTML(@current_user.activity.questions.find(params[:question_id]).note.contents.gsub(/\S{35}/, '\0<br />').gsub(/<(\script>|script>)/, ""))
     end
     render :inline => text_to_render
   end
@@ -37,7 +37,7 @@ class NoteController < ApplicationController
     else
       parent_strategy.note.update_attributes(:contents => params[:note])
     end
-    text_to_render = @current_user.activity.activity_strategies.find(params[:activity_strategy_id]).note.contents.gsub(/\S{35}/, '\0<br />').gsub(/<(\script>|script>)/, "")
+    text_to_render = CGI.escapeHTML(@current_user.activity.activity_strategies.find(params[:activity_strategy_id]).note.contents.gsub(/\S{35}/, '\0<br />').gsub(/<(\script>|script>)/, ""))
     text_to_render = " " if params[:note].blank?
     render :inline => text_to_render
   end

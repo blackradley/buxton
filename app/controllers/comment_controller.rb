@@ -19,7 +19,7 @@ class CommentController < ApplicationController
     if params[:comment].strip.blank? then
       parent_question.comment.destroy
     else
-      text_to_render = @current_user.activity.questions.find(params[:question_id]).comment.contents.gsub(/\S{35}/, '\0<br />').gsub(/<(\script>|script>)/, "")
+      text_to_render = CGI.escapeHTML(@current_user.activity.questions.find(params[:question_id]).comment.contents.gsub(/\S{35}/, '\0<br />').gsub(/<(\script>|script>)/, ""))
     end
     render :inline => text_to_render
   end
@@ -37,7 +37,7 @@ class CommentController < ApplicationController
     else
       parent_strategy.comment.update_attributes(:contents => params[:comment])
     end
-    text_to_render = @current_user.activity.activity_strategies.find(params[:activity_strategy_id]).comment.contents.gsub(/\S{35}/, '\0<br />').gsub(/<(\script>|script>)/, "")
+    text_to_render = CGI.escapeHTML(@current_user.activity.activity_strategies.find(params[:activity_strategy_id]).comment.contents.gsub(/\S{35}/, '\0<br />').gsub(/<(\script>|script>)/, ""))
     text_to_render = " " if params[:comment].blank?
     render :inline => text_to_render
   end
