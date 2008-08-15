@@ -50,7 +50,7 @@ class Organisation < ActiveRecord::Base
       when 0
         return "How do you contribute to our goals?"
       when 1
-        return "For each strategy, please decide whether it is going to be significantly aided by the function"
+        return "For each #{self.term('strategy')}, please decide whether it is going to be significantly aided by the function"
     end
   end
 
