@@ -59,13 +59,13 @@ class User < ActiveRecord::Base
 
     subdomain = case self.class.name
     when 'ActivityManager'
-      subdomain_string = self.activity.organisation.style + '.'
+      subdomain_string = self.activity.organisation.subdomain + '.'
     when 'DirectorateManager'
-      subdomain_string = self.directorate.organisation.style + '.'
+      subdomain_string = self.directorate.organisation.subdomain + '.'
     when 'OrganisationManager'
-      subdomain_string = self.organisation.style + '.'
+      subdomain_string = self.organisation.subdomain + '.'
     when 'Administrator'
-      subdomain_string = ''
+      subdomain_string = 'www'
     else
       # TODO throw an error - shouldn't ever get here
     end
