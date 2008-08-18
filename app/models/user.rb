@@ -59,11 +59,11 @@ class User < ActiveRecord::Base
 
     subdomain = case self.class.name
     when 'ActivityManager'
-      subdomain_string = self.activity.organisation.subdomain + '.'
+      subdomain_string = self.activity.organisation.subdomain
     when 'DirectorateManager'
-      subdomain_string = self.directorate.organisation.subdomain + '.'
+      subdomain_string = self.directorate.organisation.subdomain
     when 'OrganisationManager'
-      subdomain_string = self.organisation.subdomain + '.'
+      subdomain_string = self.organisation.subdomain
     when 'Administrator'
       subdomain_string = 'www'
     else
@@ -78,10 +78,10 @@ class User < ActiveRecord::Base
     end
 
     # unfortunately needed until we set up wildcard DNS on staging/dev server
-    if domain == '27stars.co.uk' || domain == 'localhost'
+    if domain == 'localhost'
       "#{request.protocol}#{request.host_with_port}/#{passkey}"
     else
-      "#{request.protocol}#{subdomain_string}#{domain}#{request.port_string}/#{passkey}"
+      "#{request.protocol}#{subdomain_string}.#{domain}#{request.port_string}/#{passkey}"
     end
   end
   
