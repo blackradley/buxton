@@ -53,21 +53,19 @@ class User < ActiveRecord::Base
     end
   end
   
+  DEFAULT_SUBDOMAIN = 'www'
   # Generate a login URL for a given subdomain and passkey
   def url_for_login(request, secret=false)
     domain = request.domain(TLD_LENGTH)
-
-    subdomain = case self.class.name
-    when 'ActivityManager'
-      subdomain_string = self.activity.organisation.subdomain
-    when 'DirectorateManager'
-      subdomain_string = self.directorate.organisation.subdomain
-    when 'OrganisationManager'
-      subdomain_string = self.organisation.subdomain
-    when 'Administrator'
-      subdomain_string = 'www'
+    
+    if self.respond_to?(:organisation) && !self.organisation.nil? then
+      if self.organisation.subdomain.empty?
+        subdomain_string = DEFAULT_SUBDOMAIN
+      else
+        subdomain_string = self.organisation.subdomain
+      end
     else
-      # TODO throw an error - shouldn't ever get here
+      subdomain_string = DEFAULT_SUBDOMAIN
     end
     
     # Passkeys that end in an i don't leave any audit trail
