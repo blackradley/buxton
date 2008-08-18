@@ -1,7 +1,8 @@
 %h1#questions=h @activity.name + " - Overall - Purpose"
 %h2
-  =image_tag("a.gif")
-  Target of Activity and Impact on Strategic Objectives
+  = image_tag("a.gif")
+  Target of Activity and Impact on
+  = ot('strategy').pluralize.titleize
 #questions
   -form_for(:activity, :url => {:action => 'update'}) do |f|
     = render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [2,11,12]), :locals => {:f => f}
