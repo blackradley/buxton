@@ -21,7 +21,8 @@ module BannerGeneration
     gc.annotate(banner, metrics.width,metrics.height,117,83, org_name)
 
     gc = Draw.new
-    gc.font = File.join('components','Arial_Rounded_Bold.ttf')
+    # gc.font = File.join('components','Arial_Rounded_Bold.ttf')
+    gc.font = "Arial"
     gc.stroke = 'transparent'
     gc.fill = '#63b8c1'
     gc.font_weight = BolderWeight
