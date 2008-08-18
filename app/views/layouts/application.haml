@@ -7,7 +7,7 @@
     = stylesheet_link_merged :base
     = stylesheet_link_tag 'tables'
     - unless @current_user.respond_to?(:organisation) && !@current_user.organisation.nil? then
-        = "<style>.mastHead .logo { background-image: url(/images/organisations/#{@current_user.organisation.id}.png);}</style>"
+      = "<style>.mastHead .logo { background-image: url(/images/organisations/#{@current_user.organisation.id}.png);}</style>"
     = javascript_include_merged :base
     = "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->"
     = "<!--[if gte IE 7]> #{stylesheet_link_tag 'fixes_ie7'}<![endif]-->"
