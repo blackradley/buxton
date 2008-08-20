@@ -1,0 +1,68 @@
+cd ~
+
+sudo rpm -import http://mirror.centos.org/centos/RPM-GPG-KEY-CentOS-4
+
+# Start try without first
+sudo wget http://dag.wieers.com/rpm/packages/yum/yum-2.4.2-0.4.el4.rf.noarch.rpm
+sudo wget ftp://fr2.rpmfind.net/linux/PLD/dists/ac/ready/i386/libsqlite-2.8.15-1.i386.rpm
+sudo wget ftp://rpmfind.net/linux/dag/redhat/el4/en/i386/dag/RPMS/python-elementtree-1.2.6-7.el4.rf.i386.rpm
+sudo wget ftp://rpmfind.net/linux/dag/redhat/el4/en/i386/dag/RPMS/python-sqlite-0.5.0-1.2.el4.rf.i386.rpm
+sudo wget ftp://rpmfind.net/linux/dag/redhat/el4/en/x86_64/dag/RPMS/python-urlgrabber-2.9.7-1.2.el4.rf.noarch.rpm
+
+sudo rpm -ivh libsqlite-2.8.15-1.i386.rpm
+sudo rpm -ivh python-elementtree-1.2.6-7.el4.rf.i386.rpm
+sudo rpm -ivh python-sqlite-0.5.0-1.2.el4.rf.i386.rpm
+sudo rpm -ivh python-urlgrabber-2.9.7-1.2.el4.rf.noarch.rpm
+sudo rpm -ivh yum-2.4.2-0.4.el4.rf.noarch.rpm
+
+sudo wget http://dag.wieers.com/rpm/packages/rpmforge-release/rpmforge-release-0.3.6-1.el4.rf.i386.rpm
+sudo rpm -ivh rpmforge-release-0.3.6-1.el4.rf.i386.rpm
+
+sudo yum update
+
+sudo yum install ImageMagick
+sudo yum remove ImageMagick
+# End try without first
+
+sudo wget ftp://ftp.imagemagick.org/pub/ImageMagick/delegates/ghostscript-fonts-std-8.11.tar.gz
+sudo tar xvfz ghostscript-fonts-std-8.11.tar.gz
+sudo mv fonts /usr/local/share
+
+sudo wget http://mirror.cs.wisc.edu/pub/mirrors/ghost/GPL/gs863/ghostscript-8.63.tar.gz
+sudo tar xvfz ghostscript-8.63.tar.gz
+cd ghostscript-8.63
+sudo ./configure
+sudo make && sudo make install
+cd ..
+
+sudo wget ftp://ftp.simplesystems.org/pub/libpng/png/src/libpng-1.2.30.tar.gz
+sudo tar xvfz libpng-1.2.30.tar.gz
+cd libpng[TAB]
+sudo ./configure
+sudo make && sudo make install
+cd ..
+
+Install FreeType
+
+sudo wget ftp://ftp.imagemagick.org/pub/ImageMagick/ImageMagick.tar.gz
+sudo tar xvfz ImageMagick.tar.gz
+cd ImageMagick-[tab]
+sudo ./configure --disable-static --with-modules --without-perl --without-magick-plus-plus --with-quantum-depth=8 --with-gs-font-dir=/usr/local/share/fonts
+sudo make && sudo make install
+
+sudo gem install rmagick
+
+cd ~/rails/testapp/shared
+mkdir -p public/images/organisations
+chmod 777 -R public/images/organisations
+-- test re-writing of images
+
+
+=================
+
+cat /usr/local/lib/ImageMagick-6.4.2/config/type.xml and make sure it references an XML version, not MGK.
+
+Useful ImageMagick commands:
+:: man identify
+:: convert -list font/format/module/type
+:: convert -version
