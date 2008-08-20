@@ -2,15 +2,16 @@
 %span#pdf_link
   - if @current_user.class.to_s == 'ActivityManager' then
     #activity_manager_view
-      = link_to "#{image_tag('icons/pdf.gif')}View public PDF report", {:action => 'view_pdf', :id => @activity.id, :type => :public}, :target => '_blank', :title => 'Public PDF Report'
+      View PDF: 
+      = link_to "#{image_tag('icons/pdf.gif')}public report", {:action => 'view_pdf', :id => @activity.id, :type => :public}, :target => '_blank', :title => 'Public PDF Report'
       &nbsp;|&nbsp;
-      = link_to "#{image_tag('icons/pdf_lock.gif')}View private PDF report", {:action => 'view_pdf', :id => @activity.id, :type => :private}, :target => '_blank', :title => 'Private PDF Report', :confirm => 'Please note: you are about to download a private document intended for internal-use only.'
+      = link_to "#{image_tag('icons/pdf_lock.gif')}private report", {:action => 'view_pdf', :id => @activity.id, :type => :private}, :target => '_blank', :title => 'Private PDF Report', :confirm => 'Please note: you are about to download a private document intended for internal-use only.'
   - else
     #approver_view
       = link_to "#{image_tag('icons/pdf_lock.gif')}View private PDF report", {:action => 'view_pdf', :id => @activity.id, :type => :private}, :target => '_blank', :title => 'Private PDF Report', :confirm => 'Please note: you are about to download a private document intended for internal-use only.'
 .summary
   %h4
-    =h @activity.name
+    =h @activity.name.titlecase
 
   %table#summarytable{:cellpadding=>"0", :cellspacing=>"0"}
     %tr

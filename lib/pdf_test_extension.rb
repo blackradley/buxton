@@ -3,13 +3,17 @@
 # Extend pdf to take a test pdf for test writing
 module PDF
   class Writer
-    attr_accessor :test
-    
-    self.class_eval {alias_method :old_init, :initialize}
-    
-    def initialize(test = false)
-      old_init
-      @test = PDF::Writer.new(true) unless test
+    attr_accessor :test_pdf
+
+    alias_method :old_init, :initialize
+        
+    def initialize(args = {})
+      unless args[:test]
+        @test_pdf = PDF::Writer.new(args.merge(:test => true))
+      end
+      old_init(args.delete_if{|key, value| key == :test})      
     end
+  
   end
+  
 end
