@@ -6,8 +6,8 @@
 #
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
-require 'rubygems'
 require 'pdf/writer'
+require 'pdfwriter_extensions'
 
 class OrganisationPDFGenerator
 
