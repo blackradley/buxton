@@ -19,7 +19,7 @@
   - flag = (!comment_text.blank? ? 1 : 0)
   .normalcommentview{:id => "activity_strategy_#{activity_strategy.id}_comment_view", :style => "display:#{opt[flag]}"}
     %p.comment{:id => "activity_strategy_#{activity_strategy.id}_comment"}
-      =split_long_strings(comment_text)
+      = render :partial => 'attachment', :locals => {:text => comment_text}
     .control
       =image_tag ("icons/comment_delete.gif")
       =link_to_remote "Delete", :url => {:action => 'destroy_strategy', :controller => :comment, :activity_strategy_id => activity_strategy.id}, :confirm => "Delete this comment?", :update => "activity_strategy_#{activity_strategy.id}_comment", :complete => "cancel_comment('activity_strategy_#{activity_strategy.id}'); document.getElementById('activity_strategy_#{activity_strategy.id}_comment_fill_in').value = ''"
@@ -32,7 +32,7 @@
       =link_to_function "Add new comment for report", "new_comment('activity_strategy_#{activity_strategy.id}')"
   .commentform{:id => "activity_strategy_#{activity_strategy.id}_comment_form", :style => "display:none"}
     =text_area_tag "comment", comment_text, :id => "activity_strategy_#{activity_strategy.id}_comment_fill_in"
-    = link_to_remote "Save", :url => {:action => 'edit_strategy', :controller => :comment, :activity_strategy_id => activity_strategy.id}, :with => "'comment='+document.getElementById('activity_strategy_#{activity_strategy.id}_comment_fill_in').value", :update => "activity_strategy_#{activity_strategy.id}_comment", :complete => "edit_comment('activity_strategy_#{activity_strategy.id}')"
+    = link_to_remote "Save", :url => {:action => 'edit_strategy', :controller => :comment, :activity_strategy_id => activity_strategy.id}, :with => "'comment='+encodeURIComponent($('activity_strategy_#{activity_strategy.id}_comment_fill_in').value)", :update => "activity_strategy_#{activity_strategy.id}_comment", :complete => "edit_comment('activity_strategy_#{activity_strategy.id}')"
     |
     =link_to_function "Cancel", "cancel_comment('activity_strategy_#{activity_strategy.id}')"
   %h3
@@ -42,7 +42,7 @@
   - flag = (!note_text.blank? ? 1 : 0)
   .normalnoteview{:id => "activity_strategy_#{activity_strategy.id}_note_view", :style => "display:#{opt[flag]}"}
     %p.note{:id => "activity_strategy_#{activity_strategy.id}_note"}
-      =split_long_strings(note_text)
+      = render :partial => 'attachment', :locals => {:text => note_text}
     .control
       =image_tag ("icons/note_delete.gif")
       =link_to_remote "Delete", :url => {:action => 'destroy_strategy', :controller => :note, :activity_strategy_id => activity_strategy.id}, :confirm => "Delete this note?", :update => "activity_strategy_#{activity_strategy.id}_note", :complete => "cancel_note('activity_strategy_#{activity_strategy.id}'); document.getElementById('activity_strategy_#{activity_strategy.id}_note_fill_in').value = ''"
@@ -55,6 +55,6 @@
       =link_to_function "Add new note to myself", "new_note('activity_strategy_#{activity_strategy.id}')"
   .noteform{:id => "activity_strategy_#{activity_strategy.id}_note_form", :style => "display:none"}
     =text_area_tag "note", note_text, :id => "activity_strategy_#{activity_strategy.id}_note_fill_in"
-    = link_to_remote "Save", :url => {:action => 'edit_strategy', :controller => :note, :activity_strategy_id => activity_strategy.id}, :with => "'note='+document.getElementById('activity_strategy_#{activity_strategy.id}_note_fill_in').value", :update => "activity_strategy_#{activity_strategy.id}_note", :complete => "edit_note('activity_strategy_#{activity_strategy.id}');"
+    = link_to_remote "Save", :url => {:action => 'edit_strategy', :controller => :note, :activity_strategy_id => activity_strategy.id}, :with => "'note='+encodeURIComponent($('activity_strategy_#{activity_strategy.id}_note_fill_in').value)", :update => "activity_strategy_#{activity_strategy.id}_note", :complete => "edit_note('activity_strategy_#{activity_strategy.id}');"
     |
     =link_to_function "Cancel", "cancel_note('activity_strategy_#{activity_strategy.id}')"
