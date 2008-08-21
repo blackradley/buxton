@@ -680,6 +680,7 @@ class ActivityPDFGenerator
 
   private
   
+  # FIX: This should not be defined again. Use just one ot() method.
   def ot(term, activity)
     assoc_term = Terminology.find_by_term(term)
     terminology = activity.organisation.organisation_terminologies.find_by_terminology_id(assoc_term.id)
