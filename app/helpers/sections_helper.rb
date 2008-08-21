@@ -28,8 +28,12 @@ module SectionsHelper
     text
   end
   
-  def tooltip(id, text)
-    "new Tip('#{id}', '#{escape_javascript(format_attachment(text))}');"
+  def tooltip_if_comment(comment)
+    return "" if (comment.nil? || comment.blank?)
+    image_tag = image_tag('icons/comment.gif', :id => comment.html_id)
+    tip = "new Tip('#{comment.html_id}', '#{escape_javascript(format_attachment(comment.contents))}');"
+    tooltip_tag = content_tag('script', tip, :type => 'text/javascript')
+    return image_tag + tooltip_tag
   end
   
 end

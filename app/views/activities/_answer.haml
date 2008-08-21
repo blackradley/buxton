@@ -5,7 +5,4 @@
   %td
     %span.labelled
       =h answer
-      - if comment = question.comment then
-        = image_tag('icons/comment.gif', :id => comment.html_id)
-        %script{:type=>"text/javascript"}
-          = tooltip(comment.html_id, comment.contents)
+      = tooltip_if_comment(question.comment)
