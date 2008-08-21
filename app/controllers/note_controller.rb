@@ -15,13 +15,12 @@ class NoteController < ApplicationController
     else
       parent_question.note.update_attributes(:contents => params[:note])
     end
-    text_to_render = " "
     if params[:note].strip.blank? then
       parent_question.note.destroy
+      render :inline => ''
     else
-      text_to_render = CGI.escapeHTML(@current_user.activity.questions.find(params[:question_id]).note.contents.gsub(/\S{35}/, '\0<br />').gsub(/<(\script>|script>)/, ""))
+      render :partial => 'sections/attachment', :locals => {:text => parent_question.note.contents}
     end
-    render :inline => text_to_render
   end
   
   def destroy
@@ -37,9 +36,12 @@ class NoteController < ApplicationController
     else
       parent_strategy.note.update_attributes(:contents => params[:note])
     end
-    text_to_render = CGI.escapeHTML(@current_user.activity.activity_strategies.find(params[:activity_strategy_id]).note.contents.gsub(/\S{35}/, '\0<br />').gsub(/<(\script>|script>)/, ""))
-    text_to_render = " " if params[:note].blank?
-    render :inline => text_to_render
+    if params[:note].strip.blank? then
+      parent_strategy.note.destroy
+      render :inline => ''
+    else
+      render :partial => 'sections/attachment', :locals => {:text => parent_strategy.note.contents}
+    end    
   end
   
   def destroy_strategy
