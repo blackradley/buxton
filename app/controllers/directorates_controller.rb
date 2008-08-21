@@ -23,7 +23,6 @@ class DirectoratesController < GroupingsController
 
   def create
     @directorate = @organisation.directorates.build(params[:directorate])
-    puts params
     Directorate.transaction do
       @directorate.build_directorate_manager(:email => params['directorate_manager']['email'].strip).save!
       @directorate.save!
