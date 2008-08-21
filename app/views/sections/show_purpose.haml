@@ -5,11 +5,11 @@
   %table
     %tr
       %th{:colspan=>"2"}
-        =h @activity.header(:purpose_overall_1)
+        =h @activity.organisation.strategy_text
     %tr
       %td{:colspan=>"2"}
         %strong
-          = @activity.organisation.name  
+          = @activity.organisation.name
           = ot('strategy').pluralize
     -if @activity_org_strategies.size >= 1
       -@activity_org_strategies.each do |activity_strategy|
