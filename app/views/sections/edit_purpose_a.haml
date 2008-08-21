@@ -13,9 +13,8 @@
     -@activity_project_strategies.each do |activity_strategy|
       = render :partial => 'activity_strategy_help', :locals => {:f => f, :activity_strategy => activity_strategy}
     = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [2,11,12]), :locals => {:f => f}
-    %p.question{:id => "purpose_overall_strategy", :style => "display:block;"}
-      %label
-        =@activity.organisation.strategy_text
+    %h4
+      =@activity.organisation.strategy_text
     / %p.question{:style => "display:block;"}
     /   %labelled
     -if @activity_org_strategies.size >= 1
