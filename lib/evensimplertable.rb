@@ -82,6 +82,7 @@ module PDFExtensions
     #insert heading
     pdf = table_data[:header].call(pdf, *table_data[:header_args]) if table_data[:header]
     #draw table
+    old_lines = show_lines
     table.each_with_index do |row, row_index|
       lines = 1
       row_data(row).each_with_index do |cell, index|
@@ -108,7 +109,7 @@ module PDFExtensions
         table_data_to_pass[:borders] = borders_to_pass
       end
       is_last = (row_index == table.size - 1)
-      pdf = add_row(pdf, row_index, row, table_data_to_pass, init_pos, show_lines, is_last)
+      pdf, old_lines = add_row(pdf, row_index, row, table_data_to_pass, init_pos, old_lines, is_last)
     end
     pdf = table_data[:footer].call(pdf, pdf.current_page_number, *table_data[:footer_args]) if table_data[:footer]
     pdf
@@ -125,7 +126,7 @@ module PDFExtensions
 
   private
   
-  def add_row(pdf, row_index, row, table_data, x_pos= nil, lines= :all, is_last= false)
+  def add_row(pdf, row_index, row, table_data, x_pos= nil, old_lines= nil, is_last= false)
     #variable definitions for later in the method
     # Offset is the required shift from the cell start to the first text character
     # to avoid writing on the line
@@ -136,6 +137,7 @@ module PDFExtensions
     borders = cell_settings[:borders]
     pdf.y -= pdf.font_height
     max_height = 0
+    lines = table_data[:show_lines] || :all
     max_font_height = pdf.font_height
     t_pad = 0
     b_pad = 0
@@ -164,9 +166,20 @@ module PDFExtensions
       text_alignment = cell_settings[:text_alignment]
       t_pad = cell_settings[:t_padding] || cell_settings[:v_padding].to_i
       b_pad = cell_settings[:b_padding] || cell_settings[:v_padding].to_i
+      row_lines = cell_settings[:show_lines] || :all
+      unless (row_lines == old_lines) || old_lines == :all
+        # previous row did not draw line, must add spacing
+        if index == 0
+          text_top -= 2
+          pdf.y -= 2
+          draw_lines(pdf, init_pos, top_of_table, borders, :borders, row_index, is_last) unless pdf.test_pdf.nil?
+          top_of_table -= 3
+        end
+      end
+      lines = row_lines
       if lines == :all || is_last
-        # shift down 2 pixels if line is to be drawn
-        b_pad += 2
+        # add 3 pixels of padding to bottom if line is to be drawn
+        b_pad += 3
       end
       indent = cell_settings[:h_padding] || 2
       if cell_settings[:text_alignment] == :right then
@@ -220,7 +233,7 @@ module PDFExtensions
       end
     end
     draw_lines(pdf, init_pos, top_of_table, borders, lines, row_index, is_last) unless pdf.test_pdf.nil?
-    pdf
+    return pdf, lines
   end
 
   def draw_lines(pdf, left, top, borders, lines, index, is_last= false)
