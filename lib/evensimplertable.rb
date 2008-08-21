@@ -32,6 +32,8 @@ module PDFExtensions
   def generate_table(pdf, table, table_data = @table_data)
     is_one_page = true
     return pdf  if table.empty?
+    pdf.stroke_style?.cap = :square
+    pdf.stroke_style?.join = :miter
     x_pos = table_data[:offset]
     unless table_data[:borders]
       max_len = 0
@@ -162,6 +164,10 @@ module PDFExtensions
       text_alignment = cell_settings[:text_alignment]
       t_pad = cell_settings[:t_padding] || cell_settings[:v_padding].to_i
       b_pad = cell_settings[:b_padding] || cell_settings[:v_padding].to_i
+      if lines == :all || is_last
+        # shift down 2 pixels if line is to be drawn
+        b_pad += 2
+      end
       indent = cell_settings[:h_padding] || 2
       if cell_settings[:text_alignment] == :right then
         x_pos -= offset
@@ -169,8 +175,7 @@ module PDFExtensions
       text_width = cell_width - (2 * offset) - (2 * indent)
       pdf.fill_color! cell_settings[:text_colour]  if cell_settings[:text_colour]
       pdf.y -= t_pad
-      pdf.y += 2
-      shade_area(pdf, cell_settings[:shading], left_edge, top_of_table, cell_width, -t_pad)
+      shade_area(pdf, cell_settings[:shading], left_edge, top_of_table, cell_width, -t_pad - 1)
       max_v_pad = t_pad + b_pad  if t_pad + b_pad > max_v_pad
       text_lines = cell.to_s.split(/\n/)
       current_height = cell_settings[:empty_lines] || 0
@@ -201,7 +206,6 @@ module PDFExtensions
     pdf.y -= max_height_offset
     max_height = (max_height)*(max_font_height) + max_v_pad
     pdf.y -= max_height
-    draw_lines(pdf, init_pos, top_of_table, borders, lines, row_index, is_last) unless pdf.test_pdf.nil?
     borders.each_index do |index|
       if index == 0
         start = pdf.absolute_left_margin
@@ -212,34 +216,32 @@ module PDFExtensions
       end
       unless row.empty? || cells_filled_to[index].nil?
         shade_area(pdf, cells_filled_to[index][1], start, 
-          cells_filled_to[index][0], width, pdf.y - cells_filled_to[index][0])
+          pdf.y, width, cells_filled_to[index][0] - pdf.y)
       end
     end
+    draw_lines(pdf, init_pos, top_of_table, borders, lines, row_index, is_last) unless pdf.test_pdf.nil?
     pdf
   end
 
   def draw_lines(pdf, left, top, borders, lines, index, is_last= false)
-    offset = (pdf.stroke_style?.width / 2)
     right = borders.last + left
     if (lines == :all || lines == :borders || lines == :edges)
       # top line
       if lines == :all || index == 0
-        pdf.line(left - offset, top, right + offset, top).stroke
+        pdf.line(left, top, right, top).stroke
       end
       # bottom line
       if is_last || lines == :all
-        # shift pointer down to avoid drawing line over text
-        pdf.y -= 2
-        pdf.line(left - offset, pdf.y, right + offset, pdf.y).stroke
+        pdf.line(left, pdf.y, right, pdf.y).stroke
       end
       # left line
-      pdf.line(left, top + offset, left, pdf.y - offset).stroke
+      pdf.line(left, top, left, pdf.y).stroke
       # right line
-      pdf.line(right, top + offset, right, pdf.y - offset).stroke
+      pdf.line(right, top, right, pdf.y).stroke
       # Other vertical lines
       if lines == :all || lines == :borders
         borders.each_with_index do |border, index|
-          pdf.line(border + left, top + offset, border + left, pdf.y - offset).stroke
+          pdf.line(border + left, top, border + left, pdf.y).stroke
         end
       end
     end
