@@ -20,12 +20,16 @@ module SectionsHelper
     text.to_s.dup.gsub(/\S{35}/, "\0\n")
   end
   
-  def format_comment(text)
+  def format_attachment(text)
     text = text.to_s.dup
     text = h(split_long_strings(text))
     text.gsub!(/\r\n?/, "\n")  # \r\n and \r -> \n
     text.gsub!(/\n/, '<br />') # 1 newline   -> br
     text
   end
-
+  
+  def tooltip(id, text)
+    "new Tip('#{id}', '#{escape_javascript(format_attachment(text))}');"
+  end
+  
 end
