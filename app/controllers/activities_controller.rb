@@ -196,9 +196,7 @@ class ActivitiesController < ApplicationController
 
   def update_ces
     @activity = @current_user.activity
-    puts params[:activity][:ces_question].to_i
     @activity.update_attributes('ces_question' => params[:activity][:ces_question].to_i)
-    puts "updated"
     flash[:notice] = "#{@activity.name} was successfully updated."
     redirect_to :controller => 'activities', :action => 'questions'
     
