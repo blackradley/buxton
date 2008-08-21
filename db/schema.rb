@@ -233,7 +233,7 @@ ActiveRecord::Schema.define(:version => 20080815085403) do
     t.integer "activity_id",  :limit => 11
     t.text    "description"
     t.text    "actions"
-    t.integer "timescales",   :limit => 11, :default => 0
+    t.text    "timescales"
     t.text    "resources"
     t.text    "lead_officer"
     t.string  "strand"
