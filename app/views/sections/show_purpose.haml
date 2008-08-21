@@ -20,10 +20,7 @@
           %td
             %span.labelled
               = @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i]
-              - if comment = activity_strategy.comment then
-                = image_tag('icons/comment.gif', :id => comment.html_id)
-                %script{:type => "text/javascript"}
-                  = tooltip(comment.html_id, comment.contents)
+              = tooltip_if_comment(activity_strategy.comment)
     - else
       %tr
         %td{:colspan=>"2"}
@@ -43,10 +40,8 @@
           %td
             %span.labelled
               = @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i]
-              - if comment = activity_strategy.comment then
-                = image_tag('icons/comment.gif', :id => comment.html_id)
-                %script{:type => "text/javascript"}
-                  = tooltip(comment.html_id, comment.contents)
+              = tooltip_if_comment(activity_strategy.comment)
+
     -else
       %tr
         %td{:colspan=>"2"}
@@ -70,10 +65,7 @@
             %td
               %span.labelled
                 = @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i]
-                - if comment = activity_strategy.comment then
-                  = image_tag('icons/comment.gif', :id => comment.html_id)
-                  %script{:type => "text/javascript"}
-                    = tooltip(comment.html_id, comment.contents)
+                = tooltip_if_comment(activity_strategy.comment)
       -else
         %tr
           %td{:colspan=>"2"}
