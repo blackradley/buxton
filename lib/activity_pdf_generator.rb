@@ -335,7 +335,7 @@ class ActivityPDFGenerator
       pdf.text("The assessment has identified that #{@act_name} has a role in the following Equality Objectives that are specific to the Disability Equality Strand:")
       pdf.text(" ")
       table = []
-      heading_information =  [["<b>Equality Strand</b>", "<b>Take Account of Disabilities Even if it Means Treating More Favourably</b>", "<b>Promote Positive Attitudes to Disabled People</b>", "<b>Encourage Participation by Disabled People</b>"]]
+      heading_information =  [["<b>Equality Strand</b>", "<b>Take Account of Disabilities Even if it Means Treating More Favourably</b>",  "<b>Encourage Participation by Disabled People</b>", "<b>Promote Positive Attitudes to Disabled People</b>"]]
       row = []
       row << 'Disability'
       row << activity.hashes['choices'][3][activity.send("additional_work_disability_7").to_i].to_s
