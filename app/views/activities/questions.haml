@@ -86,11 +86,11 @@
           -display_off = ""
           -@activity.overview_strands.each do |strand_name, strand|
             -if @activity.strand_relevant?(strand) then
-              -display_on = ""
+              -display_on = "block"
               -display_off = "none"
             -else
               -display_on = "none"
-              -display_off = ""
+              -display_off = "block"
             %tr{:id => "row_#{strand_name}_on", :style => "display:#{display_on};"}
               %th.strandHeading
                 =h strand_name.titleize
