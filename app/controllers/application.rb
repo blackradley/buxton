@@ -38,7 +38,10 @@ protected
     # e.g. Convert :PDF to PDFLog
     class_name = "#{type}Log"
     # Log this type of event
-    instance_eval("#{class_name}.create(:message => '#{text}')")
+    # CAUTION! See: http://notetoself.vrensk.com/2008/08/escaping-single-quotes-in-ruby-harder-than-expected/
+    # for why we're escaping this this way
+    escaped_text = text.gsub(/\\|'/) { |c| "\\#{c}" }
+    instance_eval("#{class_name}.create(:message => '#{escaped_text}')")
   end
 
   # Check that the user in the session is for real.
