@@ -153,8 +153,8 @@ class Activity < ActiveRecord::Base
     end
     percentages = {}
     if section.nil? then
-      sections.each do |section|
-        percentages[section.to_sym] = self.send("calculate_#{section.to_s}_percentage_answered#{('(' + strand.to_s + ')') unless strand.nil?}".to_sym)
+      sections.each do |s|
+        percentages[s.to_sym] = self.send("calculate_#{s.to_s}_percentage_answered#{('(' + strand.to_s + ')') unless strand.nil?}".to_sym)
       end
     else
       percentages[section.to_sym] =  self.send("calculate_#{section.to_s}_percentage_answered#{('(' + strand.to_s + ')') unless strand.nil?}".to_sym)
@@ -164,8 +164,8 @@ class Activity < ActiveRecord::Base
       percentages.values.each{|total| overall_total += total/percentages.values.size}
     else
       overall_total = percentages[section.to_sym]
-    end
-    (overall_total*100).to_i
+    end 
+    (overall_total*100).to_i  
   end
 
   def calculate_purpose_percentage_answered(strand = nil)
@@ -214,7 +214,10 @@ class Activity < ActiveRecord::Base
     unanswered_sections = 0
     sections_total = 0
     strands.each do |enabled_strand|
+      # Checks if it's the strand we're given, or nil
+      # Refactor to explicit == and blank check
       next unless enabled_strand.to_s.include? strand.to_s
+      # Code to calculate
       impact_answer = self.send("impact_#{enabled_strand}_9")
       unanswered_sections += 1 if impact_answer == 0
       sections_total += 1

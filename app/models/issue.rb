@@ -22,9 +22,7 @@ class Issue < ActiveRecord::Base
   end
 
   def check_response(response) #Check response verifies whether a response to a question is correct or not.
-    checker = !(response.to_i == 0)
-    checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
-    return checker
+    return (response.to_s.length > 0)
   end
   
   def check_responses
@@ -35,6 +33,7 @@ class Issue < ActiveRecord::Base
   end
   
   def percentage_answered
+    # 2 = 2 columns we don't need (strand and section)
     total = Issue.content_columns.size - 2
     answered = 0
     Issue.content_columns.each do |cc|
