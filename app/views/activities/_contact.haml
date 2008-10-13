@@ -6,6 +6,10 @@
       Name of Activity
     %span.labelled
       = f.text_field :name, 'size' => 50
+    %label
+      Unique Reference Number
+    %span.labelled
+      = f.text_field :ref_no, 'size' => 50
   - fields_for :activity_manager do |am|
     %p
       %label
