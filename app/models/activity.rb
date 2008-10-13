@@ -40,6 +40,7 @@ class Activity < ActiveRecord::Base
   has_and_belongs_to_many :projects
 
   validates_presence_of :name, :message => 'All activities must have a name.'
+  validates_uniqueness_of :ref_no, :message => 'Reference number must be unique'
   validates_presence_of :activity_manager, :activity_approver
   validates_presence_of :directorate
   validates_associated :activity_manager, :activity_approver
@@ -618,7 +619,7 @@ class Activity < ActiveRecord::Base
       :percentage_importance, :name, :approved, :gender_percentage_importance,
       :race_percentage_importance, :disability_percentage_importance, :sexual_orientation_percentage_importance, :faith_percentage_importance, :age_percentage_importance,
       :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on, :gender_relevant, :faith_relevant,
-      :sexual_orientation_relevant, :age_relevant, :disability_relevant, :race_relevant, :review_on, :ces_link]
+      :sexual_orientation_relevant, :age_relevant, :disability_relevant, :race_relevant, :review_on, :ces_link, :ref_no]
     Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
     unnecessary_columns.each{|column| questions.delete(column)}
     questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section

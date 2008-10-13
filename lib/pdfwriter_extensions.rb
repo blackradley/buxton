@@ -1,3 +1,4 @@
+
 CONVERTER = Iconv.new('ISO-8859-15//IGNORE//TRANSLIT', 'utf-8')
 
 module PDF

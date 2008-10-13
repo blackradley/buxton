@@ -252,6 +252,15 @@ class ActivitiesController < ApplicationController
     rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     render :partial => 'activity_name_form', :locals => {'errors' => 'Name cannot be blank'}
   end
+  
+  def update_ref_no
+    @activity = @current_user.activity
+    @ref_no = @current_user.activity.ref_no
+    @activity.update_attributes!(:ref_no => params['activity']['ref_no'])
+    render :partial => 'activity_ref_form', :locals => {'errors' => nil}
+    rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
+    render :partial => 'activity_ref_form', :locals => {'errors' => 'Reference number must be unique'}
+  end
 
   def update_approver
     errors = nil

@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20080911111233) do
+ActiveRecord::Schema.define(:version => 20081013090128) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -191,6 +191,7 @@ ActiveRecord::Schema.define(:version => 20080911111233) do
     t.string   "review_on"
     t.integer  "activity_project_id",                      :limit => 11
     t.string   "approved",                                               :default => "not submitted"
+    t.string   "ref_no"
   end
 
   create_table "activities_projects", :id => false, :force => true do |t|
