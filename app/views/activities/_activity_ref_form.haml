@@ -1,0 +1,22 @@
+#activity_ref_no_form
+  %label
+    %strong Reference Number:
+  - form_remote_for(:activity, :html => {:id => 'ref_no_form'}, :url => {:action => 'update_ref_no'}, :update => 'activity_ref_no_form') do |f|
+    #update_ref_no{:style => errors.nil? ? "display:none;" : 'display:block'}   
+      .ref_no_update
+        = f.text_field 'ref_no', :value => @activity.ref_no
+        #ref_no_update_save{:style => 'display:block'}
+          = link_to_function 'save changes',"$('ref_no_update_save').hide(); $('ref_no_update_saving').show(); $('ref_no_form').onsubmit()"
+          %span.left_float="|"
+          = link_to_function "cancel","$('activity_ref_no').value='#{@activity.ref_no.blank? ? @ref_no : @activity.ref_no}';$('update_ref_no').toggle();$('show_ref_no').toggle()"
+          %span.error_labelled= "(#{errors})" if errors
+        #ref_no_update_saving{:style => 'display:none'}
+          %span.simulate_left_link saving...  
+    #show_ref_no{:style => errors.nil? ? "display:block;" : 'display:none'}   
+      %span.labelled
+        #activity_ref_no_display
+          = @activity.ref_no
+      .ref_no_update
+        = link_to_function "(edit)","$('update_ref_no').toggle();$('show_ref_no').toggle()",:class=>"edit_ref_no", :id=>"edit_ref_no"
+      .clear
+.clear
