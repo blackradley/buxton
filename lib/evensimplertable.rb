@@ -188,7 +188,7 @@ module PDFExtensions
       text_width = cell_width - (2 * offset) - (2 * indent)
       pdf.fill_color! cell_settings[:text_colour]  if cell_settings[:text_colour]
       pdf.y -= t_pad
-      shade_area(pdf, cell_settings[:shading], left_edge, top_of_table, cell_width, -t_pad - 1)
+      shade_area(pdf, cell_settings[:shading], left_edge, top_of_table, cell_width, -t_pad - 4)
       max_v_pad = t_pad + b_pad  if t_pad + b_pad > max_v_pad
       text_lines = cell.to_s.split(/\n/)
       current_height = cell_settings[:empty_lines] || 0
@@ -200,18 +200,18 @@ module PDFExtensions
       max_font_height = font_height  if font_height > max_font_height
       text_lines.each_with_index do |line, line_index|
         pdf.y -= pdf.font_height  unless line_index == 0
-        shade_area(pdf, cell_settings[:shading], left_edge, pdf.y, cell_width, pdf.font_height)
+        shade_area(pdf, cell_settings[:shading], left_edge, pdf.y - 3, cell_width, pdf.font_height)
         overflow = pdf.add_text_wrap(x_pos + indent, pdf.y, text_width, line, font_size, cell_settings[:text_alignment])
         current_height += 1  unless line_index == 0 
         while overflow.length > 0
           pdf.y -= pdf.font_height
-          shade_area(pdf, cell_settings[:shading], left_edge, pdf.y, cell_width, pdf.font_height)
+          shade_area(pdf, cell_settings[:shading], left_edge, pdf.y - 3, cell_width, pdf.font_height)
           overflow = pdf.add_text_wrap(x_pos + indent, pdf.y, text_width, overflow, font_size, cell_settings[:text_alignment])
           current_height += 1
         end
       end
       pdf.y += 1
-      cells_filled_to << [pdf.y, cell_settings[:shading]]
+      cells_filled_to << [pdf.y - 3, cell_settings[:shading]]
       max_height = current_height if current_height > max_height
       x_pos = borders[index] + init_pos + offset
       pdf.y = text_top
