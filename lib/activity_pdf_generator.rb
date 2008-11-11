@@ -80,7 +80,7 @@ class ActivityPDFGenerator
     else
       table << ['<b>Type</b>', 'Insufficient questions have been answered to determine the type of this activity.']
     end
-    table << ["<b>Reference Number</b>", "#{activity.ref_no.titlecase}"]
+    table << ["<b>Reference Number</b>", "#{activity.ref_no}"]
     table << ["<b>Activity Manager</b>", activity.activity_manager.email]
     table << ["<b>Date Approved</b>", activity.approved_on.to_s] if activity.approved?
     table << ["<b>Approver</b>", activity.activity_approver.email.to_s] if activity.activity_approver
