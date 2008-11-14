@@ -35,6 +35,7 @@ class ActivityPDFGenerator
   def pdf
     @pdf
   end
+  
   def build_page_numbers(pdf, activity)
     pdf.start_page_numbering(pdf.absolute_left_margin,
       pdf.absolute_bottom_margin - (pdf.font_height(12) * 1.01) - 5,
@@ -42,6 +43,7 @@ class ActivityPDFGenerator
       :left)
     pdf
   end
+  
   def build_unapproved_logo_on_first_page(pdf, activity)
       pdf.unapproved_status = (activity.approved?) ? '' : 'UNAPPROVED'
       #The page numbers are started at the top, so that they will always hit the first page, but they appear at the bottom
@@ -262,7 +264,7 @@ class ActivityPDFGenerator
       question_text = activity.question_wording_lookup(section_strand.first, strand, section_strand.last)[0].to_s
       good_differentials[strand] = [question, question_text, activity.hashes['choices'][1][activity.send(question).to_i].to_s]
     end
-    bad_impact_questions = Activity.get_question_names('purpose', nil, 3).map{|question| [question, activity.send(question)]}
+    bad_impact_questions = Activity.get_question_names('purpose', nil, 4).map{|question| [question, activity.send(question)]}
     bad_differentials = Hash.new
     bad_impact_questions.each do |question, response|
       strand = Activity.question_separation(question)[1]
@@ -319,9 +321,7 @@ class ActivityPDFGenerator
   end
   
   def build_differential_impact(pdf, activity, strand, good_impact, bad_impact)
-
 #    good_impact_questions.reject!{|question, response| response.to_i <= 1}
-    
     table = []
     cell_formats = []
     [good_impact, bad_impact].each_with_index do |impact, index|
@@ -584,9 +584,9 @@ class ActivityPDFGenerator
         table = []
         table << ["Issue", issue.description]
         table << ["Action", issue.actions.to_s]
-        table << ["Resources", issue.actions.to_s]
+        table << ["Resources", issue.resources.to_s]
         table << ["Timescales", issue.timescales.to_s]
-        table << ["Lead Officer", issue.timescales.to_s]
+        table << ["Lead Officer", issue.lead_officer.to_s]
         pdf = generate_table(pdf, table, :borders => borders, :font_size => 10, :col_format => [{:shading => SHADE_COLOUR}, nil])
         pdf.text ' '
       end
