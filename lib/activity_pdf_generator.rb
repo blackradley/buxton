@@ -126,7 +126,7 @@ class ActivityPDFGenerator
     if activity.existing_proposed.to_i > 0 && activity.function_policy.to_i > 0
       activity_type = "#{activity.existing_proposed_name.titlecase} #{activity.function_policy?.titlecase}"
       activity_type = (activity.existing_proposed_name.titlecase == "Existing") ? "an #{activity_type}" : "a #{activity_type}"
-      pdf.text "The activity has been identified as #{activity_type}", :font_size => 10
+      pdf.text "The activity has been identified as #{activity_type}.", :font_size => 10
     else
       pdf.text "Insufficient questions have been answered to determine the activity type", :font_size => 10
     end
@@ -324,8 +324,10 @@ class ActivityPDFGenerator
 #    good_impact_questions.reject!{|question, response| response.to_i <= 1}
     table = []
     cell_formats = []
+    activity_type = "#{activity.existing_proposed_name.titlecase} #{activity.function_policy?.titlecase}"
+    potential_string = (activity.existing_proposed_name.titlecase == "Existing") ? "" : "the potential for "
     [good_impact, bad_impact].each_with_index do |impact, index|
-      question_text = "Does the proposed Policy have the potential for a #{index == 0 ? 'positive' : 'negative'} differential impact on #{impact[1]}"
+      question_text = "Does the #{activity_type} have #{potential_string}a #{index == 0 ? 'positive' : 'negative'} differential impact on #{impact[1]}"
       table << [question_text, impact[2]]
       cell_formats << [{:shading => SHADE_COLOUR}, nil]
       comments = get_comments_and_notes(activity, impact[0])
