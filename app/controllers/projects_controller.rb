@@ -7,6 +7,9 @@
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
 class ProjectsController < GroupingsController
+  
+  rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
+  rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
 
   def index
     @projects = @organisation.projects
@@ -50,4 +53,11 @@ class ProjectsController < GroupingsController
     @project.destroy
     redirect_to organisation_projects_url
   end
+  
+  protected
+
+    def show_errors(exception)
+      flash[:notice] = 'Project could not be updated.'
+      render :action => (exception.record.new_record? ? :new : :edit)
+    end
 end
