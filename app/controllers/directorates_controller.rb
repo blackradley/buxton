@@ -7,7 +7,6 @@
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
 class DirectoratesController < GroupingsController
-  
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
 
@@ -27,7 +26,7 @@ class DirectoratesController < GroupingsController
   def create
     @directorate = @organisation.directorates.build(params[:directorate])
     Directorate.transaction do
-      @directorate.build_directorate_manager(params[:directorate_manager]).save!
+      @directorate.build_directorate_manager(params[:directorate_manager])
       @directorate.save!
       flash[:notice] = "#{@directorate.name} was created."
       redirect_to organisation_directorates_url
@@ -88,9 +87,7 @@ class DirectoratesController < GroupingsController
   protected
 
     def show_errors(exception)
-      flash[:notice] = 'Directorate could not be updated, Directorate name and Directorate Manager email must both be entered.'
-      puts error_messages_for 'directorate'
-      puts error_messages_for 'directorate_manager'
+      flash[:notice] = 'Directorate could not be updated.'
       render :action => (exception.record.new_record? ? :new : :edit)
     end
   
