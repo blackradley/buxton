@@ -7,6 +7,10 @@
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
 class DirectoratesController < GroupingsController
+  
+  before_filter :verify_index_access, :only => [:index, :new, :create]
+  before_filter :verify_edit_access, :only => [:show, :edit, :update, :destroy]
+
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
 
@@ -15,7 +19,7 @@ class DirectoratesController < GroupingsController
   end
 
   def show
-    @directorate = @organisation.directorates.find(params[:id])
+#    @directorate = @organisation.directorates.find(params[:id])
   end
 
   def new
@@ -34,7 +38,7 @@ class DirectoratesController < GroupingsController
   end
 
   def edit
-    @directorate = @organisation.directorates.find(params[:id])
+#    @directorate = @organisation.directorates.find(params[:id])
     
     # If we already have a directorate manager, use it
     unless @directorate.directorate_manager.nil?
@@ -49,7 +53,7 @@ class DirectoratesController < GroupingsController
   end
 
   def update
-    @directorate = @organisation.directorates.find(params[:id])
+#    @directorate = @organisation.directorates.find(params[:id])
     Directorate.transaction do
       @directorate.update_attributes(params[:directorate])
 
@@ -71,7 +75,7 @@ class DirectoratesController < GroupingsController
   end
 
   def destroy
-    @directorate = @organisation.directorates.find(params[:id])
+#    @directorate = @organisation.directorates.find(params[:id])
     @directorate.destroy
     redirect_to organisation_directorates_url
   end
@@ -85,10 +89,15 @@ class DirectoratesController < GroupingsController
   end
   
   protected
+  
+    def get_related_model
+      Directorate
+    end
 
     def show_errors(exception)
       flash[:notice] = 'Directorate could not be updated.'
       render :action => (exception.record.new_record? ? :new : :edit)
     end
-  
+
+
 end

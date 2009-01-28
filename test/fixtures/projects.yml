@@ -2,8 +2,8 @@
 one:
   id: 1
   organisation_id: 1
-  name: Test Directorate
+  name: Test Project 1
 two:
   id: 2
   organisation_id: 2
-  name: Test Directorate 2
+  name: Test Project 2

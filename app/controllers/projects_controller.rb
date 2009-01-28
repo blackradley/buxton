@@ -8,6 +8,9 @@
 #
 class ProjectsController < GroupingsController
   
+  before_filter :verify_index_access, :only => [:index, :new, :create]
+  before_filter :verify_edit_access, :only => [:show, :edit, :update, :destroy]
+  
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
 
@@ -16,7 +19,7 @@ class ProjectsController < GroupingsController
   end
 
   def show
-    @project = @organisation.projects.find(params[:id])
+#    @project = @organisation.projects.find(params[:id])
   end
 
   def new
@@ -35,11 +38,11 @@ class ProjectsController < GroupingsController
   end
 
   def edit
-    @project = @organisation.projects.find(params[:id])
+#    @project = @organisation.projects.find(params[:id])
   end
 
   def update
-    @project = @organisation.projects.find(params[:id])
+#    @project = @organisation.projects.find(params[:id])
     Project.transaction do
       @project.update_attributes!(params[:project])
       @project.project_manager.update_attributes(params[:project_manager])
@@ -49,15 +52,21 @@ class ProjectsController < GroupingsController
   end
 
   def destroy
-    @project = @organisation.projects.find(params[:id])
+#    @project = @organisation.projects.find(params[:id])
     @project.destroy
     redirect_to organisation_projects_url
   end
   
+  
   protected
+  
+    def get_related_model
+      Project
+    end
 
     def show_errors(exception)
       flash[:notice] = 'Project could not be updated.'
       render :action => (exception.record.new_record? ? :new : :edit)
     end
+    
 end

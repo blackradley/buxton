@@ -21,6 +21,7 @@ administrator:
 #
 organisation_manager: 
   id: 2
+  organisation_id: 1
   type: 'OrganisationManager'
   passkey: 5b550821be4aa80e4fefd672722c236a109e8abd
   email: organisation_manager@27stars.co.uk
@@ -33,7 +34,81 @@ organisation_manager:
 activity_manager:
   id: 3
   type: 'ActivityManager'
+  activity_id: 1
   passkey: 158dbc032e936dc7f36939ecd80d531223e146e2
+  email: activity_manager@27stars.co.uk
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
+  reminded_on: 2007-04-01 00:00:00
+#
+# One dummy project manager
+#
+project_manager:
+  id: 4
+  type: 'ProjectManager'
+  project_id: 1
+  passkey: 2d4sfds4f64sdf54ds6f54ds35f4ds56f4ds6f4d
+  email: activity_manager@27stars.co.uk
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
+  reminded_on: 2007-04-01 00:00:00
+#
+# One dummy directorate manager
+#
+directorate_manager:
+  id: 5
+  type: 'DirectorateManager'
+  directorate_id: 1
+  passkey: 2d4sfds4f64sdf54ds6f54ds35f4ds56f4ds6f4d
+  email: activity_manager@27stars.co.uk
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
+  reminded_on: 2007-04-01 00:00:00
+  
+#
+# One dummy organisation
+#
+organisation_manager_2: 
+  id: 6
+  organisation_id: 2
+  type: 'OrganisationManager'
+  passkey: 5b550821be4aa80e4fefd672722c236a109e8abd
+  email: organisation_manager@27stars.co.uk
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
+  reminded_on: 2007-04-01 00:00:00
+#
+# One dummy function user
+#
+activity_manager_2:
+  id: 7
+  type: 'ActivityManager'
+  activity_id: 2
+  passkey: 158dbc032e936dc7f36939ecd80d531223e146e2
+  email: activity_manager@27stars.co.uk
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
+  reminded_on: 2007-04-01 00:00:00
+#
+# One dummy project manager
+#
+project_manager_2:
+  id: 8
+  type: 'ProjectManager'
+  project_id: 2
+  passkey: 2d4sfds4f64sdf54ds6f54ds35f4ds56f4ds6f4d
+  email: activity_manager@27stars.co.uk
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
+  reminded_on: 2007-04-01 00:00:00
+#
+# One dummy directorate manager
+#
+directorate_manager_2:
+  id: 9
+  type: 'DirectorateManager'
+  directorate_id: 2
+  passkey: 2d4sfds4f64sdf54ds6f54ds35f4ds56f4ds6f4d
   email: activity_manager@27stars.co.uk
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00

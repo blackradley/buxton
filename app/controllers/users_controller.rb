@@ -16,6 +16,10 @@ class UsersController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
+  
+  before_filter :verify_view_access, :only => [:edit, :update, :destroy]
+  before_filter :verify_index_access, :only => [:list, :new, :create]
+  before_filter :verify_edit_access, :only => :remind
 
   # Present a form to request a lost passkey by entering your e-mail address.
   # Available to: anybody
@@ -252,6 +256,10 @@ class UsersController < ApplicationController
     redirect_to root_url
   end
   
+  def access_denied
+    
+  end
+  
 protected
   # No methods are secure
   def secure?
@@ -261,5 +269,9 @@ protected
   def show_errors(exception)
     flash[:notice] = 'User could not be updated.'
     render :action => (exception.record.new_record? ? :new : :edit)
+  end
+  
+  def get_related_model
+    User
   end
 end

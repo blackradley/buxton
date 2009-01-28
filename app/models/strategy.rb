@@ -13,5 +13,13 @@
 class Strategy < ActiveRecord::Base
   has_many :activity_strategies
   validates_presence_of :name
+  
+  def can_be_edited_by?(user_)
+    user_.class == Administrator
+  end
+  
+  def self.can_be_viewed_by?(user_)
+    user_.class == Administrator
+  end
 
 end

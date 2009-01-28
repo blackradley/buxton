@@ -816,5 +816,20 @@ class Activity < ActiveRecord::Base
     checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
     return checker
   end
+  
+  def self.can_be_viewed_by?(user_)
+    return user_.class != Administrator
+  end
+  
+  def can_be_viewed_by?(user_)
+    return false unless [OrganisationManager, DirectorateManager, ProjectManager].include?(user_.class)
+    return (user_.activities.include? self)
+  end
+  
+  def can_be_edited_by?(user_)
+    return user_.activities.include? self if [OrganisationManager, DirectorateManager, ProjectManager].include?(user_.class)
+    return user_.activity == self  if [ActivityManager, ActivityApprover].include? user_.class
+    return false
+  end
 
 end

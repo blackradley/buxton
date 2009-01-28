@@ -21,6 +21,9 @@ class OrganisationsController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
+  
+  before_filter :verify_edit_access, :only => [:show, :edit, :update, :destroy]
+  before_filter :verify_index_access, :only => [:index, :new, :create]
 
   # List the organisation for the administrative User. Paginate with 10 organisations listed per page.
   # Available to: Administrator
@@ -31,7 +34,7 @@ class OrganisationsController < ApplicationController
   # Show a view of an individual Organisation
   # Available to: Administrator
   def show
-    @organisation = Organisation.find(params[:id])
+#    @organisation = Organisation.find(params[:id])
     @directorates = @organisation.directorates
     @organisation_managers = @organisation.organisation_managers
   end
@@ -70,7 +73,7 @@ class OrganisationsController < ApplicationController
   # by the administrator.
   # Available to: Administrator
   def edit
-    @organisation = Organisation.find(params[:id])
+#    @organisation = Organisation.find(params[:id])
     @organisation_managers = @organisation.organisation_managers
     @organisation_terminologies = Terminology.find(:all).map do |term|
       if term = @organisation.organisation_terminologies.find_by_terminology_id(term.id) then
@@ -84,7 +87,7 @@ class OrganisationsController < ApplicationController
   # Update the organisation and all of its attributes
   # Available to: Administrator
   def update
-    @organisation = Organisation.find(params[:id])
+#    @organisation = Organisation.find(params[:id])
     @organisation_managers = @organisation.organisation_managers
     @organisation_terminologies = @organisation.organisation_terminologies
     Organisation.transaction do
@@ -106,7 +109,7 @@ class OrganisationsController < ApplicationController
   # Destroy the organisation
   # Available to: Administrator
   def destroy
-    @organisation = Organisation.find(params[:id])
+#    @organisation = Organisation.find(params[:id])
     @organisation.destroy
 
     flash[:notice] = 'Organisation successfully deleted.'
@@ -143,7 +146,9 @@ protected
     render :action => (exception.record.new_record? ? :new : :edit)
   end
   
-  
+  def get_related_model
+    Organisation
+  end
   
 
   

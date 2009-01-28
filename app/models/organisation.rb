@@ -180,5 +180,13 @@ class Organisation < ActiveRecord::Base
     terminology = self.organisation_terminologies.find_by_terminology_id(assoc_term.id)
     terminology ? terminology.value : term
   end
+  
+  def can_be_edited_by?(user_)
+    user_.class == Administrator
+  end
+  
+  def self.can_be_viewed_by?(user_)
+    user_.class == Administrator
+  end
 
 end

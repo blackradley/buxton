@@ -50,4 +50,12 @@ class Directorate < ActiveRecord::Base
   def results_table
     Organisation.results_table(self)
   end  
+  
+  def can_be_edited_by?(user_)
+    user_.class == Administrator
+  end
+  
+  def self.can_be_viewed_by?(user_)
+    user_.class == Administrator
+  end
 end

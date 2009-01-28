@@ -8,6 +8,8 @@
 #
 class NoteController < ApplicationController
   
+  before_filter :verify_question_access
+  
   def edit
     parent_question = @current_user.activity.questions.find(params[:question_id])
     unless parent_question.note then
@@ -49,5 +51,21 @@ class NoteController < ApplicationController
     parent_strategy.note.destroy if parent_strategy && parent_strategy.note
     render :inline => ''
   end
+  
+  protected
+  
+    def get_related_model
+      Note
+    end
+    
+    def verify_question_access
+      if params[:question_id]
+        activity = Question.find(params[:question_id]).activity
+      elsif params[:activity_strategy_id]
+        activity = ActivityStrategy.find(params[:activity_strategy_id]).activity
+      end
+      condition = ((activity && current_user.class.to_s.match(/^Activity/)) ? (current_user.activity == activity) : false)
+      verify_index_access get_related_model, nil, nil, false, condition
+    end
   
 end

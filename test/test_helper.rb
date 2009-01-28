@@ -40,25 +40,36 @@ class Test::Unit::TestCase
   def login_as(user_type)
     old_controller = @controller
     @controller = UsersController.new
-    case user_type
-    when :activity_manager
-      user = ActivityManager.find(3)
+    if user_type
+      user = users(user_type)
       post :login, :passkey => user.passkey
-      if user.function.started then
-        assert_redirected_to :controller => 'functions', :action => 'show'
-      else
-       assert_redirected_to :controller => 'functions', :action => 'status'
-      end
-    when :organisation_manager
-      user = OrganisationManager.find(2)
-      post :login, :passkey => user.passkey
-      assert_redirected_to :controller => 'functions', :action => 'summary'
-    when :administrator
-      user = Administrator.find(1)
-      post :login, :passkey => user.passkey      
-      assert_redirected_to :controller => 'organisations', :action => 'index'
+      assert_not_nil session[:user_id]
     end
-    assert_not_nil session[:user_id]
+    # case user_type
+    # when :activity_manager
+    #   user = ActivityManager.find(3)
+    #   post :login, :passkey => user.passkey
+    #   # if user.function.started then
+    #   #   assert_redirected_to :controller => 'functions', :action => 'show'
+    #   # else
+    #   #  assert_redirected_to :controller => 'functions', :action => 'status'
+    #   # end
+    # when :organisation_manager
+    #   user = OrganisationManager.find(2)
+    #   post :login, :passkey => user.passkey
+    #   # assert_redirected_to :controller => 'functions', :action => 'summary'
+    # when :administrator
+    #   user = Administrator.find(1)
+    #   post :login, :passkey => user.passkey      
+    #   # assert_redirected_to :controller => 'organisations', :action => 'index'
+    # when :project_manager
+    #   user = ProjectManager.find(4)
+    #   post :login, :passkey => user.passkey
+    # when :directorate_manager
+    #   user = DirectorateManager.find(5)
+    #   post :login, :passkey => user.passkey
+    # end
+    # assert_not_nil session[:user_id]  unless user_type.nil?
     @controller = old_controller    
   end
   

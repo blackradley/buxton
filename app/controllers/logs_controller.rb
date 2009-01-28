@@ -7,6 +7,8 @@
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
 class LogsController < ApplicationController
+  
+  before_filter :verify_index_access
 
   def index
     @logs = Log.find(:all, :order => 'created_at DESC')
@@ -16,6 +18,7 @@ class LogsController < ApplicationController
     Log.destroy_all
     redirect_to :back
   end
+  
 
 protected
 
@@ -23,4 +26,9 @@ protected
   def secure?
     true
   end
+  
+  def get_related_model
+    Log
+  end
+  
 end

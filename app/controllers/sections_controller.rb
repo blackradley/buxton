@@ -17,6 +17,12 @@ class SectionsController < ApplicationController
   # List the section status for the different activities of an Organisation
   # but don't paginate, a long list is actually more convenient for the Organisation
   # Manager to scan down.
+  
+  before_filter :verify_org_index_access, :only => :list
+  before_filter :verify_org_activity_access, :only => :show
+  before_filter :verify_activity_index_access, :only => [:edit, :update]
+  
+  
   # Available to: Organisation Manager
   def list
     @organisation = @current_user.organisation
@@ -191,4 +197,28 @@ protected
   def secure?
     true
   end
+  
+  def verify_org_index_access
+    verify_index_access get_related_model, nil, nil, false, (current_user.class == OrganisationManager)
+  end
+  
+  def verify_org_activity_access
+    case current_user.class.to_s
+    when 'OrganisationManager'
+      verify_edit_access get_related_model, :f
+    when 'ActivityManager', 'ActivityApprover'
+      verify_index_access
+    else
+      render_no_permission(get_related_model, "view")
+    end
+  end
+  
+  def verify_activity_index_access
+    verify_index_access get_related_model, nil, nil, false, [ActivityManager, ActivityApprover].include?(current_user.class)
+  end
+  
+  def get_related_model
+    Activity
+  end
+  
 end

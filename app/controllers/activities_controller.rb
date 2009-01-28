@@ -15,12 +15,25 @@ class ActivitiesController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
+  
+  ## Accessed by organisation manager. no ID
+  before_filter :verify_org_index_access, :only => :new
+  ## Accessed by organisation manager or activity_creator. no ID
+  before_filter :verify_org_creator_index_access, :only => [:create, :signup]
+  ## Accessed by organisation manager.
+  before_filter :verify_org_edit_access, :only => [:edit_contact, :update_contact, :destroy]
+  ## Accessed by activity manager or approver. no ID
+  before_filter :verify_activity_index_access, :only => [:index, :show, :questions, :update, :update_activity_type, :update_name, :update_ref_no, :update_approver, :update_ces, :approve, :unapprove, :submit, :unsubmit, :toggle_strand]
+  ## Accessed by project, directorate or organisation managers
+  before_filter :verify_manager_index_access, :only => [:summary, :awaiting_approval, :approved, :incomplete]
+  before_filter :verify_manager_edit_access, :only => :view
+  
 
   # Make render_to_string available to the #show action
   helper_method :render_to_string
 
-  # By default, show the summary page. Not presently referenced anywhere.
-  # Available to: Organisation Manager
+  # Show activity index
+  # Available to: Activity Manager
   def index
     @activity = @current_user.activity
     @organisation = @current_user.activity.organisation
@@ -423,5 +436,38 @@ protected
   def show_errors(exception)
     flash[:notice] = 'Activity could not be updated.'
     render :action => (exception.record.new_record? ? :new : :edit)
+  end
+  
+  def verify_org_edit_access
+    verify_edit_access get_related_model, nil, nil, false, (current_user.class == OrganisationManager)
+  end
+  
+  def verify_org_index_access
+    verify_index_access get_related_model, nil, nil, false, (current_user.class == OrganisationManager)
+  end
+  
+  def verify_activity_index_access
+    verify_index_access get_related_model, nil, nil, false, ([ActivityManager, ActivityApprover].include? current_user.class)
+  end
+  
+  def verify_activity_edit_access
+    verify_edit_access get_related_model, nil, nil, false, ([ActivityManager, ActivityApprover].include? current_user.class)
+  end
+  
+  def verify_manager_index_access
+    verify_index_access get_related_model, nil, nil, false, ([OrganisationManager, DirectorateManager, ProjectManager].include? current_user.class)
+  end
+  
+  def verify_manager_edit_access
+    verify_edit_access get_related_model, nil, nil, false, ([OrganisationManager, DirectorateManager, ProjectManager].include? current_user.class)
+  end
+  
+  def verify_org_creator_index_access
+    verify_index_access get_related_model, nil, nil, false, [OrganisationManager, ActivityCreator].include?(current_user.class)
+  end
+  
+  
+  def get_related_model
+    Activity
   end
 end
