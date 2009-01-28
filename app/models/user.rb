@@ -87,4 +87,18 @@ class User < ActiveRecord::Base
     url_for_login(request, true)
   end
   
+  def can_be_viewed_by?(user_)
+    user_.class == Administrator
+  end
+  
+  def self.can_be_viewed_by?(user_)
+    user_.class == Administrator
+  end
+  
+  def can_be_edited_by?(user_)
+    return true  if user_.class == Administrator
+    return true  if (user_.class == OrganisationManager) && (user_.organisation == self.organisation)
+    return false
+  end
+  
 end

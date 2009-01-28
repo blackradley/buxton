@@ -13,5 +13,9 @@ class Comment < ActiveRecord::Base
   def html_id
     "comment_#{self.id}"
   end
+  
+  def self.can_be_viewed_by?(user_)
+    [ActivityManager, ActivityApprover].include? user_.class
+  end
 
 end

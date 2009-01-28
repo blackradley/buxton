@@ -12,4 +12,8 @@ class Log < ActiveRecord::Base
   def icon
     self.class::ICON
   end  
+  
+  def self.can_be_viewed_by?(user_)
+    user_.class == Administrator
+  end
 end

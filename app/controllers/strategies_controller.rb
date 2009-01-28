@@ -23,6 +23,8 @@ class StrategiesController < ApplicationController
   # Strategies are nested resources underneath Organisations,
   # so we'll always have an Organisation to load first.
   before_filter :load_organisation
+  before_filter :verify_index_access, :only => [:index, :show, :create, :reorder, :update_strategy_order]
+  before_filter :verify_edit_access, :only => [:edit, :update, :destroy]
   
   # Get the organisation you are considering and a list of it's strategies.
   # Available to: Administrator  
@@ -111,6 +113,10 @@ private
   # before_filter
   def load_organisation
     @organisation = Organisation.find(params[:organisation_id])
+  end
+  
+  def get_related_model
+    Strategy
   end
   
 end

@@ -12,6 +12,14 @@ class Issue < ActiveRecord::Base
 	belongs_to :activity
   validates_presence_of :description
   attr_accessor :issue_destroy
+  
+  def can_be_edited_by?(user_)
+    [ActivityManager, ActivityApprover].include?(user_.class) && user_.activity == self
+  end
+  
+  def self.can_be_viewed_by?(user_)
+    [ActivityManager, ActivityApprover].include? user_.class
+  end
 
   def after_save
     self.destroy if self.issue_destroy?

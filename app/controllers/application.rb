@@ -15,6 +15,8 @@ class ApplicationController < ActionController::Base
   helper :all # include all helpers, all the time
 
   include ExceptionNotifiable
+  include AccessSystem
+  include SecurityModelHelper
     
   before_filter :authenticate
   before_filter :set_current_user
@@ -58,6 +60,10 @@ protected
     @current_user = User.find(session[:user_id]) unless session[:user_id].nil?
   end
   
+  def current_user
+    @current_user
+  end
+  
   def set_banner
     @banner_text = "Not live. You are on a server in #{RAILS_ENV} mode."
 
@@ -81,6 +87,10 @@ protected
   # This is quick and temporary until we have proper user access control when going in to production.
   def wrong_user?(exception)
     render :text => "<h3>Access Denied</h3><p>You do not have sufficient privileges.</p>", :layout => true
+  end
+  
+  def access_denied_url
+    '/users/access_denied'
   end
   
 private

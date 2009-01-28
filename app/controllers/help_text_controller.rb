@@ -8,6 +8,8 @@
 #
 class HelpTextController < ApplicationController
   
+  before_filter :verify_index_access, :only => [:edit, :update, :index]
+  
   def index
     @help_texts = HelpText.find(:all, :order => 'question_name')
     render :layout => 'keys'
@@ -42,6 +44,10 @@ protected
   def show_errors(exception)
     flash[:notice] = 'Help text could not be updated.'
     render :action => (exception.record.new_record? ? :new : :edit)
+  end
+  
+  def get_related_model
+    HelpText
   end
 
 end

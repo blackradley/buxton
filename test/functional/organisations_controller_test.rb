@@ -36,6 +36,95 @@ class OrganisationsControllerTest < Test::Unit::TestCase
       end
     end
   end
+  
+  def test_cannot_view_organisations_without_user
+    get :index
+    assert_redirected_to :controller => 'users'
+    get :show, :id => 1
+    assert_redirected_to :controller => 'users'
+    get :edit, :id => 1
+    assert_redirected_to :controller => 'users'
+    post :new
+    assert_redirected_to :controller => 'users'
+    post :create
+    assert_redirected_to :controller => 'users'
+    put :update, :id => 1
+    assert_redirected_to :controller => 'users'
+    delete :destroy, :id => 1
+    assert_redirected_to :controller => 'users'  
+  end
+  
+  def test_cannot_view_organisations_as_organisation_manager
+    login_as :organisation_manager
+    get :index
+    assert_redirected_to '/users/access_denied'
+    get :show, :id => 1
+    assert_redirected_to '/users/access_denied'
+    get :edit, :id => 1
+    assert_redirected_to '/users/access_denied'
+    post :new
+    assert_redirected_to '/users/access_denied'
+    post :create
+    assert_redirected_to '/users/access_denied'
+    put :update, :id => 1
+    assert_redirected_to '/users/access_denied'
+    delete :destroy, :id => 1
+    assert_redirected_to '/users/access_denied'
+  end
+  
+  def test_cannot_view_organisations_as_activity_manager
+    login_as :activity_manager
+    get :index
+    assert_redirected_to '/users/access_denied'
+    get :show, :id => 1
+    assert_redirected_to '/users/access_denied'
+    get :edit, :id => 1
+    assert_redirected_to '/users/access_denied'
+    post :new
+    assert_redirected_to '/users/access_denied'
+    post :create
+    assert_redirected_to '/users/access_denied'
+    put :update, :id => 1
+    assert_redirected_to '/users/access_denied'
+    delete :destroy, :id => 1
+    assert_redirected_to '/users/access_denied'
+  end
+  
+  def test_cannot_view_organisations_as_directorate_manager
+    login_as :directorate_manager
+    get :index
+    assert_redirected_to '/users/access_denied'
+    get :show, :id => 1
+    assert_redirected_to '/users/access_denied'
+    get :edit, :id => 1
+    assert_redirected_to '/users/access_denied'
+    post :new
+    assert_redirected_to '/users/access_denied'
+    post :create
+    assert_redirected_to '/users/access_denied'
+    put :update, :id => 1
+    assert_redirected_to '/users/access_denied'
+    delete :destroy, :id => 1
+    assert_redirected_to '/users/access_denied'
+  end
+  
+  def test_cannot_view_organisations_as_project_manager
+    login_as :project_manager
+    get :index
+    assert_redirected_to '/users/access_denied'
+    get :show, :id => 1
+    assert_redirected_to '/users/access_denied'
+    get :edit, :id => 1
+    assert_redirected_to '/users/access_denied'
+    post :new
+    assert_redirected_to '/users/access_denied'
+    post :create
+    assert_redirected_to '/users/access_denied'
+    put :update, :id => 1
+    assert_redirected_to '/users/access_denied'
+    delete :destroy, :id => 1
+    assert_redirected_to '/users/access_denied'
+  end
 
 
   # def test_index

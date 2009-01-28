@@ -19,6 +19,9 @@ class IssuesController < ApplicationController
           :only => [ :update ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
   
+  before_filter :verify_edit_access, :only => :destroy
+  before_filter :verify_index_access, :only => [:create, :update]
+  
   # Create a new issue and reply with the appropriate RJS
   # Available to: Activity Manager
   def create
@@ -65,6 +68,10 @@ protected
   # Secure the relevant methods in the controller.
   def secure?
     true
+  end
+  
+  def get_related_model
+    Issue
   end
   
 end
