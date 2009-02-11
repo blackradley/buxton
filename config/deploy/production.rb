@@ -11,5 +11,4 @@ set :rails_env, "production"
 role :app, domain
 role :web, domain
 role :db,  domain, :primary => true
-set :deploy_to, "/var/www/vhosts/#{domain}/rails/testapp"
-set :mongrel_conf, "#{current_path}/config/mongrel_cluster.yml" # required really but needs to be after deploy_to
+set :deploy_to, "/home/deploy/public_html/#{domain}"

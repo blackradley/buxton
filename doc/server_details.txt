@@ -1,0 +1,13 @@
+SSH: 78.109.167.171
+Port: 2020
+Username: root
+Password: 27Buxton01
+Username: deploy
+Password: Buxton27
+
+SSH: 78.109.167.172
+Port: 2020
+Username: root
+Password: 27Buxton01
+Username: deploy
+Password: Buxton27
