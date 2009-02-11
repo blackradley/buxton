@@ -4,12 +4,12 @@ case $1 in
 	ssh -p 2020 deploy@78.109.167.171
 	;;
 	"staging_old" )
-	ssh buxton@impactstaging.org.uk -p 1417
+	ssh buxton@72.47.214.74 -p 1417
 	;;
 	"production" )
 	ssh -p 2020 deploy@78.109.167.172
 	;;
 	"production_old" )
-	ssh buxton@impactengine.org.uk -p 1417
+	ssh buxton@72.47.213.74 -p 1417
 	;;
 esac
