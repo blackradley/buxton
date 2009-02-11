@@ -1,32 +1,26 @@
-# require 'mongrel_cluster/recipes'
 require 'capistrano/ext/multistage'
-
-require 'rubygems'
 require 'tinder'
 
 # =============================================================================
-# REQUIRED VARIABLES
+# VARS
 # =============================================================================
 set :application, "buxton"
 set :repository,  "http://svn3.cvsdude.com/BlackRadley/buxton/trunk"
-set :port, 1417
-
-# =============================================================================
-# OPTIONAL VARIABLES
-# =============================================================================
-set :user, 'buxton'
+set :port, 2020
+set :user, 'deploy'
+set :runner, user
 set :scm_username, '27stars-karl'
 set :scm_password, 'dogstar'
-set :rake, "/usr/local/rubygems/gems/bin/rake"
+set :rake, '/opt/ruby-enterprise-1.8.6-20090201/bin/rake'
+set :password, 'Buxton27'
 
 # =============================================================================
 # TASKS
 # =============================================================================
 task :after_update_code, :roles => [:web] do
   # Make symlink for shared files
-  SHARED_FILES = ['/config/database.yml',
-                  '/config/mongrel_cluster.yml',
-                  '/public/images/organisations']
+  SHARED_FILES = ['config/database.yml',
+                  'public/images/organisations']
   SHARED_FILES.each do |file|
     run "ln -nfs #{shared_path}/#{file} #{release_path}/#{file}"
   end
@@ -38,7 +32,7 @@ task :after_update_code, :roles => [:web] do
   TASKS.each do |task|
     run <<-EOF
       cd #{release_path} &&
-      rake RAILS_ENV=#{rails_env} #{task}
+      #{rake} RAILS_ENV=#{rails_env} #{task}
     EOF
   end
 end
@@ -52,45 +46,14 @@ task :after_deploy, :roles => [:web] do
   campfire.logout()  
 end
 
-# =============================================================================
-# TASKS FOR MONGREL UNTIL CAP 2 SUPPORTS IT NATIVELY
-# =============================================================================
-namespace :deploy do
-  namespace :mongrel do
-    [ :stop, :start, :restart ].each do |t|
-      desc "#{t.to_s.capitalize} the mongrel appserver"
-      task t, :roles => :app do
-        #invoke_command checks the use_sudo variable to determine how to run the mongrel_rails command
-        invoke_command "mongrel_rails cluster::#{t.to_s} -C #{mongrel_conf}", :via => run_method
-      end
-    end
-  end
+namespace :deploy do  
+  task :start, :roles => :app do  
+  end  
 
-  desc "Custom restart task for mongrel cluster"
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    deploy.mongrel.restart
-  end
+  task :stop, :roles => :app do  
+  end  
 
-  desc "Custom start task for mongrel cluster"
-  task :start, :roles => :app do
-    deploy.mongrel.start
-  end
-
-  desc "Custom stop task for mongrel cluster"
-  task :stop, :roles => :app do
-    deploy.mongrel.stop
-  end
-
-end
-
-# =============================================================================
-# ENVIRONMENT DEBUGGING
-# =============================================================================
-desc "Echo environment vars" 
-namespace :env do
-  task :echo do
-    run "echo printing out cap info on remote server"
-    run "echo $PATH"
-    run "printenv"
-  end
+  task :restart, :roles => :app do  
+    run "touch #{release_path}/tmp/restart.txt"
+  end  
 end

@@ -14,7 +14,7 @@ namespace :stars do
     desc "Sync remote DB with local DB"
     task :db do
       puts "Dumping remote database..."
-      puts "ssh -p #{PORT} #{USER}@#{HOST} \"mysqldump -u #{DB_CONFIG['production']["username"]} -p#{DB_CONFIG['production']["password"] } -h #{DB_CONFIG['production']['host']} -Q --add-drop-table --add-locks=FALSE --lock-tables=FALSE --ignore-table=#{DB_CONFIG['production']["database"]}.sessions #{DB_CONFIG['production']["database"]} > ~/dump.sql\""
+      puts "ssh -p #{PORT} #{USER}@#{HOST} \"mysqldump -u #{DB_CONFIG['production']["username"]} -p#{DB_CONFIG['production']["password"] } -h #{DB_CONFIG['production']['host']} -Q --add-drop-table --add-locks=FALSE --lock-tables=FALSE --ignore-table=#{DB_CONFIG['production']["database"]}.sessions #{DB_CONFIG['production']["database"]} > /tmp/dump.sql\""
       puts "Retrieving remote database..."
       puts "rsync -az -e \"ssh -p #{PORT}\" --progress #{USER}@#{HOST}:~/dump.sql ./db/production_data.sql"
       # 

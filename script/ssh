@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 case $1 in
 	"staging" )
-	ssh buxton@impactstaging.org.uk -p 1417
+	ssh -p 2020 deploy@78.109.167.171
 	;;
 	"staging_old" )
-	ssh buxton@buxton.test.27stars.co.uk
+	ssh buxton@impactstaging.org.uk -p 1417
 	;;
 	"production" )
-	ssh buxton@impactengine.org.uk -p 1417
+	ssh -p 2020 deploy@78.109.167.172
 	;;
 	"production_old" )
-	ssh serveradmin@webwelcome.net@ftp.s21552.gridserver.com
+	ssh buxton@impactengine.org.uk -p 1417
 	;;
 esac
