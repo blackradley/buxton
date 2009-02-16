@@ -172,15 +172,15 @@ module ApplicationHelper
                         :title => 'Control Page - Overview',
                         :status => '' },
                       { :text => 'Incomplete',
-                        :url => { :controller => 'activities', :action => 'incomplete' },
+                        :url => { :controller => 'activities', :action => :show_by_status, :status => :incomplete },
                         :title => 'Control Page - Incomplete Activities' ,
                         :status => '' },
                       { :text => 'Awaiting Approval',
-                        :url => { :controller => 'activities', :action => 'awaiting_approval' },
+                        :url => { :controller => 'activities', :action => :show_by_status, :status => :awaiting_approval },
                         :title => 'Control Page - Activities Awaiting Approval' ,
                         :status => '' },
                       { :text => 'Approved',
-                        :url => { :controller => 'activities', :action => 'approved' },
+                        :url => { :controller => 'activities', :action => :show_by_status, :status => :approved },
                         :title => 'Control Page - Approved Activities',
                         :status => ''}
                       ])
@@ -244,13 +244,15 @@ module ApplicationHelper
   end
 
   # Generates all the HTML needed to display the answer to a question
-  def answer(activity, section, strand, ids)
+  def answer(activity, activity_questions, section, strand, ids)
     output = Array(ids).collect do |id|
       name = "#{section}_#{strand}_#{id}"
-      question = activity.questions.find_by_name(name)
+      #question = activity.questions.find_by_name(name)
+      question = activity_questions[name][0]
+      comment = activity_questions[name][1]
       next unless question.needed
 
-      query = activity.question_wording_lookup(question.section, question.strand, question.number)
+      query = activity.question_wording_lookup(question.section, question.strand, question.number, true)
 
       label = query[0]
       choices = activity.hashes['choices'][query[2]]
@@ -262,15 +264,15 @@ module ApplicationHelper
         when :select
           choices[question_answer]
         when :text
-          activity.send(question.name)
+          question_answer
         when :string
-          activity.send(question.name)
+          question_answer
         end
       else
         answer = 'Not Answered Yet'
       end
 
-      render :partial => '/activities/answer', :locals => { :label => label, :answer => answer, :question => question }
+      render :partial => '/activities/answer', :locals => { :label => label, :answer => answer, :question => question, :comment => comment }
     end
 
     output

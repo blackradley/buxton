@@ -44,14 +44,12 @@ class Activity < ActiveRecord::Base
   validates_presence_of :activity_manager, :activity_approver
   validates_presence_of :directorate
   validates_associated :activity_manager, :activity_approver
-  validates_associated :questions
+#  validates_associated :questions
   # validates_uniqueness_of :name, :scope => :directorate_id
-
-  has_many :questions, :dependent => :destroy
 
   attr_accessor :activity_clone, :saved
   before_save :set_approved
-  before_save :create_questions_if_new
+  after_create :create_questions_if_new
 
   after_update :save_issues
   
@@ -112,14 +110,22 @@ class Activity < ActiveRecord::Base
   def hashes
     @@Hashes
   end
-
+  
+  ## One statement per question is far too slow
+  ## Execute SQL directly for a single INSERT statement, using SELECT and JOIN.
+  ## See http://blog.sqlauthority.com/2007/06/08/sql-server-insert-multiple-records-using-one-insert-statement-use-of-union-all/
   def create_questions_if_new
     # Initialise a question, for every question name, if this is a new record
-    if self.new_record? and self.questions.empty? then
+    if self.questions.empty? then
+      sql_statement = "INSERT INTO `questions` (`activity_id`, `name`, `completed`, `needed`)\n"
+      key = self.id
       Activity.get_question_names.each do |question_name|
-        question = self.questions.build(:name => question_name.to_s)
-        question.needed = true
+        sql_statement += "SELECT #{key}, '#{question_name}', 0, 1\nUNION ALL\n"
+#        question = self.questions.build(:name => question_name.to_s)
+#        question.needed = true
       end
+      sql_statement.sub!(/\nUNION ALL\n$/, '')
+      ActiveRecord::Base.connection.execute sql_statement
     end
   end
 
@@ -697,7 +703,7 @@ class Activity < ActiveRecord::Base
   #This activity returns the wording of a particular question. It takes a section strand and question number as arguments, and returns that specific question.
   #It can also be passed nils, and in that event, it will automatically return an array containing all the values that corresponded to the nils. Hence, to return all
   #questions and their lookup types, just func.question_wording_lookup suffices.
-  def question_wording_lookup(section = nil, strand = nil, question = nil)
+  def question_wording_lookup(section = nil, strand = nil, question = nil, name_only=false)
     fun_pol_indicator = case fun_pol_number
       when 0
         "function"
@@ -759,23 +765,27 @@ class Activity < ActiveRecord::Base
     label = query_hash[section][question]['label'][self.fun_pol_number][self.exist_prop_number].to_s
     type = query_hash[section][question]['type']
     choices = query_hash[section][question]['choices']
-    help_object = HelpText.find_by_question_name("#{section}_#{strand}_#{question}")
-    if help_object.nil?
-      help_text = ""
-    else
-      if (exist_prop_indicator.include? "-") || (fun_pol_indicator.include? "-") then
+    unless name_only
+      help_object = HelpText.find_by_question_name("#{section}_#{strand}_#{question}")
+      if help_object.nil?
         help_text = ""
       else
-        text_to_send = "#{exist_prop_indicator}_#{fun_pol_indicator}"
-        help_text = help_object.send(text_to_send.to_sym)
+        if (exist_prop_indicator.include? "-") || (fun_pol_indicator.include? "-") then
+          help_text = ""
+        else
+          text_to_send = "#{exist_prop_indicator}_#{fun_pol_indicator}"
+          help_text = help_object.send(text_to_send.to_sym)
+        end
       end
+      weights = query_hash[section][question]['weights']
+      label = eval(%Q{<<"DELIM"\n} + label.to_s + "\nDELIM\n") rescue nil
+      help_text = eval(%Q{<<"DELIM"\n} + help_text.to_s + "\nDELIM\n") rescue nil
+      label.chop! unless label.nil?
+      help_text.chop! unless help_text.nil?
+      return [label, type, choices, help_text, weights]
+    else
+      return [label, type, choices]
     end
-    weights = query_hash[section][question]['weights']
-    label = eval(%Q{<<"DELIM"\n} + label.to_s + "\nDELIM\n") rescue nil
-    help_text = eval(%Q{<<"DELIM"\n} + help_text.to_s + "\nDELIM\n") rescue nil
-    label.chop! unless label.nil?
-    help_text.chop! unless help_text.nil?
-    return [label, type, choices, help_text, weights]
   end
 
     #This takes a method in the form of :section_strand_number and turns it into an array [section, strand, number]

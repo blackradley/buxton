@@ -16,4 +16,4 @@
   %span.button
     = submit_tag "Create", :disable_with => 'Creating...'
 %span.button
-  = link_to 'Back', :action => :incomplete
+  = link_to 'Back', :action => :show_by_status, :status => :incomplete
