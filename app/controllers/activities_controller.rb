@@ -17,7 +17,7 @@ class ActivitiesController < ApplicationController
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
   
   ## Accessed by organisation manager. no ID
-  before_filter :verify_org_index_access, :only => :new
+  before_filter :verify_org_index_access, :only => [:new, :show_partial_by_status]
   ## Accessed by organisation manager or activity_creator. no ID
   before_filter :verify_org_creator_index_access, :only => [:create, :signup]
   ## Accessed by organisation manager.
@@ -25,7 +25,7 @@ class ActivitiesController < ApplicationController
   ## Accessed by activity manager or approver. no ID
   before_filter :verify_activity_index_access, :only => [:index, :show, :questions, :update, :update_activity_type, :update_name, :update_ref_no, :update_approver, :update_ces, :approve, :unapprove, :submit, :unsubmit, :toggle_strand]
   ## Accessed by project, directorate or organisation managers
-  before_filter :verify_manager_index_access, :only => [:summary, :awaiting_approval, :approved, :incomplete]
+  before_filter :verify_manager_index_access, :only => [:summary, :show_by_status]
   before_filter :verify_manager_edit_access, :only => :view
   
 
@@ -54,7 +54,13 @@ class ActivitiesController < ApplicationController
   # Show the summary information for a specific activity.
   # Available to: Activity Manager
   def show
-    @activity = Activity.find(@current_user.activity_id, :include => 'questions')
+    @activity = Activity.find(@current_user.activity_id)
+    ## Looks strange, but significantly reduces SQL statements in calls to answer() in views
+    questions = Question.find_all_by_activity_id(@activity.id, :include => :comment).map{|q| [q, q.comment]}
+    @activity_questions = {}
+    questions.each do |question, comment|
+      @activity_questions[question.name] = [question, comment]
+    end
     org_strategies = @activity.organisation.organisation_strategies
      @activity_org_strategies = Array.new(org_strategies.size) do |i|
        @activity.activity_strategies.find_or_create_by_strategy_id(org_strategies[i].id)
@@ -67,7 +73,16 @@ class ActivitiesController < ApplicationController
     @projects = @activity.projects
   end
   
-  def incomplete
+  def show_partial_by_status
+    if params[:group] == 'directorate'
+      @directorates = @current_user.organisation.directorates
+    else
+      @projects = @current_user.organisation.projects
+    end
+    render :partial => "#{params[:status]}_by_#{params[:group]}"
+  end
+  
+  def show_by_status
     @organisation = @current_user.organisation
 
     case @current_user.class.name
@@ -75,43 +90,14 @@ class ActivitiesController < ApplicationController
       @directorates = [@current_user.directorate]
     when 'OrganisationManager'
       @directorates = @organisation.directorates
-      @projects = @organisation.projects
+#      @projects = @organisation.projects
     when 'ProjectManager'
       @projects = [@current_user.project]
     else
       # TODO throw an error - shouldn't ever get here
     end
-  end
-  
-  def awaiting_approval
-    @organisation = @current_user.organisation
-
-    case @current_user.class.name
-    when 'DirectorateManager'
-      @directorates = [@current_user.directorate]
-    when 'OrganisationManager'
-      @directorates = @organisation.directorates
-      @projects = @organisation.projects
-    when 'ProjectManager'
-      @projects = [@current_user.project]
-    else
-      # TODO throw an error - shouldn't ever get here
-    end
-  end
-  
-  def approved
-    @organisation = @current_user.organisation
-    case @current_user.class.name
-    when 'DirectorateManager'
-      @directorates = [@current_user.directorate]
-    when 'OrganisationManager'
-      @directorates = @organisation.directorates
-      @projects = @organisation.projects
-    when 'ProjectManager'
-      @projects = [@current_user.project]
-    else
-      # TODO throw an error - shouldn't ever get here
-    end
+    
+    @status = params[:status]
   end
 
   # Create a new Activity and a new associated user, all activities must have single a valid User.
@@ -153,7 +139,7 @@ class ActivitiesController < ApplicationController
       if @current_user.class.name == 'ActivityCreator' then
         redirect_to :action => 'login', :controller => 'users', :passkey => @activity_manager.passkey
       else
-        redirect_to :action => :incomplete
+        redirect_to :action => :show_by_status, :status => :incomplete
       end
     end
   end
@@ -351,9 +337,9 @@ class ActivitiesController < ApplicationController
       
       case @activity.approved
       when 'not submitted', nil
-        redirect_to :action => 'incomplete'
+        redirect_to :action => :show_by_status, :status => :incomplete
       when 'submitted'
-        redirect_to :action => 'awaiting_approval'
+        redirect_to :action => :show_by_status, :status => :awaiting_approval
       end #n.b. can't edit from Approved page
     else
       # Something went wrong
@@ -374,11 +360,17 @@ class ActivitiesController < ApplicationController
     log_event('Destroy', %Q[The <strong>#{@activity.name}</strong> activity for <strong>#{@activity.organisation.name}</strong> was deleted.])    
 
     flash[:notice] = 'Activity successfully deleted.'
-    redirect_to :action => 'incomplete'
+    redirect_to :action => :show_by_status, :status => :incomplete
   end
   
   def view
     @activity = Activity.find(params[:id], :include => 'questions')
+    ## Looks strange, but significantly reduces SQL statements in calls to answer() in views
+    questions = Question.find_all_by_activity_id(@activity.id, :include => :comment).map{|q| [q, q.comment]}
+    @activity_questions = {}
+    questions.each do |question, comment|
+      @activity_questions[question.name] = [question, comment]
+    end
     org_strategies = @activity.organisation.organisation_strategies
      @activity_org_strategies = Array.new(org_strategies.size) do |i|
        @activity.activity_strategies.find_or_create_by_strategy_id(org_strategies[i].id)

@@ -1,0 +1,33 @@
+#show_projects{:style=>"display:block;"}
+  %p It also lets you, as Organisation Manager, manage the complete activity by adding, deleting and editing activities.
+  -@projects.each do |project|      
+    %h4
+      =h project.name.titleize
+      = ot('project').titleize
+    -@approved = project.activities.find_all_by_approved("submitted", :include => :activity_approver)
+    -if @approved.size > 0
+      %table.list
+        %tr
+          %th.left{:style => "width:400px;", :rowspan =>"2"} Name
+          %th{:colspan =>"2", :nowrap => "nowrap", :style => "width:200px", :align=>"center"} Activity Manager
+          %th{:rowspan =>"2"}
+        %tr
+          %th{:align=>"center", :style => "width:100px;"} Last Key Sent
+          %th{:align=>"center", :style => "width:100px;"} Actions
+        -@approved.each do |activity|
+          - approver = activity.activity_approver
+          %tr
+            %td.left{:style => "width:150px;"}
+              =h activity.name
+            %td
+              = date_or_blank(approver.reminded_on)
+            %td.actions{:nowrap => "nowrap"}
+              = link_to image_tag('icons/email.gif'), "mailto:#{h approver.email}", :title =>"Email"
+              = link_to image_tag('icons/key.gif'), { :controller => 'users', :action => 'remind', :id => approver.id }, :confirm => "Send access key reminder to #{h activity.name} to #{h approver.email}?", :method => :post, :title =>"Key"
+            %td.actions
+              = link_to image_tag('icons/view.gif'), {:controller => 'activities', :action => 'view', :id => activity.id}
+              = link_to image_tag('icons/edit.gif'), { :action => 'edit_contact', :id => activity.id }, :id => 'amend', :title =>"Amend"
+              = link_to image_tag('icons/delete.gif'), { :action => 'destroy', :id => activity.id }, :confirm => "Delete #{h activity.name}?", :method => :post, :title =>"Delete"
+    -else 
+      %p.no_info
+        No Activities Awaiting Approval.

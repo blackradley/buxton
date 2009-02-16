@@ -8,24 +8,24 @@
       %tr
         %th Men and Women
         %th Answers to Date
-      = answer(@activity, :additional_work, :gender, [1,2,3,4])
+      = answer(@activity, @activity_questions, :additional_work, :gender, [1,2,3,4])
 
   -if @activity.relevant_strands.include? 'race' then
     %table
       %tr
         %th People from different ethnic backgrounds
         %th Answers to Date
-      = answer(@activity, :additional_work, :race, [1,2,3,4])
-      = answer(@activity, :additional_work, :race, 6)
+      = answer(@activity, @activity_questions, :additional_work, :race, [1,2,3,4])
+      = answer(@activity, @activity_questions, :additional_work, :race, 6)
 
   -if @activity.relevant_strands.include? 'disability' then
     %table
       %tr
         %th People with different kinds of disability
         %th Answers to Date
-      = answer(@activity, :additional_work, :disability, [1,2,3,4])
-      = answer(@activity, :additional_work, :disability, 6)
-      = answer(@activity, :additional_work, :disability, [7,8,9])
+      = answer(@activity, @activity_questions, :additional_work, :disability, [1,2,3,4])
+      = answer(@activity, @activity_questions, :additional_work, :disability, 6)
+      = answer(@activity, @activity_questions, :additional_work, :disability, [7,8,9])
 
 
   -if @activity.relevant_strands.include? 'faith' then
@@ -33,8 +33,8 @@
       %tr
         %th People from different faith groups
         %th Answers to Date
-      = answer(@activity, :additional_work, :faith, [1,2,3,4])
-      = answer(@activity, :additional_work, :faith, 6)
+      = answer(@activity, @activity_questions, :additional_work, :faith, [1,2,3,4])
+      = answer(@activity, @activity_questions, :additional_work, :faith, 6)
 
 
   -if @activity.relevant_strands.include? 'sexual_orientation' then
@@ -42,15 +42,15 @@
       %tr
         %th People of different sexual orientations
         %th Answers to Date
-      = answer(@activity, :additional_work, :sexual_orientation, [1,2,3,4])
-      = answer(@activity, :additional_work, :sexual_orientation, 6)
+      = answer(@activity, @activity_questions, :additional_work, :sexual_orientation, [1,2,3,4])
+      = answer(@activity, @activity_questions, :additional_work, :sexual_orientation, 6)
 
   -if @activity.relevant_strands.include? 'age' then
     %table
       %tr
         %th People of different ages
         %th Answers to Date
-      = answer(@activity, :additional_work, :age, [1,2,3,4])
-      = answer(@activity, :additional_work, :age, 6)
+      = answer(@activity, @activity_questions, :additional_work, :age, [1,2,3,4])
+      = answer(@activity, @activity_questions, :additional_work, :age, 6)
 
   = "There are no relevant equality strands to consider, therefore no questions were asked for this section of the tool." if @activity.strands.size == 0

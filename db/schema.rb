@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20081114163920) do
+ActiveRecord::Schema.define(:version => 20090129093109) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -194,16 +194,26 @@ ActiveRecord::Schema.define(:version => 20081114163920) do
     t.string   "ref_no",                                                 :default => ""
   end
 
+  add_index "activities", ["approved"], :name => "index_activities_on_approved"
+  add_index "activities", ["directorate_id"], :name => "index_activities_on_directorate_id"
+  add_index "activities", ["directorate_id", "approved"], :name => "index_activities_on_directorate_id_and_approved"
+
   create_table "activities_projects", :id => false, :force => true do |t|
     t.integer "activity_id", :limit => 11
     t.integer "project_id",  :limit => 11
   end
+
+  add_index "activities_projects", ["activity_id"], :name => "index_activities_projects_on_activity_id"
+  add_index "activities_projects", ["project_id"], :name => "index_activities_projects_on_project_id"
 
   create_table "activity_strategies", :force => true do |t|
     t.integer "activity_id",       :limit => 11
     t.integer "strategy_id",       :limit => 11
     t.integer "strategy_response", :limit => 11
   end
+
+  add_index "activity_strategies", ["activity_id"], :name => "index_activity_strategies_on_activity_id"
+  add_index "activity_strategies", ["strategy_id"], :name => "index_activity_strategies_on_strategy_id"
 
   create_table "comments", :force => true do |t|
     t.integer  "question_id",          :limit => 11
@@ -213,6 +223,9 @@ ActiveRecord::Schema.define(:version => 20081114163920) do
     t.integer  "activity_strategy_id", :limit => 11
   end
 
+  add_index "comments", ["question_id"], :name => "index_comments_on_question_id"
+  add_index "comments", ["activity_strategy_id"], :name => "index_comments_on_activity_strategy_id"
+
   create_table "directorates", :force => true do |t|
     t.integer  "organisation_id", :limit => 11
     t.string   "name"
@@ -220,8 +233,10 @@ ActiveRecord::Schema.define(:version => 20081114163920) do
     t.datetime "updated_on"
   end
 
+  add_index "directorates", ["organisation_id"], :name => "index_directorates_on_organisation_id"
+
   create_table "help_texts", :force => true do |t|
-    t.text     "question_name"
+    t.string   "question_name",     :limit => 40
     t.text     "existing_function"
     t.text     "existing_policy"
     t.text     "proposed_function"
@@ -229,6 +244,8 @@ ActiveRecord::Schema.define(:version => 20081114163920) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "help_texts", ["question_name"], :name => "index_help_texts_on_question_name"
 
   create_table "issues", :force => true do |t|
     t.integer "activity_id",  :limit => 11
@@ -240,6 +257,8 @@ ActiveRecord::Schema.define(:version => 20081114163920) do
     t.string  "strand"
     t.text    "section"
   end
+
+  add_index "issues", ["activity_id"], :name => "index_issues_on_activity_id"
 
   create_table "logs", :force => true do |t|
     t.string   "type"
@@ -264,6 +283,9 @@ ActiveRecord::Schema.define(:version => 20081114163920) do
     t.integer  "activity_strategy_id", :limit => 11
   end
 
+  add_index "notes", ["question_id"], :name => "index_notes_on_question_id"
+  add_index "notes", ["activity_strategy_id"], :name => "index_notes_on_activity_strategy_id"
+
   create_table "organisation_terminologies", :force => true do |t|
     t.integer  "organisation_id", :limit => 11
     t.integer  "terminology_id",  :limit => 11
@@ -271,6 +293,9 @@ ActiveRecord::Schema.define(:version => 20081114163920) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  add_index "organisation_terminologies", ["organisation_id"], :name => "index_organisation_terminologies_on_organisation_id"
+  add_index "organisation_terminologies", ["terminology_id"], :name => "index_organisation_terminologies_on_terminology_id"
 
   create_table "organisations", :force => true do |t|
     t.string   "name"
@@ -290,12 +315,17 @@ ActiveRecord::Schema.define(:version => 20081114163920) do
     t.datetime "updated_at"
   end
 
+  add_index "projects", ["organisation_id"], :name => "index_projects_on_organisation_id"
+
   create_table "questions", :force => true do |t|
     t.integer "activity_id", :limit => 11
     t.string  "name"
     t.boolean "completed",                 :default => false
     t.boolean "needed",                    :default => false
   end
+
+  add_index "questions", ["activity_id"], :name => "index_questions_on_activity_id"
+  add_index "questions", ["activity_id", "name", "needed", "completed"], :name => "index_questions_on_activity_id_and_name_and_needed_and_completed"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id"
@@ -318,6 +348,10 @@ ActiveRecord::Schema.define(:version => 20081114163920) do
     t.integer  "project_id",      :limit => 11
   end
 
+  add_index "strategies", ["organisation_id"], :name => "index_strategies_on_organisation_id"
+  add_index "strategies", ["directorate_id"], :name => "index_strategies_on_directorate_id"
+  add_index "strategies", ["project_id"], :name => "index_strategies_on_project_id"
+
   create_table "terminologies", :force => true do |t|
     t.string   "term",       :default => ""
     t.datetime "created_at"
@@ -339,5 +373,8 @@ ActiveRecord::Schema.define(:version => 20081114163920) do
 
   add_index "users", ["passkey"], :name => "index_users_on_passkey"
   add_index "users", ["email"], :name => "index_users_on_email"
+  add_index "users", ["organisation_id"], :name => "index_users_on_organisation_id"
+  add_index "users", ["directorate_id"], :name => "index_users_on_directorate_id"
+  add_index "users", ["project_id"], :name => "index_users_on_project_id"
 
 end

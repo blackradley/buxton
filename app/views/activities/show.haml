@@ -8,7 +8,8 @@
       = link_to "#{image_tag('icons/pdf_lock.gif')}private report", {:action => 'view_pdf', :id => @activity.id, :type => :private}, :target => '_blank', :title => 'Private PDF Report', :confirm => 'Please note: you are about to download a private document intended for internal-use only.'
   - else
     #approver_view
-      = link_to "#{image_tag('icons/pdf_lock.gif')}View private PDF report", {:action => 'view_pdf', :id => @activity.id, :type => :private}, :target => '_blank', :title => 'Private PDF Report', :confirm => 'Please note: you are about to download a private document intended for internal-use only.'
+      - if @activity.completed(:purpose)
+        = link_to "#{image_tag('icons/pdf_lock.gif')}View private PDF report", {:action => 'view_pdf', :id => @activity.id, :type => :private}, :target => '_blank', :title => 'Private PDF Report', :confirm => 'Please note: you are about to download a private document intended for internal-use only.'
 .summary
   %h4
     =h @activity.name.titlecase

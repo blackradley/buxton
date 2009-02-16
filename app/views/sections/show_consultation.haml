@@ -10,7 +10,7 @@
       %tr
         %th Men and Women
         %th Answers to Date
-      = answer(@activity, :consultation, :gender, [1,2,3,4,5,6,7])
+      = answer(@activity, @activity_questions, :consultation, :gender, [1,2,3,4,5,6,7])
       - issues = @activity.issues_by(@section, 'gender')
       - if issues.size > 0 then
         %tr
@@ -26,7 +26,7 @@
       %tr
         %th People from different ethnic backgrounds
         %th Answers to Date
-      = answer(@activity, :consultation, :race, [1,2,3,4,5,6,7])
+      = answer(@activity, @activity_questions, :consultation, :race, [1,2,3,4,5,6,7])
       - issues = @activity.issues_by(@section, 'race')
       - if issues.size > 0 then
         %tr
@@ -43,7 +43,7 @@
       %tr
         %th People with different kinds of disability
         %th Answers to Date
-      = answer(@activity, :consultation, :disability, [1,2,3,4,5,6,7])
+      = answer(@activity, @activity_questions, :consultation, :disability, [1,2,3,4,5,6,7])
       - issues = @activity.issues_by(@section, 'disability')
       - if issues.size > 0 then
         %tr
@@ -59,7 +59,7 @@
       %tr
         %th People from different faith groups
         %th Answers to Date
-      = answer(@activity, :consultation, :faith, [1,2,3,4,5,6,7])
+      = answer(@activity, @activity_questions, :consultation, :faith, [1,2,3,4,5,6,7])
       - issues = @activity.issues_by(@section, 'faith')
       - if issues.size > 0 then
         %tr
@@ -75,7 +75,7 @@
       %tr
         %th People of different sexual orientations
         %th Answers to Date
-      = answer(@activity, :consultation, :sexual_orientation, [1,2,3,4,5,6,7])
+      = answer(@activity, @activity_questions, :consultation, :sexual_orientation, [1,2,3,4,5,6,7])
       - issues = @activity.issues_by(@section, 'sexual_orientation')
       - if issues.size > 0 then
         %tr
@@ -91,7 +91,7 @@
       %tr
         %th People of different ages
         %th Answers to Date
-      = answer(@activity, :consultation, :age, [1,2,3,4,5,6,7])
+      = answer(@activity, @activity_questions, :consultation, :age, [1,2,3,4,5,6,7])
       - issues = @activity.issues_by(@section, 'age')
       - if issues.size > 0 then
         %tr
