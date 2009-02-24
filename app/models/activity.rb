@@ -765,6 +765,8 @@ class Activity < ActiveRecord::Base
     label = query_hash[section][question]['label'][self.fun_pol_number][self.exist_prop_number].to_s
     type = query_hash[section][question]['type']
     choices = query_hash[section][question]['choices']
+    label = eval(%Q{<<"DELIM"\n} + label.to_s + "\nDELIM\n") rescue nil
+    label.chop! unless label.nil?
     unless name_only
       help_object = HelpText.find_by_question_name("#{section}_#{strand}_#{question}")
       if help_object.nil?
@@ -778,9 +780,7 @@ class Activity < ActiveRecord::Base
         end
       end
       weights = query_hash[section][question]['weights']
-      label = eval(%Q{<<"DELIM"\n} + label.to_s + "\nDELIM\n") rescue nil
       help_text = eval(%Q{<<"DELIM"\n} + help_text.to_s + "\nDELIM\n") rescue nil
-      label.chop! unless label.nil?
       help_text.chop! unless help_text.nil?
       return [label, type, choices, help_text, weights]
     else

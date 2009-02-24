@@ -170,19 +170,19 @@ module ApplicationHelper
                       { :text => 'Overview',
                         :url => { :controller => 'activities', :action => 'summary' },
                         :title => 'Control Page - Overview',
-                        :status => '' },
+                        :tab => '' },
                       { :text => 'Incomplete',
-                        :url => { :controller => 'activities', :action => :show_by_status, :status => :incomplete },
+                        :url => { :controller => 'activities', :action => :show_by_status, :tab => :incomplete },
                         :title => 'Control Page - Incomplete Activities' ,
-                        :status => '' },
+                        :tab => '' },
                       { :text => 'Awaiting Approval',
-                        :url => { :controller => 'activities', :action => :show_by_status, :status => :awaiting_approval },
+                        :url => { :controller => 'activities', :action => :show_by_status, :tab => :awaiting_approval },
                         :title => 'Control Page - Activities Awaiting Approval' ,
-                        :status => '' },
+                        :tab => '' },
                       { :text => 'Approved',
-                        :url => { :controller => 'activities', :action => :show_by_status, :status => :approved },
+                        :url => { :controller => 'activities', :action => :show_by_status, :tab => :approved },
                         :title => 'Control Page - Approved Activities',
-                        :status => ''}
+                        :tab => ''}
                       ])
     when 'ActivityManager', 'ActivityApprover'
       status = (@current_user.activity.completed(:purpose)) ? '' : 'disabled'
@@ -190,15 +190,15 @@ module ApplicationHelper
                       { :text => 'Home',
                         :url => { :controller => 'activities', :action => 'index'},
                         :title => 'Activity Control Page - Home' ,
-                        :status => '' },
+                        :tab => '' },
                       { :text => 'Questions',
                         :url => { :controller => 'activities', :action => 'questions'},
                         :title => 'Activity Control Page - Questions' ,
-                        :status => '' },
+                        :tab => '' },
                       { :text => 'Summary',
                         :url => { :controller => 'activities', :action => 'show' },
                         :title => 'Activity Control Page - Summary' ,
-                        :status => status }
+                        :tab => status }
                       ])
     when 'Administrator'
       generate_menu( [
@@ -259,6 +259,7 @@ module ApplicationHelper
 
       # Get the answer options for this question and make an appropriate input field
       question_answer = activity.send(question.name)
+
       unless question_answer.nil?
         answer = case query[1].to_sym
         when :select
