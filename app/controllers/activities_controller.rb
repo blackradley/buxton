@@ -79,7 +79,7 @@ class ActivitiesController < ApplicationController
     else
       @projects = @current_user.organisation.projects
     end
-    render :partial => "#{params[:status]}_by_#{params[:group]}"
+    render :partial => "#{params[:tab]}_by_#{params[:group]}"
   end
   
   def show_by_status
@@ -97,7 +97,7 @@ class ActivitiesController < ApplicationController
       # TODO throw an error - shouldn't ever get here
     end
     
-    @status = params[:status]
+    @status = params[:tab]
   end
 
   # Create a new Activity and a new associated user, all activities must have single a valid User.
@@ -139,7 +139,7 @@ class ActivitiesController < ApplicationController
       if @current_user.class.name == 'ActivityCreator' then
         redirect_to :action => 'login', :controller => 'users', :passkey => @activity_manager.passkey
       else
-        redirect_to :action => :show_by_status, :status => :incomplete
+        redirect_to :action => :show_by_status, :tab => 'incomplete'
       end
     end
   end
@@ -337,9 +337,9 @@ class ActivitiesController < ApplicationController
       
       case @activity.approved
       when 'not submitted', nil
-        redirect_to :action => :show_by_status, :status => :incomplete
+        redirect_to :action => :show_by_status, :tab => :incomplete
       when 'submitted'
-        redirect_to :action => :show_by_status, :status => :awaiting_approval
+        redirect_to :action => :show_by_status, :tab => :awaiting_approval
       end #n.b. can't edit from Approved page
     else
       # Something went wrong
@@ -360,7 +360,7 @@ class ActivitiesController < ApplicationController
     log_event('Destroy', %Q[The <strong>#{@activity.name}</strong> activity for <strong>#{@activity.organisation.name}</strong> was deleted.])    
 
     flash[:notice] = 'Activity successfully deleted.'
-    redirect_to :action => :show_by_status, :status => :incomplete
+    redirect_to :action => :show_by_status, :tab => :incomplete
   end
   
   def view

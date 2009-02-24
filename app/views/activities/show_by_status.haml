@@ -1,9 +1,9 @@
 - if @current_user.role == 'OrganisationManager'
   #view_activities_by
     View activities by: 
-    =link_to_remote(ot('directorate').titleize.pluralize, :url => {:action => 'show_partial_by_status', :status => @status, :group => :directorate}, :update => 'show_activities')
+    =link_to_remote(ot('directorate').titleize.pluralize, :url => {:action => 'show_partial_by_status', :tab => @status, :group => :directorate}, :update => 'show_activities')
     |
-    =link_to_remote(ot('project').titleize.pluralize, :url => {:action => 'show_partial_by_status', :status => @status, :group => :project}, :update => 'show_activities')
+    =link_to_remote(ot('project').titleize.pluralize, :url => {:action => 'show_partial_by_status', :tab => @status, :group => :project}, :update => 'show_activities')
   
 %h3
   - case @current_user.role
