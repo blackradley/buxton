@@ -837,7 +837,7 @@ class Activity < ActiveRecord::Base
   end
   
   def can_be_edited_by?(user_)
-    return user_.activities.include? self if [OrganisationManager, DirectorateManager, ProjectManager].include?(user_.class)
+    return user_.activities.include?(self) if [OrganisationManager, DirectorateManager, ProjectManager].include?(user_.class)
     return user_.activity == self  if [ActivityManager, ActivityApprover].include? user_.class
     return false
   end
