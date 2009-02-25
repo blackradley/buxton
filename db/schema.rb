@@ -194,8 +194,8 @@ ActiveRecord::Schema.define(:version => 20090129093109) do
     t.string   "ref_no",                                                 :default => ""
   end
 
-  add_index "activities", ["approved"], :name => "index_activities_on_approved"
   add_index "activities", ["directorate_id"], :name => "index_activities_on_directorate_id"
+  add_index "activities", ["approved"], :name => "index_activities_on_approved"
   add_index "activities", ["directorate_id", "approved"], :name => "index_activities_on_directorate_id_and_approved"
 
   create_table "activities_projects", :id => false, :force => true do |t|
