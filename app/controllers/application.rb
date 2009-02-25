@@ -12,27 +12,23 @@
 require 'digest/sha1'
 
 class ApplicationController < ActionController::Base
+  include HoptoadNotifier::Catcher
   helper :all # include all helpers, all the time
 
-  include ExceptionNotifiable
   include AccessSystem
   include SecurityModelHelper
-    
+
   before_filter :authenticate
   before_filter :set_current_user
   before_filter :set_banner if BANNER
-  
+
   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
   rescue_from NoMethodError, :with => :wrong_user? unless DEV_MODE
-  
-  # Consider requests made from 27stars router as local. This will enable more details error reports in-page
-  # and no automatic e-mails sent out. Reducing false positives.
-  consider_local "82.69.170.6"
-  
+
   # See ActionController::RequestForgeryProtection for details
   # Uncomment the :secret if you're not using the cookie session store
   # protect_from_forgery :secret => '370c47b86a8ff547b2b472693b0980a4'  
-    
+
 protected
   def log_event(type, text)
     # If this is a secret login, disable the creating of logs by returning false here
