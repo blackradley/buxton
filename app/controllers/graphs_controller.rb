@@ -16,13 +16,13 @@ class GraphsController < ApplicationController
     
     data = []
     unless incomplete.empty?
-      data << ['Incomplete', incomplete.size, {:controller => 'activities', :action => 'incomplete'}]
+      data << ['Incomplete', incomplete.size, {:controller => 'activities', :action => 'show_by_status', :tab => 'incomplete'}]
     end
     unless awaiting_approval.empty?
-      data << ['Awaiting Approval', awaiting_approval.size, {:controller => 'activities', :action => 'awaiting_approval'}]
+      data << ['Awaiting Approval', awaiting_approval.size, {:controller => 'activities', :action => 'show_by_status', :tab => 'awaiting_approval'}]
     end
     unless approved.empty?
-      data << ['Approved', approved.size, {:controller => 'activities', :action => 'approved'}]
+      data << ['Approved', approved.size, {:controller => 'activities', :action => 'show_by_status', :tab => 'approved'}]
     end
   
     total = data.inject(0){|sum, d| sum + d[1]}
