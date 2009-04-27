@@ -21,5 +21,19 @@ class Strategy < ActiveRecord::Base
   def self.can_be_viewed_by?(user_)
     user_.class == Administrator
   end
+  
+  def before_save
+    self.name.gsub!("‘", "'")
+    self.name.gsub!("’", "'")
+    self.name.gsub!("“", '"')
+    self.name.gsub!("”", '"')
+    self.name.gsub!('–', "-")
+    
+    self.description.gsub!("‘", "'")
+    self.description.gsub!("’", "'")
+    self.description.gsub!("“", '"')
+    self.description.gsub!("”", '"')
+    self.description.gsub!('–', "-")
+  end
 
 end

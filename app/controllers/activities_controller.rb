@@ -127,7 +127,7 @@ class ActivitiesController < ApplicationController
     @activity_manager = @activity.build_activity_manager(params[:activity_manager])
     @activity_manager.passkey = ActivityManager.generate_passkey(@activity_manager)
     @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] } # Needed for the new template incase we need to re-render it
-    @activity_approver = @activity.build_activity_approver(:email => @activity.directorate.directorate_manager.email)
+    @activity_approver = @activity.build_activity_approver(params[:activity_approver])
     @activity_approver.passkey = ActivityApprover.generate_passkey(@activity_approver)
     @project_ids.each do |p_id|
       @activity.projects << Project.find(p_id)
