@@ -53,6 +53,14 @@ class Activity < ActiveRecord::Base
 
   after_update :save_issues
   
+  include FixInvalidChars
+  
+  def before_save
+    self.attributes.each_pair do |key, value|
+      self.attributes[key] = fix_field(value)
+    end
+  end
+  
   def activity_type
     if self.started then
       [self.existing_proposed?, self.function_policy?].join(' ')

@@ -7,6 +7,14 @@
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
 class HelpText < ActiveRecord::Base
+  include FixInvalidChars
+  
+  def before_save
+    self.attributes.each_pair do |key, value|
+      self.attributes[key] = fix_field(value)
+    end
+  end
+  
   def self.hashes
     @@Hashes
   end

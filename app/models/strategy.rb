@@ -14,6 +14,13 @@ class Strategy < ActiveRecord::Base
   has_many :activity_strategies
   validates_presence_of :name
   
+  include FixInvalidChars
+  
+  def before_save
+    self.name = fix_field(self.name)
+    self.description = fix_field(self.description)
+  end
+  
   def can_be_edited_by?(user_)
     user_.class == Administrator
   end
@@ -22,18 +29,4 @@ class Strategy < ActiveRecord::Base
     user_.class == Administrator
   end
   
-  def before_save
-    self.name.gsub!("‘", "'")
-    self.name.gsub!("’", "'")
-    self.name.gsub!("“", '"')
-    self.name.gsub!("”", '"')
-    self.name.gsub!('–', "-")
-    
-    self.description.gsub!("‘", "'")
-    self.description.gsub!("’", "'")
-    self.description.gsub!("“", '"')
-    self.description.gsub!("”", '"')
-    self.description.gsub!('–', "-")
-  end
-
 end
