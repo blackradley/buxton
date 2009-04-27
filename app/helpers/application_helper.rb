@@ -44,6 +44,7 @@ module ApplicationHelper
       return date.to_formatted_s(:date_time12)
     end
   end
+  
 
   # Show the logged in user type.
   def login_status()

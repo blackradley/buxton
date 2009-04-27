@@ -9,6 +9,12 @@
 class Comment < ActiveRecord::Base
   belongs_to :question
   belongs_to :activity_strategy
+  
+  include FixInvalidChars
+  
+  def before_save
+    self.contents = fix_field(self.contents)
+  end
 
   def html_id
     "comment_#{self.id}"
