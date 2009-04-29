@@ -19,6 +19,12 @@ class Directorate < ActiveRecord::Base
   after_update :save_directorate_strategies
 
   attr_accessor :should_destroy
+  
+  include FixInvalidChars
+  
+  def before_save
+    self.name = fix_field(self.name)
+  end
 
   def should_destroy?
     should_destroy.to_i == 1

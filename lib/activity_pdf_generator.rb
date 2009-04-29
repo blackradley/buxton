@@ -171,7 +171,11 @@ class ActivityPDFGenerator
     target_q = @activity.question_wording_lookup('purpose', 'overall', 2, true)[0].to_s
     target_a = @activity.send(:purpose_overall_2)
     target = [[target_q, target_a]]
-    @pdf = generate_table(@pdf, target, :borders => [240, @page_width], :col_format => [{:shading => SHADE_COLOUR}, nil])
+    comments = get_comments_and_notes(:purpose_overall_2)
+    target += comments  unless comments.blank?
+    cell_formats = [[{:shading => SHADE_COLOUR}, nil]]
+    comments.size.times {cell_formats << nil}
+    @pdf = generate_table(@pdf, target, :borders => [240, @page_width], :cell_format => cell_formats)
     types = [:organisation, :directorate, :project]
     strategies = [[], [],[]]
     @activity.activity_strategies.each do |activity_strategy|
@@ -251,14 +255,14 @@ class ActivityPDFGenerator
     @pdf.text "<b>Priority</b> - ranked from 1 lowest priority to 5 highest priority"
     @pdf.text " "
     specific_data = {:borders => borders, :header_args => [[ranking_table_data.delete_at(0)], @header_data.clone.merge(:borders => borders, :shading => SHADE_COLOUR)]}
-    @pdf = generate_table(@pdf, ranking_table_data, @table_data.clone.merge(specific_data))
+    @pdf = generate_table(@pdf, ranking_table_data, @table_data.clone.merge(specific_data))  unless borders.empty?
     
     @pdf.text " "
     @pdf.text "<b>Impact</b> - ranked high, medium or low"
     @pdf.text " "
     
     specific_data = {:borders => borders, :header_args => [[impact_table_data.delete_at(0)], @header_data.clone.merge(:borders => borders)]}
-    @pdf = generate_table(@pdf, impact_table_data, @table_data.clone.merge(specific_data))
+    @pdf = generate_table(@pdf, impact_table_data, @table_data.clone.merge(specific_data))  unless borders.empty?
 
     @pdf.text(" ")
     @pdf.text "The following sections look at the results for each of these strands in more detail."

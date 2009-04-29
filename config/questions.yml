@@ -948,10 +948,10 @@ overall_questions:
       label:
         -
           - 'Were equality requirements part of the contracting process if the Function is delivered by a third party?'
-          - 'Will equality requirements part of the contracting process if the Function is going to be delivered by a third party?'
+          - 'Will equality requirements be part of the contracting process if the Function is going to be delivered by a third party?'
         -
           - 'Were equality requirements part of the contracting process if the Policy is delivered by a third party?'
-          - 'Will equality requirements part of the contracting process if the Policy is going to be delivered by a third party?'
+          - 'Will equality requirements be part of the contracting process if the Policy is going to be delivered by a third party?'
       help:
         -
           - ''

@@ -9,4 +9,10 @@
 class OrganisationTerminology < ActiveRecord::Base
   belongs_to :organisation
   belongs_to :terminology
+  
+  include FixInvalidChars
+  
+  def before_save
+    self.value = fix_field(self.value)
+  end
 end

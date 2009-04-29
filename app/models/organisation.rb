@@ -42,6 +42,12 @@ class Organisation < ActiveRecord::Base
   
   after_update :save_organisation_managers
   after_update :save_organisation_strategies
+  
+  include FixInvalidChars
+  
+  def before_save
+    self.name = fix_field(self.name)
+  end
 
   def strategy_text
     button_selected = self.strategy_text_selection
