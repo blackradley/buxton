@@ -5,14 +5,27 @@ require 'tinder'
 # VARS
 # =============================================================================
 set :application, "buxton"
-set :repository,  "http://svn3.cvsdude.com/BlackRadley/buxton/trunk"
+# set :repository,  "http://svn3.cvsdude.com/BlackRadley/buxton/trunk"
 set :port, 2020
 set :user, 'deploy'
 set :runner, user
-set :scm_username, '27stars-karl'
-set :scm_password, 'dogstar'
+# set :scm_username, '27stars-karl'
+# set :scm_password, 'dogstar'
 set :rake, '/opt/ruby-enterprise-1.8.6-20090201/bin/rake'
 set :password, 'Buxton27'
+
+default_run_options[:pty] = true # We need to turn on the :pty option because it 
+                                 # would seem we don’t get the passphrase prompt 
+                                 # from git if we don’t.
+set :repository_cache, "git_cache"
+set :deploy_via, :remote_cache
+set :scm_verbose, true
+set :scm, "git"
+set :scm_passphrase, "Buxton27"
+set :repository, "git@github.com:blackradley/buxton.git"
+set :repository_cache, "git_cache"
+set :deploy_via, :remote_cache
+set :database_yml_in_scm, false
 
 # =============================================================================
 # TASKS
