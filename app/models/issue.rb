@@ -13,6 +13,14 @@ class Issue < ActiveRecord::Base
   validates_presence_of :description
   attr_accessor :issue_destroy
   
+  include FixInvalidChars
+  
+  def before_save
+    self.attributes.each_pair do |key, value|
+      self.attributes[key] = fix_field(value)
+    end
+  end
+  
   def can_be_edited_by?(user_)
     [ActivityManager, ActivityApprover].include?(user_.class) && user_.activity == self
   end

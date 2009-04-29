@@ -85,14 +85,14 @@ class SectionsController < ApplicationController
   # Get the activity information ready for editing using the appropriate form.
   # Available to: Activity Manager
   def edit
-    strand = params[:equality_strand]
+    strand = params[:equality_strand].strip
     @activity = @current_user.activity
     @activity_manager = @activity.activity_manager
 
     @equality_strand = ''
     valid_equality_strands = ['overall','gender','race','sexual_orientation','disability','faith','age']
-    if valid_equality_strands.include? params[:equality_strand]
-      @equality_strand = params[:equality_strand]
+    if valid_equality_strands.include? strand
+      @equality_strand = strand
       @id = params[:id]
     else
       # throw error
@@ -170,7 +170,7 @@ class SectionsController < ApplicationController
 
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     flash[:notice] =  "Could not update the activity."
-    @equality_strand = params[:equality_strand]
+    @equality_strand = params[:equality_strand].strip
     @id = params[:id]
 
     case @id

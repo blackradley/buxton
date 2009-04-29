@@ -9,6 +9,12 @@
 class Log < ActiveRecord::Base
   ICON = ''
   
+  include FixInvalidChars
+  
+  def before_save
+    self.message = fix_field(self.message)
+  end
+  
   def icon
     self.class::ICON
   end  
