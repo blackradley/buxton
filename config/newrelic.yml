@@ -126,13 +126,13 @@ test:
 # all the time without incurring any user-visible performance degredation.
 production:
   <<: *default_settings
-  enabled: true
+  enabled: false
 
 # many applications have a staging environment which behaves identically to production.
 # Support for that environment is provided here.  By default, the staging environment has
 # the agent turned on.
 staging:
   <<: *default_settings
-  enabled: true
+  enabled: false
   app_name: Buxton (Staging)
   developer: true
