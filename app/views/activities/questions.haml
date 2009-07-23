@@ -168,12 +168,12 @@
           %p If you are happy with the answers, all that remains for you to do is declare them to be approved. If you are not happy with the answers that have been submitted, you can return the activity to its Manager for further review.
           %p#reject_answers{:style=> (@activity.approved.to_s == "submitted"? 'display:block' : 'display:none')}
             =image_tag('icons/delete.gif')
-            =link_to "Reject activity answers - send back to Activity Manager",  {:controller => 'activities', :action => 'unsubmit'}
+            =link_to_function "Reject activity answers - send back to Activity Manager", "window.location = 'mailto:#{@activity.activity_manager.email}?body=Please give your reason for rejecting the assessment.'; window.location = '/activities/unsubmit'"
             %br
             %br
             %span#approve_now{:style => (@activity.completed ? 'display:block' : 'display:none')}
               =image_tag('icons/go.gif')
-              =link_to "Approve activity answers",  {:controller => 'activities', :action => 'approve'}
+              =link_to_function "Approve activity answers",  "window.location = 'mailto:#{@activity.activity_manager.email}?body=Please give your reason for approving the assessment.'; window.location = '/activities/approve'"
           %p#approved_answers{:style=>(@activity.approved.to_s == "approved" ? 'display:block' : 'display:none')}
             =image_tag('icons/tick.gif')
             Thank you for approving this activity.
