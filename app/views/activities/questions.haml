@@ -128,7 +128,9 @@
       .stepBox
         %h2 Submit Assessment for Approval
         %p
-          If you are happy with your answers, all that remains for you to do is submit them to be approved. Upon submission you will no longer be able to change any of your answers. Your approver will be able to see all your answers and comments, though not your notes.
+          = "If you are happy with your answers, all that remains for you to do is to submit to be approved.  The named approver for this activity is #{@activity.activity_approver.email}.  Before you submit for approval you can submit a pdf report to the Equalities Team for review, you will and have to save the pdf and attach to an email as, for security reasons, the tool will not allow the pdf link to be forwarded."
+        %p
+          Upon submission you will no longer be able to change any of your answers.  The Activity Approver will be able to see all your answers and comments for the report but not the notes to yourself.
         -if @activity.approved == "not submitted"
           %p#submit_answers{:style=>"display:block;"}
             =image_tag('icons/go.gif')
@@ -145,7 +147,9 @@
       .stepBox
         %h2 Submit Assessment for Approval
         %p
-          If you are happy with your answers, all that remains for you to do is submit them to be approved. Upon submission you will no longer be able to change any of your answers. Your approver will be able to see all your answers and comments, though not your notes.
+          = "If you are happy with your answers, all that remains for you to do is to submit to be approved.  The named approver for this activity is #{@activity.activity_approver.email}.  Before you submit for approval you can submit a pdf report to the Equalities Team for review, you will and have to save the pdf and attach to an email as, for security reasons, the tool will not allow the pdf link to be forwarded."
+        %p
+          Upon submission you will no longer be able to change any of your answers.  The Activity Approver will be able to see all your answers and comments for the report but not the notes to yourself.
         -if @activity.approved == "not submitted"
           %p#submitted_answers
             =image_tag('icons/cross.gif')
