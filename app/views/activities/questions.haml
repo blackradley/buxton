@@ -128,7 +128,7 @@
       .stepBox
         %h2 Submit Assessment for Approval
         %p
-          = "If you are happy with your answers, all that remains for you to do is to submit to be approved.  The named approver for this activity is #{mail_to(@activity.activity_approver.email)}.  Before you submit for approval you can submit a pdf report to the Equalities Team for review, you will have to save the pdf and attach to an email as, for security reasons, the tool will not allow the pdf link to be forwarded."
+          = "If you are happy with your answers, all that remains for you to do is to submit the assessment for approval. The named approver for this activity is #{mail_to(@activity.activity_approver.email)}.  Before you submit for approval you can submit a pdf report to the Equalities Team for review, you will have to save the pdf and attach to an email as, for security reasons, the tool will not allow the pdf link to be forwarded."
         %p
           Upon submission you will no longer be able to change any of your answers.  The Activity Approver will be able to see all your answers and comments for the report but not the notes to yourself.
         -if @activity.approved == "not submitted"
@@ -147,7 +147,7 @@
       .stepBox
         %h2 Submit Assessment for Approval
         %p
-          = "If you are happy with your answers, all that remains for you to do is to submit to be approved.  The named approver for this activity is #{mail_to(@activity.activity_approver.email)}.  Before you submit for approval you can submit a pdf report to the Equalities Team for review, you will have to save the pdf and attach to an email as, for security reasons, the tool will not allow the pdf link to be forwarded."
+          = "If you are happy with your answers, all that remains for you to do is to submit the assessment for approval. The named approver for this activity is #{mail_to(@activity.activity_approver.email)}.  Before you submit for approval you can submit a pdf report to the Equalities Team for review, you will have to save the pdf and attach to an email as, for security reasons, the tool will not allow the pdf link to be forwarded."
         %p
           Upon submission you will no longer be able to change any of your answers.  The Activity Approver will be able to see all your answers and comments for the report but not the notes to yourself.
         -if @activity.approved == "not submitted"
@@ -168,12 +168,12 @@
           %p If you are happy with the answers, all that remains for you to do is declare them to be approved. If you are not happy with the answers that have been submitted, you can return the activity to its Manager for further review.
           %p#reject_answers{:style=> (@activity.approved.to_s == "submitted"? 'display:block' : 'display:none')}
             =image_tag('icons/delete.gif')
-            =link_to_function "Reject activity answers - send back to Activity Manager", "window.location = 'mailto:#{@activity.activity_manager.email}?body=Please give your reason for rejecting the assessment.'; window.location = '/activities/unsubmit'"
+            =link_to_function "Reject activity answers - send back to Activity Manager", "window.location = 'mailto:#{@activity.activity_manager.email}?body=Please give your reason for rejecting the assessment.&subject=impactequality™ \"#{@activity.name}\" - rejected'; window.location = '/activities/unsubmit'"
             %br
             %br
             %span#approve_now{:style => (@activity.completed ? 'display:block' : 'display:none')}
               =image_tag('icons/go.gif')
-              =link_to_function "Approve activity answers",  "window.location = 'mailto:#{@activity.activity_manager.email}?body=Please give your reason for approving the assessment.'; window.location = '/activities/approve'"
+              =link_to_function "Approve activity answers",  "window.location = 'mailto:#{@activity.activity_manager.email}?body=Please give your reason for approving the assessment.&subject=impactequality™ \"#{@activity.name}\" - approved'; window.location = '/activities/approve'"
           %p#approved_answers{:style=>(@activity.approved.to_s == "approved" ? 'display:block' : 'display:none')}
             =image_tag('icons/tick.gif')
             Thank you for approving this activity.
