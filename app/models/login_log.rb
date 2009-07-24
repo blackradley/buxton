@@ -12,7 +12,7 @@ class LoginLog < Log
   def details
     det = {}
     unless message.include?('activity creation screen')
-      data = /<a href='mailto:(\S*)'>email@email.com<\/a>, activity manager of <strong>(\S*)<\/strong> for <strong>(\S*)<\/strong> logged in./.match(self.message)
+      data = /"mailto:(\S*)\"/.match(self.message)
       det[:user] = data[1]
       det[:level] = User.find_by_email(data[1]).class.to_s.titleize
       det[:organisation] = User.find_by_email(data[1]).organisation if User.find_by_email(data[1]) && User.find_by_email(data[1]).organisation
