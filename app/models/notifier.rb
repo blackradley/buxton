@@ -33,12 +33,12 @@ class Notifier < ActionMailer::Base
 
   # Request a new key for the activity manager
   def activity_key(user, login_url)
-    @subject      = "impactequality™ – Activity Manager access key"
+    @subject      = "impactequality™ – Activity Manager access key for #{user.@activity.name}"
     email_details(user, login_url)
   end
   
   def approver_key(user, login_url)
-    @subject      = "impactequality™ – Approval access key"
+    @subject      = "impactequality™ – Approval access key for #{user.@activity.name}"
     email_details(user, login_url)
   end
   
