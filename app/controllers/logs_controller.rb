@@ -7,7 +7,7 @@
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
 class LogsController < ApplicationController
-  
+  require 'csv'
   before_filter :verify_index_access
 
   def index
@@ -19,6 +19,16 @@ class LogsController < ApplicationController
     redirect_to :back
   end
   
+  def download
+    outfile = File.open('log/impact_equality_logs.csv', "wb") 
+    CSV::Writer.generate(outfile) do |csv|
+      Log.all.map{|log| [log.message.gsub(/<.*?>/, ''), log.created_at]}.each do |log|
+        csv << log
+      end
+    end
+    outfile.close
+    send_file 'log/impact_equality_logs.csv'
+  end
 
 protected
 
