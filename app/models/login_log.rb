@@ -12,18 +12,21 @@ class LoginLog < Log
   def details
     det = {}
     unless message.include?('activity creation screen')
-      data = /"mailto:(\S*)\"/.match(self.message)
+      data = /['|"]mailto:(\S*)['|"]/.match(self.message)
+      level = /<\/a>, (\S*) manager/.match(self.message)
       det[:user] = data[1]
-      det[:level] = User.find_by_email(data[1]).class.to_s.titleize
-      det[:organisation] = User.find_by_email(data[1]).organisation if User.find_by_email(data[1]) && User.find_by_email(data[1]).organisation
+      det[:level] = level[1].to_s.titleize
+      level_manager = "#{level[1].camelcase}Manager".constantize
+      det[:organisation] = level_manager.find_by_email(data[1]).send(level[1].to_sym) if User.find_by_email(data[1]) && level_manager.find_by_email(data[1]).send(level[1].to_sym)
       det[:action] = "Logged in"
-      return User.find_by_email('joe@27stars.co.uk')
+      return det
     else
       data = /The activity creation screen for (.*) was viewed/.match(self.message)
       det[:user] = "Organisation Creator"
       det[:level] = "Organisation Creator"
       det[:organisation] = data[1].titleize
       det[:action] = "Logged in"
+      return det
     end
   end
 end
