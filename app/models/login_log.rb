@@ -11,12 +11,18 @@ class LoginLog < Log
   
   def details
     det = {}
-    unless message.include?('activity creation screen')
+    unless message.include?('activity creation screen') || message.include?('activity approver')
       data = /['|"]mailto:(\S*)['|"]/.match(self.message)[1].gsub('"', '').gsub("'", '')
-      level = /<\/a>, (\S*) manager/.match(self.message)
       det[:user] = data
-      det[:level] = level[1].to_s.titleize
-      level_manager = "#{level[1].camelcase}Manager".constantize
+      if message.include?('activity approver')
+        level_manager = ActivityApprover
+        level = [nil,'activity']
+        det[:level] = 'activity'
+      else
+        level = /<\/a>, (\S*) manager/.match(self.message)
+        det[:level] = level[1].to_s.titleize
+        level_manager = "#{level[1].camelcase}Manager".constantize
+      end
       det[:organisation] = level_manager.find_by_email(data).send(level[1].to_sym) if User.find_by_email(data) && level_manager.find_by_email(data).send(level[1].to_sym)
       det[:action] = "Logged in"
       return det
