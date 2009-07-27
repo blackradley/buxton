@@ -12,11 +12,11 @@ class DestroyLog < Log
   def details
     det = {}
     activity = /The <strong>(.*)<\/strong> activity/.match(self.message)[1].gsub('"', '').gsub("'", '')
-    organisation = /<strong>(.*)<\/strong> was deleted/.match(self.message)[1].gsub('"', '').gsub("'", '')
+    organisation = /for <strong>(.*)<\/strong> was deleted/.match(self.message)[1].gsub('"', '').gsub("'", '')
     det[:user] = 'unknown'
     det[:level] = 'organisation'
     det[:organisation] = organisation
-    det[:action] = "#{activity} created."
+    det[:action] = "#{activity} deleted."
     return det
   end
 end
