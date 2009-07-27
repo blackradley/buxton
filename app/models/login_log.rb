@@ -23,7 +23,7 @@ class LoginLog < Log
         det[:level] = level[1].to_s.titleize
         level_manager = "#{level[1].camelcase}Manager".constantize
       end
-      det[:organisation] = level_manager.find_by_email(data).send(level[1].to_sym) if User.find_by_email(data) && level_manager.find_by_email(data).send(level[1].to_sym)
+      det[:organisation] = level_manager.find_by_email(data).send(level[1].to_sym) if level_manager.find_by_email(data) && level_manager.find_by_email(data).send(level[1].to_sym)
       det[:action] = "Logged in"
       return det
     else
