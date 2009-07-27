@@ -17,12 +17,13 @@ class PDFLog < Log
       activity = /<strong>(.*)<\/strong> activity/.match(self.message)[1]
       organisation = /within <strong>(.*)<\/strong>/.match(self.message)[1]
     else
+      activity = ""
       organisation = /<strong>(.*)<\/strong>/.match(self.message)[1]
     end
     det[:user] = 'unknown'
     det[:level] = data
     det[:organisation] = organisation
-    det[:action] = "viewed pdf"
+    det[:action] = "viewed #{activity + " " unless activity.blank?}pdf"
     return det
   end  
 end
