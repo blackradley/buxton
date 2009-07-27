@@ -13,7 +13,7 @@ class PDFLog < Log
   def details
     det = {}
     data = /The (.*) manager PDF/.match(self.message)[1].gsub('"', '').gsub("'", '')
-    if data = 'activity'
+    if data == 'activity'
       activity = /<strong>(.*)<\/strong> activity/.match(self.message)[1]
       organisation = /within <strong>(.*)<\/strong>/.match(self.message)[1]
     else
@@ -24,6 +24,5 @@ class PDFLog < Log
     det[:organisation] = organisation
     det[:action] = "viewed pdf"
     return det
-    end
   end  
 end
