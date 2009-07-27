@@ -8,4 +8,15 @@
 #
 class DestroyLog < Log  
   ICON = 'icons/delete.png'
+  
+  def details
+    det = {}
+    activity = /The <strong>(.*)<\/strong> activity/.match(self.message)[1].gsub('"', '').gsub("'", '')
+    organisation = /<strong>(.*)<\/strong> was deleted/.match(self.message)[1].gsub('"', '').gsub("'", '')
+    det[:user] = 'unknown'
+    det[:level] = 'organisation'
+    det[:organisation] = organisation
+    det[:action] = "#{activity} created."
+    return det
+  end
 end

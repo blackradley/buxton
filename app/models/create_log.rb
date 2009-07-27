@@ -20,5 +20,4 @@ class CreateLog < Log
     det[:action] = "#{activity} created."
     return det
   end
-    
 end
