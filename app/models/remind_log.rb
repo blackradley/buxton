@@ -12,7 +12,7 @@ class RemindLog < Log
   
   def details
     det = LogDetails.new
-    email = /The <strong>(.*)<\/strong> activity/.match(self.message)[1].gsub('"', '').gsub("'", '')
+    #email = /The <strong>(.*)<\/strong> activity/.match(self.message)[1].gsub('"', '').gsub("'", '')
     det[:user] = 'unknown'
     det[:level] = 'admin'
     #det[:organisation] = 
