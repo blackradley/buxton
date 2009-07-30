@@ -24,6 +24,8 @@ class PDFLog < Log
     det[:level] = data
     det[:organisation] = organisation
     det[:action] = "viewed #{activity + " " unless activity.blank?}pdf"
+    det[:date] = self.created_at.strftime("%d/%m/%Y")
+    det[:time] = self.created_at.strftime("%H:%M")
     return det
   end  
 end

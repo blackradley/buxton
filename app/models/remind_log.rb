@@ -17,6 +17,8 @@ class RemindLog < Log
     det[:level] = 'admin'
     #det[:organisation] = 
     det[:action] = "Reminder sent"
+    det[:date] = self.created_at.strftime("%d/%m/%Y")
+    det[:time] = self.created_at.strftime("%H:%M")
     return det
   end  
 end

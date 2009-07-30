@@ -8,7 +8,7 @@
 #
 class Log < ActiveRecord::Base
   ICON = ''
-  LogDetails = Struct.new(:user, :organisation, :level, :action)
+  LogDetails = Struct.new(:user, :organisation, :level, :action, :date, :time)
   include FixInvalidChars
   
   def before_save
