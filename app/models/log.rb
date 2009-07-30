@@ -8,7 +8,7 @@
 #
 class Log < ActiveRecord::Base
   ICON = ''
-  
+  LogDetails = Struct.new(:user, :organisation, :level, :action)
   include FixInvalidChars
   
   def before_save
@@ -18,6 +18,13 @@ class Log < ActiveRecord::Base
   def icon
     self.class::ICON
   end  
+  
+  def self.csv
+    details_arr = self.all.map(&:details)
+    details_arr.sort_by(&:user)
+    previous_log = LogDetails.new
+    details_arr.map(&:to_a)
+  end
   
   def self.can_be_viewed_by?(user_)
     user_.class == Administrator
