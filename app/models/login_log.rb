@@ -25,6 +25,8 @@ class LoginLog < Log
       end
       det[:organisation] = level_manager.find_by_email(data).send(level[1].to_sym).name if level_manager.find_by_email(data) && level_manager.find_by_email(data).send(level[1].to_sym)
       det[:action] = "Logged in"
+      det[:date] = self.created_at.strftime("%d/%m/%Y")
+      det[:time] = self.created_at.strftime("%H:%M")
       return det
     else
       data = /The activity creation screen for (.*) was viewed/.match(self.message)
@@ -32,6 +34,8 @@ class LoginLog < Log
       det[:level] = "Organisation Creator"
       det[:organisation] = data[1].titleize
       det[:action] = "Logged in"
+      det[:date] = self.created_at.strftime("%d/%m/%Y")
+      det[:time] = self.created_at.strftime("%H:%M")
       return det
     end
   end

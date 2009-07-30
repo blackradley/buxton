@@ -17,6 +17,8 @@ class DestroyLog < Log
     det[:level] = 'organisation'
     det[:organisation] = organisation
     det[:action] = "#{activity} deleted."
+    det[:date] = self.created_at.strftime("%d/%m/%Y")
+    det[:time] = self.created_at.strftime("%H:%M")
     return det
   end
 end
