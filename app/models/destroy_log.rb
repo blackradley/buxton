@@ -10,7 +10,7 @@ class DestroyLog < Log
   ICON = 'icons/delete.png'
   
   def details
-    det = {}
+    det = LogDetails.new
     activity = /The <strong>(.*)<\/strong> activity/.match(self.message)[1].gsub('"', '').gsub("'", '')
     organisation = /for <strong>(.*)<\/strong> was deleted/.match(self.message)[1].gsub('"', '').gsub("'", '')
     det[:user] = 'unknown'

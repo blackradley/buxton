@@ -11,7 +11,7 @@ class PDFLog < Log
   ICON = 'icons/pdf.gif'
   
   def details
-    det = {}
+    det = LogDetails.new
     data = /The (.*) manager PDF/.match(self.message)[1].gsub('"', '').gsub("'", '')
     if data == 'activity'
       activity = /<strong>(.*)<\/strong> activity/.match(self.message)[1]
