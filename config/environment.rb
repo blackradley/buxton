@@ -92,3 +92,15 @@ ActiveSupport::CoreExtensions::Date::Conversions::DATE_FORMATS.merge!(
 ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
   :default => '%d/%m/%Y %H:%M'
 )
+
+class String
+  alias :orig_titleize, :titleize
+  def titleize
+    words = self.split(' ')
+    words.each do |word|
+      unless word == word.upcase
+        word = word.orig_titleize
+      end
+    end
+  end
+end
