@@ -96,12 +96,9 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
 class String
   alias :orig_titlecase :titlecase
   def titlecase
-    puts self.inspect
-    puts '-----------------------'
     words = self.split(' ')
     result = []
     words.each do |word|
-      puts word.inspect
       if word == word.upcase
         result << word
       else
