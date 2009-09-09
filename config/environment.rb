@@ -94,7 +94,7 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
 )
 
 class String
-  alias :orig_titleize, :titleize
+  alias :orig_titleize :titleize
   def titleize
     words = self.split(' ')
     words.each do |word|
