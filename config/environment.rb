@@ -94,13 +94,20 @@ ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
 )
 
 class String
-  alias :orig_titleize :titleize
-  def titleize
+  alias :orig_titlecase :titlecase
+  def titlecase
+    puts self.inspect
+    puts '-----------------------'
     words = self.split(' ')
+    result = []
     words.each do |word|
-      unless word == word.upcase
-        word = word.orig_titleize
+      puts word.inspect
+      if word == word.upcase
+        result << word
+      else
+        result << word.orig_titlecase
       end
     end
+    result.join(' ')
   end
 end
