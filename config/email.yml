@@ -1,24 +1,24 @@
 development:
-  server: zimbra.protectedservice.net #mail.protectedservice.net
+  server: smtp.blackradley.com #mail.protectedservice.net
   port: 25
   domain: www.blackradley.com
   authentication: login
   username: Iain_Wilkinson@blackradley.com
-  password: callustu
+  password: gubbing
 staging:
-  server: zimbra.protectedservice.net #mail.protectedservice.net
+  server: smtp.blackradley.com #mail.protectedservice.net
   port: 25
   domain: www.blackradley.com
   authentication: login
   username: Iain_Wilkinson@blackradley.com
-  password: callustu  
+  password: gubbing  
 production:
-  server: zimbra.protectedservice.net#mail.protectedservice.net
+  server: smtp.blackradley.com#mail.protectedservice.net
   port: 25
   domain: www.blackradley.com
   authentication: login
   username: Iain_Wilkinson@blackradley.com
-  password: callustu
+  password: gubbing
 demonstration:
   server: localhost
   port: 25
