@@ -1,19 +1,19 @@
 development:
-  address: smtp.blackradley.com #mail.protectedservice.net
+  address: webmail5.amenworld.com #mail.protectedservice.net
   port: 25
   domain: blackradley.com
   authentication: login
   username: Iain_Wilkinson@blackradley.com
   password: gubbing
 staging:
-  address: smtp.blackradley.com#mail.protectedservice.net
+  address: webmail5.amenworld.com#mail.protectedservice.net
   port: 25
   domain: blackradley.com
   authentication: login
   username: Iain_Wilkinson@blackradley.com
   password: gubbing  
 production:
-  address: smtp.blackradley.com #mail.protectedservice.net
+  address: webmail5.amenworld.com #mail.protectedservice.net
   port: 25
   domain: blackradley.com
   authentication: login
