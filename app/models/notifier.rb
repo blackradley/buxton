@@ -17,7 +17,7 @@ class Notifier < ActionMailer::Base
   
   helper :application
   # Constant for the origin of all the emails.
-  FROM = 'support@impactequality.org.uk'
+  FROM = 'impactequality@blackradley.com' #'support@impactequality.org.uk'
 
   # A new key for the system administrator
   def administration_key(user, login_url)
