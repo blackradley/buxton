@@ -16,8 +16,8 @@ production:
   address: smtp.blackradley.com  # 62.193.206.5
   port: 25
   domain: blackradley.com
-  authentication: plain
-  username: iain_wilkinson@blackradley.com
+  #authentication: plain
+  username: iain_wilkinson #@blackradley.com
   password: gubbing
 demonstration:
   server: localhost
