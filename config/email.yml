@@ -1,23 +1,23 @@
 development:
-  address: 62.193.206.5#mail.protectedservice.net
+  address: smtp.blackradley.com #62.193.206.5
   port: 25
   domain: blackradley.com
   authentication: login
-  username: iain_wilkinson
+  username: iain_wilkinson@blackradley.com
   password: gubbing
 staging:
-  address: 62.193.206.5#mail.protectedservice.net
+  address: smtp.blackradley.com  #62.193.206.5
   port: 25
   domain: blackradley.com
   authentication: login
-  username: iain_wilkinson
+  username: iain_wilkinson@blackradley.com
   password: gubbing  
 production:
-  address: 62.193.206.5#mail.protectedservice.net
+  address: smtp.blackradley.com  # 62.193.206.5
   port: 25
   domain: blackradley.com
   authentication: login
-  username: iain_wilkinson
+  username: iain_wilkinson@blackradley.com
   password: gubbing
 demonstration:
   server: localhost
