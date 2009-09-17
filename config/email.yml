@@ -1,19 +1,19 @@
 development:
-  address: webmail5.amenworld.com #mail.protectedservice.net
+  address: 62.193.206.5#mail.protectedservice.net
   port: 25
   domain: blackradley.com
   authentication: login
   username: iain_wilkinson
   password: gubbing
 staging:
-  address: webmail5.amenworld.com#mail.protectedservice.net
+  address: 62.193.206.5#mail.protectedservice.net
   port: 25
   domain: blackradley.com
   authentication: login
   username: iain_wilkinson
   password: gubbing  
 production:
-  address: webmail5.amenworld.com #mail.protectedservice.net
+  address: 62.193.206.5#mail.protectedservice.net
   port: 25
   domain: blackradley.com
   authentication: login
