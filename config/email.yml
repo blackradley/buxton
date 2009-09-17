@@ -17,7 +17,7 @@ production:
   port: 25
   domain: blackradley.com
   #authentication: plain
-  username: iain_wilkinson #@blackradley.com
+  username: iain_wilkinson@blackradley.com
   password: gubbing
 demonstration:
   server: localhost
