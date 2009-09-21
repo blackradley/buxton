@@ -5,8 +5,11 @@ if RAILS_ENV != 'test'
     :address => c[RAILS_ENV]['address'],
     :port => c[RAILS_ENV]['port'],
     :domain => c[RAILS_ENV]['domain'],
-    :authentication => c[RAILS_ENV]['authentication'],
-    :user_name => c[RAILS_ENV]['username'],
-    :password => c[RAILS_ENV]['password']
+    :pop3_auth => { 
+      :server => c[RAILS_ENV]['server'], 
+      :user_name => c[RAILS_ENV]['username'],
+      :password => c[RAILS_ENV]['password'],
+      :authentication => c[RAILS_ENV]['authentication']
+    }
   }
 end

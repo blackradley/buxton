@@ -108,3 +108,28 @@ class String
     result.join(' ')
   end
 end
+
+if ActionMailer::Base.delivery_method == :smtp and ActionMailer::Base.smtp_settings.has_key?(:pop3_auth)
+  class ActionMailer::Base
+
+    alias_method :base_perform_delivery_smtp, :perform_delivery_smtp
+
+    @@pop3_auth_done = nil
+
+    private
+
+    def perform_delivery_smtp(mail)
+      do_pop_auth if !@@pop3_auth_done
+      base_perform_delivery_smtp(mail)
+    end
+
+    # Implementacion de la autenticacion
+    def do_pop_auth
+      require 'net/pop'
+      pop = Net::POP3.new(smtp_settings[:pop3_auth][:server])
+      pop.start(smtp_settings[:pop3_auth][:user_name], smtp_settings[:pop3_auth][:password])
+      @@pop3_auth_done = Time.now  
+      pop.finish
+    end
+  end
+end 
