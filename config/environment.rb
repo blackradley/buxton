@@ -119,7 +119,7 @@ if ActionMailer::Base.delivery_method == :smtp and ActionMailer::Base.smtp_setti
     private
 
     def perform_delivery_smtp(mail)
-      do_pop_auth #if !@@pop3_auth_done
+      do_pop_auth if !@@pop3_auth_done
       base_perform_delivery_smtp(mail)
     end
 
