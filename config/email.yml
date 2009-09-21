@@ -16,7 +16,7 @@ staging:
 production:
   address: smtp.blackradley.com #62.193.206.5
   server: pop.blackradley.com
-  port: 110
+  port: 25
   domain: blackradley.com    
   authentication: login
   username: support@blackradley.com

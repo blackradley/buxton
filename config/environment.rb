@@ -130,6 +130,7 @@ if ActionMailer::Base.delivery_method == :smtp and ActionMailer::Base.smtp_setti
       pop.start(smtp_settings[:pop3_auth][:user_name], smtp_settings[:pop3_auth][:password])
       @@pop3_auth_done = Time.now  
       pop.finish
+      raise "pop authed"
     end
   end
 end 
