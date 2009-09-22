@@ -4,12 +4,12 @@ if RAILS_ENV != 'test'
   ActionMailer::Base.smtp_settings = {
     :address => c[RAILS_ENV]['address'],
     :port => c[RAILS_ENV]['port'],
-    :domain => c[RAILS_ENV]['domain'],
-    :pop3_auth => { 
-      :server => c[RAILS_ENV]['server'], 
-      :user_name => c[RAILS_ENV]['username'],
-      :password => c[RAILS_ENV]['password'],
-      :authentication => c[RAILS_ENV]['authentication']
+    :domain => c[RAILS_ENV]['domain']
+    #:pop3_auth => { 
+    #  :server => c[RAILS_ENV]['server'], 
+    #  :user_name => c[RAILS_ENV]['username'],
+    #  :password => c[RAILS_ENV]['password'],
+    #  :authentication => c[RAILS_ENV]['authentication']
     }
   }
 end
