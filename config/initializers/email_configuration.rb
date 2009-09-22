@@ -10,6 +10,6 @@ if RAILS_ENV != 'test'
     #  :user_name => c[RAILS_ENV]['username'],
     #  :password => c[RAILS_ENV]['password'],
     #  :authentication => c[RAILS_ENV]['authentication']
-    }
+    #}
   }
 end
