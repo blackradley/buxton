@@ -12,6 +12,7 @@
       = render :partial => 'activity_strategy_help', :locals => {:f => f, :activity_strategy => activity_strategy}
     -@activity_project_strategies.each do |activity_strategy|
       = render :partial => 'activity_strategy_help', :locals => {:f => f, :activity_strategy => activity_strategy}
+    %p{:style=>'width:400px'}= @activity.hashes['question_intro']
     = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [2,11,12]), :locals => {:f => f}
     %h4
       =@activity.organisation.strategy_text

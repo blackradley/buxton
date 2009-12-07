@@ -33,7 +33,7 @@
       
         %span.letter
           =image_tag("a.gif")
-        =link_to "Target outcome and relevant #{ot('strategy').pluralize}", { :controller => 'sections', :action => 'edit', :id => 'purpose_a', :equality_strand => 'overall' }, :title => "Target of Activity and Impact on #{ot('strategy').pluralize.titleize}"
+        =link_to "What the Activity is for", { :controller => 'sections', :action => 'edit', :id => 'purpose_a', :equality_strand => 'overall' }, :title => "Target of Activity and Impact on #{ot('strategy').pluralize.titleize}"
         %span.letter_completed
           =tick_cross_display(@activity.target_and_strategies_completed)
         %br
@@ -45,7 +45,7 @@
         %br
         %span.letter
           =image_tag("c.gif")
-        =link_to "Potential differential impact", { :controller => 'sections', :action => 'edit', :id => 'purpose_c', :equality_strand => 'overall' }, :title =>"Impact on Equality Groups"
+        =link_to "Different benefits and disadvantages of the Activity", { :controller => 'sections', :action => 'edit', :id => 'purpose_c', :equality_strand => 'overall' }, :title =>"Impact on Equality Groups"
         %span.letter_completed
           =tick_cross_display(@activity.impact_on_equality_groups)
     .clear
@@ -134,7 +134,7 @@
         -if @activity.approved == "not submitted"
           %p#submit_answers{:style=>"display:block;"}
             =image_tag('icons/go.gif')
-            =link_to "Submit",  {:controller => 'activities', :action => 'submit'}
+            =link_to "Submit",  {:controller => 'activities', :action => 'submit'}, :confirm => (@activity.strands.blank? ? "The assessment you are submitting has not identified any relevant equality strands.  Is this correct?" : nil)
         -else
           %p#submitted_answers{:style=>"display:block;"}
             =image_tag('icons/tick.gif')

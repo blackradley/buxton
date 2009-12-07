@@ -166,7 +166,7 @@ class ActivityPDFGenerator
     @pdf.text " "
     @pdf.text "<b>2  <c:uline>Overall Purpose</b></c:uline>", :font_size => 12
     @pdf.text " "
-    @pdf.text "<b>2.1  Target outcome and relevant strategies</b>", :font_size => 12
+    @pdf.text "<b>2.1  What the Activity is for</b>", :font_size => 12
     @pdf.text " "
     target_q = @activity.question_wording_lookup('purpose', 'overall', 2, true)[0].to_s
     target_a = @activity.send(:purpose_overall_2)
@@ -289,23 +289,21 @@ class ActivityPDFGenerator
     end
     
     section_index = 1
-    @activity.strands.each do |strand|
-      @pdf.text "<b>3.#{section_index}  <c:uline>#{strand.titlecase}</b></c:uline>", :font_size => 12
-      @pdf.text ' '
-      @pdf.text "<b>3.#{section_index}.1  <c:uline>#{strand.titlecase} - Differential Impact</b></c:uline>", :font_size => 12
-      @pdf.text ' '
-      build_differential_impact(strand, good_differentials[strand], bad_differentials[strand])
-      @pdf.text "<b>3.#{section_index}.2  <c:uline>#{strand.titlecase} - Impact</b></c:uline>", :font_size => 12
-      @pdf.text ' '
-      build_impact(strand)
-      @pdf.text "<b>3.#{section_index}.3  <c:uline>#{strand.titlecase} - Consultation</b></c:uline>", :font_size => 12
-      @pdf.text ' '
-      build_consultation(strand)
-      @pdf.text "<b>3.#{section_index}.4  <c:uline>#{strand.titlecase} - Additional Work</b></c:uline>", :font_size => 12
-      @pdf.text ' '
-      build_additional_work(strand)
+    Activity.strands.each do |strand|
+      build_differential_impact(strand, good_differentials[strand], bad_differentials[strand], section_index)
+      if @activity.send("#{strand}_relevant")
+        @pdf.text "<b>3.#{section_index}.2  <c:uline>#{strand.titlecase} - Impact</b></c:uline>", :font_size => 12
+        @pdf.text ' '
+        build_impact(strand)
+        @pdf.text "<b>3.#{section_index}.3  <c:uline>#{strand.titlecase} - Consultation</b></c:uline>", :font_size => 12
+        @pdf.text ' '
+        build_consultation(strand)
+        @pdf.text "<b>3.#{section_index}.4  <c:uline>#{strand.titlecase} - Additional Work</b></c:uline>", :font_size => 12
+        @pdf.text ' '
+        build_additional_work(strand)
+        @pdf.start_new_page
+      end
       section_index += 1
-      @pdf.start_new_page
     end
     @pdf
   end
@@ -335,18 +333,26 @@ class ActivityPDFGenerator
     return [table, table_cell_format]
   end
   
-  def build_differential_impact(strand, good_impact, bad_impact)
+  def build_differential_impact(strand, good_impact, bad_impact, section_index)
 #    good_impact_questions.reject!{|question, response| response.to_i <= 1}
     table = []
     cell_formats = []
     [good_impact, bad_impact].each_with_index do |impact, index|
-      question_text = "Does the #{@activity.function_policy?.titlecase} have the potential for a #{index == 0 ? 'positive' : 'negative'} differential impact on #{impact[1]}"
+      question_text = "Might the #{@activity.function_policy?.titlecase} #{index == 0 ? 'benefit' : 'disadvantage'} #{impact[1].sub(',', ' in different ways')}"
+      comments = get_comments_and_notes(impact[0])
+      unless @activity.send("#{strand}_relevant")
+        next if comments.blank?
+      end
       table << [question_text, impact[2]]
       cell_formats << [{:shading => SHADE_COLOUR}, nil]
-      comments = get_comments_and_notes(impact[0])
       table += comments  unless comments.blank?
       comments.size.times {cell_formats << nil}
     end
+    return if table.blank?
+    @pdf.text "<b>3.#{section_index}  <c:uline>#{strand.titlecase}</b></c:uline>", :font_size => 12
+    @pdf.text ' '
+    @pdf.text "<b>3.#{section_index}.1  <c:uline>#{strand.titlecase} - Differential Impact</b></c:uline>", :font_size => 12
+    @pdf.text ' '
     @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :font_size => 10, :cell_format => cell_formats)
     @pdf.text " "
     # unless good_impact_questions.size == 0 then
