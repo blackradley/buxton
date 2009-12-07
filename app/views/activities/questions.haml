@@ -134,7 +134,7 @@
         -if @activity.approved == "not submitted"
           %p#submit_answers{:style=>"display:block;"}
             =image_tag('icons/go.gif')
-            =link_to "Submit",  {:controller => 'activities', :action => 'submit'}, :confirm => (@activity.strands.blank? ? "The assessment you are submitting has not identified any relevant equality strands.  Is this correct?" : nil)
+            =link_to "Submit",  {:controller => 'activities', :action => 'submit'}, :onclick => "if(#{Activity.strands.map{|strand| "$('#{strand}_checkbox').checked"}.join('||')}) { return true; } else { return confirm(\"The assessment you are submitting has not identified any relevant equality strands.  Is this correct?\");}"
         -else
           %p#submitted_answers{:style=>"display:block;"}
             =image_tag('icons/tick.gif')
