@@ -666,14 +666,14 @@ questions:
       label:
         -
           - 'Do you think that the Function has a role in preventing #{wordings[strand]} being treated differently, in an unfair
-             or inappropriate way, just because of their #{strand.to_s.titleize.downcase}?'
+             or inappropriate way, just because of their #{sentence_desc(strand)}?'
           - 'Do you think that the Function will have a role in preventing #{wordings[strand]} being treated differently, in an
-             unfair or inappropriate way, just because of their #{strand.to_s.titleize.downcase}?'
+             unfair or inappropriate way, just because of their #{sentence_desc(strand)}?'
         -
           - 'Do you think that the Policy has a role in preventing #{wordings[strand]} being treated differently, in an unfair or
-             inappropriate way, just because of their #{strand.to_s.titleize.downcase}?'
+             inappropriate way, just because of their #{sentence_desc(strand)}?'
           - 'Do you think that the Policy will have a role in preventing #{wordings[strand]} being treated differently, in an unfair
-             or inappropriate way, just because of their #{strand.to_s.titleize.downcase}?'
+             or inappropriate way, just because of their #{sentence_desc(strand)}?'
       help:
         -
           - 'This question asks you to assess whether the Function could have a role in eliminating discrimination or harassment faced by #{wordings[strand]} as a result of their #{descriptive_term[strand]}.<br/><br/>
