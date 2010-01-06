@@ -123,11 +123,11 @@ questions:
     2:
       label:
         -
-          - 'Do you have evidence to support the asseessment above?'
-          - 'Do you have evidence to support the asseessment above?'
+          - 'Do you have evidence to support the assessment above?'
+          - 'Do you have evidence to support the assessment above?'
         -
-          - 'Do you have evidence to support the asseessment above?'
-          - 'Do you have evidence to support the asseessment above?'
+          - 'Do you have evidence to support the assessment above?'
+          - 'Do you have evidence to support the assessment above?'
       help:
         -
           - 'This question asks you whether you have any information to support your assessment of the impact of the Function that you recorded in the previous question.<br/><br/>
@@ -328,24 +328,24 @@ questions:
     9:
       label:
         -
-          - 'Is there anything about the Function and the way it affects men #{wordings[strand]} which needs highlighting?'
-          - 'Is there anything about the Function and the way it affects men #{wordings[strand]} which needs highlighting?'
+          - 'Is there anything about the Function and the way it affects #{wordings[strand]} which needs highlighting?'
+          - 'Is there anything about the Function and the way it affects #{wordings[strand]} which needs highlighting?'
         -
-          - 'Is there anything about the Policy and the way it affects men #{wordings[strand]} which needs highlighting?'
-          - 'Is there anything about the Policy and the way it affects men #{wordings[strand]} which needs highlighting?'
+          - 'Is there anything about the Policy and the way it affects #{wordings[strand]} which needs highlighting?'
+          - 'Is there anything about the Policy and the way it affects #{wordings[strand]} which needs highlighting?'
       help:
         -
-          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact.  #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
+          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different religions or beliefs.  An issue will be where there is a differential impact.  #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative. Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
-          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
+          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different religions or beliefs.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative. Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
         -
-          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
+          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different religions or beliefs.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative. Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
-          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
+          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different religions or beliefs.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative. Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
       type: select
@@ -577,17 +577,17 @@ questions:
           - 'Is there anything about the Policy and the way it affects #{wordings[strand]} which needs highlighting?'
       help:
         -
-          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact.  #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
+          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different religions or beliefs.  An issue will be where there is a differential impact.  #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
-          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
+          - 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different religions or beliefs.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
         -
-          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
+          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different religions or beliefs.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
-          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different faiths.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
+          - 'This question asks you to identify any issues about the way in which the Policy has an impact upon people from different religions or beliefs.  An issue will be where there is a differential impact. #{hashes["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
              Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
       type: select
@@ -888,11 +888,11 @@ overall_questions:
     8:
       label:
         -
-          - 'Partner organidsations, staff and customers'
-          - 'Partner organidsations, staff and customers'
+          - 'Partner organisations, staff and customers'
+          - 'Partner organisations, staff and customers'
         -
-          - 'Partner organidsations, staff and customers'
-          - 'Partner organidsations, staff and customers'
+          - 'Partner organisations, staff and customers'
+          - 'Partner organisations, staff and customers'
       help:
         -
           - 'Functions that cover the way the Council works with local partners are likely to affect staff of partner organisations.  Staff of partner organisations are almost certain to be Services Users as well but this question is asked in relation to their role purely as staff of partner organisations.'
@@ -966,7 +966,7 @@ wordings:
   gender: 'men and women'
   race: 'individuals from different ethnic backgrounds'
   disability: 'individuals with different kinds of disability'
-  faith: 'individuals of different faiths'
+  faith: 'individuals of different religions or beliefs'
   sexual_orientation: 'individuals of different sexual orientations'
   age: 'individuals of different ages'
 
@@ -1096,7 +1096,7 @@ header_help_text:
       - 'This group of questions seeks to identify any positive differential impact that the Function has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Function that was designed to improve access to services for people of a certain
-         faith and is performing well would expect to have a positive impact only for members of that faith.  It may be that there is other
+         religion or belief and is performing well would expect to have a positive impact only for members of that religion or belief.  It may be that there is other
          unplanned positive differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
          <li>Some impact</li>
@@ -1107,7 +1107,7 @@ header_help_text:
       - 'This group of questions seeks to identify any positive differential impact that the Function has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Function that was designed to improve access to services for people of a certain
-         faith and is performing well would expect to have a positive impact only for members of that faith.  It may be that there is other
+         religion or belief and is performing well would expect to have a positive impact only for members of that religion or belief.  It may be that there is other
          unplanned positive differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
          <li>Some impact</li>
@@ -1118,7 +1118,7 @@ header_help_text:
       - 'This group of questions seeks to identify any positive differential impact that the Policy has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Policy that was designed to improve access to services for people of a certain
-         faith and is performing well would expect to have a positive impact only for members of that faith.  It may be that there is other
+         religion or belief and is performing well would expect to have a positive impact only for members of that religion or belief.  It may be that there is other
          unplanned positive differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
         <li>Some impact</li>
@@ -1128,7 +1128,7 @@ header_help_text:
       - 'This group of questions seeks to identify any positive differential impact that the Policy has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Policy that was designed to improve access to services for people of a certain
-         faith and is performing well would expect to have a positive impact only for members of that faith.  It may be that there is other
+         religion or belief and is performing well would expect to have a positive impact only for members of that religion or belief.  It may be that there is other
          unplanned positive differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
          <li>Some impact</li>
@@ -1140,7 +1140,7 @@ header_help_text:
       - 'This group of questions seeks to identify any negative differential impact that the Function has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Function that was designed to improve access to services for people of a certain
-         faith and is performing badly may have a negative impact only for members of that faith.  It may be that there is other
+         religion or belief and is performing badly may have a negative impact only for members of that religion or belief.  It may be that there is other
          unplanned negative differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
         <li>Some impact</li>
@@ -1150,7 +1150,7 @@ header_help_text:
       - 'This group of questions seeks to identify any negative differential impact that the Function has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Function that was designed to improve access to services for people of a certain
-         faith and is performing badly may have a negative impact only for members of that faith.  It may be that there is other
+         religion or belief and is performing badly may have a negative impact only for members of that religion or belief.  It may be that there is other
          unplanned negative differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
          <li>Some impact</li>
@@ -1161,7 +1161,7 @@ header_help_text:
       - 'This group of questions seeks to identify any negative differential impact that the Policy has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Policy that was designed to improve access to services for people of a certain
-         faith and is performing badly may have a negative impact only for members of that faith.  It may be that there is other
+         religion or belief and is performing badly may have a negative impact only for members of that religion or belief.  It may be that there is other
          unplanned negative differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
          <li>Some impact</li>
@@ -1171,7 +1171,7 @@ header_help_text:
       - 'This group of questions seeks to identify any negative differential impact that the Policy has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
          members of that equality strand.  For example a Policy that was designed to improve access to services for people of a certain
-         faith and is performing badly may have a negative impact only for members of that faith.  It may be that there is other
+         religion or belief and is performing badly may have a negative impact only for members of that religion or belief.  It may be that there is other
          unplanned negative differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
          <li>Some impact</li>
@@ -1343,7 +1343,7 @@ extra_strand_wordings:
        gender:
        race:
        disability: 'It is important to have regards for all types of disability including physical, sensory, learning and mental health.  <br/><br/>'
-       faith: 'It is important to have regard for all faiths including both the major faiths such as Islam, Judaism and Christianity and any minority faiths. <br/><br/>'
+       faith: 'It is important to have regard for all religions or beliefs including both the major religions or beliefs such as Islam, Judaism and Christianity and any minority religions or beliefs. <br/><br/>'
        age:
        sexual_orientation:
     9:
@@ -1359,14 +1359,14 @@ extra_strand_wordings:
       race: 'It will be important to ensure that the consultation includes people from a range of ethnic backgrounds.  <br/><br/>'
       disability: 'It will be important to ensure that the consultation includes people with a range of disabilities, including physical, sensory, learning and mental health.<br/><br/>'
       age:
-      faith: 'It will be important to ensure that the consultation includes people from a range of faiths, including both majority and minority religions. <br/><br/>'
+      faith: 'It will be important to ensure that the consultation includes people from a range of religions or beliefs, including both majority and minority religions or beliefs. <br/><br/>'
       sexual_orientation: 'It will be important to ensure that the consultation includes people from a range of sexual orientations , including lesbian, gay, bisexual and transgender. <br/><br/>'
 
 descriptive_terms_for_strands:
   gender: 'gender'
   race: 'ethnicity'
   disability: 'disability'
-  faith: 'faith'
+  faith: 'religion or belief'
   sexual_orientation: 'sexuality'
   age: 'age'
 
