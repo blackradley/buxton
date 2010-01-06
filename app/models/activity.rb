@@ -849,5 +849,17 @@ class Activity < ActiveRecord::Base
     return user_.activity == self  if [ActivityManager, ActivityApprover].include? user_.class
     return false
   end
+  
+  
+   def sentence_desc(strand)
+     case strand.to_s
+     when 'race'
+       'ethnicity'
+     when 'faith'
+       'religion or belief'
+     else
+       strand.to_s.titleize.downcase
+     end
+   end
 
 end

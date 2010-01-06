@@ -41,11 +41,11 @@ questions:
     3:
       label:
         -
-          - '#{wordings[strand]}, because of their #{if(strand.to_s == "race") then "ethnicity" else strand.to_s.titleize.downcase end}?'
-          - '#{wordings[strand]}, because of their #{if(strand.to_s == "race") then "ethnicity" else strand.to_s.titleize.downcase end}?'
+          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
+          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
         -
-          - '#{wordings[strand]}, because of their #{if(strand.to_s == "race") then "ethnicity" else strand.to_s.titleize.downcase end}?'
-          - '#{wordings[strand]}, because of their #{if(strand.to_s == "race") then "ethnicity" else strand.to_s.titleize.downcase end}?'
+          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
+          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
       help:
         -
           - 'This question asks you to identify any positive
@@ -68,11 +68,11 @@ questions:
     4:
       label:
         -
-          - '#{wordings[strand]}, because of their #{if(strand.to_s == "race") then "ethnicity" else strand.to_s.titleize.downcase end}?'
-          - '#{wordings[strand]}, because of their #{if(strand.to_s == "race") then "ethnicity" else strand.to_s.titleize.downcase end}?'
+          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
+          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
         -
-          - '#{wordings[strand]}, because of their #{if(strand.to_s == "race") then "ethnicity" else strand.to_s.titleize.downcase end}?'
-          - '#{wordings[strand]}, because of their #{if(strand.to_s == "race") then "ethnicity" else strand.to_s.titleize.downcase end}?'
+          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
+          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
       help:
         -
           - 'This question asks you to identify any negative
