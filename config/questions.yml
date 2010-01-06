@@ -974,7 +974,7 @@ strands:
   gender:  'Gender'
   race: 'Race'
   disability: 'Disability'
-  faith: 'Faith'
+  faith: 'Religion or Belief'
   sexual_orientation: 'Lesbian Gay Bisexual and Transgender'
   age: 'Age'
   overall: 'Overall'
