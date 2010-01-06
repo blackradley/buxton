@@ -57,7 +57,7 @@
   - if @activity.relevant_strands.include? 'faith' then
     %table
       %tr
-        %th People from different faith groups
+        %th People of different religions or beliefs
         %th Answers to Date
       = answer(@activity, @activity_questions, :consultation, :faith, [1,2,3,4,5,6,7])
       - issues = @activity.issues_by(@section, 'faith')

@@ -69,7 +69,7 @@ class ActivitiesController < ApplicationController
      @activity_dir_strategies = Array.new(dir_strategies.size) do |i|
        @activity.activity_strategies.find_or_create_by_strategy_id(dir_strategies[i].id)
      end
-    @relevant_strands_string = @activity.relevant_strands.map!{|s| s.titleize}.join(', ')
+    @relevant_strands_string = @activity.relevant_strands.map!{|s| strand_display(s).titlecase}.join(', ')
     @projects = @activity.projects
   end
   

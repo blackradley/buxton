@@ -240,11 +240,11 @@ class ActivityPDFGenerator
       impact_table_data << []
     end
     @activity.strands.each do |strand|
-      @pdf.text("<C:bullet />  #{strand.titlecase}", :left => 20)
+      @pdf.text("<C:bullet />  #{strand_display(strand).titlecase}", :left => 20)
       borders << border_gap + (borders.last || 0)
-      ranking_table_data[0] << "<b>#{strand.titlecase}</b>"
+      ranking_table_data[0] << "<b>#{strand_display(strand).titlecase}</b>"
       ranking_table_data[1] << @activity.priority_ranking(strand).to_s
-      impact_table_data[0] << "<b>#{strand.titlecase}</b>"
+      impact_table_data[0] << "<b>#{strand_display(strand).titlecase}</b>"
       impact_table_data[1] << @activity.impact_wording(strand).to_s.titlecase
     end
     @pdf.text " "
@@ -292,13 +292,13 @@ class ActivityPDFGenerator
     Activity.strands.each do |strand|
       build_differential_impact(strand, good_differentials[strand], bad_differentials[strand], section_index)
       if @activity.send("#{strand}_relevant")
-        @pdf.text "<b>3.#{section_index}.2  <c:uline>#{strand.titlecase} - Impact</b></c:uline>", :font_size => 12
+        @pdf.text "<b>3.#{section_index}.2  <c:uline>#{strand_display(strand).titlecase} - Impact</b></c:uline>", :font_size => 12
         @pdf.text ' '
         build_impact(strand)
-        @pdf.text "<b>3.#{section_index}.3  <c:uline>#{strand.titlecase} - Consultation</b></c:uline>", :font_size => 12
+        @pdf.text "<b>3.#{section_index}.3  <c:uline>#{strand_display(strand).titlecase} - Consultation</b></c:uline>", :font_size => 12
         @pdf.text ' '
         build_consultation(strand)
-        @pdf.text "<b>3.#{section_index}.4  <c:uline>#{strand.titlecase} - Additional Work</b></c:uline>", :font_size => 12
+        @pdf.text "<b>3.#{section_index}.4  <c:uline>#{strand_display(strand).titlecase} - Additional Work</b></c:uline>", :font_size => 12
         @pdf.text ' '
         build_additional_work(strand)
         @pdf.start_new_page
@@ -314,7 +314,7 @@ class ActivityPDFGenerator
     @activity.strands.each do |strand|
       row = []
       row_cell_format = []
-      row << strand.titlecase
+      row << strand_display(strand).titlecase
       row_cell_format << nil
       unless col_text.nil?
         row << @activity.hashes['choices'][choices_elem][@activity.send(col_text[0] + strand + col_text[1]).to_i].to_s
@@ -349,9 +349,9 @@ class ActivityPDFGenerator
       comments.size.times {cell_formats << nil}
     end
     return if table.blank?
-    @pdf.text "<b>3.#{section_index}  <c:uline>#{strand.titlecase}</b></c:uline>", :font_size => 12
+    @pdf.text "<b>3.#{section_index}  <c:uline>#{strand_display(strand).titlecase}</b></c:uline>", :font_size => 12
     @pdf.text ' '
-    @pdf.text "<b>3.#{section_index}.1  <c:uline>#{strand.titlecase} - Differential Impact</b></c:uline>", :font_size => 12
+    @pdf.text "<b>3.#{section_index}.1  <c:uline>#{strand_display(strand).titlecase} - Differential Impact</b></c:uline>", :font_size => 12
     @pdf.text ' '
     @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :font_size => 10, :cell_format => cell_formats)
     @pdf.text " "
@@ -527,7 +527,7 @@ class ActivityPDFGenerator
     @activity.strands.each do |strand|
       row = []
       row_cell_format = []
-      row << strand.titlecase
+      row << strand_display(strand).titlecase
       row_cell_format << nil
       row << @activity.hashes['choices'][3][@activity.send("additional_work_#{strand}_4").to_i].to_s
       row_cell_format << nil
@@ -598,7 +598,7 @@ class ActivityPDFGenerator
       strand_issues.reject!{|issue| issue.section == 'consultation'} unless consultation_enabled
       
       next if strand_issues.blank?
-      @pdf.text "<b>5.#{index}  #{strand.titlecase}</b>", :font_size => 12
+      @pdf.text "<b>5.#{index}  #{strand_display(strand).titlecase}</b>", :font_size => 12
       index += 1
       @pdf.text ' ', :font_size => 10
       strand_issues.each do |issue|
@@ -935,5 +935,9 @@ class ActivityPDFGenerator
       pdf = generate_table(pdf, data, table_data)
       pdf
     end
+  end
+  
+  def strand_display(strand)
+    strand.to_s.downcase == 'faith' ? 'religion or belief' : strand
   end
 end

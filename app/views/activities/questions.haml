@@ -64,14 +64,14 @@
             = check_box_tag("#{strand}_checkbox", strand_name, selected, :onclick =>"Element.toggle('row_#{strand_name}_on'); Element.toggle('row_#{strand_name}_off'); #{@conditional_flip}")
             = observe_field("#{strand}_checkbox", :url => {:action => 'toggle_strand', :strand => strand, :controller => 'activities'})
             %label
-              =h strand.titleize
+              =h strand_display(strand).titlecase
               -if @activity.impact_calculation(strand).to_i > 9 then
                 <br />
                 %span.strandRelevant Recommended
         %p
         %h2 Equality Strand Questions
         %p The Impact Equality&trade; tool asks you questions under four Assessment Sections (impact, consultation, additional work and action planning).
-        %p Each set of questions can apply to each of the six Equality Dimensions (gender, race, disability, faith, sexual orientation, and age).
+        %p Each set of questions can apply to each of the six Equality Dimensions (gender, race, disability, religion or belief, sexual orientation, and age).
         %p The Assessment Sections and Equality Dimensions are set out as a table below.
         %p Click on the <img src="/images/icons/edit.gif" /> icon to answer the questions in that section. Click "Save" when you have finished work on a section.
         %p The section is complete when the <img src="/images/icons/cross.gif" /> turns into a <img src="/images/icons/tick.gif" />.  When all the <img src="/images/icons/cross.gif" />s are <img src="/images/icons/tick.gif" />s, you are finished!
@@ -93,7 +93,7 @@
               -display_off = "block"
             %tr{:id => "row_#{strand_name}_on", :style => "display:#{display_on};"}
               %th.strandHeading
-                =h strand_name.titleize
+                =h strand_display(strand_name).titlecase
               %td
                 = completed_tag(@activity, :impact, strand.to_sym)
                 = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => strand }, :title =>"Edit Impact", :id => "#{strand_name}_impact_pencil"
@@ -111,7 +111,7 @@
                   %span.na -
             %tr{:id => "row_#{strand_name}_off", :style => "display:#{display_off};"}
               %th.strandHeading
-                =h strand_name.titleize
+                =h strand_display(strand_name).titlecase
               %td
                 %span.na -
               %td

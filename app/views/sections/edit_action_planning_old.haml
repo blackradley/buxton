@@ -2,7 +2,7 @@
   =h @activity.name 
   <br />
   = link_to image_tag('icons/previous.gif', :class =>'previous'), { :action => 'edit', :id => 'additional_work', :equality_strand => @equality_strand }, :title =>"Previous Section"
-  = @equality_strand.titleize + " - "
+  = strand_display(@equality_strand).titlecase + " - "
   Action Planning
   = image_tag('icons/no_next.gif', :class =>'next')
 

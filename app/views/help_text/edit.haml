@@ -18,7 +18,7 @@
       %li
         =link_to_function "Disability", "hideall('gender'); hideall('race'); showall('disability'); hideall('faith'); hideall('sexual_orientation'); hideall('age'); hideall('overall');"
       %li
-        =link_to_function "Faith", "hideall('gender'); hideall('race'); hideall('disability'); showall('faith'); hideall('sexual_orientation'); hideall('age'); hideall('overall');"
+        =link_to_function "Religion or Belief", "hideall('gender'); hideall('race'); hideall('disability'); showall('faith'); hideall('sexual_orientation'); hideall('age'); hideall('overall');"
       %li
         =link_to_function "Sexual Orientation", "hideall('gender'); hideall('race'); hideall('disability'); hideall('faith'); showall('sexual_orientation'); hideall('age'); hideall('overall');"
       %li
@@ -40,7 +40,7 @@
                   %h4
                     = section.to_s.titleize
                     \-
-                    = strand.to_s.titleize
+                    = strand_display(strand).to_s.titlecase
                   .help_strand{:id => "help_#{section}_#{strand}".to_s, :style => 'display:block'}
                     - @split_texts.select{|sel| sel[0][0].to_s == section.to_s && sel[0][1].to_s == strand.to_s}.sort.each do |sect_strands|
                       %ul
