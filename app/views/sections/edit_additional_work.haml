@@ -1,4 +1,4 @@
-%h1#questions=h @activity.name + " - " + @equality_strand.titleize + " - Additional Work"
+%h1#questions=h @activity.name + " - " + strand_display(@equality_strand).titlecase + " - Additional Work"
 -#
   #questiontext
     %p Below is some feedback generated from your previous answers:

@@ -1,5 +1,5 @@
 -@section = 'impact'
-%h1#questions=h @activity.name + " - " + @equality_strand.titleize + " - Impact"
+%h1#questions=h @activity.name + " - " + strand_display(@equality_strand).titlecase + " - Impact"
 #questions
   -form_for(:activity, :url => {:action => 'update'}) do |f|
     = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [1,2,3]), :locals => {:f => f}

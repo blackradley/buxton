@@ -294,5 +294,9 @@ module ApplicationHelper
      </p>]
      #%Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]
    end
+   
+  def strand_display(strand)
+    strand.to_s.downcase == 'faith' ? 'religion or belief' : strand
+  end
 
 end

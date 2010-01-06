@@ -1,4 +1,4 @@
-%h1#questions=h @activity.name + " - " + @equality_strand.titleize + " - Action Planning"
+%h1#questions=h @activity.name + " - " + strand_display(@equality_strand).titlecase + " - Action Planning"
 
 -hashes = @activity.hashes
 

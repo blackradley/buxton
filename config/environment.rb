@@ -101,6 +101,8 @@ class String
     words.each do |word|
       if word == word.upcase
         result << word
+      elsif word.downcase == 'or'
+        result << 'or'
       else
         result << word.orig_titlecase
       end

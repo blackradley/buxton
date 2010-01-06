@@ -89,6 +89,10 @@ protected
     '/users/access_denied'
   end
   
+  def strand_display(strand)
+    strand.to_s.downcase == 'faith' ? 'religion or belief' : strand
+  end
+  
 private
   # Log the user out of the system by killing the session parameter that identifies them as being logged in
   # Kill the @current_user variable as well as this is collected before any call to logout() can be made
