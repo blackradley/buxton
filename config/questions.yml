@@ -549,11 +549,11 @@ questions:
     6:
       label:
         -
-          - 'If yes, please list the way in which these views were obtained.'
-          - 'If yes, please list the way in which these views were obtained.'
+          - 'If so, how did you obtain these views?'
+          - 'If so, how did you obtain these views?'
         -
-          - 'If yes, please list the way in which these views were obtained.'
-          - 'If yes, please list the way in which these views were obtained.'
+          - 'If so, how did you obtain these views?'
+          - 'If so, how did you obtain these views?'
       help:
         -
           - 'This question asks you to list the groups that have been consulted and the date of the consultation.<br/><br/>
