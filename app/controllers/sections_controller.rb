@@ -96,7 +96,7 @@ class SectionsController < ApplicationController
       @id = params[:id]
     else
       # throw error
-      raise RecordNotFound
+      raise ActiveRecord::RecordNotFound
     end
 
     case params[:id]

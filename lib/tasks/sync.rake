@@ -14,9 +14,9 @@ namespace :stars do
     desc "Sync remote DB with local DB"
     task :db do
       puts "Dumping remote database..."
-      puts "ssh -p #{PORT} #{USER}@#{HOST} \"mysqldump -u #{DB_CONFIG['production']["username"]} -p#{DB_CONFIG['production']["password"] } -h #{DB_CONFIG['production']['host']} -Q --add-drop-table --add-locks=FALSE --lock-tables=FALSE --ignore-table=#{DB_CONFIG['production']["database"]}.sessions #{DB_CONFIG['production']["database"]} > /tmp/dump.sql\""
+      system "ssh -p #{PORT} #{USER}@#{HOST} \"mysqldump -u #{DB_CONFIG['production']["username"]} -p#{DB_CONFIG['production']["password"] } -h #{DB_CONFIG['production']['host']} -Q --add-drop-table --add-locks=FALSE --lock-tables=FALSE --ignore-table=#{DB_CONFIG['production']["database"]}.sessions #{DB_CONFIG['production']["database"]} > /tmp/dump.sql\""
       puts "Retrieving remote database..."
-      puts "rsync -az -e \"ssh -p #{PORT}\" --progress #{USER}@#{HOST}:/tmp/dump.sql ./db/production_data.sql"
+      system "rsync -az -e \"ssh -p #{PORT}\" --progress #{USER}@#{HOST}:/tmp/dump.sql ./db/production_data.sql"
       
       mysql = if RUBY_PLATFORM.downcase.include?("darwin")
         "/Applications/MAMP/Library/bin/mysql"
@@ -27,7 +27,7 @@ namespace :stars do
         exit(1)
       end
       puts "Importing remote database..."
-      puts "#{mysql} -u #{DB_CONFIG['development']["username"]} -p#{DB_CONFIG['development']["password"]} #{DB_CONFIG['development']["database"]} < ./db/production_data.sql"
+      system "#{mysql} -u #{DB_CONFIG['development']["username"]} -p#{DB_CONFIG['development']["password"]} #{DB_CONFIG['development']["database"]} < ./db/production_data.sql"
       # # TODO: so I usually have a second step which updates the email addresses, blanks out any potentially sensitive data etc.
     end
     
