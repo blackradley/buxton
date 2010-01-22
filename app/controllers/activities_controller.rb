@@ -213,12 +213,14 @@ class ActivitiesController < ApplicationController
     tag_test = completed_status_hash.select{|k,v| !v}.map(&:first).map do |strand_status|
       "($('#{strand_status.to_s}_checkbox').checked)"
     end
-    @tag_test = "(#{tag_test.join('||')})"
+    @tag_test = "#{tag_test.join('||')}"
+    @tag_test = true  if @tag_test.blank?
     @conditional_flip = if @current_user.class.name == 'ActivityApprover' then
       "(#{@tag_test}) ? Element.hide('approve_now') : Element.show('approve_now');"
      elsif @current_user.class.name == 'ActivityManager'
       "(#{@tag_test}) ? Element.hide('four') : Element.show('four');"
      end
+     puts @conditional_flip.inspect
   end
 
   # Update the activity status and proceed, or not, accordingly
