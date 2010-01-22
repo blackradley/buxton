@@ -37,7 +37,10 @@ namespace :clone do
       end
     end
     
-    
+    new_act.name = ENV['NEW_NAME'] || activity.name + ' (copy)'
+    new_act.approved = "not submitted"
+    new_act.approved_on = nil
+    new_act.ref_no = nil
     new_act.projects = activity.projects
     new_act.save!
   end

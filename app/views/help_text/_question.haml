@@ -3,8 +3,8 @@
     .help_text_controls
       %h5= question.question_name.titleize
       %span.edit_text
-        = link_to_function image_tag('icons/edit.gif' ) + "Edit help text", "Element.toggle(#{question.question_name.to_s}); Element.toggle('close_#{question.id}'); Element.toggle('open_#{question.id}'); document.getElementById('close_#{question.id}').focus()", :id => "open_#{question.id}"
-        = link_to_function image_tag('icons/edit.gif') + "Minimize help text", "Element.toggle(#{question.question_name.to_s}); Element.toggle('open_#{question.id}'); Element.toggle('close_#{question.id}'); document.getElementById('open_#{question.id}').focus()", :id => "close_#{question.id}", :style => 'display:none'
+        = link_to_function image_tag('icons/edit.gif' ) + "Edit help text", "Element.toggle('#{question.question_name.to_s}'); Element.toggle('close_#{question.id}'); Element.toggle('open_#{question.id}'); document.getElementById('close_#{question.id}').focus()", :id => "open_#{question.id}"
+        = link_to_function image_tag('icons/edit.gif') + "Minimize help text", "Element.toggle('#{question.question_name.to_s}'); Element.toggle('open_#{question.id}'); Element.toggle('close_#{question.id}'); document.getElementById('open_#{question.id}').focus()", :id => "close_#{question.id}", :style => 'display:none'
     .help_text_question{:id => question.question_name.to_s, :style => 'display:none'}
       = help_text_form.hidden_field :question_name
       %h6 Existing Function Wording

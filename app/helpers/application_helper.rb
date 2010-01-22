@@ -298,5 +298,16 @@ module ApplicationHelper
   def strand_display(strand)
     strand.to_s.downcase == 'faith' ? 'religion or belief' : strand
   end
+  
+  def sentence_desc(strand)
+    case strand.to_s
+    when 'race'
+      'ethnicity'
+    when 'faith'
+      'religion or belief'
+    else
+      strand.to_s.titleize.downcase
+    end
+  end
 
 end
