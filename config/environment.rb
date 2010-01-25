@@ -77,7 +77,7 @@ Rails::Initializer.run do |config|
   # in the database in UTC, and return them converted to the specified local zone.
   # Run "rake -D time" for a list of tasks for finding time zone names. Uncomment to use default local time.
   config.time_zone = 'UTC'
-  
+  config.load_paths += %W( #{RAILS_ROOT}/app/sweepers )
   require 'RMagick'
 
   # Commented out for now due to config.time_zone and the following link

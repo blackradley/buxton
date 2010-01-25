@@ -1,26 +1,27 @@
-%li
-  - fields_for "help_text[]", question do |help_text_form|
-    .help_text_controls
-      %h5= question.question_name.titleize
-      %span.edit_text
-        = link_to_function image_tag('icons/edit.gif' ) + "Edit help text", "Element.toggle('#{question.question_name.to_s}'); Element.toggle('close_#{question.id}'); Element.toggle('open_#{question.id}'); document.getElementById('close_#{question.id}').focus()", :id => "open_#{question.id}"
-        = link_to_function image_tag('icons/edit.gif') + "Minimize help text", "Element.toggle('#{question.question_name.to_s}'); Element.toggle('open_#{question.id}'); Element.toggle('close_#{question.id}'); document.getElementById('open_#{question.id}').focus()", :id => "close_#{question.id}", :style => 'display:none'
-    .help_text_question{:id => question.question_name.to_s, :style => 'display:none'}
-      = help_text_form.hidden_field :question_name
-      %h6 Existing Function Wording
-      %p
-        = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][0][0] + "\nDELIM\n")
-        =help_text_form.text_area :existing_function
-      %h6 Proposed Function Wording
-      %p
-        = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][0][1] + "\nDELIM\n")
-        =help_text_form.text_area :proposed_function
-      %h6 Existing Policy Wording
-      %p
-        = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][1][0] + "\nDELIM\n")
-        =help_text_form.text_area :existing_policy
-      %h6 Proposed Policy Wording
-      %p
-        = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][1][1] + "\nDELIM\n")
-        =help_text_form.text_area :proposed_policy
-  .clear
+- cache(:id => question.id, :action=>'show') do
+  %li
+    - fields_for "help_text[]", question do |help_text_form|
+      .help_text_controls
+        %h5= question.question_name.titleize
+        %span.edit_text
+          = link_to_function image_tag('icons/edit.gif' ) + "Edit help text", "Element.toggle('#{question.question_name.to_s}'); Element.toggle('close_#{question.id}'); Element.toggle('open_#{question.id}'); document.getElementById('close_#{question.id}').focus()", :id => "open_#{question.id}"
+          = link_to_function image_tag('icons/edit.gif') + "Minimize help text", "Element.toggle('#{question.question_name.to_s}'); Element.toggle('open_#{question.id}'); Element.toggle('close_#{question.id}'); document.getElementById('open_#{question.id}').focus()", :id => "close_#{question.id}", :style => 'display:none'
+      .help_text_question{:id => question.question_name.to_s, :style => 'display:none'}
+        = help_text_form.hidden_field :question_name, :onKeyPress => "setChanged(this)"
+        %h6 Existing Function Wording
+        %p
+          = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][0][0] + "\nDELIM\n")
+          =help_text_form.text_area :existing_function, :onKeyPress => "setChanged(this)"
+        %h6 Proposed Function Wording
+        %p
+          = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][0][1] + "\nDELIM\n")
+          =help_text_form.text_area :proposed_function, :onKeyPress => "setChanged(this)"
+        %h6 Existing Policy Wording
+        %p
+          = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][1][0] + "\nDELIM\n")
+          =help_text_form.text_area :existing_policy, :onKeyPress => "setChanged(this)"
+        %h6 Proposed Policy Wording
+        %p
+          = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][1][1] + "\nDELIM\n")
+          =help_text_form.text_area :proposed_policy, :onKeyPress => "setChanged(this)"
+    .clear

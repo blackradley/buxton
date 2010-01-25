@@ -9,6 +9,7 @@
 class HelpTextController < ApplicationController
   
   before_filter :verify_index_access, :only => [:edit, :update, :index]
+  cache_sweeper :help_text_sweeper, :only => [:update]
   
   def index
     @help_texts = HelpText.find(:all, :order => 'question_name')
