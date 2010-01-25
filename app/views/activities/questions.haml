@@ -93,7 +93,7 @@
               -display_off = "block"
             %tr{:id => "row_#{strand_name}_on", :style => "display:#{display_on};"}
               %th.strandHeading
-                =h strand_display(strand_name).titlecase
+                =h strand_display(strand).titlecase
               %td
                 = completed_tag(@activity, :impact, strand.to_sym)
                 = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => strand }, :title =>"Edit Impact", :id => "#{strand_name}_impact_pencil"
@@ -111,7 +111,7 @@
                   %span.na -
             %tr{:id => "row_#{strand_name}_off", :style => "display:#{display_off};"}
               %th.strandHeading
-                =h strand_display(strand_name).titlecase
+                =h strand_display(strand).titlecase
               %td
                 %span.na -
               %td
