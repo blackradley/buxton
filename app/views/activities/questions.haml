@@ -76,7 +76,7 @@
         %p Click on the <img src="/images/icons/edit.gif" /> icon to answer the questions in that section. Click "Save" when you have finished work on a section.
         %p The section is complete when the <img src="/images/icons/cross.gif" /> turns into a <img src="/images/icons/tick.gif" />.  When all the <img src="/images/icons/cross.gif" />s are <img src="/images/icons/tick.gif" />s, you are finished!
         %table
-          %tr{:style => "display:block;"}
+          %tr
             %th.strandHeading
             %th Impact
             %th Consultation
@@ -86,12 +86,12 @@
           -display_off = ""
           -@activity.overview_strands.each do |strand_name, strand|
             -if @activity.strand_relevant?(strand) then
-              -display_on = "block"
-              -display_off = "none"
+              -display_on = ""
+              -display_off = "display:none"
             -else
-              -display_on = "none"
-              -display_off = "block"
-            %tr{:id => "row_#{strand_name}_on", :style => "display:#{display_on};"}
+              -display_on = "display:none"
+              -display_off = ""
+            %tr{:id => "row_#{strand_name}_on", :style => "#{display_on};"}
               %th.strandHeading
                 =h strand_display(strand).titlecase
               %td
@@ -109,7 +109,7 @@
                   = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => strand }, :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
                 - else
                   %span.na -
-            %tr{:id => "row_#{strand_name}_off", :style => "display:#{display_off};"}
+            %tr{:id => "row_#{strand_name}_off", :style => "#{display_off};"}
               %th.strandHeading
                 =h strand_display(strand).titlecase
               %td
