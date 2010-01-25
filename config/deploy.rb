@@ -27,6 +27,8 @@ set :repository_cache, "git_cache"
 set :deploy_via, :remote_cache
 set :database_yml_in_scm, false
 
+set :keep_releases, 10
+after 'deploy:update_code', 'deploy:cleanup'
 # =============================================================================
 # TASKS
 # =============================================================================
