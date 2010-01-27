@@ -7,21 +7,21 @@
           = link_to_function image_tag('icons/edit.gif' ) + "Edit help text", "Element.toggle('#{question.question_name.to_s}'); Element.toggle('close_#{question.id}'); Element.toggle('open_#{question.id}'); document.getElementById('close_#{question.id}').focus()", :id => "open_#{question.id}"
           = link_to_function image_tag('icons/edit.gif') + "Minimize help text", "Element.toggle('#{question.question_name.to_s}'); Element.toggle('open_#{question.id}'); Element.toggle('close_#{question.id}'); document.getElementById('open_#{question.id}').focus()", :id => "close_#{question.id}", :style => 'display:none'
       .help_text_question{:id => question.question_name.to_s, :style => 'display:none'}
-        = help_text_form.hidden_field :question_name, :onKeyUp => "setChanged(this)"
+        = help_text_form.hidden_field :question_name, :onChange => "setChanged(this)"
         %h6 Existing Function Wording
         %p
           = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][0][0] + "\nDELIM\n")
-          =help_text_form.text_area :existing_function, :onKeyUp => "setChanged(this)"
+          =help_text_form.text_area :existing_function, :onChange => "setChanged(this)"
         %h6 Proposed Function Wording
         %p
           = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][0][1] + "\nDELIM\n")
-          =help_text_form.text_area :proposed_function, :onKeyUp => "setChanged(this)"
+          =help_text_form.text_area :proposed_function, :onChange => "setChanged(this)"
         %h6 Existing Policy Wording
         %p
           = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][1][0] + "\nDELIM\n")
-          =help_text_form.text_area :existing_policy, :onKeyUp => "setChanged(this)"
+          =help_text_form.text_area :existing_policy, :onChange => "setChanged(this)"
         %h6 Proposed Policy Wording
         %p
           = eval(%Q{<<"DELIM"\n} + @labels[answers.to_s][section.to_s][number.to_i]['label'][1][1] + "\nDELIM\n")
-          =help_text_form.text_area :proposed_policy, :onKeyUp => "setChanged(this)"
+          =help_text_form.text_area :proposed_policy, :onChange => "setChanged(this)"
     .clear
