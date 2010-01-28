@@ -91,3 +91,18 @@ function showall(element){//we hide all of them
 	     show[i].style.display = "block";
 	  }
 }
+
+function updatePreview (elem) {
+  switch(elem.id){
+    case 'email':
+      $('act_man').innerHTML = elem.value;
+      $('act_approv').innerHTML = elem.value;
+      break;
+    case 'activity':
+      $('act_name').innerHTML = elem.value;
+      break;
+    case 'organisation':
+      $('org_name').innerHTML = $('organisation').value;
+      break;
+  }
+}

@@ -75,3 +75,9 @@ h3 {
 
 .content .workingArea #content_holder h1#questions {
   margin-top: 10px; }
+
+#form_holder #signup_form p .form_note {
+  width: 100%; }
+#form_holder #signup_form p span.button input {
+  width: 1px;
+  overflow: visible; }
