@@ -385,10 +385,12 @@ class ActivitiesController < ApplicationController
   end
 
   def view_pdf
-    if @current_user.class.name != "ActivityManager" then
-      @activity = Activity.find(params[:id])
-    else
+    if @current_user.class.name =~ /Activity/ then
       @activity = @current_user.activity
+    elsif @current_user.respond_to?(:activities)
+      @activity = @current_user.activities.find(params[:id])
+    else
+      raise ActiveRecord::RecordNotFound
     end
     type = params[:type]
     log_event('PDF', %Q[The activity manager PDF for the <strong>#{@activity.name}</strong> activity, within <strong>#{@activity.organisation.name}</strong>, was viewed.])

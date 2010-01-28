@@ -8,6 +8,8 @@
     = stylesheet_link_tag 'tables'
     - if @current_user.respond_to?(:organisation) && !@current_user.organisation.nil? then
       = "<style>.mastHead .logo { background-image: url(/images/organisations/#{@current_user.organisation.id}.png);}</style>"
+    - if controller.action_name=='signup'
+      = "<style>.mastHead .logo { background-image: url(/images/free_signup.png);}</style>"
     = javascript_include_merged :base
     = "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->"
     = "<!--[if gte IE 7]> #{stylesheet_link_tag 'fixes_ie7'}<![endif]-->"
@@ -32,7 +34,7 @@
       .clear
       .footer
         .floatLeft
-          = login_status() 
+          = login_status() unless controller.action_name=='signup'
       .clear
     #body_footer
       Copyright &copy; 2008 Black Radley Systems Limited. All rights reserved.

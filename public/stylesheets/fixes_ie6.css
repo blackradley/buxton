@@ -83,3 +83,12 @@ h3 {
 
 #disable {
   height: 980px; }
+
+#form_holder #signup_form p .form_note {
+  width: 100%; }
+#form_holder #signup_form p span.button .button {
+  padding-left: 0;
+  padding-right: 0; }
+#form_holder #signup_form p span.button .submit {
+  padding-left: 10px;
+  padding-right: 10px; }

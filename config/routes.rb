@@ -24,8 +24,9 @@ ActionController::Routing::Routes.draw do |map|
   map.connect 'sections/edit/:id/:equality_strand', :controller => 'sections', :action => 'edit'
 
   map.keys 'keys', :controller => 'users', :action => 'keys' if KEYS
-  
+  map.signup 'signup', :controller => 'users', :action => 'signup'
   map.logout 'logout', :controller => 'users', :action => 'logout'
+  map.sample_pdf 'sample_pdf', :controller => 'users', :action => 'sample_pdf'
 
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
