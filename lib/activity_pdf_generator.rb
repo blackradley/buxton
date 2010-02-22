@@ -53,7 +53,7 @@ class ActivityPDFGenerator
   end
   
   def build_unapproved_logo_on_first_page
-      @pdf.unapproved_status = (@activity.approved?) ? '' : 'UNAPPROVED'
+      @pdf.unapproved_status = (@activity.approved?) ? '' : 'Work In Progress'
       #The page numbers are started at the top, so that they will always hit the first page, but they appear at the bottom
       #This creates the grey Unapproved background.
       colour = 'Gainsboro'
