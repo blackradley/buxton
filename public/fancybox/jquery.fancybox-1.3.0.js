@@ -12,7 +12,7 @@
  *   http://www.opensource.org/licenses/mit-license.php
  *   http://www.gnu.org/licenses/gpl.html
  */
-jQuery.noConflict();
+
 ;(function(jQuery) {
 
 	var tmp, loading, overlay, wrap, outer, inner, content, close, nav_left, nav_right;
@@ -1019,7 +1019,8 @@ jQuery.noConflict();
 
 	jQuery(document).ready(function() {
 		fancybox_init();
-		jQuery("a#inline").fancybox({
+		jQuery("a.inline").fancybox({
+		  'centerOnScroll': true
     	});
 	});
 

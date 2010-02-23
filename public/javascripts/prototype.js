@@ -5,7 +5,6 @@
  *  For details, see the Prototype web site: http://www.prototypejs.org/
  *
  *--------------------------------------------------------------------------*/
-
 var Prototype = {
   Version: '1.6.0.2',
 
