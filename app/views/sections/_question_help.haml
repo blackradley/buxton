@@ -20,16 +20,16 @@
       =link_to_remote "Delete", :url => {:action => 'destroy', :controller => :comment, :question_id => question_help[:full_question].id}, :confirm => "Delete this comment?", :update => "#{question_help[:id]}_comment", :complete => "cancel_comment('#{question_help[:id]}'); document.getElementById('#{question_help[:id]}_comment_fill_in').value = ''"
     .control
       =image_tag ("icons/comment_edit.gif")
-      =link_to_function "Edit", "edit_comment('#{question_help[:id]}')"
+      =link_to "Edit", "##{question_help[:id]}_comment_form", :id => 'inline'
   .new_comment{:id => "#{question_help[:id]}_comment_new", :style => "display:#{opt[1 - flag]}"}
     .control
       =image_tag ("icons/comment_add.gif")
-      =link_to_function "Add new comment for report", "new_comment('#{question_help[:id]}')"
-  .commentform{:id => "#{question_help[:id]}_comment_form", :style => "display:none"}
-    =text_area_tag "comment", question_help[:comment], :id => "#{question_help[:id]}_comment_fill_in"
-    = link_to_remote "Save", :url => {:action => 'edit', :controller => :comment, :question_id => question_help[:full_question].id}, :with => "'comment='+encodeURIComponent($('#{question_help[:id]}_comment_fill_in').value)", :update => "#{question_help[:id]}_comment", :complete => "edit_comment('#{question_help[:id]}')"
-    |
-    =link_to_function "Cancel", "cancel_comment('#{question_help[:id]}');"
+      = link_to "Add new comment for report", "##{question_help[:id]}_comment_form", :id => 'inline'
+  .commentform{:id => "#{question_help[:id]}_comment_form"}
+    .heading
+      %h3 Add a new comment for the report
+    = text_area_tag "comment", question_help[:comment], :id => "#{question_help[:id]}_comment_fill_in"
+    = link_to_remote "Save", :url => {:action => 'edit', :controller => :comment, :question_id => question_help[:full_question].id}, :with => "'comment='+encodeURIComponent($('#{question_help[:id]}_comment_fill_in').value)", :update => "#{question_help[:id]}_comment", :complete => " jQuery.fancybox.close();edit_comment('#{question_help[:id]}');"
   %h3
     =image_tag ("icons/note.gif")
     Note to myself:
@@ -42,13 +42,14 @@
       =link_to_remote "Delete", :url => {:action => 'destroy', :controller => :note, :question_id => question_help[:full_question].id}, :confirm => "Delete this note?", :update => "#{question_help[:id]}_note", :complete => "cancel_note('#{question_help[:id]}'); document.getElementById('#{question_help[:id]}_note_fill_in').value = ''"
     .control
       =image_tag ("icons/note_edit.gif")
-      =link_to_function "Edit", "edit_note('#{question_help[:id]}');"
+      =link_to "Edit", "##{question_help[:id]}_note_form", :id => 'inline'
   .new_note{:id => "#{question_help[:id]}_note_new", :style => "display:#{opt[1 - flag]}"}
     .control
       =image_tag ("icons/note_add.gif")
-      =link_to_function "Add new note to myself", "new_note('#{question_help[:id]}');"
-  .noteform{:id => "#{question_help[:id]}_note_form", :style => "display:none"}
-    =text_area_tag "note", question_help[:note], :id => "#{question_help[:id]}_note_fill_in"
-    = link_to_remote "Save", :url => {:action => 'edit', :controller => :note, :question_id => question_help[:full_question].id}, :with => "'note='+encodeURIComponent($('#{question_help[:id]}_note_fill_in').value)", :update => "#{question_help[:id]}_note", :complete => "edit_note('#{question_help[:id]}');"
-    |
-    =link_to_function "Cancel", "cancel_note('#{question_help[:id]}');"
+      = link_to "Add a new note to myself", "##{"#{question_help[:id]}_note_form"}", :id => 'inline'
+      //=link_to_function "Add new note to myself", "new_note('#{question_help[:id]}');"
+  .noteform{:id => "#{question_help[:id]}_note_form"}
+    .heading
+      %h3 Add a new note to myself
+    = text_area_tag "note", question_help[:note], :id => "#{question_help[:id]}_note_fill_in"
+    = link_to_remote "Save", :url => {:action => 'edit', :controller => :note, :question_id => question_help[:full_question].id}, :with => "'note='+encodeURIComponent($('#{question_help[:id]}_note_fill_in').value)", :update => "#{question_help[:id]}_note", :complete => "jQuery.fancybox.close(); edit_note('#{question_help[:id]}');"

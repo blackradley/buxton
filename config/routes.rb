@@ -16,7 +16,7 @@ ActionController::Routing::Routes.draw do |map|
 
   map.pdf 'view_pdf', :controller => 'organisations', :action => 'view_pdf'
   map.resources :logs, :collection => { :clear => :post, :download => :get }
-  
+  map.resources :comments
   # Manually create a subset of the RESTful named routes for the DemosController
   map.new_demo 'demos/new', :controller => 'demos', :action => 'new', :conditions => { :method => :get }
   map.demos 'demos', :controller => 'demos', :action => 'create', :conditions => { :method => :post }
