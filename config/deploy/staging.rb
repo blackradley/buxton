@@ -12,4 +12,4 @@ role :app, domain
 role :web, domain
 role :db,  domain, :primary => true
 set :deploy_to, "/home/deploy/public_html/#{domain}"
-set :branch, 'free_signup'
+set :branch, 'free_access'
