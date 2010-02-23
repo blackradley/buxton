@@ -41,7 +41,12 @@ class UsersController < ApplicationController
       end
       # Create an organisation
       organisation = Organisation.new({:name => params[:organisation], :trial => true})
-
+      
+      # Create strategies for organisation
+      organisation.organisation_strategies.build(:name => 'Provide a high quality and responsive service for our customers')
+      organisation.organisation_strategies.build(:name => 'Become an exemplary organisation')
+      organisation.organisation_strategies.build(:name => 'Fulfil our obligations to the environment and wider community')
+      
       # Create a new organisation manager with the e-mail address we were given
       organisation_manager = organisation.organisation_managers.build(:email => 'iain_wilkinson@blackradley.com')
       organisation_manager.passkey = OrganisationManager.generate_passkey(organisation_manager)
@@ -55,7 +60,7 @@ class UsersController < ApplicationController
         # Create a activity
         activity = directorate.activities.build(:name => params[:activity])
         # Create a activity manager
-        activity_manager = activity.build_activity_manager(:email => params[:email])
+        activity_manager = activity.build_activity_manager(:email => params[:email], :free_access => true)
         activity_approver = activity.build_activity_approver(:email => params[:email])
         activity_manager.passkey = ActivityManager.generate_passkey(activity_manager)
         directorate.save!

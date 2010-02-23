@@ -57,6 +57,8 @@ h2 img {
     position: relative;
     clear: right;
     margin-top: -10px; }
+    #questions .more .noteform, #questions .more .commentform {
+      display: none; }
     #questions .more h3 {
       width: 240px;
       text-align: left;
