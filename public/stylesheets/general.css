@@ -5,7 +5,8 @@ BODY {
   background-image: url(../images/bg.png);
   background-repeat: repeat-x;
   background-color: #9fd0d7;
-  color: #666; }
+  color: #666;
+  margin: 0; }
 
 h1,
 h2,
