@@ -1020,6 +1020,7 @@
 	jQuery(document).ready(function() {
 		fancybox_init();
 		jQuery("a.inline").fancybox({
+		  'padding' : 0,
 		  'centerOnScroll': true
     	});
 	});

@@ -2,30 +2,50 @@
 /   :background-color #ffffff
 /   :border 1px solid #FFFFFF 
 /   :overflow hidden
-.commentform, .noteform, .freeTrialEnd
-  :width 510px
-  :background-color transparent
-  :padding 20px
+/ 
+.commentform, .noteform, #finished_free_trial
+  :width 550px
+  :height 220px
+  :*height 270px
+  :padding 10px 0px
   :float left
   form
     :margin 0
+  p
+    :width 510px
+    :*width 470px
+    :float left
+    :font-size 12px
+    :line-height 20px
+    :font-family "Lucida Grande", "Lucida Sans Unicode", helvetica, verdana, arial, sans-serif
+    :padding 0px
+    :margin 0px 20px
+    :overflow auto
   .heading
     h3
       :font-size 14px
       :float left
-      :margin-left 5px
+      :margin 0px 20px 0px 20px
       :width auto
+      :padding 10px 0px
+      :height 20px
   textarea
     :width 510px
+    :*width 470px
+    :float left
     :height 130px
     :font-size 12px
     :line-height 20px
     :font-family "Lucida Grande", "Lucida Sans Unicode", helvetica, verdana, arial, sans-serif
-    
+    :padding 0px
+    :margin 0px 20px
+    :overflow auto
   a
     :float left
     :margin-top 10px
-    :margin-left 213px
+    :display inline
+    :margin-left 223px
+    :margin-bottom 0px
     :width auto
     :font-family Tahoma, Verdana, Arial, Sans-Serif
     :font-size 1em
@@ -52,3 +72,8 @@
     &:hover
       :background
         :image url(../images/button_on_bg.gif)
+
+#finished_free_trial
+  :text-align left
+  :height 160px
+  :*height 205px

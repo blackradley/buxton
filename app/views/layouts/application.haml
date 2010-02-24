@@ -1,3 +1,4 @@
+!!! transitional
 %html{ 'xmlns' =>'http://www.w3.org/1999/xhtml', 'xml:lang'=> 'en' , 'lang' => 'en' }
   %head 
     %title 
@@ -12,6 +13,7 @@
       = "<style>.mastHead .logo { background-image: url(/images/free_signup.png);}</style>"
     = javascript_include_merged :base
     = "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->"
+    = "<!--[if lt IE 7]> #{javascript_include_tag 'jquery.pngFix.js'}<![endif]-->"
     = "<!--[if gte IE 7]> #{stylesheet_link_tag 'fixes_ie7'}<![endif]-->"
     %link{:href=>'/images/favicon.ico', :rel=>'icon', :type=>"image/x-icon"}
   %body
