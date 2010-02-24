@@ -101,7 +101,7 @@ function updatePreview (elem) {
       $('act_name').innerHTML = elem.value;
       break;
     case 'organisation':
-      $('org_name').innerHTML = $('organisation').value;
+      $('org_name').innerHTML = elem.value;
       break;
   }
 }
