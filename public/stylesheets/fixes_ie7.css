@@ -86,7 +86,7 @@ h3 {
   .commentform p,   .noteform p,   #finished_free_trial p {
     width: 470px; }
   .commentform textarea,   .noteform textarea,   #finished_free_trial textarea {
-    width: 500px; }
+    width: 470px; }
 
 #finished_free_trial {
   height: 205px; }
