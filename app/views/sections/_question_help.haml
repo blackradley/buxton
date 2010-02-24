@@ -30,7 +30,6 @@
       %h3 Add a new comment for the report
     = text_area_tag "comment", question_help[:comment], :id => "#{question_help[:id]}_comment_fill_in"
     = link_to_remote "Save", :url => {:action => 'edit', :controller => :comment, :question_id => question_help[:full_question].id}, :with => "'comment='+encodeURIComponent($('#{question_help[:id]}_comment_fill_in').value)", :update => "#{question_help[:id]}_comment", :complete => " jQuery.fancybox.close();edit_comment('#{question_help[:id]}');"
-    .clear
   %h3
     =image_tag ("icons/note.gif")
     Note to myself:
