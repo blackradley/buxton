@@ -6,14 +6,12 @@
 .commentform, .noteform, #finished_free_trial {
   width: 550px;
   height: 220px;
-  *height: 270px;
   padding: 10px 0px;
   float: left; }
   .commentform form,   .noteform form,   #finished_free_trial form {
     margin: 0; }
   .commentform p,   .noteform p,   #finished_free_trial p {
     width: 510px;
-    *width: 470px;
     float: left;
     font-size: 12px;
     line-height: 20px;
@@ -30,7 +28,6 @@
     height: 20px; }
   .commentform textarea,   .noteform textarea,   #finished_free_trial textarea {
     width: 510px;
-    *width: 470px;
     float: left;
     height: 130px;
     font-size: 12px;
@@ -72,5 +69,4 @@
 
 #finished_free_trial {
   text-align: left;
-  height: 160px;
-  *height: 205px; }
+  height: 160px; }
