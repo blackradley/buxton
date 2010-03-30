@@ -22,7 +22,7 @@ ActionController::Routing::Routes.draw do |map|
   map.demos 'demos', :controller => 'demos', :action => 'create', :conditions => { :method => :post }
 
   map.connect 'sections/edit/:id/:equality_strand', :controller => 'sections', :action => 'edit'
-  map.test_signup 'test_signup', :controller => 'users', :action => 'test_signup'
+  map.test_signup 'test_signup', :controller => 'users', :action => 'signup'
   map.keys 'keys', :controller => 'users', :action => 'keys' if KEYS
   map.signup 'signup', :controller => 'users', :action => 'signup'
   map.logout 'logout', :controller => 'users', :action => 'logout'

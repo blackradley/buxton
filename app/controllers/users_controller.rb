@@ -31,44 +31,42 @@ class UsersController < ApplicationController
   end
   
   def signup
-    case request.method
-    when :get
-      @hide_menu = true
-    when :post
-      if params[:organisation].blank? || params[:activity].blank? || params[:email].blank?
-        flash[:notice] = "You must supply all fields"
-        redirect_to signup_path and return
-      end
-      # Create an organisation
-      organisation = Organisation.new({:name => params[:organisation], :trial => true})
-      
-      # Create strategies for organisation
-      organisation.organisation_strategies.build(:name => 'Provide a high quality and responsive service for our customers')
-      organisation.organisation_strategies.build(:name => 'Become an exemplary organisation')
-      organisation.organisation_strategies.build(:name => 'Fulfil our obligations to the environment and wider community')
-      
-      # Create a new organisation manager with the e-mail address we were given
-      organisation_manager = organisation.organisation_managers.build(:email => 'iain_wilkinson@blackradley.com')
-      organisation_manager.passkey = OrganisationManager.generate_passkey(organisation_manager)
-
-      # Create a directorate
-      directorate = organisation.directorates.build(:name => 'Directorate')
-      directorate_manager = directorate.build_directorate_manager(:email => 'iain_wilkinson@blackradley.com')
-      activity_manager = nil
-      Organisation.transaction do
-        organisation.save!
-        # Create a activity
-        activity = directorate.activities.build(:name => params[:activity])
-        # Create a activity manager
-        activity_manager = activity.build_activity_manager(:email => params[:email], :free_access => true)
-        activity_approver = activity.build_activity_approver(:email => params[:email])
-        activity_manager.passkey = ActivityManager.generate_passkey(activity_manager)
-        directorate.save!
-      end
-      create_organisation_banner(organisation.name, organisation.id)
-      Notifier.deliver_activity_key(activity_manager, activity_manager.url_for_login(request))
-      redirect_to "/#{activity_manager.passkey}"
+    organisation_name = params['custom Authority']
+    activity_name = params['custom EqualityActivity']
+    if organisation_name.blank? || activity_name.blank? || params[:email].blank?
+      raise "Unknown fields error"
+      flash[:notice] = "You must supply all fields"
+      redirect_to signup_path and return
     end
+    # Create an organisation
+    organisation = Organisation.new({:name => organisation_name, :trial => true})
+    
+    # Create strategies for organisation
+    organisation.organisation_strategies.build(:name => 'Provide a high quality and responsive service for our customers')
+    organisation.organisation_strategies.build(:name => 'Become an exemplary organisation')
+    organisation.organisation_strategies.build(:name => 'Fulfil our obligations to the environment and wider community')
+    
+    # Create a new organisation manager with the e-mail address we were given
+    organisation_manager = organisation.organisation_managers.build(:email => 'iain_wilkinson@blackradley.com')
+    organisation_manager.passkey = OrganisationManager.generate_passkey(organisation_manager)
+
+    # Create a directorate
+    directorate = organisation.directorates.build(:name => 'Directorate')
+    directorate_manager = directorate.build_directorate_manager(:email => 'iain_wilkinson@blackradley.com')
+    activity_manager = nil
+    Organisation.transaction do
+      organisation.save!
+      # Create a activity
+      activity = directorate.activities.build(:name => activity_name)
+      # Create a activity manager
+      activity_manager = activity.build_activity_manager(:email => params[:email], :free_access => true)
+      activity_approver = activity.build_activity_approver(:email => params[:email])
+      activity_manager.passkey = ActivityManager.generate_passkey(activity_manager)
+      directorate.save!
+    end
+    create_organisation_banner(organisation.name, organisation.id)
+    Notifier.deliver_activity_key(activity_manager, activity_manager.url_for_login(request))
+    redirect_to "/#{activity_manager.passkey}"
   end
   
   def sample_pdf
