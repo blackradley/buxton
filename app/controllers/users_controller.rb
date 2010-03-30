@@ -240,6 +240,11 @@ class UsersController < ApplicationController
     redirect_to :back
   end
 
+  def test_signup
+    logger.info params.inspect
+    render :text => "Thanks! Come back when we've implemented this feature for more snazzy details"
+  end
+  
   # Log the user in and then direct them to the right place based on the user type
   # Available to: anybody
   def login
