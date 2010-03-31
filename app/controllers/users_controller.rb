@@ -66,6 +66,7 @@ class UsersController < ApplicationController
     end
     create_organisation_banner(organisation.name, organisation.id)
     Notifier.deliver_activity_key(activity_manager, activity_manager.url_for_login(request))
+    session[:new_signup] = true
     redirect_to "/#{activity_manager.passkey}"
   end
   
@@ -236,11 +237,6 @@ class UsersController < ApplicationController
     @user.save
 
     redirect_to :back
-  end
-
-  def test_signup
-    logger.info params.inspect
-    render :text => "Thanks! Come back when we've implemented this feature for more snazzy details"
   end
   
   # Log the user in and then direct them to the right place based on the user type

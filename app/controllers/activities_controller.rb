@@ -35,6 +35,10 @@ class ActivitiesController < ApplicationController
   # Show activity index
   # Available to: Activity Manager
   def index
+    if session[:new_signup]
+      @new_signup = true
+      session[:new_signup] = nil
+    end
     @activity = @current_user.activity
     @organisation = @current_user.activity.organisation
     @organisation_managers = @activity.organisation.organisation_managers
