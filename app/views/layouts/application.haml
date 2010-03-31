@@ -40,7 +40,22 @@
       .clear
     #body_footer
       ="Copyright &copy; 2008-#{Time.now.year} Black Radley Systems Limited. All rights reserved."
-      / | 
-      / = link_to "Terms of Use", :controller => 'users', :action => 'terms_and_conditions'
-      / |
-      / = link_to "Your Privacy", :controller => 'users', :action => 'privacy_protection' 
+    - @new_signup = true
+    - if @new_signup
+      %script{:type=>"text/javascript"}
+        <!--
+        var google_conversion_id = 1039743772;
+        var google_conversion_language = "en";
+        var google_conversion_format = "2";
+        var google_conversion_color = "ffffff";
+        var google_conversion_label = "2-OjCNilugEQnPbk7wM";
+        var google_conversion_value = 0;
+        //-->
+      %script{:type => "text/javascript", :src => "http://www.googleadservices.com/pagead/conversion.js"}
+      %noscript
+        %div{:style => "display:inline;"}
+          %img{:height=>"1", :width => "1", :style=>"border-style:none;", :alt=>"", :src=>"http://www.googleadservices.com/pagead/conversion/1039743772/?label=2-OjCNilugEQnPbk7wM&amp;guid=ON&amp;script=0"}
+        / | 
+        / = link_to "Terms of Use", :controller => 'users', :action => 'terms_and_conditions'
+        / |
+        / = link_to "Your Privacy", :controller => 'users', :action => 'privacy_protection' 
