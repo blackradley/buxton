@@ -5,7 +5,8 @@ BODY {
   background-image: url(../images/bg.png);
   background-repeat: repeat-x;
   background-color: #9fd0d7;
-  color: #666; }
+  color: #666;
+  margin: 0; }
 
 h1,
 h2,
@@ -88,3 +89,47 @@ form {
 
 .labelled {
   line-height: 2em; }
+
+#preview {
+  position: relative;
+  float: right; }
+  #preview span {
+    position: absolute;
+    color: black;
+    font-size: 9px;
+    font-family: Tahoma, Verdana, Arial, Sans-Serif;
+    text-transform: capitalize; }
+  #preview #org_name {
+    left: 0;
+    top: 40px;
+    width: 400px;
+    font-size: 14px;
+    text-align: center; }
+  #preview #act_name {
+    left: 124px;
+    top: 80px; }
+  #preview #act_man {
+    left: 124px;
+    top: 120px;
+    text-transform: lowercase; }
+  #preview #act_approv {
+    left: 124px;
+    top: 130px;
+    text-transform: lowercase; }
+
+#form_holder {
+  width: 260px;
+  float: left; }
+
+#signup_form p input {
+  clear: left;
+  float: left;
+  margin-top: 0; }
+#signup_form p label {
+  margin-bottom: 0;
+  width: 100px; }
+#signup_form p span.form_note {
+  margin-bottom: 10px;
+  font-size: 10px;
+  float: left;
+  clear: left; }

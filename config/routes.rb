@@ -16,16 +16,17 @@ ActionController::Routing::Routes.draw do |map|
 
   map.pdf 'view_pdf', :controller => 'organisations', :action => 'view_pdf'
   map.resources :logs, :collection => { :clear => :post, :download => :get }
-  
+  map.resources :comments
   # Manually create a subset of the RESTful named routes for the DemosController
   map.new_demo 'demos/new', :controller => 'demos', :action => 'new', :conditions => { :method => :get }
   map.demos 'demos', :controller => 'demos', :action => 'create', :conditions => { :method => :post }
 
   map.connect 'sections/edit/:id/:equality_strand', :controller => 'sections', :action => 'edit'
-
+  map.test_signup 'test_signup', :controller => 'users', :action => 'signup'
   map.keys 'keys', :controller => 'users', :action => 'keys' if KEYS
-  
+  map.signup 'signup', :controller => 'users', :action => 'signup'
   map.logout 'logout', :controller => 'users', :action => 'logout'
+  map.sample_pdf 'sample_pdf', :controller => 'users', :action => 'sample_pdf'
 
   # Sample of regular route:
   #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'

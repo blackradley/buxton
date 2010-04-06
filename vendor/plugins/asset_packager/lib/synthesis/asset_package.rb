@@ -96,7 +96,7 @@ module Synthesis
     def initialize(asset_type, package_hash)
       target_parts = self.class.parse_path(package_hash.keys.first)
       @target_dir = target_parts[1].to_s
-      @target = target_parts[2].to_s
+      @target = target_parts[2].to_s.gsub(/\.js$|\.css$/, '')
       @sources = package_hash[package_hash.keys.first]
       @asset_type = asset_type
       @asset_path = ($asset_base_path ? "#{$asset_base_path}/" : "#{RAILS_ROOT}/public/") +

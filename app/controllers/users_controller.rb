@@ -20,12 +20,66 @@ class UsersController < ApplicationController
   before_filter :verify_view_access, :only => [:edit, :update, :destroy]
   before_filter :verify_index_access, :only => [:list, :new, :create]
   before_filter :verify_edit_access, :only => :remind
-
+  
+  include BannerGeneration
+  
   # Present a form to request a lost passkey by entering your e-mail address.
   # Available to: anybody
   def index
     # This is currently the root url, if they appear here redirect them to the marketing site
     redirect_to 'http://www.impactequality.co.uk'
+  end
+  
+  def signup
+    organisation_name = params['custom Authority']
+    activity_name = params['custom EqualityActivity']
+    if organisation_name.blank? || activity_name.blank? || params[:email].blank?
+      raise "Unknown fields error"
+      flash[:notice] = "You must supply all fields"
+      redirect_to signup_path and return
+    end
+    # Create an organisation
+    organisation = Organisation.new({:name => organisation_name, :trial => true})
+    
+    # Create strategies for organisation
+    organisation.organisation_strategies.build(:name => 'Provide a high quality and responsive service for our customers')
+    organisation.organisation_strategies.build(:name => 'Become an exemplary organisation')
+    organisation.organisation_strategies.build(:name => 'Fulfil our obligations to the environment and wider community')
+    
+    # Create a new organisation manager with the e-mail address we were given
+    organisation_manager = organisation.organisation_managers.build(:email => 'iain_wilkinson@blackradley.com')
+    organisation_manager.passkey = OrganisationManager.generate_passkey(organisation_manager)
+
+    # Create a directorate
+    directorate = organisation.directorates.build(:name => 'Directorate')
+    directorate_manager = directorate.build_directorate_manager(:email => 'iain_wilkinson@blackradley.com')
+    activity_manager = nil
+    Organisation.transaction do
+      organisation.save!
+      # Create a activity
+      activity = directorate.activities.build(:name => activity_name)
+      # Create a activity manager
+      activity_manager = activity.build_activity_manager(:email => params[:email], :free_access => true)
+      activity_approver = activity.build_activity_approver(:email => params[:email])
+      activity_manager.passkey = ActivityManager.generate_passkey(activity_manager)
+      directorate.save!
+    end
+    create_organisation_banner(organisation.name, organisation.id)
+    Notifier.deliver_activity_key(activity_manager, activity_manager.url_for_login(request))
+    session[:new_signup] = true
+    redirect_to "/#{activity_manager.passkey}"
+  end
+  
+  def sample_pdf
+    activity = Activity.find(205)
+    params.delete_if{|k,v| v.blank?}
+    activity.name = params[:activity] || "Activity 1"
+    activity.activity_manager.email = params[:email] || "manager@example.com"
+    activity.activity_approver.email = params[:email] || "approver@example.com"
+    activity.organisation.name = params[:organisation] || "Organisation Name"
+    send_data ActivityPDFGenerator.new(activity, 'public').pdf.render, :disposition => 'inline',
+      :filename => "#{activity.name}.pdf",
+      :type => "application/pdf"
   end
 
   # List all admins.
@@ -184,7 +238,7 @@ class UsersController < ApplicationController
 
     redirect_to :back
   end
-
+  
   # Log the user in and then direct them to the right place based on the user type
   # Available to: anybody
   def login
