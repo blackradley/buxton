@@ -1,3 +1,4 @@
+!!! transitional
 %html{ 'xmlns' =>'http://www.w3.org/1999/xhtml', 'xml:lang'=> 'en' , 'lang' => 'en' }
   %head 
     %title 
@@ -8,8 +9,11 @@
     = stylesheet_link_tag 'tables'
     - if @current_user.respond_to?(:organisation) && !@current_user.organisation.nil? then
       = "<style>.mastHead .logo { background-image: url(/images/organisations/#{@current_user.organisation.id}.png);}</style>"
+    - if controller.action_name=='signup'
+      = "<style>.mastHead .logo { background-image: url(/images/free_signup.png);}</style>"
     = javascript_include_merged :base
     = "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->"
+    = "<!--[if lt IE 7]> #{javascript_include_tag 'jquery.pngFix.js'}<![endif]-->"
     = "<!--[if gte IE 7]> #{stylesheet_link_tag 'fixes_ie7'}<![endif]-->"
     %link{:href=>'/images/favicon.ico', :rel=>'icon', :type=>"image/x-icon"}
   %body
@@ -32,11 +36,26 @@
       .clear
       .footer
         .floatLeft
-          = login_status() 
+          = login_status() unless controller.action_name=='signup'
       .clear
     #body_footer
-      Copyright &copy; 2008 Black Radley Systems Limited. All rights reserved.
-      / | 
-      / = link_to "Terms of Use", :controller => 'users', :action => 'terms_and_conditions'
-      / |
-      / = link_to "Your Privacy", :controller => 'users', :action => 'privacy_protection' 
+      ="Copyright &copy; 2008-#{Time.now.year} Black Radley Systems Limited. All rights reserved."
+    - @new_signup = true
+    - if @new_signup
+      %script{:type=>"text/javascript"}
+        <!--
+        var google_conversion_id = 1039743772;
+        var google_conversion_language = "en";
+        var google_conversion_format = "2";
+        var google_conversion_color = "ffffff";
+        var google_conversion_label = "2-OjCNilugEQnPbk7wM";
+        var google_conversion_value = 0;
+        //-->
+      %script{:type => "text/javascript", :src => "http://www.googleadservices.com/pagead/conversion.js"}
+      %noscript
+        %div{:style => "display:inline;"}
+          %img{:height=>"1", :width => "1", :style=>"border-style:none;", :alt=>"", :src=>"http://www.googleadservices.com/pagead/conversion/1039743772/?label=2-OjCNilugEQnPbk7wM&amp;guid=ON&amp;script=0"}
+        / | 
+        / = link_to "Terms of Use", :controller => 'users', :action => 'terms_and_conditions'
+        / |
+        / = link_to "Your Privacy", :controller => 'users', :action => 'privacy_protection' 

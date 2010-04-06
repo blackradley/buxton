@@ -9,7 +9,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20100106162848) do
+ActiveRecord::Schema.define(:version => 20100222141310) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -305,6 +305,7 @@ ActiveRecord::Schema.define(:version => 20100106162848) do
     t.string   "ces_link"
     t.string   "ces_term",                              :default => "Corporate Equality Scheme"
     t.string   "subdomain",                             :default => "www"
+    t.boolean  "trial",                                 :default => false,                       :null => false
   end
 
   create_table "projects", :force => true do |t|
@@ -369,6 +370,7 @@ ActiveRecord::Schema.define(:version => 20100106162848) do
     t.integer  "organisation_id", :limit => 11
     t.integer  "directorate_id",  :limit => 11
     t.integer  "project_id",      :limit => 11
+    t.boolean  "free_access",                   :default => false
   end
 
   add_index "users", ["passkey"], :name => "index_users_on_passkey"

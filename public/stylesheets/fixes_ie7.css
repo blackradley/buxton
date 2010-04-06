@@ -75,3 +75,18 @@ h3 {
 
 .content .workingArea #content_holder h1#questions {
   margin-top: 10px; }
+
+#form_holder #signup_form p .form_note {
+  width: 100%; }
+#form_holder #signup_form p span.button input {
+  overflow: visible; }
+
+.commentform, .noteform, #finished_free_trial {
+  height: 220px; }
+  .commentform p,   .noteform p,   #finished_free_trial p {
+    width: 470px; }
+  .commentform textarea,   .noteform textarea,   #finished_free_trial textarea {
+    width: 470px; }
+
+#finished_free_trial {
+  height: 205px; }

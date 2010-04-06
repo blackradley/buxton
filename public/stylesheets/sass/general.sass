@@ -8,6 +8,7 @@ BODY
   :background-repeat repeat-x
   :background-color #9fd0d7
   :color #666
+  :margin 0
 
 h1,
 h2,
@@ -95,3 +96,47 @@ form
   
 .labelled
   :line-height 2em
+
+#preview
+  :position relative
+  :float right
+  span
+    :position absolute
+    :color black
+    :font-size 9px
+    :font-family Tahoma, Verdana, Arial, Sans-Serif
+    :text-transform capitalize
+  #org_name
+    :left 0
+    :top 40px
+    :width 400px
+    :font-size 14px
+    :text-align center
+  #act_name
+    :left 124px
+    :top 80px
+  #act_man
+    :left 124px
+    :top 120px
+    :text-transform lowercase
+  #act_approv
+    :left 124px
+    :top 130px
+    :text-transform lowercase
+#form_holder
+  :width 260px
+  :float left
+#signup_form
+  p
+    input
+      :clear left
+      :float left
+      :margin-top 0
+    label
+      :margin-bottom 0
+      :width 100px
+    span.form_note
+      :margin-bottom 10px
+      :font-size 10px
+      :float left
+      :clear left

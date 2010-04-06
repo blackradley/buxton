@@ -1,6 +1,5 @@
 // Place your application-specific JavaScript functions and classes here
 // This file is automatically included by javascript_include_tag :defaults
-
 function mark_for_destroy(element) {
   $(element).next('.should_destroy').value = 1;
   $(element).up('.directorate').hide();
@@ -90,4 +89,19 @@ function showall(element){//we hide all of them
 	     //Do Work on doc[i], this sets the border of the Div black
 	     show[i].style.display = "block";
 	  }
+}
+
+function updatePreview (elem) {
+  switch(elem.id){
+    case 'email':
+      $('act_man').innerHTML = elem.value;
+      $('act_approv').innerHTML = elem.value;
+      break;
+    case 'activity':
+      $('act_name').innerHTML = elem.value;
+      break;
+    case 'organisation':
+      $('org_name').innerHTML = elem.value;
+      break;
+  }
 }

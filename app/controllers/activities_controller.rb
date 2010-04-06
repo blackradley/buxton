@@ -35,6 +35,10 @@ class ActivitiesController < ApplicationController
   # Show activity index
   # Available to: Activity Manager
   def index
+    if session[:new_signup]
+      @new_signup = true
+      session[:new_signup] = nil
+    end
     @activity = @current_user.activity
     @organisation = @current_user.activity.organisation
     @organisation_managers = @activity.organisation.organisation_managers
@@ -385,10 +389,12 @@ class ActivitiesController < ApplicationController
   end
 
   def view_pdf
-    if @current_user.class.name != "ActivityManager" then
-      @activity = Activity.find(params[:id])
-    else
+    if @current_user.class.name =~ /Activity/ then
       @activity = @current_user.activity
+    elsif @current_user.respond_to?(:activities)
+      @activity = @current_user.activities.find(params[:id])
+    else
+      raise ActiveRecord::RecordNotFound
     end
     type = params[:type]
     log_event('PDF', %Q[The activity manager PDF for the <strong>#{@activity.name}</strong> activity, within <strong>#{@activity.organisation.name}</strong>, was viewed.])
