@@ -12,7 +12,7 @@ class LoginLog < Log
   def details
     det = LogDetails.new
     unless message.include?('activity creation screen')
-      data = /['|"]mailto:(\S*)['|"]/.match(self.message)[1].gsub('"', '').gsub("'", '')
+      data = /mailto:(\S*)/.match(self.message)[1].gsub('"', '').gsub("'", '')
       det[:user] = data
       if message.include?('activity approver')
         level_manager = ActivityApprover
