@@ -1,6 +1,6 @@
 development:
-  address: smtp.blackradley.com #62.193.206.5
-  server: pop.blackradley.com
+  address: smtp.gmail.com #62.193.206.5
+  server: smtp.gmail.com 
   port: 25
   domain: blackradley.com    
   authentication: plain
@@ -14,10 +14,9 @@ staging:
   username: iain_wilkinson@blackradley.com
   password: gubbing  
 production:
-  address: smtp.blackradley.com #62.193.206.5
-  server: pop.blackradley.com
-  port: 25
-  domain: blackradley.com    
+  address: smtp.gmail.com
+  server: smtp.gmail.com 
+  port: 25 
   authentication: plain
   username: support@blackradley.com
   password: support
