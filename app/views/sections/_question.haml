@@ -10,26 +10,26 @@
     -if @activity.send(question[:dependency][0][0].to_sym).to_s == question[:dependency][0][1]
       -displayString = "block"
     
-  %p.question.sub{:id => "#{question[:id]}", :onclick => "setFocus(\'more_#{question[:id]}\',\'#{question[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:#{displayString};"}
+  %p.question.sub{:id => "#{question[:id]}", :onclick => "setFocus(\'more_#{question[:id]}\',\'#{question[:id]}\');", :style => "display:#{displayString};"}
     %label
       =question[:label]
     %labelled
       -case question[:input_type]    
         -when :text
-          = f.text_area question[:id], :id => question[:name]
+          = f.text_area question[:id], :id => question[:name], :onchange => "#{depString}"
         -when :string
-          = f.text_field question[:id], :id => question[:name]
+          = f.text_field question[:id], :id => question[:name], :onchange => "#{depString}"
         -when :select
-          = f.select "#{question[:id]}", question[:input_choices], :id => question[:name]
+          = f.select "#{question[:id]}", question[:input_choices], {}, :id => question[:name], :onchange => "#{depString}"
 -else
-  %p.question{:id => "#{question[:id]}", :onclick => "setFocus(\'more_#{question[:id]}\',\'#{question[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:block;"}
+  %p.question{:id => "#{question[:id]}", :onclick => "setFocus(\'more_#{question[:id]}\',\'#{question[:id]}\');", :style => "display:block;"}
     %label
       =question[:label]
     %labelled
       -case question[:input_type]    
         -when :text
-          = f.text_area question[:id], :id => question[:name]
+          = f.text_area question[:id], :id => question[:name], :onchange => "#{depString}"
         -when :string
-          = f.text_field question[:id], :id => question[:name]
+          = f.text_field question[:id], :id => question[:name], :onchange => "#{depString}"
         -when :select
-          = f.select "#{question[:id]}", question[:input_choices], :id => question[:name]
+          = f.select "#{question[:id]}", question[:input_choices], {},  :id => question[:name], :onchange => "#{depString}"

@@ -65,14 +65,24 @@ function setFocus(element, element2){
 }
 
 function setDependencyTrue(sub_question){
-   document.getElementById(sub_question).style.display = "block";
+  if($(sub_question)){
+   $(sub_question).style.display = "block";
+  }
+  else{
+    return true;
+  }
 }
+
 function checkDependancy(main_question, sub_question, value){
   var dependent = document.getElementById(sub_question);
-
-  var question = document.getElementById('activity_' + main_question);
-  if (question.value!=value){
-    dependent.style.display = "none";
+  if(dependent){
+    var question = document.getElementById('activity_' + main_question);
+    if (question.value!=value){
+      dependent.style.display = "none";
+    }
+  }
+  else{
+    return true;
   }
 }
 
