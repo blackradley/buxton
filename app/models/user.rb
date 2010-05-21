@@ -19,7 +19,8 @@ require 'digest/sha1'
 class User < ActiveRecord::Base
   validates_presence_of :type,
     :message => 'User type is required'
-
+  attr_accessible(:passkey, :email, :created_on, :updated_on, :reminded_on, :activity_id, :organisation_id, :directorate_id, :project_id, :free_access)
+    
   def before_create
     self.passkey = User.generate_passkey(self)
   end
