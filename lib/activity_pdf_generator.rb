@@ -195,6 +195,12 @@ class ActivityPDFGenerator
         table << ["The Policy will significantly aid the achievement of the following #{type.to_s.titlecase} #{@activity.organisation.term('strategy').pluralize}:"]
         child_strategies.each do |strategy|
           table << ["           <C:bullet/> #{strategy}"]
+          unless strategy.comment.blank? || strategy.comment.contents.blank?
+            table_data << ["<c:uline>Comment</c:uline>\n#{comment.contents.to_s}"]
+          end
+          unless strategy.note.blank? || strategy.note.contents.blank?
+            table_data << ["<c:uline>Comment</c:uline>\n#{comment.note.to_s}"]
+          end
         end
         @pdf = generate_table(@pdf, table, :borders => [@page_width], :show_lines => :edges)
       end  
