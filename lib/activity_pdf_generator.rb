@@ -181,11 +181,11 @@ class ActivityPDFGenerator
     @activity.activity_strategies.each do |activity_strategy|
       case activity_strategy.strategy.class.name
         when "OrganisationStrategy"
-          strategies[0] << activity_strategy.strategy.name.titlecase if activity_strategy.strategy_response == 1
+          strategies[0] << activity_strategy if activity_strategy.strategy_response == 1
         when "DirectorateStrategy"
-          strategies[1] << activity_strategy.strategy.name.titlecase if activity_strategy.strategy_response == 1
+          strategies[1] << activity_strategy if activity_strategy.strategy_response == 1
         when "ProjectStrategy"
-          strategies[2] << activity_strategy.strategy.name.titlecase if activity_strategy.strategy_response == 1
+          strategies[2] << activity_strategy if activity_strategy.strategy_response == 1
       end
     end
     strategies.each_with_index do |child_strategies, index|
@@ -194,12 +194,14 @@ class ActivityPDFGenerator
       unless child_strategies.size == 0 then
         table << ["The Policy will significantly aid the achievement of the following #{type.to_s.titlecase} #{@activity.organisation.term('strategy').pluralize}:"]
         child_strategies.each do |strategy|
-          table << ["           <C:bullet/> #{strategy}"]
+          table << ["           <C:bullet/> #{strategy.strategy.name.titlecase}"]
           unless strategy.comment.blank? || strategy.comment.contents.blank?
-            table_data << ["<c:uline>Comment</c:uline>\n#{comment.contents.to_s}"]
+            table << ["<c:uline>Comment</c:uline>"]
+            table << ["#{strategy.comment.contents.to_s}"]
           end
           unless strategy.note.blank? || strategy.note.contents.blank?
-            table_data << ["<c:uline>Comment</c:uline>\n#{comment.note.to_s}"]
+            table << ["<c:uline>Comment</c:uline>"]
+            table << ["#{strategy.note.note.to_s}"]
           end
         end
         @pdf = generate_table(@pdf, table, :borders => [@page_width], :show_lines => :edges)
