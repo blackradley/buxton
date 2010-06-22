@@ -166,7 +166,7 @@ class ActivityPDFGenerator
     @pdf.text " "
     @pdf.text "<b>2  <c:uline>Overall Purpose</b></c:uline>", :font_size => 12
     @pdf.text " "
-    @pdf.text "<b>2.1  What the Activity is for</b>", :font_size => 12
+    @pdf.text "<b>2.1  <c:uline>What the Activity is for</b></c:uline>", :font_size => 12
     @pdf.text " "
     target_q = @activity.question_wording_lookup('purpose', 'overall', 2, true)[0].to_s
     target_a = @activity.send(:purpose_overall_2)
@@ -175,40 +175,46 @@ class ActivityPDFGenerator
     target += comments  unless comments.blank?
     cell_formats = [[{:shading => SHADE_COLOUR}, nil]]
     comments.size.times {cell_formats << nil}
-    @pdf = generate_table(@pdf, target, :borders => [240, @page_width], :cell_format => cell_formats)
+    @pdf = generate_table(@pdf, target, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10)
     types = [:organisation, :directorate, :project]
     strategies = [[], [],[]]
     @activity.activity_strategies.each do |activity_strategy|
       case activity_strategy.strategy.class.name
         when "OrganisationStrategy"
-          strategies[0] << activity_strategy if activity_strategy.strategy_response == 1
+          strategies[0] << [activity_strategy, ['Not answered', 'Yes', 'No', 'Not sure'][activity_strategy.strategy_response]]
         when "DirectorateStrategy"
-          strategies[1] << activity_strategy if activity_strategy.strategy_response == 1
+          strategies[1] << [activity_strategy, ['Not answered', 'Yes', 'No', 'Not sure'][activity_strategy.strategy_response]]
         when "ProjectStrategy"
-          strategies[2] << activity_strategy if activity_strategy.strategy_response == 1
+          strategies[2] << [activity_strategy, ['Not answered', 'Yes', 'No', 'Not sure'][activity_strategy.strategy_response]]
       end
     end
     strategies.each_with_index do |child_strategies, index|
       type = types[index]
       table = []
+      cell_formats = []
       unless child_strategies.size == 0 then
-        table << ["The Policy will significantly aid the achievement of the following #{type.to_s.titlecase} #{@activity.organisation.term('strategy').pluralize}:"]
-        child_strategies.each do |strategy|
-          table << ["           <C:bullet/> #{strategy.strategy.name.titlecase}"]
+        @pdf.text " "
+        @pdf.text "<b>Does the policy significantly affect the achievement of the following #{type.to_s.titlecase} #{@activity.organisation.term('strategy').titlecase.pluralize}?</b>", :font_size => 10
+        @pdf.text " "
+        #table << ["The Policy will significantly aid the achievement of the following #{type.to_s.titlecase} #{@activity.organisation.term('strategy').pluralize}:"]
+        table = []
+        child_strategies.each do |strategy, answer|
+          cell_formats << [{:shading => SHADE_COLOUR}, nil]
+          table << ["#{strategy.strategy.name.titlecase}", answer]
           unless strategy.comment.blank? || strategy.comment.contents.blank?
-            table << ["<c:uline>Comment</c:uline>"]
-            table << ["#{strategy.comment.contents.to_s}"]
+            cell_formats << [nil, nil]
+            table << ["<c:uline>Comment</c:uline>\n#{strategy.comment.contents.to_s}"]
           end
-          unless strategy.note.blank? || strategy.note.contents.blank?
-            table << ["<c:uline>Comment</c:uline>"]
-            table << ["#{strategy.note.note.to_s}"]
+          unless @public || strategy.note.blank? || strategy.note.contents.blank?
+            cell_formats << [nil, nil]
+            table << ["<c:uline>Note</c:uline>\n#{strategy.note.contents.to_s}"]
           end
         end
-        @pdf = generate_table(@pdf, table, :borders => [@page_width], :show_lines => :edges)
+        @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10)
       end  
     end
     @pdf.text " "
-    @pdf.text "<b>2.2  Individuals affected by the policy</b>", :font_size => 12
+    @pdf.text "<b>2.2  <c:uline>Individuals affected by the policy</b></c:uline>", :font_size => 12
     @pdf.text " "
     impact_quns = []
     impact_answers = []
@@ -227,8 +233,8 @@ class ActivityPDFGenerator
       table += comments  unless comments.blank?
       comments.size.times {cell_formats << nil}
     end
-    
-    @pdf = generate_table(@pdf, table, :borders => [200, @page_width], :col_format => [nil, {:text_alignment => :center}], :cell_format => cell_formats)
+    #:col_format => [nil, {:text_alignment => :center}]
+    @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10)
     @pdf
   end
     
