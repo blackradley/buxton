@@ -76,8 +76,8 @@ class OrganisationsController < ApplicationController
 #    @organisation = Organisation.find(params[:id])
     @organisation_managers = @organisation.organisation_managers
     @organisation_terminologies = Terminology.find(:all).map do |term|
-      if term = @organisation.organisation_terminologies.find_by_terminology_id(term.id) then
-        term
+      if org_term = @organisation.organisation_terminologies.find_by_terminology_id(term.id) then
+        org_term
       else
         @organisation.organisation_terminologies.build(:value => term.term, :terminology_id => term.id)
       end
