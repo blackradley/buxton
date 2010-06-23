@@ -61,7 +61,7 @@ module PDFExtensions
       if table_data[:header]
         pdf.test_pdf = table_data[:header].call(pdf.test_pdf, *table_data[:header_args])
       end
-      lines = 1
+      lines = table_data[:title_lines] || 1
       row_data(table.first).each_with_index do |cell, index|
         if index == 0 then
           width = borders[index]
@@ -80,6 +80,9 @@ module PDFExtensions
     end
     # Now continue pdf processing
     #insert heading
+    if table_data[:table_title]
+      pdf = table_data[:table_title].call(pdf)
+    end
     pdf = table_data[:header].call(pdf, *table_data[:header_args]) if table_data[:header]
     #draw table
     old_lines = show_lines

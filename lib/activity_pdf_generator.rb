@@ -193,9 +193,12 @@ class ActivityPDFGenerator
       table = []
       cell_formats = []
       unless child_strategies.size == 0 then
-        @pdf.text " "
-        @pdf.text "<b>Does the policy significantly affect the achievement of the following #{type.to_s.titlecase} #{@activity.organisation.term('strategy').titlecase.pluralize}?</b>", :font_size => 10
-        @pdf.text " "
+        table_heading = Proc.new do |document|
+          document.text " "
+          document.text "<b>Does the policy significantly affect the achievement of the following #{type.to_s.titlecase} #{@activity.organisation.term('strategy').titlecase.pluralize}?</b>", :font_size => 10
+          document.text " "
+          document
+        end
         #table << ["The Policy will significantly aid the achievement of the following #{type.to_s.titlecase} #{@activity.organisation.term('strategy').pluralize}:"]
         table = []
         child_strategies.each do |strategy, answer|
@@ -210,12 +213,15 @@ class ActivityPDFGenerator
             table << ["<c:uline>Note</c:uline>\n#{strategy.note.contents.to_s}"]
           end
         end
-        @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10)
+        @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4, :table_title =>table_heading)
       end  
     end
-    @pdf.text " "
-    @pdf.text "<b>2.2  <c:uline>Individuals affected by the policy</b></c:uline>", :font_size => 12
-    @pdf.text " "
+    table_heading = Proc.new do |document|
+      document.text " "
+      document.text "<b>2.2  <c:uline>Individuals affected by the policy</b></c:uline>", :font_size => 12
+      document.text " "
+      document
+    end
     impact_quns = []
     impact_answers = []
     (5..9).each do |i|
@@ -234,7 +240,7 @@ class ActivityPDFGenerator
       comments.size.times {cell_formats << nil}
     end
     #:col_format => [nil, {:text_alignment => :center}]
-    @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10)
+    @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4, :table_title =>table_heading)
     @pdf
   end
     
@@ -306,15 +312,24 @@ class ActivityPDFGenerator
     Activity.strands.each do |strand|
       build_differential_impact(strand, good_differentials[strand], bad_differentials[strand], section_index)
       if @activity.send("#{strand}_relevant")
-        @pdf.text "<b>3.#{section_index}.2  <c:uline>#{strand_display(strand).titlecase} - Impact</b></c:uline>", :font_size => 12
-        @pdf.text ' '
-        build_impact(strand)
-        @pdf.text "<b>3.#{section_index}.3  <c:uline>#{strand_display(strand).titlecase} - Consultation</b></c:uline>", :font_size => 12
-        @pdf.text ' '
-        build_consultation(strand)
-        @pdf.text "<b>3.#{section_index}.4  <c:uline>#{strand_display(strand).titlecase} - Additional Work</b></c:uline>", :font_size => 12
-        @pdf.text ' '
-        build_additional_work(strand)
+        heading_proc  = lambda do |document|
+          document.text "<b>3.#{section_index}.2  <c:uline>#{strand_display(strand).titlecase} - Impact</b></c:uline>", :font_size => 12
+          document.text ' '
+          document
+        end
+        build_impact(strand, heading_proc)
+        heading_proc = lambda do |document|
+          document.text "<b>3.#{section_index}.3  <c:uline>#{strand_display(strand).titlecase} - Consultation</b></c:uline>", :font_size => 12
+          document.text ' '
+          document
+        end
+        build_consultation(strand, heading_proc)
+        heading_proc = lambda do |document|
+          document.text "<b>3.#{section_index}.4  <c:uline>#{strand_display(strand).titlecase} - Additional Work</b></c:uline>", :font_size => 12
+          document.text ' '
+          document
+        end
+        build_additional_work(strand, heading_proc)
         @pdf.start_new_page
       end
       section_index += 1
@@ -363,11 +378,14 @@ class ActivityPDFGenerator
       comments.size.times {cell_formats << nil}
     end
     return if table.blank?
-    @pdf.text "<b>3.#{section_index}  <c:uline>#{strand_display(strand).titlecase}</b></c:uline>", :font_size => 12
-    @pdf.text ' '
-    @pdf.text "<b>3.#{section_index}.1  <c:uline>#{strand_display(strand).titlecase} - Differential Impact</b></c:uline>", :font_size => 12
-    @pdf.text ' '
-    @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :font_size => 10, :cell_format => cell_formats)
+    heading_proc = lambda do |document|
+      document.text "<b>3.#{section_index}  <c:uline>#{strand_display(strand).titlecase}</b></c:uline>", :font_size => 12
+      document.text ' '
+      document.text "<b>3.#{section_index}.1  <c:uline>#{strand_display(strand).titlecase} - Differential Impact</b></c:uline>", :font_size => 12
+      document.text ' '
+      document
+    end
+    @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :font_size => 10, :cell_format => cell_formats, :title_lines => 4, :table_title =>heading_proc)
     @pdf.text " "
     # unless good_impact_questions.size == 0 then
     #   @pdf.text("#{@act_name} has a potential positive differential impact on the following equality groups:")
@@ -395,7 +413,7 @@ class ActivityPDFGenerator
     # @pdf.text(" ")
   end
 
-  def build_impact(strand)
+  def build_impact(strand, heading_proc)
 #    @pdf.text("<c:uline><b>3.  Impact</b></c:uline>")
 #    @pdf.text(" ")
     # collected_information = Activity.get_question_names('impact', nil, 3).map{|question| [question, @activity.send(question)]}
@@ -433,12 +451,12 @@ class ActivityPDFGenerator
     
 #    specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
 #    specific_data[:cell_format] = table_info[1]
-    @pdf = generate_table(@pdf, table_data, :borders => borders, :font_size => 10, :cell_format => cell_formats)
+    @pdf = generate_table(@pdf, table_data, :borders => borders, :font_size => 10, :cell_format => cell_formats, :title_lines => 4, :table_title =>heading_proc)
     @pdf.text(" ")
     @pdf
   end
 
-  def build_consultation(strand)
+  def build_consultation(strand, heading_proc)
     # @pdf.text("<c:uline><b>4.  Consultation</b></c:uline>")
     # @pdf.text(" ")
     # @pdf.text("<b>4.1 Groups</b>")
@@ -465,7 +483,7 @@ class ActivityPDFGenerator
       table_data += comments  unless comments.blank?
       comments.size.times {cell_formats << nil}
     end
-    @pdf = generate_table(@pdf, table_data, :borders => borders, :font_size => 10, :cell_format => cell_formats)
+    @pdf = generate_table(@pdf, table_data, :borders => borders, :font_size => 10, :cell_format => cell_formats, :title_lines => 4, :table_title =>heading_proc)
     
     # collected_information = Activity.get_question_names('consultation', nil, 3).map{|question| [question, @activity.send(question)]}
     # collected_information = remove_unneeded(collected_information)
@@ -490,7 +508,7 @@ class ActivityPDFGenerator
     @pdf
   end
 
-  def build_additional_work(strand)
+  def build_additional_work(strand, heading_proc)
     # @pdf.text("<c:uline><b>5.  Additional Work</b></c:uline>")
     # @pdf.text(" ")
     borders = [300, @page_width]
@@ -520,7 +538,7 @@ class ActivityPDFGenerator
       table_data += comments  unless comments.blank?
       comments.size.times {cell_formats << nil}
     end
-    @pdf = generate_table(@pdf, table_data, :borders => borders, :font_size => 10, :cell_format => cell_formats)
+    @pdf = generate_table(@pdf, table_data, :borders => borders, :font_size => 10, :cell_format => cell_formats, :title_lines => 4, :table_title =>heading_proc)
     @pdf.text(" ")
     @pdf
   end
@@ -612,9 +630,13 @@ class ActivityPDFGenerator
       strand_issues.reject!{|issue| issue.section == 'consultation'} unless consultation_enabled
       
       next if strand_issues.blank?
-      @pdf.text "<b>5.#{index}  #{strand_display(strand).titlecase}</b>", :font_size => 12
+      heading_proc = lambda do |document|
+        document.text "<b>5.#{index}  #{strand_display(strand).titlecase}</b>", :font_size => 12
+        document.text ' ', :font_size => 10
+        document
+      end
+      title_lines = 4
       index += 1
-      @pdf.text ' ', :font_size => 10
       strand_issues.each do |issue|
         table = []
         table << ["Issue", issue.description]
@@ -622,7 +644,9 @@ class ActivityPDFGenerator
         table << ["Resources", issue.resources.to_s]
         table << ["Timescales", issue.timescales.to_s]
         table << ["Lead Officer", issue.lead_officer.to_s]
-        @pdf = generate_table(@pdf, table, :borders => borders, :font_size => 10, :col_format => [{:shading => SHADE_COLOUR}, nil])
+        @pdf = generate_table(@pdf, table, :borders => borders, :font_size => 10, :col_format => [{:shading => SHADE_COLOUR}, nil], :title_lines => title_lines, :table_title =>heading_proc)
+        heading_proc = nil
+        title_lines = nil
         @pdf.text ' '
       end
     end
