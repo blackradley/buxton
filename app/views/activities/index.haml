@@ -12,28 +12,23 @@
     =h @activity.activity_type
 
 %p
-  Impact Equality&trade; is an automated tool to help with equality impact assessments.  You have been asked to take a lead on the assessment of the activity identified above. If this is new to you, please contact a member of your Equalities Team.
+  Impact Equality&trade; is an online tool which has been designed to make equality impact assessments easier to complete.  There are three sections to the tool:
+  %ul
+    %li Activity Type
+    %li Overall Purpose
+    %li Relevant Equality Strands
   
 %p
   You will see three tabs at the top of this page. You are currently in the first of these (Home). The Questions tab is the starting point for the assessment itself and the Summary tab shows you what you have done so far. To start the assessment, please click on the Questions tab or Next button below.
 %p
-  The Organisation will have outlined its planned approach to assessing the impact of its activities on equalities in its
-  = ot('corporate equality scheme').titleize
-  %br
--form_for(:activity, :url => {:action => 'update_ces'}) do |f|
-  %p
-    %label
-      = "Have you read the #{"<a href=\"#{@activity.organisation.ces_link}\">" unless @activity.organisation.ces_link?}#{(ot 'corporate equality scheme').titleize}#{"</a>" unless @activity.organisation.ces_link?}?"
-    %labelled
-      = f.select "ces_question", @activity.hashes['choices'][@activity.hashes['ces_question']['choices'].to_i].map{|x| [x, @activity.hashes['choices'][3].index(x)]}
-  .clear
-  %p
-    If you have not read the Scheme you may find it useful to do so before completing the assessment.
-  - unless @activity.organisation.ces_link? then
-    %p
-      The Scheme can be accessed by the following link.
-      = link_to(ot('corporate equality scheme').titleize, @activity.organisation.ces_link.to_s)
-  %p
-    When completing the assessment, help text is shown in the right-hand column of the screen. You also have the option to make a private note to yourself, perhaps to remind you of why you answered a question a particular way or to remind you to check something. There is also the option to include a comment for the report, perhaps to explain or expand upon your answer to the question.
-  .button.floatRight
-    = submit_tag 'Next', {:disable_with => 'Processing...', :id => 'next_button'}
+  Each section comprises a series of questions with a drop down menu and the opportunity to add free text if necessary.  The next section only appears once the preceding section has been completed.
+%p
+  You can access the tool, answer some questions and save what you have done to return later to complete.
+%p
+  There is help text for all the questions in the right hand column.
+%p
+  At the top of the page are three tabs.  You are in the first of these (Home).  The Questions tab is where you actually complete the assessment and the Summary tab shows what you have done so far.
+%p
+  To start the assessment please click on next below.
+.button.floatRight
+  = submit_tag 'Next', {:disable_with => 'Processing...', :id => 'next_button'}
