@@ -30,5 +30,6 @@
   At the top of the page are three tabs.  You are in the first of these (Home).  The Questions tab is where you actually complete the assessment and the Summary tab shows what you have done so far.
 %p
   To start the assessment please click on next below.
-.button.floatRight
-  = submit_tag 'Next', {:disable_with => 'Processing...', :id => 'next_button'}
+-form_for(:activity, :url => {:action => 'update_ces'}) do |f|
+  .button.floatRight
+    = submit_tag 'Next', {:disable_with => 'Processing...', :id => 'next_button'}
