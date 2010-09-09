@@ -34,7 +34,6 @@ class Organisation < ActiveRecord::Base
   has_many :organisation_terminologies, :dependent => :destroy
   has_one :activity_creator, :dependent => :destroy
 
-
   validates_presence_of :organisation_managers
   validates_associated :organisation_terminologies
   validates_associated :organisation_strategies
@@ -166,6 +165,7 @@ class Organisation < ActiveRecord::Base
       else
         organisation_manager = organisation_managers.detect{ |om| om.id == attributes[:id].to_i }
         attributes.delete(:id)
+        organisation_manager.should_destroy = attributes[:should_destroy].to_s
         organisation_manager.attributes = attributes
       end
     end
