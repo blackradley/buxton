@@ -195,7 +195,7 @@ class ActivityPDFGenerator
       unless child_strategies.size == 0 then
         table_heading = Proc.new do |document|
           document.text " "
-          document.text "<b>Does the policy significantly affect the achievement of the following #{type.to_s.titlecase} #{@activity.organisation.term('strategy').titlecase.pluralize}?</b>", :font_size => 10
+          document.text "<b>For each #{@activity.organisation.term('strategy')}, please decide whether it is going to be significantly aided by the #{@activity.function_policy?.downcase}.</b>", :font_size => 10
           document.text " "
           document
         end
