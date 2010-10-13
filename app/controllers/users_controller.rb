@@ -220,7 +220,7 @@ class UsersController < ApplicationController
       flash[:notice] = "Reminder for #{@user.organisation.name} sent to #{@user.email}"
     when 'ActivityApprover'
       email = Notifier.create_approver_key(@user, @login_url)
-      flash[:notice] = 'Noification to submission for approval of ' + @user.activity.name + ' sent to ' + @user.email
+      flash[:notice] = 'Notification to submission for approval of ' + @user.activity.name + ' sent to ' + @user.email
     # Nope. Well do nothing then.
     else
       # Shouldn't get here - but let them know what happened anyway
