@@ -99,6 +99,7 @@ class User < ActiveRecord::Base
   def can_be_edited_by?(user_)
     return true  if user_.class == Administrator
     return true  if (user_.class == OrganisationManager) && (user_.organisation == self.organisation)
+    return true if (user_.class == DirectorateManager) && (user_.directorate == self.directorate)
     return false
   end
   

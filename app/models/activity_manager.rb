@@ -10,7 +10,7 @@ class ActivityManager < User
   # The user controls a activity.
   belongs_to :activity
   delegate :organisation, :organisation=, :to => :activity
-  
+  delegate :directorate, :directorate=, :to => :activity
   validates_presence_of :email, 
     :message => 'Please provide an email'
   # validates_format_of :email,
