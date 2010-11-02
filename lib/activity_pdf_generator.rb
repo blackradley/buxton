@@ -119,7 +119,7 @@ class ActivityPDFGenerator
     @pdf.text " ", :font_size => 10
     @pdf.text "<b>                    Priority Ranking</b>", :font_size => 12
     @pdf.text " ", :font_size => 10
-    @pdf.text "For relevant equality strands this provides a score between 1 (highest) to 5 (lowest) showing the level of priority, with reference to equalities, the activity has for the organisation.", :left => 40
+    @pdf.text "For relevant equality strands this provides a score between 1 (lowest) to 5 (highest) showing the level of priority, with reference to equalities, the activity has for the organisation.", :left => 40
     @pdf.text " ", :font_size => 10
     @pdf.text "<b>                    Impact Ranking</b>", :font_size => 12
     @pdf.text " ", :font_size => 10
