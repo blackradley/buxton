@@ -23,3 +23,6 @@ config.action_mailer.delivery_method = :test
 
 # We shouldn't have a TLD as we'll be running on localhost
 TLD_LENGTH = 0
+
+require 'factory_girl'
+require 'shoulda'
