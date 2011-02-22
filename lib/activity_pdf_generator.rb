@@ -176,6 +176,26 @@ class ActivityPDFGenerator
     cell_formats = [[{:shading => SHADE_COLOUR}, nil]]
     comments.size.times {cell_formats << nil}
     @pdf = generate_table(@pdf, target, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10)
+    @pdf.text " "
+    target_q = @activity.question_wording_lookup('purpose', 'overall', 11, true)[0].to_s
+    target_a =['Not answered', 'Yes', 'No', 'Not sure'][@activity.send(:purpose_overall_11)]
+    target = [[target_q, target_a]]
+    comments = get_comments_and_notes(:purpose_overall_11)
+    target += comments  unless comments.blank?
+    cell_formats = [[{:shading => SHADE_COLOUR}, nil]]
+    comments.size.times {cell_formats << nil}
+    @pdf = generate_table(@pdf, target, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10)
+    if @activity.send(:purpose_overall_11) == 1
+      @pdf.text " "
+      target_q = @activity.question_wording_lookup('purpose', 'overall', 12, true)[0].to_s
+      target_a = ['Not answered', 'Yes', 'No', 'Not sure'][@activity.send(:purpose_overall_12)]
+      target = [[target_q, target_a]]
+      comments = get_comments_and_notes(:purpose_overall_12)
+      target += comments  unless comments.blank?
+      cell_formats = [[{:shading => SHADE_COLOUR}, nil]]
+      comments.size.times {cell_formats << nil}
+      @pdf = generate_table(@pdf, target, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10)
+    end
     types = [:organisation, :directorate, :project]
     strategies = [[], [],[]]
     @activity.activity_strategies.each do |activity_strategy|
