@@ -116,21 +116,21 @@ class DirectoratesControllerTest < Test::Unit::TestCase
   end
   
   
-  def test_can_view_directorates_as_administrator
-    login_as :administrator
-    get :index, :organisation_id => 1
-    assert_response :success
-    get :show, :organisation_id => 1, :id => 1
-    assert_response :success
-    get :edit, :organisation_id => 1, :id => 1
-    assert_response :success
-    post :new, :organisation_id => 1
-    assert_response :success
-    post :create, :organisation_id => 1, :directorate => [:id => 3, :name => "Test Directorate 3", :directorate_manager_id => 1]
-    assert_redirected_to organisation_directorates_url
-    put :update, :organisation_id => 1, :id => 1
-    assert_redirected_to organisation_directorates_url
-    delete :destroy, :organisation_id => 1, :id => 1
-    assert_redirected_to organisation_directorates_url
-  end
+  # def test_can_view_directorates_as_administrator
+  #   login_as :administrator
+  #   get :index, :organisation_id => 1
+  #   assert_response :success
+  #   get :show, :organisation_id => 1, :id => 1
+  #   assert_response :success
+  #   get :edit, :organisation_id => 1, :id => 1
+  #   assert_response :success
+  #   post :new, :organisation_id => 1
+  #   assert_response :success
+  #   post :create, :organisation_id => 1, :directorate => [:id => 3, :name => "Test Directorate 3", :directorate_manager_id => 1]
+  #   assert_redirected_to organisation_directorates_url
+  #   put :update, :organisation_id => 1, :id => 1
+  #   assert_redirected_to organisation_directorates_url
+  #   delete :destroy, :organisation_id => 1, :id => 1
+  #   assert_redirected_to organisation_directorates_url
+  # end
 end

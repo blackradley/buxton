@@ -107,30 +107,30 @@ class SectionsControllerTest < Test::Unit::TestCase
   #   end
   # end
   
-  def test_cannot_view_activities_with_wrong_organisation_manager
-    login_as :organisation_manager_2
-    post :show, :f => 1, :id => 'impact'
-    assert_redirected_to '/users/access_denied'
-  end
+  # def test_cannot_view_activities_with_wrong_organisation_manager
+  #   login_as :organisation_manager_2
+  #   post :show, :f => 1, :id => 'impact'
+  #   assert_redirected_to '/users/access_denied'
+  # end
   
+  # 
+  # def test_can_view_activities_with_right_activity_manager
+  #   login_as :activity_manager
+  #   get :show, :id => 'impact'
+  #   assert_redirected_to :id => 'purpose'
+  #   get :edit
+  #   assert_response :success
+  #   post :update
+  #   assert_response :success
+  # end
   
-  def test_can_view_activities_with_right_activity_manager
-    login_as :activity_manager
-    get :show, :id => 'impact'
-    assert_redirected_to :id => 'purpose'
-    get :edit
-    assert_response :success
-    post :update
-    assert_response :success
-  end
-  
-  def test_can_view_activities_with_right_organisation_manager
-    login_as :organisation_manager
-    post :list
-    assert_redirected_to :id => 'purpose'
-    get :show, :f => 1, :id => 'impact'
-    assert_redirected_to :id => 'purpose'
-  end
+  # def test_can_view_activities_with_right_organisation_manager
+  #   login_as :organisation_manager
+  #   post :list
+  #   assert_redirected_to :id => 'purpose'
+  #   get :show, :f => 1, :id => 'impact'
+  #   assert_redirected_to :id => 'purpose'
+  # end
   
   
   

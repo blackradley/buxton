@@ -40,6 +40,16 @@ activity_manager:
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   reminded_on: 2007-04-01 00:00:00
+  
+activity_approver:
+  id: 10
+  type: 'ActivityApprover'
+  activity_id: 1
+  passkey: 158dbc032e936dc7f36939ecd80d531223e146e3
+  email: activity_approver@27stars.co.uk
+  created_on: 2007-04-01 00:00:00
+  updated_on: 2007-04-01 00:00:00
+  reminded_on: 2007-04-01 00:00:00
 #
 # One dummy project manager
 #
@@ -48,7 +58,7 @@ project_manager:
   type: 'ProjectManager'
   project_id: 1
   passkey: 2d4sfds4f64sdf54ds6f54ds35f4ds56f4ds6f4d
-  email: activity_manager@27stars.co.uk
+  email: project_manager@27stars.co.uk
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   reminded_on: 2007-04-01 00:00:00
@@ -60,7 +70,7 @@ directorate_manager:
   type: 'DirectorateManager'
   directorate_id: 1
   passkey: 2d4sfds4f64sdf54ds6f54ds35f4ds56f4ds6f4d
-  email: activity_manager@27stars.co.uk
+  email: directorate_manager@27stars.co.uk
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   reminded_on: 2007-04-01 00:00:00
@@ -85,7 +95,7 @@ activity_manager_2:
   type: 'ActivityManager'
   activity_id: 2
   passkey: 158dbc032e936dc7f36939ecd80d531223e146e2
-  email: activity_manager@27stars.co.uk
+  email: second_activity_manager@27stars.co.uk
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   reminded_on: 2007-04-01 00:00:00
@@ -97,7 +107,7 @@ project_manager_2:
   type: 'ProjectManager'
   project_id: 2
   passkey: 2d4sfds4f64sdf54ds6f54ds35f4ds56f4ds6f4d
-  email: activity_manager@27stars.co.uk
+  email: second_project_manager@27stars.co.uk
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   reminded_on: 2007-04-01 00:00:00
@@ -109,7 +119,7 @@ directorate_manager_2:
   type: 'DirectorateManager'
   directorate_id: 2
   passkey: 2d4sfds4f64sdf54ds6f54ds35f4ds56f4ds6f4d
-  email: activity_manager@27stars.co.uk
+  email: second_directorate_manager@27stars.co.uk
   created_on: 2007-04-01 00:00:00
   updated_on: 2007-04-01 00:00:00
   reminded_on: 2007-04-01 00:00:00

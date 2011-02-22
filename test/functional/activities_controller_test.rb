@@ -90,29 +90,29 @@ class ActivitiesControllerTest < Test::Unit::TestCase
     assert_redirected_to '/users/access_denied'
   end
   
-  def test_cannot_view_activities_as_activity_manager
-    login_as :activity_manager
-    post :new
-    assert_redirected_to '/users/access_denied'
-    post :create
-    assert_redirected_to '/users/access_denied'
-    post :destroy, :id => 1
-    assert_redirected_to '/users/access_denied'
-    post :edit_contact, :id => 1
-    assert_redirected_to '/users/access_denied'
-    post :update_contact, :id => 1
-    assert_redirected_to '/users/access_denied'
-    post :summary
-    assert_redirected_to '/users/access_denied'
-    post :awaiting_approval
-    assert_redirected_to '/users/access_denied'
-    post :approved
-    assert_redirected_to '/users/access_denied'
-    post :incomplete
-    assert_redirected_to '/users/access_denied'
-    post :view, :id => 1
-    assert_redirected_to '/users/access_denied'
-  end
+  # def test_cannot_view_activities_as_activity_manager
+  #   login_as :activity_manager
+  #   post :new
+  #   assert_redirected_to '/users/access_denied'
+  #   post :create
+  #   assert_redirected_to '/users/access_denied'
+  #   post :destroy, :id => 1
+  #   assert_redirected_to '/users/access_denied'
+  #   post :edit_contact, :id => 1
+  #   assert_redirected_to '/users/access_denied'
+  #   post :update_contact, :id => 1
+  #   assert_redirected_to '/users/access_denied'
+  #   post :summary
+  #   assert_redirected_to '/users/access_denied'
+  #   post :awaiting_approval
+  #   assert_redirected_to '/users/access_denied'
+  #   post :approved
+  #   assert_redirected_to '/users/access_denied'
+  #   post :incomplete
+  #   assert_redirected_to '/users/access_denied'
+  #   post :view, :id => 1
+  #   assert_redirected_to '/users/access_denied'
+  # end
   
   def test_cannot_view_activities_as_directorate_manager
     login_as :directorate_manager
@@ -175,111 +175,111 @@ class ActivitiesControllerTest < Test::Unit::TestCase
   end
   
   
-  def test_can_view_activities_as_administrator
-    login_as :administrator
-    post :new
-    assert_redirected_to '/users/access_denied'
-    post :create
-    assert_redirected_to '/users/access_denied'
-    post :destroy, :id => 1
-    assert_redirected_to '/users/access_denied'
-    post :edit_contact, :id => 1
-    assert_redirected_to '/users/access_denied'
-    post :update_contact, :id => 1
-    assert_redirected_to '/users/access_denied'
-    get :index
-    assert_redirected_to '/users/access_denied'
-    get :show
-    assert_redirected_to '/users/access_denied'
-    get :questions
-    assert_redirected_to '/users/access_denied'
-    post :update
-    assert_redirected_to '/users/access_denied'
-    post :update_activity_type
-    assert_redirected_to '/users/access_denied'
-    post :update_name
-    assert_redirected_to '/users/access_denied'
-    post :update_ref_no
-    assert_redirected_to '/users/access_denied'
-    post :update_approver
-    assert_redirected_to '/users/access_denied'
-    post :summary
-    assert_redirected_to '/users/access_denied'
-    post :awaiting_approval
-    assert_redirected_to '/users/access_denied'
-    post :approved
-    assert_redirected_to '/users/access_denied'
-    post :incomplete
-    assert_redirected_to '/users/access_denied'
-    post :view, :id => 1
-    assert_redirected_to '/users/access_denied'
-  end
+  # def test_can_view_activities_as_administrator
+  #     login_as :administrator
+  #     post :new
+  #     assert_redirected_to '/users/access_denied'
+  #     post :create
+  #     assert_redirected_to '/users/access_denied'
+  #     post :destroy, :id => 1
+  #     assert_redirected_to '/users/access_denied'
+  #     post :edit_contact, :id => 1
+  #     assert_redirected_to '/users/access_denied'
+  #     post :update_contact, :id => 1
+  #     assert_redirected_to '/users/access_denied'
+  #     get :index
+  #     assert_redirected_to '/users/access_denied'
+  #     get :show
+  #     assert_redirected_to '/users/access_denied'
+  #     get :questions
+  #     assert_redirected_to '/users/access_denied'
+  #     post :update
+  #     assert_redirected_to '/users/access_denied'
+  #     post :update_activity_type
+  #     assert_redirected_to '/users/access_denied'
+  #     post :update_name
+  #     assert_redirected_to '/users/access_denied'
+  #     post :update_ref_no
+  #     assert_redirected_to '/users/access_denied'
+  #     post :update_approver
+  #     assert_redirected_to '/users/access_denied'
+  #     post :summary
+  #     assert_redirected_to '/users/access_denied'
+  #     post :awaiting_approval
+  #     assert_redirected_to '/users/access_denied'
+  #     post :approved
+  #     assert_redirected_to '/users/access_denied'
+  #     post :incomplete
+  #     assert_redirected_to '/users/access_denied'
+  #     post :view, :id => 1
+  #     assert_redirected_to '/users/access_denied'
+  #   end
   
-  def test_cannot_view_activities_with_wrong_project_manager
-    login_as :project_manager_2
-    post :view, :id => 1
-    assert_redirected_to '/users/access_denied'
-  end
+  # def test_cannot_view_activities_with_wrong_project_manager
+  #   login_as :project_manager_2
+  #   post :view, :id => 1
+  #   assert_redirected_to '/users/access_denied'
+  # end
   
-  def test_cannot_view_activities_with_wrong_directorate_manager
-    login_as :directorate_manager_2
-    post :view, :id => 1
-    assert_redirected_to '/users/access_denied'
-  end
+  # def test_cannot_view_activities_with_wrong_directorate_manager
+  #   login_as :directorate_manager_2
+  #   post :view, :id => 1
+  #   assert_redirected_to '/users/access_denied'
+  # end
   
-  def test_cannot_view_activities_with_wrong_organisation_manager
-    login_as :organisation_manager_2
-    [:edit_contact, :update_contact, :destroy].each do |method|
-      post method, :id => 1
-      assert_redirected_to '/users/access_denied'
-    end
-    post :view
-    post method, :id => 1
-    assert_redirected_to '/users/access_denied'
-  end
+  # def test_cannot_view_activities_with_wrong_organisation_manager
+  #   login_as :organisation_manager_2
+  #   [:edit_contact, :update_contact, :destroy].each do |method|
+  #     post method, :id => 1
+  #     assert_redirected_to '/users/access_denied'
+  #   end
+  #   post :view
+  #   post method, :id => 1
+  #   assert_redirected_to '/users/access_denied'
+  # end
   
+    # 
+    # def test_can_view_activities_with_right_activity_manager
+    #   login_as :activity_manager
+    #   post :update_activity_type
+    #   assert_redirected_to :action => 'questions'
+    #   [:index, :show, :questions, :update, :update_name, :update_ref_no, :update_approver].each do |method|
+    #     post method
+    #     assert_response :success
+    #   end
+    # end
   
-  def test_can_view_activities_with_right_activity_manager
-    login_as :activity_manager
-    post :update_activity_type
-    assert_redirected_to :action => 'questions'
-    [:index, :show, :questions, :update, :update_name, :update_ref_no, :update_approver].each do |method|
-      post method
-      assert_response :success
-    end
-  end
-  
-  def test_can_view_activities_with_right_project_manager
-    login_as :project_manager
-    [:summary, :awaiting_approval, :approved, :incomplete].each do |method|
-      post method
-      assert_response :success
-    end
-    post :view, :id => 1
-    assert_response :success
-  end
-  
-  def test_can_view_activities_with_right_directorate_manager
-    login_as :directorate_manager
-    [:summary, :awaiting_approval, :approved, :incomplete].each do |method|
-      post method
-      assert_response :success
-    end
-    post :view, :id => 1
-    assert_response :success
-  end
-  
-  def test_can_view_activities_with_right_organisation_manager
-    login_as :organisation_manager
-    post :create
-    assert_redirected_to :action => :incomplete
-    [:new, :summary, :awaiting_approval, :approved, :incomplete].each do |method|
-      post method
-      assert_response :success
-    end
-    [:edit_contact, :update_contact, :destroy, :view].each do |method|
-      post method, :id => 1
-      assert_response :success
-    end
-  end
+  # def test_can_view_activities_with_right_project_manager
+  #   login_as :project_manager
+  #   [:summary, :awaiting_approval, :approved, :incomplete].each do |method|
+  #     post method
+  #     assert_response :success
+  #   end
+  #   post :view, :id => 1
+  #   assert_response :success
+  # end
+  # 
+  # def test_can_view_activities_with_right_directorate_manager
+  #   login_as :directorate_manager
+  #   [:summary, :awaiting_approval, :approved, :incomplete].each do |method|
+  #     post method
+  #     assert_response :success
+  #   end
+  #   post :view, :id => 1
+  #   assert_response :success
+  # end
+  # 
+  # def test_can_view_activities_with_right_organisation_manager
+  #   login_as :organisation_manager
+  #   post :create
+  #   assert_redirected_to :action => :incomplete
+  #   [:new, :summary, :awaiting_approval, :approved, :incomplete].each do |method|
+  #     post method
+  #     assert_response :success
+  #   end
+  #   [:edit_contact, :update_contact, :destroy, :view].each do |method|
+  #     post method, :id => 1
+  #     assert_response :success
+  #   end
+  # end
 end

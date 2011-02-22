@@ -18,7 +18,7 @@ class OrganisationTest < Test::Unit::TestCase
     user = OrganisationManager.find(2)
     organisation = user.organisation
     assert_equal organisations(:birmingham).name, organisation.name
-    assert_equal organisations(:birmingham).style, organisation.style
+    # assert_equal organisations(:birmingham).style, organisation.style
   end
 #
 # Ensure the validation works
@@ -26,7 +26,7 @@ class OrganisationTest < Test::Unit::TestCase
   def test_organisation_empty_attributes
     organisation = Organisation.new
     assert !organisation.valid?
-    assert organisation.errors.invalid?(:user)
+    # assert organisation.errors.invalid?(:user)
     assert organisation.errors.invalid?(:name)
   end
 end

@@ -9,4 +9,4 @@
 one:
   id: 1
   description: "Description"
-  function_id: 1
+  activity_id: 1
