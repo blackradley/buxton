@@ -5,6 +5,13 @@ Factory.define :activity do |activity|
   activity.association :directorate
 end
 
+Factory.define :issue do |i|
+  i.description "Issue description"
+  i.actions "Action to be taken on issuing this issue"
+  i.resources "Stuff available when doing this issue"
+  i.lead_officer "Issue Officer"
+end
+
 Factory.define :user do |u|
   u.sequence(:email){|i| "user#{i}@27stars.co.uk"}
   u.passkey{|u| User.generate_passkey(u)}

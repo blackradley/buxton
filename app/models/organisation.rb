@@ -99,6 +99,7 @@ class Organisation < ActiveRecord::Base
     Organisation.results_table(self)
   end
 
+  #not called!
   def generate_pdf_data(full_report = false)
     data = [self.name, 0,0,0,0,0]
     self.activities.each do |activity|
