@@ -263,6 +263,8 @@ class Activity < ActiveRecord::Base
    #soon as it finds a true value, it breaks out of the loop and returns false. If you request a activity started from it, it checks whether the 2 questions
    #that you have to answer(activity/policy and proposed/overall) have been answered or not, and if they have not been answered, then no others can be
    # and if they have, then the activity is by definition started
+  
+  #broken with section and strand passed!
   def started(section = nil, strand = nil)
     return (self.existing_proposed.to_i*self.function_policy.to_i) != 0 if (section.nil? && strand.nil?)
     like = [section, strand].join('\_')

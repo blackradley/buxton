@@ -74,8 +74,32 @@ class Test::Unit::TestCase
     @controller = old_controller    
   end
   
+  def required_question?(activity, question_name)
+    question_obj = activity.questions.find_by_name(question_name.to_s)
+    needed_value = if !activity.parents(question_name.to_s).blank?
+      question_obj.check_needed && !activity.proposed?
+    else
+      !activity.proposed?
+    end
+    needed_value
+  end
+  
   def url_for(options)
     url = ActionController::UrlRewriter.new(@request, nil)
     url.rewrite(options)
-  end  
+  end 
+  
+  def get_mock_answer(question)
+    case Activity.columns.select{|c| c.name == question.to_s}.first.type
+      when :integer
+        return rand(2) + 1
+      when :string
+        return "Sample string"
+      when :text
+        return "Sample text"
+      when :boolean
+        return rand(2) == 1
+    end 
+  end
+    
 end
