@@ -101,5 +101,5 @@ class Test::Unit::TestCase
         return rand(2) == 1
     end 
   end
-    
+
 end
