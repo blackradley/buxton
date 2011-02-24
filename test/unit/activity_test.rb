@@ -100,6 +100,82 @@ class ActivityTest < Test::Unit::TestCase
       end
     end
     
+    Activity.strands.each do |strand|
+      context "when checking for the completeness of an entire strand #{strand.to_s} on a #{ep == 1 ? 'existing' : 'proposed'} #{fp == 1 ? 'function' : 'policy'}" do
+        setup do
+          old_ep = (ep == 1 ? 2 : 1)
+          @activity_set = Factory(:activity, :existing_proposed => old_ep, :function_policy => fp)
+          @activity_set.update_attributes(:existing_proposed => ep)
+          @new_activity = Activity.find(@activity_set.id)
+          @mock_answers = []
+          Activity.sections.each do |section|
+            next if section == :action_planning
+            question_names = Activity.get_question_names.map(&:to_s).select{|n| n.include?(strand.to_s) && n.include?(section.to_s)}.sort
+            question_names.each do |q|
+              @new_activity.reload
+              if @new_activity.questions.find_by_name(q.to_s).check_needed
+                mock_answer = get_mock_answer(q)
+                if q ==  "impact_#{strand}_9" && mock_answer == 1
+                 Factory.create(:issue, :activity => @new_activity, :section => section.to_s, :strand => strand)
+                end
+                if q == "consultation_#{strand}_7" && mock_answer == 1
+                  Factory.create(:issue, :activity => @new_activity, :section => section.to_s, :strand => strand)
+                end
+                @mock_answers << [q, mock_answer]
+                @new_activity.update_attributes!(q => mock_answer)
+              end
+              @new_activity.saved = false
+            end
+          end
+        end
+        
+        should "be complete when all required questions are filled in" do
+          # puts question_names = Activity.get_question_names.map(&:to_s).select{|n| n.include?(strand.to_s) && n.include?(section.to_s)}.map{|q| Activity.find(@new_activity.id).questions.find_by_name(q.to_s)}.inspect
+          assert @new_activity.completed(nil, strand), "#{strand} should be complete with the answer set #{@mock_answers.inspect}"
+        end
+        
+        
+        
+      end
+    end
+    
+    Activity.sections.each do |section|
+      next if section == :action_planning
+      context "when checking for the completeness of an entire section #{section.to_s} on a #{ep == 1 ? 'existing' : 'proposed'} #{fp == 1 ? 'function' : 'policy'}" do
+        setup do
+          old_ep = (ep == 1 ? 2 : 1)
+          @activity_set = Factory(:activity, :existing_proposed => old_ep, :function_policy => fp)
+          @activity_set.update_attributes(:existing_proposed => ep)
+          @new_activity = Activity.find(@activity_set.id)
+          @mock_answers = []
+          Activity.strands.each do |strand|
+            question_names = Activity.get_question_names.map(&:to_s).select{|n| n.include?(strand.to_s) && n.include?(section.to_s)}.sort
+            question_names.each do |q|
+              @new_activity.reload
+              if @new_activity.questions.find_by_name(q.to_s).check_needed
+                mock_answer = get_mock_answer(q)
+                if q ==  "impact_#{strand}_9" && mock_answer == 1
+                 Factory.create(:issue, :activity => @new_activity, :section => section.to_s, :strand => strand)
+                end
+                if q == "consultation_#{strand}_7" && mock_answer == 1
+                  Factory.create(:issue, :activity => @new_activity, :section => section.to_s, :strand => strand)
+                end
+                @mock_answers << [q, mock_answer]
+                @new_activity.update_attributes!(q => mock_answer)
+              end
+              @new_activity.saved = false
+            end
+          end
+        end
+        
+        should "be complete when all required questions are filled in" do
+          # puts question_names = Activity.get_question_names.map(&:to_s).select{|n| n.include?(strand.to_s) && n.include?(section.to_s)}.map{|q| Activity.find(@new_activity.id).questions.find_by_name(q.to_s)}.inspect
+          assert @new_activity.completed(section, nil), "#{section} should be complete with the answer set #{@mock_answers.inspect}"
+        end
+        
+      end
+    end
+    
     context "when toggling existing proposed on a #{ep == 1 ? 'existing' : 'proposed'} #{fp == 1 ? 'function' : 'policy'}" do
       setup do 
         old_ep = (ep == 1 ? 2 : 1)

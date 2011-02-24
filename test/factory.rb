@@ -10,6 +10,7 @@ Factory.define :issue do |i|
   i.actions "Action to be taken on issuing this issue"
   i.resources "Stuff available when doing this issue"
   i.lead_officer "Issue Officer"
+  i.timescales "12-18 months"
 end
 
 Factory.define :user do |u|
