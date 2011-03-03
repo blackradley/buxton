@@ -10,7 +10,7 @@
     -if @activity.send(question_compact[:dependency][0][0].to_sym).to_s == question_compact[:dependency][0][1]
       -displayString = "block"
 
-  %p.question.sub{:id => "#{question_compact[:id]}", :onclick => "setFocus(\'more_#{question_compact[:id]}\',\'#{question_compact[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:#{displayString};"}
+  %p.question.sub{:id => "#{question_compact[:id]}", :onclick => "#{depString}", :onchange => "#{depString}", :style => "display:#{displayString};"}
     %label
       =question_compact[:label].capitalize
     %labelled
@@ -22,7 +22,7 @@
         -when :select
           = f.select "#{question_compact[:id]}", question_compact[:input_choices]
 -else
-  %p.question_compact{:id => "#{question_compact[:id]}", :onclick => "setFocus(\'more_#{question_compact[:id]}\',\'#{question_compact[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:block;"}
+  %p.question_compact{:id => "#{question_compact[:id]}", :onclick => "#{depString}", :onchange => "#{depString}", :style => "display:block;"}
     %label
       =question_compact[:label].capitalize
     %labelled

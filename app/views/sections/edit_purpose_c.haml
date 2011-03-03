@@ -3,7 +3,7 @@
   =image_tag("c.gif")
   Impact on Equality Groups
 #questions
-  -form_for(:activity, :url => {:action => 'update'}) do |f|
+  -form_for(:activity, :url => sections_path) do |f|
     = render :partial => 'question_help', :collection => question_details(:purpose, 'gender', [3]), :locals => {:f => f}
     = render :partial => 'question_help', :collection => question_details(:purpose, 'race', [3]), :locals => {:f => f}
     = render :partial => 'question_help', :collection => question_details(:purpose, 'disability', [3]), :locals => {:f => f}

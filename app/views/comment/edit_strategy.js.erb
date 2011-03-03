@@ -1,0 +1,10 @@
+$.fancybox.close();
+<% if @parent_strategy.comment.contents.blank? %>
+  $("#activity_strategy_<%= @parent_strategy.id %>_comment").parents(".commentBox").children(".newComment").show();
+  $("#activity_strategy_<%= @parent_strategy.id %>_comment").parents(".commentBox").children(".showComment").hide();
+  $("#activity_strategy_<%= @parent_strategy.id %>_comment").html("")
+<% else %>
+  $("#activity_strategy_<%= @parent_strategy.id %>_comment").parents(".commentBox").children(".newComment").hide();
+  $("#activity_strategy_<%= @parent_strategy.id %>_comment").parents(".commentBox").children(".showComment").show();
+  $("#activity_strategy_<%= @parent_strategy.id %>_comment").html("<%= escape_javascript(render(:partial => 'sections/attachment', :locals => {:text => @parent_strategy.comment.contents})) %>")
+<% end %>

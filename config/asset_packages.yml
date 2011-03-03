@@ -3,14 +3,16 @@
 javascripts:
 - base:
   - jquery
-  - prototype
+  # - prototype
   - jquery_fancybox-1_3_0
-  - effects
-  - dragdrop
-  - controls
+  # - effects
+  # - dragdrop
+  # - controls
   - application
-  - commentsandnotes
-  - prototip
+  - rails
+  - jquery-ui.min
+  # - commentsandnotes
+  # - prototip
 stylesheets:
 # error.css is never called through Rails so not included here
 - base:

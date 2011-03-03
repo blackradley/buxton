@@ -30,7 +30,7 @@ h2 img {
       #questions ul li a {
         font-weight: normal;
         font-size: 0.9em;
-        line-height: 1.em; }
+        line-height: 1em; }
         #questions ul li a img {
           margin-bottom: -3px;
           margin-left: 10px; }
@@ -133,6 +133,8 @@ h2 img {
         list-style: disc;
         font-weight: normal;
         list-style-position: outside; }
+  #questions .question.focused {
+    background: #eeeeee; }
   #questions .question {
     position: relative;
     clear: left;
@@ -218,6 +220,8 @@ h2 img {
       float: left;
       margin: 10px 10px 5px 10px;
       width: 125px; }
+  #questions .question_compact.focused {
+    background: #eeeeee; }
   #questions .button input {
     float: right;
     margin-right: 160px;

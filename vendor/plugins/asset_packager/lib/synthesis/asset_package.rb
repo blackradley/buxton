@@ -1,19 +1,18 @@
 module Synthesis
   class AssetPackage
 
-    # class variables
-    @@asset_packages_yml = $asset_packages_yml || 
-      (File.exists?("#{RAILS_ROOT}/config/asset_packages.yml") ? YAML.load_file("#{RAILS_ROOT}/config/asset_packages.yml") : nil)
+    @asset_base_path    = "#{Rails.root}/public"
+    @asset_packages_yml = File.exists?("#{Rails.root}/config/asset_packages.yml") ? YAML.load_file("#{Rails.root}/config/asset_packages.yml") : nil
   
     # singleton methods
     class << self
-      
-      def merge_environments=(environments)
-        @@merge_environments = environments
-      end
+      attr_accessor :asset_base_path,
+                    :asset_packages_yml
+
+      attr_writer   :merge_environments
       
       def merge_environments
-        @@merge_environments ||= ["production"]
+        @merge_environments ||= ["production"]
       end
       
       def parse_path(path)
@@ -21,17 +20,17 @@ module Synthesis
       end
 
       def find_by_type(asset_type)
-        @@asset_packages_yml[asset_type].map { |p| self.new(asset_type, p) }
+        asset_packages_yml[asset_type].map { |p| self.new(asset_type, p) }
       end
 
       def find_by_target(asset_type, target)
-        package_hash = @@asset_packages_yml[asset_type].find {|p| p.keys.first == target }
+        package_hash = asset_packages_yml[asset_type].find {|p| p.keys.first == target }
         package_hash ? self.new(asset_type, package_hash) : nil
       end
 
       def find_by_source(asset_type, source)
         path_parts = parse_path(source)
-        package_hash = @@asset_packages_yml[asset_type].find do |p|
+        package_hash = asset_packages_yml[asset_type].find do |p|
           key = p.keys.first
           p[key].include?(path_parts[2]) && (parse_path(key)[1] == path_parts[1])
         end
@@ -59,25 +58,25 @@ module Synthesis
       end
 
       def build_all
-        @@asset_packages_yml.keys.each do |asset_type|
-          @@asset_packages_yml[asset_type].each { |p| self.new(asset_type, p).build }
+        asset_packages_yml.keys.each do |asset_type|
+          asset_packages_yml[asset_type].each { |p| self.new(asset_type, p).build }
         end
       end
 
       def delete_all
-        @@asset_packages_yml.keys.each do |asset_type|
-          @@asset_packages_yml[asset_type].each { |p| self.new(asset_type, p).delete_all_builds }
+        asset_packages_yml.keys.each do |asset_type|
+          asset_packages_yml[asset_type].each { |p| self.new(asset_type, p).delete_previous_build }
         end
       end
 
       def create_yml
-        unless File.exists?("#{RAILS_ROOT}/config/asset_packages.yml")
+        unless File.exists?("#{Rails.root}/config/asset_packages.yml")
           asset_yml = Hash.new
 
-          asset_yml['javascripts'] = [{"base" => build_file_list("#{RAILS_ROOT}/public/javascripts", "js")}]
-          asset_yml['stylesheets'] = [{"base" => build_file_list("#{RAILS_ROOT}/public/stylesheets", "css")}]
+          asset_yml['javascripts'] = [{"base" => build_file_list("#{Rails.root}/public/javascripts", "js")}]
+          asset_yml['stylesheets'] = [{"base" => build_file_list("#{Rails.root}/public/stylesheets", "css")}]
 
-          File.open("#{RAILS_ROOT}/config/asset_packages.yml", "w") do |out|
+          File.open("#{Rails.root}/config/asset_packages.yml", "w") do |out|
             YAML.dump(asset_yml, out)
           end
 
@@ -96,67 +95,43 @@ module Synthesis
     def initialize(asset_type, package_hash)
       target_parts = self.class.parse_path(package_hash.keys.first)
       @target_dir = target_parts[1].to_s
-      @target = target_parts[2].to_s.gsub(/\.js$|\.css$/, '')
+      @target = target_parts[2].to_s
       @sources = package_hash[package_hash.keys.first]
       @asset_type = asset_type
-      @asset_path = ($asset_base_path ? "#{$asset_base_path}/" : "#{RAILS_ROOT}/public/") +
-          "#{@asset_type}#{@target_dir.gsub(/^(.+)$/, '/\1')}"
+      @asset_path = "#{self.class.asset_base_path}/#{@asset_type}#{@target_dir.gsub(/^(.+)$/, '/\1')}"
       @extension = get_extension
-      @match_regex = Regexp.new("\\A#{@target}_\\d+.#{@extension}\\z")
+      @file_name = "#{@target}_packaged.#{@extension}"
+      @full_path = File.join(@asset_path, @file_name)
     end
   
+    def package_exists?
+      File.exists?(@full_path)
+    end
+
     def current_file
-      @target_dir.gsub(/^(.+)$/, '\1/') +
-          Dir.new(@asset_path).entries.delete_if { |x| ! (x =~ @match_regex) }.sort.reverse[0].chomp(".#{@extension}")
+      build unless package_exists?
+
+      path = @target_dir.gsub(/^(.+)$/, '\1/')
+      "#{path}#{@target}_packaged"
     end
 
     def build
-      delete_old_builds
+      delete_previous_build
       create_new_build
     end
-  
-    def delete_old_builds
-      Dir.new(@asset_path).entries.delete_if { |x| ! (x =~ @match_regex) }.each do |x|
-        File.delete("#{@asset_path}/#{x}") unless x.index(revision.to_s)
-      end
-    end
 
-    def delete_all_builds
-      Dir.new(@asset_path).entries.delete_if { |x| ! (x =~ @match_regex) }.each do |x|
-        File.delete("#{@asset_path}/#{x}")
-      end
+    def delete_previous_build
+      File.delete(@full_path) if File.exists?(@full_path)
     end
 
     private
-      def revision
-        unless @revision
-          revisions = [1]
-          @sources.each do |source|
-            revisions << get_file_revision("#{@asset_path}/#{source}.#{@extension}")
-          end
-          @revision = revisions.max
-        end
-        @revision
-      end
-  
-      def get_file_revision(path)
-        if File.exists?(path)
-          begin
-            `svn info #{path}`[/Last Changed Rev: (.*?)\n/][/(\d+)/].to_i
-          rescue # use filename timestamp if not in subversion
-            File.mtime(path).to_i
-          end
-        else
-          0
-        end
-      end
-
       def create_new_build
-        if File.exists?("#{@asset_path}/#{@target}_#{revision}.#{@extension}")
-          log "Latest version already exists: #{@asset_path}/#{@target}_#{revision}.#{@extension}"
+        new_build_path = "#{@asset_path}/#{@target}_packaged.#{@extension}"
+        if File.exists?(new_build_path)
+          log "Latest version already exists: #{new_build_path}"
         else
-          File.open("#{@asset_path}/#{@target}_#{revision}.#{@extension}", "w") {|f| f.write(compressed_file) }
-          log "Created #{@asset_path}/#{@target}_#{revision}.#{@extension}"
+          File.open(new_build_path, "w") {|f| f.write(compressed_file) }
+          log "Created #{new_build_path}"
         end
       end
 
@@ -178,8 +153,8 @@ module Synthesis
       end
 
       def compress_js(source)
-        jsmin_path = "#{RAILS_ROOT}/vendor/plugins/asset_packager/lib"
-        tmp_path = "#{RAILS_ROOT}/tmp/#{@target}_#{revision}"
+        jsmin_path = "#{Rails.root}/vendor/plugins/asset_packager/lib"
+        tmp_path = "#{Rails.root}/tmp/#{@target}_packaged"
       
         # write out to a temp file
         File.open("#{tmp_path}_uncompressed.js", "w") {|f| f.write(source) }
@@ -200,7 +175,7 @@ module Synthesis
   
       def compress_css(source)
         source.gsub!(/\s+/, " ")           # collapse space
-        # source.gsub!(/\/\*(.*?)\*\/ /, "") # remove comments - caution, might want to remove this if using css hacks
+        source.gsub!(/\/\*(.*?)\*\//, "")  # remove comments - caution, might want to remove this if using css hacks
         source.gsub!(/\} /, "}\n")         # add line breaks
         source.gsub!(/\n$/, "")            # remove last break
         source.gsub!(/ \{ /, " {")         # trim inside brackets

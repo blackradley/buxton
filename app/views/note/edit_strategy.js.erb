@@ -1,0 +1,10 @@
+$.fancybox.close();
+<% if @parent_strategy.note.contents.blank? %>
+  $("#activity_strategy_<%= @parent_strategy.id %>_note").parents(".noteBox").children(".newNote").show();
+  $("#activity_strategy_<%= @parent_strategy.id %>_note").parents(".noteBox").children(".showNote").hide();
+  $("#activity_strategy_<%= @parent_strategy.id %>_note").html("")
+<% else %>
+  $("#activity_strategy_<%= @parent_strategy.id %>_note").parents(".noteBox").children(".newNote").hide();
+  $("#activity_strategy_<%= @parent_strategy.id %>_note").parents(".noteBox").children(".showNote").show();
+  $("#activity_strategy_<%= @parent_strategy.id %>_note").html("<%= escape_javascript(render(:partial => 'sections/attachment', :locals => {:text => @parent_strategy.note.contents})) %>")
+<% end %>

@@ -3,15 +3,15 @@
   =image_tag("b.gif")
   Impact on Individuals
 #questions
-  -form_for(:activity, :url => {:action => 'update'}) do |f|
-    = render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [5,6,7,8,9]), :locals => {:f => f}
-    = render :partial => 'intro'
+  = render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [5,6,7,8,9])
+  = render :partial => 'intro'
+  -form_for(:activity, :url => sections_path) do |f|
     %h5
       =h @activity.header(:purpose_overall_2)
     = render :partial => 'question_compact', :collection => question_details(:purpose, @equality_strand, [5,6,7,8,9]), :locals => {:f => f}
     = hidden_field_tag 'id', @id 
     = hidden_field_tag 'equality_strand', @equality_strand
-    %p.question
+    %p.question.saveField
       %span.button
         = submit_tag 'Save', :disable_with => 'Saving...', :id => 'section_save_button'
   .clear

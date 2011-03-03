@@ -1,0 +1,4 @@
+$("#activity_strategy_<%= @parent_strategy.id %>_note").parents(".noteBox").children(".showNote").hide();
+$("#activity_strategy_<%= @parent_strategy.id %>_note").parents(".noteBox").children(".newNote").show();
+$("#activity_strategy_<%= @parent_strategy.id %>_note").parents(".noteBox").find(".noteTextArea").val('');
+$("#activity_strategy_<%= @parent_strategy.id %>_note").parents(".noteBox").find(".note").html('');

@@ -60,7 +60,8 @@ class ActivitiesController < ApplicationController
   def show
     @activity = Activity.find(@current_user.activity_id)
     ## Looks strange, but significantly reduces SQL statements in calls to answer() in views
-    questions = Question.find_all_by_activity_id(@activity.id, :include => :comment).map{|q| [q, q.comment]}
+    questions = Question.where(:activity_id => @activity.id).includes(:comment).map{|q| [q, q.comment]}
+    # questions = Question.find_all_by_activity_id(@activity.id, :include => :comment).map{|q| [q, q.comment]}
     @activity_questions = {}
     questions.each do |question, comment|
       @activity_questions[question.name] = [question, comment]

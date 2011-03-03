@@ -10,7 +10,7 @@
     -if @activity.send(question[:dependency][0][0].to_sym).to_s == question[:dependency][0][1]
       -displayString = "block"
     
-  %p.question.sub{:id => "#{question[:id]}", :onclick => "setFocus(\'more_#{question[:id]}\',\'#{question[:id]}\');", :style => "display:#{displayString};"}
+  %p.question.sub{:id => "#{question[:id]}", :style => "display:#{displayString};"}
     %label
       =question[:label]
     %labelled
@@ -22,7 +22,7 @@
         -when :select
           = f.select "#{question[:id]}", question[:input_choices], {}, :id => question[:name], :onchange => "#{depString}"
 -else
-  %p.question{:id => "#{question[:id]}", :onclick => "setFocus(\'more_#{question[:id]}\',\'#{question[:id]}\');", :style => "display:block;"}
+  %p.question{:id => "#{question[:id]}", :style => "display:block;"}
     %label
       =question[:label]
     %labelled

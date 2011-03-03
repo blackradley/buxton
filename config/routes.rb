@@ -6,61 +6,81 @@
 #
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
-ActionController::Routing::Routes.draw do |map|
-  # The priority is based upon order of creation: first created -> highest priority.
-   map.resources :organisations do |organisations|
-     organisations.resources :strategies, :collection => { :reorder => :get, :update_strategy_order => :post }
-     organisations.resources :directorates, :collection => {:view_pdf => :get}
-     organisations.resources :projects
-   end
+Buxton::Application.routes.draw do
+  resources :organisations do
+    resources :strategies do
+      collection do
+        get :reorder
+        post :update_strategy_order
+      end
+    end
 
-  map.pdf 'view_pdf', :controller => 'organisations', :action => 'view_pdf'
-  map.resources :logs, :collection => { :clear => :post, :download => :get }
-  map.resources :comments
-  # Manually create a subset of the RESTful named routes for the DemosController
-  map.new_demo 'demos/new', :controller => 'demos', :action => 'new', :conditions => { :method => :get }
-  map.demos 'demos', :controller => 'demos', :action => 'create', :conditions => { :method => :post }
+    resources :directorates do
+      collection do
+        get :view_pdf
+      end    
+    end
 
-  map.connect 'sections/edit/:id/:equality_strand', :controller => 'sections', :action => 'edit'
-  map.test_signup 'test_signup', :controller => 'users', :action => 'signup'
-  map.keys 'keys', :controller => 'users', :action => 'keys' if KEYS
-  map.signup 'signup', :controller => 'users', :action => 'signup'
-  map.logout 'logout', :controller => 'users', :action => 'logout'
-  map.sample_pdf 'sample_pdf', :controller => 'users', :action => 'sample_pdf'
+    resources :projects
+  end
+  
+  resources :activities do
+    collection do
+      post :update_name
+      post :update_ces
+      get :questions
+      get :show
+      post :update_approver
+      post :update_ref_no
+      post :update_activity_type
+      post :update
+      get :toggle_strand
+      get :submit
+    end
+    
+    member do
+      get :view_pdf
+    end
+  end
+  
+  resources :sections do
+    collection do 
+      post :update
+    end
+    
+  end
+  
+  match 'view_pdf' => 'organisations#view_pdf', :as => :pdf
+  resources :logs do
+    collection do
+      get :download
+      post :clear
+    end
+  end
 
-  # Sample of regular route:
-  #   map.connect 'products/:id', :controller => 'catalog', :action => 'view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   map.purchase 'products/:id/purchase', :controller => 'catalog', :action => 'purchase'
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   map.resources :products
-
-  # Sample resource route with options:
-  #   map.resources :products, :member => { :short => :get, :toggle => :post }, :collection => { :sold => :get }
-
-  # Sample resource route with sub-resources:
-  #   map.resources :products, :has_many => [ :comments, :sales ], :has_one => :seller
-
-  # Sample resource route within a namespace:
-  #   map.namespace :admin do |admin|
-  #     # Directs /admin/products/* to Admin::ProductsController (app/controllers/admin/products_controller.rb)
-  #     admin.resources :products
-  #   end
-
-  # You can have the root of your site routed with map.root -- just remember to delete public/index.html.
-  map.root :controller => 'users'
-
-  # See how all your routes lay out with "rake routes"
-
-  # Install the default routes as the lowest priority.
-  map.connect ':controller/:action/:id'
-  map.connect ':controller/:action/:id.:format'
-
-  # If all else fails, may be it's a passkey?
-  # n.b. Passkeys that end in an i don't leave any audit trail
-  map.connect ':passkey', :controller => 'users', :action => 'login', :requirements => {:passkey => /[a-f0-9]{40}i{0,1}/}
+  resources :comment do
+    collection do
+      delete :destroy_strategy
+      post :edit_strategy
+      post :set_comment
+    end
+  end
+  resources :note do
+    collection do
+      delete :destroy_strategy
+      post :edit_strategy
+      post :set_note
+    end
+  end
+  match 'demos/new' => 'demos#new', :as => :new_demo, :via => :get
+  match 'demos' => 'demos#create', :as => :demos, :via => :post
+  match 'sections/edit/:id/:equality_strand' => 'sections#edit'
+  match 'test_signup' => 'users#signup', :as => :test_signup
+  match 'keys' => 'users#keys', :as => :keys if KEYS
+  match 'signup' => 'users#signup', :as => :signup
+  match 'logout' => 'users#logout', :as => :logout
+  match 'sample_pdf' => 'users#sample_pdf', :as => :sample_pdf
+  match '/' => 'users#index'
+  # match '/:controller(/:action(/:id))'
+  match ':passkey' => 'users#login', :constraints => { :passkey => /[a-f0-9]{40}i{0,1}/ }
 end

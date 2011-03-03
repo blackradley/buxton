@@ -1,0 +1,4 @@
+$("#activity_strategy_<%= @parent_strategy.id %>_comment").parents(".commentBox").children(".showComment").hide();
+$("#activity_strategy_<%= @parent_strategy.id %>_comment").parents(".commentBox").children(".newComment").show();
+$("#activity_strategy_<%= @parent_strategy.id %>_comment").parents(".commentBox").find(".commentTextArea").val('');
+$("#activity_strategy_<%= @parent_strategy.id %>_comment").parents(".commentBox").find(".comment").html('');
