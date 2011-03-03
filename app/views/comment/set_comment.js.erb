@@ -1,0 +1,10 @@
+$.fancybox.close();
+<% if @parent_question.comment.contents.blank? %>
+  $("#<%= @parent_question.name %>_comment").parents(".commentBox").children(".newComment").show();
+  $("#<%= @parent_question.name %>_comment").parents(".commentBox").children(".showComment").hide();
+  $("#<%= @parent_question.name %>_comment").html("")
+<% else %>                             
+  $("#<%= @parent_question.name %>_comment").parents(".commentBox").children(".newComment").hide();
+  $("#<%= @parent_question.name %>_comment").parents(".commentBox").children(".showComment").show();
+  $("#<%= @parent_question.name %>_comment").html("<%= escape_javascript(render(:partial => 'sections/attachment', :locals => {:text => @parent_question.comment.contents})) %>")
+<% end %>

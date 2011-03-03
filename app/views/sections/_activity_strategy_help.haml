@@ -3,59 +3,66 @@
     =image_tag ("icons/help.gif")
     Help:
   .help
-    = @activity.hashes['header_help_text']['purpose_overall_1'][@activity.fun_pol_number][@activity.exist_prop_number].to_s
+    =simple_format(@activity.hashes['header_help_text']['purpose_overall_1'][@activity.fun_pol_number][@activity.exist_prop_number].to_s)
   %h3
     ="#{ot('strategy').titleize} Description:"
   -if !activity_strategy.strategy.description.blank? then
     .help
-      = simple_format(activity_strategy.strategy.description)
+      =simple_format(activity_strategy.strategy.description)
   -else
-    %p.nohelp=h "Sorry - no description for this #{ot('strategy')}."
+    %p.nohelp= "Sorry - no description for this #{ot('strategy')}."
   %h3
     =image_tag ("icons/comment.gif")
     Comment for report:
-  - if activity_strategy.comment then comment_text = activity_strategy.comment.contents else comment_text = "" end
+  - if activity_strategy.comment
+    - comment_text = activity_strategy.comment.contents
+  -else 
+    - comment_text = ""
   - opt = ['none', 'block']
   - flag = (!comment_text.blank? ? 1 : 0)
-  .normalcommentview{:id => "activity_strategy_#{activity_strategy.id}_comment_view", :style => "display:#{opt[flag]}"}
-    %p.comment{:id => "activity_strategy_#{activity_strategy.id}_comment"}
-      = render :partial => 'attachment', :locals => {:text => comment_text}
-    .control
-      =image_tag ("icons/comment_delete.gif")
-      =link_to_remote "Delete", :url => {:action => 'destroy_strategy', :controller => :comment, :activity_strategy_id => activity_strategy.id}, :confirm => "Delete this comment?", :update => "activity_strategy_#{activity_strategy.id}_comment", :complete => "cancel_comment('activity_strategy_#{activity_strategy.id}'); document.getElementById('activity_strategy_#{activity_strategy.id}_comment_fill_in').value = ''"
-    .control
-      =image_tag ("icons/comment_edit.gif")
-      =link_to "Edit", "#activity_strategy_#{activity_strategy.id}_comment_form", :class => 'inline'
-  .new_comment{:id => "activity_strategy_#{activity_strategy.id}_comment_new", :style => "display:#{opt[1 - flag]}"}
-    .control
-      =image_tag ("icons/comment_add.gif")
-      = link_to "Add new comment for report", "#activity_strategy_#{activity_strategy.id}_comment_form", :class => 'inline'
-  .commentform{:id => "activity_strategy_#{activity_strategy.id}_comment_form"}
-    .heading
-      %h3 Add a new comment for the report
-    =text_area_tag "comment", comment_text, :id => "activity_strategy_#{activity_strategy.id}_comment_fill_in"
-    = link_to_remote "Save", :url => {:action => 'edit_strategy', :controller => :comment, :activity_strategy_id => activity_strategy.id}, :with => "'comment='+encodeURIComponent($('activity_strategy_#{activity_strategy.id}_comment_fill_in').value)", :update => "activity_strategy_#{activity_strategy.id}_comment", :complete => "jQuery.fancybox.close();edit_comment('activity_strategy_#{activity_strategy.id}')"
+  .commentBox
+    .showComment.normalcommentview{:id => "activity_strategy_#{activity_strategy.id}_comment_view", :style => "display:#{opt[flag]}"}
+      %p.comment{:id => "activity_strategy_#{activity_strategy.id}_comment"}
+        = render :partial => 'attachment', :locals => {:text => comment_text}
+      .control
+        =image_tag ("icons/comment_delete.gif")
+        =link_to "Delete", destroy_strategy_comment_index_path(:activity_strategy_id => activity_strategy.id), :remote => true, :method => :delete, :confirm => "Delete this comment?"
+      .control
+        =image_tag ("icons/comment_edit.gif")
+        =link_to "Edit", "#activity_strategy_#{activity_strategy.id}_comment_form", :class => 'inline'
+    .newComment.new_comment{:id => "activity_strategy_#{activity_strategy.id}_comment_new", :style => "display:#{opt[1 - flag]}"}
+      .control
+        =image_tag ("icons/comment_add.gif")
+        = link_to "Add new comment for report", "#activity_strategy_#{activity_strategy.id}_comment_form", :class => 'inline'
+    .editComment.commentform{:id => "activity_strategy_#{activity_strategy.id}_comment_form"}
+      .heading
+        %h3 Add a new comment for the report
+      = form_tag(edit_strategy_comment_index_path(:activity_strategy_id => activity_strategy.id), :remote => true, :class => "lightboxForm") do
+        =text_area_tag "comment", comment_text, :id => "activity_strategy_#{activity_strategy.id}_comment_fill_in", :class => "commentTextArea"
+        = link_to "Save", "#", :class => "saveLink"
       
   %h3
     =image_tag ("icons/note.gif")
     Note to myself:
-  - if activity_strategy.note then note_text = activity_strategy.note.contents else note_text = "" end
+  - note_text = activity_strategy.note ? activity_strategy.note.contents : "" 
   - flag = (!note_text.blank? ? 1 : 0)
-  .normalnoteview{:id => "activity_strategy_#{activity_strategy.id}_note_view", :style => "display:#{opt[flag]}"}
-    %p.note{:id => "activity_strategy_#{activity_strategy.id}_note"}
-      = render :partial => 'attachment', :locals => {:text => note_text}
-    .control
-      =image_tag ("icons/note_delete.gif")
-      =link_to_remote "Delete", :url => {:action => 'destroy_strategy', :controller => :note, :activity_strategy_id => activity_strategy.id}, :confirm => "Delete this note?", :update => "activity_strategy_#{activity_strategy.id}_note", :complete => "cancel_note('activity_strategy_#{activity_strategy.id}'); document.getElementById('activity_strategy_#{activity_strategy.id}_note_fill_in').value = ''"
-    .control
-      =image_tag ("icons/note_edit.gif")
-      =link_to "Edit", "#activity_strategy_#{activity_strategy.id}_note_form", :class => 'inline'
-  .new_note{:id => "activity_strategy_#{activity_strategy.id}_note_new", :style => "display:#{opt[1 - flag]}"}
-    .control
-      =image_tag ("icons/note_add.gif")
-      =link_to "Add new note to myself", "#activity_strategy_#{activity_strategy.id}_note_form", :class => 'inline'
-  .noteform{:id => "activity_strategy_#{activity_strategy.id}_note_form"}
-    .heading
-      %h3 Add a new note to myself
-    = text_area_tag "note", note_text, :id => "activity_strategy_#{activity_strategy.id}_note_fill_in"
-    = link_to_remote "Save", :url => {:action => 'edit_strategy', :controller => :note, :activity_strategy_id => activity_strategy.id}, :with => "'note='+encodeURIComponent($('activity_strategy_#{activity_strategy.id}_note_fill_in').value)", :update => "activity_strategy_#{activity_strategy.id}_note", :complete => "jQuery.fancybox.close();edit_note('activity_strategy_#{activity_strategy.id}');"
+  .noteBox
+    .showNote.normalnoteview{:id => "activity_strategy_#{activity_strategy.id}_note_view", :style => "display:#{opt[flag]}"}
+      %p.note{:id => "activity_strategy_#{activity_strategy.id}_note"}
+        = render :partial => 'attachment', :locals => {:text => note_text}
+      .control
+        =image_tag ("icons/note_delete.gif")
+        =link_to "Delete", destroy_strategy_note_index_path(:activity_strategy_id => activity_strategy.id), :class => "deleteNote", :method => :delete, :remote => true, :confirm => "Delete this note?"
+      .control
+        =image_tag ("icons/note_edit.gif")
+        =link_to "Edit", "#activity_strategy_#{activity_strategy.id}_note_form", :class => 'inline'
+    .newNote{:id => "activity_strategy_#{activity_strategy.id}_note_new", :style => "display:#{opt[1 - flag]}"}
+      .control
+        =image_tag ("icons/note_add.gif")
+        =link_to "Add new note to myself", "#activity_strategy_#{activity_strategy.id}_note_form", :class => 'inline'
+    .editNote.noteform{:id => "activity_strategy_#{activity_strategy.id}_note_form"}
+      .heading
+        %h3 Add a new note to myself
+      = form_tag(edit_strategy_note_index_path(:activity_strategy_id => activity_strategy.id), :remote => true, :class => "lightboxForm") do
+        = text_area_tag "note", note_text, :class => "noteTextArea", :id => "note_#{activity_strategy.id}"
+        = link_to "Save", "#", :class => "saveLink"

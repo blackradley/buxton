@@ -4,7 +4,7 @@
     Help:
   -if !question_help[:help].blank?
     .help
-      =question_help[:help]
+      =simple_format(question_help[:help])
   -else
     .help Sorry - no help text for this question.
   %h3
@@ -12,44 +12,47 @@
     Comment for report:
   - opt = ['none', 'block']
   - flag = (!question_help[:comment].blank? ? 1 : 0) 
-  .normalcommentview{:id => "#{question_help[:id]}_comment_view", :style => "display:#{opt[flag]}"}
-    %p.comment{:id => "#{question_help[:id]}_comment"}
-      = render :partial => 'attachment', :locals => {:text => question_help[:comment]}
-    .control
-      =image_tag ("icons/comment_delete.gif")
-      =link_to_remote "Delete", :url => {:action => 'destroy', :controller => :comment, :question_id => question_help[:full_question].id}, :confirm => "Delete this comment?", :update => "#{question_help[:id]}_comment", :complete => "cancel_comment('#{question_help[:id]}'); document.getElementById('#{question_help[:id]}_comment_fill_in').value = ''"
-    .control
-      =image_tag ("icons/comment_edit.gif")
-      =link_to "Edit", "##{question_help[:id]}_comment_form", :class => 'inline'
-  .new_comment{:id => "#{question_help[:id]}_comment_new", :style => "display:#{opt[1 - flag]}"}
-    .control
-      =image_tag ("icons/comment_add.gif")
-      = link_to "Add new comment for report", "##{question_help[:id]}_comment_form", :class => 'inline'
-  .commentform{:id => "#{question_help[:id]}_comment_form"}
-    .heading
-      %h3 Add a new comment for the report
-    = text_area_tag "comment", question_help[:comment], :id => "#{question_help[:id]}_comment_fill_in"
-    = link_to_remote "Save", :url => {:action => 'edit', :controller => :comment, :question_id => question_help[:full_question].id}, :with => "'comment='+encodeURIComponent($('#{question_help[:id]}_comment_fill_in').value)", :update => "#{question_help[:id]}_comment", :complete => " jQuery.fancybox.close();edit_comment('#{question_help[:id]}');"
+  .commentBox
+    .showComment.normalcommentview{:id => "#{question_help[:id]}_comment_view", :style => "display:#{opt[flag]}"}
+      %p.comment{:id => "#{question_help[:id]}_comment"}
+        = render :partial => 'attachment', :locals => {:text => question_help[:comment]}
+      .control
+        =image_tag ("icons/comment_delete.gif")
+        =link_to "Delete", comment_path(:question_id => question_help[:full_question].id), :method => :delete, :remote => true, :confirm => "Delete this comment?"
+      .control
+        =image_tag ("icons/comment_edit.gif")
+        =link_to "Edit", "##{question_help[:id]}_comment_form", :class => 'inline'
+    .newComment.new_comment{:id => "#{question_help[:id]}_comment_new", :style => "display:#{opt[1 - flag]}"}
+      .control
+        =image_tag ("icons/comment_add.gif")
+        = link_to "Add new comment for report", "##{question_help[:id]}_comment_form", :class => 'inline'
+    .editComment.commentform{:id => "#{question_help[:id]}_comment_form"}
+      .heading
+        %h3 Add a new comment for the report
+      = form_tag(set_comment_comment_index_path(:question_id => question_help[:full_question].id), :remote => true, :class => "lightboxForm") do
+        =text_area_tag "comment", question_help[:comment], :id => "#{question_help[:id]}_comment_fill_in", :class => "commentTextArea"
+        = link_to "Save", "#", :class => "saveLink"
   %h3
     =image_tag ("icons/note.gif")
     Note to myself:
   - flag = (!question_help[:note].blank? ? 1 : 0) 
-  .normalnoteview{:id => "#{question_help[:id]}_note_view", :style => "display:#{opt[flag]}"}
-    %p.note{:id => "#{question_help[:id]}_note"}
-      = render :partial => 'attachment', :locals => {:text => question_help[:note]}
-    .control
-      =image_tag ("icons/note_delete.gif")
-      =link_to_remote "Delete", :url => {:action => 'destroy', :controller => :note, :question_id => question_help[:full_question].id}, :confirm => "Delete this note?", :update => "#{question_help[:id]}_note", :complete => "cancel_note('#{question_help[:id]}'); document.getElementById('#{question_help[:id]}_note_fill_in').value = ''"
-    .control
-      =image_tag ("icons/note_edit.gif")
-      =link_to "Edit", "##{question_help[:id]}_note_form", :class => 'inline'
-  .new_note{:id => "#{question_help[:id]}_note_new", :style => "display:#{opt[1 - flag]}"}
-    .control
-      =image_tag ("icons/note_add.gif")
-      = link_to "Add a new note to myself", "##{"#{question_help[:id]}_note_form"}", :class => 'inline'
-      //=link_to_function "Add new note to myself", "new_note('#{question_help[:id]}');"
-  .noteform{:id => "#{question_help[:id]}_note_form"}
-    .heading
-      %h3 Add a new note to myself
-    = text_area_tag "note", question_help[:note], :id => "#{question_help[:id]}_note_fill_in"
-    = link_to_remote "Save", :url => {:action => 'edit', :controller => :note, :question_id => question_help[:full_question].id}, :with => "'note='+encodeURIComponent($('#{question_help[:id]}_note_fill_in').value)", :update => "#{question_help[:id]}_note", :complete => "jQuery.fancybox.close(); edit_note('#{question_help[:id]}');"
+  .noteBox
+    .showNote.normalnoteview{:id => "#{question_help[:id]}_note_view", :style => "display:#{opt[flag]}"}
+      %p.note{:id => "#{question_help[:id]}_note"}
+        = render :partial => 'attachment', :locals => {:text => question_help[:note]}
+      .control
+        =image_tag ("icons/note_delete.gif")
+        =link_to "Delete", note_path(:question_id => question_help[:full_question].id), :remote => true, :method => :delete, :confirm => "Delete this note?"
+      .control
+        =image_tag ("icons/note_edit.gif")
+        =link_to "Edit", "##{question_help[:id]}_note_form", :class => 'inline'
+    .newNote.new_note{:id => "#{question_help[:id]}_note_new", :style => "display:#{opt[1 - flag]}"}
+      .control
+        =image_tag ("icons/note_add.gif")
+        = link_to "Add a new note to myself", "##{"#{question_help[:id]}_note_form"}", :class => 'inline'
+    .editNote.noteform{:id => "#{question_help[:id]}_note_form"}
+      .heading
+        %h3 Add a new note to myself
+      = form_tag(set_note_note_index_path(:question_id => question_help[:full_question].id), :remote => true, :class => "lightboxForm") do
+        = text_area_tag "note", question_help[:note], :id => "#{question_help[:id]}_note_fill_in", :class => "noteTextArea"
+        = link_to "Save", "#", :class => "saveLink"

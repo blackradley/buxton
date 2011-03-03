@@ -2,7 +2,7 @@
   - email_for_box = (@activity.activity_approver.nil? ? wrong_email : @activity.activity_approver.email.to_s)
   %label
     %strong Activity Approver:
-  - form_remote_tag(:html => {:id => 'approver_form'}, :url => {:action => 'update_approver'}, :update => 'activity_approver_form') do
+  - form_tag(:html => {:id => 'approver_form'}, :url => {update_approver_activities_path}, :update => 'activity_approver_form', :remote => true) do
     #update_approver{:style => errors.nil? ? "display:none;" : 'display:block'}   
       .approver_update
         -if errors.nil?

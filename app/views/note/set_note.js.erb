@@ -1,0 +1,10 @@
+$.fancybox.close();
+<% if @parent_question.note.contents.blank? %>
+  $("#<%= @parent_question.name %>_note").parents(".noteBox").children(".newNote").show();
+  $("#<%= @parent_question.name %>_note").parents(".noteBox").children(".showNote").hide();
+  $("#<%= @parent_question.name %>_note").html("")
+<% else %>                             
+  $("#<%= @parent_question.name %>_note").parents(".noteBox").children(".newNote").hide();
+  $("#<%= @parent_question.name %>_note").parents(".noteBox").children(".showNote").show();
+  $("#<%= @parent_question.name %>_note").html("<%= escape_javascript(render(:partial => 'sections/attachment', :locals => {:text => @parent_question.note.contents})) %>")
+<% end %>

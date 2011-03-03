@@ -1,0 +1,4 @@
+$("#<%= @parent_question.name %>_comment_view").parents(".commentBox").children(".showComment").hide();
+$("#<%= @parent_question.name %>_comment_view").parents(".commentBox").children(".newComment").show();
+$("#<%= @parent_question.name %>_comment_view").parents(".commentBox").find(".commentTextArea").val('');
+$("#<%= @parent_question.name %>_comment_view").parents(".commentBox").find(".comment").html('');

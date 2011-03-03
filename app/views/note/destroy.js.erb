@@ -1,0 +1,4 @@
+$("#<%= @parent_question.name %>_note_view").parents(".noteBox").children(".showNote").hide();
+$("#<%= @parent_question.name %>_note_view").parents(".noteBox").children(".newNote").show();
+$("#<%= @parent_question.name %>_note_view").parents(".noteBox").find(".noteTextArea").val('');
+$("#<%= @parent_question.name %>_note_view").parents(".noteBox").find(".note").html('');

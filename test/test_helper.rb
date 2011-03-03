@@ -1,105 +1,13 @@
-#  
-# $URL$
-# $Rev$
-# $Author$
-# $Date$
-#
-# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved. 
-#
 ENV["RAILS_ENV"] = "test"
-require File.expand_path(File.dirname(__FILE__) + "/../config/environment")
-require 'test_help'
-require 'factory'
-require 'shoulda'
+require File.expand_path('../../config/environment', __FILE__)
+require 'rails/test_help'
 
-class Test::Unit::TestCase
-  # Transactional fixtures accelerate your tests by wrapping each test method
-  # in a transaction that's rolled back on completion.  This ensures that the
-  # test database remains unchanged so your fixtures don't have to be reloaded
-  # between every test method.  Fewer database queries means faster tests.
+class ActiveSupport::TestCase
+  # Setup all fixtures in test/fixtures/*.(yml|csv) for all tests in alphabetical order.
   #
-  # Read Mike Clark's excellent walkthrough at
-  #   http://clarkware.com/cgi/blosxom/2005/10/24#Rails10FastTesting
-  #
-  # Every Active Record database supports transactions except MyISAM tables
-  # in MySQL.  Turn off transactional fixtures in this case; however, if you
-  # don't care one way or the other, switching from MyISAM to InnoDB tables
-  # is recommended.
-  self.use_transactional_fixtures = true
+  # Note: You'll currently still have to declare fixtures explicitly in integration tests
+  # -- they do not yet inherit this setting
+  fixtures :all
 
-  # Instantiated fixtures are slow, but give you @david where otherwise you
-  # would need people(:david).  If you don't want to migrate your existing
-  # test cases which use the @david style and don't mind the speed hit (each
-  # instantiated fixtures translates to a database query per test method),
-  # then set this back to true.
-  self.use_instantiated_fixtures  = false
-
-  # Our helpers
-  
-  # Login to the site using the passkey provided
-  fixtures :users
-  def login_as(user_type)
-    old_controller = @controller
-    @controller = UsersController.new
-    if user_type
-      user = users(user_type)
-      post :login, :passkey => user.passkey
-      assert_not_nil session[:user_id]
-    end
-    # case user_type
-    # when :activity_manager
-    #   user = ActivityManager.find(3)
-    #   post :login, :passkey => user.passkey
-    #   # if user.function.started then
-    #   #   assert_redirected_to :controller => 'functions', :action => 'show'
-    #   # else
-    #   #  assert_redirected_to :controller => 'functions', :action => 'status'
-    #   # end
-    # when :organisation_manager
-    #   user = OrganisationManager.find(2)
-    #   post :login, :passkey => user.passkey
-    #   # assert_redirected_to :controller => 'functions', :action => 'summary'
-    # when :administrator
-    #   user = Administrator.find(1)
-    #   post :login, :passkey => user.passkey      
-    #   # assert_redirected_to :controller => 'organisations', :action => 'index'
-    # when :project_manager
-    #   user = ProjectManager.find(4)
-    #   post :login, :passkey => user.passkey
-    # when :directorate_manager
-    #   user = DirectorateManager.find(5)
-    #   post :login, :passkey => user.passkey
-    # end
-    # assert_not_nil session[:user_id]  unless user_type.nil?
-    @controller = old_controller    
-  end
-  
-  def required_question?(activity, question_name)
-    question_obj = activity.questions.find_by_name(question_name.to_s)
-    needed_value = if !activity.parents(question_name.to_s).blank?
-      question_obj.check_needed && !activity.proposed?
-    else
-      !activity.proposed?
-    end
-    needed_value
-  end
-  
-  def url_for(options)
-    url = ActionController::UrlRewriter.new(@request, nil)
-    url.rewrite(options)
-  end 
-  
-  def get_mock_answer(question)
-    case Activity.columns.select{|c| c.name == question.to_s}.first.type
-      when :integer
-        return rand(2) + 1
-      when :string
-        return "Sample string"
-      when :text
-        return "Sample text"
-      when :boolean
-        return rand(2) == 1
-    end 
-  end
-
+  # Add more helper methods to be used by all tests here...
 end

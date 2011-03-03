@@ -1,7 +1,7 @@
 #activity_ref_no_form
   %label
     %strong Reference Number:
-  - form_remote_for(:activity, :html => {:id => 'ref_no_form'}, :url => {:action => 'update_ref_no'}, :update => 'activity_ref_no_form') do |f|
+  - form_for(:activity, :html => {:id => 'ref_no_form'}, :url => {:action => 'update_ref_no'}, :update => 'activity_ref_no_form', :remote => true) do |f|
     #update_ref_no{:style => errors.nil? ? "display:none;" : 'display:block'}   
       .ref_no_update
         = f.text_field 'ref_no', :value => @activity.ref_no

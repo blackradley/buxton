@@ -3,13 +3,13 @@
   - if @current_user.class.to_s == 'ActivityManager' then
     #activity_manager_view
       View PDF: 
-      = link_to "#{image_tag('icons/pdf.gif')}public report", {:action => 'view_pdf', :id => @activity.id, :type => :public}, :target => '_blank', :title => 'Public PDF Report'
+      = link_to image_tag('icons/pdf.gif') + "public report", view_pdf_activity_path(@activity.id, :type => :public), :target => '_blank', :title => 'Public PDF Report'
       &nbsp;|&nbsp;
-      = link_to "#{image_tag('icons/pdf_lock.gif')}private report", {:action => 'view_pdf', :id => @activity.id, :type => :private}, :target => '_blank', :title => 'Private PDF Report', :confirm => 'Please note: you are about to download a private document intended for internal-use only.'
+      = link_to image_tag('icons/pdf_lock.gif') + "private report", view_pdf_activity_path(@activity.id, :type => :private), :target => '_blank', :title => 'Private PDF Report', :confirm => 'Please note: you are about to download a private document intended for internal-use only.'
   - else
     #approver_view
       - if @activity.completed(:purpose)
-        = link_to "#{image_tag('icons/pdf_lock.gif')}View private PDF report", {:action => 'view_pdf', :id => @activity.id, :type => :private}, :target => '_blank', :title => 'Private PDF Report', :confirm => 'Please note: you are about to download a private document intended for internal-use only.'
+        = link_to image_tag('icons/pdf_lock.gif') + "View private PDF report", view_pdf_activity_path(@activity.id, :type => :private), :target => '_blank', :title => 'Private PDF Report', :confirm => 'Please note: you are about to download a private document intended for internal-use only.'
 .summary
   %h4
     =h @activity.name.titlecase
@@ -44,66 +44,66 @@
     %fieldset.section_summary_header
       %legend Purpose
       %legend.section_summary_toggles
-        = link_to_function '<img src="/images/arrow_out.jpg">view summary ', "Element.toggle('show_purpose'); Element.toggle('purpose_top')", :title => 'View Summary'
+        = link_to_function image_tag('arrow_out.jpg') + 'view summary ', "Element.toggle('show_purpose'); Element.toggle('purpose_top')", :title => 'View Summary'
 
 
   #show_purpose{:style=>"display:none;"}
     %fieldset.section_summary_show
       %legend Purpose
       %legend.section_summary_toggles
-        = link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_purpose'); Element.toggle('purpose_top')", :title => 'Close Summary View'
-      = render 'sections/show_purpose'
+        = link_to_function image_tag('arrow_in.jpg') + 'close', "Element.toggle('show_purpose'); Element.toggle('purpose_top')", :title => 'Close Summary View'
+      = render :partial => 'sections/show_purpose'
 
   -if @activity.relevant_strands.size > 0 then 
     #impact_top{:style=>"display:block;"}
       %fieldset.section_summary_header
         %legend Impact
         %legend.section_summary_toggles
-          = link_to_function '<img src="/images/arrow_out.jpg">view summary ', "Element.toggle('show_impact'); Element.toggle('impact_top')", :title => 'View Summary'
+          = link_to_function image_tag('arrow_out.jpg') + 'view summary ', "Element.toggle('show_impact'); Element.toggle('impact_top')", :title => 'View Summary'
 
     #show_impact{:style=>"display:none;"}
       %fieldset.section_summary_show
         %legend Impact
         %legend.section_summary_toggles
-          = link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_impact'); Element.toggle('impact_top')", :title => 'Close Summary View'
-        = render 'sections/show_impact'
+          = link_to_function image_tag('arrow_in.jpg') + 'close ', "Element.toggle('show_impact'); Element.toggle('impact_top')", :title => 'Close Summary View'
+        = render :partial => 'sections/show_impact'
 
     #consultation_top{:style=>"display:block;"}
       %fieldset.section_summary_header
         %legend Consultation
         %legend.section_summary_toggles
-          = link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_consultation'); Element.toggle('consultation_top')", :title => 'View Summary'
+          = link_to_function image_tag('arrow_out.jpg') + 'view summary ', "Element.toggle('show_consultation'); Element.toggle('consultation_top')", :title => 'View Summary'
           
     #show_consultation{:style=>"display:none;"}
       %fieldset.section_summary_show
         %legend Consultation
         %legend.section_summary_toggles
-          = link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_consultation'); Element.toggle('consultation_top')", :title => 'Close Summary View'
-        = render 'sections/show_consultation'
+          = link_to_function image_tag('arrow_in.jpg') + 'close ', "Element.toggle('show_consultation'); Element.toggle('consultation_top')", :title => 'Close Summary View'
+        = render :partial => 'sections/show_consultation'
 
 
     #additional_work_top{:style=>"display:block;"}
       %fieldset.section_summary_header
         %legend Additional Work
         %legend.section_summary_toggles
-          = link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_additional_work'); Element.toggle('additional_work_top')", :title => 'View Summary'
+          = link_to_function image_tag('arrow_out.jpg') + 'view summary ', "Element.toggle('show_additional_work'); Element.toggle('additional_work_top')", :title => 'View Summary'
 
     #show_additional_work{:style=>"display:none;"}
       %fieldset.section_summary_show
         %legend Additional Work
         %legend.section_summary_toggles
-          = link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_additional_work'); Element.toggle('additional_work_top')", :title => 'Close Summary View'
-        = render 'sections/show_additional_work'
+          = link_to_function image_tag('arrow_in.jpg') + 'close ', "Element.toggle('show_additional_work'); Element.toggle('additional_work_top')", :title => 'Close Summary View'
+        = render :partial => 'sections/show_additional_work'
 
     #action_planning_top{:style=>"display:block;"}
       %fieldset.section_summary_header
         %legend Action Planning
         %legend.section_summary_toggles
-          = link_to_function '<img src="/images/arrow_out.jpg">view summary', "Element.toggle('show_action_planning'); Element.toggle('action_planning_top')", :title => 'View Summary'
+          = link_to_function image_tag('arrow_out.jpg') + 'view summary ', "Element.toggle('show_action_planning'); Element.toggle('action_planning_top')", :title => 'View Summary'
 
     #show_action_planning{:style=>"display:none;"}
       %fieldset.section_summary_show
         %legend Action Planning
         %legend.section_summary_toggles
-          = link_to_function '<img src="/images/arrow_in.jpg">close', "Element.toggle('show_action_planning'); Element.toggle('action_planning_top')", :title => 'Close Summary View'
-        = render 'sections/show_action_planning'
+          = link_to_function image_tag('arrow_in.jpg') + 'close ', "Element.toggle('show_action_planning'); Element.toggle('action_planning_top')", :title => 'Close Summary View'
+        = render :partial =>'sections/show_action_planning'

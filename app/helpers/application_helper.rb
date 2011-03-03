@@ -1,13 +1,3 @@
-#
-# $URL$
-# $Rev$
-# $Author$
-# $Date$
-#
-# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
-#
-# Methods added to this helper will be available to all templates in the application.
-#
 module ApplicationHelper
   
   # Display the users progress through the questions, this is used both in the
@@ -28,12 +18,12 @@ module ApplicationHelper
     # image_tag(url_for(options))
   end
 
-  # Extend the date formats to include some British styley ones
-  ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
-    :default => "%m/%d/%Y %H:%M",
-    :date_time12 => "%d %b %Y %I:%M%p",
-    :date_time24 => "%d %b %Y %H:%M"
-  )
+  # # Extend the date formats to include some British styley ones
+  # ActiveSupport::CoreExtensions::Time::Conversions::DATE_FORMATS.merge!(
+  #   :default => "%m/%d/%Y %H:%M",
+  #   :date_time12 => "%d %b %Y %I:%M%p",
+  #   :date_time24 => "%d %b %Y %H:%M"
+  # )
 
   # Format the date or say there is nothing, rather than just outputting
   # a blank or the date from the begining of the epoch.
@@ -140,13 +130,13 @@ module ApplicationHelper
       class_name = (highlight) ? 'selected' : ''
       # Disable the tab if told to do so
       if link[:status] == 'disabled' then
-        link_html << content_tag('li', link_to("<span class='tab_left'></span><span class='tab_center'>#{link[:text]}</span><span class='tab_right'></span>", '#'),{ :class => ['disabled', class_name].join(' ') })
+        link_html << content_tag('li', link_to(raw("<span class='tab_left'></span><span class='tab_center'>#{link[:text]}</span><span class='tab_right'></span>"), '#'),{ :class => ['disabled', class_name].join(' ') })
       else
-        link_html << content_tag('li', link_to("<span class='tab_left'></span><span class='tab_center'>#{link[:text]}</span><span class='tab_right'></span>", link[:url], :title => link[:title]),
+        link_html << content_tag('li', link_to(raw("<span class='tab_left'></span><span class='tab_center'>#{link[:text]}</span><span class='tab_right'></span>"), link[:url], :title => link[:title]),
             { :class => class_name })
       end
     end
-    content_tag('ul', link_html)
+    content_tag('ul', raw(link_html))
   end
 
   # Display a coloured bar showing the level selected, produced
@@ -277,7 +267,7 @@ module ApplicationHelper
       render :partial => '/activities/answer', :locals => { :label => label, :answer => answer, :question => question, :comment => comment }
     end
 
-    output
+    raw(output)
   end
 
   #This method produces an answer bar for the summary sections
@@ -288,10 +278,10 @@ module ApplicationHelper
      barImage = level_bar(activity.send(question), activity.hashes['choices'][7], 'bar-impact-groups')
 
      # Show our formatted question!
-     %Q[<p>
+     raw(%Q[<p>
      <label title="#{label}">#{label}</label>
      <div class="labelled">#{barImage}</div>
-     </p>]
+     </p>])
      #%Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]
    end
    
@@ -309,5 +299,5 @@ module ApplicationHelper
       strand.to_s.titleize.downcase
     end
   end
-
+  
 end

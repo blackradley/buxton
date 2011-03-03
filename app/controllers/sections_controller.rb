@@ -192,6 +192,7 @@ class SectionsController < ApplicationController
     end
   end
 
+
 protected
   # Secure the relevant methods in the controller.
   def secure?

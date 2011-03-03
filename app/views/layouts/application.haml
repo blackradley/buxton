@@ -5,16 +5,17 @@
       Impact Equality&trade; : 
       = "#{controller.controller_name} : #{controller.action_name}".titleize
     %meta{'http-equiv' => 'content-type', 'content'=>'text/html;charset=UTF-8'}
-    = stylesheet_link_merged :base
-    = stylesheet_link_tag 'tables'
+    =raw(stylesheet_link_merged :base)
+    =raw(stylesheet_link_tag 'tables')
     - if @current_user.respond_to?(:organisation) && !@current_user.organisation.nil? then
-      = "<style>.mastHead .logo { background-image: url(/images/organisations/#{@current_user.organisation.id}.png);}</style>"
+      =raw "<style>.mastHead .logo { background-image: url(/images/organisations/#{@current_user.organisation.id}.png);}</style>"
     - if controller.action_name=='signup'
-      = "<style>.mastHead .logo { background-image: url(/images/free_signup.png);}</style>"
-    = javascript_include_merged :base
-    = "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->"
-    = "<!--[if lt IE 7]> #{javascript_include_tag 'jquery.pngFix.js'}<![endif]-->"
-    = "<!--[if gte IE 7]> #{stylesheet_link_tag 'fixes_ie7'}<![endif]-->"
+      =raw "<style>.mastHead .logo { background-image: url(/images/free_signup.png);}</style>"
+    =raw javascript_include_merged :base
+    =raw  "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->"
+    =raw "<!--[if lt IE 7]> #{javascript_include_tag 'jquery.pngFix.js'}<![endif]-->"
+    =raw "<!--[if gte IE 7]> #{stylesheet_link_tag 'fixes_ie7'}<![endif]-->"
+    = csrf_meta_tag
     %link{:href=>'/images/favicon.ico', :rel=>'icon', :type=>"image/x-icon"}
   %body
     - if @banner_text
@@ -26,7 +27,7 @@
       .content
         #menu
           #menuBar
-            = menu() unless @hide_menu
+            =menu() unless @hide_menu
         .messageArea
           %p
             =h flash[:notice]

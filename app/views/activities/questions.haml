@@ -61,8 +61,7 @@
           %span.checkStrand
             -if @activity.strand_relevant?(strand) then
               -selected = true
-            = check_box_tag("#{strand}_checkbox", strand_name, selected, :onclick =>"Element.toggle('row_#{strand_name}_on'); Element.toggle('row_#{strand_name}_off'); #{@conditional_flip}")
-            = observe_field("#{strand}_checkbox", :url => {:action => 'toggle_strand', :strand => strand, :controller => 'activities'})
+            = check_box_tag("#{strand}_checkbox", strand_name, selected)
             %label
               =h strand_display(strand).titlecase
               -if @activity.impact_calculation(strand).to_i > 9 then

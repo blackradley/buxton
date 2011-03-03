@@ -39,3 +39,6 @@ TLD_LENGTH = 2
 
 # Use SMTP protocol to deliver emails
 config.action_mailer.delivery_method = :smtp
+BANNER    = (['development','staging'].include? ENV['RAILS_ENV'])
+KEYS      = (['development','demonstration','staging'].include? ENV['RAILS_ENV'])
+DEV_MODE  = BANNER

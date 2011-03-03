@@ -1,7 +1,7 @@
 #activity_name_form
   %label
     %strong Activity Name:
-  - form_remote_for(:activity, :html => {:id => 'name_form'}, :url => {:action => 'update_name'}, :update => 'activity_name_form') do |f|
+  - form_for(:activity, :html => {:id => 'name_form'}, :url => update_name_activities_path, :update => 'activity_name_form', :remote => true) do |f|
     #update_name{:style => errors.nil? ? "display:none;" : 'display:block'}   
       .name_update
         = f.text_field 'name', :value => @activity.name.blank? ? @name : @activity.name
