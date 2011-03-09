@@ -17,43 +17,15 @@ class SectionsController < ApplicationController
   # List the section status for the different activities of an Organisation
   # but don't paginate, a long list is actually more convenient for the Organisation
   # Manager to scan down.
+  before_filter :authenticate_user!
+  before_filter :set_activity
   
-  before_filter :verify_org_index_access, :only => :list
-  before_filter :verify_org_activity_access, :only => :show
-  before_filter :verify_activity_index_access, :only => [:edit, :update]
-  
-  
-  # Available to: Organisation Manager
-  def list
-    @organisation = @current_user.organisation
-
-    case @current_user.class.name
-    when 'DirectorateManager'
-      @directorates = [@current_user.directorate]
-    when 'OrganisationManager'
-      @directorates = @organisation.directorates
-      @projects = @organisation.projects
-    when 'ProjectManager'
-      @projects = [@current_user.project]
-    else
-      # TODO throw an error - shouldn't ever get here
-    end
-
-    unless params[:id] then
-      redirect_to :id => 'purpose'
-    end
-
-    # Validate
-    @section = params[:id]
-  end
 
   # Show the summary information for a activity's section
   # Available to: Organisation Manager
   #               Activity Manager
   def show
     # TODO: improve this - all a bit ugly
-    f_id = (@current_user.class == OrganisationManager)? params[:f] : @current_user.activity.id
-    @activity = Activity.find(f_id)
     # Only display the answers if Activity/Policy Existing/Proposed are answered otherwise
     # we don't know what label text to use.
    # begin
@@ -77,16 +49,12 @@ class SectionsController < ApplicationController
       else
         render :text => 'Function/Policy not started.', :layout => true
       end
-   # rescue
-   #   render :inline => 'Invalid section.'
-   # end
   end
 
   # Get the activity information ready for editing using the appropriate form.
   # Available to: Activity Manager
   def edit
     strand = params[:equality_strand].strip
-    @activity = @current_user.activity
     @activity_manager = @activity.activity_manager
 
     @equality_strand = ''
@@ -153,7 +121,6 @@ class SectionsController < ApplicationController
     end
 
     # Update the answers in the activity table
-    @activity = @current_user.activity
     @activity.update_attributes!(params[:activity])
     # Update the activity strategy answers if we have any (currently only in the Purpose section)
     if params[:strategy_responses] then
@@ -166,7 +133,7 @@ class SectionsController < ApplicationController
     end
 
     flash[:notice] =  "#{@activity.name} was successfully updated."
-    redirect_to :controller => 'activities', :action => 'questions'
+    redirect_to questions_activity_path(@activity)
 
   rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
     flash[:notice] =  "Could not update the activity."
@@ -190,36 +157,6 @@ class SectionsController < ApplicationController
       # throw error
       raise ActiveRecord::RecordNotFound
     end
-  end
-
-
-protected
-  # Secure the relevant methods in the controller.
-  def secure?
-    true
-  end
-  
-  def verify_org_index_access
-    verify_index_access get_related_model, nil, nil, false, (current_user.class == OrganisationManager)
-  end
-  
-  def verify_org_activity_access
-    case current_user.class.to_s
-    when 'OrganisationManager'
-      verify_edit_access get_related_model, :f
-    when 'ActivityManager', 'ActivityApprover'
-      verify_index_access
-    else
-      render_no_permission(get_related_model, "view")
-    end
-  end
-  
-  def verify_activity_index_access
-    verify_index_access get_related_model, nil, nil, false, [ActivityManager, ActivityApprover].include?(current_user.class)
-  end
-  
-  def get_related_model
-    Activity
   end
   
 end

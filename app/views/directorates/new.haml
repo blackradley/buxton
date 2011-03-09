@@ -1,9 +1,0 @@
-%h2 New Directorate
-
-- form_for [@directorate.organisation,@directorate] do |f|
-  = render :partial => 'form'
-  %span.button{:style=>"float:none;"}
-    = submit_tag "Create", :disable_with => 'Creating...'
-
-%span.button
-  = link_to 'Back', organisation_directorates_url

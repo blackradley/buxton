@@ -3,8 +3,8 @@
 
 = render :partial => 'activity_name_form', :locals => {'errors' => nil}
 = render :partial => 'activity_ref_form', :locals => {'errors' => nil}
--unless @current_user.class.name == 'ActivityApprover' || @current_user.free_access? then
-  = render :partial => 'activity_approver_form', :locals => {'errors' => nil, 'wrong_email' => nil}
+/ -unless @current_user.class.name == 'ActivityApprover' 
+/   = render :partial => 'activity_approver_form', :locals => {'errors' => nil, 'wrong_email' => nil}
 %p
   %label
     %strong Activity Type:

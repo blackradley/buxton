@@ -1,5 +1,4 @@
--depString = "setDependencyTrue('#{question_issues[:id]}_issues'); checkDependancy('#{question_issues[:id]}','#{question_issues[:id]}_issues', '1'); "
-%p.question{:id => "#{question_issues[:id]}", :onclick => "setFocus(\'more_#{question_issues[:id]}\',\'#{question_issues[:id]}\'); #{depString}", :onchange => "#{depString}", :style => "display:block;"}
+%p.question{:id => "#{question_issues[:id]}", 'data-dependencies' => {"#{question_issues[:id]}_issues" => 1}.to_json, :style => "display:block;"}
   %label
     =question_issues[:label]
   %labelled
@@ -17,14 +16,15 @@
 
 .more{:id => "more_" + "#{question_issues[:id]}_issues", :style => "display:none"}
   
-.question.sub{:id => "#{question_issues[:id]}_issues", :onclick => "setFocus(\'more_#{question_issues[:id]}_issues\',\'#{question_issues[:id]}_issues\');", :style => "display:#{displayString};"}
+.question.sub{:id => "#{question_issues[:id]}_issues", 'data-dependencies' => {"#{question_issues[:id]}_issues" => 1}.to_json, :style => "display:#{displayString};"}
   %label 
     Please record each of the discrete issues identified in the space below and when you have finished click save.
   %span#issues_list
-    = render :partial => 'issues/issue', :collection => @activity.issues_by(@section, @equality_strand)
+    = render :partial => 'issues/issue', :collection => @activity.issues_by(@section, @equality_strand), :locals => {:strand =>  params[:equality_strand]}
   .clear
   %span.add_issue
     = image_tag ('icons/add.gif')
-    = link_to_function "Add a New Issue" do |page| 
-      - page.insert_html :bottom, :issues_list, :partial => 'issues/issue', :object => Issue.new
+    = link_to "Add a New Issue", "#", :class => "addIssue", 'data-section' => @section, 'data-strand' =>  params[:equality_strand]
+    / = link_to "Add a New Issue", do |page| 
+    /   - page.insert_html :bottom, :issues_list, :partial => 'issues/issue', :object => Issue.new
   .clear

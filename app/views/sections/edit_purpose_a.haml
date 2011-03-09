@@ -11,7 +11,7 @@
     = render :partial => 'activity_strategy_help', :locals => {:activity_strategy => activity_strategy}
   -@activity_project_strategies.each do |activity_strategy|
     = render :partial => 'activity_strategy_help', :locals => {:activity_strategy => activity_strategy}
-  -form_for(:activity, :url => sections_path) do |f|
+  -form_for(:activity, :url => sections_path(:activity_id => @activity)) do |f|
     = render :partial => 'intro'
     = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [2,11,12]), :locals => {:f => f}
     %h4

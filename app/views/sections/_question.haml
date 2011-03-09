@@ -1,35 +1,29 @@
--if question[:dependents][0] 
-  -depString = ""
-  -question[:dependents].each do |dep|
-    -depString << "setDependencyTrue('#{dep[0]}'); checkDependancy('#{question[:id]}','#{dep[0]}', '#{dep[1]}'); " rescue nil
-    -unless [@activity.parents[dep[0].to_s]].flatten[0] == question[:id] then
-      -depString << "checkDependancy('#{@activity.parents[dep[0].to_s][0]}','#{dep[0]}', '#{@activity.parents[dep[0].to_s][1]}'); " rescue nil
 -if question[:dependency]
   -displayString = "none"
   -if @activity.send(question[:dependency][0][0].to_sym)
     -if @activity.send(question[:dependency][0][0].to_sym).to_s == question[:dependency][0][1]
       -displayString = "block"
     
-  %p.question.sub{:id => "#{question[:id]}", :style => "display:#{displayString};"}
+  %p.question.sub{:id => "#{question[:id]}", :style => "display:#{displayString};", 'data-dependencies' => Hash[question[:dependents]].to_json}
     %label
       =question[:label]
     %labelled
       -case question[:input_type]    
         -when :text
-          = f.text_area question[:id], :id => question[:name], :onchange => "#{depString}"
+          = f.text_area question[:id], :id => question[:name]
         -when :string
-          = f.text_field question[:id], :id => question[:name], :onchange => "#{depString}"
+          = f.text_field question[:id], :id => question[:name]
         -when :select
-          = f.select "#{question[:id]}", question[:input_choices], {}, :id => question[:name], :onchange => "#{depString}"
+          = f.select "#{question[:id]}", question[:input_choices], {}, :id => question[:name]
 -else
-  %p.question{:id => "#{question[:id]}", :style => "display:block;"}
+  %p.question{:id => "#{question[:id]}", :style => "display:block;", 'data-dependencies' => Hash[question[:dependents]].to_json}
     %label
       =question[:label]
     %labelled
       -case question[:input_type]    
         -when :text
-          = f.text_area question[:id], :id => question[:name], :onchange => "#{depString}"
+          = f.text_area question[:id], :id => question[:name]
         -when :string
-          = f.text_field question[:id], :id => question[:name], :onchange => "#{depString}"
+          = f.text_field question[:id], :id => question[:name]
         -when :select
-          = f.select "#{question[:id]}", question[:input_choices], {},  :id => question[:name], :onchange => "#{depString}"
+          = f.select "#{question[:id]}", question[:input_choices], {},  :id => question[:name]
