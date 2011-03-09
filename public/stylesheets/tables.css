@@ -1,24 +1,31 @@
 table {
-  width: 100%;
-  font-size: 1em; }
+  clear: both;
+  width: 950px;
+  margin: 20px 0px;
+  border-collapse: collapse;
+  border-width: 1px;
+  border-color: #999999; }
   table th {
-    color: #4e979e;
-    font-weight: bold;
-    padding: 5px;
-    width: 80px;
-    text-align: center;
-    vertical-align: middle; }
-    table th .strandHeading {
-      text-align: left;
-      width: 40px; }
+    background-color: #1b4e77;
+    color: white;
+    text-align: left;
+    padding: 0px 10px 5px;
+    line-height: 16px;
+    height: 44px;
+    vertical-align: bottom; }
   table td {
-    padding: 5px 0px;
-    text-align: center;
-    vertical-align: middle; }
-    table td img {
-      margin: 2px; }
-  table .actions a img {
-    margin: 2px; }
+    text-align: left;
+    padding: 8px 10px; }
+    table td .action {
+      padding-left: 20px;
+      background-repeat: no-repeat;
+      background-position: center left; }
+    table td .edit {
+      background-image: url(../images/icons/edit.gif); }
+  table .light td {
+    background-color: white; }
+  table .dark td {
+    background-color: #f1f1f1; }
 
 .list {
   width: 100%;
@@ -28,19 +35,19 @@ table {
   .list caption {
     font-weight: bold;
     text-align: left;
-    background-color: #fff;
-    color: #4e979e;
+    background-color: white;
+    color: #1b4e77;
     padding: 5px;
     text-decoration: none; }
   .list th,
   .list td {
-    border: 1px solid #CCC;
+    border: 1px solid #cccccc;
     padding: 2px;
     text-align: center; }
   .list .left {
     text-align: left; }
   .list th {
-    background-color: #EEE;
+    background-color: #eeeeee;
     text-align: center; }
   .list td {
     vertical-align: middle; }
@@ -55,19 +62,19 @@ table {
   .listSmall caption {
     font-weight: bold;
     text-align: center;
-    background-color: #fff;
-    color: #4e979e;
+    background-color: white;
+    color: #1b4e77;
     padding: 5px;
     text-decoration: none; }
   .listSmall th,
   .listSmall td {
-    border: 1px solid #CCC;
+    border: 1px solid #cccccc;
     padding: 2px;
     text-align: center; }
   .listSmall .left {
     text-align: left; }
   .listSmall th {
-    background-color: #EEE;
+    background-color: #eeeeee;
     text-align: center; }
   .listSmall td {
     vertical-align: middle; }

@@ -1,7 +1,7 @@
 #show_organisation label {
   width: 200px; }
 #show_organisation legend {
-  color: #4e979e;
+  color: #1B4E77;
   font-weight: bold;
   background-color: #fff;
   font-size: 1.1em; }
@@ -11,7 +11,7 @@
   line-height: 20px;
   font-weight: bold; }
 #show_organisation fieldset {
-  border-top: 2px solid #4e979e;
+  border-top: 2px solid #1B4E77;
   padding-left: 0px;
   padding-top: 10px; }
 #show_organisation .organisation_customisation {
@@ -27,12 +27,12 @@
       margin-left: 20px; }
 
 form.new_organisation fieldset {
-  border-top: 2px solid #4e979e;
+  border-top: 2px solid #1B4E77;
   padding-left: 0px;
   padding-bottom: 20px;
   padding-top: 10px; }
   form.new_organisation fieldset legend {
-    color: #4e979e;
+    color: #1B4E77;
     font-weight: bold;
     background-color: #fff;
     font-size: 1.1em; }
@@ -57,12 +57,12 @@ form.new_organisation fieldset {
     float: left; }
 
 form.edit_organisation fieldset {
-  border-top: 2px solid #4e979e;
+  border-top: 2px solid #1B4E77;
   padding-left: 0px;
   padding-bottom: 20px;
   padding-top: 10px; }
   form.edit_organisation fieldset legend {
-    color: #4e979e;
+    color: #1B4E77;
     font-weight: bold;
     background-color: #fff;
     font-size: 1.1em; }
@@ -120,7 +120,7 @@ form.edit_organisation fieldset {
     .directorates #add_link:visited,
     .directorates #add_link:hover {
       text-decoration: underline;
-      color: #4e979e; }
+      color: #1B4E77; }
   .directorates ul {
     font-weight: bold;
     padding: 0px;
@@ -161,7 +161,7 @@ form.edit_organisation fieldset {
     .organisation_managers #add_link:visited,
     .organisation_managers #add_link:hover {
       text-decoration: underline;
-      color: #4e979e; }
+      color: #1B4E77; }
   .organisation_managers ul {
     font-weight: bold;
     padding: 0px;
