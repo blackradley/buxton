@@ -96,7 +96,7 @@ module ApplicationHelper
           end
       dependency = @activity.dependent_questions("#{section}_#{strand}_#{question}")
       name = "#{section}_#{strand}_#{question}"
-      full_question = [*@current_user.activity.questions.find_by_name(name)][0]
+      full_question = [*@activity.questions.find_by_name(name)][0]
       comment = full_question.comment
       note = full_question.note
       comment_contents = (comment.nil? ? '' : comment.contents)
@@ -175,19 +175,19 @@ module ApplicationHelper
                         :title => 'Control Page - Approved Activities',
                         :tab => ''}
                       ])
-    when 'ActivityManager', 'ActivityApprover'
-      status = (@current_user.activity.completed(:purpose)) ? '' : 'disabled'
+    when 'User','ActivityManager', 'ActivityApprover'
+      status = (@activity.completed(:purpose)) ? '' : 'disabled'
       generate_menu( [
                       { :text => 'Home',
-                        :url => { :controller => 'activities', :action => 'index'},
+                        :url => old_index_activity_path(@activity),
                         :title => 'Activity Control Page - Home' ,
                         :tab => '' },
                       { :text => 'Questions',
-                        :url => { :controller => 'activities', :action => 'questions'},
+                        :url => questions_activity_path(@activity),
                         :title => 'Activity Control Page - Questions' ,
                         :tab => '' },
                       { :text => 'Summary',
-                        :url => { :controller => 'activities', :action => 'show' },
+                        :url => activity_path(@activity),
                         :title => 'Activity Control Page - Summary' ,
                         :tab => status }
                       ])

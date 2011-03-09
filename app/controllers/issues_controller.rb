@@ -24,6 +24,12 @@ class IssuesController < ApplicationController
   
   # Create a new issue and reply with the appropriate RJS
   # Available to: Activity Manager
+  
+  def new
+    @section = params[:section]
+    render :partial => 'issue', :object => Issue.new, :locals => {:strand => params[:strand]}
+  end
+  
   def create
     @issue = Issue.new(params[:issue])
     @issue.save

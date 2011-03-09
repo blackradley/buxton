@@ -26,7 +26,7 @@
 # in the system.
 #
 class Organisation < ActiveRecord::Base
-  has_many :organisation_managers, :dependent => :destroy
+  # belongs_to :organisation_managers, :C
   has_many :directorates, :dependent => :destroy
   has_many :projects, :dependent => :destroy
   has_many :organisation_strategies, :dependent => :destroy
@@ -34,12 +34,12 @@ class Organisation < ActiveRecord::Base
   has_many :organisation_terminologies, :dependent => :destroy
   has_one :activity_creator, :dependent => :destroy
 
-  validates_presence_of :organisation_managers
+  # validates_presence_of :organisation_managers
   validates_associated :organisation_terminologies
   validates_associated :organisation_strategies
   validates_presence_of :name, :message => 'All organisations must have a name'
   
-  after_update :save_organisation_managers
+  # after_update :save_organisation_managers
   after_update :save_organisation_strategies
   
   include FixInvalidChars

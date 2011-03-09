@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   include AccessSystem
   include SecurityModelHelper
 
-  before_filter :authenticate
+  # before_filter :authenticate
   before_filter :set_current_user
   before_filter :set_banner if BANNER
 
@@ -31,22 +31,12 @@ protected
     instance_eval("#{class_name}.create(:message => '#{escaped_text}')")
   end
 
-  # Check that the user in the session is for real.
-  def authenticate
-    if secure? && session[:user_id].nil?
-      redirect_to :controller => 'users'
-    end
-  end
+
 
   # If the user_id session variable exists, grab this user from the database and store
   # in @current_user making it available to the action of any controller.
   def set_current_user
-    @current_user = nil
-    @current_user = User.find(session[:user_id]) unless session[:user_id].nil?
-  end
-  
-  def current_user
-    @current_user
+    @current_user = current_user
   end
   
   def set_banner
@@ -81,13 +71,10 @@ protected
   def strand_display(strand)
     strand.to_s.downcase == 'faith' ? 'religion or belief' : strand
   end
+
   
 private
-  # Log the user out of the system by killing the session parameter that identifies them as being logged in
-  # Kill the @current_user variable as well as this is collected before any call to logout() can be made
-  # resulting in a page, on that one occasion, which thinks you are logged in even after logout() is called.
-  def logout
-    session[:user_id] = nil
-    @current_user = nil
+  def set_activity
+    @activity = @current_user.activity_manager_activities.find_by_id(params[:activity_id])
   end
 end

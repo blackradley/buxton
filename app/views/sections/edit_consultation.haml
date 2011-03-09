@@ -1,13 +1,13 @@
 %h1#questions=h @activity.name + " - " + strand_display(@equality_strand).titlecase + " - Consultation"
 #questions
-  -form_for(:activity, :url => {:action => 'update'}) do |f|
-    = render :partial => 'question_help', :collection => question_details(:consultation, @equality_strand, [1,2,3,4,5,6,7]), :locals => {:f => f}
+  = render :partial => 'question_help', :collection => question_details(:consultation, @equality_strand, [1,2,3,4,5,6,7])
+  -form_for(:activity, :url => {:action => 'update',:activity_id => @activity}) do |f|
     = render :partial => 'intro'
     = render :partial => 'question', :collection => question_details(:consultation, @equality_strand, [1,2,3,4,5,6]), :locals => {:f => f}
     = render :partial => 'question_issues', :collection => question_details(:consultation, @equality_strand, [7]), :locals => {:f => f}    
     = hidden_field_tag 'id', @id 
     = hidden_field_tag 'equality_strand', @equality_strand
-    %p.question
+    %p.question.saveField
       %span.button
         = submit_tag 'Save', :disable_with => 'Saving...', :id => 'section_save_button'
   .clear

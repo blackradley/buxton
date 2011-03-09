@@ -15,50 +15,27 @@ class ActivitiesController < ApplicationController
 
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
-  
-  ## Accessed by organisation manager. no ID
-  before_filter :verify_org_index_access, :only => [:new, :show_partial_by_status]
-  ## Accessed by organisation manager or activity_creator. no ID
-  before_filter :verify_org_creator_index_access, :only => [:create, :signup]
-  ## Accessed by organisation manager.
-  before_filter :verify_org_edit_access, :only => [:edit_contact, :update_contact, :destroy]
-  ## Accessed by activity manager or approver. no ID
-  before_filter :verify_activity_index_access, :only => [:index, :show, :questions, :update, :update_activity_type, :update_name, :update_ref_no, :update_approver, :update_ces, :approve, :unapprove, :submit, :unsubmit, :toggle_strand]
-  ## Accessed by project, directorate or organisation managers
-  before_filter :verify_manager_index_access, :only => [:summary, :show_by_status]
-  before_filter :verify_manager_edit_access, :only => :view
-  
 
   # Make render_to_string available to the #show action
   helper_method :render_to_string
-
+  before_filter :authenticate_user!
+  before_filter :set_activity, :only => [:old_index, :questions, :show, :update, :submit, :update_activity_type]
   # Show activity index
   # Available to: Activity Manager
-  def index
+  
+  def old_index
     if session[:new_signup]
       @new_signup = true
       session[:new_signup] = nil
     end
-    @activity = @current_user.activity
-    @organisation = @current_user.activity.organisation
-    @organisation_managers = @activity.organisation.organisation_managers
+    @organisation = @activity.organisation
+    @organisation_managers = [] #@activity.organisation.organisation_managers
   end
 
-  # These are summary statistics for all the activities within this organisation.
-  # Available to: Organisation Manager, Directorate Manager, Project Manager
-  def summary
-    @organisation = @current_user.organisation
-    @activities = @current_user.activities
-    @started = @activities.select{|a| a.started }.size
-    @completed = @activities.select{|a| a.completed }.size
-    @results_table = @organisation.results_table
-    @progress_chart = open_flash_chart_object(350, 250, '/graphs/progress_chart', true)
-  end
   
   # Show the summary information for a specific activity.
   # Available to: Activity Manager
   def show
-    @activity = Activity.find(@current_user.activity_id)
     ## Looks strange, but significantly reduces SQL statements in calls to answer() in views
     questions = Question.where(:activity_id => @activity.id).includes(:comment).map{|q| [q, q.comment]}
     # questions = Question.find_all_by_activity_id(@activity.id, :include => :comment).map{|q| [q, q.comment]}
@@ -78,32 +55,6 @@ class ActivitiesController < ApplicationController
     @projects = @activity.projects
   end
   
-  def show_partial_by_status
-    if params[:group] == 'directorate'
-      @directorates = @current_user.organisation.directorates
-    else
-      @projects = @current_user.organisation.projects
-    end
-    render :partial => "#{params[:tab]}_by_#{params[:group]}"
-  end
-  
-  def show_by_status
-    @organisation = @current_user.organisation
-
-    case @current_user.class.name
-    when 'DirectorateManager'
-      @directorates = [@current_user.directorate]
-    when 'OrganisationManager'
-      @directorates = @organisation.directorates
-#      @projects = @organisation.projects
-    when 'ProjectManager'
-      @projects = [@current_user.project]
-    else
-      # TODO throw an error - shouldn't ever get here
-    end
-    
-    @status = params[:tab]
-  end
 
   # Create a new Activity and a new associated user, all activities must have single a valid User.
   # Available to: Organisation Manager
@@ -152,7 +103,6 @@ class ActivitiesController < ApplicationController
   # Update the activity details accordingly.
   # Available to: Activity Manager
   def update
-    @activity = @current_user.activity
     @activity.update_attributes!(params[:activity])
 
     flash[:notice] = "#{@activity.name} was successfully updated."
@@ -212,7 +162,6 @@ class ActivitiesController < ApplicationController
   # Opening page where they must choose between Activity/Policy and Existing/Proposed
   # Available to: Activity Manager
   def questions
-    @activity = @current_user.activity
     completed_status_array = @activity.strands(true).map{|strand| [strand.to_sym, @activity.completed(nil, strand)]}
     completed_status_hash = Hash[*completed_status_array.flatten]
     tag_test = completed_status_hash.select{|k,v| !v}.map(&:first).map do |strand_status|
@@ -231,7 +180,6 @@ class ActivitiesController < ApplicationController
   # Update the activity status and proceed, or not, accordingly
   # Available to: Activity Manager
   def update_activity_type
-    @activity = @current_user.activity
     @activity.update_attributes!(params[:activity])
 
     # Check both the Activity/Policy and Existing/Proposed questions have been answered
@@ -438,37 +386,8 @@ protected
     flash[:notice] = 'Activity could not be updated.'
     render :action => (exception.record.new_record? ? :new : :edit)
   end
-  
-  def verify_org_edit_access
-    verify_edit_access get_related_model, nil, nil, false, (current_user.class == OrganisationManager)
-  end
-  
-  def verify_org_index_access
-    verify_index_access get_related_model, nil, nil, false, (current_user.class == OrganisationManager)
-  end
-  
-  def verify_activity_index_access
-    verify_index_access get_related_model, nil, nil, false, ([ActivityManager, ActivityApprover].include? current_user.class)
-  end
-  
-  def verify_activity_edit_access
-    verify_edit_access get_related_model, nil, nil, false, ([ActivityManager, ActivityApprover].include? current_user.class)
-  end
-  
-  def verify_manager_index_access
-    verify_index_access get_related_model, nil, nil, false, ([OrganisationManager, DirectorateManager, ProjectManager].include? current_user.class)
-  end
-  
-  def verify_manager_edit_access
-    verify_edit_access get_related_model, nil, nil, false, ([OrganisationManager, DirectorateManager, ProjectManager].include? current_user.class)
-  end
-  
-  def verify_org_creator_index_access
-    verify_index_access get_related_model, nil, nil, false, [OrganisationManager, ActivityCreator].include?(current_user.class)
-  end
-  
-  
-  def get_related_model
-    Activity
+
+  def set_activity
+    @activity = @current_user.activity_manager_activities.find_by_id(params[:id])
   end
 end

@@ -3,19 +3,19 @@
   =image_tag("c.gif")
   Impact on Equality Groups
 #questions
-  -form_for(:activity, :url => sections_path) do |f|
-    = render :partial => 'question_help', :collection => question_details(:purpose, 'gender', [3]), :locals => {:f => f}
-    = render :partial => 'question_help', :collection => question_details(:purpose, 'race', [3]), :locals => {:f => f}
-    = render :partial => 'question_help', :collection => question_details(:purpose, 'disability', [3]), :locals => {:f => f}
-    = render :partial => 'question_help', :collection => question_details(:purpose, 'faith', [3]), :locals => {:f => f}
-    = render :partial => 'question_help', :collection => question_details(:purpose, 'sexual_orientation', [3]), :locals => {:f => f}
-    = render :partial => 'question_help', :collection => question_details(:purpose, 'age', [3]), :locals => {:f => f}
-    = render :partial => 'question_help', :collection => question_details(:purpose, 'gender', [4]), :locals => {:f => f}
-    = render :partial => 'question_help', :collection => question_details(:purpose, 'race', [4]), :locals => {:f => f}
-    = render :partial => 'question_help', :collection => question_details(:purpose, 'disability', [4]), :locals => {:f => f}
-    = render :partial => 'question_help', :collection => question_details(:purpose, 'faith', [4]), :locals => {:f => f}
-    = render :partial => 'question_help', :collection => question_details(:purpose, 'sexual_orientation', [4]), :locals => {:f => f}
-    = render :partial => 'question_help', :collection => question_details(:purpose, 'age', [4]), :locals => {:f => f}
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'gender', [3]), :locals => {:f => f}
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'race', [3]), :locals => {:f => f}
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'disability', [3]), :locals => {:f => f}
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'faith', [3]), :locals => {:f => f}
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'sexual_orientation', [3]), :locals => {:f => f}
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'age', [3]), :locals => {:f => f}
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'gender', [4]), :locals => {:f => f}
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'race', [4]), :locals => {:f => f}
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'disability', [4]), :locals => {:f => f}
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'faith', [4]), :locals => {:f => f}
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'sexual_orientation', [4]), :locals => {:f => f}
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'age', [4]), :locals => {:f => f}
+  -form_for(:activity, :url => sections_path(:activity_id => @activity)) do |f|
     = render :partial => 'intro'
 
     %h5
@@ -37,7 +37,7 @@
     = render :partial => 'question_compact', :collection => question_details(:purpose, 'age', [4]), :locals => {:f => f}
     = hidden_field_tag 'id', @id 
     = hidden_field_tag 'equality_strand', @equality_strand
-    %p.question
+    %p.question.saveField
       %span.button
         = submit_tag 'Save', :disable_with => 'Saving...', :id => 'section_save_button'
   .clear

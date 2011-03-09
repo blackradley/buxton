@@ -33,19 +33,19 @@
       
         %span.letter
           =image_tag("a.gif")
-        =link_to "What the Activity is for", { :controller => 'sections', :action => 'edit', :id => 'purpose_a', :equality_strand => 'overall' }, :title => "Target of Activity and Impact on #{ot('strategy').pluralize.titleize}"
+        =link_to "What the Activity is for", { :controller => 'sections', :action => 'edit', :id => 'purpose_a', :equality_strand => 'overall', :activity_id => @activity.id }, :title => "Target of Activity and Impact on #{ot('strategy').pluralize.titleize}"
         %span.letter_completed
           =tick_cross_display(@activity.target_and_strategies_completed)
         %br
         %span.letter
           =image_tag("b.gif")
-        =link_to "Individuals affected by the activity", { :controller => 'sections', :action => 'edit', :id => 'purpose_b', :equality_strand => 'overall' }, :title =>"Impact on Individuals"
+        =link_to "Individuals affected by the activity", { :controller => 'sections', :action => 'edit', :id => 'purpose_b', :equality_strand => 'overall', :activity_id => @activity.id }, :title =>"Impact on Individuals"
         %span.letter_completed
           =tick_cross_display(@activity.impact_on_individuals_completed)
         %br
         %span.letter
           =image_tag("c.gif")
-        =link_to "Different benefits and disadvantages of the Activity", { :controller => 'sections', :action => 'edit', :id => 'purpose_c', :equality_strand => 'overall' }, :title =>"Impact on Equality Groups"
+        =link_to "Different benefits and disadvantages of the Activity", { :controller => 'sections', :action => 'edit', :id => 'purpose_c', :equality_strand => 'overall', :activity_id => @activity.id }, :title =>"Impact on Equality Groups"
         %span.letter_completed
           =tick_cross_display(@activity.impact_on_equality_groups)
     .clear
@@ -95,17 +95,17 @@
                 =h strand_display(strand).titlecase
               %td
                 = completed_tag(@activity, :impact, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => strand }, :title =>"Edit Impact", :id => "#{strand_name}_impact_pencil"
+                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => strand, :activity_id => @activity.id }, :title =>"Edit Impact", :id => "#{strand_name}_impact_pencil"
               %td
                 = completed_tag(@activity, :consultation, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => strand }, :title =>"Edit Consultation", :id => "#{strand_name}_consultation_pencil"
+                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => strand, :activity_id => @activity.id }, :title =>"Edit Consultation", :id => "#{strand_name}_consultation_pencil"
               %td
                 = completed_tag(@activity, :additional_work, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => strand }, :title =>"Edit Additional Work", :id => "#{strand_name}_additional_work_pencil"
+                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => strand, :activity_id => @activity.id }, :title =>"Edit Additional Work", :id => "#{strand_name}_additional_work_pencil"
               %td
                 - if @activity.issues.find_by_strand(strand.to_s) then              
                   = completed_tag(@activity, :action_planning, strand.to_sym)
-                  = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => strand }, :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
+                  = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => strand, :activity_id => @activity.id }, :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
                 - else
                   %span.na -
             %tr{:id => "row_#{strand_name}_off", :style => "#{display_off};"}
@@ -133,10 +133,7 @@
         -if @activity.approved == "not submitted"
           %p#submit_answers{:style=>"display:block;"}
             =image_tag('icons/go.gif')
-            - if @current_user.free_access?
-              = link_to "Submit", "#finished_free_trial", :class => 'inline'
-            -else
-              =link_to "Submit",  {:controller => 'activities', :action => 'submit'}, :onclick => "if(#{Activity.strands.map{|strand| "$('#{strand}_checkbox').checked"}.join('||')}) { return true; } else { return confirm(\"The assessment you are submitting has not identified any relevant equality strands.  Is this correct?\");}"
+            =link_to "Submit",  {:controller => 'activities', :action => 'submit'}, :onclick => "if(#{Activity.strands.map{|strand| "$('#{strand}_checkbox').checked"}.join('||')}) { return true; } else { return confirm(\"The assessment you are submitting has not identified any relevant equality strands.  Is this correct?\");}"
         -else
           %p#submitted_answers{:style=>"display:block;"}
             =image_tag('icons/tick.gif')
@@ -180,14 +177,6 @@
             =image_tag('icons/tick.gif')
             Thank you for approving this activity.
         .clear
-- if @current_user.free_access?
-  #finished_container{:style => 'display:none'}
-    #finished_free_trial
-      .heading
-        %h3
-          Thank you for trying the Impact Equality&trade; tool
-      %p.freeTrialEnd
-        The review function is only available with the full version of the tool.  The full version of the tool includes the Organisation Manager function which enables control and monitoring of all the assessments which have been scheduled.  If you would like any more information on the full version of the tool please email upgrade@impactequality.co.uk, call 0845 226 0363.
 -elsif @activity.approved == "not submitted" || (@current_user.class.name == "ActivityApprover" && @activity.approved == "submitted")
   #disable{:style=>"display:none;"}
 -else

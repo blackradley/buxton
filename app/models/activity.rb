@@ -28,8 +28,8 @@
 # is always the same, and the response is stored in the activity_strategy table.
 #
 class Activity < ActiveRecord::Base
-  has_one :activity_manager, :dependent => :destroy
-  has_one :activity_approver, :dependent => :destroy
+  belongs_to :activity_manager, :class_name => "User"
+  belongs_to :activity_approver, :class_name => "User"
   belongs_to :directorate
   # Fake belongs_to :organisation, :through => :directorate
   delegate :organisation, :organisation=, :to => :directorate

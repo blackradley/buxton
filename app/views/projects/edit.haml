@@ -1,9 +1,0 @@
-%h2 Edit Project
-
-- form_for [@project.organisation,@project] do |f|
-  = render :partial => 'form'
-  %span.button{:style=>"float:none;"}
-    = submit_tag "Update", :disable_with => 'Updating...'
-
-%span.button
-  = link_to 'Back', organisation_projects_url

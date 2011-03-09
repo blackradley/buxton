@@ -5,7 +5,7 @@
 #questions
   = render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [5,6,7,8,9])
   = render :partial => 'intro'
-  -form_for(:activity, :url => sections_path) do |f|
+  -form_for(:activity, :url => sections_path(:activity_id => @activity)) do |f|
     %h5
       =h @activity.header(:purpose_overall_2)
     = render :partial => 'question_compact', :collection => question_details(:purpose, @equality_strand, [5,6,7,8,9]), :locals => {:f => f}
