@@ -10,3 +10,4 @@ gem 'rmagick', :require => 'RMagick'
 gem 'pdf-writer', :require => 'pdf/writer'
 gem 'newrelic_rpm'
 gem "devise"
+gem 'formtastic'

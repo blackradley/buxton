@@ -58,10 +58,8 @@ protected
     render :file => "#{RAILS_ROOT}/public/404.html",  :status => "404 Not Found"
   end
   
-  # Do your best to detect invalid user type and show a better error.
-  # This is quick and temporary until we have proper user access control when going in to production.
-  def wrong_user?(exception)
-    render :text => "<h3>Access Denied</h3><p>You do not have sufficient privileges.</p>", :layout => true
+  def requires_admin
+    redirect_to access_denied_path unless current_user.is_a?(Administrator)
   end
   
   def access_denied_url

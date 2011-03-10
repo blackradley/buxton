@@ -50,10 +50,14 @@ Buxton::Application.routes.draw do
     end
     
   end
+  
+  resources :users
 
   devise_for :users, :controllers => { :sessions => "login"}, :path_names => { :sign_in => 'login', :sign_out => 'logout'} do
     root :to => "login#new"
     get "login", :to => "login#new"
+    get "logout", :to => "login#destroy"
+    match "access_denied", :to => "login#access_denied"
   end
   
   match 'view_pdf' => 'organisations#view_pdf', :as => :pdf
@@ -71,6 +75,7 @@ Buxton::Application.routes.draw do
       post :set_comment
     end
   end
+  
   resources :note do
     collection do
       delete :destroy_strategy
