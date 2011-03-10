@@ -7,6 +7,7 @@
     %meta{'http-equiv' => 'content-type', 'content'=>'text/html;charset=UTF-8'}
     =raw(stylesheet_link_merged :base)
     =raw(stylesheet_link_tag 'tables')
+    = stylesheet_link_tag 'formtastic', 'formtastic_changes'
     - if @current_user.respond_to?(:organisation) && !@current_user.organisation.nil? then
       =raw "<style>.mastHead .logo { background-image: url(/images/organisations/#{@current_user.organisation.id}.png);}</style>"
     - if controller.action_name=='signup'
@@ -29,7 +30,7 @@
             - if current_user
               %li.nohover="|"
               %li
-                =link_to "Logout", destroy_user_session_path
+                =link_to "Logout", logout_path
         - if current_user && current_user.creator?
           #creatorMenu
             %ul
@@ -38,33 +39,35 @@
               %li=link_to "Service Areas", "#"
               %li.nohover="|"
               %li=link_to "Strategic Themes", "#"
-        #generalMenu
-          %ul
-            %li=link_to "Directorate EINAs", "#"
-            %li.nohover="|"
-            %li=link_to "My EINAs", "#"
-            %li.nohover="|"
-            %li=link_to "Assisting", "#"
-            %li.nohover="|"
-            %li=link_to "Quality Control", "#"
-            %li.nohover="|"
-            %li=link_to "Approval", "#"
-            %li.nohover="|"
-            %li=link_to "Directorate EINAs Goverance", "#"
-            %li.nohover="|"
-            %li=link_to "Corporate EINAs", "#"
-          = menu() unless @hide_menu
+        - unless current_user.is_a? Administrator
+          #generalMenu
+            %ul
+              %li=link_to "Directorate EINAs", "#"
+              %li.nohover="|"
+              %li=link_to "My EINAs", "#"
+              %li.nohover="|"
+              %li=link_to "Assisting", "#"
+              %li.nohover="|"
+              %li=link_to "Quality Control", "#"
+              %li.nohover="|"
+              %li=link_to "Approval", "#"
+              %li.nohover="|"
+              %li=link_to "Directorate EINAs Goverance", "#"
+              %li.nohover="|"
+              %li=link_to "Corporate EINAs", "#"
       #breadcrumb
         %p
           Birmingham City Council EINA Toolkit
-          =raw "&raquo;"
-          =link_to "Directorates", "#"
-          =raw "&raquo;"
-          Add new Directorate
+          - @breadcrumb.each do |segment, link|
+            =raw "&raquo;"
+            - if link
+              =link_to segment, link
+            - else
+              =segment
       .content      
         .messageArea
           %p
-            =h flash[:notice]
+            = flash[:notice]
         .workingArea
           #content_holder
             = yield

@@ -1,36 +1,20 @@
-#left
-  .msgArea
-    -if flash[:notice]
-      %p
-        =h flash[:notice]
-  %h1 What is Equality?
-  %p Equality is about making sure people are treated fairly and given fair chances. Equality is not about treating everyone in the same way, it recognises that their needs are met in different ways.
-  %p Impact Equality&trade; is a system to help public-sector organisations manage and improve their equalities impact assessment process (an activity required under UK law). The system is:
-  /   %p The core purpose is to support public sector equalities performance and conformance with leading edge equality impact assessment automation &amp; services.
-  /   %p Local authorities (Councils), the health sector, regional development agencies, and all other public sector organisations must undertake equalities impact assessments and the functionality within Impact Equality&trade; helps them meet this requirement.
-  %ul
-    %li more efficient than current ad-hoc paper systems
-    %li cost effective &amp; adaptable to individual organisational needs
-    %li ensures legislative compliance, assists in mainstreaming &amp; provides a consistent solution
-    %li easy to implement &amp; use; supported by specialist consultancy & training
-    %li validated by positive market research
-    %li successful pilot case-studies &amp; user testimonials
-  %p The system is delivered by <a href="http://www.blackradley.com">Black Radley</a>, a recognised &amp; respected consultancy partner, who specialise in refining &amp; enhancing public-sector delivery of services to the community.
-
-#right
-  =image_tag ("Impact_Equality_TM_1.png", :class => "top")
-  =image_tag ("Impact_Equality_TM_2.png")
-  =image_tag ("Impact_Equality_TM_3.png")
-  
-.blue
-  %p 
-    Interested parties can request the usage of a fully-functioning demo version of the product via an access key. To obtain this key, please contact <a href="mailto:iain_wilkinson@blackradley.com">Iain Wilkinson at Black Radley by e-mail</a> or on:<br />
-    %span.contactNumber 0845 2260363
-
--form_tag :action => 'new_link' do
-  %fieldset
-    %p Lost the key that was e-mailed to you?<br />Just request a new one.
-    %label E-mail:
-    = text_field_tag :email,  nil, options = {:size => 50}
-    %span.button
-      = submit_tag 'Send me a new key', :disable_with => 'Sending now...'
+.searchBox
+  %label Search for:
+  %input{:type=>"text"}
+  %input{:type=>"submit", :value=>"Search"}
+.orangeButton
+  =link_to "Add User", new_user_path, :class=>"add"
+%table
+  %tr
+    %th Email Address
+    %th Last Logon
+    %th Locked
+    %th Retired
+    %th
+  - @users.each do |user|
+    %tr{:class => cycle("light", "dark")}
+      %td= user.email
+      %td= user.last_sign_in_at
+      %td= user.locked? ? "Yes" : ""
+      %td= user.retired? ? "Yes" : ""
+      %td= link_to "edit", edit_user_path(user), :class => "edit action"

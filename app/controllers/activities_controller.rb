@@ -19,9 +19,11 @@ class ActivitiesController < ApplicationController
   # Make render_to_string available to the #show action
   helper_method :render_to_string
   before_filter :authenticate_user!
+  before_filter :ensure_permitted
   before_filter :set_activity, :only => [:old_index, :questions, :show, :update, :submit, :update_activity_type]
   
   def index
+    @breadcrumb = [["Activities"]]
     @activities = @current_user.activity_manager_activities
   end
   
@@ -164,6 +166,7 @@ class ActivitiesController < ApplicationController
   # Opening page where they must choose between Activity/Policy and Existing/Proposed
   # Available to: Activity Manager
   def questions
+    @breadcrumb = [["Activities", activities_path], ["#{@activity.name}"]]
     completed_status_array = @activity.strands(true).map{|strand| [strand.to_sym, @activity.completed(nil, strand)]}
     completed_status_hash = Hash[*completed_status_array.flatten]
     tag_test = completed_status_hash.select{|k,v| !v}.map(&:first).map do |strand_status|
@@ -384,6 +387,10 @@ protected
     true
   end
 
+  def ensure_permitted
+    redirect_to access_denied_path if (["ActivityManager"] & current_user.roles).blank?
+  end
+  
   def show_errors(exception)
     flash[:notice] = 'Activity could not be updated.'
     render :action => (exception.record.new_record? ? :new : :edit)
