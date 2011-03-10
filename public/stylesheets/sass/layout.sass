@@ -1,54 +1,160 @@
 // layout elements
 
-.container
-  :width 700px
-  :background-color #fff
-  :margin 0px auto
-  :margin-top 20px
-  :border 1px solid #4f959c
-  :text-align left
-
 #banner
   :margin 0px
   :padding 10px 0px
   :width 100%
-  :background-color yellow
+  :background-color #fae5b5
   :color black
   :font-weight bold
   :font-size 1em
 
+.container
+  :width 980px
+  :background-color #fff
+  :background-image url(../images/header_bg.jpg)
+  :background-repeat no-repeat
+  :margin 10px auto
+  :text-align left
+  
 .mastHead
-  :border-bottom 0px solid #ff9900
+  :width 980px
+  :float left
+  :height 197px
+  :overflow hidden
   :position relative
-  .logo
-    :border-bottom 0px solid #cccce5
-    :background
-      :color #4f959c
-      :image url(../images/organisations/demo.png)
-    :background-repeat no-repeat
-    :background-position top left
-    :height 120px
-    :width 700px
-
-  h1,
-  h2
-    :display none
-    
+  #loggedMenu
+    :float right
+    :margin-top 6px
+    :margin-right 20px
+    :height 30px
+  #creatorMenu
+    :float left
+    :margin-top 6px
+    :margin-left 20px
+    :height 30px
+  #generalMenu
+    :position absolute
+    :bottom 0px
+    :left 10px
+    :height 38px
+  #loggedMenu,
+  #creatorMenu,
+  #generalMenu
+    ul
+      :list-style none
+      :margin 3px
+      :padding 0px
+      li
+        :color #ffffff
+        :background-color transparent
+        :float left
+        :margin 0px 2px
+        :height 20px
+        :padding 5px 5px
+        a
+          :font-weight bold
+          :float left
+          :text-decoration none
+          :color #ffffff
+          :line-height 20px
+      li:hover
+        :background-color #1b4e77
+      .nohover:hover
+        :background-color transparent
+      .current, 
+      .current:hover
+        :background-color #3595b5
+          
+#breadcrumb
+  :background-color #d2e0f0
+  :width 970px
+  :padding 5px 0px
+  :margin 0px 5px
+  :float left
+  p
+    :margin 0px 0px 0px 15px
+    :color #3595b5
+    a
+      :color #3595b5
+      :text-decoration underline
 .content
   :position relative
+  :width 950px
+  :float left
+  :margin 5px 15px  
 
   .workingArea
     :margin 0px
-    :width 700px
+    :width 950px
     :overflow hidden
     :position relative
     #content_holder
-      :width 660px
-      :margin 0px 20px
+      :width 950px
+      :margin 0px
       p
         :margin 5px 0px
       h1, h2
-        :margin 0px
+        :margin 0px 0px 5px
+                
+      .searchBox
+        :float left
+        :width 500px
+        label
+          :font-weight bold
+          :float left
+          :line-height 32px
+        input[type='text']
+          :border 1px solid #999999
+          :width 300px
+          :padding 7px
+          :float left
+          :font-size 12px
+          :margin 0px 0px 0px 10px
+          :line-height 18px
+        input[type='submit']
+          :border 0px
+          :background-image url(../images/orange_buttons/search.jpg)
+          :background-repeat no-repeat
+          :width 79px
+          :height 32px
+          :overflow hidden
+          :color #ffffff
+          :float left
+          :padding 0px
+          :margin 0px 0px 0px 10px
+          :line-height 22px
+          :font-weight bold
+        input[type='submit']:hover
+          :background-image url(../images/orange_buttons/search_hover.jpg)
+      .orangeButton
+        :display inline-block
+        :float right
+        :margin-left 15px
+        :height 32px
+        :padding 0px       
+        :background-image url(../images/orange_buttons/bg.jpg)
+        :background-repeat no-repeat
+        :background-position center right        
+        a
+          :color #ffffff
+          :padding 5px 10px 5px 30px
+          :text-decoration none
+          :float left
+          :height 22px
+          :line-height 22px
+          :font-weight bold
+        .cal
+          :background-image url(../images/orange_buttons/cal.jpg)
+          :background-repeat no-repeat
+          :background-position center left
+        .add
+          :background-image url(../images/orange_buttons/add.jpg)
+          :background-repeat no-repeat
+          :background-position center left
+      .orangeButton:hover
+        :background-image url(../images/orange_buttons/bg_hover.jpg)
+
 
   .messageArea
     :margin 0px 20px
@@ -67,10 +173,15 @@
       :margin-top 10px
 
 .footer
-  :padding 20px
-  :margin-bottom 10px
-
-#body_footer
-  :padding 30px
-  :color #4f959c
-  :font-size 0.9em
+  :background-color #d2e0f0
+  :width 970px
+  :padding 10px 0px
+  :margin 20px 5px 5px
+  :text-align center
+  :float left
+  p
+    :margin 0px
+    a
+      :color #3595b5
+      
+  

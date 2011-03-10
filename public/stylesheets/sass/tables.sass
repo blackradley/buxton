@@ -1,34 +1,36 @@
 // Tabular Data
 
 table
-  :width 100%
-  :font-size 1em
-
+  :clear both
+  :width 950px
+  :margin 20px 0px
+  :border-collapse collapse
+  :border-width 1px
+  :border-color #999999
   th
-    :color #4e979e
-    :font-weight bold
-    :padding 5px
-    :width 80px
-    :text-align center
-    :vertical-align middle
-
-    .strandHeading
-      :text-align left
-      :width 40px
-
+    :background-color #1B4E77
+    :color #ffffff
+    :text-align left
+    :padding 0px 10px 5px
+    :line-height 16px
+    :height 44px
+    :vertical-align bottom
   td
-    :padding 5px 0px
-    :text-align center
-    :vertical-align middle
-
-    img
-      :margin 2px
+    :text-align left
+    :padding 8px 10px
+    .action
+      :padding-left 20px
+      :background-repeat no-repeat
+      :background-position center left
+    .edit
+      :background-image url(../images/icons/edit.gif)
+  .light
+    td
+      :background-color #ffffff
+  .dark
+    td
+      :background-color #f1f1f1
       
-  .actions 
-    a
-      img
-        :margin 2px
-
 .list
   :width 100%
   :margin-bottom 10px
@@ -39,7 +41,7 @@ table
     :font-weight bold
     :text-align left
     :background-color #fff
-    :color #4e979e
+    :color #1B4E77
     :padding 5px
     :text-decoration none
 
@@ -72,7 +74,7 @@ table
     :font-weight bold
     :text-align center
     :background-color #fff
-    :color #4e979e
+    :color #1B4E77
     :padding 5px
     :text-decoration none
 
