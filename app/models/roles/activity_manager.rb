@@ -3,5 +3,7 @@ module ActivityManager
     Activity.where(:activity_manager_id => self.id)
   end
   
-  
+  def activity_manager?
+    true
+  end
 end
