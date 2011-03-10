@@ -4,14 +4,14 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :roles, :activities
+  attr_accessible :email, :password, :password_confirmation, :roles, :activities, :retired, :locked, :trained
   has_many :activities
   serialize :roles
   
   after_initialize :include_roles
   after_create :include_roles
   
-  
+  named_scope :live, :conditions => "type is null"
   def include_roles
     #don't include the roles if it hasn't been created yet. The after create will add them in that instance
     return true if self.new_record?
@@ -34,5 +34,6 @@ class User < ActiveRecord::Base
   def activity_manager?
     false
   end
+  
   
 end
