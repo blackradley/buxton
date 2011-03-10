@@ -48,7 +48,7 @@
     padding: 5px 20px;
     font-weight: bold;
     color: #FFF;
-    background-color: #4e979e;
+    background-color: #1B4E77;
     background-image: url(../images/button_bg.gif);
     border: 2px solid #7ab9c0;
     text-decoration: none; }
@@ -61,7 +61,7 @@
       padding: 5px 20px;
       font-weight: bold;
       color: #FFF;
-      background-color: #4e979e;
+      background-color: #1B4E77;
       border: 2px solid #7ab9c0;
       text-decoration: none; }
     .commentform a:hover,     .noteform a:hover,     #finished_free_trial a:hover {

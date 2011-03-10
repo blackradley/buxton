@@ -23,24 +23,118 @@
         = @banner_text
     .container
       .mastHead
-        .logo
-      .content
-        #menu
-          #menuBar
-            =menu() unless @hide_menu
+        #loggedMenu
+          %ul
+            %li.nohover= login_status() unless controller.action_name=='signup'
+            %li.nohover="|"
+            %li
+              =link_to "Logout", "#"
+        #creatorMenu
+          %ul
+            %li{:class=>"current"}=link_to "Directorates", "#"
+            %li.nohover="|"
+            %li=link_to "Service Areas", "#"
+            %li.nohover="|"
+            %li=link_to "Strategic Themes", "#"
+        #generalMenu
+          %ul
+            %li=link_to "Directorate EINAs", "#"
+            %li.nohover="|"
+            %li=link_to "My EINAs", "#"
+            %li.nohover="|"
+            %li=link_to "Assisting", "#"
+            %li.nohover="|"
+            %li=link_to "Quality Control", "#"
+            %li.nohover="|"
+            %li=link_to "Approval", "#"
+            %li.nohover="|"
+            %li=link_to "Directorate EINAs Goverance", "#"
+            %li.nohover="|"
+            %li=link_to "Corporate EINAs", "#"
+          = menu() unless @hide_menu
+      #breadcrumb
+        %p
+          Birmingham City Council EINA Toolkit
+          =raw "&raquo;"
+          =link_to "Directorates", "#"
+          =raw "&raquo;"
+          Add new Directorate
+      .content      
         .messageArea
           %p
             =h flash[:notice]
         .workingArea
           #content_holder
+            .searchBox
+              %label Search for:
+              %input{:type=>"text"}
+              %input{:type=>"submit", :value=>"Search"}
+            .orangeButton
+              =link_to "Generate Schedule", "#", :class=>"cal"
+            .orangeButton
+              =link_to "Add new Assessment", "#", :class=>"add"
+            
+            %table{:cellpadding=>"0", :cellspacing=>"0", :border=>"1"}
+              %tr
+                %th Service Area
+                %th Activity Name
+                %th Ref No.
+                %th Approver
+                %th Date Started
+                %th Date Completed
+                %th Progress
+                %th
+              %tr{:class=>"light"}
+                %td Waste Management
+                %td Refuse Collection
+                %td AC-0111BB
+                %td
+                  =link_to "fred.kwan@birmingham...", "mailto:fred.kwan@birmingham.co.uk"
+                %td 03-Dec-10
+                %td 23-May-11
+                %td NS
+                %td
+                  =link_to "edit", "#", :class=>"action edit"
+              %tr{:class=>"dark"}
+                %td Waste Management
+                %td Refuse Collection
+                %td AC-0111BB
+                %td
+                  =link_to "fred.kwan@birmingham...", "mailto:fred.kwan@birmingham.co.uk"
+                %td 03-Dec-10
+                %td 23-May-11
+                %td NS
+                %td
+                  =link_to "edit", "#", :class=>"action edit"  
+              %tr{:class=>"light"}
+                %td Waste Management
+                %td Refuse Collection
+                %td AC-0111BB
+                %td
+                  =link_to "fred.kwan@birmingham...", "mailto:fred.kwan@birmingham.co.uk"
+                %td 03-Dec-10
+                %td 23-May-11
+                %td NS
+                %td
+                  =link_to "edit", "#", :class=>"action edit"
+              %tr{:class=>"dark"}
+                %td Waste Management
+                %td Refuse Collection
+                %td AC-0111BB
+                %td
+                  =link_to "fred.kwan@birmingham...", "mailto:fred.kwan@birmingham.co.uk"
+                %td 03-Dec-10
+                %td 23-May-11
+                %td NS
+                %td
+                  =link_to "edit", "#", :class=>"action edit"
             = yield
       .clear
+
       .footer
-        .floatLeft
-          = login_status() unless controller.action_name=='signup'
+        %p
+          =raw "&copy; 2011 Birmingham City Council EINA Toolkit, Powered by <a href='#'>Black Radley Systems Limited</a>. All rights reserved."
       .clear
-    #body_footer
-      ="Copyright &copy; 2008-#{Time.now.year} Black Radley Systems Limited. All rights reserved."
     - @new_signup = true
     - if @new_signup
       %script{:type=>"text/javascript"}

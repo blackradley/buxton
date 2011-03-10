@@ -1,49 +1,167 @@
-.container {
-  width: 700px;
-  background-color: #fff;
-  margin: 0px auto;
-  margin-top: 20px;
-  border: 1px solid #4f959c;
-  text-align: left; }
-
 #banner {
   margin: 0px;
   padding: 10px 0px;
   width: 100%;
-  background-color: yellow;
+  background-color: #fae5b5;
   color: black;
   font-weight: bold;
   font-size: 1em; }
 
+.container {
+  width: 980px;
+  background-color: white;
+  background-image: url(../images/header_bg.jpg);
+  background-repeat: no-repeat;
+  margin: 10px auto;
+  text-align: left; }
+
 .mastHead {
-  border-bottom: 0px solid #ff9900;
+  width: 980px;
+  float: left;
+  height: 197px;
+  overflow: hidden;
   position: relative; }
-  .mastHead .logo {
-    border-bottom: 0px solid #cccce5;
-    background-color: #4f959c;
-    background-image: url(../images/organisations/demo.png);
-    background-repeat: no-repeat;
-    background-position: top left;
-    height: 120px;
-    width: 700px; }
-  .mastHead h1,
-  .mastHead h2 {
-    display: none; }
+  .mastHead #loggedMenu {
+    float: right;
+    margin-top: 6px;
+    margin-right: 20px;
+    height: 30px; }
+  .mastHead #creatorMenu {
+    float: left;
+    margin-top: 6px;
+    margin-left: 20px;
+    height: 30px; }
+  .mastHead #generalMenu {
+    position: absolute;
+    bottom: 0px;
+    left: 10px;
+    height: 38px; }
+  .mastHead #loggedMenu ul,
+  .mastHead #creatorMenu ul,
+  .mastHead #generalMenu ul {
+    list-style: none;
+    margin: 3px;
+    padding: 0px; }
+    .mastHead #loggedMenu ul li,
+    .mastHead #creatorMenu ul li,
+    .mastHead #generalMenu ul li {
+      color: white;
+      background-color: transparent;
+      float: left;
+      margin: 0px 2px;
+      height: 20px;
+      padding: 5px 5px; }
+      .mastHead #loggedMenu ul li a,
+      .mastHead #creatorMenu ul li a,
+      .mastHead #generalMenu ul li a {
+        font-weight: bold;
+        float: left;
+        text-decoration: none;
+        color: white;
+        line-height: 20px; }
+    .mastHead #loggedMenu ul li:hover,
+    .mastHead #creatorMenu ul li:hover,
+    .mastHead #generalMenu ul li:hover {
+      background-color: #1b4e77; }
+    .mastHead #loggedMenu ul .nohover:hover,
+    .mastHead #creatorMenu ul .nohover:hover,
+    .mastHead #generalMenu ul .nohover:hover {
+      background-color: transparent; }
+    .mastHead #loggedMenu ul .current,
+    .mastHead #loggedMenu ul .current:hover,
+    .mastHead #creatorMenu ul .current,
+    .mastHead #creatorMenu ul .current:hover,
+    .mastHead #generalMenu ul .current,
+    .mastHead #generalMenu ul .current:hover {
+      background-color: #3595b5; }
+
+#breadcrumb {
+  background-color: #d2e0f0;
+  width: 970px;
+  padding: 5px 0px;
+  margin: 0px 5px;
+  float: left; }
+  #breadcrumb p {
+    margin: 0px 0px 0px 15px;
+    color: #3595b5; }
+    #breadcrumb p a {
+      color: #3595b5;
+      text-decoration: underline; }
 
 .content {
-  position: relative; }
+  position: relative;
+  width: 950px;
+  float: left;
+  margin: 5px 15px; }
   .content .workingArea {
     margin: 0px;
-    width: 700px;
+    width: 950px;
     overflow: hidden;
     position: relative; }
     .content .workingArea #content_holder {
-      width: 660px;
-      margin: 0px 20px; }
+      width: 950px;
+      margin: 0px; }
       .content .workingArea #content_holder p {
         margin: 5px 0px; }
       .content .workingArea #content_holder h1, .content .workingArea #content_holder h2 {
-        margin: 0px; }
+        margin: 0px 0px 5px; }
+      .content .workingArea #content_holder .searchBox {
+        float: left;
+        width: 500px; }
+        .content .workingArea #content_holder .searchBox label {
+          font-weight: bold;
+          float: left;
+          line-height: 32px; }
+        .content .workingArea #content_holder .searchBox input[type='text'] {
+          border: 1px solid #999999;
+          width: 300px;
+          padding: 7px;
+          float: left;
+          font-size: 12px;
+          margin: 0px 0px 0px 10px;
+          line-height: 18px; }
+        .content .workingArea #content_holder .searchBox input[type='submit'] {
+          border: 0px;
+          background-image: url(../images/orange_buttons/search.jpg);
+          background-repeat: no-repeat;
+          width: 79px;
+          height: 32px;
+          overflow: hidden;
+          color: white;
+          float: left;
+          padding: 0px;
+          margin: 0px 0px 0px 10px;
+          line-height: 22px;
+          font-weight: bold; }
+        .content .workingArea #content_holder .searchBox input[type='submit']:hover {
+          background-image: url(../images/orange_buttons/search_hover.jpg); }
+      .content .workingArea #content_holder .orangeButton {
+        display: inline-block;
+        float: right;
+        margin-left: 15px;
+        height: 32px;
+        padding: 0px;
+        background-image: url(../images/orange_buttons/bg.jpg);
+        background-repeat: no-repeat;
+        background-position: center right; }
+        .content .workingArea #content_holder .orangeButton a {
+          color: white;
+          padding: 5px 10px 5px 30px;
+          text-decoration: none;
+          float: left;
+          height: 22px;
+          line-height: 22px;
+          font-weight: bold; }
+        .content .workingArea #content_holder .orangeButton .cal {
+          background-image: url(../images/orange_buttons/cal.jpg);
+          background-repeat: no-repeat;
+          background-position: center left; }
+        .content .workingArea #content_holder .orangeButton .add {
+          background-image: url(../images/orange_buttons/add.jpg);
+          background-repeat: no-repeat;
+          background-position: center left; }
+      .content .workingArea #content_holder .orangeButton:hover {
+        background-image: url(../images/orange_buttons/bg_hover.jpg); }
   .content .messageArea {
     margin: 0px 20px;
     width: 660px;
@@ -59,10 +177,13 @@
       margin-top: 10px; }
 
 .footer {
-  padding: 20px;
-  margin-bottom: 10px; }
-
-#body_footer {
-  padding: 30px;
-  color: #4f959c;
-  font-size: 0.9em; }
+  background-color: #d2e0f0;
+  width: 970px;
+  padding: 10px 0px;
+  margin: 20px 5px 5px;
+  text-align: center;
+  float: left; }
+  .footer p {
+    margin: 0px; }
+    .footer p a {
+      color: #3595b5; }
