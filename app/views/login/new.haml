@@ -9,3 +9,13 @@
   = f.password_field :password
   
   %p= f.submit "Sign in"
+
+#loginHelp
+  %p
+    %strong Forgotten your password? 
+    =raw "No problem, simply #{link_to "click here", "#" }, and your password will be reset and your new details will be sent to your account email address."
+    %br
+    %br
+    %strong Account locked?
+    =raw "If your account has been locked due to inactivity, please #{link_to "click here", "#" } to request reactivation."
+    
