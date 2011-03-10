@@ -54,7 +54,10 @@ Buxton::Application.routes.draw do
     
   end
   
-  devise_for :users
+  devise_for :users do
+   get 'users', :to => 'users#show', :as => :user_root # Rails 3
+  end
+  
   devise_for :admin
   
   match 'view_pdf' => 'organisations#view_pdf', :as => :pdf

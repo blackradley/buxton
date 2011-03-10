@@ -1,4 +1,4 @@
-joe = User.create(:email => "joe2@27stars.co.uk", :password => "testpass", :password_confirmation => "testpass", :roles => ["ActivityManager", "OrganisationManager"])
+joe = User.create(:email => "joe2@27stars.co.uk", :password => "testpass", :password_confirmation => "testpass", :roles => ["ActivityManager"])
 heather = User.create(:email => "heather2@27stars.co.uk", :password => "testpass", :password_confirmation => "testpass", :roles => ["ActivityApprover"])
 shaun = User.create(:email => "shaun2@27stars.co.uk", :password => "testpass", :password_confirmation => "testpass", :roles => ["ActivityManager"])
 

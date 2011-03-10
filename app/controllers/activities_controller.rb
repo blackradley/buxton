@@ -20,8 +20,10 @@ class ActivitiesController < ApplicationController
   helper_method :render_to_string
   before_filter :authenticate_user!
   before_filter :set_activity, :only => [:old_index, :questions, :show, :update, :submit, :update_activity_type]
-  # Show activity index
-  # Available to: Activity Manager
+  
+  def index
+    @activities = @current_user.activity_manager_activities
+  end
   
   def old_index
     if session[:new_signup]
