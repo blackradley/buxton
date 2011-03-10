@@ -27,4 +27,12 @@ class User < ActiveRecord::Base
     terminology ? terminology.value : term
   end
   
+  def creator?
+    false
+  end
+  
+  def activity_manager?
+    false
+  end
+  
 end

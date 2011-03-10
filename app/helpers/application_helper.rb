@@ -175,7 +175,7 @@ module ApplicationHelper
                         :title => 'Control Page - Approved Activities',
                         :tab => ''}
                       ])
-    when 'User','ActivityManager', 'ActivityApprover'
+    when 'ActivityManager', 'ActivityApprover'
       status = (@activity.completed(:purpose)) ? '' : 'disabled'
       generate_menu( [
                       { :text => 'Home',

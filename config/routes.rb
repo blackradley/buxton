@@ -7,9 +7,6 @@
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
 Buxton::Application.routes.draw do
-  devise_for :admins
-
-  devise_for :users
 
   resources :organisations do
     resources :strategies do
@@ -53,12 +50,11 @@ Buxton::Application.routes.draw do
     end
     
   end
-  
-  devise_for :users do
-   get 'users', :to => 'users#show', :as => :user_root # Rails 3
+
+  devise_for :users, :controllers => { :sessions => "login"}, :path_names => { :sign_in => 'login', :sign_out => 'logout'} do
+    root :to => "login#new"
+    get "login", :to => "login#new"
   end
-  
-  devise_for :admin
   
   match 'view_pdf' => 'organisations#view_pdf', :as => :pdf
   resources :logs do
@@ -82,10 +78,6 @@ Buxton::Application.routes.draw do
       post :set_note
     end
   end
-  match 'login'  => 'login#new',     :as => :login
-  match 'signin' => "login#create",  :as => :signin
-  match 'logout' => 'login#destroy', :as => :logout
-  match 'unauthenticated' => 'login#unauthenticated', :as => :unauthenticated
   resources :issues
   match 'demos/new' => 'demos#new', :as => :new_demo, :via => :get
   match 'demos' => 'demos#create', :as => :demos, :via => :post
@@ -93,6 +85,5 @@ Buxton::Application.routes.draw do
   match 'keys' => 'users#keys', :as => :keys if KEYS
   match 'sample_pdf' => 'users#sample_pdf', :as => :sample_pdf
   # match '/:controller(/:action(/:id))'
-  # 
   match ':passkey' => 'users#login', :constraints => { :passkey => /[a-f0-9]{40}i{0,1}/ }
 end

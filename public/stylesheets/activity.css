@@ -10,7 +10,7 @@
   margin-bottom: 5px; }
   #new_activity .labelled .checkbox input {
     width: auto;
-    border: 0px solid #fff;
+    border: 0px solid white;
     margin-top: 0px;
     margin-right: 3px;
     float: left; }
@@ -62,11 +62,11 @@ span.simulate_left_link {
   float: left;
   line-height: 2em;
   margin-left: 5px;
-  color: #1B4E77; }
+  color: #1b4e77; }
 
 span.error_labelled {
   line-height: 2em;
-  color: #DC143C;
+  color: #dc143c;
   margin-left: 5px;
   float: left; }
 
