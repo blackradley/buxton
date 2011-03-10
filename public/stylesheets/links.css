@@ -1,8 +1,10 @@
 a {
-  color: #1B4E77;
+  color: #1b4e77;
   text-decoration: underline; }
   a:visited {
-    color: #1B4E77;
+    color: #1b4e77;
     text-decoration: underline; }
+  a:hover {
+    color: #e2474b; }
   a img {
     border: none; }
