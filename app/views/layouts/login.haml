@@ -6,11 +6,7 @@
       = "#{controller.controller_name} : #{controller.action_name}".titleize
     %meta{'http-equiv' => 'content-type', 'content'=>'text/html;charset=UTF-8'}
     =raw(stylesheet_link_merged :base)
-    =raw(stylesheet_link_tag 'tables')
-    - if @current_user.respond_to?(:organisation) && !@current_user.organisation.nil? then
-      =raw "<style>.mastHead .logo { background-image: url(/images/organisations/#{@current_user.organisation.id}.png);}</style>"
-    - if controller.action_name=='signup'
-      =raw "<style>.mastHead .logo { background-image: url(/images/free_signup.png);}</style>"
+    =raw(stylesheet_link_tag 'login')
     =raw javascript_include_merged :base
     =raw  "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->"
     =raw "<!--[if lt IE 7]> #{javascript_include_tag 'jquery.pngFix.js'}<![endif]-->"
@@ -21,7 +17,9 @@
     - if @banner_text
       #banner
         = @banner_text
-    .container
-      .mastHead
-      .content
-        =yield
+    .loginContainer
+      = yield
+      .clear
+    .loginFooter
+      %p
+        =raw "&copy; 2011 Birmingham City Council EINA Toolkit, Powered by <a href='#'>Black Radley Systems Limited</a>. All rights reserved."
