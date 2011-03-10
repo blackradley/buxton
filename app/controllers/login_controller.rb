@@ -23,13 +23,20 @@ class LoginController < Devise::SessionsController
     set_flash_message :notice, :signed_out if signed_in
   end
   
+  def access_denied
+    render :layout =>  "application"
+  end
+  
   def redirect_location(resource_name, resource)
     if current_user
+      if current_user.is_a?(Administrator)
+        redirect_to users_path and return
+      end
       if current_user.activity_manager?
-        redirect_to activities_path
+        redirect_to activities_path and return
       end
     else
-      redirect_to login_path
+      redirect_to logout_path
     end
   end
   
