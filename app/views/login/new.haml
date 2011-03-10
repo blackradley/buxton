@@ -1,4 +1,11 @@
-= form_tag signin_path do
-  %label{:for => "login"}Login
-  = text_field_tag :login
-  = submit_tag "Log In", :class => "submit"
+%h2 Sign in
+
+= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| 
+  %p= f.label :email 
+  %br
+  %p= f.email_field :email
+  %p= f.label :password
+  %br
+  = f.password_field :password
+  
+  %p= f.submit "Sign in"
