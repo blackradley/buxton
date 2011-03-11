@@ -19,7 +19,7 @@ class ActivitiesController < ApplicationController
   # Make render_to_string available to the #show action
   helper_method :render_to_string
   before_filter :authenticate_user!
-  before_filter :ensure_permitted
+  
   before_filter :set_activity, :only => [:old_index, :questions, :show, :update, :submit, :update_activity_type]
   
   def index
@@ -387,8 +387,12 @@ protected
     true
   end
 
-  def ensure_permitted
+  def ensure_activity_manager
     redirect_to access_denied_path if (["ActivityManager"] & current_user.roles).blank?
+  end
+  
+  def ensure_activity_approver
+    
   end
   
   def show_errors(exception)

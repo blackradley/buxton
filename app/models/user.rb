@@ -7,19 +7,12 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :roles, :activities, :retired, :locked, :trained
   has_many :activities
   serialize :roles
-  
-  after_initialize :include_roles
-  after_create :include_roles
-  
+  before_create :setup_roles
   scope :live, :conditions => "type is null"
-  def include_roles
-    #don't include the roles if it hasn't been created yet. The after create will add them in that instance
-    return true if self.new_record?
-    self.roles.to_a.each do |role|
-      self.class_eval("include #{role.classify}")
-    end
+
+  def setup_roles
+    self.roles ||=[]
   end
-  
   
   def term(term)
     assoc_term = Terminology.find_by_term(term)
@@ -28,12 +21,23 @@ class User < ActiveRecord::Base
   end
   
   def creator?
-    false
+    self.roles.include?("Creator")
   end
   
   def activity_manager?
-    false
+    self.roles.include?("ActivityManager")
   end
   
+  def activity_approver?
+    self.roles.include?("ActivityApprover")
+  end
+  
+  def activity_manager_activities
+    Activity.where(:activity_manager_id => self.id)
+  end
+
+  def activity_approver_activities
+    Activity.where(:activity_approver_id => self.id)
+  end  
   
 end
