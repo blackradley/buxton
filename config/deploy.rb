@@ -1,18 +1,22 @@
 require 'capistrano/ext/multistage'
-require 'tinder'
+
+# For RVM
+$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
+require "rvm/capistrano"                  # Load RVM's capistrano plugin.
+set :rvm_ruby_string, 'ree@brs'        # Or whatever env you want it to run in.
+set :rvm_type, :user
 
 # =============================================================================
 # VARS
 # =============================================================================
 set :application, "buxton"
 # set :repository,  "http://svn3.cvsdude.com/BlackRadley/buxton/trunk"
-set :port, 2020
+
 set :user, 'deploy'
 set :runner, user
 # set :scm_username, '27stars-karl'
 # set :scm_password, 'dogstar'
-set :rake, '/opt/ruby-enterprise-1.8.6-20090201/bin/rake'
-set :password, 'Buxton27'
+# set :rake, '/opt/ruby-enterprise-1.8.6-20090201/bin/rake'
 
 default_run_options[:pty] = true # We need to turn on the :pty option because it 
                                  # would seem we don’t get the passphrase prompt 
@@ -32,14 +36,31 @@ after 'deploy:update_code', 'deploy:cleanup'
 # =============================================================================
 # TASKS
 # =============================================================================
-task :after_update_code, :roles => [:web] do
+
+namespace :bundler do
+ task :create_symlink, :roles => :app do
+   shared_dir = File.join(shared_path, 'bundle')
+   release_dir = File.join(current_release, '.bundle')
+   run("mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}")
+ end
+
+ task :bundle_new_release, :roles => :app do
+   bundler.create_symlink
+   run "cd #{release_path} && bundle install --without development test"
+ end
+end
+
+task :shared_files, :roles => [:web] do
   # Make symlink for shared files
   SHARED_FILES = ['config/database.yml',
                   'public/images/organisations']
   SHARED_FILES.each do |file|
     run "ln -nfs #{shared_path}/#{file} #{release_path}/#{file}"
   end
-  
+end
+
+desc "Update asset packager"
+task :package_assets do
   # Produce CSS files ready for asset_packager, then build assets
   # (General SASS files first, then template colour schemes, then asset_packager)
   TASKS = ['asset:packager:delete_all',
@@ -52,14 +73,10 @@ task :after_update_code, :roles => [:web] do
   end
 end
 
-task :after_deploy, :roles => [:web] do
-  campfire = Tinder::Campfire.new 'stars.campfirenow.com'
-  campfire.login 'bot-deploy@27stars.co.uk', 'Bot27'
-  exit unless room = campfire.find_room_by_name('All Talk')
-  room.speak "Deployed #{application} to #{domain} in #{rails_env} mode."
-  room.leave()
-  campfire.logout()  
-end
+after 'deploy:update_code', 'shared_files'
+after 'deploy:update_code', 'bundler:bundle_new_release'
+after 'deploy:update_code', 'package_assets'
+
 
 namespace :deploy do  
   task :start, :roles => :app do  
@@ -72,3 +89,12 @@ namespace :deploy do
     run "touch #{release_path}/tmp/restart.txt"
   end  
 end
+
+desc "Setup rvm and bundler"
+task :rvm_bundler_setup do
+  run "rvm --create use #{rvm_ruby_string} && gem install bundler"
+end
+
+after 'deploy:setup', 'rvm_bundler_setup'
+        require './config/boot'
+        require 'hoptoad_notifier/capistrano'
