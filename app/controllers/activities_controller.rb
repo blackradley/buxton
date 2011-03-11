@@ -18,7 +18,9 @@ class ActivitiesController < ApplicationController
   # Make render_to_string available to the #show action
   helper_method :render_to_string
   before_filter :authenticate_user!
-  
+  before_filter :ensure_creator, :only => [:edit, :new, :create, :update, :directorate_einas, :view_pdf]
+  before_filter :ensure_completer, :only => [:questions, :submit, :update_activity_type, :toggle_strand, :submit, :my_einas, :view_pdf]
+  before_filter :ensure_approver, :only => [:view_pdf, :assisting]
   before_filter :set_activity, :only => [:questions, :update, :submit, :update_activity_type, :toggle_strand, :submit]
   
   def index
@@ -32,12 +34,12 @@ class ActivitiesController < ApplicationController
   
   def my_einas
     @breadcrumb = [["Activities"]]
-    @activities = Activity.where(:activity_manager_id => current_user.id)
+    @activities = Activity.where(:completer_id => current_user.id)
   end
   
   def assisting
     @breadcrumb = [["Activities"]]
-    @activities = Activity.where(:activity_approver_id => current_user.id)
+    @activities = Activity.where(:approver_id => current_user.id)
   end
   
   # Show the summary information for a specific activity.
@@ -228,6 +230,6 @@ protected
   end
   
   def set_activity
-    @activity = @current_user.activity_manager_activities.find_by_id(params[:id])
+    @activity = current_user.activities.select{|a| a.id == params[:id].to_i}.first
   end
 end

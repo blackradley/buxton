@@ -55,7 +55,7 @@ class SectionsController < ApplicationController
   # Available to: Activity Manager
   def edit
     strand = params[:equality_strand].strip
-    @activity_manager = @activity.activity_manager
+    @completer = @activity.completer
 
     @equality_strand = ''
     valid_equality_strands = ['overall','gender','race','sexual_orientation','disability','faith','age']
