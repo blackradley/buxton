@@ -1,44 +1,44 @@
-#
-# $URL$
-# $Rev$
-# $Author$
-# $Date$
-#
-# Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
-#
-# Settings specified here will take precedence over those in config/environment.rb
+Buxton::Application.configure do
+  # Settings specified here will take precedence over those in config/application.rb
+  config.cache_classes = true
 
-# The production environment is meant for finished, "live" apps.
-# Code is not reloaded between requests
-config.cache_classes = true
+  # Use a different logger for distributed setups
+  # config.logger = SyslogLogger.new
 
-# Use a different logger for distributed setups
-# config.logger = SyslogLogger.new
+  # Full error reports are disabled and caching is turned on
+  config.action_controller.consider_all_requests_local = false
+  config.action_controller.perform_caching             = true
 
-# Log error messages when you accidentally call methods on nil.
-config.whiny_nils = true
+  # Use a different cache store in production
+  # config.cache_store = :mem_cache_store
 
-# Full error reports are disabled and caching is turned on
-config.action_controller.consider_all_requests_local = true
-config.action_controller.perform_caching             = true
-config.action_view.cache_template_loading            = true
-config.action_view.debug_rjs                         = true
+  # Enable serving of images, stylesheets, and javascripts from an asset server
+  # config.action_controller.asset_host                  = "http://assets.example.com"
 
-# Enable serving of images, stylesheets, and javascripts from an asset server
-# config.action_controller.asset_host                  = "http://assets.example.com"
+  # Disable delivery errors, bad email addresses will be ignored
+  # config.action_mailer.raise_delivery_errors = false
 
-# Disable delivery errors, bad email addresses will be ignored
-config.action_mailer.raise_delivery_errors = false
+  # Use the database for sessions instead of the file system
+  # (create the session table with 'rake db:sessions:create')
 
-# Use the database for sessions instead of the file system
-# (create the session table with 'rake db:sessions:create')
-config.action_controller.session_store = :active_record_store
+  # We presently run on a .org.uk domain
+  TLD_LENGTH = 2
 
-# We presently run on a .org.uk domain
-TLD_LENGTH = 2
+  # Use SMTP protocol to deliver emails
+  config.action_mailer.delivery_method = :smtp
 
-# Use SMTP protocol to deliver emails
-config.action_mailer.delivery_method = :smtp
-BANNER    = (['development','staging'].include? ENV['RAILS_ENV'])
-KEYS      = (['development','demonstration','staging'].include? ENV['RAILS_ENV'])
+  # Specifies the header that your server uses for sending files
+  config.action_dispatch.x_sendfile_header = "X-Sendfile"
+
+  # In production, Apache or nginx will already do this
+  config.serve_static_assets = false
+
+  config.i18n.fallbacks = true
+
+  # Send deprecation notices to registered listeners
+  config.active_support.deprecation = :notify
+end
+
+BANNER    = true
+KEYS      = true
 DEV_MODE  = BANNER

@@ -57,7 +57,7 @@ module AccessSystem
   end      
    
   def verify_ssl_request
-    #if RAILS_ENV == 'production' and !request.ssl?
+    #if Rails.env == 'production' and !request.ssl?
     #  flash[:error] = "You have tried to run unsecured action. Please use SSL"
     #  return render_no_access
     #end

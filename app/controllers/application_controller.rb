@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   layout :site_layout
   
-  include HoptoadNotifier::Catcher
   helper :all # include all helpers, all the time
 
   before_filter :set_current_user
@@ -42,7 +41,7 @@ protected
   end
   
   def set_banner
-    @banner_text = "Not live. You are on a server in #{RAILS_ENV} mode."
+    @banner_text = "Not live. You are on a server in #{Rails.env} mode."
 
     revision_file = File.join(RAILS_ROOT, 'REVISION')
     if File.exists?(revision_file) then

@@ -24,7 +24,7 @@ Buxton::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
   
 end
-BANNER    = (['development','staging'].include? ENV['RAILS_ENV'])
-KEYS      = (['development','demonstration','staging'].include? ENV['RAILS_ENV'])
+BANNER    = true
+KEYS      = true
 DEV_MODE  = BANNER
 TLD_LENGTH = 0
