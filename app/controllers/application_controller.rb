@@ -10,7 +10,7 @@ class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
   rescue_from NoMethodError, :with => :wrong_user? unless DEV_MODE
   before_filter :authenticate_user!
-
+  before_filter :check_trained
   
   def set_homepage
     after_sign_in_path_for(current_user)
@@ -61,12 +61,12 @@ protected
   end
   
   def requires_admin
-    redirect_to access_denied_path unless current_user.is_a?(Administrator)
+    redirect_to access_denied_path unless user_signed_in? && current_user.is_a?(Administrator)
   end
   
   def after_sign_in_path_for(resource)
    redirect_to users_path and return if current_user.is_a?(Administrator)
-   redirect_to training_path and return unless current_user.trained?
+   redirect_to training_user_path(current_user) and return unless current_user.trained?
    redirect_to activities_path and return if current_user.activity_manager? 
    redirect_to access_denied_path
   end
@@ -75,6 +75,12 @@ protected
     strand.to_s.downcase == 'faith' ? 'religion or belief' : strand
   end
 
+  def check_trained
+    return if devise_controller?
+    if user_signed_in? && !current_user.is_a?(Administrator)
+      redirect_to training_user_path(current_user) and return unless current_user.trained?
+    end
+  end
   
 private
   def set_activity

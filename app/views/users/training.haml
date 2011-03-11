@@ -1,2 +1,2 @@
-= form_tag :user, :url => training_path do
+= form_tag training_user_path(current_user) do
   = submit_tag "Trained!"

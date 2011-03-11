@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   after_initialize :include_roles
   after_create :include_roles
   
-  named_scope :live, :conditions => "type is null"
+  scope :live, :conditions => "type is null"
   def include_roles
     #don't include the roles if it hasn't been created yet. The after create will add them in that instance
     return true if self.new_record?
