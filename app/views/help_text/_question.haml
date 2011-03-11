@@ -1,6 +1,6 @@
 - cache(:id => question.id, :action=>'show') do
   %li
-    - fields_for "help_text[]", question do |help_text_form|
+    = fields_for "help_text[]", question do |help_text_form|
       .help_text_controls
         %h5= question.question_name.titleize
         %span.edit_text

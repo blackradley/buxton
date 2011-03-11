@@ -15,7 +15,10 @@ class Issue < ActiveRecord::Base
   
   include FixInvalidChars
   
-  def before_save
+  before_save :fix_fields
+  after_save :destroy_if_issue_destroy
+  
+  def fix_fields
     self.attributes.each_pair do |key, value|
       self.attributes[key] = fix_field(value)
     end
@@ -29,7 +32,7 @@ class Issue < ActiveRecord::Base
     [ActivityManager, ActivityApprover].include? user_.class
   end
 
-  def after_save
+  def destroy_if_issue_destroy
     self.destroy if self.issue_destroy?
   end
 

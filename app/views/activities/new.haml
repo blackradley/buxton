@@ -1,5 +1,5 @@
 %h2 Organisational Control Page - Add New Activity
-- form_for :activity, :url => { :action => 'create'} do |f|
+= form_for :activity, :url => { :action => 'create'} do |f|
   = render :partial => 'contact', :locals => { :f => f }
   %p
     Click 'Create' to add the Activity. You will be taken back to the Activities page where you can then send an access key to the newly-created Activity Manager.

@@ -9,7 +9,7 @@
 -hashes = @activity.hashes
 
 #questions
-  -form_for(:issues, :url => {:controller => 'issues', :action => 'update'}) do |f|
+  =form_for(:issues, :url => {:controller => 'issues', :action => 'update'}) do |f|
     -issues = @activity.issues.reject{|issue| issue.strand != @equality_strand }
     - issues.reject!{|issue| issue.section.to_s == 'impact'} unless @impact_enabled
     - issues.reject!{|issue| issue.section.to_s == 'consultation'} unless @consultation_enabled
@@ -17,7 +17,7 @@
       -for issue in issues
         %h3
           =h issue.description
-        -fields_for "issue[]", issue do |ff|
+        = fields_for "issue[]", issue do |ff|
           %p
             %label Actions
             = ff.text_area :actions

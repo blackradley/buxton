@@ -27,7 +27,7 @@
       %li
         =link_to_function "Overall", "hideall('gender'); hideall('race'); hideall('disability'); hideall('faith'); hideall('sexual_orientation'); hideall('age'); showall('overall');"
 
-  -form_for(:help_text, :url => {:controller => 'help_text', :action => 'update'}, :html => {:id=>'help_form', :onSubmit => "disableUnchanged(); return true"}) do |f|
+  =form_for(:help_text, :url => {:controller => 'help_text', :action => 'update'}, :html => {:id=>'help_form', :onSubmit => "disableUnchanged(); return true"}) do |f|
     -Activity.sections.each do |section|
       %span{:id =>"#{section.to_s}", :style =>"display:#{section_check};"}
         - unless @split_texts.select{|text_options| text_options[0][0].to_s == section.to_s}.blank? then
