@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :requires_admin, :except => [:training, :update_training, :access_denied, :show]
+  before_filter :check_trained, :except => [:training, :update_training, :access_denied]
+  before_filter :requires_admin, :except => [:training, :update_training, :access_denied, :devise_controller?]
   before_filter :setup_breadcrumb
   
   def index
@@ -44,7 +45,8 @@ class UsersController < ApplicationController
   end
   
   def update_training
-    current_user
+    current_user.update_attributes(:trained => true)
+    redirect_to root_path
   end
 
   private
