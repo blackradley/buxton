@@ -68,7 +68,10 @@ protected
   def after_sign_in_path_for(resource)
    return users_path if current_user.is_a?(Administrator)
    return training_user_path(current_user) unless current_user.trained?
-   return activities_path if current_user.activity_manager? 
+   return access_denied_path if current_user.roles.blank?
+   return directorate_einas_activities_path if current_user.creator?
+   return my_einas_activities_path if current_user.activity_manager?
+   return assisting_activities_path if current_user.approver?
    return access_denied_path
   end
   

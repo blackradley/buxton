@@ -9,7 +9,7 @@ class User < ActiveRecord::Base
   serialize :roles
   before_create :setup_roles
   scope :live, :conditions => "type is null"
-
+  
   def setup_roles
     self.roles ||=[]
   end
@@ -20,6 +20,10 @@ class User < ActiveRecord::Base
     terminology ? terminology.value : term
   end
   
+  def ordered_roles
+    ["Creator", "ActivityManager", "Approver", "Checker", "Cop"].select{|role| self.roles.include? role}
+  end
+  
   def creator?
     self.roles.include?("Creator")
   end
@@ -28,8 +32,8 @@ class User < ActiveRecord::Base
     self.roles.include?("ActivityManager")
   end
   
-  def activity_approver?
-    self.roles.include?("ActivityApprover")
+  def approver?
+    self.roles.include?("Approver")
   end
   
   def activity_manager_activities

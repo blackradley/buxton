@@ -42,19 +42,7 @@
         - unless current_user.is_a? Administrator
           #generalMenu
             %ul
-              %li=link_to "Directorate EINAs", "#"
-              %li.nohover="|"
-              %li=link_to "My EINAs", "#"
-              %li.nohover="|"
-              %li=link_to "Assisting", "#"
-              %li.nohover="|"
-              %li=link_to "Quality Control", "#"
-              %li.nohover="|"
-              %li=link_to "Approval", "#"
-              %li.nohover="|"
-              %li=link_to "Directorate EINAs Goverance", "#"
-              %li.nohover="|"
-              %li=link_to "Corporate EINAs", "#"
+              =raw activities_menu.map{|text, link| content_tag("li", link_to(text, link))}.join(content_tag("li", "|", :class =>"nohover"))
       #breadcrumb
         %p
           Birmingham City Council EINA Toolkit

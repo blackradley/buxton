@@ -10,16 +10,14 @@ Buxton::Application.routes.draw do
   
   resources :activities do
     collection do
-      post :update_name
-      post :update_ces
-      post :update_approver
-      post :update_ref_no
-      post :update
-      get :toggle_strand
-      get :submit
+      get :directorate_einas
+      get :my_einas
+      get :assisting
     end
     
     member do
+      get :submit
+      get :toggle_strand
       get :view_pdf
       get :old_index
       get :questions

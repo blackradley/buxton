@@ -1,0 +1,25 @@
+%table
+  %tr
+    %th Service Area
+    %th Activity Name
+    %th Ref no.
+    %th Approver
+    %th Date Started
+    %th Actual Completion
+    %th Progress
+    %th 
+    %th
+  - @activities.each do |activity|
+    %tr{:class => cycle("light", "dark")}
+      %td
+      %td= activity.name
+      %td= activity.ref_no
+      %td= activity.activity_approver.email
+      %td= #activity.started_date
+      %td
+      %td
+      - if current_user.creator?
+        %td= link_to "edit", edit_activity_path(activity), :class => "action edit"
+      -else
+        %td= link_to "edit", questions_activity_path(activity), :class => "action edit"
+      %td= link_to "view", view_pdf_activity_path(activity), :class => "action edit", :target => "blank"
