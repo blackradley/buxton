@@ -100,7 +100,7 @@ module ApplicationHelper
   def activities_menu
     current_user.ordered_roles.map do |role| 
       case role
-      when "ActivityManager"
+      when "Completer"
         ["My Eina's", my_einas_activities_path]
       when "Approver"
         ["Assisting", assisting_activities_path]

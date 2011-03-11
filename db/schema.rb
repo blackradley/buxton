@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110310133226) do
+ActiveRecord::Schema.define(:version => 20110311144450) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -193,8 +193,8 @@ ActiveRecord::Schema.define(:version => 20110310133226) do
     t.integer  "activity_project_id"
     t.string   "approved",                                 :default => "not submitted"
     t.string   "ref_no",                                   :default => ""
-    t.integer  "activity_manager_id"
-    t.integer  "activity_approver_id"
+    t.integer  "completer_id"
+    t.integer  "approver_id"
   end
 
   add_index "activities", ["approved"], :name => "index_activities_on_approved"

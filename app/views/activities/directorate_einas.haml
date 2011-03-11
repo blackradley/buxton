@@ -1,3 +1,11 @@
+.searchBox
+  %label Search for:
+  %input{:type=>"text"}
+  %input{:type=>"submit", :value=>"Search"}
+.orangeButton
+  =link_to "Generate Schedule", "#", :class=>"cal"
+.orangeButton
+  =link_to "Add Activity", new_activity_path, :class=>"add"
 %table
   %tr
     %th Service Area
@@ -14,7 +22,7 @@
       %td
       %td= activity.name
       %td= activity.ref_no
-      %td= activity.activity_approver.email
+      %td= activity.approver.email
       %td= #activity.started_date
       %td
       %td
