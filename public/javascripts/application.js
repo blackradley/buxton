@@ -5,6 +5,8 @@
 
 $(document).ready(function(){
   
+  $('input.ui-datepicker').datepicker();
+  
   $(".saveLink").click(function(){
     $(this).parent().submit();
     return false;

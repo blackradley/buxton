@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110311144450) do
+ActiveRecord::Schema.define(:version => 20110311170555) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -195,6 +195,8 @@ ActiveRecord::Schema.define(:version => 20110311144450) do
     t.string   "ref_no",                                   :default => ""
     t.integer  "completer_id"
     t.integer  "approver_id"
+    t.date     "start_date"
+    t.date     "end_date"
   end
 
   add_index "activities", ["approved"], :name => "index_activities_on_approved"
@@ -363,10 +365,9 @@ ActiveRecord::Schema.define(:version => 20110311144450) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                             :default => "", :null => false
-    t.string   "encrypted_password", :limit => 128, :default => "", :null => false
-    t.string   "password_salt",                     :default => "", :null => false
-    t.text     "roles"
+    t.string   "email",                             :default => "",    :null => false
+    t.string   "encrypted_password", :limit => 128, :default => "",    :null => false
+    t.string   "password_salt",                     :default => "",    :null => false
     t.integer  "sign_in_count",                     :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
@@ -378,6 +379,7 @@ ActiveRecord::Schema.define(:version => 20110311144450) do
     t.boolean  "trained"
     t.boolean  "retired"
     t.boolean  "locked"
+    t.boolean  "creator",                           :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
