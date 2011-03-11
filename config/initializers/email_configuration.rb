@@ -1,15 +1,15 @@
 # Configuration for the SMTP server.
-if RAILS_ENV != 'test'
+if Rails.env != 'test'
   # c = YAML::load(File.open("#{RAILS_ROOT}/config/email.yml"))
   # ActionMailer::Base.smtp_settings = {
-  #   :address => c[RAILS_ENV]['address'],
-  #   :port => c[RAILS_ENV]['port'],
-  #   :domain => c[RAILS_ENV]['domain'],
+  #   :address => c[Rails.env]['address'],
+  #   :port => c[Rails.env]['port'],
+  #   :domain => c[Rails.env]['domain'],
   #   :pop3_auth => { 
-  #     :server => c[RAILS_ENV]['server'], 
-  #     :user_name => c[RAILS_ENV]['username'],
-  #     :password => c[RAILS_ENV]['password'],
-  #     :authentication => c[RAILS_ENV]['authentication']
+  #     :server => c[Rails.env]['server'], 
+  #     :user_name => c[Rails.env]['username'],
+  #     :password => c[Rails.env]['password'],
+  #     :authentication => c[Rails.env]['authentication']
   #   }
   # }
   
