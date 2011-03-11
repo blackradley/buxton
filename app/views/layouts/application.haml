@@ -58,12 +58,13 @@
       #breadcrumb
         %p
           Birmingham City Council EINA Toolkit
-          - @breadcrumb.each do |segment, link|
-            =raw "&raquo;"
-            - if link
-              =link_to segment, link
-            - else
-              =segment
+          - if @breadcrumb
+            - @breadcrumb.each do |segment, link|
+              =raw "&raquo;"
+              - if link
+                =link_to segment, link
+              - else
+                =segment
       .content      
         .messageArea
           %p
