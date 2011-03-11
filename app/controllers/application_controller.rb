@@ -2,7 +2,6 @@ class ApplicationController < ActionController::Base
   protect_from_forgery
   layout :site_layout
   
-  include HoptoadNotifier::Catcher
   helper :all # include all helpers, all the time
 
   before_filter :set_current_user

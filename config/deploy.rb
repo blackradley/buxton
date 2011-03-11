@@ -96,3 +96,5 @@ task :rvm_bundler_setup do
 end
 
 after 'deploy:setup', 'rvm_bundler_setup'
+        require './config/boot'
+        require 'hoptoad_notifier/capistrano'
