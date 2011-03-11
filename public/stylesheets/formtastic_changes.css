@@ -12,3 +12,69 @@ The following style may be *conditionally* included for improved support on olde
 form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
 
 --------------------------------------------------------------------------------------------------*/
+form.formtastic{
+    width: 600px;
+    float:left;
+}
+form.formtastic fieldset {
+    width: 600px;
+}
+
+form.formtastic fieldset > ol > li {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 3px 0;
+}
+
+form.formtastic fieldset > ol > li label {
+    display: block;
+    float: left;
+    padding-top: 0;
+    width: 150px;
+    line-height: 20px;
+    font-weight:bold;
+}
+form.formtastic fieldset > ol > li input{
+    font-size: 12px;
+    line-height: 12px;
+    padding: 2px;
+    width: 434px;
+}
+form.formtastic fieldset > ol > li p.inline-errors {
+    color: #CC0000;
+    float: right;
+    margin: 0;
+    width: 440px;
+}
+form.formtastic fieldset > ol > li.boolean label {
+    padding-left: 0;
+    width: 170px;
+}
+form.formtastic fieldset > ol > li.boolean label input {
+    float: right;
+    margin: 0;
+    width: auto;
+}
+form.formtastic fieldset.buttons{
+  padding-left:0px;
+}
+form.formtastic fieldset.buttons li {
+    float: none;
+    padding-right: 0;
+    text-align:center;
+}
+form.formtastic fieldset.buttons li input {
+float: none;
+border: 0px;
+background-image: url(../images/orange_buttons/search.jpg);
+background-repeat: no-repeat;
+width: 79px;
+height: 32px;
+overflow: hidden;
+color: #ffffff;
+padding: 0px;
+margin: 10px 0px 0px 10px;
+line-height: 22px;
+font-weight: bold;
+display: inline;
+}

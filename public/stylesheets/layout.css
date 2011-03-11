@@ -105,6 +105,16 @@
         margin: 5px 0px; }
       .content .workingArea #content_holder h1, .content .workingArea #content_holder h2 {
         margin: 0px 0px 5px; }
+      .content .workingArea #content_holder #formHelp {
+        width: 300px;
+        margin-right: 10px;
+        padding-left: 20px;
+        float: right;
+        background-image: url(../images/questions_bg.gif);
+        background-repeat: repeat-y;
+        background-position: -437px 0px; }
+        .content .workingArea #content_holder #formHelp p {
+          margin-bottom: 10px; }
       .content .workingArea #content_holder .searchBox {
         float: left;
         width: 500px; }
