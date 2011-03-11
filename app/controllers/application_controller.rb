@@ -41,7 +41,7 @@ protected
   end
   
   def set_banner
-    @banner_text = "Not live. You are on a server in #{RAILS_ENV} mode."
+    @banner_text = "Not live. You are on a server in #{Rails.env} mode."
 
     revision_file = File.join(RAILS_ROOT, 'REVISION')
     if File.exists?(revision_file) then

@@ -21,8 +21,6 @@ Buxton::Application.configure do
   # See everything in the log (default is :info)
   # config.log_level = :debug
   
-  # (create the session table with 'rake db:sessions:create')
-  config.action_controller.session_store = :active_record_store
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
