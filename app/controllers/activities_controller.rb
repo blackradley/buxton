@@ -22,7 +22,7 @@ class ActivitiesController < ApplicationController
   before_filter :ensure_completer, :only => [:questions, :submit, :update_activity_type, :toggle_strand, :submit, :my_einas, :view_pdf]
   before_filter :ensure_approver, :only => [:view_pdf, :assisting]
   before_filter :set_activity, :only => [:questions, :update, :submit, :update_activity_type, :toggle_strand, :submit]
-  autocomplete :user, :email
+  autocomplete :user, :email, :scope => :live
   
   def index
     redirect_to root_path
