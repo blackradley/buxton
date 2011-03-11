@@ -3,7 +3,7 @@
   = @organisation.name 
   Strategy
 #strategy_edit
-  - form_for [@organisation, @strategy] do |f|
+  = form_for [@organisation, @strategy] do |f|
     = render :partial => 'form'
     %span.button
       = submit_tag "Save", :disable_with => 'Saving...'

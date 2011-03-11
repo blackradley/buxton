@@ -19,7 +19,9 @@ class ActivityStrategy < ActiveRecord::Base
   has_one :note
   has_one :comment
 
-  def after_save
+  after_save :update_purpose
+  
+  def update_purpose
     if self.activity.purpose_completed then
       self.activity.update_attributes(:purpose_completed => false) if self.strategy_response == 0
     end

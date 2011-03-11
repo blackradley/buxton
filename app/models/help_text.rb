@@ -9,7 +9,9 @@
 class HelpText < ActiveRecord::Base
   include FixInvalidChars
   
-  def before_save
+  before_save :fix_fields
+  
+  def fix_fields
     self.attributes.each_pair do |key, value|
       self.attributes[key] = fix_field(value)
     end

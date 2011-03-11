@@ -1,5 +1,5 @@
 .strategy
-  -fields_for "#{string_parent}[#{string_type}_attributes][]", strategy do |strategy_form|
+  = fields_for "#{string_parent}[#{string_type}_attributes][]", strategy do |strategy_form|
     %label
       Name
     %labelled

@@ -44,7 +44,9 @@ class Organisation < ActiveRecord::Base
   
   include FixInvalidChars
   
-  def before_save
+  before_save :fix_name
+  
+  def fix_name
     self.name = fix_field(self.name)
   end
 

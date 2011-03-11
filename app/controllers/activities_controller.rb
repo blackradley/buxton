@@ -8,9 +8,9 @@
 #
 class ActivitiesController < ApplicationController
 
-  verify  :method => :post,
-          :only => [ :destroy, :create, :update, :update_activity_type, :update_contact, :update_ces ],
-          :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
+  # verify  :method => :post,
+  #         :only => [ :destroy, :create, :update, :update_activity_type, :update_contact, :update_ces ],
+  #         :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
   rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
   rescue_from ActiveRecord::RecordInvalid, :with => :show_errors

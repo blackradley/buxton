@@ -3,7 +3,7 @@
 -hashes = @activity.hashes
 
 #questions.no_help
-  -form_for(:issues, :url => {:controller => 'issues', :action => 'update'}) do |f|
+  =form_for(:issues, :url => {:controller => 'issues', :action => 'update'}) do |f|
     %h4 In the Impact section you identified the following issues to be addressed:
     -issues = @activity.issues_by(:impact).reject{|issue| issue.strand != @equality_strand }
     - issues.reject!{|issue| issue.section.to_s == 'impact'} unless @impact_enabled

@@ -3,7 +3,7 @@
 #log_download_link
   = image_tag 'icons/file_download.png'
   = link_to  "download logs", download_logs_path
-- form_tag clear_logs_url do
+= form_tag clear_logs_url do
   %p
     = submit_tag 'Clear logs', :onclick => "return #{confirm_javascript_function("Are you sure you want to delete all of the logs?")}"
 
