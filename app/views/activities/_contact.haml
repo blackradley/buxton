@@ -10,13 +10,13 @@
       Unique Reference Number
     %span.labelled
       = f.text_field :ref_no, 'size' => 50
-  - fields_for :activity_manager do |am|
+  = fields_for :activity_manager do |am|
     %p
       %label
         E-mail address of Activity Manager (who will undertake assessment)
       %span.labelled
         = am.text_field :email, 'size' => 50
-  - fields_for :activity_approver do |aa|
+  = fields_for :activity_approver do |aa|
     %p
       %label
         E-mail address of Activity Approver (who will approve the answers)

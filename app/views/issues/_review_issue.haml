@@ -1,5 +1,5 @@
 %li.issue
-  - fields_for "issue[]", review_issue do |issue_form|
+  = fields_for "issue[]", review_issue do |issue_form|
     %span.issueDescription
       =h review_issue.description
     %span.issueControls
