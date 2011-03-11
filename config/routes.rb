@@ -7,23 +7,6 @@
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
 Buxton::Application.routes.draw do
-
-  resources :organisations do
-    resources :strategies do
-      collection do
-        get :reorder
-        post :update_strategy_order
-      end
-    end
-
-    resources :directorates do
-      collection do
-        get :view_pdf
-      end    
-    end
-
-    resources :projects
-  end
   
   resources :activities do
     collection do
@@ -51,16 +34,26 @@ Buxton::Application.routes.draw do
     
   end
   
-  resources :users
-
-  devise_for :users, :controllers => { :sessions => "login"}, :path_names => { :sign_in => 'login', :sign_out => 'logout'} do
-    root :to => "login#new"
-    get "login", :to => "login#new"
-    get "logout", :to => "login#destroy"
-    match "access_denied", :to => "login#access_denied"
+  resources :users do    
+    collection do 
+      get :set_homepage
+      get :access_denied
+    end
+    
+    member do
+      get :training
+      post "training", :to => "users#update_training"
+    end
   end
   
-  match 'view_pdf' => 'organisations#view_pdf', :as => :pdf
+  match "access_denied", :to => "users#access_denied"
+  root :to => "application#set_homepage"
+
+  devise_for :user, :path_names => { :sign_in => 'login', :sign_out => 'logout'} do
+    get "login", :to => "devise/sessions#new"
+    get "logout", :to => "devise/sessions#destroy"
+  end
+  
   resources :logs do
     collection do
       get :download
@@ -84,11 +77,7 @@ Buxton::Application.routes.draw do
     end
   end
   resources :issues
-  match 'demos/new' => 'demos#new', :as => :new_demo, :via => :get
-  match 'demos' => 'demos#create', :as => :demos, :via => :post
+  
   match 'sections/edit/:id/:equality_strand' => 'sections#edit'
-  match 'keys' => 'users#keys', :as => :keys if KEYS
-  match 'sample_pdf' => 'users#sample_pdf', :as => :sample_pdf
   # match '/:controller(/:action(/:id))'
-  match ':passkey' => 'users#login', :constraints => { :passkey => /[a-f0-9]{40}i{0,1}/ }
 end
