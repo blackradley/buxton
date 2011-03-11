@@ -1,4 +1,4 @@
-- form_for :activity, :url => { :action => 'create'} do |f|
+= form_for :activity, :url => { :action => 'create'} do |f|
   = render :partial => 'contact', :locals => { :f => f }
   %p Click 'Create' to add your activity to the system, and you will be taken right along to your login page so you can start undertaking the assessment.
   = submit_tag "Create", :disable_with => 'Creating...'
