@@ -46,7 +46,7 @@ class YmlActivityGenerator
   def initialize(number = @@running_count, name = nil, directorate = nil, type = nil)
     @file = []
     @number = number
-    @hashes = YAML.load_file("#{RAILS_ROOT}/config/questions.yml")
+    @hashes = YAML.load_file("#{Rails.root}/config/questions.yml")
     @@running_count += 1
     @issues = []
     @name = name
@@ -140,10 +140,10 @@ class YmlActivityGenerator
       else
         name = names    
       end
-      File.open("#{RAILS_ROOT}/spec/fixtures/activities.yml", 'a') do |yaml|
+      File.open("#{Rails.root}/spec/fixtures/activities.yml", 'a') do |yaml|
         yaml.puts self.new(number, name, directorate, type)
       end
-      File.open("#{RAILS_ROOT}/spec/fixtures/issues.yml", 'a') do |yaml|
+      File.open("#{Rails.root}/spec/fixtures/issues.yml", 'a') do |yaml|
         yaml.puts self.new(number, name, directorate, type).issue_to_s
       end
     end

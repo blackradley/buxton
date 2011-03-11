@@ -43,7 +43,7 @@ protected
   def set_banner
     @banner_text = "Not live. You are on a server in #{Rails.env} mode."
 
-    revision_file = File.join(RAILS_ROOT, 'REVISION')
+    revision_file = File.join(Rails.root.to_s, 'REVISION')
     if File.exists?(revision_file) then
       f = File.new(revision_file)
       @banner_text += " Revision: #{f.readline}."
@@ -56,7 +56,7 @@ protected
   end
   
   def not_found
-    render :file => "#{RAILS_ROOT}/public/404.html",  :status => "404 Not Found"
+    render :file => "#{Rails.root}/public/404.html",  :status => "404 Not Found"
   end
   
   def requires_admin

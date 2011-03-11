@@ -44,7 +44,7 @@ module PDF
         new_page_without_background(insert, page, pos)
         left = absolute_left_margin
         right = absolute_right_margin
-        add_image_from_file("#{RAILS_ROOT}/public/images/pdf_logo.png", (absolute_x_middle - 119), (absolute_y_middle + 17), 239)
+        add_image_from_file("#{Rails.root}/public/images/pdf_logo.png", (absolute_x_middle - 119), (absolute_y_middle + 17), 239)
         add_text_wrap(left, absolute_y_middle, right-left,  "<b>#{directorate.name}</b>", 24, :center)
         add_text_wrap(left, absolute_y_middle - 14, right-left,  "Impact Equality#{153.chr} Directorate Report", 12, :center)
         current_page

@@ -135,7 +135,7 @@ describe OrganisationsController, 'handling GET /organisations/:id' do
     @exception = ActiveRecord::RecordNotFound.new
     Organisation.stub!(:find).and_raise(@exception)
     get :show, :id => 'broken'
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
@@ -242,7 +242,7 @@ describe OrganisationsController, 'handling GET /organisations/:id/edit' do
     @exception = ActiveRecord::RecordNotFound.new
     Organisation.stub!(:find).and_raise(@exception)
     get :edit, :id => 'broken'
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
@@ -280,7 +280,7 @@ describe OrganisationsController, 'handling PUT /organisations/:id' do
     @exception = ActiveRecord::RecordNotFound.new
     Organisation.stub!(:find).and_raise(@exception)
     put :update, :id => 'broken'
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
@@ -309,7 +309,7 @@ describe OrganisationsController, 'handling DELETE /organisations/:id' do
     @exception = ActiveRecord::RecordNotFound.new
     Organisation.stub!(:find).and_raise(@exception)
     delete :destroy, :id => 'broken'
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
