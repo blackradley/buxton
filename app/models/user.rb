@@ -5,13 +5,25 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :roles, :activities, :retired, :locked, :trained
-  has_many :activities
   serialize :roles
   before_create :setup_roles
   scope :live, :conditions => "type is null"
   
   def setup_roles
     self.roles ||=[]
+  end
+  
+  def activities
+    ["Creator", "Completer", "Approver", "Checker", "Cop"].map do |role|
+      case role
+      when "Completer"
+        Activity.where(:completer_id => self.id)
+      when "Approver"
+        Activity.where(:approver_id => self.id)
+      when "Creator"
+        Activity.all 
+      end
+    end.flatten.compact.uniq
   end
   
   def term(term)
@@ -21,27 +33,18 @@ class User < ActiveRecord::Base
   end
   
   def ordered_roles
-    ["Creator", "ActivityManager", "Approver", "Checker", "Cop"].select{|role| self.roles.include? role}
+    ["Creator", "Completer", "Approver", "Checker", "Cop"].select{|role| self.roles.include? role}
   end
   
   def creator?
     self.roles.include?("Creator")
   end
   
-  def activity_manager?
-    self.roles.include?("ActivityManager")
+  def completer?
+    self.roles.include?("Completer")
   end
   
   def approver?
     self.roles.include?("Approver")
   end
-  
-  def activity_manager_activities
-    Activity.where(:activity_manager_id => self.id)
-  end
-
-  def activity_approver_activities
-    Activity.where(:activity_approver_id => self.id)
-  end  
-  
 end

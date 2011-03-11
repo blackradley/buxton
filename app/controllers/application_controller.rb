@@ -69,7 +69,7 @@ protected
    return training_user_path(current_user) unless current_user.trained?
    return access_denied_path if current_user.roles.blank?
    return directorate_einas_activities_path if current_user.creator?
-   return my_einas_activities_path if current_user.activity_manager?
+   return my_einas_activities_path if current_user.completer?
    return assisting_activities_path if current_user.approver?
    return access_denied_path
   end
@@ -85,8 +85,21 @@ protected
     end
   end
   
+  def ensure_creator
+    current_user.creator?
+  end
+  
+  def ensure_completer
+    current_user.completer?
+  end
+  
+  def ensure_approver
+    current_user.approver?
+  end
+  
 private
+
   def set_activity
-    @activity = @current_user.activity_manager_activities.find_by_id(params[:activity_id])
+    @activity = current_user.activities.select{|a| a.id == params[:activity_id].to_i}.first
   end
 end

@@ -28,8 +28,8 @@
 # is always the same, and the response is stored in the activity_strategy table.
 #
 class Activity < ActiveRecord::Base
-  belongs_to :activity_manager, :class_name => "User"
-  belongs_to :activity_approver, :class_name => "User"
+  belongs_to :completer, :class_name => "User"
+  belongs_to :approver, :class_name => "User"
   belongs_to :directorate
   # Fake belongs_to :organisation, :through => :directorate
   delegate :organisation, :organisation=, :to => :directorate
@@ -41,9 +41,9 @@ class Activity < ActiveRecord::Base
 
   validates_presence_of :name, :message => 'All activities must have a name.'
   validates_uniqueness_of :ref_no, :message => 'Reference number must be unique', :if => :ref_no?
-  validates_presence_of :activity_manager, :activity_approver
+  validates_presence_of :completer, :approver
   validates_presence_of :directorate
-  validates_associated :activity_manager, :activity_approver
+  validates_associated :completer, :approver
 #  validates_associated :questions
   # validates_uniqueness_of :name, :scope => :directorate_id
 
