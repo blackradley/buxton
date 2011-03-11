@@ -8,7 +8,6 @@
 #
 class ActivitiesController < ApplicationController
 
-  # GETs should be safe (see http://www.w3.org/2001/tag/doc/whenToUseGet.html)
   verify  :method => :post,
           :only => [ :destroy, :create, :update, :update_activity_type, :update_contact, :update_ces ],
           :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
@@ -20,22 +19,26 @@ class ActivitiesController < ApplicationController
   helper_method :render_to_string
   before_filter :authenticate_user!
   
-  before_filter :set_activity, :only => [:old_index, :questions, :show, :update, :submit, :update_activity_type]
+  before_filter :set_activity, :only => [:questions, :update, :submit, :update_activity_type, :toggle_strand, :submit]
   
   def index
-    @breadcrumb = [["Activities"]]
-    @activities = @current_user.activity_manager_activities
+    redirect_to root_path
   end
   
-  def old_index
-    if session[:new_signup]
-      @new_signup = true
-      session[:new_signup] = nil
-    end
-    @organisation = @activity.organisation
-    @organisation_managers = [] #@activity.organisation.organisation_managers
+  def directorate_einas
+    @breadcrumb = [["Activities"]]
+    @activities = Activity.all
   end
-
+  
+  def my_einas
+    @breadcrumb = [["Activities"]]
+    @activities = Activity.where(:activity_manager_id => current_user.id)
+  end
+  
+  def assisting
+    @breadcrumb = [["Activities"]]
+    @activities = Activity.where(:activity_approver_id => current_user.id)
+  end
   
   # Show the summary information for a specific activity.
   # Available to: Activity Manager
@@ -118,7 +121,6 @@ class ActivitiesController < ApplicationController
   end
   
   def submit
-    @activity = @current_user.activity
     @user = @current_user.activity.activity_approver
     @activity.approved = "submitted"
     @activity.save
@@ -150,17 +152,6 @@ class ActivitiesController < ApplicationController
     @activity.approved = "not submitted"
     @activity.save
     redirect_to :controller => 'activities', :action => 'questions'
-  end
-
-  def update_ces
-    # @activity = @current_user.activity
-    #     @activity.update_attributes('ces_question' => params[:activity][:ces_question].to_i)
-    #     flash[:notice] = "#{@activity.name} was successfully updated."
-    redirect_to :controller => 'activities', :action => 'questions'
-    
-  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-    flash[:notice] =  "Could not update the activity."
-    render :action => :index
   end
 
   # Opening page where they must choose between Activity/Policy and Existing/Proposed
@@ -203,145 +194,6 @@ class ActivitiesController < ApplicationController
     render :action => :questions
   end
   
-  def update_name
-    @activity = @current_user.activity
-    @name = @current_user.activity.name
-    @activity.update_attributes!(:name => params['activity']['name'])
-    render :partial => 'activity_name_form', :locals => {'errors' => nil}
-    rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-    render :partial => 'activity_name_form', :locals => {'errors' => 'Name cannot be blank'}
-  end
-  
-  def update_ref_no
-    @activity = @current_user.activity
-    @ref_no = @current_user.activity.ref_no
-    @activity.update_attributes!(:ref_no => params['activity']['ref_no'])
-    render :partial => 'activity_ref_form', :locals => {'errors' => nil}
-    rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-    render :partial => 'activity_ref_form', :locals => {'errors' => 'Reference number must be unique'}
-  end
-
-  def update_approver
-    errors = nil
-    email = params[:activity_approver].to_s
-    @activity = @current_user.activity
-    Activity.transaction do 
-      @approver = ActivityApprover.new(:email => email)
-      if @approver.save then
-        old_approver = @activity.activity_approver
-        if old_approver.nil? || old_approver.email != @approver.email then
-          @activity.activity_approver = @approver
-          @activity.save!
-          old_approver.destroy unless old_approver.nil?
-        end
-      else
-        errors = 'Email Invalid'
-      end
-    end
-    render :partial => 'activity_approver_form', :locals => {'errors' => errors, 'wrong_email' => params[:activity_approver]}
-    rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-    render :partial => 'activity_approver_form', :locals => {'errors' => 'Email invalid', 'wrong_email' => params[:activity_approver]}
-  end
-
-  # Get both the activity and user information ready for editing, since they
-  # are both edited at the same time. The organisational manager edits these
-  # not the Activity manager.
-  # Available to: Organisation Manager
-  def edit_contact
-    # Only allow an organisation manager to proceed
-    # TODO: catch this better
-    unless (@current_user.class.name == 'OrganisationManager') then render :inline => 'Invalid.' end
-
-    # Get the Activity and User details ready for the view
-    @activity = Activity.find(params[:id])
-    @activity_manager = @activity.activity_manager
-    @activity_approver = @activity.activity_approver
-    @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] }
-    @projects = @current_user.organisation.projects
-  end
-
-  # Update the contact email and activity name
-  # Available to: Organisation Manager
-  def update_contact
-    # Only allow an organisation manager to proceed
-    # TODO: catch this better
-    unless (@current_user.class.name == 'OrganisationManager') then render :inline => 'Invalid.' end
-
-    @activity = Activity.find(params[:id])
-    @activity_manager = @activity.activity_manager # Get this ready in case we need to re-render the edit template
-    @activity_approver = @activity.activity_approver # Get this ready in case we need to re-render the edit template
-    @directorates = @activity.organisation.directorates.collect{ |d| [d.name, d.id] } # Get this ready in case we need to re-render the edit template
-    @project_ids = (params[:projects].nil? ? [] : params[:projects])
-    # Update the activity
-    @activity.activity_manager.attributes = params[:activity_manager]
-    
-    # Only needed during the db transition where we have some Activities without Approvers
-    # Can be deleted when this is no longer the case
-    if @activity.activity_approver.nil?
-      @activity.build_activity_approver
-    end
-    @projects = @current_user.organisation.projects #ready for rerendering
-    @activity.approved = "not submitted" if @activity.activity_approver.email != params[:activity_approver][:email]
-    @activity.activity_manager.attributes = params[:activity_manager]
-    @activity.activity_approver.attributes = params[:activity_approver]
-    @activity.attributes = params[:activity]
-    @activity.projects = []
-    @project_ids.each do |p_id|
-      @activity.projects << Project.find(p_id)
-    end
-    if @activity.valid? && @activity.activity_manager.valid? && @activity.activity_approver.valid?then
-      @activity.activity_manager.save!
-      @activity.activity_approver.save!
-      @activity.save!
-      flash[:notice] =  "#{@activity.name} was successfully changed."
-      
-      case @activity.approved
-      when 'not submitted', nil
-        redirect_to :action => :show_by_status, :tab => :incomplete
-      when 'submitted'
-        redirect_to :action => :show_by_status, :tab => :awaiting_approval
-      end #n.b. can't edit from Approved page
-    else
-      # Something went wrong
-      render :action => :edit_contact
-    end
-  end
-
-  # Delete the activity (and any associated records as stated in the Activity model)
-  # Available to: Organisation Manager
-  def destroy
-    # Only allow an organisation manager to proceed
-    # TODO: catch this better
-    unless (@current_user.class.name == 'OrganisationManager') then render :inline => 'Invalid.' end
-
-    # Destroy the activity and go back to the list of activities for this organisation
-    @activity = Activity.find(params[:id])
-    @activity.destroy
-    log_event('Destroy', %Q[The <strong>#{@activity.name}</strong> activity for <strong>#{@activity.organisation.name}</strong> was deleted.])    
-
-    flash[:notice] = 'Activity successfully deleted.'
-    redirect_to :action => :show_by_status, :tab => :incomplete
-  end
-  
-  def view
-    @activity = Activity.find(params[:id], :include => 'questions')
-    ## Looks strange, but significantly reduces SQL statements in calls to answer() in views
-    questions = Question.find_all_by_activity_id(@activity.id, :include => :comment).map{|q| [q, q.comment]}
-    @activity_questions = {}
-    questions.each do |question, comment|
-      @activity_questions[question.name] = [question, comment]
-    end
-    org_strategies = @activity.organisation.organisation_strategies
-     @activity_org_strategies = Array.new(org_strategies.size) do |i|
-       @activity.activity_strategies.find_or_create_by_strategy_id(org_strategies[i].id)
-     end
-     dir_strategies = @activity.directorate.directorate_strategies
-     @activity_dir_strategies = Array.new(dir_strategies.size) do |i|
-       @activity.activity_strategies.find_or_create_by_strategy_id(dir_strategies[i].id)
-     end
-    @projects = @activity.projects       
-  end
-
   def view_pdf
     if @current_user.class.name =~ /Activity/ then
       @activity = @current_user.activity
@@ -358,34 +210,14 @@ class ActivitiesController < ApplicationController
   end
 
   def toggle_strand
-    @activity = @current_user.activity
     @activity.toggle("#{params[:strand]}_relevant")
     @activity.save!
     render :nothing => true
   end
   
-  def signup
-    @activity = Activity.new
-    @activity_manager = @activity.build_activity_manager
-    @activity_approver = @activity.build_activity_approver
-    @activity_approver.email = @current_user.organisation.organisation_managers.first.email
-    directorates = @current_user.organisation.directorates
-    @directorates = directorates.collect{ |d| [d.name, d.id] }
-    @projects = @current_user.organisation.projects
-  end
-  
-  def generate_activity_creator
-    @activity_creator = @current_user.organisation.build_activity_creator
-    @activity_creator.save!
-    @activity_creator_url = @activity_creator.url_for_login(request) if @activity_creator
-    render :text => "<a href=\"#{@activity_creator_url}>#{@activity_creator_url}</a>"
-  end
   
 protected
-  # Secure the relevant methods in the controller.
-  def secure?
-    true
-  end
+
 
   def ensure_activity_manager
     redirect_to access_denied_path if (["ActivityManager"] & current_user.roles).blank?
@@ -395,11 +227,6 @@ protected
     
   end
   
-  def show_errors(exception)
-    flash[:notice] = 'Activity could not be updated.'
-    render :action => (exception.record.new_record? ? :new : :edit)
-  end
-
   def set_activity
     @activity = @current_user.activity_manager_activities.find_by_id(params[:id])
   end

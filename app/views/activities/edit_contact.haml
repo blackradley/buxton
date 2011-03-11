@@ -1,7 +1,0 @@
-%h3 Impact Equality&trade; Activity Input Page
-- form_for :activity, :url => { :action => 'update_contact', :id => @activity } do |f|
-  = render :partial => 'contact', :locals => { :f => f }
-  %span.button
-    = submit_tag 'Save', :disable_with => 'Saving...'
-%span.button
-  = link_to 'Back', :back

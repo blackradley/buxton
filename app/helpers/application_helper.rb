@@ -37,29 +37,8 @@ module ApplicationHelper
   
 
   # Show the logged in user type.
-  def login_status()
-    if @current_user.nil?
-      ''
-    else
-      case @current_user.class.name
-        when 'ActivityApprover'
-          'Logged in as an Approver'
-        when 'ActivityManager'
-          'Logged in as an Activity Manager.'
-        when 'ProjectManager'
-          "Logged in as a #{ot('project').titleize} Manager."
-        when 'DirectorateManager'
-          "Logged in as a #{ot('directorate').titleize} Manager."
-        when 'OrganisationManager'
-          'Logged in as an Organisation Manager.'
-        when 'Administrator'
-          'Logged in as an Administration Manager.'
-        when 'ActivityCreator'
-          ""
-        else
-          'Login status unknown.'
-      end
-    end
+  def login_status
+    "Logged in as #{current_user.email}"
   end
 
   def ot(term)
@@ -118,27 +97,19 @@ module ApplicationHelper
     return info_array
   end
 
-  # Takes a list of links and generates a menu accordingly.
-  # On state provided by introduction of class="selected"
-  def generate_menu(links)
-    link_html = ''
-    links.each do |link|
-      # Highlight the tab if it's selected, or something it should highlight on is selected
-      highlight_on = [link[:url]]
-      highlight_on += link[:highlight_on] if link[:highlight_on]
-      highlight = highlight_on.detect{|url| current_page?(url)}
-      class_name = (highlight) ? 'selected' : ''
-      # Disable the tab if told to do so
-      if link[:status] == 'disabled' then
-        link_html << content_tag('li', link_to(raw("<span class='tab_left'></span><span class='tab_center'>#{link[:text]}</span><span class='tab_right'></span>"), '#'),{ :class => ['disabled', class_name].join(' ') })
-      else
-        link_html << content_tag('li', link_to(raw("<span class='tab_left'></span><span class='tab_center'>#{link[:text]}</span><span class='tab_right'></span>"), link[:url], :title => link[:title]),
-            { :class => class_name })
+  def activities_menu
+    current_user.ordered_roles.map do |role| 
+      case role
+      when "ActivityManager"
+        ["My Eina's", my_einas_activities_path]
+      when "Approver"
+        ["Assisting", assisting_activities_path]
+      when "Creator"
+        ["Directorate Eina's", directorate_einas_activities_path]
       end
     end
-    content_tag('ul', raw(link_html))
   end
-
+  
   # Display a coloured bar showing the level selected, produced
   # entirely via div's courtessy of Sam.
   def level_bar(value, out_of, css_class)
@@ -151,88 +122,6 @@ module ApplicationHelper
     return html
   end
 
-  # Shows a menu bar. Different for different user types.
-  def menu()
-    return ' ' if @current_user.nil?
-
-    case @current_user.class.name
-    when 'OrganisationManager', 'DirectorateManager', 'ProjectManager'
-      generate_menu( [
-                      { :text => 'Overview',
-                        :url => { :controller => 'activities', :action => 'summary' },
-                        :title => 'Control Page - Overview',
-                        :tab => '' },
-                      { :text => 'Incomplete',
-                        :url => { :controller => 'activities', :action => :show_by_status, :tab => :incomplete },
-                        :title => 'Control Page - Incomplete Activities' ,
-                        :tab => '' },
-                      { :text => 'Awaiting Approval',
-                        :url => { :controller => 'activities', :action => :show_by_status, :tab => :awaiting_approval },
-                        :title => 'Control Page - Activities Awaiting Approval' ,
-                        :tab => '' },
-                      { :text => 'Approved',
-                        :url => { :controller => 'activities', :action => :show_by_status, :tab => :approved },
-                        :title => 'Control Page - Approved Activities',
-                        :tab => ''}
-                      ])
-    when 'ActivityManager', 'ActivityApprover'
-      status = (@activity.completed(:purpose)) ? '' : 'disabled'
-      generate_menu( [
-                      { :text => 'Home',
-                        :url => old_index_activity_path(@activity),
-                        :title => 'Activity Control Page - Home' ,
-                        :tab => '' },
-                      { :text => 'Questions',
-                        :url => questions_activity_path(@activity),
-                        :title => 'Activity Control Page - Questions' ,
-                        :tab => '' },
-                      { :text => 'Summary',
-                        :url => activity_path(@activity),
-                        :title => 'Activity Control Page - Summary' ,
-                        :tab => status }
-                      ])
-    when 'Administrator'
-      generate_menu( [
-                      { :text => 'Manage Organisations',
-                        :url => organisations_url,
-                        :title => 'Organisations - Organisation Overview' },
-                      { :text => 'View Log',
-                        :url => { :controller => 'logs' },
-                        :title => 'Organisations - View Log of Activity' },
-                      { :text => 'Edit Help Text',
-                        :url => {:controller => 'help_text', :action => 'edit'},
-                        :title =>'View and Edit Question Help Texts' },
-                      { :text => 'Export Help Text',
-                        :url => {:controller => 'help_text'},
-                        :title =>'Export Help Text as HTML file' },
-                      { :text => 'New Demo',
-                        :url => { :controller => 'demos', :action => 'new' },
-                        :title => 'Create a New Demo' }
-                      ])
-    end
-  end
-
-  #This generates the menu bar at the top in the list sections pages.
-  def sections_menu
-    links = [
-    { :text => 'Purpose',
-      :url => { :controller => 'sections', :action => 'list', :id => 'purpose' },
-      :title => 'Organisation Control Page - Section - Purpose' },
-    { :text => 'Impact',
-      :url => { :controller => 'sections', :action => 'list', :id => 'impact' },
-      :title => 'Organisation Control Page - Section - Impact' },
-    { :text => 'Consultation',
-      :url => { :controller => 'sections', :action => 'list', :id => 'consultation' },
-      :title => 'Organisation Control Page - Section - Consultation' },
-    { :text => 'Additional Work',
-      :url => { :controller => 'sections', :action => 'list', :id => 'additional_work' },
-      :title => 'Organisation Control Page - Section - Additional Work' },
-    { :text => 'Action Planning',
-      :url => { :controller => 'sections', :action => 'list', :id => 'action_planning' },
-      :title => 'Organisation Control Page - Section - Action Planning' }
-    ]
-    generate_menu(links)
-  end
 
   # Generates all the HTML needed to display the answer to a question
   def answer(activity, activity_questions, section, strand, ids)
