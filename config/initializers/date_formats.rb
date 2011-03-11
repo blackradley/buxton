@@ -1,0 +1,2 @@
+Date::DATE_FORMATS[:short_ordinal] = lambda { |time| time.strftime("#{time.day.ordinalize} %b %Y") }
+Date::DATE_FORMATS[:long_ordinal] = lambda { |time| time.strftime("#{time.day.ordinalize} %B, %Y") }
