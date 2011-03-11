@@ -11,7 +11,9 @@ class Log < ActiveRecord::Base
   LogDetails = Struct.new(:user, :organisation, :level, :action, :date, :time)
   include FixInvalidChars
   
-  def before_save
+  before_save :fix_message
+  
+  def fix_message
     self.message = fix_field(self.message)
   end
   

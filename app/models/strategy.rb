@@ -16,7 +16,9 @@ class Strategy < ActiveRecord::Base
   
   include FixInvalidChars
   
-  def before_save
+  before_save :fix_fields
+  
+  def fix_fields
     self.name = fix_field(self.name)
     self.description = fix_field(self.description)
   end

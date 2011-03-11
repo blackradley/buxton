@@ -7,7 +7,7 @@
   .stepBox
     %h2 Activity Type
     %p Before you can start the assessment, Impact Equality&trade; asks you to classify the activity as either a Function or Policy and as either Existing or Proposed. You will be unable to move on to the rest of the tool until you have completed these questions.
-    -form_for(:activity, :url => {:action => 'update_activity_type'}) do |f|
+    =form_for(:activity, :url => {:action => 'update_activity_type'}) do |f|
       %fieldset
         %p
           %label This is a:

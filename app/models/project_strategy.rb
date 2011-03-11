@@ -10,12 +10,14 @@ class ProjectStrategy < Strategy
   belongs_to :project
   attr_accessor :should_destroy
   acts_as_list :scope => :project
+  
+  after_create :build_activity_strategies
 
   def should_destroy?
     should_destroy.to_i == 1
   end
 
-  def after_create
+  def build_activity_strategies
     self.project.activities.each do |activity|
       activity.activity_strategies.build(:strategy_id => self.id, :strategy_response => 0).save
     end
