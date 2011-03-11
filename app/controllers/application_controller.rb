@@ -1,22 +1,21 @@
 class ApplicationController < ActionController::Base
   protect_from_forgery
+  layout :site_layout
   
   include HoptoadNotifier::Catcher
   helper :all # include all helpers, all the time
 
-  include AccessSystem
-  include SecurityModelHelper
-
-  # before_filter :authenticate
   before_filter :set_current_user
   before_filter :set_banner if BANNER
-
   rescue_from ActiveRecord::RecordNotFound, :with => :not_found
   rescue_from NoMethodError, :with => :wrong_user? unless DEV_MODE
+  before_filter :authenticate_user!
 
-  # See ActionController::RequestForgeryProtection for details
-  # Uncomment the :secret if you're not using the cookie session store
-  # protect_from_forgery :secret => '370c47b86a8ff547b2b472693b0980a4'  
+  
+  def set_homepage
+    after_sign_in_path_for(current_user)
+  end
+
 
 protected
   def log_event(type, text)
@@ -31,6 +30,9 @@ protected
     instance_eval("#{class_name}.create(:message => '#{escaped_text}')")
   end
 
+  def site_layout
+    devise_controller? ? "login" : "application"
+  end
 
 
   # If the user_id session variable exists, grab this user from the database and store
@@ -62,8 +64,11 @@ protected
     redirect_to access_denied_path unless current_user.is_a?(Administrator)
   end
   
-  def access_denied_url
-    '/users/access_denied'
+  def after_sign_in_path_for(resource)
+   redirect_to users_path and return if current_user.is_a?(Administrator)
+   redirect_to training_path and return unless current_user.trained?
+   redirect_to activities_path and return if current_user.activity_manager? 
+   redirect_to access_denied_path
   end
   
   def strand_display(strand)
