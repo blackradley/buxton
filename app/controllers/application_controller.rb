@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
   before_filter :check_trained
   
   def set_homepage
-    after_sign_in_path_for(current_user)
+    redirect_to after_sign_in_path_for(current_user)
   end
 
 
@@ -61,14 +61,15 @@ protected
   end
   
   def requires_admin
+    return if devise_controller?
     redirect_to access_denied_path unless user_signed_in? && current_user.is_a?(Administrator)
   end
   
   def after_sign_in_path_for(resource)
-   redirect_to users_path and return if current_user.is_a?(Administrator)
-   redirect_to training_user_path(current_user) and return unless current_user.trained?
-   redirect_to activities_path and return if current_user.activity_manager? 
-   redirect_to access_denied_path
+   return users_path if current_user.is_a?(Administrator)
+   return training_user_path(current_user) unless current_user.trained?
+   return activities_path if current_user.activity_manager? 
+   return access_denied_path
   end
   
   def strand_display(strand)

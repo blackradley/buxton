@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :check_trained, :except => [:training, :update_training, :access_denied]
-  before_filter :requires_admin, :except => [:training, :update_training, :access_denied, :devise_controller?]
+  skip_before_filter :check_trained
+  before_filter :requires_admin, :except => [:training, :update_training, :access_denied]
   before_filter :setup_breadcrumb
   
   def index
@@ -26,6 +26,10 @@ class UsersController < ApplicationController
     else
       render "new"
     end
+  end
+  
+  def show
+    redirect_to set_homepage
   end
 
   def update
