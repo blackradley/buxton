@@ -15,7 +15,7 @@
   = render :partial => 'question_help', :collection => question_details(:purpose, 'faith', [4])
   = render :partial => 'question_help', :collection => question_details(:purpose, 'sexual_orientation', [4])
   = render :partial => 'question_help', :collection => question_details(:purpose, 'age', [4])
-  -form_for(:activity, :url => sections_path(:activity_id => @activity)) do |f|
+  =form_for(:activity, :url => sections_path(:activity_id => @activity)) do |f|
     = render :partial => 'intro'
 
     %h5

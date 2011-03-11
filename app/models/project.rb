@@ -21,8 +21,10 @@ class Project < ActiveRecord::Base
    attr_accessor :should_destroy
    
    include FixInvalidChars
+   
+   before_save :fix_name
 
-   def before_save
+   def fix_name
      self.name = fix_field(self.name)
    end
 

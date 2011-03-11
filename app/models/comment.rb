@@ -12,7 +12,9 @@ class Comment < ActiveRecord::Base
   
   include FixInvalidChars
   
-  def before_save
+  before_save :fix_contents
+  
+  def fix_contents
     self.contents = fix_field(self.contents)
   end
 

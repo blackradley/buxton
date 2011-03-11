@@ -55,7 +55,12 @@ class Activity < ActiveRecord::Base
   
   include FixInvalidChars
   
-  def before_save
+  before_save :fix_fields
+  
+  before_update :get_clone
+  after_update :update_questions_as_necessary
+  
+  def fix_fields
     self.attributes.each_pair do |key, value|
       self.attributes[key] = fix_field(value)
     end
@@ -397,8 +402,8 @@ class Activity < ActiveRecord::Base
       end
     end
   end
-
-  def before_update
+  
+  def get_clone
     @activity_clone = Activity.find(self.id)
   end
 
@@ -421,7 +426,7 @@ class Activity < ActiveRecord::Base
     []
   end
 
-  def after_update
+  def update_questions_as_necessary
     return true if @saved
     @saved = true
     to_save = {}
