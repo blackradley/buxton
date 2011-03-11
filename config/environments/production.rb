@@ -20,6 +20,9 @@ Buxton::Application.configure do
 
   # See everything in the log (default is :info)
   # config.log_level = :debug
+  
+  # (create the session table with 'rake db:sessions:create')
+  config.action_controller.session_store = :active_record_store
 
   # Use a different logger for distributed setups
   # config.logger = SyslogLogger.new
@@ -30,7 +33,8 @@ Buxton::Application.configure do
   # Disable Rails's static asset server
   # In production, Apache or nginx will already do this
   config.serve_static_assets = false
-
+  
+  config.action_mailer.delivery_method = :smtp
   # Enable serving of images, stylesheets, and javascripts from an asset server
   # config.action_controller.asset_host = "http://assets.example.com"
 
