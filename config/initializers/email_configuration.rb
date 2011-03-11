@@ -1,6 +1,6 @@
 # Configuration for the SMTP server.
 if Rails.env != 'test'
-  # c = YAML::load(File.open("#{RAILS_ROOT}/config/email.yml"))
+  # c = YAML::load(File.open("#{Rails.root}/config/email.yml"))
   # ActionMailer::Base.smtp_settings = {
   #   :address => c[Rails.env]['address'],
   #   :port => c[Rails.env]['port'],

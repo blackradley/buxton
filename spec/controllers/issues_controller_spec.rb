@@ -124,7 +124,7 @@ describe IssuesController, 'handling XHR POST /issues/destroy/:id' do
     @current_user.activity.stub!(:issues).and_return([])
     @current_user.activity.issues.stub!(:find).and_raise(@exception)
     xhr(:post, :destroy, :id => 'broken')
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
   

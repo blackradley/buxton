@@ -4,4 +4,4 @@ require 'rubygems'
 require 'will_paginate'
 
 # Load PDF reporting tools
-require "#{RAILS_ROOT}/lib/pdf_writer_extra_functionality_up.rb"
+require "#{Rails.root}/lib/pdf_writer_extra_functionality_up.rb"

@@ -2,7 +2,7 @@ require 'seed_extensions'
 include Seed
 
 # Load entire question hash into memory
-@@Hashes = YAML.load_file("#{RAILS_ROOT}/config/questions.yml")
+@@Hashes = YAML.load_file("#{Rails.root}/config/questions.yml")
 @@age_max = 0
 @@gender_max = 0
 @@faith_max = 0

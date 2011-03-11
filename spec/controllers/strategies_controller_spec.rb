@@ -97,7 +97,7 @@ describe StrategiesController, 'handling GET /strategies' do
     @exception = ActiveRecord::RecordNotFound.new
     Organisation.stub!(:find).and_raise(@exception)
     get :index, :id => 'broken'
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
@@ -115,7 +115,7 @@ describe StrategiesController, 'handling GET /strategies/reorder/:id' do
     @exception = ActiveRecord::RecordNotFound.new
     Organisation.stub!(:find).and_raise(@exception)
     get :reorder, :id => 'broken'
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
@@ -139,7 +139,7 @@ describe StrategiesController, 'handling GET /strategies/show/:id' do
     @exception = ActiveRecord::RecordNotFound.new
     Strategy.stub!(:find).and_raise(@exception)
     get :show, :id => 'broken'
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
@@ -157,7 +157,7 @@ describe StrategiesController, 'handling GET /strategies/new/:id' do
     @exception = ActiveRecord::RecordNotFound.new
     Organisation.stub!(:find).and_raise(@exception)
     get :new, :id => 'broken'
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end  
 
@@ -213,7 +213,7 @@ describe StrategiesController, 'handling GET /organisations/:organisation_id/str
     @exception = ActiveRecord::RecordNotFound.new
     @organisation.strategies.stub!(:find).and_raise(@exception)
     get :edit, :organisation_id => @organisation, :id => 'broken'
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
@@ -254,7 +254,7 @@ describe StrategiesController, 'handling PUT /organisations/:organisation_id/str
     @exception = ActiveRecord::RecordNotFound.new
     @organisation.strategies.stub!(:find).and_raise(@exception)
     put :update, :organisation_id => @organisation, :id => @strategy
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
@@ -287,7 +287,7 @@ describe StrategiesController, 'handling DELETE /organisations/:organisation_id/
     @exception = ActiveRecord::RecordNotFound.new
     @organisation.strategies.stub!(:find).and_raise(@exception)
     delete :destroy, :organisation_id => @organisation, :id => 'broken'
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 

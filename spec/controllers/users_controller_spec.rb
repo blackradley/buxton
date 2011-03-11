@@ -185,7 +185,7 @@ describe UsersController, 'handling GET /users/edit/:id' do
     @exception = ActiveRecord::RecordNotFound.new
     Administrator.stub!(:find).and_raise(@exception)
     get :edit, :id => 'broken'
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
@@ -223,7 +223,7 @@ describe UsersController, 'handling POST /users/update/:id' do
     @exception = ActiveRecord::RecordNotFound.new
     Administrator.stub!(:find).and_raise(@exception)
     post :update, :id => 'broken'
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
@@ -245,7 +245,7 @@ describe UsersController, 'handling GET /users/remind/:id' do
     @exception = ActiveRecord::RecordNotFound.new
     User.stub!(:find).and_raise(@exception)
     post :remind, :id => 'broken'
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
@@ -274,7 +274,7 @@ describe UsersController, 'handling POST /users/destroy/:id' do
     @exception = ActiveRecord::RecordNotFound.new
     Administrator.stub!(:find).and_raise(@exception)
     post :destroy, :id => 'broken'
-    response.should render_template("#{RAILS_ROOT}/public/404.html")
+    response.should render_template("#{Rails.root}/public/404.html")
     response.headers["Status"].should eql("404 Not Found")
   end
 
