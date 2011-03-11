@@ -4,14 +4,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :roles, :activities, :retired, :locked, :trained
-  serialize :roles
-  before_create :setup_roles
+  attr_accessible :email, :password, :password_confirmation, :roles, :activities, :retired, :locked, :trained, :creator
   scope :live, :conditions => "type is null"
-  
-  def setup_roles
-    self.roles ||=[]
-  end
   
   def activities
     ["Creator", "Completer", "Approver", "Checker", "Cop"].map do |role|
@@ -32,19 +26,23 @@ class User < ActiveRecord::Base
     terminology ? terminology.value : term
   end
   
-  def ordered_roles
-    ["Creator", "Completer", "Approver", "Checker", "Cop"].select{|role| self.roles.include? role}
-  end
-  
-  def creator?
-    self.roles.include?("Creator")
+  def roles
+    ["Creator", "Completer", "Approver", "Checker", "Cop"].select{|role| self.send("#{role.downcase}?".to_sym)}
   end
   
   def completer?
-    self.roles.include?("Completer")
+    Activity.where(:completer_id => self.id).count > 0
   end
   
   def approver?
-    self.roles.include?("Approver")
+    Activity.where(:approver_id => self.id).count > 0
+  end
+  
+  def checker?
+    false
+  end
+  
+  def cop?
+    false
   end
 end

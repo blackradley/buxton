@@ -22,6 +22,7 @@ class ActivitiesController < ApplicationController
   before_filter :ensure_completer, :only => [:questions, :submit, :update_activity_type, :toggle_strand, :submit, :my_einas, :view_pdf]
   before_filter :ensure_approver, :only => [:view_pdf, :assisting]
   before_filter :set_activity, :only => [:questions, :update, :submit, :update_activity_type, :toggle_strand, :submit]
+  autocomplete :user, :email
   
   def index
     redirect_to root_path
@@ -64,48 +65,19 @@ class ActivitiesController < ApplicationController
     @projects = @activity.projects
   end
   
-
-  # Create a new Activity and a new associated user, all activities must have single a valid User.
-  # Available to: Organisation Manager
   def new
     @activity = Activity.new
-    @activity_manager = @activity.build_activity_manager
-    @activity_approver = @activity.build_activity_approver
-    @activity_approver.email = @current_user.email
-    directorates = @current_user.organisation.directorates
-    @activity_creator = @current_user.organisation.activity_creator
-    @activity_creator_url = @activity_creator.url_for_login(request) if @activity_creator
-    @directorates = directorates.collect{ |d| [d.name, d.id] }
-    @projects = @current_user.organisation.projects
-    # If the params
-    if params[:directorate] && directorate = directorates.find_by_id(params[:directorate]) then
-      @activity.directorate = directorate
-    end
   end
 
-  # Create a new activity and a new user based on the parameters in the form data.
-  # Available to: Organisation Manager
   def create
-    @project_ids = (params[:projects].nil? ? [] : params[:projects])
-    @projects = @current_user.organisation.projects
     @activity = Activity.new(params[:activity])
-    @activity_manager = @activity.build_activity_manager(params[:activity_manager])
-    @activity_manager.passkey = ActivityManager.generate_passkey(@activity_manager)
-    @directorates = @current_user.organisation.directorates.collect{ |d| [d.name, d.id] } # Needed for the new template incase we need to re-render it
-    @activity_approver = @activity.build_activity_approver(params[:activity_approver])
-    @activity_approver.passkey = ActivityApprover.generate_passkey(@activity_approver)
-    @project_ids.each do |p_id|
-      @activity.projects << Project.find(p_id)
-    end
-    Activity.transaction do
-      @activity.save!
-      log_event('Create', %Q[The <strong>#{@activity.name}</strong> activity was created for <strong>#{@activity.organisation.name}</strong>.])
+    @activity.directorate = Directorate.first
+    if @activity.save
       flash[:notice] = "#{@activity.name} was created."
-      if @current_user.class.name == 'ActivityCreator' then
-        redirect_to :action => 'login', :controller => 'users', :passkey => @activity_manager.passkey
-      else
-        redirect_to :action => :show_by_status, :tab => 'incomplete'
-      end
+      # log_event('Create', %Q[The <strong>#{@activity.name}</strong> activity was created for <strong>#{@activity.organisation.name}</strong>.])
+      redirect_to directorate_einas_activities_path
+    else
+      render 'new'
     end
   end
 

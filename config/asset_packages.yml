@@ -11,6 +11,7 @@ javascripts:
   - application
   - rails
   - jquery-ui.min
+  - autocomplete-rails
   # - commentsandnotes
   # - prototip
 stylesheets:
@@ -38,3 +39,6 @@ stylesheets:
   - questions
   - organisation
   - summaryPage
+  - jquery-ui
+  - formtastic
+  - formtastic_changes

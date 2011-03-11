@@ -98,7 +98,7 @@ module ApplicationHelper
   end
 
   def activities_menu
-    current_user.ordered_roles.map do |role| 
+    current_user.roles.map do |role| 
       case role
       when "Completer"
         ["My Eina's", my_einas_activities_path]

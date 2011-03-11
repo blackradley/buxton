@@ -13,6 +13,7 @@ Buxton::Application.routes.draw do
       get :directorate_einas
       get :my_einas
       get :assisting
+      get :autocomplete_user_email
     end
     
     member do

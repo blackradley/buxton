@@ -12,3 +12,4 @@ gem 'newrelic_rpm'
 gem "devise"
 gem 'formtastic'
 gem 'hoptoad_notifier'
+gem 'rails3-jquery-autocomplete'

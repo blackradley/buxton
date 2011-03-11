@@ -60,6 +60,30 @@ class Activity < ActiveRecord::Base
   before_update :get_clone
   after_update :update_questions_as_necessary
   
+  def approver_email
+    if self.approver
+      self.approver.email
+    else
+      ""
+    end
+  end
+  
+  def approver_email=(email)
+    self.approver_id = User.live.find_by_email(email)
+  end
+  
+  def completer_email
+    if self.completer
+      self.completer.email
+    else
+      ""
+    end
+  end
+  
+  def completer_email=(email)
+    self.completer_id = User.live.find_by_email(email)
+  end
+  
   def fix_fields
     self.attributes.each_pair do |key, value|
       self.attributes[key] = fix_field(value)
