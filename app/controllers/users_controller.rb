@@ -1,9 +1,9 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!
-  before_filter :requires_admin
+  before_filter :requires_admin, :except => [:training, :update_training, :access_denied, :show]
+  before_filter :setup_breadcrumb
   
   def index
-    @breadcrumb = [["User Administration"]]
     @users = User.live
   end
   
@@ -26,7 +26,7 @@ class UsersController < ApplicationController
       render "new"
     end
   end
-  
+
   def update
     @breadcrumb = [["User Administration", users_path], ["Edit User"]]
     @user = User.live.find(params[:id])
@@ -35,5 +35,21 @@ class UsersController < ApplicationController
     else
       render "edit"
     end
+  end
+  
+  def access_denied
+  end
+  
+  def training
+  end
+  
+  def update_training
+    current_user
+  end
+
+  private
+  
+  def setup_breadcrumb
+    @breadcrumb = [["User Administration"]]
   end
 end
