@@ -30,7 +30,7 @@ class ActivitiesController < ApplicationController
   end
   
   def directorate_einas
-    @breadcrumb = [["Directorate Einas"]]
+    @breadcrumb = [["Directorate Eina's"]]
     @activities = Activity.all
   end
   
@@ -67,6 +67,7 @@ class ActivitiesController < ApplicationController
   end
   
   def new
+    @breadcrumb = [["Directorate Eina's", directorate_einas_activities_path], ["Create Eina"]]
     @activity = Activity.new
   end
 
