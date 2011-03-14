@@ -18,9 +18,10 @@ class ActivitiesController < ApplicationController
   # Make render_to_string available to the #show action
   helper_method :render_to_string
   before_filter :authenticate_user!
-  before_filter :ensure_creator, :only => [:edit, :new, :create, :update, :directorate_einas, :view_pdf]
-  before_filter :ensure_completer, :only => [:questions, :submit, :update_activity_type, :toggle_strand, :submit, :my_einas, :view_pdf]
-  before_filter :ensure_approver, :only => [:view_pdf, :assisting]
+  before_filter :ensure_creator, :only => [:edit, :new, :create, :update, :directorate_einas]
+  before_filter :ensure_completer, :only => [:questions, :submit, :update_activity_type, :toggle_strand, :my_einas]
+  before_filter :ensure_approver, :only => [:assisting]
+  before_filter :ensure_pdf_view, :only => [:view_pdf]
   before_filter :set_activity, :only => [:edit, :questions, :update, :submit, :update_activity_type, :toggle_strand, :submit, :view_pdf]
   autocomplete :user, :email, :scope => :live
   
@@ -99,16 +100,11 @@ class ActivitiesController < ApplicationController
   end
   
   def submit
-    @user = @current_user.activity.activity_approver
+    #TODO: setup approver
     @activity.approved = "submitted"
     @activity.save
-    @login_url = @user.url_for_login(request)
-    email = Notifier.create_approver_key(@user, @login_url)
-    Notifier.deliver(email)
-    @user.reminded_on = Time.now
-    @user.save
     flash[:notice] = 'Your activity has been successfully submitted for approval.'
-    redirect_to :controller => 'activities', :action => 'show'
+    redirect_to questions_activity_path(@activity)
   end
   
   def approve
@@ -135,7 +131,7 @@ class ActivitiesController < ApplicationController
   # Opening page where they must choose between Activity/Policy and Existing/Proposed
   # Available to: Activity Manager
   def questions
-    @breadcrumb = [["Activities", activities_path], ["#{@activity.name}"]]
+    @breadcrumb = [["Activities", my_einas_activities_path], ["#{@activity.name}"]]
     completed_status_array = @activity.strands(true).map{|strand| [strand.to_sym, @activity.completed(nil, strand)]}
     completed_status_hash = Hash[*completed_status_array.flatten]
     tag_test = completed_status_hash.select{|k,v| !v}.map(&:first).map do |strand_status|
@@ -188,15 +184,11 @@ class ActivitiesController < ApplicationController
   
   
 protected
-
-
-  def ensure_activity_manager
-    redirect_to access_denied_path if (["ActivityManager"] & current_user.roles).blank?
+  
+  def ensure_pdf_view
+    current_user.creator? || current_user.approver? || current_user.completer?
   end
   
-  def ensure_activity_approver
-    
-  end
   
   def set_activity
     @activity = current_user.activities.select{|a| a.id == params[:id].to_i}.first
