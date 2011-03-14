@@ -24,8 +24,14 @@ $(document).ready(function(){
     var strand = $(this).attr('id').replace("_checkbox", "");
     $('#row_'+ strand+ '_on').toggle();
     $('#row_'+ strand+ '_off').toggle();
-    $.get("/activities/toggle_strand?strand=" + strand);
+    $.get($(this).data("path"));
   })
+  
+  $('#submit_answers a').click(function(){
+    if($('.checkStrand :checkbox:checked').size() == 0){
+      return confirm('The assessment you are submitting has not identified any relevant equality strands.  Is this correct?');
+    }
+  });
   
   // Toggles the question depending on what is contained in the dependency hashes
   $('.question select, .question_compact select').change(function(){
