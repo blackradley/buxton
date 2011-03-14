@@ -30,17 +30,17 @@ class ActivitiesController < ApplicationController
   end
   
   def directorate_einas
-    @breadcrumb = [["Activities"]]
+    @breadcrumb = [["Directorate Einas"]]
     @activities = Activity.all
   end
   
   def my_einas
-    @breadcrumb = [["Activities"]]
+    @breadcrumb = [["My Eina's"]]
     @activities = Activity.where(:completer_id => current_user.id)
   end
   
   def assisting
-    @breadcrumb = [["Activities"]]
+    @breadcrumb = [["Assisting"]]
     @activities = Activity.where(:approver_id => current_user.id)
   end
   
@@ -132,7 +132,7 @@ class ActivitiesController < ApplicationController
   # Opening page where they must choose between Activity/Policy and Existing/Proposed
   # Available to: Activity Manager
   def questions
-    @breadcrumb = [["Activities", my_einas_activities_path], ["#{@activity.name}"]]
+    @breadcrumb = [["My Eina's", my_einas_activities_path], ["#{@activity.name}"]]
     completed_status_array = @activity.strands(true).map{|strand| [strand.to_sym, @activity.completed(nil, strand)]}
     completed_status_hash = Hash[*completed_status_array.flatten]
     tag_test = completed_status_hash.select{|k,v| !v}.map(&:first).map do |strand_status|
