@@ -8,4 +8,4 @@
     =form.hidden_field :completer_id
     =form.autocompleted_input :approver_email, :url => autocomplete_user_email_activities_path, :id_element => '#activity_approver_id', :label => "Approver"
     =form.autocompleted_input :completer_email, :url => autocomplete_user_email_activities_path, :id_element => '#activity_completer_id', :label => "Completer"
-  = form.buttons
+  = form.submit "Create", :class => "orangeButton"
