@@ -98,9 +98,9 @@ class ActivitiesController < ApplicationController
     @user = @current_user.activity.activity_approver
     @activity.approved = "submitted"
     @activity.save
-    @login_url = @user.url_for_login(request)
-    email = Notifier.create_approver_key(@user, @login_url)
-    Notifier.deliver(email)
+    # @login_url = @user.url_for_login(request)
+    # email = Notifier.create_approver_key(@user, @login_url)
+    # Notifier.deliver(email)
     @user.reminded_on = Time.now
     @user.save
     flash[:notice] = 'Your activity has been successfully submitted for approval.'
