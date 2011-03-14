@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   
   before_validation(:on => :create) { self.set_password }
   after_create :send_password
+  before_save :update_lock_time
   
   def set_password
     @new_pass = String.random_alphanumeric
@@ -18,6 +19,21 @@ class User < ActiveRecord::Base
   
   def send_password
     Mailer.new_account(user, @password).deliver
+  end
+  
+  def update_lock_time
+    if locked_changed?
+      if locked?
+        self.locked_at = Time.now
+      else
+        self.locked_at = nil
+      end
+    end
+  end
+  
+  def lock_access!
+    self.locked = true
+    super
   end
   
   
