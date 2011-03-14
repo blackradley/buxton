@@ -25,7 +25,7 @@ Buxton::Application.configure do
   TLD_LENGTH = 2
 
   # Use SMTP protocol to deliver emails
-  config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.delivery_method = :smtp
 
   # Specifies the header that your server uses for sending files
   config.action_dispatch.x_sendfile_header = "X-Sendfile"
