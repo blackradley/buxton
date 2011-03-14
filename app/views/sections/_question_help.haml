@@ -18,7 +18,7 @@
         = render :partial => 'attachment', :locals => {:text => question_help[:comment]}
       .control
         =image_tag ("icons/comment_delete.gif")
-        =link_to "Delete", comment_path(:question_id => question_help[:full_question].id), :method => :delete, :remote => true, :confirm => "Delete this comment?"
+        =link_to "Delete", comment_path(:question_id => question_help[:full_question].id, :activity_id => @activity.id), :method => :delete, :remote => true, :confirm => "Delete this comment?"
       .control
         =image_tag ("icons/comment_edit.gif")
         =link_to "Edit", "##{question_help[:id]}_comment_form", :class => 'inline'
@@ -29,7 +29,7 @@
     .editComment.commentform{:id => "#{question_help[:id]}_comment_form"}
       .heading
         %h3 Add a new comment for the report
-      = form_tag(set_comment_comment_index_path(:question_id => question_help[:full_question].id), :remote => true, :class => "lightboxForm") do
+      = form_tag(set_comment_comment_index_path(:question_id => question_help[:full_question].id, :activity_id => @activity.id), :remote => true, :class => "lightboxForm") do
         =text_area_tag "comment", question_help[:comment], :id => "#{question_help[:id]}_comment_fill_in", :class => "commentTextArea"
         = link_to "Save", "#", :class => "saveLink"
   %h3
@@ -42,7 +42,7 @@
         = render :partial => 'attachment', :locals => {:text => question_help[:note]}
       .control
         =image_tag ("icons/note_delete.gif")
-        =link_to "Delete", note_path(:question_id => question_help[:full_question].id), :remote => true, :method => :delete, :confirm => "Delete this note?"
+        =link_to "Delete", note_path(:question_id => question_help[:full_question].id, :activity_id => @activity.id), :remote => true, :method => :delete, :confirm => "Delete this note?"
       .control
         =image_tag ("icons/note_edit.gif")
         =link_to "Edit", "##{question_help[:id]}_note_form", :class => 'inline'
@@ -53,6 +53,6 @@
     .editNote.noteform{:id => "#{question_help[:id]}_note_form"}
       .heading
         %h3 Add a new note to myself
-      = form_tag(set_note_note_index_path(:question_id => question_help[:full_question].id), :remote => true, :class => "lightboxForm") do
+      = form_tag(set_note_note_index_path(:question_id => question_help[:full_question].id, :activity_id => @activity.id), :remote => true, :class => "lightboxForm") do
         = text_area_tag "note", question_help[:note], :id => "#{question_help[:id]}_note_fill_in", :class => "noteTextArea"
         = link_to "Save", "#", :class => "saveLink"
