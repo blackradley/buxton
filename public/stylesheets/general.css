@@ -24,7 +24,7 @@ h1 {
 
 h2 {
   font-weight: normal;
-  color: #1B4E77;
+  color: #1b4e77;
   font-size: 1.5em;
   margin: 0px 20px; }
 
@@ -70,13 +70,13 @@ label {
 select,
 input {
   width: 224px;
-  border: 1px solid #1B4E77;
+  border: 1px solid #1b4e77;
   margin-top: 4px;
   font-size: 1em; }
 
 textarea {
   width: 220px;
-  border: 1px solid #1B4E77;
+  border: 1px solid #1b4e77;
   margin-top: 4px;
   height: 60px;
   font-family: Tahoma, Verdana, Arial, Sans-Serif;
@@ -131,3 +131,10 @@ form {
   font-size: 10px;
   float: left;
   clear: left; }
+
+input[type='button'], input[type='submit'], button {
+  cursor: pointer; }
+
+#flashBox {
+  margin-top: 10px;
+  font-weight: bold; }
