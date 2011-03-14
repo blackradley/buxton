@@ -76,6 +76,7 @@ class ActivitiesController < ApplicationController
     if @activity.save
       flash[:notice] = "#{@activity.name} was created."
       # log_event('Create', %Q[The <strong>#{@activity.name}</strong> activity was created for <strong>#{@activity.organisation.name}</strong>.])
+      Mailer.activity_created(@activity).deliver
       redirect_to directorate_einas_activities_path
     else
       render 'new'
