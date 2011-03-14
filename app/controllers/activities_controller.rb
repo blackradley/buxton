@@ -21,7 +21,7 @@ class ActivitiesController < ApplicationController
   before_filter :ensure_creator, :only => [:edit, :new, :create, :update, :directorate_einas, :view_pdf]
   before_filter :ensure_completer, :only => [:questions, :submit, :update_activity_type, :toggle_strand, :submit, :my_einas, :view_pdf]
   before_filter :ensure_approver, :only => [:view_pdf, :assisting]
-  before_filter :set_activity, :only => [:questions, :update, :submit, :update_activity_type, :toggle_strand, :submit]
+  before_filter :set_activity, :only => [:edit, :questions, :update, :submit, :update_activity_type, :toggle_strand, :submit, :view_pdf]
   autocomplete :user, :email, :scope => :live
   
   def index
@@ -79,6 +79,10 @@ class ActivitiesController < ApplicationController
     else
       render 'new'
     end
+  end
+  
+  
+  def edit
   end
 
   # Update the activity details accordingly.
@@ -169,15 +173,8 @@ class ActivitiesController < ApplicationController
   end
   
   def view_pdf
-    if @current_user.class.name =~ /Activity/ then
-      @activity = @current_user.activity
-    elsif @current_user.respond_to?(:activities)
-      @activity = @current_user.activities.find(params[:id])
-    else
-      raise ActiveRecord::RecordNotFound
-    end
     type = params[:type]
-    log_event('PDF', %Q[The activity manager PDF for the <strong>#{@activity.name}</strong> activity, within <strong>#{@activity.organisation.name}</strong>, was viewed.])
+    # log_event('PDF', %Q[The activity manager PDF for the <strong>#{@activity.name}</strong> activity, within <strong>#{@activity.organisation.name}</strong>, was viewed.])
     send_data ActivityPDFGenerator.new(@activity, type).pdf.render, :disposition => 'inline',
       :filename => "#{@activity.name}.pdf",
       :type => "application/pdf"
