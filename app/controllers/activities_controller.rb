@@ -21,7 +21,7 @@ class ActivitiesController < ApplicationController
   before_filter :ensure_creator, :only => [:edit, :new, :create, :update, :directorate_einas, :view_pdf]
   before_filter :ensure_completer, :only => [:questions, :submit, :update_activity_type, :toggle_strand, :submit, :my_einas, :view_pdf]
   before_filter :ensure_approver, :only => [:view_pdf, :assisting]
-  before_filter :set_activity, :only => [:questions, :update, :submit, :update_activity_type, :toggle_strand, :submit, :view_pdf]
+  before_filter :set_activity, :only => [:edit, :questions, :update, :submit, :update_activity_type, :toggle_strand, :submit, :view_pdf]
   autocomplete :user, :email, :scope => :live
   
   def index
@@ -79,6 +79,10 @@ class ActivitiesController < ApplicationController
     else
       render 'new'
     end
+  end
+  
+  
+  def edit
   end
 
   # Update the activity details accordingly.
