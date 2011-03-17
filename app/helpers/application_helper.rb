@@ -101,11 +101,11 @@ module ApplicationHelper
     current_user.roles.map do |role| 
       case role
       when "Completer"
-        ["My Eina's", my_einas_activities_path]
+        ["My EINAs", my_einas_activities_path]
       when "Approver"
         ["Assisting", assisting_activities_path]
       when "Creator"
-        ["Directorate Eina's", directorate_einas_activities_path]
+        ["Directorate EINAs", directorate_einas_activities_path]
       end
     end
   end

@@ -2,19 +2,40 @@ table {
   clear: both;
   width: 950px;
   margin: 20px 0px;
-  border-collapse: collapse;
-  border-width: 1px;
-  border-color: #999999; }
+  border: 1px solid #bbbbbb; }
   table th {
     background-color: #1b4e77;
     color: white;
+    border-right: 1px solid #bbbbbb;
     text-align: left;
     padding: 0px 10px 5px;
     line-height: 16px;
     height: 44px;
     vertical-align: bottom; }
+    table th .sortControls {
+      float: right; }
+      table th .sortControls a {
+        float: left;
+        width: 16px;
+        height: 16px;
+        padding: 0px;
+        cursor: pointer;
+        text-indent: -1000px;
+        overflow: hidden;
+        background-repeat: no-repeat; }
+      table th .sortControls .up {
+        background-image: url(../images/bullet_arrow_up.png); }
+      table th .sortControls .down {
+        background-image: url(../images/bullet_arrow_down.png); }
+      table th .sortControls .up.selected,
+      table th .sortControls .up:hover {
+        background-image: url(../images/bullet_arrow_up_on.png); }
+      table th .sortControls .down.selected,
+      table th .sortControls .down:hover {
+        background-image: url(../images/bullet_arrow_down_on.png); }
   table td {
     text-align: left;
+    border-right: 1px solid #bbbbbb;
     padding: 8px 10px; }
     table td .action {
       padding-left: 20px;
@@ -22,6 +43,42 @@ table {
       background-position: center left; }
     table td .edit {
       background-image: url(../images/icons/edit.gif); }
+  table .last {
+    border-right: 0px solid #bbbbbb; }
+  table .sortControls {
+    text-align: center;
+    background-color: #d2e0f0;
+    padding: 0px; }
+    table .sortControls a {
+      display: inline-block;
+      width: 13px;
+      height: 10px;
+      padding: 0px;
+      cursor: pointer;
+      text-indent: -1000px;
+      overflow: hidden;
+      background-repeat: no-repeat;
+      background-position: center center; }
+    table .sortControls .up {
+      background-image: url(../images/bullet_arrow_up.png); }
+    table .sortControls .down {
+      background-image: url(../images/bullet_arrow_down.png); }
+    table .sortControls .up.selected,
+    table .sortControls .up:hover {
+      background-image: url(../images/bullet_arrow_up_on.png); }
+    table .sortControls .down.selected,
+    table .sortControls .down:hover {
+      background-image: url(../images/bullet_arrow_down_on.png); }
+  table .first {
+    width: 420px; }
+  table .dateTime {
+    width: 160px; }
+  table .date {
+    width: 65px; }
+  table .checkbox {
+    text-align: center; }
+    table .checkbox input {
+      width: auto; }
   table .light td {
     background-color: white; }
   table .dark td {
