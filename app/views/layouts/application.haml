@@ -52,10 +52,11 @@
                 =link_to segment, link
               - else
                 =segment
-      .content      
-        .messageArea
+      .messageArea
+        -if flash[:notice]
           %p
-            = flash[:notice]
+            =flash[:notice]
+      .content      
         .workingArea
           #content_holder
             = yield
@@ -63,7 +64,7 @@
 
       .footer
         %p
-          =raw "&copy; 2011 Birmingham City Council EINA Toolkit, Powered by <a href='#'>Black Radley Systems Limited</a>. All rights reserved."
+          =raw "Powered by <a href='#'>Black Radley</a>."
       .clear
     - @new_signup = true
     - if @new_signup

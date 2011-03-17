@@ -13,12 +13,12 @@ class User < ActiveRecord::Base
   
   def set_password
     @new_pass = String.random_alphanumeric
-    self.password = new_pass
-    self.password_confirmation = new_pass
+    self.password = @new_pass
+    self.password_confirmation = @new_pass
   end
   
   def send_password
-    Mailer.new_account(user, @password).deliver
+    Mailer.new_account(self, @new_pass).deliver
   end
   
   def update_lock_time
