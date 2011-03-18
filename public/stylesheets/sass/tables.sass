@@ -4,19 +4,41 @@ table
   :clear both
   :width 950px
   :margin 20px 0px
-  :border-collapse collapse
-  :border-width 1px
-  :border-color #999999
+  :border 1px solid #BBBBBB
   th
     :background-color #1B4E77
     :color #ffffff
+    :border-right 1px solid #BBBBBB
     :text-align left
     :padding 0px 10px 5px
     :line-height 16px
     :height 44px
     :vertical-align bottom
+    .sortControls
+      :float right
+      a
+        :float left
+        :width 16px
+        :height 16px
+        :padding 0px
+        :cursor pointer
+        :text-indent -1000px
+        :overflow hidden
+        :background-repeat no-repeat
+      .up
+        :background-image url(../images/bullet_arrow_up.png)
+      .down
+        :background-image url(../images/bullet_arrow_down.png)
+      .up.selected,
+      .up:hover
+        :background-image url(../images/bullet_arrow_up_on.png)
+      .down.selected,
+      .down:hover
+        :background-image url(../images/bullet_arrow_down_on.png)
+        
   td
     :text-align left
+    :border-right 1px solid #BBBBBB
     :padding 8px 10px
     .action
       :padding-left 20px
@@ -24,6 +46,43 @@ table
       :background-position center left
     .edit
       :background-image url(../images/icons/edit.gif)
+  .last
+    :border-right 0px solid #BBBBBB
+  .sortControls
+    :text-align center
+    :background-color #D2E0F0
+    :padding 0px
+    a
+      :display inline-block
+      :width 13px
+      :height 10px
+      :padding 0px
+      :cursor pointer
+      :text-indent -1000px
+      :overflow hidden
+      :background-repeat no-repeat
+      :background-position center center
+    .up
+      :background-image url(../images/bullet_arrow_up.png)
+    .down
+      :background-image url(../images/bullet_arrow_down.png)
+    .up.selected,
+    .up:hover
+      :background-image url(../images/bullet_arrow_up_on.png)
+    .down.selected,
+    .down:hover
+      :background-image url(../images/bullet_arrow_down_on.png)
+  .first
+    :width 420px
+  .dateTime
+    :width 160px
+  .date
+    :width 65px
+  .checkbox
+    :text-align center
+    input
+      :width auto
+      
   .light
     td
       :background-color #ffffff

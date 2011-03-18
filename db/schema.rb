@@ -185,13 +185,16 @@ ActiveRecord::Schema.define(:version => 20110315120102) do
   create_table "questions", :force => true do |t|
     t.integer "activity_id"
     t.string  "name"
-    t.boolean "completed",   :default => false
-    t.boolean "needed",      :default => false
+    t.boolean "completed",     :default => false
+    t.boolean "needed",        :default => false
     t.text    "raw_answer"
     t.text    "choices"
     t.text    "help_text"
     t.text    "label"
     t.string  "input_type"
+    t.string  "strand"
+    t.string  "section"
+    t.integer "dependency_id"
   end
 
   add_index "questions", ["activity_id", "name", "needed", "completed"], :name => "index_questions_on_activity_id_and_name_and_needed_and_completed"
@@ -244,6 +247,9 @@ ActiveRecord::Schema.define(:version => 20110315120102) do
     t.boolean  "retired"
     t.boolean  "locked"
     t.boolean  "creator",                           :default => false
+    t.integer  "failed_attempts",                   :default => 0
+    t.string   "unlock_token"
+    t.datetime "locked_at"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
