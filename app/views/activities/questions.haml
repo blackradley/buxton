@@ -5,121 +5,98 @@
   .stepImage
     =image_tag("1.png")
   .stepBox
-    %h2 Activity Type
-    %p Before you can start the assessment, Impact Equality&trade; asks you to classify the activity as either a Function or Policy and as either Existing or Proposed. You will be unable to move on to the rest of the tool until you have completed these questions.
-    =form_for(:activity, :url => {:action => 'update_activity_type'}) do |f|
-      %fieldset
-        %p
-          %label This is a:
-          .labelled
-            -fp_options = @activity.hashes['function_policy']['choices']
-            = f.select :function_policy, @activity.hashes['choices'][fp_options].collect {|option| [option , @activity.hashes['choices'][fp_options].index(option)] }
-        %p
-          %label And is:
-          .labelled
-            -ep_options = @activity.hashes['existing_proposed']['choices']
-            = f.select :existing_proposed, @activity.hashes['choices'][ep_options].collect {|option| [option , @activity.hashes['choices'][ep_options].index(option)] }
-        %span.submit
-          =submit_tag "save", {:disable_with => 'saving...', :id => 'save_activity_type_button'}
+    %h2 Overall Purpose
+    %p What is the purpose of this Activity? After you have completed the purpose Assessment Section you will be asked which of the Equality Dimensions you wish to complete.
+    %p
+      %span.letter
+        =image_tag("a.gif")
+      =link_to "What the Activity is for", edit_purpose_a_activities_section_path(@activity), :title => "Target of Activity and Impact on #{ot('strategy').pluralize.titleize}"
+      %span.letter_completed
+        =tick_cross_display(@activity.target_and_strategies_completed)
+      %br
+      %span.letter
+        =image_tag("b.gif")
+      =link_to "Individuals affected by the activity", edit_purpose_b_activities_section_path(@activity), :title =>"Impact on Individuals"
+      %span.letter_completed
+        =tick_cross_display(@activity.impact_on_individuals_completed)
+      %br
+      %span.letter
+        =image_tag("c.gif")
+      =link_to "Different benefits and disadvantages of the Activity", edit_purpose_c_activities_section_path(@activity), :title =>"Impact on Equality Groups"
+      %span.letter_completed
+        =tick_cross_display(@activity.impact_on_equality_groups)
   .clear
--if @activity.started
+-if @activity.completed(:purpose) then
   .step#two
     .stepImage
       =image_tag("2.png")
     .stepBox
-      %h2 Overall Purpose
-      %p What is the purpose of this Activity? After you have completed the purpose Assessment Section you will be asked which of the Equality Dimensions you wish to complete.
+      %h2 Relevant Equality Strands
+      %p The answers to your questions indicate that the activity is relevant to the marked Equality Dimensions.  Please indicate by ticking the box which Equality Dimension you would like to include in the assessment, clicking on the tick again removes that Equality Dimension.
+      -@activity.overview_strands.each do |strand_name, strand|
+        -selected = false
+        %span.checkStrand
+          -if @activity.strand_relevant?(strand) then
+            -selected = true
+          = check_box_tag("#{strand}_checkbox", strand_name, selected, "data-path" => toggle_strand_activity_path(@activity, :strand => strand))
+          %label
+            =h strand_display(strand).titlecase
+            / -if @activity.impact_calculation(strand).to_i > 9 then
+            /   <br />
+            /   %span.strandRelevant Recommended
       %p
-      
-        %span.letter
-          =image_tag("a.gif")
-        =link_to "What the Activity is for", { :controller => 'sections', :action => 'edit', :id => 'purpose_a', :equality_strand => 'overall', :activity_id => @activity.id }, :title => "Target of Activity and Impact on #{ot('strategy').pluralize.titleize}"
-        %span.letter_completed
-          =tick_cross_display(@activity.target_and_strategies_completed)
-        %br
-        %span.letter
-          =image_tag("b.gif")
-        =link_to "Individuals affected by the activity", { :controller => 'sections', :action => 'edit', :id => 'purpose_b', :equality_strand => 'overall', :activity_id => @activity.id }, :title =>"Impact on Individuals"
-        %span.letter_completed
-          =tick_cross_display(@activity.impact_on_individuals_completed)
-        %br
-        %span.letter
-          =image_tag("c.gif")
-        =link_to "Different benefits and disadvantages of the Activity", { :controller => 'sections', :action => 'edit', :id => 'purpose_c', :equality_strand => 'overall', :activity_id => @activity.id }, :title =>"Impact on Equality Groups"
-        %span.letter_completed
-          =tick_cross_display(@activity.impact_on_equality_groups)
-    .clear
-  -if @activity.completed(:purpose) then
-    .step#three
-      .stepImage
-        =image_tag("3.png")
-      .stepBox
-        %h2 Relevant Equality Strands
-        %p The answers to your questions indicate that the activity is relevant to the marked Equality Dimensions.  Please indicate by ticking the box which Equality Dimension you would like to include in the assessment, clicking on the tick again removes that Equality Dimension.
+      %h2 Equality Strand Questions
+      %p The Impact Equality&trade; tool asks you questions under four Assessment Sections (impact, consultation, additional work and action planning).
+      %p Each set of questions can apply to each of the six Equality Dimensions (gender, race, disability, religion or belief, sexual orientation, and age).
+      %p The Assessment Sections and Equality Dimensions are set out as a table below.
+      %p Click on the <img src="/images/icons/edit.gif" /> icon to answer the questions in that section. Click "Save" when you have finished work on a section.
+      %p The section is complete when the <img src="/images/icons/cross.gif" /> turns into a <img src="/images/icons/tick.gif" />.  When all the <img src="/images/icons/cross.gif" />s are <img src="/images/icons/tick.gif" />s, you are finished!
+      %table
+        %tr
+          %th.strandHeading
+          %th Impact
+          %th Consultation
+          %th Additional Work
+          %th Action Planning
+        -display_on = ""
+        -display_off = ""
         -@activity.overview_strands.each do |strand_name, strand|
-          -selected = false
-          %span.checkStrand
-            -if @activity.strand_relevant?(strand) then
-              -selected = true
-            = check_box_tag("#{strand}_checkbox", strand_name, selected, "data-path" => toggle_strand_activity_path(@activity, :strand => strand))
-            %label
-              =h strand_display(strand).titlecase
-              -if @activity.impact_calculation(strand).to_i > 9 then
-                <br />
-                %span.strandRelevant Recommended
-        %p
-        %h2 Equality Strand Questions
-        %p The Impact Equality&trade; tool asks you questions under four Assessment Sections (impact, consultation, additional work and action planning).
-        %p Each set of questions can apply to each of the six Equality Dimensions (gender, race, disability, religion or belief, sexual orientation, and age).
-        %p The Assessment Sections and Equality Dimensions are set out as a table below.
-        %p Click on the <img src="/images/icons/edit.gif" /> icon to answer the questions in that section. Click "Save" when you have finished work on a section.
-        %p The section is complete when the <img src="/images/icons/cross.gif" /> turns into a <img src="/images/icons/tick.gif" />.  When all the <img src="/images/icons/cross.gif" />s are <img src="/images/icons/tick.gif" />s, you are finished!
-        %table
-          %tr
+          -if @activity.strand_relevant?(strand) then
+            -display_on = ""
+            -display_off = "display:none"
+          -else
+            -display_on = "display:none"
+            -display_off = ""
+          %tr{:id => "row_#{strand_name}_on", :style => "#{display_on};"}
             %th.strandHeading
-            %th Impact
-            %th Consultation
-            %th Additional Work
-            %th Action Planning
-          -display_on = ""
-          -display_off = ""
-          -@activity.overview_strands.each do |strand_name, strand|
-            -if @activity.strand_relevant?(strand) then
-              -display_on = ""
-              -display_off = "display:none"
-            -else
-              -display_on = "display:none"
-              -display_off = ""
-            %tr{:id => "row_#{strand_name}_on", :style => "#{display_on};"}
-              %th.strandHeading
-                =h strand_display(strand).titlecase
-              %td
-                = completed_tag(@activity, :impact, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'impact', :equality_strand => strand, :activity_id => @activity.id }, :title =>"Edit Impact", :id => "#{strand_name}_impact_pencil"
-              %td
-                = completed_tag(@activity, :consultation, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'consultation', :equality_strand => strand, :activity_id => @activity.id }, :title =>"Edit Consultation", :id => "#{strand_name}_consultation_pencil"
-              %td
-                = completed_tag(@activity, :additional_work, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'additional_work', :equality_strand => strand, :activity_id => @activity.id }, :title =>"Edit Additional Work", :id => "#{strand_name}_additional_work_pencil"
-              %td
-                - if @activity.issues.find_by_strand(strand.to_s) then              
-                  = completed_tag(@activity, :action_planning, strand.to_sym)
-                  = link_to image_tag('icons/edit.gif'), { :controller => 'sections', :action => 'edit', :id => 'action_planning', :equality_strand => strand, :activity_id => @activity.id }, :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
-                - else
-                  %span.na -
-            %tr{:id => "row_#{strand_name}_off", :style => "#{display_off};"}
-              %th.strandHeading
-                =h strand_display(strand).titlecase
-              %td
+              =h strand_display(strand).titlecase
+            %td
+              = completed_tag(@activity, :impact, strand.to_sym)
+              = link_to image_tag('icons/edit.gif'), edit_activities_section_path(@activity, :equality_strand => strand, :section => "impact"), :title =>"Edit Impact", :id => "#{strand_name}_impact_pencil"
+            %td
+              = completed_tag(@activity, :consultation, strand.to_sym)
+              = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "consultation"), :title =>"Edit Consultation", :id => "#{strand_name}_consultation_pencil"
+            %td
+              = completed_tag(@activity, :additional_work, strand.to_sym)
+              = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "additional_work"), :title =>"Edit Additional Work", :id => "#{strand_name}_additional_work_pencil"
+            %td
+              - if @activity.issues.find_by_strand(strand.to_s) then              
+                = completed_tag(@activity, :action_planning, strand.to_sym)
+                = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "action_planning"), :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
+              - else
                 %span.na -
-              %td
-                %span.na -
-              %td
-                %span.na -
-              %td
-                %span.na -
-      .clear
+          %tr{:id => "row_#{strand_name}_off", :style => "#{display_off};"}
+            %th.strandHeading
+              =h strand_display(strand).titlecase
+            %td
+              %span.na -
+            %td
+              %span.na -
+            %td
+              %span.na -
+            %td
+              %span.na -
+    .clear
   .step#four{:style => (@activity.completed ? 'display:block' : 'display:none')}
     .stepImage
       =image_tag("4.png")    

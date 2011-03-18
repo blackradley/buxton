@@ -50,51 +50,54 @@ module ApplicationHelper
   end
 
   def question_details(section, strand, questions)
-    info_array = []
-    questions.each do |question|
-      info = @activity.question_wording_lookup(section, strand, question)
-      look_up_choices = @activity.hashes['choices']
-      choices = info[2].to_i
-      choices_array=[]
-      dependents=[]
-      dependents_array=[]
-      dependency = []
-
-      if choices!=0
-         look_up_choices[choices].each do |d|
-           choices_array << [d, look_up_choices[choices].index(d)]
-         end
-       end
-
-       dependents = @activity.dependencies("#{section}_#{strand}_#{question}")
-
-        if dependents
-            dependents.each do |da|
-              dependents_array << [da[0], @activity.hashes[da[1]].to_i]
-            end
-          end
-      dependency = @activity.dependent_questions("#{section}_#{strand}_#{question}")
-      name = "#{section}_#{strand}_#{question}"
-      full_question = [*@activity.questions.find_by_name(name)][0]
-      comment = full_question.comment
-      note = full_question.note
-      comment_contents = (comment.nil? ? '' : comment.contents)
-      note_contents = (note.nil? ? '' : note.contents)
-      info_array << {  :id => name,
-                        :full_question => full_question,
-                        :label => info[0],
-                        :help => info[3],
-                        :input_type => info[1].to_sym,
-                        :input_choices => choices_array,
-                        :dependents => dependents_array,
-                        :dependency => dependency,
-                        :input_choices => choices_array,
-                        :comment => comment_contents,
-                        :note => note_contents
-                      }
-       full_question.save
+    questions.map! do|number|
+      @activity.questions.find_by_name("#{section}_#{strand}_#{number}")
     end
-    return info_array
+    # info_array = []
+    #     questions.each do |question|
+    #       info = @activity.question_wording_lookup(section, strand, question)
+    #       look_up_choices = @activity.hashes['choices']
+    #       choices = info[2].to_i
+    #       choices_array=[]
+    #       dependents=[]
+    #       dependents_array=[]
+    #       dependency = []
+    # 
+    #       if choices!=0
+    #          look_up_choices[choices].each do |d|
+    #            choices_array << [d, look_up_choices[choices].index(d)]
+    #          end
+    #        end
+    # 
+    #        dependents = question.children
+    # 
+    #         if dependents
+    #             dependents.each do |da|
+    #               dependents_array << [da[0], @activity.hashes[da[1]].to_i]
+    #             end
+    #           end
+    #       dependency = @activity.dependent_questions("#{section}_#{strand}_#{question}")
+    #       name = "#{section}_#{strand}_#{question}"
+    #       full_question = [*@activity.questions.find_by_name(name)][0]
+    #       comment = full_question.comment
+    #       note = full_question.note
+    #       comment_contents = (comment.nil? ? '' : comment.contents)
+    #       note_contents = (note.nil? ? '' : note.contents)
+    #       info_array << {  :id => name,
+    #                         :full_question => full_question,
+    #                         :label => info[0],
+    #                         :help => info[3],
+    #                         :input_type => info[1].to_sym,
+    #                         :input_choices => choices_array,
+    #                         :dependents => dependents_array,
+    #                         :dependency => dependency,
+    #                         :input_choices => choices_array,
+    #                         :comment => comment_contents,
+    #                         :note => note_contents
+    #                       }
+    #        full_question.save
+    #     end
+    #     return info_array
   end
 
   def activities_menu

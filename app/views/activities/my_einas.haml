@@ -17,6 +17,6 @@
       %td= activity.approver.email
       %td= #activity.started_date
       %td
-      %td
+      %td= activity.progress
       %td= link_to "edit", questions_activity_path(activity), :class => "action edit"
-      %td= link_to "view", view_pdf_activity_path(activity), :class => "action edit", :target => "blank"
+      %td= link_to "view", activity_path(activity), :class => "action edit", :target => "blank"

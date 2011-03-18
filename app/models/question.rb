@@ -11,103 +11,70 @@ class Question < ActiveRecord::Base
   has_one :comment, :dependent => :destroy
   has_one :note, :dependent => :destroy
   validates_uniqueness_of :name, :scope => :activity_id
-  attr_reader :section, :strand, :number
-  
-  def weights
-      [*@@Hashes['weights'][@@weight_ids[self.name.to_sym]]].map(&:to_i)
-    end
-  
-    def weight
-      weights[self.response.to_i]
-    end
-  
-    def invisible?
-      (@@invisible_questions.include?(self.name.to_sym) && self.activity.proposed?)
-    end
-  
-    def tester
-      "test"
-    end
-  
-    def response
-      self.activity.send(self.name.to_sym)
-    end
-  
-    def section
-      return @section if @section
-      @section, @strand, @number = Question.fast_split(self.name)
-      @section
-    end
-  
-    def strand
-      return @strand if @strand
-      @section, @strand, @number = Question.fast_split(self.name)
-      @strand
-    end
-  
-    def number
-      return @number if @number
-      @section, @strand, @number = Question.fast_split(self.name)
-      @number
-    end
-    
-    def parent
-      self.activity.questions.find_by_name(Question.question_parents(self.name.to_s)[0].to_s)
-    end
-    
-    def parent_value
-      Question.question_parents(self.name.to_s)[1]
-    end
-  #   
-      def children
-        Question.dependencies(self.name.to_s).map{|child| self.activity.questions.find_by_name(child[0].to_s)}
-      end
-    
-      def check_response #Check response verifies whether a response to a question is correct or not.
-        checker = !(response.to_i == 0)
-        checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
-        return checker
-      end
-      
-      def check_needed
-        parent_okay = self.parent.nil? ? true : (self.parent.response.to_s == parent_value.to_s)
-        return false if invisible?
-        parent_okay
-      end
-      
-      def update_status
-        self.completed = check_response
-        self.needed = check_needed
-        save!
-        children.each do |child|
-          child.update_status
-        end
-      end
-  #   
-    #global methods pertaining to questions
-    def self.dependencies(question = nil)
-      return @@dependencies.clone unless question
-      return @@dependencies[question].clone if @@dependencies[question]
-      []
-    end
-
-    def self.question_parents(question = nil)
-      return @@parents.clone unless question
-      return @@parents[question].clone if @@parents[question]
-      []
-    end
+  serialize :choices
+  has_many :dependencies
+  belongs_to :dependency
+  before_save :update_status
+  after_save :update_children
+  # after_save :debug
   # 
-    #44 seconds for 1M iterations
-    private
-    def self.fast_split(string)
-      @@Hashes = YAML.load_file("#{Rails.root}/config/questions.yml") unless @@Hashes
-      string = string.to_s
-      splits = string.split("_")
-      number_to_return = splits.last
-      section_to_return = @@Hashes['questions'].keys.select{|key| key.include?(splits.first)}.first
-      return [nil, nil, nil] if section_to_return == nil
-      strand_to_return = (splits - section_to_return.split("_") - [number_to_return]).join("_")
-      return [section_to_return, strand_to_return, number_to_return]
-    end
+  #  
+  # def debug
+  #   raise self.inspect
+  # end
+  # 
+  def invisible?
+    (@@invisible_questions.include?(self.name.to_sym) && self.activity.proposed?)
+  end
   
+  def response
+    if self.input_type == "select"
+      self.raw_answer.to_i
+    else
+      self.raw_answer
+    end
+  end
+    
+  def parent
+    self.dependency ? self.dependency.question : nil
+  end 
+  
+  def children
+    self.dependencies.map(&:child_question)
+  end
+    
+  def check_response #Check response verifies whether a response to a question is correct or not.
+    checker = !(response.to_i == 0)
+    checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
+    return checker
+  end
+    
+  def check_needed
+    parent_okay = self.parent.nil? ? true : self.dependency.satisfied?
+    return false if invisible?
+    parent_okay
+  end
+  
+  def update_status
+    self.completed = check_response
+    self.needed = check_needed
+    true #before and after save rollback if the before/after save returns false!
+  end
+  
+  def update_children
+    children.each do |child|
+      child.update_status
+      child.save!
+    end
+    true
+  end
+  
+  def dependency_mapping
+    dependency_hash = {}
+    self.dependencies.each do |dep|
+      dependency_hash.merge!(dep.as_json)
+    end
+    dependency_hash
+  end
+
 end

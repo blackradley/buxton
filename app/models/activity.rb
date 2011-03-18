@@ -59,6 +59,19 @@ class Activity < ActiveRecord::Base
   
   before_update :get_clone
   after_update :update_questions_as_necessary
+  accepts_nested_attributes_for :questions
+  
+  def progress
+    unless self.started
+      return "NS"
+    end
+    if !(self.approved == "submitted")
+      return "IA"
+    end
+    if self.approved == "submitted"
+      return "FA"
+    end
+  end
   
   def approver_email
     if self.approver
@@ -153,16 +166,38 @@ class Activity < ActiveRecord::Base
   ## See http://blog.sqlauthority.com/2007/06/08/sql-server-insert-multiple-records-using-one-insert-statement-use-of-union-all/
   def create_questions_if_new
     # Initialise a question, for every question name, if this is a new record
-    if self.questions.empty? then
-      sql_statement = "INSERT INTO `questions` (`activity_id`, `name`, `completed`, `needed`)\n"
-      key = self.id
-      Activity.get_question_names.each do |question_name|
-        sql_statement += "SELECT #{key}, '#{question_name}', 0, 1\nUNION ALL\n"
-#        question = self.questions.build(:name => question_name.to_s)
-#        question.needed = true
+    # 
+    # 
+    data = File.open(Rails.root + "config/questions.yml"){|yf| YAML::load( yf ) }
+    dependents = {}
+    Activity.question_setup_names.each do |section, strand_list|
+      strand_list.each do |strand, question_list|
+        question_list.each do |question_number|
+          question_data = strand.to_s == "overall" ? data["overall_questions"]['purpose'][question_number] : data["questions"][section.to_s][question_number]
+          begin
+            basic_attributes = {:input_type => question_data["type"], :needed => question_data["dependent_questions"].blank?,
+                                 :help_text => question_data["help"][0][0], :label => question_data['label'][0][0], :name => "#{section}_#{strand}_#{question_number}", 
+                                 :strand => strand, :section => section}
+            basic_attributes[:choices] = data['choices'][question_data['choices']] if question_data['choices']
+            question = self.questions.build(basic_attributes)
+            question.save!
+          rescue
+            raise question_data.inspect
+          end
+          if !question_data["dependent_questions"].blank?
+            dependent = question_data["dependent_questions"].split(" ")
+            value = dependent[1] == "yes_value" ? 1 : 2
+            dep_name = dependent[0].sub('#{strand}', strand.to_s)
+            dependents[question] ||= []
+            dependents[question] << [dep_name, value]
+          end
+        end
       end
-      sql_statement.sub!(/\nUNION ALL\n$/, '')
-      ActiveRecord::Base.connection.execute sql_statement
+    end
+    dependents.each do |child, parents|
+      parents.each do |parent_q, value|
+        self.questions.find_by_name(parent_q).dependencies.create!(:child_question => child, :required_value => value)
+      end
     end
   end
 
@@ -362,7 +397,7 @@ class Activity < ActiveRecord::Base
   end
 
   def target_and_strategies_completed
-    answered_questions = self.questions.find(:all, :conditions => "name REGEXP 'purpose\_overall\_[2,11,12]' AND (completed = true OR needed = false)")
+    answered_questions = self.questions.where(:name => ["purpose_overall_2", "purpose_overall_11", "purpose_overall_12"]).where("completed = true OR needed = false")
     return false unless answered_questions.size == 3
     self.activity_strategies.each do |strategy|
       unless check_response(strategy.strategy_response) then
@@ -472,16 +507,6 @@ class Activity < ActiveRecord::Base
         end
       end
     else
-      Activity.get_question_names.each do |name|
-        old_store = @activity_clone.send(name)
-        new_store = self.send(name)
-        if old_store != new_store then
-          self.questions.find_by_name(name.to_s).update_status
-        end
-      end
-      strands(true).each do |strand|
-        to_save["#{strand}_percentage_importance".to_sym] = strand_percentage_importance(strand).to_i
-      end
       sections.each do |section|
         to_save["#{section}_completed".to_sym] = true
         strands.each do |strand|
@@ -664,13 +689,47 @@ class Activity < ActiveRecord::Base
       :percentage_importance, :name, :approved, :gender_percentage_importance,
       :race_percentage_importance, :disability_percentage_importance, :sexual_orientation_percentage_importance, :faith_percentage_importance, :age_percentage_importance,
       :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on, :gender_relevant, :faith_relevant,
-      :sexual_orientation_relevant, :age_relevant, :disability_relevant, :race_relevant, :review_on, :ces_link, :ref_no]
+      :sexual_orientation_relevant, :age_relevant, :disability_relevant, :race_relevant, :review_on, :ces_link, :ref_no, :start_date, :end_date]
     Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
     unnecessary_columns.each{|column| questions.delete(column)}
     questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section
     questions.delete_if{ |question| !(question.to_s.include?(strand.to_s))}if strand
     questions.delete_if{ |question| !(question.to_s.include?(number.to_s))} if number
     return questions
+  end
+  
+  
+  def self.question_setup_names
+    {:purpose =>          { :overall => [2,5,6,7,8,9,11,12],
+                            :race => [3,4],
+                            :disability => [3,4],
+                            :sexual_orientation => [3,4],
+                            :gender => [3,4],
+                            :faith => [3,4],
+                            :age => [3,4]
+                          },
+      :impact =>          { :race => [1,2,3,4,5,6,7,8,9],
+                            :disability => [1,2,3,4,5,6,7,8,9],
+                            :sexual_orientation => [1,2,3,4,5,6,7,8,9],
+                            :gender => [1,2,3,4,5,6,7,8,9],
+                            :faith => [1,2,3,4,5,6,7,8,9],
+                            :age => [1,2,3,4,5,6,7,8,9]
+                          },
+      :consultation =>    { :race => [1,2,3,4,5,6,7],
+                            :disability => [1,2,3,4,5,6,7],
+                            :sexual_orientation => [1,2,3,4,5,6,7],
+                            :gender => [1,2,3,4,5,6,7],
+                            :faith => [1,2,3,4,5,6,7],
+                            :age => [1,2,3,4,5,6,7]
+                          },    
+      :additional_work => { :race => [1,2,3,4,6],
+                            :disability => [1,2,3,4,6],
+                            :sexual_orientation => [1,2,3,4,6],
+                            :gender => [1,2,3,4,6],
+                            :faith => [1,2,3,4,6],
+                            :age => [1,2,3,4,6]
+                          }
+    }
   end
 
   #TODO: Needs fixing. It currently makes a start at the display, but is not finished by any means. Won't throw any bugs though.
@@ -827,12 +886,10 @@ class Activity < ActiveRecord::Base
     end
   end
 
-    #This takes a method in the form of :section_strand_number and turns it into an array [section, strand, number]
-  def self.question_separation(question)
-    Question.fast_split(question)
-  end
 
   #This returns any dependencies of a question
+  # 
+  # 
     def dependent_questions(question)
       question = question.to_s
       yes_value = hashes['yes_value']

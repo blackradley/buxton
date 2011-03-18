@@ -20,7 +20,7 @@ class UsersController < ApplicationController
   
   def create
     @breadcrumb = [["User Administration", users_path], ["Add New User"]]
-    @user = User.new(params[:user])
+    @user = User.new(params[:user].merge(:trained => true))
     if @user.save
       redirect_to users_path
     else
