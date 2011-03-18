@@ -8,6 +8,20 @@
 #
 Buxton::Application.routes.draw do
   
+  namespace :activities do
+    resources :sections do
+      member do
+        get :edit_purpose_a
+        get :edit_purpose_b
+        get :edit_purpose_c
+        get :edit_impact
+        get :edit_consultation
+        get :edit_additional_work
+        get :edit_action_planning
+      end
+    end
+  end
+
   resources :activities do
     collection do
       get :directorate_einas
@@ -17,20 +31,10 @@ Buxton::Application.routes.draw do
     end
     
     member do
+      get :questions
       get :submit
       get :toggle_strand
-      get :view_pdf
-      get :old_index
-      get :questions
-      post :update_activity_type
     end
-  end
-  
-  resources :sections do
-    collection do 
-      post :update
-    end
-    
   end
   
   resources :users do    

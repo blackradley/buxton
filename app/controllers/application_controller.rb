@@ -97,6 +97,10 @@ protected
     current_user.approver?
   end
   
+  def ensure_pdf_view
+    current_user.creator? || current_user.approver? || current_user.completer?
+  end
+  
 private
 
   def set_activity
