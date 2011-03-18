@@ -1,6 +1,11 @@
 %h2 Sign in
 
 = form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| 
+  - unless flash.empty?
+    #flashBox
+      = content_tag(:div, flash[:error], :id => "flash_error") if flash[:error]
+      = content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice]
+      = content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert]
   %p= f.label :email 
   %br
   %p= f.email_field :email
@@ -12,10 +17,5 @@
 
 #loginHelp
   %p
-    %strong Forgotten your password? 
-    =raw "No problem, simply #{link_to "click here", "#" }, and your password will be reset and your new details will be sent to your account email address."
-    %br
-    %br
-    %strong Account locked?
-    =raw "If your account has been locked due to inactivity, please #{link_to "click here", "#" } to request reactivation."
-    
+    %strong Reset password?
+    =raw "If your account has been locked or you have forgotten your password, please #{link_to 'click here', '#'} and you will be sent a new password."

@@ -23,4 +23,11 @@ class Mailer < ActionMailer::Base
     #mail checker
   end
   
+  def new_account(user, password)
+    @user     = user
+    @password = password
+    mail(:to => user.email,
+         :subject => "Welcome to the EINA Toolkit")
+  end
+  
 end

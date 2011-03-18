@@ -4,17 +4,47 @@
   %input{:type=>"submit", :value=>"Search"}
 .orangeButton
   =link_to "Add User", new_user_path, :class=>"add"
-%table
+%table{:cellspacing=>"0", :cellpadding=>"0", :border=>"collapse"}
   %tr
-    %th Email Address
-    %th Last Logon
-    %th Locked
-    %th Retired
+    %th.first
+      Email Address
+    %th.dateTime
+      Last Logged in
     %th
+      Trained?
+    %th
+      Locked?
+    %th
+      Retired?
+    %th
+      Directorate Contact&nbsp;Officer?
+    %th
+  %tr
+    %td.sortControls
+      =link_to "sort ascending","#", :class=>"up selected", :title=>"sort ascending"
+      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+    %td.sortControls
+      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
+      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+    %td.sortControls
+      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
+      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+    %td.sortControls
+      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
+      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+    %td.sortControls
+      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
+      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+    %td.sortControls
+      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
+      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+    %td.sortControls
   - @users.each do |user|
     %tr{:class => cycle("light", "dark")}
       %td= user.email
       %td= user.last_sign_in_at
-      %td= user.locked? ? "Yes" : ""
-      %td= user.retired? ? "Yes" : ""
+      %td.checkbox= check_box "user", "trained", {:checked=>"#{user.trained? ? "checked" : ""}"}, "yes", "no"
+      %td.checkbox= check_box "user", "locked", {:checked=>"#{user.locked? ? "checked" : ""}"}, "yes", "no"
+      %td.checkbox= check_box "user", "retired", {:checked=>"#{user.retired? ? "checked" : ""}"}, "yes", "no"
+      %td.checkbox= check_box "user", "creator", {:checked=>"#{user.creator? ? "checked" : ""}"}, "yes", "no"
       %td= link_to "edit", edit_user_path(user), :class => "edit action"
