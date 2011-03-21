@@ -31,6 +31,7 @@ class Activity < ActiveRecord::Base
   belongs_to :completer, :class_name => "User"
   belongs_to :approver, :class_name => "User"
   belongs_to :directorate
+  belongs_to :service_area
   # Fake belongs_to :organisation, :through => :directorate
   delegate :organisation, :organisation=, :to => :directorate
 

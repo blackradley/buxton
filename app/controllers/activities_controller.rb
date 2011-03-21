@@ -30,30 +30,35 @@ class ActivitiesController < ApplicationController
   end
   
   def directorate_einas
-    @breadcrumb = [["Activities"]]
+    @breadcrumb = [["Directorate EINAs"]]
     @activities = Activity.all
+    @selected = "directorate_einas"
   end
   
   def my_einas
-    @breadcrumb = [["Activities"]]
+    @breadcrumb = [["My EINAs"]]
     @activities = Activity.where(:completer_id => current_user.id)
+    @selected = "my_einas"
   end
   
   def assisting
-    @breadcrumb = [["Activities"]]
+    @breadcrumb = [["Assisting"]]
     @activities = Activity.where(:approver_id => current_user.id)
   end
   
   def new
+    @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
+    @selected = "directorate_einas"
     @activity = Activity.new
   end
 
   def create
     @activity = Activity.new(params[:activity])
+    @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
+    @selected = "directorate_einas"
     @activity.directorate = Directorate.first
     if @activity.save
       flash[:notice] = "#{@activity.name} was created."
-      # log_event('Create', %Q[The <strong>#{@activity.name}</strong> activity was created for <strong>#{@activity.organisation.name}</strong>.])
       Mailer.activity_created(@activity).deliver
       redirect_to directorate_einas_activities_path
     else
@@ -63,19 +68,24 @@ class ActivitiesController < ApplicationController
   
   
   def edit
+    @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
+    @selected = "directorate_einas"
+    @activity = Activity.find(params[:id])
   end
 
   # Update the activity details accordingly.
   # Available to: Activity Manager
   def update
-    @activity.update_attributes!(params[:activity])
-
-    flash[:notice] = "#{@activity.name} was successfully updated."
-    redirect_to :controller => 'activities', :action => 'show'
-
-  rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-    flash[:notice] =  "Could not update the activity."
-    render :action => :show
+    @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
+    @selected = "directorate_einas"
+    @activity = Activity.find(params[:id])
+    
+    if @activity.update_attributes!(params[:activity])
+      flash[:notice] = "#{@activity.name} was updated."
+      redirect_to directorate_einas_activities_path
+    else
+      render "edit"
+    end
   end
   
   def submit
@@ -89,7 +99,7 @@ class ActivitiesController < ApplicationController
   # Opening page where they must choose between Activity/Policy and Existing/Proposed
   # Available to: Activity Manager
   def questions
-    @breadcrumb = [["Activities", my_einas_activities_path], ["#{@activity.name}"]]
+    @breadcrumb = [["My EINAs", my_einas_activities_path], ["#{@activity.name}"]]
     completed_status_array = @activity.strands(true).map{|strand| [strand.to_sym, @activity.completed(nil, strand)]}
     completed_status_hash = Hash[*completed_status_array.flatten]
     tag_test = completed_status_hash.select{|k,v| !v}.map(&:first).map do |strand_status|
