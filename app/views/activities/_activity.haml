@@ -1,6 +1,7 @@
 = semantic_form_for @activity do |form|
   = form.inputs do
-    / =form.input :directorate
+    =form.input :directorate, :label => "Directorate", :include_blank => false
+    =form.input :service_area, :label => "Service Area", :include_blank => false
     =form.input :name, :label => "Title"
     =form.input :start_date, :label => "Target Start Date", :as => :datepicker
     =form.input :end_date, :label => "Target End Date", :as => :datepicker
@@ -12,4 +13,25 @@
     =form.input :function_policy, :as => :select, :collection => @activity.hashes['choices'][fp_options].collect {|option| [option , @activity.hashes['choices'][fp_options].index(option)] }, :label => "Type", :include_blank => false
     -ep_options = @activity.hashes['existing_proposed']['choices']
     =form.input :existing_proposed, :as => :select, :collection =>  @activity.hashes['choices'][ep_options].collect {|option| [option , @activity.hashes['choices'][ep_options].index(option)] }, :label => "Status", :include_blank => false
-  = form.submit "Create", :class => "orangeButton"
+  = form.buttons do
+    = form.submit "Save"
+    =raw "or #{link_to "cancel", directorates_path}"
+#formHelp
+  %p
+    %strong Title:
+    lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat.
+  %p
+    %strong Target Start/End Dates: 
+    lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat, libero ut sollicitudin ultrices, mi lorem consectetur metus, at tempus elit sem quis nulla. Proin ut magna diam. Morbi ullamcorper placerat ultricies.
+  %p
+    %strong Approver:
+    lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat - this field will autocomplete from the available users.
+  %p
+    %strong Completer:
+    lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat - this field will autocomplete from the available users.
+  %p
+    %strong Type:
+    lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat.
+  %p
+    %strong Status:
+    lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat.

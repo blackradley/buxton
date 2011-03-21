@@ -73,6 +73,6 @@ class User < ActiveRecord::Base
   end
   
   def cop?
-    false
+    Directorate.where(:cop_id => self.id).count > 0
   end
 end

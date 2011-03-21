@@ -33,15 +33,15 @@
         - if current_user && current_user.creator?
           #creatorMenu
             %ul
-              %li{:class=>"current"}=link_to "Directorates", "#"
+              %li{:class=>"#{@selected == "directorates" ? "current" : ""}"}=link_to "Directorates", directorates_path
               %li.nohover="|"
-              %li=link_to "Service Areas", "#"
+              %li{:class=>"#{@selected == "service_areas" ? "current" : ""}"}=link_to "Service Areas", service_areas_path
               %li.nohover="|"
-              %li=link_to "Strategic Themes", "#"
+              %li{:class=>"#{@selected == "strategies" ? "current" : ""}"}=link_to "Strategic Themes", strategies_path
         - unless current_user.is_a? Administrator
           #generalMenu
             %ul
-              =raw activities_menu.map{|text, link| content_tag("li", link_to(text, link))}.join(content_tag("li", "|", :class =>"nohover"))
+              =raw activities_menu.map{|text, link| content_tag("li", link_to(text, link), :class => "#{@selected == text.downcase.gsub!(' ','_') ? 'current' : ''}")}.join(content_tag("li", "|", :class =>"nohover"))
       #breadcrumb
         %p
           Birmingham City Council EINA Toolkit
