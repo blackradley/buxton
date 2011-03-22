@@ -1,0 +1,68 @@
+.more{:id => "more_activity_strategy_#{activity_strategy.id}", :style => "display:none"}
+  %h3
+    =image_tag ("icons/help.gif")
+    Help:
+  .help
+    =simple_format(@activity.hashes['header_help_text']['purpose_overall_1'][@activity.fun_pol_number][@activity.exist_prop_number].to_s)
+  %h3
+    ="#{ot('strategy').titleize} Description:"
+  -if !activity_strategy.strategy.description.blank? then
+    .help
+      =simple_format(activity_strategy.strategy.description)
+  -else
+    %p.nohelp= "Sorry - no description for this #{ot('strategy')}."
+  %h3
+    =image_tag ("icons/comment.gif")
+    Comment for report:
+  - if activity_strategy.comment
+    - comment_text = activity_strategy.comment.contents
+  -else 
+    - comment_text = ""
+  - opt = ['none', 'block']
+  - flag = (!comment_text.blank? ? 1 : 0)
+  .commentBox
+    .showComment.normalcommentview{:id => "activity_strategy_#{activity_strategy.id}_comment_view", :style => "display:#{opt[flag]}"}
+      %p.comment{:id => "activity_strategy_#{activity_strategy.id}_comment"}
+        = render :partial => 'attachment', :locals => {:text => comment_text}
+      .control
+        =image_tag ("icons/comment_delete.gif")
+        =link_to "Delete", destroy_strategy_comment_index_path(:activity_strategy_id => activity_strategy.id, :activity_id => @activity.id), :remote => true, :method => :delete, :confirm => "Delete this comment?"
+      .control
+        =image_tag ("icons/comment_edit.gif")
+        =link_to "Edit", "#activity_strategy_#{activity_strategy.id}_comment_form", :class => 'inline'
+    .newComment.new_comment{:id => "activity_strategy_#{activity_strategy.id}_comment_new", :style => "display:#{opt[1 - flag]}"}
+      .control
+        =image_tag ("icons/comment_add.gif")
+        = link_to "Add new comment for report", "#activity_strategy_#{activity_strategy.id}_comment_form", :class => 'inline'
+    .editComment.commentform{:id => "activity_strategy_#{activity_strategy.id}_comment_form"}
+      .heading
+        %h3 Add a new comment for the report
+      = form_tag(edit_strategy_comment_index_path(:activity_strategy_id => activity_strategy.id, :activity_id => @activity.id), :remote => true, :class => "lightboxForm") do
+        =text_area_tag "comment", comment_text, :id => "activity_strategy_#{activity_strategy.id}_comment_fill_in", :class => "commentTextArea"
+        = link_to "Save", "#", :class => "saveLink"
+      
+  %h3
+    =image_tag ("icons/note.gif")
+    Note to myself:
+  - note_text = activity_strategy.note ? activity_strategy.note.contents : "" 
+  - flag = (!note_text.blank? ? 1 : 0)
+  .noteBox
+    .showNote.normalnoteview{:id => "activity_strategy_#{activity_strategy.id}_note_view", :style => "display:#{opt[flag]}"}
+      %p.note{:id => "activity_strategy_#{activity_strategy.id}_note"}
+        = render :partial => 'attachment', :locals => {:text => note_text}
+      .control
+        =image_tag ("icons/note_delete.gif")
+        =link_to "Delete", destroy_strategy_note_index_path(:activity_strategy_id => activity_strategy.id, :activity_id => @activity.id), :class => "deleteNote", :method => :delete, :remote => true, :confirm => "Delete this note?"
+      .control
+        =image_tag ("icons/note_edit.gif")
+        =link_to "Edit", "#activity_strategy_#{activity_strategy.id}_note_form", :class => 'inline'
+    .newNote{:id => "activity_strategy_#{activity_strategy.id}_note_new", :style => "display:#{opt[1 - flag]}"}
+      .control
+        =image_tag ("icons/note_add.gif")
+        =link_to "Add new note to myself", "#activity_strategy_#{activity_strategy.id}_note_form", :class => 'inline'
+    .editNote.noteform{:id => "activity_strategy_#{activity_strategy.id}_note_form"}
+      .heading
+        %h3 Add a new note to myself
+      = form_tag(edit_strategy_note_index_path(:activity_strategy_id => activity_strategy.id, :activity_id => @activity.id), :remote => true, :class => "lightboxForm") do
+        = text_area_tag "note", note_text, :class => "noteTextArea", :id => "note_#{activity_strategy.id}"
+        = link_to "Save", "#", :class => "saveLink"
