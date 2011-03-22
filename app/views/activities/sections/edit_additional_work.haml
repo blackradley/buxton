@@ -1,0 +1,36 @@
+%h1#questions=h @activity.name + " - " + strand_display(@equality_strand).titlecase + " - Additional Work"
+-#
+  #questiontext
+    %p Below is some feedback generated from your previous answers:
+    %ul
+      %li
+        =h @activity.additional_work_text_lookup(@equality_strand, 1)
+      %li
+        =h @activity.additional_work_text_lookup(@equality_strand, 2)
+      %li
+        =h @activity.additional_work_text_lookup(@equality_strand, 3)
+      %li
+        =h @activity.additional_work_text_lookup(@equality_strand, 4)
+      %li
+        =h @activity.additional_work_text_lookup(@equality_strand, 5)
+      %li
+        =h @activity.additional_work_text_lookup(@equality_strand, 6)
+#questions
+  = render :partial => 'question_help', :collection => question_details(:additional_work, @equality_strand, [1,2,3,4])
+  -unless @equality_strand == 'gender' then
+    = render :partial => 'question_help', :collection => question_details(:additional_work, @equality_strand, [6])
+  -if @equality_strand=='disability' then   
+    = render :partial => 'question_help', :collection => question_details(:additional_work, @equality_strand, [7,8,9])
+  =form_for(@activity, :url => activities_section_path(@activity)) do |f| 
+    = render :partial => 'intro'
+    = render :partial => 'question', :collection => question_details(:additional_work, @equality_strand, [1,2,3,4]), :locals => {:f => f}
+    -unless @equality_strand == 'gender' then
+      = render :partial => 'question', :collection => question_details(:additional_work, @equality_strand, [6]), :locals => {:f => f}
+    -if @equality_strand=='disability' then   
+      = render :partial => 'question', :collection => question_details(:additional_work, @equality_strand, [7,8,9]), :locals => {:f => f}
+    = hidden_field_tag 'id', @id 
+    = hidden_field_tag 'equality_strand', @equality_strand 
+    %p.question.saveField
+      %span.button
+        = submit_tag 'Save', :disable_with => 'Saving...', :id => 'section_save_button'
+  .clear
