@@ -3,7 +3,7 @@
     =image_tag ("icons/help.gif")
     Help:
   .help
-    =simple_format(@activity.hashes['header_help_text']['purpose_overall_1'][@activity.fun_pol_number][@activity.exist_prop_number].to_s)
+    / = simple_format(@activity.questions.where(:name => "purpose_overall_1").help_text)
   %h3
     ="#{ot('strategy').titleize} Description:"
   -if !activity_strategy.strategy.description.blank? then

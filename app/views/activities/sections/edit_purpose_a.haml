@@ -1,51 +1,24 @@
 %h1#questions=h @activity.name + " - Overall - Purpose"
 %h2
   = image_tag("a.gif")
-  Target of Activity and Impact on
-  = ot('strategy').pluralize.titleize
+  Target of Activity and Impact on Strategies
 #questions
   = render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [2,11,12])
-  -@activity_org_strategies.each do |activity_strategy|
-    = render :partial => 'activity_strategy_help', :locals => {:activity_strategy => activity_strategy}
-  -@activity_dir_strategies.each do |activity_strategy|
-    = render :partial => 'activity_strategy_help', :locals => {:activity_strategy => activity_strategy}
-  -@activity_project_strategies.each do |activity_strategy|
+  -@activity_strategies.each do |activity_strategy|
     = render :partial => 'activity_strategy_help', :locals => {:activity_strategy => activity_strategy}
   =form_for(@activity, :url => activities_section_path(@activity)) do |f|
     = render :partial => 'intro'
     = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [2,11,12]), :locals => {:f => f}
     %h4
-      =@activity.organisation.strategy_text
-    -if @activity_org_strategies.size >= 1
-      %h5
-        = @activity.organisation.name
-        = ot('strategy').pluralize
+      Strategies
+    -if @activity_strategies.count >= 1
       -yes_no = @activity.hashes['choices'][3]
-      -@activity_org_strategies.each do |activity_strategy|
-        %span{:class => :question_compact, :id => "activity_strategy_#{activity_strategy.id}", :style => "display:block;"}
-          %label
-            = activity_strategy.strategy.name
-          = select('strategy_responses', activity_strategy.strategy_id, @activity.hashes['choices'][3], :selected => @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i])
-    -if @activity_dir_strategies.size >= 1
-      %h5
-        = @activity.directorate.name
-        = ot('strategy').pluralize
-      -@activity_dir_strategies.each do |activity_strategy|
+      -@activity.activity_strategies.each do |activity_strategy|
         %span{:class => :question_compact, :id => "activity_strategy_#{activity_strategy.id}", :style => "display:block;"}
           %label
             = activity_strategy.strategy.name
           = select('strategy_responses', activity_strategy.strategy_id, @activity.hashes['choices'][3], :selected => @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i])
     .clear
-    -@projects.each do |project|
-      -if @activity_project_strategies.size >= 1
-        %h5
-          = project.name
-          = ot('strategy').pluralize
-        -@activity_project_strategies.each do |activity_strategy|
-          %span{:class => :question_compact, :id => "activity_strategy_#{activity_strategy.id}", :style => "display:block;"}
-            %label
-              = Strategy.find(activity_strategy.strategy_id).name
-            = select('strategy_responses', activity_strategy.strategy_id, @activity.hashes['choices'][3], :selected => @activity.hashes['choices'][3][activity_strategy.strategy_response.to_i])
     = hidden_field_tag 'id', @id
     = hidden_field_tag 'equality_strand', @equality_strand
     %p.question.saveField
