@@ -175,8 +175,15 @@ class Activity < ActiveRecord::Base
         question_list.each do |question_number|
           question_data = strand.to_s == "overall" ? data["overall_questions"]['purpose'][question_number] : data["questions"][section.to_s][question_number]
           begin
+            wordings = data['wordings']
+            descriptive_term = hashes['descriptive_terms_for_strands']
+            help_text = question_data["help"][0][0]
+            question_label = question_data['label'][0][0]
+            help_text = eval(%Q{<<"DELIM"\n} + help_text.to_s + "\nDELIM\n") rescue nil
+            help_text.chop! unless help_text.nil?
+            question_label = eval(%Q{<<"DELIM"\n} + question_label.to_s + "\nDELIM\n") rescue nil
             basic_attributes = {:input_type => question_data["type"], :needed => question_data["dependent_questions"].blank?,
-                                 :help_text => question_data["help"][0][0], :label => question_data['label'][0][0], :name => "#{section}_#{strand}_#{question_number}", 
+                                 :help_text => help_text, :label => question_label, :name => "#{section}_#{strand}_#{question_number}", 
                                  :strand => strand, :section => section}
             basic_attributes[:choices] = data['choices'][question_data['choices']] if question_data['choices']
             question = self.questions.build(basic_attributes)
