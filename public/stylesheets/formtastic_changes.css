@@ -14,10 +14,12 @@ form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
 --------------------------------------------------------------------------------------------------*/
 form.formtastic{
     width: 600px;
+    clear:left;
     float:left;
 }
 form.formtastic fieldset {
     width: 600px;
+    
 }
 
 form.formtastic fieldset > ol > li {
@@ -34,11 +36,22 @@ form.formtastic fieldset > ol > li label {
     line-height: 20px;
     font-weight:bold;
 }
-form.formtastic fieldset > ol > li input{
+form.formtastic fieldset > ol > li input, form.formtastic fieldset > ol > li.string input{
     font-size: 12px;
     line-height: 12px;
     padding: 2px;
     width: 434px;
+}
+form.formtastic fieldset > ol > li.datepicker input{
+background-image: url(../images/icons/calendar.png);
+background-repeat: no-repeat;
+background-position: 421px center;
+}
+form.formtastic fieldset > ol > li select{
+    font-size: 12px;
+    line-height: 12px;
+    padding: 2px;
+    width: 440px;
 }
 form.formtastic fieldset > ol > li p.inline-errors {
     color: #CC0000;
@@ -52,7 +65,7 @@ form.formtastic fieldset > ol > li.boolean label {
 }
 form.formtastic fieldset > ol > li.boolean label input {
     float: right;
-    margin: 0;
+    margin: 3px 0 0;
     width: auto;
 }
 form.formtastic fieldset.buttons{
@@ -63,18 +76,24 @@ form.formtastic fieldset.buttons li {
     padding-right: 0;
     text-align:center;
 }
-form.formtastic fieldset.buttons li input {
-float: none;
-border: 0px;
-background-image: url(../images/orange_buttons/search.jpg);
-background-repeat: no-repeat;
-width: 79px;
-height: 32px;
-overflow: hidden;
-color: #ffffff;
-padding: 0px;
-margin: 10px 0px 0px 10px;
-line-height: 22px;
-font-weight: bold;
-display: inline;
+
+form.formtastic fieldset.buttons {
+    text-align: center;
+}
+
+form.formtastic fieldset.buttons input[type='submit']{
+  border: 0px;
+  background-image: url(../images/orange_buttons/search.jpg);
+  background-repeat: no-repeat;
+  width: 79px;
+  height: 32px;
+  overflow: hidden;
+  color: #ffffff;
+  padding: 0px;
+  margin: 0px 0px 0px 10px;
+  line-height: 22px;
+  font-weight: bold;
+}
+form.formtastic fieldset.buttons input[type='submit']:hover{
+  background-image: url(../images/orange_buttons/search_hover.jpg);
 }

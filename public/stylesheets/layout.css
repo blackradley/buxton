@@ -104,7 +104,9 @@
       .content .workingArea #content_holder p {
         margin: 5px 0px; }
       .content .workingArea #content_holder h1, .content .workingArea #content_holder h2 {
-        margin: 0px 0px 5px; }
+        margin: 0px 0px 5px;
+        float: left;
+        padding: 5px 0; }
       .content .workingArea #content_holder #formHelp {
         width: 300px;
         margin-right: 10px;

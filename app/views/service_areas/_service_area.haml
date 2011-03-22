@@ -1,0 +1,17 @@
+= semantic_form_for @service_area do |form|
+  = form.inputs do
+    =form.input :name, :label => "Service Area"
+    =form.input :directorate, :label => "Directorate"
+    =form.hidden_field :approver_id
+    =form.autocompleted_input :approver_email, :url => autocomplete_user_email_directorates_path, :id_element => '#service_area_approver_id', :label => "Service Area Approver"
+    =form.input :retired, :label => "Retired?"
+  = form.buttons do
+    = form.submit "Save"
+    =raw "or #{link_to "cancel", service_areas_path}"
+#formHelp
+  %p
+    %strong Service Area Approver:
+    the email address of the default Service Area Approver, which will be the initial Approver suggested when creating new EINAs in this Service Area. This field will autocomplete from the available users.
+  %p
+    %strong Retired?:
+    if retired, this Service Area will no longer be available for selection when creating new EINAs.

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110315120102) do
+ActiveRecord::Schema.define(:version => 20110318145433) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -87,17 +87,18 @@ ActiveRecord::Schema.define(:version => 20110315120102) do
 
   create_table "dependencies", :force => true do |t|
     t.integer "question_id"
+    t.integer "child_question_id"
     t.integer "required_value"
   end
 
   create_table "directorates", :force => true do |t|
-    t.integer  "organisation_id"
     t.string   "name"
     t.datetime "created_on"
     t.datetime "updated_on"
+    t.integer  "cop_id"
+    t.string   "abbreviation"
+    t.boolean  "retired",      :default => false
   end
-
-  add_index "directorates", ["organisation_id"], :name => "index_directorates_on_organisation_id"
 
   create_table "help_texts", :force => true do |t|
     t.string   "question_name",     :limit => 40
@@ -192,13 +193,20 @@ ActiveRecord::Schema.define(:version => 20110315120102) do
     t.text    "help_text"
     t.text    "label"
     t.string  "input_type"
-    t.string  "strand"
     t.string  "section"
+    t.string  "strand"
     t.integer "dependency_id"
   end
 
   add_index "questions", ["activity_id", "name", "needed", "completed"], :name => "index_questions_on_activity_id_and_name_and_needed_and_completed"
   add_index "questions", ["activity_id"], :name => "index_questions_on_activity_id"
+
+  create_table "service_areas", :force => true do |t|
+    t.integer "directorate_id"
+    t.integer "approver_id"
+    t.string  "name"
+    t.boolean "retired",        :default => false
+  end
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id"
@@ -210,20 +218,12 @@ ActiveRecord::Schema.define(:version => 20110315120102) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "strategies", :force => true do |t|
-    t.integer  "organisation_id"
     t.string   "name"
     t.text     "description"
-    t.integer  "position"
     t.datetime "created_on"
     t.datetime "updated_on"
-    t.string   "type"
-    t.integer  "directorate_id"
-    t.integer  "project_id"
+    t.boolean  "retired",     :default => false
   end
-
-  add_index "strategies", ["directorate_id"], :name => "index_strategies_on_directorate_id"
-  add_index "strategies", ["organisation_id"], :name => "index_strategies_on_organisation_id"
-  add_index "strategies", ["project_id"], :name => "index_strategies_on_project_id"
 
   create_table "terminologies", :force => true do |t|
     t.string   "term",       :default => ""

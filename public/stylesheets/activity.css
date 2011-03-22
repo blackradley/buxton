@@ -1,21 +1,21 @@
-#new_activity p {
+#new_activityForm p {
   float: left; }
-#new_activity label {
+#new_activityForm label {
   width: 350px; }
-#new_activity .labelled {
+#new_activityForm .labelled {
   width: 240px;
   float: right;
   clear: right;
   line-height: 1em;
   margin-bottom: 5px; }
-  #new_activity .labelled .checkbox input {
+  #new_activityForm .labelled .checkbox input {
     width: auto;
     border: 0px solid white;
     margin-top: 0px;
     margin-right: 3px;
     float: left; }
-  #new_activity .labelled select,
-  #new_activity .labelled input {
+  #new_activityForm .labelled select,
+  #new_activityForm .labelled input {
     width: 240px;
     margin-right: 0px; }
 

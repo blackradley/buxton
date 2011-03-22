@@ -1,16 +1,18 @@
-.strategy
-  = fields_for "#{string_parent}[#{string_type}_attributes][]", strategy do |strategy_form|
-    %label
-      Name
-    %labelled
-      = strategy_form.text_field :name, :index => nil
-    %label
-      Description
-    %labelled
-      = strategy_form.text_area :description, :index => nil
-    - if strategy.new_record? then
-      = link_to_function image_tag('icons/cross.gif'), "this.up( '.strategy').remove()"
-    - else
-      = link_to_function image_tag('icons/cross.gif'), "mark_for_strategy_destroy(this)"
-      = strategy_form.hidden_field :id, :index => nil
-      = strategy_form.hidden_field :should_destroy, :index => nil, :class => 'should_destroy'
+= semantic_form_for @strategy do |form|
+  = form.inputs do
+    =form.input :name, :label => "Strategic Theme"
+    =form.input :description, :label => "Aims & Objectives"
+    =form.input :retired, :label => "Retired?"
+  = form.buttons do
+    = form.submit "Save"
+    =raw "or #{link_to "cancel", strategies_path}"
+#formHelp
+  %p
+    %strong Strategic Theme:
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat, libero ut sollicitudin ultrices, mi lorem consectetur metus, at tempus elit sem quis nulla. 
+  %p
+    %strong Aims & Objectives:
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat, libero ut sollicitudin ultrices, mi lorem consectetur metus, at tempus elit sem quis nulla. 
+  %p
+    %strong Retired?:
+    if retired, this Strategic Theme will no longer be available for selection when completing an EINA's Initial Assessment.
