@@ -26,23 +26,9 @@ class Activities::SectionsController < ApplicationController
   # Available to: Activity Manager
   def edit_purpose_a
     @equality_strand = "overall"
-    org_strategies = @activity.organisation.organisation_strategies
-    @activity_org_strategies = Array.new(org_strategies.size) do |i|
-      @activity.activity_strategies.find_or_create_by_strategy_id(org_strategies[i].id)
+    @activity_strategies = Strategy.all.map do |s|
+      @activity.activity_strategies.find_or_create_by_strategy_id(s.id)
     end
-    dir_strategies = @activity.directorate.directorate_strategies
-    @activity_dir_strategies = Array.new(dir_strategies.size) do |i|
-      @activity.activity_strategies.find_or_create_by_strategy_id(dir_strategies[i].id)
-    end
-    @projects = @activity.projects
-    @activity_project_strategies = [
-      @projects.map do |p|
-        p.project_strategies.map do |ps|
-          @activity.activity_strategies.find_or_create_by_strategy_id(ps.id)
-        end
-      end
-    ]
-    @activity_project_strategies = @activity_project_strategies.flatten
   end
   
   def edit_purpose_b

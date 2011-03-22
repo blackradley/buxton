@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110318145433) do
+ActiveRecord::Schema.define(:version => 20110318161514) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(:version => 20110318145433) do
     t.integer  "approver_id"
     t.date     "start_date"
     t.date     "end_date"
+    t.integer  "service_area_id"
   end
 
   add_index "activities", ["approved"], :name => "index_activities_on_approved"

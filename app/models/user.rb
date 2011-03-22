@@ -51,9 +51,7 @@ class User < ActiveRecord::Base
   end
   
   def term(term)
-    assoc_term = Terminology.find_by_term(term)
-    terminology = Organisation.first.organisation_terminologies.find_by_terminology_id(assoc_term.id)
-    terminology ? terminology.value : term
+    term
   end
   
   def roles

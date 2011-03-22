@@ -30,11 +30,8 @@
 class Activity < ActiveRecord::Base
   belongs_to :completer, :class_name => "User"
   belongs_to :approver, :class_name => "User"
-  belongs_to :directorate
   belongs_to :service_area
-  # Fake belongs_to :organisation, :through => :directorate
-  delegate :organisation, :organisation=, :to => :directorate
-
+  
   has_many :activity_strategies, :dependent => :destroy
   has_many :issues, :dependent => :destroy
   has_many :questions, :dependent => :destroy
@@ -43,7 +40,7 @@ class Activity < ActiveRecord::Base
   validates_presence_of :name, :message => 'All activities must have a name.'
   validates_uniqueness_of :ref_no, :message => 'Reference number must be unique', :if => :ref_no?
   validates_presence_of :completer, :approver
-  validates_presence_of :directorate
+  validates_presence_of :service_area
   validates_associated :completer, :approver
 #  validates_associated :questions
   # validates_uniqueness_of :name, :scope => :directorate_id
@@ -72,6 +69,10 @@ class Activity < ActiveRecord::Base
     if self.approved == "submitted"
       return "FA"
     end
+  end
+  
+  def directorate
+    self.service_area.directorate
   end
   
   def approver_email
