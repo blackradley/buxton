@@ -81,6 +81,15 @@ Buxton::Application.routes.draw do
   end
   resources :issues
   
+  resources :directorates do
+    collection do
+      get :autocomplete_user_email
+    end
+  end
+  
+  resources :service_areas
+  resources :strategies
+  
   match 'sections/edit/:id/:equality_strand' => 'sections#edit'
   # match '/:controller(/:action(/:id))'
 end
