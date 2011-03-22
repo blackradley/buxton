@@ -72,7 +72,14 @@ class Activity < ActiveRecord::Base
   end
   
   def directorate
-    self.service_area.directorate
+    self.service_area ? self.service_area.directorate : nil
+  end
+  
+  def directorate_id
+    self.service_area ? self.service_area.directorate.id : nil
+  end
+  
+  def directorate=(id)
   end
   
   def approver_email

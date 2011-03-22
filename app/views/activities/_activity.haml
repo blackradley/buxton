@@ -1,6 +1,6 @@
 = semantic_form_for @activity do |form|
   = form.inputs do
-    =form.input :directorate, :label => "Directorate", :include_blank => false
+    =form.input :directorate_id, :as => :select, :collection => Directorate.all.collect{|d| [d.name, d.id]}, :label => "Directorate", :include_blank => false
     =form.input :service_area, :label => "Service Area", :include_blank => false
     =form.input :name, :label => "Title"
     =form.input :start_date, :label => "Target Start Date", :as => :datepicker
