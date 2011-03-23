@@ -3,12 +3,41 @@
 // 
 // 
 
+jQuery.expr[':'].Contains = function(a,i,m){
+    return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
+};
+
+
 $(document).ready(function(){
   
   $('input.ui-datepicker').datepicker();
   
   $(".saveLink").click(function(){
     $(this).parent().submit();
+    return false;
+  });
+  
+  $('#searchForm').submit(function(){
+    var term = $('#search_term').val();
+    $("table.searchable tbody tr:not(:Contains('"+term+"'))").hide();
+    $("table.searchable tbody tr:Contains('"+term+"')").show();
+    return false;
+  });
+  
+  $('.sortControls a').click(function() {
+    var link = $(this)
+    
+    var col = link.parents('tr').children().index($(this).parents('th'))+1;
+    var desc = link.hasClass('down');
+    var childElem = null;
+    $('.sortControls a').removeClass('selected');
+    link.addClass('selected');
+    
+    if (link.parents('table').find('tbody tr td:nth-child('+col+') :checkbox').length > 0) {
+      childElem = ':checkbox';
+    }
+    
+    link.parents('table').sortTable({onCol : col, sortDesc : desc, keepRelationships : true, child : childElem});
     return false;
   });
   
