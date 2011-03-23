@@ -33,6 +33,8 @@ table {
       table th .sortControls .down.selected,
       table th .sortControls .down:hover {
         background-image: url(../images/bullet_arrow_down_on.png); }
+  table th.sortControls {
+    height: auto; }
   table td {
     text-align: left;
     border-right: 1px solid #bbbbbb;
@@ -78,7 +80,8 @@ table {
   table .checkbox {
     text-align: center; }
     table .checkbox input {
-      width: auto; }
+      width: auto;
+      border: none; }
   table .light td {
     background-color: white; }
   table .dark td {
