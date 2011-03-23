@@ -43,8 +43,9 @@
     %tr{:class => cycle("light", "dark")}
       %td= user.email
       %td= user.last_sign_in_at
-      %td.checkbox= check_box "user", "trained", {:checked=>"#{user.trained? ? "checked" : ""}"}, "yes", "no"
-      %td.checkbox= check_box "user", "locked", {:checked=>"#{user.locked? ? "checked" : ""}"}, "yes", "no"
-      %td.checkbox= check_box "user", "retired", {:checked=>"#{user.retired? ? "checked" : ""}"}, "yes", "no"
-      %td.checkbox= check_box "user", "creator", {:checked=>"#{user.creator? ? "checked" : ""}"}, "yes", "no"
-      %td= link_to "edit", edit_user_path(user), :class => "edit action"
+      = fields_for user do |f|
+        %td.checkbox= f.check_box :trained, "data-path" => toggle_user_status_user_path(user, :checkbox => :trained)
+        %td.checkbox= f.check_box :locked, "data-path" => toggle_user_status_user_path(user, :checkbox => :locked)
+        %td.checkbox= f.check_box :retired, "data-path" => toggle_user_status_user_path(user, :checkbox => :retired)
+        %td.checkbox= f.check_box :creator, "data-path" => toggle_user_status_user_path(user, :checkbox => :creator)
+        %td= link_to "edit", edit_user_path(user), :class => "edit action"

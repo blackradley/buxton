@@ -33,7 +33,7 @@ Buxton::Application.routes.draw do
     member do
       get :questions
       get :submit
-      get :toggle_strand
+      post :toggle_strand
     end
   end
   
@@ -44,6 +44,7 @@ Buxton::Application.routes.draw do
     end
     
     member do
+      post :toggle_user_status
       get :training
       post "training", :to => "users#update_training"
     end
