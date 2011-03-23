@@ -48,6 +48,13 @@ $(document).ready(function(){
     $("#more_" + $(this).attr("id")).show();
   });  
   
+  $('.question:not(.saveField) select, .question_compact select').focus(function(){
+    $('.more').hide();
+    $('.focused').removeClass("focused");
+    $(this).parents('.question:not(.saveField), .question_compact').addClass("focused");
+    $("#more_" + $(this).parents('.question:not(.saveField), .question_compact').attr("id")).show();
+  });  
+  
   // Toggles strands on the activity depending on what value is checked.
   $('span.checkStrand input').click(function(){
     var strand = $(this).attr('id').replace("_checkbox", "");
@@ -88,13 +95,15 @@ $(document).ready(function(){
 function toggleDependencies(element){
   var select = $(element);
   var dependencies = $(element).parents('.question, .question_compact').data("dependencies");
-  $.each(dependencies, function(question, required_value){
-    if(required_value == $(select).val()){
-      $("#"+question).show();
-    }
-    else{
-      $("#"+question).hide();
-    }
-    toggleDependencies($("#"+question + " select"));
-  }); 
+  if(dependencies){
+    $.each(dependencies, function(question, required_value){
+      if($(select).is(":visible") && required_value == $(select).val()){
+        $("#"+question).show();
+      }
+      else{
+        $("#"+question).hide();
+      }
+      toggleDependencies($("#"+question + " select"));
+    }); 
+  }
 }
