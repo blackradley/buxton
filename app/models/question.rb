@@ -23,8 +23,12 @@ class Question < ActiveRecord::Base
   #   raise self.inspect
   # end
   # 
+  # def invisible?
+  #   (@@invisible_questions.include?(self.name.to_sym) && self.activity.proposed?)
+  # end
+  
   def invisible?
-    (@@invisible_questions.include?(self.name.to_sym) && self.activity.proposed?)
+    false
   end
   
   def response
