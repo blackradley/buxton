@@ -130,25 +130,31 @@ class Activity < ActiveRecord::Base
       strand_list.each do |strand, question_list|
         question_list.each do |question_number|
           question_data = strand.to_s == "overall" ? data["overall_questions"]['purpose'][question_number] : data["questions"][section.to_s][question_number]
-          begin
-            wordings = data['wordings']
-            descriptive_term = data['descriptive_terms_for_strands']
-            help_text = question_data["help"][0][0]
-            question_label = question_data['label'][0][0]
-            puts help_text.inspect
-            help_text = eval(%Q{<<"DELIM"\n} + help_text.to_s + "\nDELIM\n") rescue nil
-            help_text.chop! unless help_text.nil?
-            puts question_label.inspect
-            question_label = eval(%Q{<<"DELIM"\n} + question_label.to_s + "\nDELIM\n") rescue nil
-            basic_attributes = {:input_type => question_data["type"], :needed => question_data["dependent_questions"].blank?,
-                                 :help_text => help_text, :label => question_label, :name => "#{section}_#{strand}_#{question_number}", 
-                                 :strand => strand, :section => section}
-            basic_attributes[:choices] = data['choices'][question_data['choices']] if question_data['choices']
-            question = self.questions.build(basic_attributes)
-            question.save!
-          rescue
-            raise question_data.inspect
+          old_texts = {:label => question_data['label'].dup, :help_text => question_data["help"].dup}
+          texts = {}
+          old_texts.each do |key, value|
+            #some questions have extra wordings on a per section and strand basis. The exceptions for this are codified here
+            new_value = value.to_s
+            new_value.gsub!('#{wordings[strand]}', data["wordings"][strand.to_s].to_s)
+            new_value.gsub!('#{descriptive_term[strand]}', data["wordings"][strand.to_s].to_s)
+            new_value.gsub!('#{"different " if strand == "gender"}', strand.to_s == "gender" ? 'different' : '')
+            new_value.gsub!('#{sentence_desc(strand)}', sentence_desc(strand.to_s))
+            if data["extra_strand_wordings"][section.to_s] && data["extra_strand_wordings"][section.to_s][question_number]
+              new_value.gsub!("\#{data[\"extra_strand_wordings\"][\"#{section}\"][#{question_number}][strand]}", data["extra_strand_wordings"][section.to_s][question_number][strand.to_s].to_s)
+              new_value.gsub!('#{data["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}', data["extra_strand_wordings"]['impact'][6]['extra_word'][strand.to_s].to_s)
+              new_value.gsub!('#{data["extra_strand_wordings"]["impact"][6]["extra_paragraph"][strand]}', data["extra_strand_wordings"]['impact'][6]['extra_paragraph'][strand.to_s].to_s)
+            end
+            begin
+              raise section.to_s+strand.to_s+question_number.to_s+new_value.inspect if new_value.include?("\#{")
+            end
+            texts[key] = new_value
           end
+          basic_attributes = {:input_type => question_data["type"], :needed => question_data["dependent_questions"].blank?,
+                               :help_text => texts[:help_text], :label => texts[:label], :name => "#{section}_#{strand}_#{question_number}", 
+                               :strand => strand, :section => section}
+          basic_attributes[:choices] = data['choices'][question_data['choices']] if question_data['choices']
+          question = self.questions.build(basic_attributes)
+          question.save!
           if !question_data["dependent_questions"].blank?
             dependent = question_data["dependent_questions"].split(" ")
             value = dependent[1] == "yes_value" ? 1 : 2
@@ -226,6 +232,7 @@ class Activity < ActiveRecord::Base
     new_section = section.nil? ? self.sections.map(&:to_s).join("|") : section
     new_strand = strand.nil? ? self.strands(is_purpose).push("overall").join("|") : strand
     search_conditions = "name REGEXP '(#{new_section})\_(#{new_strand})' AND completed = false AND needed = true"
+    puts self.questions.find(:all, :conditions => search_conditions).inspect
     return false if self.questions.find(:all, :conditions => search_conditions).size > 0
     #check if we need to check issues?
     issues_to_check = []
@@ -382,6 +389,10 @@ class Activity < ActiveRecord::Base
   
   def proposed?
     self.existing_proposed == 2
+  end
+  
+  def existing?
+    self.existing_proposed == 1
   end
   
   def statuses
