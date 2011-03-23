@@ -22,8 +22,7 @@ $(document).ready(function(){
   // Toggles strands on the activity depending on what value is checked.
   $('span.checkStrand input').click(function(){
     var strand = $(this).attr('id').replace("_checkbox", "");
-    $('#row_'+ strand+ '_on').toggle();
-    $('#row_'+ strand+ '_off').toggle();
+    $('#row_'+ strand).toggle();
     $.post($(this).data("path"));
   })
   

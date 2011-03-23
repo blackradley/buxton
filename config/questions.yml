@@ -1,5 +1,3 @@
-question_intro: Please answer all the questions below.  As usual there is help text in the right hand column.  Below the help text is space to add a comment where it would be useful to explain or expand each answer and space to leave a private note to yourself if required.
-
 existing_proposed:
   label: 'Not appropriate'
   help: ''
@@ -16,36 +14,16 @@ function_policy:
   weight: 0
   dependent_questions: ''
 
-ces_question:
-      label:
-        -
-          - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
-          - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
-        -
-          - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
-          - 'Have you read the #{"<a href=\"#{organisation.ces_link}\">" unless organisation.ces_link.blank?}Corporate Equality Scheme#{"</a>" unless organisation.ces_link.blank?}?'
-      help:
-        -
-          - ''
-          - ''
-        -
-          - ''
-          - ''
-      type: select
-      choices: 3
-      weights: 0
-      dependent_questions: ''
-
 questions:
   purpose:
     3:
       label:
         -
-          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
-          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
+          - 'Is #{wordings[strand]} relevant to this EINA??'
+          - 
         -
-          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
-          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
+          - 
+          - 
       help:
         -
           - 'This question asks you to identify any positive
@@ -62,34 +40,7 @@ questions:
              differential impact that the proposed Policy has on #{wordings[strand]}.<br/><br/>  #{hashes["extra_strand_wordings"]["purpose"][strand]}
              Please indicate whether the proposed Policy could affect #{wordings[strand]} differently if it were performed well.'
       type: select
-      choices: 1
-      weights: 1
-      dependent_questions: ''
-    4:
-      label:
-        -
-          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
-          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
-        -
-          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
-          - '#{wordings[strand]}, because of their #{sentence_desc(strand)}?'
-      help:
-        -
-          - 'This question asks you to identify any negative
-             differential impact that the Function has on #{wordings[strand]}.<br/><br/>  #{hashes["extra_strand_wordings"]["purpose"][strand]}
-             Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed badly.'
-          - ' This question asks you to identify any negative
-             differential impact that the proposed Function has on #{wordings[strand]}.<br/><br/>   #{hashes["extra_strand_wordings"]["purpose"][strand]}
-             Please indicate whether the proposed Function could affect #{wordings[strand]} differently if it were performed badly.'
-        -
-          - ' This question asks you to identify any negative
-             differential impact that the Policy has on #{wordings[strand]}.<br/><br/>   #{hashes["extra_strand_wordings"]["purpose"][strand]}
-             Please indicate whether the Policy could affect #{wordings[strand]} differently if it were performed badly.'
-          - ' This question asks you to identify any negative
-             differential impact that the proposed Policy has on #{wordings[strand]}.<br/><br/>   #{hashes["extra_strand_wordings"]["purpose"][strand]}
-             Please indicate whether the proposed Policy could affect #{wordings[strand]} differently if it were performed badly.'
-      type: select
-      choices: 1
+      choices: 3
       weights: 1
       dependent_questions: ''
   impact:
@@ -986,36 +937,6 @@ section_names:
   - additional_work
   - action_planning
 
-headers:
-  purpose_overall_1:
-    -
-      - "For each #{organisation.term('strategy')} below please indicate whether it is significantly aided by the Function."
-      - "For each #{organisation.term('strategy')} below please indicate whether it will be significantly aided by the proposed Function."
-    -
-      - "For each #{organisation.term('strategy')} below please indicate whether it is significantly aided by the Policy."
-      - "For each #{organisation.term('strategy')} below please indicate whether it will be significantly aided by the proposed Policy."
-  purpose_overall_2:
-    -
-      - Which of these individuals does the Function have an impact on?
-      - Which of these individuals will the proposed Function have an impact on?
-    -
-      - Which of these individuals does the Policy have an impact on?
-      - Which of these individuals will the proposed Policy have an impact on?
-  purpose_overall_3:
-    -
-      - 'Might the Function benefit, in different ways:'
-      - 'Might the proposed Function benefit, in different ways:'
-    -
-      - 'Might the Policy benefit, in different ways:'
-      - 'Might the proposed Policy benefit, in different ways:'
-  purpose_overall_4:
-    -
-      - 'Might the Function disadvantage, in different ways:'
-      - 'Might the proposed Function disadvantage, in different ways:'
-    -
-      - 'Might the Policy disadvantage, in different ways:'
-      - 'Might the proposed Policy disadvantage, in different ways:'
-
 header_help_text:
   purpose_overall_1:
     -
@@ -1198,7 +1119,6 @@ choices:
     - 'Not Answered Yet'
     - 'Yes'
     - 'No'
-    - 'Not sure'
   4:
     - 'Not Answered Yet'
     - 'Less than six months'
@@ -1209,13 +1129,11 @@ choices:
     - 'No relevant individuals identified'
     - 'There are plans to consult relevant individuals'
     - 'There are no plans to consult relevant individuals'
-    - 'Not sure'
   6:
     - 'Not Answered Yet'
     - 'No relevant stakeholders identified'
     - 'There are plans to consult relevant stakeholders'
     - 'There are no plans to consult relevant stakeholders'
-    - 'Not sure'
   7:
     - 'Not Answered Yet'
     - 'None'
