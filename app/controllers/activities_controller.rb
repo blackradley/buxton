@@ -99,6 +99,7 @@ class ActivitiesController < ApplicationController
   # Opening page where they must choose between Activity/Policy and Existing/Proposed
   # Available to: Activity Manager
   def questions
+    @selected = "my_einas"
     @breadcrumb = [["My EINAs", my_einas_activities_path], ["#{@activity.name}"]]
     completed_status_array = @activity.strands(true).map{|strand| [strand.to_sym, @activity.completed(nil, strand)]}
     completed_status_hash = Hash[*completed_status_array.flatten]
@@ -125,8 +126,10 @@ class ActivitiesController < ApplicationController
   end
 
   def toggle_strand
-    @activity.toggle("#{params[:strand]}_relevant")
-    @activity.save!
+    unless @activity.strand_required?(params[:strand])
+      @activity.toggle("#{params[:strand]}_relevant")
+      @activity.save!
+    end
     render :nothing => true
   end
   

@@ -7,7 +7,7 @@
   = render :partial => 'intro'
   =form_for(@activity, :url => activities_section_path(@activity)) do |f|
     %h5
-      =h @activity.header(:purpose_overall_2)
+      Which of these individuals does the Function have an impact on?
     = render :partial => 'question_compact', :collection => question_details(:purpose, @equality_strand, [5,6,7,8,9]), :locals => {:f => f}
     = hidden_field_tag 'id', @id 
     = hidden_field_tag 'equality_strand', @equality_strand

@@ -26,7 +26,7 @@
       %span.letter_completed
         =tick_cross_display(@activity.impact_on_equality_groups)
   .clear
--if @activity.completed(:purpose) then
+-if @activity.completed(:purpose) && @activity.show_full_assessment? then
   .step#two
     .stepImage
       =image_tag("2.png")
@@ -36,9 +36,10 @@
       -@activity.overview_strands.each do |strand_name, strand|
         -selected = false
         %span.checkStrand
-          -if @activity.strand_relevant?(strand) then
-            -selected = true
-          = check_box_tag("#{strand}_checkbox", strand_name, selected, "data-path" => toggle_strand_activity_path(@activity, :strand => strand))
+          -if @activity.strand_required?(strand) then
+            = check_box_tag("#{strand}_checkbox", strand_name, true, :disabled =>true)
+          -else
+            = check_box_tag("#{strand}_checkbox", strand_name, @activity.strand_relevant?(strand), "data-path" => toggle_strand_activity_path(@activity, :strand => strand))
           %label
             =h strand_display(strand).titlecase
             / -if @activity.impact_calculation(strand).to_i > 9 then
@@ -58,16 +59,9 @@
           %th Consultation
           %th Additional Work
           %th Action Planning
-        -display_on = ""
-        -display_off = ""
         -@activity.overview_strands.each do |strand_name, strand|
-          -if @activity.strand_relevant?(strand) then
-            -display_on = ""
-            -display_off = "display:none"
-          -else
-            -display_on = "display:none"
-            -display_off = ""
-          %tr{:id => "row_#{strand_name}_on", :style => "#{display_on};"}
+          -display_on = @activity.strand_relevant?(strand) ? "" : "display:none"
+          %tr{:id => "row_#{strand_name}", :style => "#{display_on};"}
             %th.strandHeading
               =h strand_display(strand).titlecase
             %td
@@ -85,17 +79,6 @@
                 = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "action_planning"), :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
               - else
                 %span.na -
-          %tr{:id => "row_#{strand_name}_off", :style => "#{display_off};"}
-            %th.strandHeading
-              =h strand_display(strand).titlecase
-            %td
-              %span.na -
-            %td
-              %span.na -
-            %td
-              %span.na -
-            %td
-              %span.na -
     .clear
   .step#four{:style => (@activity.completed ? 'display:block' : 'display:none')}
     .stepImage
