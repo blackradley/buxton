@@ -188,8 +188,10 @@ class Activity < ActiveRecord::Base
             descriptive_term = hashes['descriptive_terms_for_strands']
             help_text = question_data["help"][0][0]
             question_label = question_data['label'][0][0]
+            puts help_text.inspect
             help_text = eval(%Q{<<"DELIM"\n} + help_text.to_s + "\nDELIM\n") rescue nil
             help_text.chop! unless help_text.nil?
+            puts question_label.inspect
             question_label = eval(%Q{<<"DELIM"\n} + question_label.to_s + "\nDELIM\n") rescue nil
             basic_attributes = {:input_type => question_data["type"], :needed => question_data["dependent_questions"].blank?,
                                  :help_text => help_text, :label => question_label, :name => "#{section}_#{strand}_#{question_number}", 
