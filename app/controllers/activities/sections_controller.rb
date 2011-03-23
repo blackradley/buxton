@@ -20,11 +20,12 @@ class Activities::SectionsController < ApplicationController
   before_filter :authenticate_user!
   before_filter :set_activity
   before_filter :set_strand, :only => [:edit]
-  
+  before_filter :set_selected
 
   # Get the activity information ready for editing using the appropriate form.
   # Available to: Activity Manager
   def edit_purpose_a
+    @breadcrumb << ["What is this EINA for?"]
     @equality_strand = "overall"
     @activity_strategies = Strategy.all.map do |s|
       @activity.activity_strategies.find_or_create_by_strategy_id(s.id)
@@ -32,10 +33,12 @@ class Activities::SectionsController < ApplicationController
   end
   
   def edit_purpose_b
+    @breadcrumb << ["Individuals affected by this EINA"]
     @equality_strand = "overall"
   end
   
   def edit_purpose_c
+    @breadcrumb << ["Different benefits and disadvantages of this EINA"]
     @equality_strand = "overall"
   end
   
@@ -60,16 +63,16 @@ class Activities::SectionsController < ApplicationController
 
     # Update the answers in the activity table
     @activity.update_attributes!(params[:activity])
+    @activity.update_relevancies!
     # Update the activity strategy answers if we have any (currently only in the Purpose section)
     if params[:strategy_responses] then
-      params[:strategy_responses].each do |strategy_response|
-        numeric_response = @activity.hashes['choices'][3].index(strategy_response[1])
-        activity_strategy = @activity.activity_strategies.find_or_create_by_strategy_id(strategy_response[0])
-        activity_strategy.strategy_response = numeric_response
+      params[:strategy_responses].each do |strategy_id, strategy_response|
+        activity_strategy = @activity.activity_strategies.find_or_create_by_strategy_id(strategy_id)
+        activity_strategy.strategy_response = strategy_response
         activity_strategy.save!
       end
     end
-
+    
     flash[:notice] =  "#{@activity.name} was successfully updated."
     redirect_to questions_activity_path(@activity)
 
@@ -118,6 +121,11 @@ class Activities::SectionsController < ApplicationController
   
   def set_activity
     @activity = current_user.activities.select{|a| a.id == params[:id].to_i}.first
+  end
+  
+  def set_selected
+    @selected = "my_einas"
+    @breadcrumb = [["My EINAs", my_einas_activities_path], ["#{@activity.name}", questions_activity_path(@activity)]]
   end
   
 end
