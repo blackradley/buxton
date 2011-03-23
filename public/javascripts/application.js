@@ -24,7 +24,7 @@ $(document).ready(function(){
     var strand = $(this).attr('id').replace("_checkbox", "");
     $('#row_'+ strand+ '_on').toggle();
     $('#row_'+ strand+ '_off').toggle();
-    $.get($(this).data("path"));
+    $.post($(this).data("path"));
   })
   
   $('#submit_answers a').click(function(){

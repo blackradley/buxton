@@ -32,6 +32,13 @@ class UsersController < ApplicationController
     redirect_to set_homepage
   end
 
+  def toggle_user_status
+    @user = User.find(params[:id])
+    @user.toggle(params[:checkbox])
+    @user.save
+    render :nothing => true
+  end
+
   def update
     @breadcrumb = [["User Administration", users_path], ["Edit User"]]
     @user = User.live.find(params[:id])
