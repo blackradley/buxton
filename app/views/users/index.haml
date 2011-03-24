@@ -1,11 +1,11 @@
 .searchBox
   = form_tag '#', :id => 'searchForm' do
     %label Search for:
-    = text_field_tag 'search_term'
-    = submit_tag 'Search'
+    = text_field_tag 'search_term', '', :class => 'textField'
+    = submit_tag 'Search', :class => 'submitButton'
 .orangeButton
   =link_to "Add User", new_user_path, :class=>"add"
-%table.searchable{:cellspacing=>"0", :cellpadding=>"0"}
+%table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
   %thead
     %tr
       %th.first
@@ -23,23 +23,23 @@
       %th.last
     %tr
       %th.sortControls
-        =link_to "sort ascending","#", :class=>"up selected", :title=>"sort ascending"
-        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls
-        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls
-        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls
-        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls
-        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls
-        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls.last
         &nbsp;
   %tbody

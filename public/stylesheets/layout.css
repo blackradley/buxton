@@ -129,7 +129,7 @@
           font-weight: bold;
           float: left;
           line-height: 32px; }
-        .content .workingArea #content_holder .searchBox form input[type='text'] {
+        .content .workingArea #content_holder .searchBox form .textField {
           border: 1px solid #999999;
           width: 300px;
           padding: 7px;
@@ -137,7 +137,7 @@
           font-size: 12px;
           margin: 0px 0px 0px 10px;
           line-height: 18px; }
-        .content .workingArea #content_holder .searchBox form input[type='submit'] {
+        .content .workingArea #content_holder .searchBox form .submitButton {
           border: 0px;
           background-image: url(../images/orange_buttons/search.jpg);
           background-repeat: no-repeat;
@@ -150,7 +150,7 @@
           margin: 0px 0px 0px 10px;
           line-height: 22px;
           font-weight: bold; }
-        .content .workingArea #content_holder .searchBox form input[type='submit']:hover {
+        .content .workingArea #content_holder .searchBox form .submitButton:hover {
           background-image: url(../images/orange_buttons/search_hover.jpg); }
       .content .workingArea #content_holder .orangeButton {
         display: inline-block;
