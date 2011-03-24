@@ -423,9 +423,9 @@ class Activity < ActiveRecord::Base
                             :age => [1,2,3,4,5,6,7]
                           },    
       :additional_work => { :race => [1,2,3,4,6],
-                            :disability => [1,2,3,4,6],
+                            :disability => [1,2,3,4,6,7,8,9],
                             :sexual_orientation => [1,2,3,4,6],
-                            :gender => [1,2,3,4,6],
+                            :gender => [1,2,3,4],
                             :faith => [1,2,3,4,6],
                             :age => [1,2,3,4,6]
                           }

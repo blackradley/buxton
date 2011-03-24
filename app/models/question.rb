@@ -39,6 +39,15 @@ class Question < ActiveRecord::Base
     end
   end
     
+  def display_response
+    if self.input_type == "select"
+      self.choices[self.raw_answer.to_i]
+    else
+      self.raw_answer
+    end
+  end
+  
+  
   def parent
     self.dependency ? self.dependency.question : nil
   end 
