@@ -40,35 +40,7 @@ $(document).ready(function(){
 
   
   $('.sortControls a').click(function() {
-    // var link = $(this)
-    // if ($(this).hasClass('selected'))
-    //   return false;
-    // var col = link.parents('tr').children().index($(this).parents('th'))+1;
-    // var desc = link.hasClass('down');
-    // var childElem = null;
-    // $('.sortControls a').removeClass('selected');
-    // link.addClass('selected');
     sorter.wk(this.parentNode.cellIndex, this.className == 'down');
-    // $(this).click(function(){alert(i); sorter.wk(i)});
-    // if (link.parents('table').find('tbody tr td:nth-child('+col+') :checkbox').length > 0) {
-    //   childElem = ':checkbox';
-    // }
-    // 
-    // var rows = link.parents('table').find('tbody tr');
-    // 
-    // var tbody = link.parents('table').find('tbody');
-    // var items = tbody.children('tr').get();
-    // items.sort(function(a, b) {
-    //     var compA = $(a).find('td:nth-child('+col+')').text().toUpperCase();
-    //     var compB = $(b).find('td:nth-child('+col+')').text().toUpperCase();
-    //     if (desc)
-    //       return (compA < compB) ? 1 : (compA > compB) ? -1 : 0;
-    //     else
-    //       return (compA < compB) ? -1 : (compA > compB) ? 1 : 0;
-    // })
-    // $.each(items, function(idx, itm) { tbody.append(itm); });
-    
-    
     return false;
   });
   
