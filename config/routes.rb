@@ -26,7 +26,7 @@ Buxton::Application.routes.draw do
     collection do
       get :directorate_einas
       get :my_einas
-      get :assisting
+      get :approving
       get :autocomplete_user_email
     end
     
