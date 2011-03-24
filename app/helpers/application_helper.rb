@@ -109,6 +109,8 @@ module ApplicationHelper
         ["Assisting", assisting_activities_path]
       when "Creator"
         ["Directorate EINAs", directorate_einas_activities_path]
+      when "Cop"
+        ["Governance Officer", "#"]
       end
     end
   end

@@ -1,50 +1,57 @@
 .searchBox
-  %label Search for:
-  %input{:type=>"text"}
-  %input{:type=>"submit", :value=>"Search"}
+  = form_tag '#', :id => 'searchForm' do
+    %label Search for:
+    = text_field_tag 'search_term'
+    = submit_tag 'Search'
 .orangeButton
   =link_to "Add User", new_user_path, :class=>"add"
-%table{:cellspacing=>"0", :cellpadding=>"0"}
-  %tr
-    %th.first
-      Email Address
-    %th.dateTime
-      Last Logged in
-    %th
-      Trained?
-    %th
-      Locked?
-    %th
-      Retired?
-    %th
-      Directorate Contact&nbsp;Officer?
-    %th.last
-  %tr
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up selected", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.last.sortControls
-  - @users.each do |user|
-    %tr{:class => cycle("light", "dark")}
-      %td= user.email
-      %td= user.last_sign_in_at
-      %td.checkbox= check_box "user", "trained", {:checked=>"#{user.trained? ? "checked" : ""}"}, "yes", "no"
-      %td.checkbox= check_box "user", "locked", {:checked=>"#{user.locked? ? "checked" : ""}"}, "yes", "no"
-      %td.checkbox= check_box "user", "retired", {:checked=>"#{user.retired? ? "checked" : ""}"}, "yes", "no"
-      %td.checkbox= check_box "user", "creator", {:checked=>"#{user.creator? ? "checked" : ""}"}, "yes", "no"
-      %td.last= link_to "edit", edit_user_path(user), :class => "edit action"
+
+%table.searchable{:cellspacing=>"0", :cellpadding=>"0"}
+  %thead
+    %tr
+      %th.first
+        Email Address
+      %th.dateTime
+        Last Logged in
+      %th
+        Trained?
+      %th
+        Locked?
+      %th
+        Retired?
+      %th
+        Directorate Contact&nbsp;Officer?
+      %th.last
+    %tr
+      %th.sortControls
+        =link_to "sort ascending","#", :class=>"up selected", :title=>"sort ascending"
+        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
+        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
+        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
+        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
+        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
+        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+      %th.sortControls.last
+        &nbsp;
+  %tbody
+    - @users.each do |user|
+      %tr{:class => cycle("light", "dark")}
+        %td= user.email
+        %td= user.last_sign_in_at || raw('&nbsp;')
+        = fields_for user do |f|
+          %td.checkbox= f.check_box :trained, "data-path" => toggle_user_status_user_path(user, :checkbox => :trained)
+          %td.checkbox= f.check_box :locked, "data-path" => toggle_user_status_user_path(user, :checkbox => :locked)
+          %td.checkbox= f.check_box :retired, "data-path" => toggle_user_status_user_path(user, :checkbox => :retired)
+          %td.checkbox= f.check_box :creator, "data-path" => toggle_user_status_user_path(user, :checkbox => :creator)
+          %td.last= link_to "edit", edit_user_path(user), :class => "edit action"
+

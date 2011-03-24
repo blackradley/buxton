@@ -30,9 +30,12 @@
 class Activity < ActiveRecord::Base
   belongs_to :completer, :class_name => "User"
   belongs_to :approver, :class_name => "User"
-  belongs_to :directorate
   belongs_to :service_area
+<<<<<<< HEAD:app/models/activity.rb
   # Fake belongs_to :organisation, :through => :directorate
+=======
+  
+>>>>>>> 1e8f231c8246ff6ad8986230c18bded5bbfcb304:app/models/activity.rb
   has_many :activity_strategies, :dependent => :destroy
   has_many :issues, :dependent => :destroy
   has_many :questions, :dependent => :destroy
@@ -40,13 +43,12 @@ class Activity < ActiveRecord::Base
   validates_presence_of :name, :message => 'All activities must have a name.'
   validates_uniqueness_of :ref_no, :message => 'Reference number must be unique', :if => :ref_no?
   validates_presence_of :completer, :approver
-  validates_presence_of :directorate
+  validates_presence_of :service_area
   validates_associated :completer, :approver
 #  validates_associated :questions
   # validates_uniqueness_of :name, :scope => :directorate_id
-
-  attr_accessor :activity_clone, :saved
-  before_save :set_approved
+  
+  before_save :set_approved, :update_completed
   after_create :create_questions_if_new
 
   after_update :save_issues
@@ -55,8 +57,6 @@ class Activity < ActiveRecord::Base
   
   before_save :fix_fields
   
-  before_update :get_clone
-  after_update :update_questions_as_necessary
   accepts_nested_attributes_for :questions
   
   def progress
@@ -69,6 +69,17 @@ class Activity < ActiveRecord::Base
     if self.approved == "submitted"
       return "FA"
     end
+  end
+  
+  def directorate
+    self.service_area ? self.service_area.directorate : nil
+  end
+  
+  def directorate_id
+    self.service_area ? self.service_area.directorate.id : nil
+  end
+  
+  def directorate=(id)
   end
   
   def approver_email
@@ -108,56 +119,6 @@ class Activity < ActiveRecord::Base
       '-'
     end
   end
-
-  def parents
-    @@parents
-  end
-
-  def header(header_placing)
-    fun_pol = self.function_policy.to_i
-    fun_pol -= 1
-    fun_pol = 0 if fun_pol == -1
-    exist_prop = self.existing_proposed.to_i
-    exist_prop -= 1
-    exist_prop = 0 if exist_prop == -1
-    return hashes['headers'][header_placing.to_s][fun_pol][exist_prop]
-  end
-  def existing_proposed?
-    hashes['choices'][8][self.existing_proposed.to_i]
-  end
-
-  def fun_pol_number
-    fun_pol = self.function_policy.to_i
-    fun_pol -= 1
-    fun_pol = 0 if fun_pol == -1
-    fun_pol
-  end
-
-  def exist_prop_number
-    exist_prop = self.existing_proposed.to_i
-    exist_prop -= 1
-    exist_prop = 0 if exist_prop == -1
-    exist_prop
-  end
-  def existing?
-   self.existing_proposed == 1
-  end
-
-  def proposed?
-    self.existing_proposed == 2
-  end
-
-  def function?
-    self.function_policy == 1
-  end
-
-  def policy?
-    self.function_policy == 2
-  end
-
-  def hashes
-    @@Hashes
-  end
   
   ## One statement per question is far too slow
   ## Execute SQL directly for a single INSERT statement, using SELECT and JOIN.
@@ -172,16 +133,31 @@ class Activity < ActiveRecord::Base
       strand_list.each do |strand, question_list|
         question_list.each do |question_number|
           question_data = strand.to_s == "overall" ? data["overall_questions"]['purpose'][question_number] : data["questions"][section.to_s][question_number]
-          begin
-            basic_attributes = {:input_type => question_data["type"], :needed => question_data["dependent_questions"].blank?,
-                                 :help_text => question_data["help"][0][0], :label => question_data['label'][0][0], :name => "#{section}_#{strand}_#{question_number}", 
-                                 :strand => strand, :section => section}
-            basic_attributes[:choices] = data['choices'][question_data['choices']] if question_data['choices']
-            question = self.questions.build(basic_attributes)
-            question.save!
-          rescue
-            raise question_data.inspect
+          old_texts = {:label => question_data['label'].dup, :help_text => question_data["help"].dup}
+          texts = {}
+          old_texts.each do |key, value|
+            #some questions have extra wordings on a per section and strand basis. The exceptions for this are codified here
+            new_value = value.to_s
+            new_value.gsub!('#{wordings[strand]}', data["wordings"][strand.to_s].to_s)
+            new_value.gsub!('#{descriptive_term[strand]}', data["wordings"][strand.to_s].to_s)
+            new_value.gsub!('#{"different " if strand == "gender"}', strand.to_s == "gender" ? 'different' : '')
+            new_value.gsub!('#{sentence_desc(strand)}', sentence_desc(strand.to_s))
+            if data["extra_strand_wordings"][section.to_s] && data["extra_strand_wordings"][section.to_s][question_number]
+              new_value.gsub!("\#{data[\"extra_strand_wordings\"][\"#{section}\"][#{question_number}][strand]}", data["extra_strand_wordings"][section.to_s][question_number][strand.to_s].to_s)
+              new_value.gsub!('#{data["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}', data["extra_strand_wordings"]['impact'][6]['extra_word'][strand.to_s].to_s)
+              new_value.gsub!('#{data["extra_strand_wordings"]["impact"][6]["extra_paragraph"][strand]}', data["extra_strand_wordings"]['impact'][6]['extra_paragraph'][strand.to_s].to_s)
+            end
+            begin
+              raise section.to_s+strand.to_s+question_number.to_s+new_value.inspect if new_value.include?("\#{")
+            end
+            texts[key] = new_value
           end
+          basic_attributes = {:input_type => question_data["type"], :needed => question_data["dependent_questions"].blank?,
+                               :help_text => texts[:help_text], :label => texts[:label], :name => "#{section}_#{strand}_#{question_number}", 
+                               :strand => strand, :section => section}
+          basic_attributes[:choices] = data['choices'][question_data['choices']] if question_data['choices']
+          question = self.questions.build(basic_attributes)
+          question.save!
           if !question_data["dependent_questions"].blank?
             dependent = question_data["dependent_questions"].split(" ")
             value = dependent[1] == "yes_value" ? 1 : 2
@@ -209,122 +185,16 @@ class Activity < ActiveRecord::Base
     end
   end
 
-  def function_policy?
-    hashes['choices'][9][self.function_policy.to_i]
-  end
-
-  def existing_proposed_name
-    hashes['choices'][8][self.existing_proposed.to_i]
-  end
-
   def approved?
     self.approved == "approved"
   end
-
-  #27-Stars Joe: percentage_answered allows you to find the percentage answered of a group of questions.
-  def percentage_answered(section = nil, strand = nil)
-    return 0 unless self.started
-    #check purpose is completed for anything except purpose
-    if section.to_s != 'purpose' then
-      return 0 unless self.completed('purpose')
+  
+  def show_full_assessment?
+    self.strands(true).each do |strand|
+      return true if self.strand_required?(strand)
     end
-    percentages = {}
-    if section.nil? then
-      sections.each do |s|
-        percentages[s.to_sym] = self.send("calculate_#{s.to_s}_percentage_answered#{('(' + strand.to_s + ')') unless strand.nil?}".to_sym)
-      end
-    else
-      percentages[section.to_sym] =  self.send("calculate_#{section.to_s}_percentage_answered#{('(' + strand.to_s + ')') unless strand.nil?}".to_sym)
-    end
-    overall_total = 0
-    if section.nil? then
-      percentages.values.each{|total| overall_total += total/percentages.values.size}
-    else
-      overall_total = percentages[section.to_sym]
-    end 
-    (overall_total*100).to_i  
+    false
   end
-
-  def calculate_purpose_percentage_answered(strand = nil)
-    new_strand = strand.nil? ? self.strands(true).push("overall").join("|") : strand
-    purpose_answered = self.questions.find(:all, :conditions => "name REGEXP 'purpose\_(#{new_strand})' AND (completed = true AND needed = true)").size
-    number_of_unanswered_strategies = self.activity_strategies.find(:all, :conditions => 'strategy_response LIKE 0').size
-    number_of_strategies = self.activity_strategies.find(:all).size
-    number_of_answered_strategies  = number_of_strategies - number_of_unanswered_strategies
-    purpose_total = self.questions.find(:all, :conditions => "name REGEXP 'purpose\_(#{new_strand})' AND (needed = true)").size
-    #to_f used to cascade cast to floats
-    (purpose_answered.to_f + number_of_answered_strategies)/(number_of_strategies + purpose_total)
-  end
-
-  def calculate_generic_percentage_answered(section = nil, strand = nil)
-    new_strand = strand.nil? ? self.strands.push("overall").join("|") : strand
-    answered = self.questions.find(:all, :conditions => "name REGEXP '#{strand.to_s}\_(#{new_strand})' AND (completed = true AND needed = true)").size
-    total = self.questions.find(:all, :conditions => "name REGEXP '#{strand.to_s}\_(#{new_strand})' AND (needed = true)").size
-    strands.each do |enabled_strand|
-      next unless enabled_strand.to_s.include? strand.to_s
-      if section == 'impact' && self.send("impact_#{enabled_strand}_9") == 1 then
-        answered -= 1 if self.issues.find(:all, :conditions => "section REGEXP 'impact' AND strand REGEXP '#{enabled_strand.to_s}'").size == 0
-      end
-      if section == 'consultation' && self.send("consultation_#{enabled_strand}_7") == 1 then
-        answered -= 1 if self.issues.find(:all, :conditions => "section REGEXP 'consultation' AND strand REGEXP '#{enabled_strand.to_s}'").size == 0
-      end
-    end
-    return 1.0 if total == 0
-    (answered.to_f)/(total) #to_f used to cascade cast to floats
-  end
-
-  def calculate_impact_percentage_answered(strand = nil)
-    calculate_generic_percentage_answered('impact', strand)
-  end
-
-  def calculate_consultation_percentage_answered(strand = nil)
-    calculate_generic_percentage_answered('consultation', strand)
-  end
-
-  def calculate_additional_work_percentage_answered(strand = nil)
-    calculate_generic_percentage_answered('additional_work', strand)
-  end
-
-  def calculate_action_planning_percentage_answered(strand = nil)
-    issue_total = 0
-    answered = 0
-    unanswered_sections = 0
-    sections_total = 0
-    strands.each do |enabled_strand|
-      # Checks if it's the strand we're given, or nil
-      # Refactor to explicit == and blank check
-      next unless enabled_strand.to_s.include? strand.to_s
-      # Code to calculate
-      impact_answer = self.send("impact_#{enabled_strand}_9")
-      unanswered_sections += 1 if impact_answer == 0
-      sections_total += 1
-      if impact_answer == 1 then
-        search_string = "section REGEXP 'impact' AND strand REGEXP '#{enabled_strand.to_s}'"
-        answered += self.issues.find(:all, :conditions => search_string).inject(0) do |total, issue|
-          issue_total += 1
-          total += issue.percentage_answered
-        end
-      end
-      consultation_answer = self.send("consultation_#{enabled_strand}_7")
-      unanswered_sections += 1 if consultation_answer == 0
-      sections_total += 1
-      if consultation_answer == 1 then
-        search_string = "section REGEXP 'consultation' AND strand REGEXP '#{enabled_strand.to_s}'"
-        answered += self.issues.find(:all, :conditions => search_string).inject(0) do |total, issue|
-          issue_total += 1
-          total += issue.percentage_answered
-        end
-      end
-    end
-    return 0.0 if sections_total == unanswered_sections
-    return 1.0 if issue_total == 0
-    (answered.to_f/issue_total)*((sections_total - unanswered_sections.to_f)/sections_total)
-  end
-
-   #The started tag allows you to check whether a activity, section, or strand has been started. This is basically works by running check_percentage, but as
-   #soon as it finds a true value, it breaks out of the loop and returns false. If you request a activity started from it, it checks whether the 2 questions
-   #that you have to answer(activity/policy and proposed/overall) have been answered or not, and if they have not been answered, then no others can be
-   # and if they have, then the activity is by definition started
   
   #broken with section and strand passed!
   def started(section = nil, strand = nil)
@@ -365,6 +235,7 @@ class Activity < ActiveRecord::Base
     new_section = section.nil? ? self.sections.map(&:to_s).join("|") : section
     new_strand = strand.nil? ? self.strands(is_purpose).push("overall").join("|") : strand
     search_conditions = "name REGEXP '(#{new_section})\_(#{new_strand})' AND completed = false AND needed = true"
+    puts self.questions.find(:all, :conditions => search_conditions).inspect
     return false if self.questions.find(:all, :conditions => search_conditions).size > 0
     #check if we need to check issues?
     issues_to_check = []
@@ -372,8 +243,8 @@ class Activity < ActiveRecord::Base
       next unless enabled_strand.to_s.include? strand.to_s
       impact_qn = "impact_#{enabled_strand}_9"
       consultation_qn = "consultation_#{enabled_strand}_7"
-      impact_answer = self.questions.find_by_name(impact_qn.to_sym).response.to_i
-      consultation_answer = self.questions.find_by_name(consultation_qn.to_sym).response.to_i
+      impact_answer = self.questions.where(:name => impact_qn).first.response.to_i
+      consultation_answer = self.questions.where(:name => consultation_qn).first.response.to_i
       impact_needed = (section.to_s == 'impact' || section.to_s == 'action_planning' || section.nil?)
       consultation_needed = (section.to_s == 'consultation' || section.to_s == 'action_planning'  || section.nil?)
       return false if impact_answer == 0 && impact_needed
@@ -414,9 +285,9 @@ class Activity < ActiveRecord::Base
   def impact_on_equality_groups
     answered_questions = []
     self.strands(true).each do |strand|
-      answered_questions += self.questions.find(:all, :conditions => "name REGEXP 'purpose\_#{strand.to_s}\_[3,4]' AND (completed = true OR needed = false)")
+      answered_questions += self.questions.find(:all, :conditions => "name REGEXP 'purpose\_#{strand.to_s}\_3' AND (completed = true OR needed = false)")
     end
-    return false unless answered_questions.size == 12
+    return false unless answered_questions.size == 6
     return true
   end
 
@@ -459,60 +330,15 @@ class Activity < ActiveRecord::Base
       end
     end
   end
+
   
-  def get_clone
-    @activity_clone = Activity.find(self.id)
-  end
-
-  def invisible_questions
-    @@invisible_questions.clone
-  end
-
-  def invisible?(question)
-    (!@@invisible_questions.include?(question) && self.existing_proposed == 2)
-  end
-
-  def dependencies(question=nil)
-    return @@dependencies.clone unless question
-    return @@dependencies[question].clone if @@dependencies[question]
-    []
-  end
-  def parents(question = nil)
-    return @@parents.clone unless question
-    return @@parents[question].clone if @@parents[question]
-    []
-  end
-
-  def update_questions_as_necessary
-    return true if @saved
-    @saved = true
-    to_save = {}
-    if @activity_clone.send(:existing_proposed) != self.send(:existing_proposed) then
-      if proposed? then
-        @@invisible_questions.each do |question|
-          status = self.questions.find_by_name(question.to_s)
-          status.update_attributes(:needed => false)
-        end
-      else
-        @@invisible_questions.each do |question|
-          unless parents(question.to_s) == [] then
-            status = self.questions.find_by_name(question.to_s)
-            status.update_attributes(:needed => status.check_needed)
-          else
-            status = self.questions.find_by_name(question.to_s)
-            status.update_attributes(:needed => true)
-          end
-        end
-      end
-    else
-      sections.each do |section|
-        to_save["#{section}_completed".to_sym] = true
-        strands.each do |strand|
-          to_save["#{section}_completed".to_sym] = to_save["#{section}_completed".to_sym] && completed(section.to_s, strand.to_s)
-        end
+  def update_completed
+    sections.each do |section|
+      self.send("#{section}_completed=".to_sym, true)
+      strands.each do |strand|
+        self.send("#{section}_completed=".to_sym, self.send("#{section}_completed".to_sym) && completed(section.to_s, strand.to_s))
       end
     end
-    self.update_attributes(to_save)
   end
 
   def sections
@@ -527,128 +353,28 @@ class Activity < ActiveRecord::Base
     Activity.find(:first).strands(true)
   end
 
-  def impact
-    strands(true).map{|strand| impact_calculation(strand)}.max
-  end
-
-  def strand_percentage_importance(strand)
-    existing_proposed_weight = self.hashes['weights'][hashes['existing_proposed']['weight']][self.existing_proposed.to_i].to_i
-    exist_proposed_max = self.hashes['weights'][hashes['existing_proposed']['weight']].max
-    if self.send("#{strand}_relevant") then
-      statistics_questions = self.questions.find(:all, :conditions => "needed = true")
-      statistics_questions.reject!{|question| !question.name.to_s.include?(strand.to_s) || question.invisible? || question.weights.max == 0}
-      total_score = statistics_questions.inject(0){|total, question| total += question.weight.to_i} + existing_proposed_weight.to_i
-      maximum_score = statistics_questions.inject(0){|total, question| total += question.weights.max.to_i} + exist_proposed_max.to_i
-    else
-      pos_qn = self.questions.find_by_name("purpose_#{strand}_3")
-      neg_qn = self.questions.find_by_name("purpose_#{strand}_4")
-      total_score = pos_qn.weight + neg_qn.weight + existing_proposed_weight
-      maximum_score = pos_qn.weights.max + neg_qn.weights.max + exist_proposed_max
-    end
-    return 0 if maximum_score == 0
-    return (total_score.to_f/maximum_score.to_f)*100
-  end
-
-  def self.set_max(strand, increment)
-    case strand.to_s
-     when 'gender'
-       @@gender_max += increment
-     when 'race'
-       @@race_max += increment
-     when 'disability'
-       @@disability_max += increment
-     when 'sexual_orientation'
-       @@sexual_orientation_max += increment
-     when 'faith'
-       @@faith_max += increment
-     when 'age'
-       @@age_max += increment
-    end
-  end
-
-  def self.get_strand_max(strand)
-    case strand.to_s
-     when 'gender'
-       @@gender_max
-     when 'race'
-       @@race_max
-     when 'disability'
-       @@disability_max
-     when 'sexual_orientation'
-       @@sexual_orientation_max
-     when 'faith'
-       @@faith_max
-     when 'age'
-       @@age_max
-    end
-  end
-
-  def self.force_question_max_calculation
-    @@Hashes['wordings'].keys.each do |strand|
-      Activity.set_max(strand, 20) #existing_proposed increment
-      Activity.get_question_names(strand).each do |name|
-        question_separation = Activity.question_separation(name)
-        weights = @@Hashes['weights'][Activity.new.question_wording_lookup(*question_separation)[4]]
-        weights = [] if weights.nil?
-        weights_max = 0
-        weights.each{|weight| weights_max = weight.to_i if weight.to_i > weights_max}
-        Activity.set_max(strand, weights_max)
-      end
-    end
-  end
-
   def overview_strands
     {'gender' => 'gender', 'race' => 'race', 'disability' => 'disability', 'faith' => 'faith', 'sex' => 'sexual_orientation', 'age' => 'age'}
   end
 
-  def relevant_strands
-    self.overview_strands.values.select do |strand|
-      self.send("#{strand}_relevant".to_sym)
-    end
+  def strand_required?(strand)
+    self.questions.where(:name => "purpose_#{strand.to_s}_3").first.response == 1
   end
-
+  
   def strand_relevant?(strand)
-    self.send("#{strand}_relevant".to_sym)
+    self.send("#{strand.to_s}_relevant")
   end
-
-  def relevant?(strand = nil)
-    existing_proposed_weight = self.hashes['weights'][hashes['existing_proposed']['weight']][self.existing_proposed.to_i].to_i
-    good_impact = self.questions.find(:all, :conditions => "name LIKE 'purpose_%#{strand}%_3'")
-    bad_impact =  self.questions.find(:all, :conditions => "name LIKE 'purpose_%#{strand}%_4'")
-    running_total = existing_proposed_weight
-    running_total += good_impact.inject(0) do |tot, question|
-      tot += question.weight
+  
+  def update_relevancies!
+    strand_attributes = {}
+    self.strands(true).each do |strand|
+      if self.questions.where(:name => "purpose_#{strand.to_s}_3").first.response == 1
+        strand_attributes["#{strand}_relevant"] =  true
+      else
+        strand_attributes["#{strand}_relevant"] = false
+      end
     end
-    running_total += bad_impact.inject(0) do |tot, question|
-      tot += question.weight
-    end
-    max = 50.0
-    return (running_total/max) >= 0.35
-  end
-
-  def impact_wording(strand = nil)
-    unless strand then
-      impact_figure = impact
-    else
-      return '-' unless self.send("#{strand}_relevant")
-      impact_figure = impact_calculation(strand)
-    end
-    case impact_figure
-      when 15
-        return :high
-      when 10
-        return :medium
-      when 5
-        return :low
-    end
-  end
-
-  def impact_calculation(strand)
-    good_impact = self.send("purpose_#{strand.to_s}_3".to_sym).to_i
-    bad_impact = self.send("purpose_#{strand.to_s}_4".to_sym).to_i
-    good_impact = bad_impact if bad_impact > good_impact
-    good_impact = hashes['weights'][question_wording_lookup(*Activity.question_separation("purpose_#{strand.to_s}_3".to_sym))[4]][good_impact]
-    good_impact
+    self.update_attributes(strand_attributes)
   end
 
   def strands(return_all = false)
@@ -659,52 +385,31 @@ class Activity < ActiveRecord::Base
   def self.strands
     ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age']
   end
-  def priority_ranking(strand = nil)
-    # FIXME: database should set this default for us
-    ranking_boundaries = [80,70,60,50]
-    rank = 5
-    unless strand then
-      strand_total = strands(true).inject(0) do |total, strand|
-        total += priority_ranking(strand).to_i**3
-      end
-      strand_total = (strand_total.to_f/strands(true).size)**(1.to_f/3)
-      return (strand_total.to_f + 0.5).to_i
-    else
-      ranking = self.send("#{strand}_percentage_importance")
-      ranking_boundaries.each{|border| rank -= 1 unless ranking > border}
-      return rank
-    end
-  end
-
-#This method recovers questions. It allows you to search by strand or by section.
-#It works by getting a list of all the columns, then removing any ones which aren't quesitons.
-#NOTE: Should a new column be added to activity that isn't a question, it should also be added here.
-  def self.get_question_names(section = nil, strand = nil, number = nil)
-    return ["#{section}_#{strand}_#{number}".to_sym] if section && strand && number
-    questions = []
-    unnecessary_columns = [:impact, :use_purpose_completed,
-      :purpose_completed, :impact_completed, :consultation_completed, :additional_work_completed, :action_planning_completed,
-      :percentage_importance, :name, :approved, :gender_percentage_importance,
-      :race_percentage_importance, :disability_percentage_importance, :sexual_orientation_percentage_importance, :faith_percentage_importance, :age_percentage_importance,
-      :approver, :created_on, :updated_on, :updated_by, :function_policy, :existing_proposed, :approved_on, :gender_relevant, :faith_relevant,
-      :sexual_orientation_relevant, :age_relevant, :disability_relevant, :race_relevant, :review_on, :ces_link, :ref_no, :start_date, :end_date]
-    Activity.content_columns.each{|column| questions.push(column.name.to_sym)}
-    unnecessary_columns.each{|column| questions.delete(column)}
-    questions.delete_if{ |question| !(question.to_s.include?(section.to_s))}if section
-    questions.delete_if{ |question| !(question.to_s.include?(strand.to_s))}if strand
-    questions.delete_if{ |question| !(question.to_s.include?(number.to_s))} if number
-    return questions
+  
+  def types
+    ["function", "policy"]
   end
   
+  def proposed?
+    self.existing_proposed == 2
+  end
+  
+  def existing?
+    self.existing_proposed == 1
+  end
+  
+  def statuses
+    ["existing", "proposed"]
+  end
   
   def self.question_setup_names
     {:purpose =>          { :overall => [2,5,6,7,8,9,11,12],
-                            :race => [3,4],
-                            :disability => [3,4],
-                            :sexual_orientation => [3,4],
-                            :gender => [3,4],
-                            :faith => [3,4],
-                            :age => [3,4]
+                            :race => [3],
+                            :disability => [3],
+                            :sexual_orientation => [3],
+                            :gender => [3],
+                            :faith => [3],
+                            :age => [3]
                           },
       :impact =>          { :race => [1,2,3,4,5,6,7,8,9],
                             :disability => [1,2,3,4,5,6,7,8,9],
@@ -721,9 +426,9 @@ class Activity < ActiveRecord::Base
                             :age => [1,2,3,4,5,6,7]
                           },    
       :additional_work => { :race => [1,2,3,4,6],
-                            :disability => [1,2,3,4,6],
+                            :disability => [1,2,3,4,6,7,8,9],
                             :sexual_orientation => [1,2,3,4,6],
-                            :gender => [1,2,3,4,6],
+                            :gender => [1,2,3,4],
                             :faith => [1,2,3,4,6],
                             :age => [1,2,3,4,6]
                           }
@@ -796,147 +501,13 @@ class Activity < ActiveRecord::Base
 
     return response
   end
-  #This activity returns the wording of a particular question. It takes a section strand and question number as arguments, and returns that specific question.
-  #It can also be passed nils, and in that event, it will automatically return an array containing all the values that corresponded to the nils. Hence, to return all
-  #questions and their lookup types, just func.question_wording_lookup suffices.
-  def question_wording_lookup(section = nil, strand = nil, question = nil, name_only=false)
-    fun_pol_indicator = case fun_pol_number
-      when 0
-        "function"
-      when 1
-        "policy"
-      else
-        "---------"
-    end
-    exist_prop_indicator = case exist_prop_number
-      when 0
-        "existing"
-      when 1
-        "proposed"
-      else
-        "---------"
-    end
-    section = section.to_s
-    strand = strand.to_s
-    question = question.to_i unless question.nil?
-    strands = hashes['strands']
-    wordings = hashes['wordings']
-    questions = hashes['questions']
-    overall_questions = hashes['overall_questions']
-    descriptive_term = hashes['descriptive_terms_for_strands']
-    response = {}
-    #First recursively decide on all the strands
-    unless strand != "" then
-      strands.each_key{|new_strand| response[new_strand] = (question_wording_lookup(section, new_strand, question))[new_strand]}
-      return response
-    end
-    #Then decide which hash to use
-    if strand.downcase == 'overall' then
-      query_hash = overall_questions
-    else
-      query_hash = questions
-    end
-    #then recursively sort by section
-    unless section != "" then
-      query_hash.each_key do |new_section|
-        if response[strand] then
-          response[strand][new_section] = question_wording_lookup(new_section, strand, question)[strand][new_section]
-        else
-          response[strand] = {new_section => question_wording_lookup(new_section, strand, question)[strand][new_section]}
-        end
-      end
-      return response
-    end
-    #finally, recursively find all the questions
-    unless question then
-      query_hash[section].each_key do |question_name|
-        if response[strand] then
-          response[strand][section][question_name] = question_wording_lookup(section, strand, question_name)
-        else
-          response[strand] = {section => {question_name => question_wording_lookup(section, strand, question_name)}}
-        end
-      end
-      return response
-    end
-    label = query_hash[section][question]['label'][self.fun_pol_number][self.exist_prop_number].to_s
-    type = query_hash[section][question]['type']
-    choices = query_hash[section][question]['choices']
-    label = eval(%Q{<<"DELIM"\n} + label.to_s + "\nDELIM\n") rescue nil
-    label.chop! unless label.nil?
-    unless name_only
-      help_object = HelpText.find_by_question_name("#{section}_#{strand}_#{question}")
-      if help_object.nil?
-        help_text = ""
-      else
-        if (exist_prop_indicator.include? "-") || (fun_pol_indicator.include? "-") then
-          help_text = ""
-        else
-          text_to_send = "#{exist_prop_indicator}_#{fun_pol_indicator}"
-          help_text = help_object.send(text_to_send.to_sym)
-        end
-      end
-      weights = query_hash[section][question]['weights']
-      help_text = eval(%Q{<<"DELIM"\n} + help_text.to_s + "\nDELIM\n") rescue nil
-      help_text.chop! unless help_text.nil?
-      return [label, type, choices, help_text, weights]
-    else
-      return [label, type, choices]
-    end
-  end
-
-
-  #This returns any dependencies of a question
-  # 
-  # 
-    def dependent_questions(question)
-      question = question.to_s
-      yes_value = hashes['yes_value']
-      no_value = hashes['no_value']
-      if question.include?("overall") then
-        query_hash = hashes['overall_questions']
-      else
-        query_hash = hashes['questions']
-      end
-      segments = Activity.question_separation(question)
-      if segments then
-        section = segments[0]
-        strand = segments[1]
-        question_name = segments[2]
-        dependencies = query_hash[section.to_s][question_name.to_i]['dependent_questions']
-        dependencies.gsub!("yes_value", yes_value.to_s)
-        dependencies.gsub!("no_value", no_value.to_s)
-        dependencies = dependencies.split(" ")
-        return nil if dependencies == []
-        dependencies[0] = eval(%Q{<<"DELIM"\n} + dependencies[0] + "\nDELIM\n")
-        dependencies[0].chop!
-        return [dependencies]
-      else
-        return nil
-      end
-    end
-
+  
   def check_response(response) #Check response verifies whether a response to a question is correct or not.
-    checker = !(response.to_i == 0)
-    checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
-    return checker
-  end
-  
-  def self.can_be_viewed_by?(user_)
-    return user_.class != Administrator
-  end
-  
-  def can_be_viewed_by?(user_)
-    return false unless [OrganisationManager, DirectorateManager, ProjectManager].include?(user_.class)
-    return (user_.activities.include? self)
-  end
-  
-  def can_be_edited_by?(user_)
-    return user_.activities.include?(self) if [OrganisationManager, DirectorateManager, ProjectManager].include?(user_.class)
-    return user_.activity == self  if [ActivityManager, ActivityApprover].include? user_.class
-    return false
-  end
-  
-  
+      checker = !(response.to_i == 0)
+      checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
+      return checker
+    end
+    
    def sentence_desc(strand)
      case strand.to_s
      when 'race'

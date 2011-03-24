@@ -1,0 +1,58 @@
+.more{:id => "more_" + "#{question_help.name}", :style => "display:none"}
+  %h3
+    =image_tag ("icons/help.gif")
+    Help:
+  -if !question_help.help_text.blank?
+    .help
+      =simple_format(question_help.help_text)
+  -else
+    .help Sorry - no help text for this question.
+  %h3
+    =image_tag ("icons/comment.gif")
+    Comment for report:
+  - opt = ['none', 'block']
+  - flag = (!question_help.comment.blank? ? 1 : 0) 
+  .commentBox
+    .showComment.normalcommentview{:id => "#{question_help.name}_comment_view", :style => "display:#{opt[flag]}"}
+      %p.comment{:id => "#{question_help.name}_comment"}
+        = render :partial => 'attachment', :locals => {:text => question_help.comment}
+      .control
+        =image_tag ("icons/comment_delete.gif")
+        =link_to "Delete", comment_path(:question_id => question_help.id, :activity_id => @activity.id), :method => :delete, :remote => true, :confirm => "Delete this comment?"
+      .control
+        =image_tag ("icons/comment_edit.gif")
+        =link_to "Edit", "##{question_help.name}_comment_form", :class => 'inline'
+    .newComment.new_comment{:id => "#{question_help.name}_comment_new", :style => "display:#{opt[1 - flag]}"}
+      .control
+        =image_tag ("icons/comment_add.gif")
+        = link_to "Add new comment for report", "##{question_help.name}_comment_form", :class => 'inline'
+    .editComment.commentform{:id => "#{question_help.name}_comment_form"}
+      .heading
+        %h3 Add a new comment for the report
+      = form_tag(set_comment_comment_index_path(:question_id => question_help.id, :activity_id => @activity.id), :remote => true, :class => "lightboxForm") do
+        =text_area_tag "comment", question_help.comment, :id => "#{question_help.name}_comment_fill_in", :class => "commentTextArea"
+        = link_to "Save", "#", :class => "saveLink"
+  %h3
+    =image_tag ("icons/note.gif")
+    Note to myself:
+  - flag = (!question_help.note.blank? ? 1 : 0) 
+  .noteBox
+    .showNote.normalnoteview{:id => "#{question_help.name}_note_view", :style => "display:#{opt[flag]}"}
+      %p.note{:id => "#{question_help.name}_note"}
+        = render :partial => 'attachment', :locals => {:text => question_help.note}
+      .control
+        =image_tag ("icons/note_delete.gif")
+        =link_to "Delete", note_path(:question_id => question_help.id, :activity_id => @activity.id), :remote => true, :method => :delete, :confirm => "Delete this note?"
+      .control
+        =image_tag ("icons/note_edit.gif")
+        =link_to "Edit", "##{question_help.name}_note_form", :class => 'inline'
+    .newNote.new_note{:id => "#{question_help.name}_note_new", :style => "display:#{opt[1 - flag]}"}
+      .control
+        =image_tag ("icons/note_add.gif")
+        = link_to "Add a new note to myself", "##{"#{question_help.name}_note_form"}", :class => 'inline'
+    .editNote.noteform{:id => "#{question_help.name}_note_form"}
+      .heading
+        %h3 Add a new note to myself
+      = form_tag(set_note_note_index_path(:question_id => question_help.id, :activity_id => @activity.id), :remote => true, :class => "lightboxForm") do
+        = text_area_tag "note", question_help.note, :id => "#{question_help.name}_note_fill_in", :class => "noteTextArea"
+        = link_to "Save", "#", :class => "saveLink"

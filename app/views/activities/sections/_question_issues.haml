@@ -1,0 +1,31 @@
+%p.question{:id => "#{question_issues.name}", 'data-dependencies' => {"#{question_issues.name}_issues" => 1}.to_json, :style => "display:block;"}
+  = f.fields_for :questions, question_issues do |q|
+    %label
+      =question_issues.label
+    %labelled
+      -case question_issues.input_type.to_sym   
+        -when :text
+          = q.text_area :raw_answer
+        -when :string
+          = q.text_field :raw_answer
+        -when :select
+          = q.select :raw_answer, question_issues.choices.map{|choice| [choice, question_issues.choices.index(choice)]}
+  
+-displayString = "none"
+-if @activity.questions.where(:name => question_issues.name).first.response.to_s == '1'
+  -displayString = "block"
+
+.more{:id => "more_" + "#{question_issues.name}_issues", :style => "display:none"}
+  
+.question.sub{:id => "#{question_issues.name}_issues", 'data-dependencies' => {}.to_json, :style => "display:#{displayString};"}
+  %label 
+    Please record each of the discrete issues identified in the space below and when you have finished click save.
+  %span#issues_list
+    = render :partial => 'issues/issue', :collection => @activity.issues_by(question_issues.section, question_issues.strand), :locals => {:strand =>  params[:equality_strand]}
+  .clear
+  %span.add_issue
+    = image_tag ('icons/add.gif')
+    = link_to "Add a New Issue", "#", :class => "addIssue", 'data-section' => question_issues.section, 'data-strand' =>  params[:equality_strand]
+    / = link_to "Add a New Issue", do |page| 
+    /   - page.insert_html :bottom, :issues_list, :partial => 'issues/issue', :object => Issue.new
+  .clear
