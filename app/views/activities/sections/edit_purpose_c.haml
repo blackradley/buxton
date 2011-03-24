@@ -1,0 +1,29 @@
+%h1#questions=h @activity.name + " - Overall - Purpose"
+%h2
+  =image_tag("c.gif")
+  Impact on Equality Groups
+#questions
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'gender', [3])
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'race', [3])
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'disability', [3])
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'faith', [3])
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'sexual_orientation', [3])
+  = render :partial => 'question_help', :collection => question_details(:purpose, 'age', [3])
+  =form_for(@activity, :url => activities_section_path(@activity)) do |f|
+    = render :partial => 'intro'
+
+    %h5
+      How does this function affect strategies:
+    = render :partial => 'question_compact', :collection => question_details(:purpose, 'gender', [3]), :locals => {:f => f}
+    = render :partial => 'question_compact', :collection => question_details(:purpose, 'race', [3]), :locals => {:f => f}
+    = render :partial => 'question_compact', :collection => question_details(:purpose, 'disability', [3]), :locals => {:f => f}
+    = render :partial => 'question_compact', :collection => question_details(:purpose, 'faith', [3]), :locals => {:f => f}
+    = render :partial => 'question_compact', :collection => question_details(:purpose, 'sexual_orientation', [3]), :locals => {:f => f}
+    = render :partial => 'question_compact', :collection => question_details(:purpose, 'age', [3]), :locals => {:f => f}
+
+    = hidden_field_tag 'id', @id 
+    = hidden_field_tag 'equality_strand', @equality_strand
+    %p.question.saveField
+      %span.button
+        = submit_tag 'Save', :disable_with => 'Saving...', :id => 'section_save_button'
+  .clear

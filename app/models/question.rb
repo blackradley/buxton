@@ -23,8 +23,12 @@ class Question < ActiveRecord::Base
   #   raise self.inspect
   # end
   # 
+  # def invisible?
+  #   (@@invisible_questions.include?(self.name.to_sym) && self.activity.proposed?)
+  # end
+  
   def invisible?
-    (@@invisible_questions.include?(self.name.to_sym) && self.activity.proposed?)
+    false
   end
   
   def response
@@ -35,6 +39,15 @@ class Question < ActiveRecord::Base
     end
   end
     
+  def display_response
+    if self.input_type == "select"
+      self.choices[self.raw_answer.to_i]
+    else
+      self.raw_answer
+    end
+  end
+  
+  
   def parent
     self.dependency ? self.dependency.question : nil
   end 

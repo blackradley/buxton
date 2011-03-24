@@ -1,6 +1,6 @@
 = semantic_form_for @activity do |form|
   = form.inputs do
-    =form.input :directorate, :label => "Directorate", :include_blank => false
+    =form.input :directorate_id, :as => :select, :collection => Directorate.all.collect{|d| [d.name, d.id]}, :label => "Directorate", :include_blank => false
     =form.input :service_area, :label => "Service Area", :include_blank => false
     =form.input :name, :label => "Title"
     =form.input :start_date, :label => "Target Start Date", :as => :datepicker
@@ -9,10 +9,8 @@
     =form.hidden_field :completer_id
     =form.autocompleted_input :approver_email, :url => autocomplete_user_email_activities_path, :id_element => '#activity_approver_id', :label => "Approver"
     =form.autocompleted_input :completer_email, :url => autocomplete_user_email_activities_path, :id_element => '#activity_completer_id', :label => "Completer"
-    -fp_options = @activity.hashes['function_policy']['choices']
-    =form.input :function_policy, :as => :select, :collection => @activity.hashes['choices'][fp_options].collect {|option| [option , @activity.hashes['choices'][fp_options].index(option)] }, :label => "Type", :include_blank => false
-    -ep_options = @activity.hashes['existing_proposed']['choices']
-    =form.input :existing_proposed, :as => :select, :collection =>  @activity.hashes['choices'][ep_options].collect {|option| [option , @activity.hashes['choices'][ep_options].index(option)] }, :label => "Status", :include_blank => false
+    =form.input :function_policy, :as => :select, :collection => @activity.types.collect {|option| [option , @activity.types.index(option)] }, :label => "Type", :include_blank => false
+    =form.input :existing_proposed, :as => :select, :collection =>  @activity.statuses.collect{|option| [option , @activity.statuses.index(option)] }, :label => "Status", :include_blank => false
   = form.buttons do
     = form.submit "Save"
     =raw "or #{link_to "cancel", directorates_path}"

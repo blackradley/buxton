@@ -1,0 +1,27 @@
+%h1#questions=h @activity.name + " - Overall - Purpose"
+%h2
+  = image_tag("a.gif")
+  Target of Activity and Impact on Strategies
+#questions
+  = render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [2,11,12])
+  -@activity_strategies.each do |activity_strategy|
+    = render :partial => 'activity_strategy_help', :locals => {:activity_strategy => activity_strategy}
+  =form_for(@activity, :url => activities_section_path(@activity)) do |f|
+    = render :partial => 'intro'
+    = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [2,11,12]), :locals => {:f => f}
+    %h4
+      For each strategy below please indicate whether it is significantly aided by the Function.
+    -if @activity_strategies.count >= 1
+      -yes_no = [["Not Answered", 0], ["Yes", 1], ["No",2]]
+      -@activity.activity_strategies.each do |activity_strategy|
+        %span{:class => :question_compact, :id => "activity_strategy_#{activity_strategy.id}", :style => "display:block;"}
+          %label
+            = activity_strategy.strategy.name
+          = select('strategy_responses', activity_strategy.strategy_id, yes_no, :selected => yes_no[activity_strategy.strategy_response.to_i])
+    .clear
+    = hidden_field_tag 'id', @id
+    = hidden_field_tag 'equality_strand', @equality_strand
+    %p.question.saveField
+      %span.button
+        = submit_tag 'Save', :disable_with => 'Saving...', :id => 'section_save_button'
+  .clear

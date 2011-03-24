@@ -11,7 +11,7 @@
     %th
   - @activities.each do |activity|
     %tr{:class => cycle("light", "dark")}
-      %td
+      %td= activity.service_area.name
       %td= activity.name
       %td= activity.ref_no
       %td= activity.approver.email

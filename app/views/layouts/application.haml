@@ -12,6 +12,8 @@
     - if controller.action_name=='signup'
       =raw "<style>.mastHead .logo { background-image: url(/images/free_signup.png);}</style>"
     =raw javascript_include_merged :base
+    - if params[:controller] == "users"
+      = javascript_include_tag "admin"
     =raw  "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->"
     =raw "<!--[if lt IE 7]> #{javascript_include_tag 'jquery.pngFix.js'}<![endif]-->"
     =raw "<!--[if gte IE 7]> #{stylesheet_link_tag 'fixes_ie7'}<![endif]-->"
@@ -52,8 +54,8 @@
                 =link_to segment, link
               - else
                 =segment
-      .messageArea
-        -if flash[:notice]
+      - if flash[:notice]
+        .messageArea
           %p
             =flash[:notice]
       .content      
