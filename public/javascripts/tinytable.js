@@ -5,7 +5,7 @@ function T$$(e,p){return p.getElementsByTagName(e)}
 
 TINY.table=function(){
 	function sorter(n){this.n=n; this.pagesize=20; this.paginate=0}
-	sorter.prototype.init=function(e,f){
+	sorter.prototype.init=function(e,f,down){
 		var t=ge(e), i=0; this.e=e; this.l=t.r.length; t.a=[];
 		t.h=T$$('thead',T$(e))[0].rows[1]; t.w=t.h.cells.length;
     // for(i;i<t.w;i++){
@@ -15,7 +15,7 @@ TINY.table=function(){
     //  }
     // }
 		for(i=0;i<this.l;i++){t.a[i]={}}
-		if(f!=null){var a=new Function(this.n+'.wk('+f+')'); a()}
+		if(f!=null){var a=new Function(this.n+'.wk('+f+','+down+')'); a()}
 		if(this.paginate){this.g=1; this.pages()}
 	};
 	sorter.prototype.wk=function(y,down){
@@ -29,13 +29,13 @@ TINY.table=function(){
     // if(t.p==y){t.a.reverse(); x.className=t.d?this.asc:this.desc; t.d=t.d?0:1}
     // else{t.p=y; t.a.sort(cp); t.d=0; x.className=this.asc}
 		if(t.p==y){if(t.d==down){}else{t.a.reverse(); x.className=t.d?this.asc:this.desc; t.d=t.d?0:1}}
-		else{t.p=y; if(down){t.a.sort(rcp); t.d=1; x.className=this.desc}else{t.a.sort(cp); t.d=0; x.className=this.asc}}
+		else{t.p=y; if(down){t.a.sort(cp); t.d=1; x.className=this.desc}else{t.a.sort(rcp); t.d=0; x.className=this.asc}}
 		
 		var n=document.createElement('tbody');
 		for(i=0;i<this.l;i++){
 			var r=t.r[t.a[i].o].cloneNode(true); n.appendChild(r);
 			r.className=i%2==0?this.even:this.odd; var cells=T$$('td',r);
-			for(var z=0;z<t.w;z++){cells[z].className=y==z?i%2==0?this.evensel:this.oddsel:''}
+      // for(var z=0;z<t.w;z++){cells[z].className=y==z?i%2==0?this.evensel:this.oddsel:''}
 		}
 		t.replaceChild(n,t.b); if(this.paginate){this.size(this.pagesize)}
 	};

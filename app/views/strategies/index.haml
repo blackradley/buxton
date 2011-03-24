@@ -1,18 +1,18 @@
 %h2 Strategic Themes
 .orangeButton
   =link_to "Add Strategic Theme", new_strategy_path, :class=>"add"
-%table{:cellspacing=>"0", :cellpadding=>"0"}
+%table#sortable{:cellspacing=>"0", :cellpadding=>"0"}
   %tr
     %th Strategic Theme
     %th Retired?
     %th.last
   %tr
     %th.sortControls
-      =link_to "sort ascending","#", :class=>"up selected", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
     %th.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
     %td.last.sortControls
   - @strategies.each do |strategy|
     %tr{:class => cycle("light", "dark")}

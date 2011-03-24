@@ -13,8 +13,8 @@ sorter.asc = 'sortControls asc'; //ascending header class name
 sorter.desc = 'sortControls desc'; //descending header class name
 sorter.even = 'dark'; //even row class name
 sorter.odd = 'light'; //odd row class name
-sorter.evensel = 'evenselected'; //selected column even class
-sorter.oddsel = 'oddselected'; //selected column odd class
+// sorter.evensel = 'evenselected'; //selected column even class
+// sorter.oddsel = 'oddselected'; //selected column odd class
 // sorter.paginate = false; //toggle for pagination logic
 // sorter.pagesize = 20; //toggle for pagination logic
 // sorter.currentid = 'currentpage'; //current page id
@@ -122,7 +122,7 @@ $(document).ready(function(){
   });
   
   
-  sorter.init('sortable',1);
+  sorter.init('sortable',0,true);
 });
 
 

@@ -1,8 +1,8 @@
 .searchBox
   = form_tag '#', :id => 'searchForm' do
     %label Search for:
-    = text_field_tag 'search_term'
-    = submit_tag 'Search'
+    = text_field_tag 'search_term', '', :class => 'textField'
+    = submit_tag 'Search', :class => 'submitButton'
 .orangeButton
   =link_to "Add Eina", new_activity_path, :class=>"add"
 %table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
