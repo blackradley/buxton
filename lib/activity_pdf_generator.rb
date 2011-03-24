@@ -66,9 +66,9 @@ class ActivityPDFGenerator
   def build_header
       @pdf.fill_color Color::RGB.const_get('Black')
       @pdf.image( "#{Rails.root}/public/images/pdf_logo.png", :justification => :center, :resize => 0.5)
-      @pdf.text "<b>#{@activity.organisation.name.titlecase}</b>", :justification => :center, :font_size => 22
+      @pdf.text "<b>#{@activity.directorate.name.titlecase}</b>", :justification => :center, :font_size => 22
       @pdf.text " ", :justification => :center, :font_size => 10
-      @pdf.text "<c:uline><b>Equality Impact Assessment Report</b></c:uline>", :justification => :center, :font_size => 14
+      @pdf.text "<c:uline><b>Birmingham City Council ENIA Toolkit Assessment Report</b></c:uline>", :justification => :center, :font_size => 14
       @pdf.text " ", :justification => :center, :font_size => 10 #Serves as a new line character. Is this more readable than moving the cursor manually?
     return @pdf
   end
@@ -77,13 +77,13 @@ class ActivityPDFGenerator
     table = []
     table << ['<b>Activity</b>', @act_name]
     table << ["<b>#{ot('directorate', @activity).titlecase}</b>", @activity.directorate.name.titlecase]
-    projects = @activity.projects
-    unless projects.blank? then
-      type = ot('project', @activity).titlecase
-      type = type.pluralize if (projects.size > 1)
-      project_list = projects.map{|project| project.name.to_s.titlecase}.join("\n")
-      table << ["<b>#{type}</b>", project_list]
-    end
+    # projects = @activity.projects
+    #     unless projects.blank? then
+    #       type = ot('project', @activity).titlecase
+    #       type = type.pluralize if (projects.size > 1)
+    #       project_list = projects.map{|project| project.name.to_s.titlecase}.join("\n")
+    #       table << ["<b>#{type}</b>", project_list]
+    #     end
     
     if @activity.existing_proposed.to_i > 0 && @activity.function_policy.to_i > 0 then
       table << ["<b>Type</b>", "#{@activity.existing_proposed_name.titlecase} #{@activity.function_policy?.titlecase}"]
@@ -215,7 +215,7 @@ class ActivityPDFGenerator
       unless child_strategies.size == 0 then
         table_heading = Proc.new do |document|
           document.text " "
-          document.text "<b>For each #{type.to_s} #{@activity.organisation.term('strategy')}, please decide whether it is going to be significantly aided by the #{@activity.function_policy?.downcase}.</b>", :font_size => 10
+          document.text "<b>For each #{type.to_s} strategy')}, please decide whether it is going to be significantly aided by the #{@activity.function_policy?.downcase}.</b>", :font_size => 10
           document.text " "
           document
         end

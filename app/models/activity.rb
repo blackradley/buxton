@@ -33,12 +33,9 @@ class Activity < ActiveRecord::Base
   belongs_to :directorate
   belongs_to :service_area
   # Fake belongs_to :organisation, :through => :directorate
-  delegate :organisation, :organisation=, :to => :directorate
-
   has_many :activity_strategies, :dependent => :destroy
   has_many :issues, :dependent => :destroy
   has_many :questions, :dependent => :destroy
-  has_and_belongs_to_many :projects
 
   validates_presence_of :name, :message => 'All activities must have a name.'
   validates_uniqueness_of :ref_no, :message => 'Reference number must be unique', :if => :ref_no?
@@ -375,8 +372,8 @@ class Activity < ActiveRecord::Base
       next unless enabled_strand.to_s.include? strand.to_s
       impact_qn = "impact_#{enabled_strand}_9"
       consultation_qn = "consultation_#{enabled_strand}_7"
-      impact_answer = self.send(impact_qn.to_sym).to_i
-      consultation_answer = self.send(consultation_qn.to_sym).to_i
+      impact_answer = self.questions.find_by_name(impact_qn.to_sym).response.to_i
+      consultation_answer = self.questions.find_by_name(consultation_qn.to_sym).response.to_i
       impact_needed = (section.to_s == 'impact' || section.to_s == 'action_planning' || section.nil?)
       consultation_needed = (section.to_s == 'consultation' || section.to_s == 'action_planning'  || section.nil?)
       return false if impact_answer == 0 && impact_needed

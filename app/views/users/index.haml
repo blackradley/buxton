@@ -4,7 +4,7 @@
   %input{:type=>"submit", :value=>"Search"}
 .orangeButton
   =link_to "Add User", new_user_path, :class=>"add"
-%table{:cellspacing=>"0", :cellpadding=>"0", :border=>"collapse"}
+%table{:cellspacing=>"0", :cellpadding=>"0"}
   %tr
     %th.first
       Email Address
@@ -18,7 +18,7 @@
       Retired?
     %th
       Directorate Contact&nbsp;Officer?
-    %th
+    %th.last
   %tr
     %td.sortControls
       =link_to "sort ascending","#", :class=>"up selected", :title=>"sort ascending"
@@ -38,7 +38,7 @@
     %td.sortControls
       =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
       =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
+    %td.last.sortControls
   - @users.each do |user|
     %tr{:class => cycle("light", "dark")}
       %td= user.email
@@ -47,4 +47,4 @@
       %td.checkbox= check_box "user", "locked", {:checked=>"#{user.locked? ? "checked" : ""}"}, "yes", "no"
       %td.checkbox= check_box "user", "retired", {:checked=>"#{user.retired? ? "checked" : ""}"}, "yes", "no"
       %td.checkbox= check_box "user", "creator", {:checked=>"#{user.creator? ? "checked" : ""}"}, "yes", "no"
-      %td= link_to "edit", edit_user_path(user), :class => "edit action"
+      %td.last= link_to "edit", edit_user_path(user), :class => "edit action"

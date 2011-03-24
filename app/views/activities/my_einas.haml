@@ -1,3 +1,4 @@
+%h2 My EINAs
 %table{:cellspacing=>"0", :cellpadding=>"0"}
   %tr
     %th Service Area
@@ -34,7 +35,7 @@
     %td.last.sortControls
   - @activities.each do |activity|
     %tr{:class => cycle("light", "dark")}
-      %td
+      %td= activity.service_area.name
       %td= activity.name
       %td= activity.ref_no
       %td= activity.approver.email
