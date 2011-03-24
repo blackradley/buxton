@@ -9,5 +9,8 @@ end
 strategy = Strategy.create(:name => "Managing expectations", :description => "A measure of how one might measure expectations for this council")
 directorate = Directorate.create!(:name => "Seed Directorate", :cop => joe, :abbreviation => "SEED")
 directorate.service_areas.create!(:name => "Sample Service Area", :approver => joe)
-joes_activity = Activity.create!(:name => "Shauns Activity", :completer => joe, :approver => heather, :service_area => directorate.service_areas.first)
-shauns_activity = Activity.create!(:name => "Joes Activity", :completer => shaun, :approver => heather, :service_area => directorate.service_areas.first)
+
+25.times do |n|
+  joes_activity = Activity.create!(:name => "Shauns Activity #{n}", :completer => joe, :approver => heather, :service_area => directorate.service_areas.first)
+  shauns_activity = Activity.create!(:name => "Joes Activity #{n}", :completer => shaun, :approver => heather, :service_area => directorate.service_areas.first)
+end

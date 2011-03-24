@@ -24,15 +24,21 @@ table {
         overflow: hidden;
         background-repeat: no-repeat; }
       table th .sortControls .up {
-        background-image: url(../images/bullet_arrow_up.png); }
+        background-image: url(../images/bullet_arrow_up.gif); }
       table th .sortControls .down {
-        background-image: url(../images/bullet_arrow_down.png); }
+        background-image: url(../images/bullet_arrow_down.gif); }
       table th .sortControls .up.selected,
       table th .sortControls .up:hover {
-        background-image: url(../images/bullet_arrow_up_on.png); }
+        background-image: url(../images/bullet_arrow_up_on.gif); }
       table th .sortControls .down.selected,
       table th .sortControls .down:hover {
-        background-image: url(../images/bullet_arrow_down_on.png); }
+        background-image: url(../images/bullet_arrow_down_on.gif); }
+  table .sortControls.asc .up {
+    background-image: url(../images/bullet_arrow_up_on.gif) !important; }
+  table .sortControls.desc .down {
+    background-image: url(../images/bullet_arrow_down_on.gif) !important; }
+  table th.sortControls {
+    height: auto; }
   table td {
     text-align: left;
     border-right: 1px solid #bbbbbb;
@@ -51,11 +57,12 @@ table {
     padding: 0px; }
     table .sortControls a {
       display: inline-block;
+      zoom: 1;
+      *display: inline;
       width: 13px;
-      height: 10px;
-      padding: 0px;
+      padding: 4px 0px;
       cursor: pointer;
-      text-indent: -1000px;
+      text-decoration: none !important;
       overflow: hidden;
       background-repeat: no-repeat;
       background-position: center center; }
@@ -78,7 +85,8 @@ table {
   table .checkbox {
     text-align: center; }
     table .checkbox input {
-      width: auto; }
+      width: auto;
+      border: none; }
   table .light td {
     background-color: white; }
   table .dark td {

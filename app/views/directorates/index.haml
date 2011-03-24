@@ -1,22 +1,22 @@
 %h2 Directorates
 .orangeButton
   =link_to "Add Directorate", new_directorate_path, :class=>"add"
-%table{:cellspacing=>"0", :cellpadding=>"0"}
+%table#sortable{:cellspacing=>"0", :cellpadding=>"0"}
   %tr
     %th Directorate Name
     %th Abb.
     %th Directorate Equalities Governance Officer
     %th.last
   %tr
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up selected", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+    %th.sortControls
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+    %th.sortControls
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+    %th.sortControls
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
     %td.last.sortControls
   - @directorates.each do |directorate|
     %tr{:class => cycle("light", "dark")}

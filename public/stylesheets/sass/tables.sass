@@ -26,16 +26,23 @@ table
         :overflow hidden
         :background-repeat no-repeat
       .up
-        :background-image url(../images/bullet_arrow_up.png)
+        :background-image url(../images/bullet_arrow_up.gif)
       .down
-        :background-image url(../images/bullet_arrow_down.png)
+        :background-image url(../images/bullet_arrow_down.gif)
       .up.selected,
       .up:hover
-        :background-image url(../images/bullet_arrow_up_on.png)
+        :background-image url(../images/bullet_arrow_up_on.gif)
       .down.selected,
       .down:hover
-        :background-image url(../images/bullet_arrow_down_on.png)
-        
+        :background-image url(../images/bullet_arrow_down_on.gif)
+  .sortControls.asc
+    .up
+      :background-image url(../images/bullet_arrow_up_on.gif) !important
+  .sortControls.desc
+    .down
+      :background-image url(../images/bullet_arrow_down_on.gif) !important
+  th.sortControls
+    :height auto
   td
     :text-align left
     :border-right 1px solid #BBBBBB
@@ -54,11 +61,12 @@ table
     :padding 0px
     a
       :display inline-block
+      :zoom 1
+      :*display inline
       :width 13px
-      :height 10px
-      :padding 0px
+      :padding 4px 0px
       :cursor pointer
-      :text-indent -1000px
+      :text-decoration none !important
       :overflow hidden
       :background-repeat no-repeat
       :background-position center center
@@ -82,6 +90,7 @@ table
     :text-align center
     input
       :width auto
+      :border none
       
   .light
     td
