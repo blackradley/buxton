@@ -24,19 +24,19 @@ table {
         overflow: hidden;
         background-repeat: no-repeat; }
       table th .sortControls .up {
-        background-image: url(../images/bullet_arrow_up.png); }
+        background-image: url(../images/bullet_arrow_up.gif); }
       table th .sortControls .down {
-        background-image: url(../images/bullet_arrow_down.png); }
+        background-image: url(../images/bullet_arrow_down.gif); }
       table th .sortControls .up.selected,
       table th .sortControls .up:hover {
-        background-image: url(../images/bullet_arrow_up_on.png); }
+        background-image: url(../images/bullet_arrow_up_on.gif); }
       table th .sortControls .down.selected,
       table th .sortControls .down:hover {
-        background-image: url(../images/bullet_arrow_down_on.png); }
+        background-image: url(../images/bullet_arrow_down_on.gif); }
   table .sortControls.asc .up {
-    background-image: url(../images/bullet_arrow_up_on.png) !important; }
+    background-image: url(../images/bullet_arrow_up_on.gif) !important; }
   table .sortControls.desc .down {
-    background-image: url(../images/bullet_arrow_down_on.png) !important; }
+    background-image: url(../images/bullet_arrow_down_on.gif) !important; }
   table th.sortControls {
     height: auto; }
   table td {
