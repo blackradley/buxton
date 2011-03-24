@@ -7,9 +7,23 @@ jQuery.expr[':'].Contains = function(a,i,m){
     return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
 };
 
+var sorter = new TINY.table.sorter('sorter');
+sorter.head = 'sortControls'; //header class name
+sorter.asc = 'sortControls asc'; //ascending header class name
+sorter.desc = 'sortControls desc'; //descending header class name
+sorter.even = 'dark'; //even row class name
+sorter.odd = 'light'; //odd row class name
+sorter.evensel = 'evenselected'; //selected column even class
+sorter.oddsel = 'oddselected'; //selected column odd class
+// sorter.paginate = false; //toggle for pagination logic
+// sorter.pagesize = 20; //toggle for pagination logic
+// sorter.currentid = 'currentpage'; //current page id
+// sorter.limitid = 'pagelimit'; //page limit id
 
 $(document).ready(function(){
   
+  $("td:empty").html("&nbsp;");
+    
   $('input.ui-datepicker').datepicker();
   
   $(".saveLink").click(function(){
@@ -23,21 +37,38 @@ $(document).ready(function(){
     $("table.searchable tbody tr:Contains('"+term+"')").show();
     return false;
   });
+
   
   $('.sortControls a').click(function() {
-    var link = $(this)
+    // var link = $(this)
+    // if ($(this).hasClass('selected'))
+    //   return false;
+    // var col = link.parents('tr').children().index($(this).parents('th'))+1;
+    // var desc = link.hasClass('down');
+    // var childElem = null;
+    // $('.sortControls a').removeClass('selected');
+    // link.addClass('selected');
+    sorter.wk(this.parentNode.cellIndex, this.className == 'down');
+    // $(this).click(function(){alert(i); sorter.wk(i)});
+    // if (link.parents('table').find('tbody tr td:nth-child('+col+') :checkbox').length > 0) {
+    //   childElem = ':checkbox';
+    // }
+    // 
+    // var rows = link.parents('table').find('tbody tr');
+    // 
+    // var tbody = link.parents('table').find('tbody');
+    // var items = tbody.children('tr').get();
+    // items.sort(function(a, b) {
+    //     var compA = $(a).find('td:nth-child('+col+')').text().toUpperCase();
+    //     var compB = $(b).find('td:nth-child('+col+')').text().toUpperCase();
+    //     if (desc)
+    //       return (compA < compB) ? 1 : (compA > compB) ? -1 : 0;
+    //     else
+    //       return (compA < compB) ? -1 : (compA > compB) ? 1 : 0;
+    // })
+    // $.each(items, function(idx, itm) { tbody.append(itm); });
     
-    var col = link.parents('tr').children().index($(this).parents('th'))+1;
-    var desc = link.hasClass('down');
-    var childElem = null;
-    $('.sortControls a').removeClass('selected');
-    link.addClass('selected');
     
-    if (link.parents('table').find('tbody tr td:nth-child('+col+') :checkbox').length > 0) {
-      childElem = ':checkbox';
-    }
-    
-    link.parents('table').sortTable({onCol : col, sortDesc : desc, keepRelationships : true, child : childElem});
     return false;
   });
   
@@ -89,6 +120,9 @@ $(document).ready(function(){
     $(this).up(".issue").remove()
     return false;
   });
+  
+  
+  sorter.init('sortable',1);
 });
 
 

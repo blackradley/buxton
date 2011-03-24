@@ -33,6 +33,10 @@ table {
       table th .sortControls .down.selected,
       table th .sortControls .down:hover {
         background-image: url(../images/bullet_arrow_down_on.png); }
+  table .sortControls.asc .up {
+    background-image: url(../images/bullet_arrow_up_on.png) !important; }
+  table .sortControls.desc .down {
+    background-image: url(../images/bullet_arrow_down_on.png) !important; }
   table th.sortControls {
     height: auto; }
   table td {
@@ -53,11 +57,12 @@ table {
     padding: 0px; }
     table .sortControls a {
       display: inline-block;
+      zoom: 1;
+      *display: inline;
       width: 13px;
-      height: 10px;
-      padding: 0px;
+      padding: 4px 0px;
       cursor: pointer;
-      text-indent: -1000px;
+      text-decoration: none !important;
       overflow: hidden;
       background-repeat: no-repeat;
       background-position: center center; }

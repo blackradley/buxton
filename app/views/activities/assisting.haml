@@ -11,12 +11,12 @@
     %th
   - @activities.each do |activity|
     %tr{:class => cycle("light", "dark")}
-      %td= raw('&nbsp;')
+      %td= activity.service_area.name
       %td= activity.name
-      %td= activity.ref_no || raw('&nbsp;')
+      %td= activity.ref_no
       %td= activity.approver.email
-      %td= raw('&nbsp;') #activity.started_date
-      %td= raw('&nbsp;')
+      %td= #activity.started_date
+      %td
       %td= activity.progress
       %td= link_to "view", activity_path(activity), :class => "action edit", :target => "blank"
       %td
