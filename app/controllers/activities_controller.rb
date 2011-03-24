@@ -41,8 +41,8 @@ class ActivitiesController < ApplicationController
     @selected = "my_einas"
   end
   
-  def assisting
-    @breadcrumb = [["Assisting"]]
+  def approving
+    @breadcrumb = [["Awaiting Approval"]]
     @activities = Activity.where(:approver_id => current_user.id)
   end
   

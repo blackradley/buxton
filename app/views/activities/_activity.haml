@@ -9,8 +9,8 @@
     =form.hidden_field :completer_id
     =form.autocompleted_input :approver_email, :url => autocomplete_user_email_activities_path, :id_element => '#activity_approver_id', :label => "Approver"
     =form.autocompleted_input :completer_email, :url => autocomplete_user_email_activities_path, :id_element => '#activity_completer_id', :label => "Completer"
-    =form.input :function_policy, :as => :select, :collection => @activity.types.collect {|option| [option , @activity.types.index(option)] }, :label => "Type", :include_blank => false
-    =form.input :existing_proposed, :as => :select, :collection =>  @activity.statuses.collect{|option| [option , @activity.statuses.index(option)] }, :label => "Status", :include_blank => false
+    =form.input :activity_type, :as => :select, :collection => @activity.types.collect {|option| [option , @activity.types.index(option)] }, :label => "Type", :include_blank => false
+    =form.input :activity_status, :as => :select, :collection =>  @activity.statuses.collect{|option| [option , @activity.statuses.index(option)] }, :label => "Status", :include_blank => false
   = form.buttons do
     = form.submit "Save"
     =raw "or #{link_to "cancel", directorates_path}"
