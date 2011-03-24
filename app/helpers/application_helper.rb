@@ -106,7 +106,7 @@ module ApplicationHelper
       when "Completer"
         ["My EINAs", my_einas_activities_path]
       when "Approver"
-        ["Assisting", assisting_activities_path]
+        ["Awaiting Approval", approving_activities_path]
       when "Creator"
         ["Directorate EINAs", directorate_einas_activities_path]
       when "Cop"

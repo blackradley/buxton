@@ -109,14 +109,6 @@ class Activity < ActiveRecord::Base
     end
   end
   
-  def activity_type
-    if self.started then
-      [self.existing_proposed?, self.function_policy?].join(' ')
-    else
-      '-'
-    end
-  end
-  
   ## One statement per question is far too slow
   ## Execute SQL directly for a single INSERT statement, using SELECT and JOIN.
   ## See http://blog.sqlauthority.com/2007/06/08/sql-server-insert-multiple-records-using-one-insert-statement-use-of-union-all/
@@ -195,7 +187,7 @@ class Activity < ActiveRecord::Base
   
   #broken with section and strand passed!
   def started(section = nil, strand = nil)
-    return (self.existing_proposed.to_i*self.function_policy.to_i) != 0 if (section.nil? && strand.nil?)
+    return (self.activity_status.to_i*self.activity_type.to_i) != 0 if (section.nil? && strand.nil?)
     like = [section, strand].join('\_')
     # Find all incomplete questions with the given arguments
     answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'")
@@ -388,11 +380,11 @@ class Activity < ActiveRecord::Base
   end
   
   def proposed?
-    self.existing_proposed == 2
+    self.activity_status == 2
   end
   
   def existing?
-    self.existing_proposed == 1
+    self.activity_status == 1
   end
   
   def statuses
@@ -436,10 +428,10 @@ class Activity < ActiveRecord::Base
   def additional_work_text_lookup(strand, question)
     strand = strand.to_s
     fun_pol_indicator = ""
-    existing_proposed_name = ""
+    activity_status_name = ""
     begin
-      fun_pol_indicator = function_policy?.downcase #Detect whether it is a activity or a policy
-      existing_proposed_name = existing_proposed?.downcase #Detect whether it is an existing activity or a proposed activity.
+      fun_pol_indicator = activity_type?.downcase #Detect whether it is a activity or a policy
+      activity_status_name = activity_status?.downcase #Detect whether it is an existing activity or a proposed activity.
     rescue
     end
     wordings = hashes['wordings']
