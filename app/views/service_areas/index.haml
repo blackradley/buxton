@@ -1,7 +1,7 @@
 %h2 Service Areas
 .orangeButton
   =link_to "Add Service Area", new_service_area_path, :class=>"add"
-%table{:cellspacing=>"0", :cellpadding=>"0"}
+%table#sortable{:cellspacing=>"0", :cellpadding=>"0"}
   %tr
     %th Service Area Name
     %th Directorate
@@ -9,18 +9,18 @@
     %th Retired?
     %th.last
   %tr
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up selected", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+    %th.sortControls
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+    %th.sortControls
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+    %th.sortControls
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+    %th.sortControls
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
     %td.last.sortControls
   - @service_areas.each do |service_area|
     %tr{:class => cycle("light", "dark")}

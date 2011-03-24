@@ -1,50 +1,54 @@
+%h2 Directorate EINAs
 .searchBox
-  %label Search for:
-  %input{:type=>"text"}
-  %input{:type=>"submit", :value=>"Search"}
+  = form_tag '#', :id => 'searchForm' do
+    %label Search for:
+    = text_field_tag 'search_term', '', :class => 'textField'
+    = submit_tag 'Search', :class => 'submitButton'
 .orangeButton
   =link_to "Add Eina", new_activity_path, :class=>"add"
-%table{:cellspacing=>"0", :cellpadding=>"0"}
-  %tr
-    %th Service Area
-    %th Activity Name
-    %th Ref no.
-    %th Approver
-    %th.date Date Started
-    %th.date Actual Completion
-    %th Progress
-    %th.last
-  %tr
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up selected", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.sortControls
-      =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-      =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
-    %td.last.sortControls
-  - @activities.each do |activity|
-    %tr{:class => cycle("light", "dark")}
-      %td
-      %td= activity.name
-      %td= activity.ref_no
-      %td= activity.approver.email
-      %td= #activity.started_date
-      %td
-      %td= activity.progress
-      / %td= link_to "edit", edit_activity_path(activity), :class => "action edit"
-      %td.last= link_to "view", activity_path(activity), :class => "action edit", :target => "blank"
+%table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
+  %thead
+    %tr
+      %th Service Area
+      %th Activity Name
+      %th Ref no.
+      %th Approver
+      %th.date Date Started
+      %th.date Actual Completion
+      %th Progress
+      %th.last
+    %tr
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.last.sortControls
+  %tbody
+    - @activities.each do |activity|
+      %tr{:class => cycle("light", "dark")}
+        %td= activity.service_area.name
+        %td= activity.name
+        %td= activity.ref_no
+        %td= activity.approver.email
+        %td= #activity.started_date
+        %td
+        %td= activity.progress
+        / %td= link_to "edit", edit_activity_path(activity), :class => "action edit"
+        %td.last= link_to "view", activity_path(activity), :class => "action edit", :target => "blank"

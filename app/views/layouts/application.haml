@@ -12,7 +12,7 @@
     - if controller.action_name=='signup'
       =raw "<style>.mastHead .logo { background-image: url(/images/free_signup.png);}</style>"
     =raw javascript_include_merged :base
-    = if params[:controller] == "users"
+    - if params[:controller] == "users"
       = javascript_include_tag "admin"
     =raw  "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->"
     =raw "<!--[if lt IE 7]> #{javascript_include_tag 'jquery.pngFix.js'}<![endif]-->"
@@ -43,7 +43,7 @@
         - unless current_user.is_a? Administrator
           #generalMenu
             %ul
-              =raw activities_menu.map{|text, link| content_tag("li", link_to(text, link), :class => "#{@selected == text.downcase.gsub!(' ','_') ? 'current' : ''}")}.join(content_tag("li", "|", :class =>"nohover"))
+              =raw activities_menu.map{|text, link| content_tag("li", link_to(text, link), :class => "#{@selected == text.to_s.downcase.gsub!(' ','_') ? 'current' : ''}")}.join(content_tag("li", "|", :class =>"nohover"))
       #breadcrumb
         %p
           Birmingham City Council EINA Toolkit
@@ -54,8 +54,8 @@
                 =link_to segment, link
               - else
                 =segment
-      .messageArea
-        -if flash[:notice]
+      - if flash[:notice]
+        .messageArea
           %p
             =flash[:notice]
       .content      

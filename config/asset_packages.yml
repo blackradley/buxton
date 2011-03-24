@@ -5,6 +5,7 @@ javascripts:
   - jquery
   # - prototype
   - jquery_fancybox-1_3_0
+  - tinytable
   # - effects
   # - dragdrop
   # - controls
