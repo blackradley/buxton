@@ -31,11 +31,6 @@ class Activity < ActiveRecord::Base
   belongs_to :completer, :class_name => "User"
   belongs_to :approver, :class_name => "User"
   belongs_to :service_area
-<<<<<<< HEAD:app/models/activity.rb
-  # Fake belongs_to :organisation, :through => :directorate
-=======
-  
->>>>>>> 1e8f231c8246ff6ad8986230c18bded5bbfcb304:app/models/activity.rb
   has_many :activity_strategies, :dependent => :destroy
   has_many :issues, :dependent => :destroy
   has_many :questions, :dependent => :destroy
