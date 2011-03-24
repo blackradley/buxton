@@ -21,11 +21,11 @@
   %label 
     Please record each of the discrete issues identified in the space below and when you have finished click save.
   %span#issues_list
-    = render :partial => 'issues/issue', :collection => @activity.issues_by(@section, @equality_strand), :locals => {:strand =>  params[:equality_strand]}
+    = render :partial => 'issues/issue', :collection => @activity.issues_by(question_issues.section, question_issues.strand), :locals => {:strand =>  params[:equality_strand]}
   .clear
   %span.add_issue
     = image_tag ('icons/add.gif')
-    = link_to "Add a New Issue", "#", :class => "addIssue", 'data-section' => @section, 'data-strand' =>  params[:equality_strand]
+    = link_to "Add a New Issue", "#", :class => "addIssue", 'data-section' => question_issues.section, 'data-strand' =>  params[:equality_strand]
     / = link_to "Add a New Issue", do |page| 
     /   - page.insert_html :bottom, :issues_list, :partial => 'issues/issue', :object => Issue.new
   .clear
