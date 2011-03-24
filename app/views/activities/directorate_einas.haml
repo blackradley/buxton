@@ -5,7 +5,7 @@
     = submit_tag 'Search'
 .orangeButton
   =link_to "Add Eina", new_activity_path, :class=>"add"
-%table.searchable{:cellspacing=>"0", :cellpadding=>"0"}
+%table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
   %thead
     %tr
       %th Service Area
@@ -18,33 +18,33 @@
       %th.last
     %tr
       %th.sortControls
-        =link_to "sort ascending","#", :class=>"up selected", :title=>"sort ascending"
-        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls
-        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls
-        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls
-        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls
-        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls
-        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls
-        =link_to "sort ascending","#", :class=>"up", :title=>"sort ascending"
-        =link_to "sort descending","#", :class=>"down", :title=>"sort descending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.last.sortControls
   %tbody
     - @activities.each do |activity|
       %tr{:class => cycle("light", "dark")}
         %td= activity.service_area.name
         %td= activity.name
-        %td= activity.ref_no || raw('&nbsp;')
+        %td= activity.ref_no
         %td= activity.approver.email
         %td= #activity.started_date
         %td
