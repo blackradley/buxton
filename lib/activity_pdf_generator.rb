@@ -76,16 +76,9 @@ class ActivityPDFGenerator
     table = []
     table << ['<b>Activity</b>', @activity.name.titlecase]
     table << ["<b>Directorate </b>", @activity.directorate.name.titlecase]
-    projects = @activity.projects
-    unless projects.blank? then
-      type = ot('project', @activity).titlecase
-      type = type.pluralize if (projects.size > 1)
-      project_list = projects.map{|project| project.name.to_s.titlecase}.join("\n")
-      table << ["<b>#{type}</b>", project_list]
-    end
     
-    if @activity.existing_proposed.to_i > 0 && @activity.function_policy.to_i > 0 then
-      table << ["<b>Type</b>", "#{@activity.existing_proposed_name.titlecase} #{@activity.function_policy?.titlecase}"]
+    if @activity.activity_status.to_i > 0 && @activity.activity_type.to_i > 0 then
+      table << ["<b>Type</b>", "#{@activity.activity_status_name.titlecase} #{@activity.activity_type_name.titlecase}"]
     else
       table << ['<b>Type</b>', 'Insufficient questions have been answered to determine the type of this activity.']
     end
@@ -130,9 +123,9 @@ class ActivityPDFGenerator
     @pdf.start_new_page
     @pdf.text "<b>1  <c:uline>Activity Type</b></c:uline>", :font_size => 12
     @pdf.text " ", :font_size => 10
-    if @activity.existing_proposed.to_i > 0 && @activity.function_policy.to_i > 0
-      activity_type = "#{@activity.existing_proposed_name.titlecase} #{@activity.function_policy?.titlecase}"
-      activity_type = (@activity.existing_proposed_name.titlecase == "Existing") ? "an #{activity_type}" : "a #{activity_type}"
+    if @activity.activity_status.to_i > 0 && @activity.activity_type.to_i > 0
+      activity_type = "#{@activity.activity_status_name.titlecase} #{@activity.activity_type_name.titlecase}"
+      activity_type = (@activity.activity_status_name.titlecase == "Existing") ? "an #{activity_type}" : "a #{activity_type}"
       @pdf.text "The activity has been identified as #{activity_type}.", :font_size => 10
     else
       @pdf.text "Insufficient questions have been answered to determine the activity type", :font_size => 10
@@ -184,7 +177,7 @@ class ActivityPDFGenerator
     cell_formats = [[{:shading => SHADE_COLOUR}, nil]]
     comments.size.times {cell_formats << nil}
     @pdf = generate_table(@pdf, target, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10)
-    if @activity.send(:purpose_overall_11) == 1
+    if @activity.questions.find_by_name("purpose_overall_11").response == 1
       @pdf.text " "
       target_q = @activity.questions.find_by_name("purpose_overall_12").label.to_s
       target_a = ['Not answered', 'Yes', 'No', 'Not sure'][@activity.questions.find_by_name("purpose_overall_12").response.to_i]

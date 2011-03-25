@@ -13,6 +13,7 @@ class Directorate < ActiveRecord::Base
   validates_uniqueness_of :name, :abbreviation
   validates_presence_of :name , :cop, :abbreviation
   validates_associated :cop
+  belongs_to :creator, :class_name => "User"
   
   attr_accessor :should_destroy
   
@@ -33,7 +34,23 @@ class Directorate < ActiveRecord::Base
   end
   
   def cop_email=(email)
-    self.cop_id = User.live.find_by_email(email)
+    if user = User.live.find_by_email(email)
+      self.cop_id = user.id
+    end
+  end
+  
+  def creator_email
+    if self.creator
+      self.creator.email
+    else
+      ""
+    end
+  end
+  
+  def creator_email=(email)
+    if user = User.creator.find_by_email(email)
+      self.creator_id = user.id
+    end
   end
   
 

@@ -86,7 +86,9 @@ class Activity < ActiveRecord::Base
   end
   
   def approver_email=(email)
-    self.approver_id = User.live.find_by_email(email)
+    if user = User.live.find_by_email(email)
+      self.approver_id = user.id
+    end
   end
   
   def completer_email
@@ -98,7 +100,9 @@ class Activity < ActiveRecord::Base
   end
   
   def completer_email=(email)
-    self.completer_id = User.live.find_by_email(email)
+    if user = User.live.find_by_email(email)
+      self.completer_id = user.id
+    end
   end
   
   def fix_fields
@@ -371,6 +375,14 @@ class Activity < ActiveRecord::Base
 
   def self.strands
     ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age']
+  end
+  
+  def activity_type_name
+    self.types[self.activity_type].to_s
+  end
+  
+  def activity_status_name
+    self.statuses[self.activity_status].to_s
   end
   
   def types

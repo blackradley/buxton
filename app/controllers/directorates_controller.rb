@@ -19,7 +19,8 @@ class DirectoratesController < ApplicationController
   helper_method :render_to_string
   before_filter :authenticate_user!
   before_filter :ensure_creator
-  autocomplete :user, :email, :scope => :live
+  # autocomplete :user, :email, :scope => :live
+  autocomplete :user, :email, :scope => :creator
   
   def index
     @breadcrumb = [["Directorates"]]

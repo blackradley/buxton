@@ -5,8 +5,8 @@ class User < ActiveRecord::Base
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :email, :password, :password_confirmation, :roles, :activities, :retired, :locked, :trained, :creator
-  scope :live, :conditions => "type is null"
-  
+  scope :live, :conditions => "type is null and retired is null"
+  scope :creator, :conditions => "creator is true and type is null and retired is null"
   before_validation(:on => :create) { self.set_password }
   after_create :send_password
   before_save :update_lock_time
