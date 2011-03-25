@@ -47,6 +47,7 @@ class ActivitiesController < ApplicationController
   end
   
   def new
+    @directorate = Directorate.find_by_creator_id(current_user.id)
     @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
     @selected = "directorate_einas"
     @activity = Activity.new
@@ -54,9 +55,9 @@ class ActivitiesController < ApplicationController
 
   def create
     @activity = Activity.new(params[:activity])
+    @activity.directorate = Directorate.find_by_creator_id(current_user.id)
     @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
     @selected = "directorate_einas"
-    @activity.directorate = Directorate.first
     if @activity.save
       flash[:notice] = "#{@activity.name} was created."
       Mailer.activity_created(@activity).deliver

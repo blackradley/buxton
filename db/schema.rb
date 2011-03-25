@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110324105352) do
+ActiveRecord::Schema.define(:version => 20110324143134) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -89,6 +89,7 @@ ActiveRecord::Schema.define(:version => 20110324105352) do
     t.integer  "cop_id"
     t.string   "abbreviation"
     t.boolean  "retired",      :default => false
+    t.integer  "creator_id"
   end
 
   create_table "help_texts", :force => true do |t|
