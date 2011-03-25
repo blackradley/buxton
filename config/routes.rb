@@ -14,10 +14,12 @@ Buxton::Application.routes.draw do
         get :edit_purpose_a
         get :edit_purpose_b
         get :edit_purpose_c
+        get :edit_purpose_d
         get :edit_impact
         get :edit_consultation
         get :edit_additional_work
         get :edit_action_planning
+        get :edit_full_assessment_comment
       end
     end
   end

@@ -25,6 +25,12 @@
       =link_to "Different benefits and disadvantages of the Activity", edit_purpose_c_activities_section_path(@activity), :title =>"Impact on Equality Groups"
       %span.letter_completed
         =tick_cross_display(@activity.impact_on_equality_groups)
+      %br
+      %span.letter
+        =image_tag("d.gif")
+      =link_to "Comments on the initial assessment", edit_purpose_d_activities_section_path(@activity), :title =>"Initial Assessment Comments"
+      %span.letter_completed
+        =tick_cross_display(@activity.questions.find_by_name('purpose_overall_13').completed?)        
   .clear
 -if @activity.completed(:purpose) && @activity.show_full_assessment? then
   .step#two
@@ -61,7 +67,8 @@
           %th Action Planning
         -@activity.overview_strands.each do |strand_name, strand|
           -display_on = @activity.strand_relevant?(strand) ? "" : "display:none"
-          %tr{:id => "row_#{strand_name}", :style => "#{display_on};"}
+          - complete = @activity.completed(nil, strand) ? "complete" : ""
+          %tr{:id => "row_#{strand_name}", :style => "#{display_on};", :class => complete}
             %th.strandHeading
               =h strand_display(strand).titlecase
             %td
@@ -79,6 +86,11 @@
                 = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "action_planning"), :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
               - else
                 %span.na -
+      %span.letter
+        =image_tag("b.gif")
+      =link_to "Final comments", edit_full_assessment_comment_activities_section_path(@activity), :title => "Full Assessment Comments"
+      %span.letter_completed
+        =tick_cross_display(@activity.questions.find_by_name('purpose_overall_14').completed?)  
     .clear
   .step#four{:style => (@activity.completed ? 'display:block' : 'display:none')}
     .stepImage
@@ -98,7 +110,7 @@
           =image_tag('icons/tick.gif')
           Thank you for submitting your answers.
     .clear
--elsif @activity.approved == "not submitted"
+-elsif !@activity.approved
   #disable{:style=>"display:none;"}
 -else
   #disable{:style=>"display:block;"}

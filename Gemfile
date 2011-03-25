@@ -13,4 +13,5 @@ gem "devise"
 gem 'formtastic'
 gem 'hoptoad_notifier'
 gem 'rails3-jquery-autocomplete'
+gem 'fastercsv'
 gem 'will_paginate', "~> 3.0.pre2"

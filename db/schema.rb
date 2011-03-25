@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110324143134) do
+ActiveRecord::Schema.define(:version => 20110325121930) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -18,15 +18,15 @@ ActiveRecord::Schema.define(:version => 20110324143134) do
     t.datetime "created_on"
     t.datetime "updated_on"
     t.string   "updated_by"
-    t.integer  "activity_type",               :default => 0
+    t.integer  "activity_type",                       :default => 0
     t.integer  "directorate_id"
     t.datetime "approved_on"
-    t.boolean  "purpose_completed",           :default => false
-    t.boolean  "impact_completed",            :default => false
-    t.boolean  "consultation_completed",      :default => false
-    t.boolean  "additional_work_completed",   :default => false
-    t.boolean  "action_planning_completed",   :default => false
-    t.boolean  "use_purpose_completed",       :default => true
+    t.boolean  "purpose_completed",                   :default => false
+    t.boolean  "impact_completed",                    :default => false
+    t.boolean  "consultation_completed",              :default => false
+    t.boolean  "additional_work_completed",           :default => false
+    t.boolean  "action_planning_completed",           :default => false
+    t.boolean  "use_purpose_completed",               :default => true
     t.boolean  "gender_relevant"
     t.boolean  "sexual_orientation_relevant"
     t.boolean  "age_relevant"
@@ -35,7 +35,7 @@ ActiveRecord::Schema.define(:version => 20110324143134) do
     t.boolean  "race_relevant"
     t.date     "review_on"
     t.integer  "activity_project_id"
-    t.string   "ref_no",                      :default => ""
+    t.string   "ref_no",                              :default => ""
     t.integer  "completer_id"
     t.integer  "approver_id"
     t.date     "start_date"
@@ -43,6 +43,9 @@ ActiveRecord::Schema.define(:version => 20110324143134) do
     t.integer  "service_area_id"
     t.boolean  "approved"
     t.boolean  "submitted"
+    t.boolean  "gender_reassignment_relevant"
+    t.boolean  "pregnancy_and_maternity_relevant"
+    t.boolean  "marriage_civil_partnership_relevant"
   end
 
   add_index "activities", ["directorate_id"], :name => "index_activities_on_directorate_id"
