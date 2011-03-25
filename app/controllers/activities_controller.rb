@@ -55,7 +55,7 @@ class ActivitiesController < ApplicationController
 
   def create
     @activity = Activity.new(params[:activity])
-    @activity.directorate = Directorate.find_by_creator_id(current_user.id)
+    @directorate = Directorate.find_by_creator_id(current_user.id)
     @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
     @selected = "directorate_einas"
     if @activity.save
@@ -70,6 +70,7 @@ class ActivitiesController < ApplicationController
   
   def edit
     @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
+    @directorate = Directorate.find_by_creator_id(current_user.id)
     @selected = "directorate_einas"
     @activity = Activity.find(params[:id])
   end
@@ -78,6 +79,7 @@ class ActivitiesController < ApplicationController
   # Available to: Activity Manager
   def update
     @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
+    @directorate = Directorate.find_by_creator_id(current_user.id)
     @selected = "directorate_einas"
     @activity = Activity.find(params[:id])
     
