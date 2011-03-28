@@ -2,30 +2,32 @@
 .orangeButton
   =link_to "Add Service Area", new_service_area_path, :class=>"add"
 %table#sortable{:cellspacing=>"0", :cellpadding=>"0"}
-  %tr
-    %th Service Area Name
-    %th Directorate
-    %th Service Area Approver
-    %th Retired?
-    %th.last
-  %tr
-    %th.sortControls
-      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-    %th.sortControls
-      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-    %th.sortControls
-      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-    %th.sortControls
-      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-    %td.last.sortControls
-  - @service_areas.each do |service_area|
-    %tr{:class => cycle("light", "dark")}
-      %td= service_area.name
-      %td= service_area.directorate.name
-      %td= service_area.approver.email
-      %td.checkbox= check_box "service_area", "retired", {:checked=>"#{service_area.retired? ? "checked" : ""}"}, "yes", "no"
-      %td.last= link_to "edit", edit_service_area_path(service_area), :class => "action edit", :target => "blank"
+  %thead
+    %tr
+      %th Service Area Name
+      %th Directorate
+      %th Service Area Approver
+      %th Retired?
+      %th.last
+    %tr
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %td.last.sortControls
+  %tbody
+    - @service_areas.each do |service_area|
+      %tr{:class => cycle("light", "dark")}
+        %td= service_area.name
+        %td= service_area.directorate.name
+        %td= service_area.approver.email
+        %td.checkbox= check_box "service_area", "retired", {:checked=>"#{service_area.retired? ? "checked" : ""}"}, "yes", "no"
+        %td.last= link_to "edit", edit_service_area_path(service_area), :class => "action edit", :target => "blank"
