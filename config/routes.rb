@@ -14,10 +14,12 @@ Buxton::Application.routes.draw do
         get :edit_purpose_a
         get :edit_purpose_b
         get :edit_purpose_c
+        get :edit_purpose_d
         get :edit_impact
         get :edit_consultation
         get :edit_additional_work
         get :edit_action_planning
+        get :edit_full_assessment_comment
       end
     end
   end
@@ -26,7 +28,7 @@ Buxton::Application.routes.draw do
     collection do
       get :directorate_einas
       get :my_einas
-      get :assisting
+      get :approving
       get :autocomplete_user_email
     end
     
@@ -85,6 +87,7 @@ Buxton::Application.routes.draw do
   resources :directorates do
     collection do
       get :autocomplete_user_email
+      get :autocomplete_creator_email
     end
   end
   

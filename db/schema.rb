@@ -10,53 +10,46 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110318161514) do
+ActiveRecord::Schema.define(:version => 20110325121930) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
-    t.integer  "existing_proposed"
+    t.integer  "activity_status"
     t.datetime "created_on"
     t.datetime "updated_on"
     t.string   "updated_by"
-    t.integer  "function_policy",                          :default => 0
+    t.integer  "activity_type",                       :default => 0
     t.integer  "directorate_id"
     t.datetime "approved_on"
-    t.integer  "percentage_importance"
-    t.boolean  "purpose_completed",                        :default => false
-    t.boolean  "impact_completed",                         :default => false
-    t.boolean  "consultation_completed",                   :default => false
-    t.boolean  "additional_work_completed",                :default => false
-    t.boolean  "action_planning_completed",                :default => false
-    t.boolean  "use_purpose_completed",                    :default => true
-    t.integer  "gender_percentage_importance",             :default => 0
-    t.integer  "race_percentage_importance",               :default => 0
-    t.integer  "disability_percentage_importance",         :default => 0
-    t.integer  "sexual_orientation_percentage_importance", :default => 0
-    t.integer  "faith_percentage_importance",              :default => 0
-    t.integer  "age_percentage_importance",                :default => 0
-    t.integer  "ces_question"
-    t.integer  "purpose_overall_11",                       :default => 0
-    t.integer  "purpose_overall_12",                       :default => 0
+    t.boolean  "purpose_completed",                   :default => false
+    t.boolean  "impact_completed",                    :default => false
+    t.boolean  "consultation_completed",              :default => false
+    t.boolean  "additional_work_completed",           :default => false
+    t.boolean  "action_planning_completed",           :default => false
+    t.boolean  "use_purpose_completed",               :default => true
     t.boolean  "gender_relevant"
     t.boolean  "sexual_orientation_relevant"
     t.boolean  "age_relevant"
     t.boolean  "faith_relevant"
     t.boolean  "disability_relevant"
     t.boolean  "race_relevant"
-    t.string   "review_on"
+    t.date     "review_on"
     t.integer  "activity_project_id"
-    t.string   "approved",                                 :default => "not submitted"
-    t.string   "ref_no",                                   :default => ""
+    t.string   "ref_no",                              :default => ""
     t.integer  "completer_id"
     t.integer  "approver_id"
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "service_area_id"
+    t.boolean  "approved"
+    t.boolean  "submitted"
+    t.boolean  "gender_reassignment_relevant"
+    t.boolean  "pregnancy_and_maternity_relevant"
+    t.boolean  "marriage_civil_partnership_relevant"
   end
 
-  add_index "activities", ["approved"], :name => "index_activities_on_approved"
-  add_index "activities", ["directorate_id", "approved"], :name => "index_activities_on_directorate_id_and_approved"
   add_index "activities", ["directorate_id"], :name => "index_activities_on_directorate_id"
+  add_index "activities", ["directorate_id"], :name => "index_activities_on_directorate_id_and_approved"
 
   create_table "activities_projects", :id => false, :force => true do |t|
     t.integer "activity_id"
@@ -99,6 +92,7 @@ ActiveRecord::Schema.define(:version => 20110318161514) do
     t.integer  "cop_id"
     t.string   "abbreviation"
     t.boolean  "retired",      :default => false
+    t.integer  "creator_id"
   end
 
   create_table "help_texts", :force => true do |t|

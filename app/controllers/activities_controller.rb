@@ -41,12 +41,13 @@ class ActivitiesController < ApplicationController
     @selected = "my_einas"
   end
   
-  def assisting
-    @breadcrumb = [["Assisting"]]
+  def approving
+    @breadcrumb = [["Awaiting Approval"]]
     @activities = Activity.where(:approver_id => current_user.id)
   end
   
   def new
+    @directorate = Directorate.find_by_creator_id(current_user.id)
     @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
     @selected = "directorate_einas"
     @activity = Activity.new
@@ -54,9 +55,9 @@ class ActivitiesController < ApplicationController
 
   def create
     @activity = Activity.new(params[:activity])
+    @directorate = Directorate.find_by_creator_id(current_user.id)
     @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
     @selected = "directorate_einas"
-    @activity.directorate = Directorate.first
     if @activity.save
       flash[:notice] = "#{@activity.name} was created."
       Mailer.activity_created(@activity).deliver
@@ -69,6 +70,7 @@ class ActivitiesController < ApplicationController
   
   def edit
     @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
+    @directorate = Directorate.find_by_creator_id(current_user.id)
     @selected = "directorate_einas"
     @activity = Activity.find(params[:id])
   end
@@ -77,6 +79,7 @@ class ActivitiesController < ApplicationController
   # Available to: Activity Manager
   def update
     @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
+    @directorate = Directorate.find_by_creator_id(current_user.id)
     @selected = "directorate_einas"
     @activity = Activity.find(params[:id])
     
@@ -106,14 +109,6 @@ class ActivitiesController < ApplicationController
     tag_test = completed_status_hash.select{|k,v| !v}.map(&:first).map do |strand_status|
       "($('#{strand_status.to_s}_checkbox').checked)"
     end
-    @tag_test = "#{tag_test.join('||')}"
-    @tag_test = true  if @tag_test.blank?
-    @conditional_flip = if @current_user.class.name == 'ActivityApprover' then
-      "(#{@tag_test}) ? Element.hide('approve_now') : Element.show('approve_now');"
-     elsif @current_user.class.name == 'ActivityManager'
-      "(#{@tag_test}) ? Element.hide('four') : Element.show('four');"
-     end
-     puts @conditional_flip.inspect
   end
 
   

@@ -58,10 +58,10 @@ class Activity < ActiveRecord::Base
     unless self.started
       return "NS"
     end
-    if !(self.approved == "submitted")
+    if self.questions.where("name like 'purpose_%' and completed = true and needed = true").size > 0
       return "IA"
     end
-    if self.approved == "submitted"
+    if self.show_full_assessment?
       return "FA"
     end
   end
@@ -86,7 +86,9 @@ class Activity < ActiveRecord::Base
   end
   
   def approver_email=(email)
-    self.approver_id = User.live.find_by_email(email)
+    if user = User.live.find_by_email(email)
+      self.approver_id = user.id
+    end
   end
   
   def completer_email
@@ -98,20 +100,14 @@ class Activity < ActiveRecord::Base
   end
   
   def completer_email=(email)
-    self.completer_id = User.live.find_by_email(email)
+    if user = User.live.find_by_email(email)
+      self.completer_id = user.id
+    end
   end
   
   def fix_fields
     self.attributes.each_pair do |key, value|
       self.attributes[key] = fix_field(value)
-    end
-  end
-  
-  def activity_type
-    if self.started then
-      [self.existing_proposed?, self.function_policy?].join(' ')
-    else
-      '-'
     end
   end
   
@@ -165,7 +161,11 @@ class Activity < ActiveRecord::Base
     end
     dependents.each do |child, parents|
       parents.each do |parent_q, value|
-        self.questions.find_by_name(parent_q).dependencies.create!(:child_question => child, :required_value => value)
+        begin
+          self.questions.find_by_name(parent_q).dependencies.create!(:child_question => child, :required_value => value)
+        rescue
+          raise parent_q.inspect
+        end
       end
     end
   end
@@ -185,18 +185,15 @@ class Activity < ActiveRecord::Base
   end
   
   def show_full_assessment?
-    self.strands(true).each do |strand|
-      return true if self.strand_required?(strand)
-    end
-    false
+    true
   end
   
   #broken with section and strand passed!
   def started(section = nil, strand = nil)
-    return (self.existing_proposed.to_i*self.function_policy.to_i) != 0 if (section.nil? && strand.nil?)
     like = [section, strand].join('\_')
     # Find all incomplete questions with the given arguments
     answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'")
+    return true if section.blank? && strand.blank? && answered_questions.size > 0
     return true if answered_questions.size > 0
     unless section && !(section == :action_planning) then
        #First we calculate all the questions, in case there is a nil.
@@ -230,6 +227,9 @@ class Activity < ActiveRecord::Base
     new_section = section.nil? ? self.sections.map(&:to_s).join("|") : section
     new_strand = strand.nil? ? self.strands(is_purpose).push("overall").join("|") : strand
     search_conditions = "name REGEXP '(#{new_section})\_(#{new_strand})' AND completed = false AND needed = true"
+    if section.to_s == "purpose"
+      search_conditions += " and name not like '%14'"
+    end
     puts self.questions.find(:all, :conditions => search_conditions).inspect
     return false if self.questions.find(:all, :conditions => search_conditions).size > 0
     #check if we need to check issues?
@@ -282,7 +282,7 @@ class Activity < ActiveRecord::Base
     self.strands(true).each do |strand|
       answered_questions += self.questions.find(:all, :conditions => "name REGEXP 'purpose\_#{strand.to_s}\_3' AND (completed = true OR needed = false)")
     end
-    return false unless answered_questions.size == 6
+    return false unless answered_questions.size == 9
     return true
   end
 
@@ -344,12 +344,8 @@ class Activity < ActiveRecord::Base
     [:purpose, :impact, :consultation, :action_planning, :additional_work]
   end
 
-  def self.strands
-    Activity.find(:first).strands(true)
-  end
-
   def overview_strands
-    {'gender' => 'gender', 'race' => 'race', 'disability' => 'disability', 'faith' => 'faith', 'sex' => 'sexual_orientation', 'age' => 'age'}
+    {'gender' => 'gender', 'race' => 'race', 'disability' => 'disability', 'faith' => 'faith', 'sex' => 'sexual_orientation', 'age' => 'age', 'gender_reassignment' => 'gender_reassignment', 'pregnancy_and_maternity' => 'pregnancy_and_maternity', 'marriage_civil_partnership' => 'marriage_civil_partnership'}
   end
 
   def strand_required?(strand)
@@ -373,36 +369,47 @@ class Activity < ActiveRecord::Base
   end
 
   def strands(return_all = false)
-    strand_list = ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age'].map{|strand| strand if self.send("#{strand}_relevant")||return_all}
+    strand_list = ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age', 'gender_reassignment', 'pregnancy_and_maternity', 'marriage_civil_partnership'].map{|strand| strand if self.send("#{strand}_relevant")||return_all}
     strand_list.compact
   end
 
   def self.strands
-    ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age']
+    ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age', 'gender_reassignment', 'pregnancy_and_maternity', 'marriage_civil_partnership']
+  end
+  
+  def activity_type_name
+    self.types[self.activity_type].to_s
+  end
+  
+  def activity_status_name
+    self.statuses[self.activity_status].to_s
   end
   
   def types
-    ["function", "policy"]
+    ["policy", "function", "strategy", "service"]
   end
   
   def proposed?
-    self.existing_proposed == 2
+    self.activity_status == 2
   end
   
   def existing?
-    self.existing_proposed == 1
+    self.activity_status == 1
   end
   
   def statuses
-    ["existing", "proposed"]
+    ["new", "proposed", "reviewed", "amended"]
   end
   
   def self.question_setup_names
-    {:purpose =>          { :overall => [2,5,6,7,8,9,11,12],
+    {:purpose =>          { :overall => [2,5,6,7,8,9,11,12, 13,14],
                             :race => [3],
                             :disability => [3],
                             :sexual_orientation => [3],
                             :gender => [3],
+                            :gender_reassignment => [3],
+                            :pregnancy_and_maternity => [3],
+                            :marriage_civil_partnership => [3],
                             :faith => [3],
                             :age => [3]
                           },
@@ -410,6 +417,9 @@ class Activity < ActiveRecord::Base
                             :disability => [1,2,3,4,5,6,7,8,9],
                             :sexual_orientation => [1,2,3,4,5,6,7,8,9],
                             :gender => [1,2,3,4,5,6,7,8,9],
+                            :gender_reassignment => [1,2,3,4,5,6,7,8,9],
+                            :pregnancy_and_maternity => [1,2,3,4,5,6,7,8,9],
+                            :marriage_civil_partnership => [1,2,3,4,5,6,7,8,9],
                             :faith => [1,2,3,4,5,6,7,8,9],
                             :age => [1,2,3,4,5,6,7,8,9]
                           },
@@ -417,6 +427,9 @@ class Activity < ActiveRecord::Base
                             :disability => [1,2,3,4,5,6,7],
                             :sexual_orientation => [1,2,3,4,5,6,7],
                             :gender => [1,2,3,4,5,6,7],
+                            :gender_reassignment => [1,2,3,4,5,6,7],
+                            :pregnancy_and_maternity => [1,2,3,4,5,6,7],
+                            :marriage_civil_partnership => [1,2,3,4,5,6,7],
                             :faith => [1,2,3,4,5,6,7],
                             :age => [1,2,3,4,5,6,7]
                           },    
@@ -424,6 +437,9 @@ class Activity < ActiveRecord::Base
                             :disability => [1,2,3,4,6,7,8,9],
                             :sexual_orientation => [1,2,3,4,6],
                             :gender => [1,2,3,4],
+                            :gender_reassignment => [1,2,3,4,6],
+                            :pregnancy_and_maternity => [1,2,3,4,6],
+                            :marriage_civil_partnership => [1,2,3,4,6],
                             :faith => [1,2,3,4,6],
                             :age => [1,2,3,4,6]
                           }
@@ -434,10 +450,10 @@ class Activity < ActiveRecord::Base
   def additional_work_text_lookup(strand, question)
     strand = strand.to_s
     fun_pol_indicator = ""
-    existing_proposed_name = ""
+    activity_status_name = ""
     begin
-      fun_pol_indicator = function_policy?.downcase #Detect whether it is a activity or a policy
-      existing_proposed_name = existing_proposed?.downcase #Detect whether it is an existing activity or a proposed activity.
+      fun_pol_indicator = activity_type?.downcase #Detect whether it is a activity or a policy
+      activity_status_name = activity_status?.downcase #Detect whether it is an existing activity or a proposed activity.
     rescue
     end
     wordings = hashes['wordings']

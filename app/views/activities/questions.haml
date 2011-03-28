@@ -30,6 +30,12 @@
       %strong=link_to "Comments", "#", :title =>"Comments on Initial Assessment"
       %span.letter_completed
         =tick_cross_display(@activity.impact_on_equality_groups)
+      %br
+      %span.letter
+        =image_tag("d.gif")
+      =link_to "Comments on the initial assessment", edit_purpose_d_activities_section_path(@activity), :title =>"Initial Assessment Comments"
+      %span.letter_completed
+        =tick_cross_display(@activity.questions.find_by_name('purpose_overall_13').completed?)        
   .clear
   .stepFooter
 -if @activity.completed(:purpose)
@@ -56,6 +62,7 @@
             / -if @activity.impact_calculation(strand).to_i > 9 then
             /   <br />
             /   %span.strandRelevant Recommended
+<<<<<<< HEAD:app/views/activities/questions.haml
       .clear
       -if false #if any strands ticked!
         %p.width_445
@@ -112,11 +119,11 @@
       %p
         %span.letter
           c.
-        %strong=link_to "Comments", "#", :title =>"Comments on Initial Assessment"
+        %strong=link_to "Final comments", edit_full_assessment_comment_activities_section_path(@activity), :title => "Full Assessment Comments"
         %span.letter_completed
-          =raw "<img src='/images/icons/cross.gif' />"
+          =tick_cross_display(@activity.questions.find_by_name('purpose_overall_14').completed?)
     .stepFooter
-    .clear
+
   .step
     .stepBox
       %h2 Submit Assessment for Approval
@@ -133,7 +140,7 @@
           Thank you for submitting your answers.
     .stepFooter
     .clear
--elsif @activity.approved == "not submitted"
+-elsif !@activity.approved
   #disable{:style=>"display:none;"}
 -else
   #disable{:style=>"display:block;"}
