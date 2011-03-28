@@ -7,18 +7,7 @@ jQuery.expr[':'].Contains = function(a,i,m){
     return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
 };
 
-var sorter = new TINY.table.sorter('sorter');
-sorter.head = 'sortControls'; //header class name
-sorter.asc = 'sortControls asc'; //ascending header class name
-sorter.desc = 'sortControls desc'; //descending header class name
-sorter.even = 'dark'; //even row class name
-sorter.odd = 'light'; //odd row class name
-// sorter.evensel = 'evenselected'; //selected column even class
-// sorter.oddsel = 'oddselected'; //selected column odd class
-// sorter.paginate = false; //toggle for pagination logic
-// sorter.pagesize = 20; //toggle for pagination logic
-// sorter.currentid = 'currentpage'; //current page id
-// sorter.limitid = 'pagelimit'; //page limit id
+var sorter;
 
 $(document).ready(function(){
   
@@ -93,8 +82,22 @@ $(document).ready(function(){
     return false;
   });
   
+  if ($('#sortable').length) {
+    sorter = new TINY.table.sorter('sorter');
+    sorter.head = 'sortControls'; //header class name
+    sorter.asc = 'sortControls asc'; //ascending header class name
+    sorter.desc = 'sortControls desc'; //descending header class name
+    sorter.even = 'dark'; //even row class name
+    sorter.odd = 'light'; //odd row class name
+    // sorter.evensel = 'evenselected'; //selected column even class
+    // sorter.oddsel = 'oddselected'; //selected column odd class
+    // sorter.paginate = false; //toggle for pagination logic
+    // sorter.pagesize = 20; //toggle for pagination logic
+    // sorter.currentid = 'currentpage'; //current page id
+    // sorter.limitid = 'pagelimit'; //page limit id
+    sorter.init('sortable',0,true);
+  }
   
-  sorter.init('sortable',0,true);
 });
 
 

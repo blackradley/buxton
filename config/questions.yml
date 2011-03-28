@@ -1,19 +1,3 @@
-existing_proposed:
-  label: 'Not appropriate'
-  help: ''
-  type: select
-  choices: 8
-  weight: 12
-  dependent_questions: ''
-
-function_policy:
-  label: 'N/A'
-  help: ''
-  type: select
-  choices: 9
-  weight: 0
-  dependent_questions: ''
-
 questions:
   purpose:
     3:
@@ -309,6 +293,16 @@ overall_questions:
       choices: 3
       weights: 0
       dependent_questions: 'purpose_overall_11 yes_value'
+    13: 
+      label: 'Have you any overall comments on this initial stage of the assessment?'
+      help: ''
+      type: text
+      dependent_questions : ''
+    14: 
+      label: 'Have you any final comments on this assessment?'
+      help: ''
+      type: text
+      dependent_questions: ''
 
 wordings:
   gender: 'men and women'
@@ -317,6 +311,9 @@ wordings:
   faith: 'individuals of different religions or beliefs'
   sexual_orientation: 'individuals of different sexual orientations'
   age: 'individuals of different ages'
+  gender_reassignment: 'individuals with gender reassignment'
+  pregnancy_and_maternity: 'expecting or new parents'
+  marriage_and_civil_partnership: 'individuals who are married or in a civil partnership'
 
 strands:
   gender:  'Gender'
@@ -326,6 +323,9 @@ strands:
   sexual_orientation: 'Lesbian Gay Bisexual and Transgender'
   age: 'Age'
   overall: 'Overall'
+  gender_reassignment: 'Gender Reassignment'
+  pregnancy_and_maternity: 'Pregnancy & Maternity'
+  marriage_and_civil_partnership: 'Marriage & Civil Partnership.'  
 
 section_names:
   - purpose
@@ -646,6 +646,9 @@ extra_strand_wordings:
       age: ''
       faith: ''
       sexual_orientation: ''
+      gender_reassignment: ''
+      pregnancy_and_maternity: ''
+      marriage_and_civil_partnership: ''
   impact:
     6:
      extra_word:
@@ -655,6 +658,9 @@ extra_strand_wordings:
        age:
        faith:
        sexual_orientation: ', including lesbian, gay, bisexual and transgender'
+       gender_reassignment: ''
+       pregnancy_and_maternity: ''
+       marriage_and_civil_partnership: ''
      extra_paragraph:
        gender:
        race:
@@ -662,6 +668,9 @@ extra_strand_wordings:
        faith: 'It is important to have regard for all religions or beliefs including both the major religions or beliefs such as Islam, Judaism and Christianity and any minority religions or beliefs. <br/><br/>'
        age:
        sexual_orientation:
+       gender_reassignment: ''
+       pregnancy_and_maternity: ''
+       marriage_and_civil_partnership: ''
     9:
       gender: 'This means that the impact on one particular group of individuals, men or women, is different than for the other group.'
       race: 'This means that the impact on one particular group of individuals, say Polish people, is different than for another group.'
@@ -669,6 +678,9 @@ extra_strand_wordings:
       age: 'This means that the impact on one particular group of individuals, say elderly people, is different than for another group.'
       faith: 'This means that the impact on one particular group of individuals, say people from the Sikh religion, is different than for another group.  '
       sexual_orientation: 'This means that the impact on one particular group of individuals, say bisexuals, is different than for another group.'
+      gender_reassignment: ''
+      pregnancy_and_maternity: ''
+      marriage_and_civil_partnership: ''
   consultation:
     1:
       gender:
@@ -677,6 +689,9 @@ extra_strand_wordings:
       age:
       faith: 'It will be important to ensure that the consultation includes people from a range of religions or beliefs, including both majority and minority religions or beliefs. <br/><br/>'
       sexual_orientation: 'It will be important to ensure that the consultation includes people from a range of sexual orientations , including lesbian, gay, bisexual and transgender. <br/><br/>'
+      gender_reassignment: ''
+      pregnancy_and_maternity: ''
+      marriage_and_civil_partnership: ''    
     4:
       gender:
       race: 'It will be important to ensure that the consultation includes people from a range of ethnic backgrounds.  <br/><br/>'
@@ -684,6 +699,9 @@ extra_strand_wordings:
       age:
       faith: 'It will be important to ensure that the consultation includes people from a range of religions or beliefs, including both majority and minority religions or beliefs. <br/><br/>'
       sexual_orientation: 'It will be important to ensure that the consultation includes people from a range of sexual orientations , including lesbian, gay, bisexual and transgender. <br/><br/>'
+      gender_reassignment: ''
+      pregnancy_and_maternity: ''
+      marriage_and_civil_partnership: ''
     7:
       gender: 'This means that the impact on one particular group of individuals, men or women, is different than for the other group.'
       race: 'This means that the impact on one particular group of individuals, say Polish people, is different than for another group.'
@@ -691,6 +709,10 @@ extra_strand_wordings:
       age: 'This means that the impact on one particular group of individuals, say elderly people, is different than for another group.'
       faith: 'This means that the impact on one particular group of individuals, say people from the Sikh religion, is different than for another group.  '
       sexual_orientation: 'This means that the impact on one particular group of individuals, say bisexuals, is different than for another group.'
+      gender_reassignment: ''
+      pregnancy_and_maternity: ''
+      marriage_and_civil_partnership: ''
+      
 descriptive_terms_for_strands:
   gender: 'gender'
   race: 'ethnicity'
@@ -698,6 +720,9 @@ descriptive_terms_for_strands:
   faith: 'religion or belief'
   sexual_orientation: 'sexuality'
   age: 'age'
+  gender_reassignment: ''
+  pregnancy_and_maternity: ''
+  marriage_and_civil_partnership: ''
 
 issues_help_text:
   -

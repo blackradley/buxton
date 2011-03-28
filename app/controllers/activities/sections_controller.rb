@@ -42,6 +42,20 @@ class Activities::SectionsController < ApplicationController
     @equality_strand = "overall"
   end
   
+  def edit_purpose_d
+    @breadcrumb << ["Initial Summary of this EINA"]
+    @equality_strand = "overall"
+    #question it refers to
+    @question_reference = 13
+    render :assessment_comments
+  end
+  
+  def edit_full_assessment_comment
+    @breadcrumb << ["Full Summary of this EINA"]
+    @equality_strand = "overall"
+    @question_reference = 14
+    render :assessment_comments
+  end
   
   def edit
     section = params[:section]
@@ -109,7 +123,7 @@ class Activities::SectionsController < ApplicationController
     @completer = @activity.completer
 
     @equality_strand = ''
-    valid_equality_strands = ['overall','gender','race','sexual_orientation','disability','faith','age']
+    valid_equality_strands = Activity.strands
     if valid_equality_strands.include? strand
       @equality_strand = strand
       @id = params[:id]
