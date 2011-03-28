@@ -2,25 +2,27 @@
 .orangeButton
   =link_to "Add Directorate", new_directorate_path, :class=>"add"
 %table#sortable{:cellspacing=>"0", :cellpadding=>"0"}
-  %tr
-    %th Directorate Name
-    %th Abb.
-    %th Directorate Equalities Governance Officer
-    %th.last
-  %tr
-    %th.sortControls
-      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-    %th.sortControls
-      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-    %th.sortControls
-      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-    %td.last.sortControls
-  - @directorates.each do |directorate|
-    %tr{:class => cycle("light", "dark")}
-      %td= directorate.name
-      %td= directorate.abbreviation
-      %td= directorate.cop.email
-      %td.last= link_to "edit", edit_directorate_path(directorate), :class => "action edit", :target => "blank"
+  %thead
+    %tr
+      %th Directorate Name
+      %th Abb.
+      %th Directorate Contact Officer
+      %th.last
+    %tr
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %td.last.sortControls
+  %tbody
+    - @directorates.each do |directorate|
+      %tr{:class => cycle("light", "dark")}
+        %td= directorate.name
+        %td= directorate.abbreviation
+        %td= directorate.creator.email
+        %td.last= link_to "edit", edit_directorate_path(directorate), :class => "action edit", :target => "blank"

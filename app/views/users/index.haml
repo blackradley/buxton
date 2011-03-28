@@ -51,7 +51,7 @@
         = fields_for user do |f|
           %td.checkbox= f.check_box :trained, "data-path" => toggle_user_status_user_path(user, :checkbox => :trained)
           %td.checkbox= f.check_box :locked, "data-path" => toggle_user_status_user_path(user, :checkbox => :locked)
-          %td.checkbox= f.check_box :retired, "data-path" => toggle_user_status_user_path(user, :checkbox => :retired)
+          %td.checkbox= f.check_box :retired, "data-path" => toggle_user_status_user_path(user, :checkbox => :retired), :confirm => "Are you sure you wish to retire this user?"
           %td.checkbox= f.check_box :creator, "data-path" => toggle_user_status_user_path(user, :checkbox => :creator)
           %td.last= link_to "edit", edit_user_path(user), :class => "edit action"
 

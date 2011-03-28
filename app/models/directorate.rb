@@ -11,8 +11,8 @@ class Directorate < ActiveRecord::Base
   has_many :service_areas, :dependent => :destroy
   belongs_to :cop, :class_name => "User"
   validates_uniqueness_of :name, :abbreviation
-  validates_presence_of :name , :cop, :abbreviation
-  validates_associated :cop
+  validates_presence_of :name, :abbreviation#, :cop
+  # validates_associated :cop
   belongs_to :creator, :class_name => "User"
   
   attr_accessor :should_destroy
