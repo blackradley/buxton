@@ -1,14 +1,14 @@
-%h1#questions=h @activity.name + " - Overall - Summary"
+%h1#questions
+  =h @activity.name + " - " + @breadcrumb.last.to_s
 %h2
-  =image_tag("b.gif")
-  Impact on Individuals
-#questions
-  = render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [@question_reference])
-  = render :partial => 'intro'
+  %span.letter
+    ="#{@letter}."
+  =@breadcrumb.last.to_s
+#questions.no_help
+  =# render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [@question_reference])
+  =# render :partial => 'intro'
   =form_for(@activity, :url => activities_section_path(@activity)) do |f|
-    %h5
-      Which of these individuals does the Function have an impact on?
-    = render :partial => 'question_compact', :collection => question_details(:purpose, @equality_strand, [@question_reference]), :locals => {:f => f}
+    = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [@question_reference]), :locals => {:f => f}
     = hidden_field_tag 'id', @id 
     = hidden_field_tag 'equality_strand', @equality_strand
     %p.question.saveField

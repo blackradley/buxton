@@ -27,13 +27,7 @@
       %br
       %span.letter
         d.
-      %strong=link_to "Comments", "#", :title =>"Comments on Initial Assessment"
-      %span.letter_completed
-        =tick_cross_display(@activity.impact_on_equality_groups)
-      %br
-      %span.letter
-        =image_tag("d.gif")
-      =link_to "Comments on the initial assessment", edit_purpose_d_activities_section_path(@activity), :title =>"Initial Assessment Comments"
+      %strong=link_to "Comments on the initial assessment", edit_purpose_d_activities_section_path(@activity), :title =>"Initial Assessment Comments"
       %span.letter_completed
         =tick_cross_display(@activity.questions.find_by_name('purpose_overall_13').completed?)        
   .clear
@@ -62,9 +56,8 @@
             / -if @activity.impact_calculation(strand).to_i > 9 then
             /   <br />
             /   %span.strandRelevant Recommended
-<<<<<<< HEAD:app/views/activities/questions.haml
       .clear
-      -if false #if any strands ticked!
+      -if true #if any strands ticked!
         %p.width_445
           %span.letter
             b.
@@ -85,7 +78,7 @@
             %th Impact
             %th Consultation
             %th Additional Work
-            %th Action Planning
+            %th.last Action Planning
           -@activity.overview_strands.each do |strand_name, strand|
             -display_on = @activity.strand_relevant?(strand) ? "" : "display:none"
             %tr{:id => "row_#{strand_name}", :style => "#{display_on};"}
@@ -100,7 +93,7 @@
               %td
                 = completed_tag(@activity, :additional_work, strand.to_sym)
                 = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "additional_work"), :title =>"Edit Additional Work", :id => "#{strand_name}_additional_work_pencil"
-              %td
+              %td.last
                 - if @activity.issues.find_by_strand(strand.to_s) then              
                   = completed_tag(@activity, :action_planning, strand.to_sym)
                   = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "action_planning"), :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
@@ -123,29 +116,26 @@
         %span.letter_completed
           =tick_cross_display(@activity.questions.find_by_name('purpose_overall_14').completed?)
     .stepFooter
-
-  .step
-    .stepBox
-      %h2 Submit Assessment for Approval
-      %p
-        =raw "If you are happy with your answers, all that remains for you to do is to submit the assessment for approval. The named approver for this activity is #{mail_to(@activity.approver.email)}.  Before you submit for approval you can submit a pdf report to the Equalities Team for review, you will have to save the pdf and attach to an email as, for security reasons, the tool will not allow the pdf link to be forwarded."
-      %p
-        Upon submission you will no longer be able to change any of your answers.  The Activity Approver will be able to see all your answers and comments for the report but not the notes to yourself.
-      -if @activity.approved == "not submitted"
-        %p{:style=>"text-align:center;"}
-          =link_to "Submit",  {:controller => 'activities', :action => 'submit'}, :class=>"orangeButton"
-      -else
-        %p#submitted_answers{:style=>"display:block;"}
-          =image_tag('icons/tick.gif')
-          Thank you for submitting your answers.
-    .stepFooter
-    .clear
--elsif !@activity.approved
-  #disable{:style=>"display:none;"}
--else
-  #disable{:style=>"display:block;"}
-  -if @activity.approved == "submitted" && @current_user.completer? || @activity.approved == "approved" && @current_user.completer?
-    #unapprove_box{:style=>"display:block;"}
-      %p This activity has been submitted for approval, thank you.
+    
+  -if @activity.approved
+    .step
+      .stepBox
+        %h2 Submit Assessment for Approval
+        %p
+          If you are happy with your answers, all that remains for you to do is to submit the assessment for approval. Upon submission you will no longer be able to change any of your answers.  The EINA Approver will be able to see all your answers and comments for the report but not the notes to yourself.
+        -if @activity.submitted.nil? or !@activity.submitted
+          %p{:style=>"text-align:center;"}
+            =link_to "Submit",  {:controller => 'activities', :action => 'submit'}, :class=>"orangeButton"
+        -else
+          %p#submitted_answers{:style=>"display:block;"}
+            =image_tag('icons/tick.gif')
+            Thank you for submitting your answers.
+      .stepFooter
       .clear
+  -else
+    =image_tag('submit_assessment_preview.png')
+    .clear
+-else
+  =image_tag('full_assessment_preview.png')
+  =image_tag('submit_assessment_preview.png')
 .clear

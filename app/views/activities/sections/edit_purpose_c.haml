@@ -1,6 +1,7 @@
-%h1#questions=h @activity.name + " - Overall - Purpose"
+%h1#questions=h @activity.name + " - " + @breadcrumb.last
 %h2
-  =image_tag("c.gif")
+  %span.letter
+    c.
   Impact on Equality Groups
 #questions
   = render :partial => 'question_help', :collection => question_details(:purpose, 'gender', [3])

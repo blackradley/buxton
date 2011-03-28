@@ -45,6 +45,7 @@ class Activities::SectionsController < ApplicationController
   def edit_purpose_d
     @breadcrumb << ["Initial Summary of this EINA"]
     @equality_strand = "overall"
+    @letter = "d"
     #question it refers to
     @question_reference = 13
     render :assessment_comments
@@ -53,6 +54,7 @@ class Activities::SectionsController < ApplicationController
   def edit_full_assessment_comment
     @breadcrumb << ["Full Summary of this EINA"]
     @equality_strand = "overall"
+    @letter = "c"
     @question_reference = 14
     render :assessment_comments
   end

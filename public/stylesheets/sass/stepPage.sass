@@ -8,6 +8,7 @@
     :background-repeat no-repeat
     :margin 10px 0px 15px
     :display block
+    :overflow hidden
     :position relative
 
     .stepFooter
@@ -17,7 +18,7 @@
       :width 950px
       :height 24px
       :position absolute
-      :bottom 0px
+      :bottom -1px
       :background-image url(../images/section_bottom.gif)
       :background-position top center
       :background-repeat no-repeat
@@ -28,6 +29,7 @@
       :width 890px
       :margin 20px 30px 20px
       :overflow hidden
+      :display inline
 
       h2
         :float left
@@ -55,7 +57,7 @@
           :color #ffffff
           :float none
           :padding 0px
-          :margin 0px 0px 0px 10px
+          :margin 10px 0px 0px 10px
           :line-height 30px
           :font-weight bold
         .orangeButton:hover
@@ -78,30 +80,33 @@
           :color #1B4E77
         
       .width_445
-        :width 445px
+        :width 425px
         :float left
 
       table
         :float left
         :clear none
+        :margin-left 20px
       
       td  
         :width 107px
         :height 33px
         :overflow hidden
         :text-align center
-        :border-left 1px solid #dddddd
+        :background-color #FFFFFF
       th
         :width 96px
         :padding 5px
-        :background-color #FFFFFF
+        :background-color #1B4E77
+        :color #FFFFFF !important
         :height 33px
         :color #666
         :text-align center
-        :border-left 1px solid #dddddd
+        :vertical-align middle
       .strandHeading
         :text-align left
-        :border 0px
+        :vertical-align middle
+        :color #FFFFFF
       .checkStrand
         :float left
         :margin-left 22px
@@ -112,6 +117,7 @@
           :float left
           :border none
           :margin-top 5px
+          :*margin-top 2px
 
         label
           :float left

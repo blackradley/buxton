@@ -24,15 +24,15 @@ table {
         overflow: hidden;
         background-repeat: no-repeat; }
       table th .sortControls .up {
-        background-image: url(../images/bullet_arrow_up.gif); }
+        background-image: url(../images/bullet_arrow_up.gif) !important; }
       table th .sortControls .down {
-        background-image: url(../images/bullet_arrow_down.gif); }
+        background-image: url(../images/bullet_arrow_down.gif) !important; }
       table th .sortControls .up.selected,
       table th .sortControls .up:hover {
-        background-image: url(../images/bullet_arrow_up_on.gif); }
+        background-image: url(../images/bullet_arrow_up_on.gif) !important; }
       table th .sortControls .down.selected,
       table th .sortControls .down:hover {
-        background-image: url(../images/bullet_arrow_down_on.gif); }
+        background-image: url(../images/bullet_arrow_down_on.gif) !important; }
   table .sortControls.asc .up {
     background-image: url(../images/bullet_arrow_up_on.gif) !important; }
   table .sortControls.desc .down {
@@ -45,10 +45,13 @@ table {
     padding: 8px 10px; }
     table td .action {
       padding-left: 20px;
+      margin-right: 10px;
       background-repeat: no-repeat;
       background-position: center left; }
     table td .edit {
       background-image: url(../images/icons/edit.gif); }
+    table td .view {
+      background-image: url(../images/icons/pdf.gif); }
   table .last {
     border-right: 0px solid #bbbbbb; }
   table .sortControls {
@@ -67,15 +70,15 @@ table {
       background-repeat: no-repeat;
       background-position: center center; }
     table .sortControls .up {
-      background-image: url(../images/bullet_arrow_up.png); }
+      background-image: url(../images/bullet_arrow_up.gif); }
     table .sortControls .down {
-      background-image: url(../images/bullet_arrow_down.png); }
+      background-image: url(../images/bullet_arrow_down.gif); }
     table .sortControls .up.selected,
     table .sortControls .up:hover {
-      background-image: url(../images/bullet_arrow_up_on.png); }
+      background-image: url(../images/bullet_arrow_up_on.gif); }
     table .sortControls .down.selected,
     table .sortControls .down:hover {
-      background-image: url(../images/bullet_arrow_down_on.png); }
+      background-image: url(../images/bullet_arrow_down_on.gif); }
   table .first {
     width: 420px; }
   table .dateTime {
