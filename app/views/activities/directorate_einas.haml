@@ -39,7 +39,7 @@
       %th.sortControls
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-      %th.last.sortControls
+      %th.sortControls.last
   %tbody
     - @activities.each do |activity|
       %tr{:class => cycle("light", "dark")}
@@ -50,5 +50,4 @@
         %td= #activity.started_date
         %td
         %td= activity.progress
-        / %td= link_to "edit", edit_activity_path(activity), :class => "action edit"
-        %td.last= link_to "view", activity_path(activity), :class => "action edit", :target => "blank"
+        %td.last= link_to "view", activity_path(activity), :class => "action view"

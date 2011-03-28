@@ -1,4 +1,5 @@
-%table
+%h2 EINAs Awaiting Approval
+%table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
   %tr
     %th Service Area
     %th Activity Name
@@ -7,8 +8,30 @@
     %th Date Started
     %th Actual Completion
     %th Progress
-    %th 
-    %th
+    %th.last
+  %tr
+    %th.sortControls
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+    %th.sortControls
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+    %th.sortControls
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+    %th.sortControls
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+    %th.sortControls
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+    %th.sortControls
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+    %th.sortControls
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+    %th.sortControls.last
   - @activities.each do |activity|
     %tr{:class => cycle("light", "dark")}
       %td= activity.service_area.name
@@ -18,5 +41,4 @@
       %td= #activity.started_date
       %td
       %td= activity.progress
-      %td= link_to "view", activity_path(activity), :class => "action edit", :target => "blank"
-      %td
+      %td.last= link_to "view", activity_path(activity), :class => "action view"

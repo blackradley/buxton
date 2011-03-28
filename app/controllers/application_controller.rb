@@ -70,7 +70,7 @@ protected
    return access_denied_path if current_user.roles.blank?
    return directorate_einas_activities_path if current_user.creator?
    return my_einas_activities_path if current_user.completer?
-   return assisting_activities_path if current_user.approver?
+   return approving_activities_path if current_user.approver?
    return access_denied_path
   end
   

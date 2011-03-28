@@ -10,6 +10,11 @@ h2
   img
     :margin-bottom -2px
     
+.letter
+  :font-size 24px
+  :font-family "Arial Rounded MT Bold", Arial
+  :color #1B4E77
+    
 #questions
   :width 950px
   :margin 0px 0px
@@ -270,11 +275,24 @@ h2
   .question_compact.focused
     :background #eee
   .button
+    :width 590px
+    :float left
+    :text-align center
     input
-      :float right
-      :margin-right 262px
-      :margin-top 20px
-      :width auto
+      :border 0px
+      :background-image url(../images/orange_buttons/search.jpg)
+      :background-repeat no-repeat
+      :width 79px
+      :height 32px
+      :overflow hidden
+      :color #ffffff
+      :float none
+      :padding 0px
+      :margin 0px 0px 0px 10px
+      :line-height 22px
+      :font-weight bold
+    input:hover
+      :background-image url(../images/orange_buttons/search_hover.jpg)
       
 #questions.no_help
   :background
@@ -286,7 +304,8 @@ h2
     li
       :margin 0px
   .question
-    :width 660px
+    :width 950px
+    :padding 0px
     label
       :width 600px
       :margin-left 0px
@@ -294,14 +313,19 @@ h2
     input,
     select,
     textarea
-      :width 656px
+      :width 946px
       :margin-left 0px
+    textarea
+      :margin-bottom 0px
+      :height 300px
   .button
+    :width 950px
     input
-      :float right
-      :margin-right 320px
-      :margin-top 20px
-      :width auto
+      :width 79px
+      :height 32px
+      :margin 0px 0px 0px 10px !important
+  .question.focused
+    :background-color #ffffff !important
 .issueControls
   img
     :margin-right 5px

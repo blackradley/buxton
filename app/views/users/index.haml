@@ -14,21 +14,13 @@
       %th.dateTime
         Last Logged in
       %th
-        Trained?
-      %th
-        Locked?
-      %th
+        =#"Trained?"
+        =#"Locked?"
         Retired?
       %th
         Directorate Contact&nbsp;Officer?
       %th.last
     %tr
-      %th.sortControls
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-      %th.sortControls
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
@@ -49,9 +41,10 @@
         %td= user.email
         %td= user.last_sign_in_at || raw('&nbsp;')
         = fields_for user do |f|
-          %td.checkbox= f.check_box :trained, "data-path" => toggle_user_status_user_path(user, :checkbox => :trained)
-          %td.checkbox= f.check_box :locked, "data-path" => toggle_user_status_user_path(user, :checkbox => :locked)
-          %td.checkbox= f.check_box :retired, "data-path" => toggle_user_status_user_path(user, :checkbox => :retired)
+          %td.checkbox
+            =# f.check_box :trained, "data-path" => toggle_user_status_user_path(user, :checkbox => :trained)
+            =# f.check_box :locked, "data-path" => toggle_user_status_user_path(user, :checkbox => :locked)
+            = f.check_box :retired, "data-path" => toggle_user_status_user_path(user, :checkbox => :retired)
           %td.checkbox= f.check_box :creator, "data-path" => toggle_user_status_user_path(user, :checkbox => :creator)
           %td.last= link_to "edit", edit_user_path(user), :class => "edit action"
 

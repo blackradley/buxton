@@ -9,6 +9,11 @@
 h2 img {
   margin-bottom: -2px; }
 
+.letter {
+  font-size: 24px;
+  font-family: "Arial Rounded MT Bold", Arial;
+  color: #1b4e77; }
+
 #questions {
   width: 950px;
   margin: 0px 0px;
@@ -222,11 +227,25 @@ h2 img {
       width: 125px; }
   #questions .question_compact.focused {
     background: #eeeeee; }
-  #questions .button input {
-    float: right;
-    margin-right: 262px;
-    margin-top: 20px;
-    width: auto; }
+  #questions .button {
+    width: 590px;
+    float: left;
+    text-align: center; }
+    #questions .button input {
+      border: 0px;
+      background-image: url(../images/orange_buttons/search.jpg);
+      background-repeat: no-repeat;
+      width: 79px;
+      height: 32px;
+      overflow: hidden;
+      color: white;
+      float: none;
+      padding: 0px;
+      margin: 0px 0px 0px 10px;
+      line-height: 22px;
+      font-weight: bold; }
+    #questions .button input:hover {
+      background-image: url(../images/orange_buttons/search_hover.jpg); }
 
 #questions.no_help {
   background-image: none; }
@@ -237,7 +256,8 @@ h2 img {
     #questions.no_help ul li {
       margin: 0px; }
   #questions.no_help .question {
-    width: 660px; }
+    width: 950px;
+    padding: 0px; }
     #questions.no_help .question label {
       width: 600px;
       margin-left: 0px;
@@ -245,13 +265,19 @@ h2 img {
     #questions.no_help .question input,
     #questions.no_help .question select,
     #questions.no_help .question textarea {
-      width: 656px;
+      width: 946px;
       margin-left: 0px; }
-  #questions.no_help .button input {
-    float: right;
-    margin-right: 320px;
-    margin-top: 20px;
-    width: auto; }
+    #questions.no_help .question textarea {
+      margin-bottom: 0px;
+      height: 300px; }
+  #questions.no_help .button {
+    width: 950px; }
+    #questions.no_help .button input {
+      width: 79px;
+      height: 32px;
+      margin: 0px 0px 0px 10px !important; }
+  #questions.no_help .question.focused {
+    background-color: white !important; }
 
 .issueControls img {
   margin-right: 5px; }
