@@ -1,133 +1,179 @@
 //1234 page styles
-
-.step
-  :clear left
-  :width 100%
-  :margin 20px 0px
-  :display block
-  :position relative
-
-  .stepImage
-    :float left
+.content .workingArea #content_holder
+  .step
     :clear left
-    :margin-right 10px
-    :width 70px
-    :overflow hidden
+    :width 950px
+    :background-image url(../images/section_bg.gif)
+    :background-position top center
+    :background-repeat no-repeat
+    :margin 10px 0px 15px
+    :display block
+    :position relative
 
-  .stepBox
-    :float right
-    :width 870px
-    :overflow hidden
-
-    h2
+    .stepFooter
       :float left
-      :width 870px
-      :color #1B4E77
-      :font-weight bold
-      :font-size 1.2em
+      :clear left
       :margin 0px
-      :padding 0px
-
-    p
-      :float left
-      :width 870px
-      :margin 5px 0px 10px 0px
-
-      img
-        :margin 0px 4px
-        :margin-bottom -3px	
-        :padding-bottom 0px
-
-    table
-      :float left
-      :width 870px
-      
-    td  
-      :width 107px
-      :height 33px
+      :width 950px
+      :height 24px
+      :position absolute
+      :bottom 0px
+      :background-image url(../images/section_bottom.gif)
+      :background-position top center
+      :background-repeat no-repeat
       :overflow hidden
-      :text-align center
-      :border-left 1px solid #dddddd
-    th
-      :width 96px
-      :padding 5px
-      :background-color #FFFFFF
-      :height 33px
-      :color #666
-      :text-align center
-      :border-left 1px solid #dddddd
-    .strandHeading
-      :text-align left
-      :border 0px
-    .checkStrand
-      :width 240px
-      :float left
-      :margin-right 20px
-      
-      input
-        :width auto
-        :float left
-        :border none
-        :margin-top 5px
 
-      label
+    .stepBox
+      :float right
+      :width 890px
+      :margin 20px 30px 20px
+      :overflow hidden
+
+      h2
         :float left
-        :clear none
-        :font-weight bold
+        :width 870px
         :color #1B4E77
-        :position relative
-        
-        .strandRelevant
-          :float left
-          :width 120px
-          :color green
-          :font-weight normal
-          :font-size 0.9em
-          :font-style italic
-          :margin-top -7px
-
-    fieldset
-      :width 100%
-      :margin 0px
-      :padding 0px
+        :font-weight bold
+        :margin 0px
+        :padding 0px
 
       p
-        :width auto
+        :float left
+        
+        :width 870px
+        :margin 0px 0px 10px 0px
+      
+        a
+          :font-weight bold
+        .orangeButton
+          :border 0px
+          :background-image url(../images/orange_buttons/search.jpg)
+          :background-repeat no-repeat
+          :width 79px
+          :height 32px
+          :overflow hidden
+          :color #ffffff
+          :float none
+          :padding 0px
+          :margin 0px 0px 0px 10px
+          :line-height 30px
+          :font-weight bold
+        .orangeButton:hover
+          :background-image url(../images/orange_buttons/search_hover.jpg)
+        strong
+          :color #1B4E77
+          :font-size 13px
+        
+        .indented
+          :margin-left 28px
+          :float left
+
+        img
+          :margin 0px 4px
+          :margin-bottom -3px	
+          :padding-bottom 0px
+        .letter
+          :font-size 24px
+          :font-family "Arial Rounded MT Bold", Arial
+          :color #1B4E77
+        
+      .width_445
+        :width 445px
+        :float left
+
+      table
+        :float left
+        :clear none
+      
+      td  
+        :width 107px
+        :height 33px
+        :overflow hidden
+        :text-align center
+        :border-left 1px solid #dddddd
+      th
+        :width 96px
+        :padding 5px
+        :background-color #FFFFFF
+        :height 33px
+        :color #666
+        :text-align center
+        :border-left 1px solid #dddddd
+      .strandHeading
+        :text-align left
+        :border 0px
+      .checkStrand
+        :float left
+        :margin-left 22px
+        :width 190px
+      
+        input
+          :width auto
+          :float left
+          :border none
+          :margin-top 5px
+
+        label
+          :float left
+          :clear none
+          :font-weight bold
+          :color #1B4E77
+          :position relative
+        
+          .strandRelevant
+            :float left
+            :width 120px
+            :color green
+            :font-weight normal
+            :font-size 0.9em
+            :font-style italic
+            :margin-top -7px
+
+      fieldset
+        :width 100%
+        :margin 0px
+        :padding 0px
+
+        p
+          :width auto
+          :float left
+          :margin 0px
+          :padding 0px
+          :padding-bottom 2px
+
+      select
+        :width 140px
         :float left
         :margin 0px
         :padding 0px
-        :padding-bottom 2px
-
-    select
-      :width 140px
-      :float left
-      :margin 0px
-      :padding 0px
-      :margin-top 9px
-      :margin-right 20px
-
-    .submit
-      :float left
-      :width 100px
-
-      img
-        :margin-top 4px
-        :float left
-        :margin-left 0px
-
-      input
-        :clear none
-        :float left
-        :width 50px
-        :background-color transparent
-        :border none
-        :text-align left
-        :text-decoration underline
-        :color #1B4E77
-        :margin-left 0px
-        :padding-left 0px
         :margin-top 9px
+        :margin-right 20px
 
+      .submit
+        :float left
+        :width 100px
+
+        img
+          :margin-top 4px
+          :float left
+          :margin-left 0px
+
+        input
+          :clear none
+          :float left
+          :width 50px
+          :background-color transparent
+          :border none
+          :text-align left
+          :text-decoration underline
+          :color #1B4E77
+          :margin-left 0px
+          :padding-left 0px
+          :margin-top 9px
+  .current
+    :background-image url(../images/section_bg_current.gif)
+    .stepFooter
+      :background-image url(../images/section_bottom_current.gif)
 #disable
   :position absolute
   :width 100%

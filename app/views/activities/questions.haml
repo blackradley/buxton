@@ -1,38 +1,49 @@
-%h1
-  Impact Equality&trade; -
+%h2
+  EINA - 
   =h @activity.name
-.step#one
-  .stepImage
-    =image_tag("1.png")
+
+.step{:class=>"#{!@activity.completed(:purpose) ? "current" : ""}"}
   .stepBox
-    %h2 Overall Purpose
-    %p What is the purpose of this Activity? After you have completed the purpose Assessment Section you will be asked which of the Equality Dimensions you wish to complete.
-    %p
+    %h2 Initial Assessment
+    %p What is the purpose of this EINA? Completing this initial assesment section by clicking the links below:
+    %p.width_445
       %span.letter
-        =image_tag("a.gif")
-      =link_to "What the Activity is for", edit_purpose_a_activities_section_path(@activity), :title => "Target of Activity and Impact on #{ot('strategy').pluralize.titleize}"
+        a.
+      %strong=link_to "What is the EINA for?", edit_purpose_a_activities_section_path(@activity), :title => "What is the EINA for?"
       %span.letter_completed
         =tick_cross_display(@activity.target_and_strategies_completed)
       %br
       %span.letter
-        =image_tag("b.gif")
-      =link_to "Individuals affected by the activity", edit_purpose_b_activities_section_path(@activity), :title =>"Impact on Individuals"
+        b.
+      %strong=link_to "Individuals affected by the EINA", edit_purpose_b_activities_section_path(@activity), :title =>"Individuals affected by the EINA"
       %span.letter_completed
         =tick_cross_display(@activity.impact_on_individuals_completed)
+    %p.width_445
+      %span.letter
+        c.
+      %strong=link_to "Different benefits and disadvantages of the EINA", edit_purpose_c_activities_section_path(@activity), :title =>"Impact on Equality Groups"
+      %span.letter_completed
+        =tick_cross_display(@activity.impact_on_equality_groups)
       %br
       %span.letter
-        =image_tag("c.gif")
-      =link_to "Different benefits and disadvantages of the Activity", edit_purpose_c_activities_section_path(@activity), :title =>"Impact on Equality Groups"
+        d.
+      %strong=link_to "Comments", "#", :title =>"Comments on Initial Assessment"
       %span.letter_completed
         =tick_cross_display(@activity.impact_on_equality_groups)
   .clear
--if @activity.completed(:purpose) && @activity.show_full_assessment? then
-  .step#two
-    .stepImage
-      =image_tag("2.png")
+  .stepFooter
+-if @activity.completed(:purpose)
+  .step{:class=>"#{@activity.completed(:purpose) ? "current" : ""}"}
     .stepBox
-      %h2 Relevant Equality Strands
-      %p The answers to your questions indicate that the activity is relevant to the marked Equality Dimensions.  Please indicate by ticking the box which Equality Dimension you would like to include in the assessment, clicking on the tick again removes that Equality Dimension.
+      %h2 Full Assessment
+      %p
+        %span.letter
+          a.
+        %strong
+          Relevant Equality Dimenisons
+        %br
+        %span.indented
+          Please indicate by ticking the boxes which Equality Dimensions you would like to include in the assessment. The Equality Dimensions which, based on your answers in the Initial Assesment, are deemed relevant to this EINA, can not be unselected.
       -@activity.overview_strands.each do |strand_name, strand|
         -selected = false
         %span.checkStrand
@@ -45,44 +56,68 @@
             / -if @activity.impact_calculation(strand).to_i > 9 then
             /   <br />
             /   %span.strandRelevant Recommended
-      %p
-      %h2 Equality Strand Questions
-      %p The Impact Equality&trade; tool asks you questions under four Assessment Sections (impact, consultation, additional work and action planning).
-      %p Each set of questions can apply to each of the six Equality Dimensions (gender, race, disability, religion or belief, sexual orientation, and age).
-      %p The Assessment Sections and Equality Dimensions are set out as a table below.
-      %p Click on the <img src="/images/icons/edit.gif" /> icon to answer the questions in that section. Click "Save" when you have finished work on a section.
-      %p The section is complete when the <img src="/images/icons/cross.gif" /> turns into a <img src="/images/icons/tick.gif" />.  When all the <img src="/images/icons/cross.gif" />s are <img src="/images/icons/tick.gif" />s, you are finished!
-      %table
-        %tr
-          %th.strandHeading
-          %th Impact
-          %th Consultation
-          %th Additional Work
-          %th Action Planning
-        -@activity.overview_strands.each do |strand_name, strand|
-          -display_on = @activity.strand_relevant?(strand) ? "" : "display:none"
-          %tr{:id => "row_#{strand_name}", :style => "#{display_on};"}
+      .clear
+      -if false #if any strands ticked!
+        %p.width_445
+          %span.letter
+            b.
+          %strong
+            Assessment Questions
+          %br        
+          %span.indented
+            The EINA Toolkit asks you questions under four Assessment Sections (impact, consultation, additional work and action planning), for each of the Equality Dimensions selected as relevant.
+            %br
+            The Assessment Sections and Equality Dimensions are set out as a table below.
+            %br
+            Click on the <img src="/images/icons/edit.gif" /> icon to answer the questions in that section. Click "Save" when you have finished work on a section.
+            %br
+            The section is complete when the <img src="/images/icons/cross.gif" /> turns into a <img src="/images/icons/tick.gif" />.  When all the <img src="/images/icons/cross.gif" />s are <img src="/images/icons/tick.gif" />s, you are finished!
+        %table.width_445{:cellpadding=>"0", :cellspacing=>"0"}
+          %tr
             %th.strandHeading
-              =h strand_display(strand).titlecase
-            %td
-              = completed_tag(@activity, :impact, strand.to_sym)
-              = link_to image_tag('icons/edit.gif'), edit_activities_section_path(@activity, :equality_strand => strand, :section => "impact"), :title =>"Edit Impact", :id => "#{strand_name}_impact_pencil"
-            %td
-              = completed_tag(@activity, :consultation, strand.to_sym)
-              = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "consultation"), :title =>"Edit Consultation", :id => "#{strand_name}_consultation_pencil"
-            %td
-              = completed_tag(@activity, :additional_work, strand.to_sym)
-              = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "additional_work"), :title =>"Edit Additional Work", :id => "#{strand_name}_additional_work_pencil"
-            %td
-              - if @activity.issues.find_by_strand(strand.to_s) then              
-                = completed_tag(@activity, :action_planning, strand.to_sym)
-                = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "action_planning"), :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
-              - else
-                %span.na -
+            %th Impact
+            %th Consultation
+            %th Additional Work
+            %th Action Planning
+          -@activity.overview_strands.each do |strand_name, strand|
+            -display_on = @activity.strand_relevant?(strand) ? "" : "display:none"
+            %tr{:id => "row_#{strand_name}", :style => "#{display_on};"}
+              %th.strandHeading
+                =h strand_display(strand).titlecase
+              %td
+                = completed_tag(@activity, :impact, strand.to_sym)
+                = link_to image_tag('icons/edit.gif'), edit_activities_section_path(@activity, :equality_strand => strand, :section => "impact"), :title =>"Edit Impact", :id => "#{strand_name}_impact_pencil"
+              %td
+                = completed_tag(@activity, :consultation, strand.to_sym)
+                = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "consultation"), :title =>"Edit Consultation", :id => "#{strand_name}_consultation_pencil"
+              %td
+                = completed_tag(@activity, :additional_work, strand.to_sym)
+                = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "additional_work"), :title =>"Edit Additional Work", :id => "#{strand_name}_additional_work_pencil"
+              %td
+                - if @activity.issues.find_by_strand(strand.to_s) then              
+                  = completed_tag(@activity, :action_planning, strand.to_sym)
+                  = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "action_planning"), :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
+                - else
+                  %span.na -
+      -else
+        %p.width_445
+          %span.letter
+            b.
+          %strong
+            Assessment Questions
+          %br        
+          %span.indented
+            No strands selected as relevant.
+                
+      %p
+        %span.letter
+          c.
+        %strong=link_to "Comments", "#", :title =>"Comments on Initial Assessment"
+        %span.letter_completed
+          =raw "<img src='/images/icons/cross.gif' />"
+    .stepFooter
     .clear
-  .step#four{:style => (@activity.completed ? 'display:block' : 'display:none')}
-    .stepImage
-      =image_tag("4.png")    
+  .step
     .stepBox
       %h2 Submit Assessment for Approval
       %p
@@ -90,13 +125,13 @@
       %p
         Upon submission you will no longer be able to change any of your answers.  The Activity Approver will be able to see all your answers and comments for the report but not the notes to yourself.
       -if @activity.approved == "not submitted"
-        %p#submit_answers{:style=>"display:block;"}
-          =image_tag('icons/go.gif')
-          =link_to "Submit",  {:controller => 'activities', :action => 'submit'}
+        %p{:style=>"text-align:center;"}
+          =link_to "Submit",  {:controller => 'activities', :action => 'submit'}, :class=>"orangeButton"
       -else
         %p#submitted_answers{:style=>"display:block;"}
           =image_tag('icons/tick.gif')
           Thank you for submitting your answers.
+    .stepFooter
     .clear
 -elsif @activity.approved == "not submitted"
   #disable{:style=>"display:none;"}

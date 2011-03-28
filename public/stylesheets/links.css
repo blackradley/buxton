@@ -6,5 +6,7 @@ a {
     text-decoration: underline; }
   a:hover {
     color: #e2474b; }
+  a:active {
+    border: none; }
   a img {
     border: none; }

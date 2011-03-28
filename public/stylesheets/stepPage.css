@@ -1,45 +1,84 @@
-.step {
+.content .workingArea #content_holder .step {
   clear: left;
-  width: 100%;
-  margin: 20px 0px;
+  width: 950px;
+  background-image: url(../images/section_bg.gif);
+  background-position: top center;
+  background-repeat: no-repeat;
+  margin: 10px 0px 15px;
   display: block;
   position: relative; }
-  .step .stepImage {
+  .content .workingArea #content_holder .step .stepFooter {
     float: left;
     clear: left;
-    margin-right: 10px;
-    width: 70px;
+    margin: 0px;
+    width: 950px;
+    height: 24px;
+    position: absolute;
+    bottom: 0px;
+    background-image: url(../images/section_bottom.gif);
+    background-position: top center;
+    background-repeat: no-repeat;
     overflow: hidden; }
-  .step .stepBox {
+  .content .workingArea #content_holder .step .stepBox {
     float: right;
-    width: 870px;
+    width: 890px;
+    margin: 20px 30px 20px;
     overflow: hidden; }
-    .step .stepBox h2 {
+    .content .workingArea #content_holder .step .stepBox h2 {
       float: left;
       width: 870px;
       color: #1b4e77;
       font-weight: bold;
-      font-size: 1.2em;
       margin: 0px;
       padding: 0px; }
-    .step .stepBox p {
+    .content .workingArea #content_holder .step .stepBox p {
       float: left;
       width: 870px;
-      margin: 5px 0px 10px 0px; }
-      .step .stepBox p img {
+      margin: 0px 0px 10px 0px; }
+      .content .workingArea #content_holder .step .stepBox p a {
+        font-weight: bold; }
+      .content .workingArea #content_holder .step .stepBox p .orangeButton {
+        border: 0px;
+        background-image: url(../images/orange_buttons/search.jpg);
+        background-repeat: no-repeat;
+        width: 79px;
+        height: 32px;
+        overflow: hidden;
+        color: white;
+        float: none;
+        padding: 0px;
+        margin: 0px 0px 0px 10px;
+        line-height: 30px;
+        font-weight: bold; }
+      .content .workingArea #content_holder .step .stepBox p .orangeButton:hover {
+        background-image: url(../images/orange_buttons/search_hover.jpg); }
+      .content .workingArea #content_holder .step .stepBox p strong {
+        color: #1b4e77;
+        font-size: 13px; }
+      .content .workingArea #content_holder .step .stepBox p .indented {
+        margin-left: 28px;
+        float: left; }
+      .content .workingArea #content_holder .step .stepBox p img {
         margin: 0px 4px;
         margin-bottom: -3px;
         padding-bottom: 0px; }
-    .step .stepBox table {
+      .content .workingArea #content_holder .step .stepBox p .letter {
+        font-size: 24px;
+        font-family: "Arial Rounded MT Bold", Arial;
+        color: #1b4e77; }
+    .content .workingArea #content_holder .step .stepBox .width_445 {
+      width: 445px;
+      float: left; }
+    .content .workingArea #content_holder .step .stepBox table {
       float: left;
-      width: 870px; }
-    .step .stepBox td {
+      clear: none; }
+    .content .workingArea #content_holder .step .stepBox td {
       width: 107px;
       height: 33px;
       overflow: hidden;
       text-align: center;
       border-left: 1px solid #dddddd; }
-    .step .stepBox th {
+    .content .workingArea #content_holder .step .stepBox th {
       width: 96px;
       padding: 5px;
       background-color: white;
@@ -47,25 +86,25 @@
       color: #666666;
       text-align: center;
       border-left: 1px solid #dddddd; }
-    .step .stepBox .strandHeading {
+    .content .workingArea #content_holder .step .stepBox .strandHeading {
       text-align: left;
       border: 0px; }
-    .step .stepBox .checkStrand {
-      width: 240px;
+    .content .workingArea #content_holder .step .stepBox .checkStrand {
       float: left;
-      margin-right: 20px; }
-      .step .stepBox .checkStrand input {
+      margin-left: 22px;
+      width: 190px; }
+      .content .workingArea #content_holder .step .stepBox .checkStrand input {
         width: auto;
         float: left;
         border: none;
         margin-top: 5px; }
-      .step .stepBox .checkStrand label {
+      .content .workingArea #content_holder .step .stepBox .checkStrand label {
         float: left;
         clear: none;
         font-weight: bold;
         color: #1b4e77;
         position: relative; }
-        .step .stepBox .checkStrand label .strandRelevant {
+        .content .workingArea #content_holder .step .stepBox .checkStrand label .strandRelevant {
           float: left;
           width: 120px;
           color: green;
@@ -73,31 +112,31 @@
           font-size: 0.9em;
           font-style: italic;
           margin-top: -7px; }
-    .step .stepBox fieldset {
+    .content .workingArea #content_holder .step .stepBox fieldset {
       width: 100%;
       margin: 0px;
       padding: 0px; }
-      .step .stepBox fieldset p {
+      .content .workingArea #content_holder .step .stepBox fieldset p {
         width: auto;
         float: left;
         margin: 0px;
         padding: 0px;
         padding-bottom: 2px; }
-    .step .stepBox select {
+    .content .workingArea #content_holder .step .stepBox select {
       width: 140px;
       float: left;
       margin: 0px;
       padding: 0px;
       margin-top: 9px;
       margin-right: 20px; }
-    .step .stepBox .submit {
+    .content .workingArea #content_holder .step .stepBox .submit {
       float: left;
       width: 100px; }
-      .step .stepBox .submit img {
+      .content .workingArea #content_holder .step .stepBox .submit img {
         margin-top: 4px;
         float: left;
         margin-left: 0px; }
-      .step .stepBox .submit input {
+      .content .workingArea #content_holder .step .stepBox .submit input {
         clear: none;
         float: left;
         width: 50px;
@@ -109,6 +148,10 @@
         margin-left: 0px;
         padding-left: 0px;
         margin-top: 9px; }
+.content .workingArea #content_holder .current {
+  background-image: url(../images/section_bg_current.gif); }
+  .content .workingArea #content_holder .current .stepFooter {
+    background-image: url(../images/section_bottom_current.gif); }
 
 #disable {
   position: absolute;
