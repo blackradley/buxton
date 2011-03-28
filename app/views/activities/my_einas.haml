@@ -1,15 +1,15 @@
 %h2 My EINAs
 %table#sortable{:cellspacing=>"0", :cellpadding=>"0"}
-  %tr
-    %th Service Area
-    %th Activity Name
-    %th Ref no.
-    %th Approver
-    %th.date Date Started
-    %th.date Actual Completion
-    %th Progress
-    %th.last
-    
+  %thead
+    %tr
+      %th Service Area
+      %th Activity Name
+      %th Ref no.
+      %th Approver
+      %th.date Date Started
+      %th.date Actual Completion
+      %th Progress
+      %th.last
   %tr
     %th.sortControls
       =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
@@ -45,3 +45,4 @@
       %td.last
         = link_to "edit", questions_activity_path(activity), :class => "action edit"
         = link_to "view", activity_path(activity), :class => "action view"
+
