@@ -23,13 +23,14 @@ class ServiceAreasController < ApplicationController
   
   def index
     @breadcrumb = [["Service Areas"]]
-    @service_areas = ServiceArea.all
+    @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
     @selected = "service_areas"
   end
   
   def new
     @breadcrumb = [["Service Areas", service_areas_path], ["Add New Service Area"]]
     @service_area = ServiceArea.new
+    @directorates = Directorate.where(:creator_id=>current_user.id, :retired => false)
     @selected = "service_areas"
   end
 
@@ -41,14 +42,23 @@ class ServiceAreasController < ApplicationController
       flash[:notice] = "#{@service_area.name} was created."
       redirect_to :controller => 'service_areas', :action => 'index'
     else
+      @directorates = Directorate.where(:creator_id=>current_user.id, :retired => false)
       render 'new'
     end
+  end
+  
+  def toggle_retired_status
+    @service_area = ServiceArea.find(params[:id])
+    @service_area.toggle(params[:checkbox])
+    @service_area.save
+    render :nothing => true
   end
   
   
   def edit
     @breadcrumb = [["Service Areas", service_areas_path], ["Edit Service Area"]]
     @service_area = ServiceArea.find(params[:id])
+    @directorates = Directorate.where(:creator_id=>current_user.id, :retired => false)
     @selected = "service_areas"
   end
 
@@ -60,6 +70,7 @@ class ServiceAreasController < ApplicationController
       flash[:notice] = "#{@service_area.name} was updated."
       redirect_to service_areas_path
     else
+      @directorates = Directorate.where(:creator_id=>current_user.id, :retired => false)
       render "edit"
     end
   end
