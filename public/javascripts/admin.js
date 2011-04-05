@@ -6,4 +6,6 @@ $(document).ready(function(){
     $.post($(this).data("path"));
   });
   
+  $('table .edit.action').colorbox();
+  
 });
