@@ -17,6 +17,15 @@ class User < ActiveRecord::Base
     self.password_confirmation = @new_pass
   end
   
+  def count_directorates
+    Directorate.where(:creator_id => self.id).count
+  end
+  
+  def count_live_directorates
+    Directorate.where(:creator_id => self.id, :retired => false).count
+  end
+    
+  
   def send_password
     Mailer.new_account(self, @new_pass).deliver
   end

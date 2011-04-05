@@ -31,7 +31,11 @@ class ActivitiesController < ApplicationController
   
   def directorate_einas
     @breadcrumb = [["Directorate EINAs"]]
-    @activities = Activity.all
+    
+    @directorates = current_user.count_directorates
+    @live_directorates = current_user.count_live_directorates
+    @activities = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id)})
+    
     @selected = "directorate_einas"
   end
   
@@ -44,18 +48,28 @@ class ActivitiesController < ApplicationController
   def approving
     @breadcrumb = [["Awaiting Approval"]]
     @activities = Activity.where(:approver_id => current_user.id)
+    @selected = "awaiting_approval"
   end
   
   def new
-    @directorate = Directorate.find_by_creator_id(current_user.id)
+    # @directorates = Directorate.where(:creator_id=>current_user.id)
     @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
+    services = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
+    if current_user.count_directorates > 1
+      @service_areas = Hash.new
+      services.each do |s|
+        @service_areas["#{s.name} - #{s.directorate.name}"] = s.id
+      end
+    else
+      @service_areas = services
+    end
     @selected = "directorate_einas"
     @activity = Activity.new
   end
 
   def create
     @activity = Activity.new(params[:activity])
-    @directorate = Directorate.find_by_creator_id(current_user.id)
+    # @directorate = Directorate.find_by_creator_id(current_user.id)
     @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
     @selected = "directorate_einas"
     if @activity.save
@@ -63,6 +77,7 @@ class ActivitiesController < ApplicationController
       Mailer.activity_created(@activity).deliver
       redirect_to directorate_einas_activities_path
     else
+      @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
       render 'new'
     end
   end
@@ -71,6 +86,7 @@ class ActivitiesController < ApplicationController
   def edit
     @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
     @directorate = Directorate.find_by_creator_id(current_user.id)
+    @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
     @selected = "directorate_einas"
     @activity = Activity.find(params[:id])
   end
@@ -114,7 +130,7 @@ class ActivitiesController < ApplicationController
   
   def show
     type = params[:type]
-    # log_event('PDF', %Q[The activity manager PDF for the <strong>#{@activity.name}</strong> activity, within <strong>#{@activity.organisation.name}</strong>, was viewed.])
+    # log_event('PDF', %Q[The PDF for the <strong>#{@activity.name}</strong> EINA, within directorate <strong>#{@activity.directorate.name}</strong>, was viewed by #{current_user.email}])
     send_data ActivityPDFGenerator.new(@activity, type).pdf.render, :disposition => 'inline',
       :filename => "#{@activity.name}.pdf",
       :type => "application/pdf"
