@@ -5,6 +5,7 @@ javascripts:
   - jquery
   # - prototype
   - jquery_fancybox-1_3_0
+  - jquery.colorbox
   - tinytable
   # - effects
   # - dragdrop
@@ -43,3 +44,4 @@ stylesheets:
   - jquery-ui
   - formtastic
   - formtastic_changes
+  - colorbox

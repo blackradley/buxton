@@ -16,6 +16,9 @@ class UsersController < ApplicationController
   def edit
     @breadcrumb = [["User Administration", users_path], ["Edit User"]]
     @user = User.live.find(params[:id])
+    if request.xhr?
+      render :layout => false
+    end
   end
   
   def create

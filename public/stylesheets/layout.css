@@ -105,87 +105,105 @@
     .content .workingArea #content_holder {
       width: 950px;
       margin: 0px; }
-      .content .workingArea #content_holder p {
-        margin: 5px 0px; }
-      .content .workingArea #content_holder h1, .content .workingArea #content_holder h2 {
-        margin: 0px 0px 5px;
-        float: left;
-        padding: 5px 0; }
-      .content .workingArea #content_holder #formHelp {
-        width: 300px;
-        margin-right: 10px;
-        padding-left: 20px;
-        display: inline;
-        float: right;
-        background-image: url(../images/questions_bg.gif);
-        background-repeat: repeat-y;
-        background-position: -437px 0px; }
-        .content .workingArea #content_holder #formHelp p {
-          margin-bottom: 10px; }
-      .content .workingArea #content_holder .searchBox {
-        float: left;
-        background-color: #e8e8e8;
-        margin-top: 10px;
-        padding: 10px 20px 5px;
-        width: 910px; }
-        .content .workingArea #content_holder .searchBox form label {
-          font-weight: bold;
-          float: left;
-          line-height: 32px; }
-        .content .workingArea #content_holder .searchBox form .textField {
-          border: 1px solid #999999;
-          width: 300px;
-          padding: 7px;
-          float: left;
-          font-size: 12px;
-          margin: 0px 0px 0px 10px;
-          line-height: 18px; }
-        .content .workingArea #content_holder .searchBox form .submitButton {
-          border: 0px;
-          background-image: url(../images/orange_buttons/search.jpg);
-          background-repeat: no-repeat;
-          width: 79px;
-          height: 32px;
-          overflow: hidden;
-          color: white;
-          float: left;
-          padding: 0px;
-          margin: 0px 20px 0px 10px;
-          line-height: 22px;
-          font-weight: bold; }
-        .content .workingArea #content_holder .searchBox form .submitButton:hover {
-          background-image: url(../images/orange_buttons/search_hover.jpg); }
-        .content .workingArea #content_holder .searchBox form p {
-          font-style: italic; }
-      .content .workingArea #content_holder .orangeButton {
-        display: inline-block;
-        zoom: 1;
-        *display: inline;
-        float: right;
-        margin-left: 15px;
-        height: 32px;
-        padding: 0px;
-        background-image: url(../images/orange_buttons/bg.jpg);
-        background-repeat: no-repeat;
-        background-position: center right; }
-        .content .workingArea #content_holder .orangeButton a {
-          color: white;
-          padding: 5px 10px 5px 30px;
-          text-decoration: none;
-          float: left;
-          height: 22px;
-          line-height: 22px;
-          font-weight: bold; }
-        .content .workingArea #content_holder .orangeButton .cal {
-          background-image: url(../images/orange_buttons/cal.jpg);
-          background-repeat: no-repeat;
-          background-position: center left; }
-        .content .workingArea #content_holder .orangeButton .add {
-          background-image: url(../images/orange_buttons/add.jpg);
-          background-repeat: no-repeat;
-          background-position: center left; }
-      .content .workingArea #content_holder .orangeButton:hover {
-        background-image: url(../images/orange_buttons/bg_hover.jpg); }
+
+#content_holder p,
+#cboxLoadedContent p {
+  margin: 5px 0px; }
+#content_holder h1, #content_holder h2,
+#cboxLoadedContent h1,
+#cboxLoadedContent h2 {
+  margin: 0px 0px 5px;
+  float: left;
+  padding: 5px 0; }
+#content_holder #formHelp,
+#cboxLoadedContent #formHelp {
+  width: 300px;
+  margin-right: 10px;
+  padding-left: 20px;
+  display: inline;
+  float: right;
+  background-image: url(../images/questions_bg.gif);
+  background-repeat: repeat-y;
+  background-position: -437px 0px; }
+  #content_holder #formHelp p,
+  #cboxLoadedContent #formHelp p {
+    margin-bottom: 10px; }
+#content_holder .searchBox,
+#cboxLoadedContent .searchBox {
+  float: left;
+  width: 500px;
+  background-color: #e8e8e8;
+  margin-top: 10px;
+  padding: 10px 20px 5px;
+  width: 910px; }
+  #content_holder .searchBox form label,
+  #cboxLoadedContent .searchBox form label {
+    font-weight: bold;
+    float: left;
+    line-height: 32px; }
+  #content_holder .searchBox form .textField,
+  #cboxLoadedContent .searchBox form .textField {
+    border: 1px solid #999999;
+    width: 300px;
+    padding: 7px;
+    float: left;
+    font-size: 12px;
+    margin: 0px 0px 0px 10px;
+    line-height: 18px; }
+  #content_holder .searchBox form .submitButton,
+  #cboxLoadedContent .searchBox form .submitButton {
+    border: 0px;
+    background-image: url(../images/orange_buttons/search.jpg);
+    background-repeat: no-repeat;
+    width: 79px;
+    height: 32px;
+    overflow: hidden;
+    color: white;
+    float: left;
+    padding: 0px;
+    margin: 0px 20px 0px 10px;
+    line-height: 22px;
+    font-weight: bold; }
+  #content_holder .searchBox form .submitButton:hover,
+  #cboxLoadedContent .searchBox form .submitButton:hover {
+    background-image: url(../images/orange_buttons/search_hover.jpg); }
+  #content_holder .searchBox form p,
+  #cboxLoadedContent .searchBox form p {
+    font-style: italic; }
+#content_holder .orangeButton,
+#cboxLoadedContent .orangeButton {
+  display: inline-block;
+  zoom: 1;
+  *display: inline;
+  float: right;
+  margin-left: 15px;
+  height: 32px;
+  padding: 0px;
+  background-image: url(../images/orange_buttons/bg.jpg);
+  background-repeat: no-repeat;
+  background-position: center right; }
+  #content_holder .orangeButton a,
+  #cboxLoadedContent .orangeButton a {
+    color: white;
+    padding: 5px 10px 5px 30px;
+    text-decoration: none;
+    float: left;
+    height: 22px;
+    line-height: 22px;
+    font-weight: bold; }
+  #content_holder .orangeButton .cal,
+  #cboxLoadedContent .orangeButton .cal {
+    background-image: url(../images/orange_buttons/cal.jpg);
+    background-repeat: no-repeat;
+    background-position: center left; }
+  #content_holder .orangeButton .add,
+  #cboxLoadedContent .orangeButton .add {
+    background-image: url(../images/orange_buttons/add.jpg);
+    background-repeat: no-repeat;
+    background-position: center left; }
+#content_holder .orangeButton:hover,
+#cboxLoadedContent .orangeButton:hover {
+  background-image: url(../images/orange_buttons/bg_hover.jpg); }
 
 .messageArea {
   margin: 5px;

@@ -97,91 +97,94 @@
     #content_holder
       :width 950px
       :margin 0px
-      p
-        :margin 5px 0px
-      h1, h2
-        :margin 0px 0px 5px
+#content_holder,
+#cboxLoadedContent
+  p
+    :margin 5px 0px
+  h1, h2
+    :margin 0px 0px 5px
+    :float left
+    :padding 5px 0
+  
+  #formHelp
+    :width 300px
+    :margin-right 10px
+    :padding-left 20px
+    :display inline
+    :float right
+    :background
+      :image url(../images/questions_bg.gif)
+    :background-repeat repeat-y
+    :background-position -437px 0px
+    p
+      :margin-bottom 10px
+          
+  .searchBox
+    :float left
+    :width 500px
+    :background-color #E8E8E8
+    :margin-top 10px
+    :padding 10px 20px 5px
+    :width 910px
+    form
+      label
+        :font-weight bold
         :float left
-        :padding 5px 0
-      
-      #formHelp
+        :line-height 32px
+      .textField
+        :border 1px solid #999999
         :width 300px
-        :margin-right 10px
-        :padding-left 20px
-        :display inline
-        :float right
-        :background
-          :image url(../images/questions_bg.gif)
-        :background-repeat repeat-y
-        :background-position -437px 0px
-        p
-          :margin-bottom 10px
-              
-      .searchBox
+        :padding 7px
         :float left
-        :background-color #E8E8E8
-        :margin-top 10px
-        :padding 10px 20px 5px
-        :width 910px
-        form
-          label
-            :font-weight bold
-            :float left
-            :line-height 32px
-          .textField
-            :border 1px solid #999999
-            :width 300px
-            :padding 7px
-            :float left
-            :font-size 12px
-            :margin 0px 0px 0px 10px
-            :line-height 18px
-          .submitButton
-            :border 0px
-            :background-image url(../images/orange_buttons/search.jpg)
-            :background-repeat no-repeat
-            :width 79px
-            :height 32px
-            :overflow hidden
-            :color #ffffff
-            :float left
-            :padding 0px
-            :margin 0px 20px 0px 10px
-            :line-height 22px
-            :font-weight bold
-          .submitButton:hover
-            :background-image url(../images/orange_buttons/search_hover.jpg)
-          p
-            :font-style italic
-      .orangeButton
-        :display inline-block
-        :zoom 1
-        :*display inline
-        :float right
-        :margin-left 15px
-        :height 32px
-        :padding 0px       
-        :background-image url(../images/orange_buttons/bg.jpg)
+        :font-size 12px
+        :margin 0px 0px 0px 10px
+        :line-height 18px
+      .submitButton
+        :border 0px
+        :background-image url(../images/orange_buttons/search.jpg)
         :background-repeat no-repeat
-        :background-position center right        
-        a
-          :color #ffffff
-          :padding 5px 10px 5px 30px
-          :text-decoration none
-          :float left
-          :height 22px
-          :line-height 22px
-          :font-weight bold
-        .cal
-          :background-image url(../images/orange_buttons/cal.jpg)
-          :background-repeat no-repeat
-          :background-position center left
-        .add
-          :background-image url(../images/orange_buttons/add.jpg)
-          :background-repeat no-repeat
-          :background-position center left
-      .orangeButton:hover
-        :background-image url(../images/orange_buttons/bg_hover.jpg)
+        :width 79px
+        :height 32px
+        :overflow hidden
+        :color #ffffff
+        :float left
+        :padding 0px
+        :margin 0px 20px 0px 10px
+        :line-height 22px
+        :font-weight bold
+      .submitButton:hover
+        :background-image url(../images/orange_buttons/search_hover.jpg)
+      p
+        :font-style italic
+  .orangeButton
+    :display inline-block
+    :zoom 1
+    :*display inline
+    :float right
+    :margin-left 15px
+    :height 32px
+    :padding 0px       
+    :background-image url(../images/orange_buttons/bg.jpg)
+    :background-repeat no-repeat
+    :background-position center right        
+    a
+      :color #ffffff
+      :padding 5px 10px 5px 30px
+      :text-decoration none
+      :float left
+      :height 22px
+      :line-height 22px
+      :font-weight bold
+    .cal
+      :background-image url(../images/orange_buttons/cal.jpg)
+      :background-repeat no-repeat
+      :background-position center left
+    .add
+      :background-image url(../images/orange_buttons/add.jpg)
+      :background-repeat no-repeat
+      :background-position center left
+  .orangeButton:hover
+    :background-image url(../images/orange_buttons/bg_hover.jpg)
 
 
 .messageArea
