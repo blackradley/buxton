@@ -19,6 +19,7 @@ Buxton::Application.routes.draw do
         get :edit_consultation
         get :edit_additional_work
         get :edit_action_planning
+        get :new_issue
         get :edit_full_assessment_comment
       end
     end
@@ -36,6 +37,10 @@ Buxton::Application.routes.draw do
       get :questions
       get :submit
       post :toggle_strand
+      get :approve
+      get :reject
+      post :submit_approval
+      post :submit_rejection
     end
   end
   

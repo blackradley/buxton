@@ -30,4 +30,19 @@ class Mailer < ActionMailer::Base
          :subject => "Welcome to the EINA Toolkit")
   end
   
+
+  def activity_approved(activity, email_contents)
+    @activity = activity
+    @contents = email_contents
+    mail(:to => "#{activity.completer.email}, #{activity.creator.email}",
+         :subject => "EINA #{@activity.name} Reference ID #{@activity.ref_no} has been approved")
+  end
+  
+  
+  def activity_rejected(activity, email_contents)
+    @activity = activity
+    @contents = email_contents
+    mail(:to => "#{activity.completer.email}, #{activity.creator.email}",
+         :subject => "EINA #{@activity.name} Reference ID #{@activity.ref_no} has been rejected")
+  end
 end

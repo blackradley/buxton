@@ -45,24 +45,25 @@ class Activity < ActiveRecord::Base
   
   before_save :set_approved, :update_completed
   after_create :create_questions_if_new
-
-  after_update :save_issues
   
   include FixInvalidChars
   
   before_save :fix_fields
   
-  accepts_nested_attributes_for :questions
+  accepts_nested_attributes_for :questions, :issues
   
   def progress
+    if self.approved
+      return "A"
+    end
     unless self.started
       return "NS"
     end
-    if self.questions.where("name like 'purpose_%' and completed = true and needed = true").size > 0
-      return "IA"
-    end
-    if self.show_full_assessment?
+    if self.questions.where("completed = true AND (section != 'purpose' OR name = 'purpose_overall_14') ").size > 0
       return "FA"
+    end
+    if self.questions.where("name like 'purpose_%' and completed = true and needed = true AND name not like 'purpose_overall_14'").size > 0
+      return "IA"
     end
   end
   
@@ -75,6 +76,10 @@ class Activity < ActiveRecord::Base
   end
   
   def directorate=(id)
+  end
+  
+  def creator
+    self.service_area.directorate.creator
   end
   
   def approver_email
@@ -179,10 +184,6 @@ class Activity < ActiveRecord::Base
       self.approved_on = nil
     end
   end
-
-  def approved?
-    self.approved == "approved"
-  end
   
   def show_full_assessment?
     true
@@ -192,17 +193,19 @@ class Activity < ActiveRecord::Base
   def started(section = nil, strand = nil)
     like = [section, strand].join('\_')
     # Find all incomplete questions with the given arguments
-    answered_questions = self.questions.find(:all, :conditions => "name LIKE '%#{like}%'")
-    return true if section.blank? && strand.blank? && answered_questions.size > 0
+    args = {:completed => true}
+    args[:section] = section if section
+    args[:strand] = strand if strand
+    answered_questions = self.questions.where(args)
     return true if answered_questions.size > 0
-    unless section && !(section == :action_planning) then
+    if section && !(section == :action_planning) then
        #First we calculate all the questions, in case there is a nil.
         answered_questions = []
-        answered_questions += self.questions.find(:all, :conditions => "name LIKE 'consultation_%#{strand}_7'")
-        answered_questions += self.questions.find(:all, :conditions => "name LIKE 'impact_%#{strand}_9'")
+        answered_questions += self.questions.find(:all, :conditions => "name LIKE 'consultation_%#{strand}_7' and completed = true")
+        answered_questions += self.questions.find(:all, :conditions => "name LIKE 'impact_%#{strand}_9' and completed = true")
         return true if answered_questions.size > 0
     end
-    unless section && !(section == :purpose) then #Check strategies are completed.
+    if section && !(section == :purpose) then #Check strategies are completed.
       self.activity_strategies.each do |strategy|
         if check_response(strategy.strategy_response) then
           return true
@@ -210,6 +213,10 @@ class Activity < ActiveRecord::Base
       end
     end
     return false
+  end
+  
+  def overall_relevant?
+    true
   end
 
   #This allows you to check whether a activity, section or strand has been completed.
@@ -226,12 +233,22 @@ class Activity < ActiveRecord::Base
     #Are there any questions which are required and not completed?
     new_section = section.nil? ? self.sections.map(&:to_s).join("|") : section
     new_strand = strand.nil? ? self.strands(is_purpose).push("overall").join("|") : strand
-    search_conditions = "name REGEXP '(#{new_section})\_(#{new_strand})' AND completed = false AND needed = true"
-    if section.to_s == "purpose"
-      search_conditions += " and name not like '%14'"
+    search_conditions = {:completed => false, :needed => true}
+    search_conditions[:section] = section.to_s if section
+    strands(true).each do |s|
+      if strand
+        next if strand.to_s != s.to_s
+      else
+        next if !self.send("#{s}_relevant")
+      end
+      search_conditions[:strand] = s.to_s
+      results = self.questions.find(:all, :conditions => search_conditions)
+      if section.to_s == "purpose"
+        results.reject!{|q| q.name == "purpose_overall_14"}
+      end
+      puts results.map(&:name).inspect
+      return false if results.size > 0
     end
-    puts self.questions.find(:all, :conditions => search_conditions).inspect
-    return false if self.questions.find(:all, :conditions => search_conditions).size > 0
     #check if we need to check issues?
     issues_to_check = []
     strands(!strand.to_s.blank?).each do |enabled_strand|
@@ -242,8 +259,6 @@ class Activity < ActiveRecord::Base
       consultation_answer = self.questions.where(:name => consultation_qn).first.response.to_i
       impact_needed = (section.to_s == 'impact' || section.to_s == 'action_planning' || section.nil?)
       consultation_needed = (section.to_s == 'consultation' || section.to_s == 'action_planning'  || section.nil?)
-      return false if impact_answer == 0 && impact_needed
-      return false if consultation_answer == 0 && consultation_needed
       if impact_answer == 1  && impact_needed then
         issues = self.issues_by('impact', enabled_strand)
         return false if issues.size == 0
@@ -287,43 +302,17 @@ class Activity < ActiveRecord::Base
   end
 
   def issues_by(section = nil, strand = nil)
-    filtered_issues = self.issues.clone
-    filtered_issues.reject!{|issue| issue.section != section.to_s } if section
-    filtered_issues.reject!{|issue| issue.strand != strand.to_s } if strand
-    filtered_issues
+    conditions = {}
+    conditions[:section] = section.to_s if section
+    conditions[:strand] = strand.to_s if strand
+    self.issues.where(conditions)
   end
-
-  def issue_attributes=(issue_attributes)
-    issue_attributes.each do |attributes|
-      if attributes[:id].blank?
-        issues.build(attributes)
-      else
-        issue = issues.detect { |d| d.id == attributes[:id].to_i }
-        issue.attributes = attributes
-      end
-    end
-  end
-
   def strand_relevancies
     list = {}
     hashes['wordings'].keys.each do |strand|
       list["#{strand}_relevant".to_sym] = send("#{strand}_relevant".to_sym)
     end
     list
-  end
-
-  def save_issues
-    # If we have issues
-    if self.issues then
-      # Loop through and process them
-      self.issues.each do |d|
-        if d.issue_destroy?
-          d.destroy
-        else
-          d.save(false)
-        end
-      end
-    end
   end
 
   
@@ -334,6 +323,7 @@ class Activity < ActiveRecord::Base
         self.send("#{section}_completed=".to_sym, self.send("#{section}_completed".to_sym) && completed(section.to_s, strand.to_s))
       end
     end
+    true
   end
 
   def sections
@@ -365,7 +355,7 @@ class Activity < ActiveRecord::Base
         strand_attributes["#{strand}_relevant"] = false
       end
     end
-    self.update_attributes(strand_attributes)
+    self.update_attributes!(strand_attributes)
   end
 
   def strands(return_all = false)

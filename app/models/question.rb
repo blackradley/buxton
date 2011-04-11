@@ -23,13 +23,7 @@ class Question < ActiveRecord::Base
   #   raise self.inspect
   # end
   # 
-  # def invisible?
-  #   (@@invisible_questions.include?(self.name.to_sym) && self.activity.proposed?)
-  # end
-  
-  def invisible?
-    false
-  end
+
   
   def response
     if self.input_type == "select"
@@ -63,8 +57,8 @@ class Question < ActiveRecord::Base
   end
     
   def check_needed
+    return false unless self.activity.send("#{self.strand}_relevant?")
     parent_okay = self.parent.nil? ? true : self.dependency.satisfied?
-    return false if invisible?
     parent_okay
   end
   

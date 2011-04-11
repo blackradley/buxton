@@ -1,0 +1,10 @@
+.approverForm
+  %h2= "Please give any final comments for the Manager of #{@activity.name}" 
+  = form_tag submit_approval_activity_path, :class => "formtastic user" do
+    %fieldset.approveInputs
+      %ol
+      = text_area_tag :email_contents, "This EINA has been approved."
+    %fieldset.buttons
+      %ol
+        %li.commit
+          = submit_tag "Approve"

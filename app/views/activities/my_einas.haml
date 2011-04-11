@@ -39,8 +39,8 @@
       %td= activity.name
       %td= activity.ref_no
       %td= activity.approver.email
-      %td= #activity.started_date
-      %td
+      %td= activity.started ? activity.actual_start_date.to_s(:short) : "N/A"
+      %td= activity.approved ? activity.approved_on.to_s(:short) : "N/A"
       %td= activity.progress
       %td.last
         = link_to "edit", questions_activity_path(activity), :class => "action edit"

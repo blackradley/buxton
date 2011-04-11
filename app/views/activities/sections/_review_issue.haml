@@ -1,0 +1,23 @@
+%li.issue
+  %span.issueDescription
+    = issue_form.object.description
+  %span.issueControls
+    = link_to image_tag('icons/delete.gif', :title => 'Delete') + "Delete", '#', :class => "issueDestroy"
+    = link_to image_tag('icons/edit.gif') + "Open Action Plan", '#',  :class => "issueEdit"
+    = link_to image_tag('icons/edit.gif') + "Minimise Action Plan", '#',  :class => "issueEdit", :style => "display:none"
+    = issue_form.hidden_field :_destroy, :class => 'issue_destroy'
+  .issueDetails{:style => "display:none;"}
+    %p.question.sub
+      %label
+        Summary actions to address the issues
+      = issue_form.text_area :actions, :class => "issueActions"
+      %label
+        Resources necessary to implement the actions
+      = issue_form.text_area :resources
+      %label
+        Timescales for commencing and completing the actions
+      = issue_form.text_area :timescales
+      %label
+        Lead Officer responsible for the Action Plan
+      = issue_form.text_area :lead_officer
+  .clear
