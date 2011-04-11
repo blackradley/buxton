@@ -348,7 +348,9 @@ class Activity < ActiveRecord::Base
   end
 
   def strand_required?(strand)
-    self.questions.where(:name => "purpose_#{strand.to_s}_3").first.response == 1
+    q  = self.questions.where(:name => "purpose_#{strand.to_s}_3")
+    return false unless q.first
+    q.response == 1
   end
   
   def strand_relevant?(strand)
@@ -368,7 +370,8 @@ class Activity < ActiveRecord::Base
   end
 
   def strands(return_all = false)
-    strand_list = ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age', 'gender_reassignment', 'pregnancy_and_maternity', 'marriage_civil_partnership'].map{|strand| strand if self.send("#{strand}_relevant") || self.strand_required?(strand)  ||return_all}
+    return self.strands if return_all
+    strand_list = ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age', 'gender_reassignment', 'pregnancy_and_maternity', 'marriage_civil_partnership'].map{|strand| strand if self.send("#{strand}_relevant") || self.strand_required?(strand)}
     strand_list.compact
   end
 
