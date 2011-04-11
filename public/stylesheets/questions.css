@@ -247,6 +247,10 @@ h2 img {
     #questions .button input:hover {
       background-image: url(../images/orange_buttons/search_hover.jpg); }
 
+#questions.assessmentComments textarea {
+  margin-bottom: 0px;
+  height: 300px; }
+
 #questions.no_help {
   background-image: none; }
   #questions.no_help h4 {
