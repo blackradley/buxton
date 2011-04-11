@@ -9,6 +9,7 @@
 class NoteController < ApplicationController
   layout false
   before_filter :set_activity
+  before_filter :check_submitted
   
   def set_note
     @parent_question = @activity.questions.find(params[:question_id])
@@ -44,5 +45,12 @@ class NoteController < ApplicationController
     @parent_strategy.note.destroy if @parent_strategy && @parent_strategy.note
   end
   
-
+  private
+  
+  def check_submitted
+    if @activity.submitted
+      render :nothing =>true
+      return false 
+    end
+  end
 end

@@ -1,3 +1,0 @@
-page.insert_html :bottom, "issues", {:partial=> "issue", :locals=>{:issue=>@issue}}
-page[:issue_field].value = ''
-page[:issue_field].focus

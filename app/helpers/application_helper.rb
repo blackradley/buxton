@@ -101,7 +101,7 @@ module ApplicationHelper
   end
 
   def activities_menu
-    current_user.roles.map do |role| 
+    current_user.roles.reject{|r| r == "Cop"}.map do |role| 
       case role
       when "Completer"
         ["My EINAs", my_einas_activities_path]

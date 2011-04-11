@@ -10,7 +10,7 @@ class CommentController < ApplicationController
   helper :sections
   layout false
   before_filter :set_activity
-
+  before_filter :check_submitted
   def set_comment
     @parent_question = @activity.questions.find(params[:question_id])
     unless @parent_question.comment then
@@ -42,4 +42,9 @@ class CommentController < ApplicationController
     @parent_strategy.comment.destroy if @parent_strategy && @parent_strategy.comment
   end
   
+  private
+  
+  def check_submitted
+    return false if @activity.submitted
+  end
 end

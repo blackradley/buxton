@@ -10,25 +10,25 @@
       %span.letter
         a.
       %strong=link_to "What is the EINA for?", edit_purpose_a_activities_section_path(@activity), :title => "What is the EINA for?"
-      %span.letter_completed
+      %span{:class => "completionRequired letter_completed #{'complete' if @activity.target_and_strategies_completed}"}
         =tick_cross_display(@activity.target_and_strategies_completed)
       %br
       %span.letter
         b.
       %strong=link_to "Individuals affected by the EINA", edit_purpose_b_activities_section_path(@activity), :title =>"Individuals affected by the EINA"
-      %span.letter_completed
+      %span{:class => "completionRequired letter_completed #{'complete' if @activity.impact_on_individuals_completed}"}
         =tick_cross_display(@activity.impact_on_individuals_completed)
     %p.width_445
       %span.letter
         c.
       %strong=link_to "Different benefits and disadvantages of the EINA", edit_purpose_c_activities_section_path(@activity), :title =>"Impact on Equality Groups"
-      %span.letter_completed
+      %span{:class => "completionRequired letter_completed #{'complete' if @activity.impact_on_equality_groups}"}
         =tick_cross_display(@activity.impact_on_equality_groups)
       %br
       %span.letter
         d.
       %strong=link_to "Comments on the initial assessment", edit_purpose_d_activities_section_path(@activity), :title =>"Initial Assessment Comments"
-      %span.letter_completed
+      %span{:class => "completionRequired letter_completed #{'complete' if @activity.questions.find_by_name('purpose_overall_13').completed?}"}
         =tick_cross_display(@activity.questions.find_by_name('purpose_overall_13').completed?)        
   .clear
   .stepFooter
@@ -50,7 +50,7 @@
           -if @activity.strand_required?(strand) then
             = check_box_tag("#{strand}_checkbox", strand_name, true, :disabled =>true)
           -else
-            = check_box_tag("#{strand}_checkbox", strand_name, @activity.strand_relevant?(strand), "data-path" => toggle_strand_activity_path(@activity, :strand => strand))
+            = check_box_tag("#{strand}_checkbox", strand_name, @activity.strand_relevant?(strand), "data-path" => toggle_strand_activity_path(@activity, :strand => strand), :disabled => @activity.submitted)
           %label
             =h strand_display(strand).titlecase
             / -if @activity.impact_calculation(strand).to_i > 9 then
@@ -81,7 +81,7 @@
             %th.last Action Planning
           -@activity.overview_strands.each do |strand_name, strand|
             -display_on = @activity.strand_relevant?(strand) ? "" : "display:none"
-            %tr{:id => "row_#{strand_name}", :style => "#{display_on};"}
+            %tr{:id => "row_#{strand}", :style => "#{display_on};", :class => "completionRequired #{'complete' if @activity.completed(nil, strand)}"}
               %th.strandHeading
                 =h strand_display(strand).titlecase
               %td
@@ -110,31 +110,29 @@
             No strands selected as relevant.
                 
       %p
-        %span.letter
+        %span.letter{:class => "completionRequired #{'complete' if @activity.questions.find_by_name('purpose_overall_14').completed?}"}
           c.
         %strong=link_to "Final comments", edit_full_assessment_comment_activities_section_path(@activity), :title => "Full Assessment Comments"
         %span.letter_completed
           =tick_cross_display(@activity.questions.find_by_name('purpose_overall_14').completed?)
     .stepFooter
-    
-  -if @activity.approved
-    .step
-      .stepBox
-        %h2 Submit Assessment for Approval
-        %p
-          If you are happy with your answers, all that remains for you to do is to submit the assessment for approval. Upon submission you will no longer be able to change any of your answers.  The EINA Approver will be able to see all your answers and comments for the report but not the notes to yourself.
-        -if @activity.submitted.nil? or !@activity.submitted
-          %p{:style=>"text-align:center;"}
-            =link_to "Submit",  {:controller => 'activities', :action => 'submit'}, :class=>"orangeButton"
-        -else
-          %p#submitted_answers{:style=>"display:block;"}
-            =image_tag('icons/tick.gif')
-            Thank you for submitting your answers.
-      .stepFooter
-      .clear
-  -else
-    =image_tag('submit_assessment_preview.png')
+  -approval_vis = @activity.completed
+  .step.approvalStep{:style => "#{'display:none' unless approval_vis}"}
+    .stepBox
+      %h2 Submit Assessment for Approval
+      %p
+        If you are happy with your answers, all that remains for you to do is to submit the assessment for approval. Upon submission you will no longer be able to change any of your answers.  The EINA Approver will be able to see all your answers and comments for the report but not the notes to yourself.
+      -if @activity.submitted.nil? or !@activity.submitted
+        %p{:style=>"text-align:center;"}
+          =link_to "Submit",  {:controller => 'activities', :action => 'submit'}, :class=>"orangeButton"
+      -else
+        %p#submitted_answers{:style=>"display:block;"}
+          =image_tag('icons/tick.gif')
+          Thank you for submitting your answers.
+    .stepFooter
     .clear
+  =image_tag('submit_assessment_preview.png', :class => "mockApprovalStep", :style => "#{'display:none' if approval_vis}")
+  .clear
 -else
   =image_tag('full_assessment_preview.png')
   =image_tag('submit_assessment_preview.png')

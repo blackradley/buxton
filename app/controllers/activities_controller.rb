@@ -19,10 +19,13 @@ class ActivitiesController < ApplicationController
   helper_method :render_to_string
   before_filter :authenticate_user!
   before_filter :ensure_creator, :only => [:edit, :new, :create, :update, :directorate_einas]
-  before_filter :ensure_completer, :only => [:questions, :submit, :toggle_strand, :my_einas]
+  before_filter :set_activity, :only => [:edit, :questions, :update, :toggle_strand, :submit, :show, :approve, :reject, :submit_approval, :submit_rejection]
+  before_filter :ensure_completer, :only => [:my_einas]
+  before_filter :ensure_activity_completer, :only => [:questions, :submit, :toggle_strand]
   before_filter :ensure_approver, :only => [:assisting]
+  before_filter :ensure_activity_approver, :only => [:approve, :reject, :submit_approval, :submit_rejection]
   before_filter :ensure_pdf_view, :only => [:show]
-  before_filter :set_activity, :only => [:edit, :questions, :update, :toggle_strand, :submit, :show]
+
   autocomplete :user, :email, :scope => :live
   
   def index
@@ -93,9 +96,13 @@ class ActivitiesController < ApplicationController
   
   def submit
     #TODO: setup approver
-    @activity.approved = "submitted"
-    @activity.save
-    flash[:notice] = 'Your activity has been successfully submitted for approval.'
+    if @activity.completed
+      @activity.submitted = true
+      @activity.save!
+      flash[:notice] = 'Your EINA has been successfully submitted for approval.'
+    else
+      flash[:error] = "You need to finish your EINA before you can submit it."
+    end
     redirect_to questions_activity_path(@activity)
   end
 
@@ -121,6 +128,7 @@ class ActivitiesController < ApplicationController
   end
 
   def toggle_strand
+    return false if @activity.submitted
     unless @activity.strand_required?(params[:strand])
       @activity.toggle("#{params[:strand]}_relevant")
       @activity.save!
@@ -129,6 +137,26 @@ class ActivitiesController < ApplicationController
   end
   
   
+  def approve
+    render :layout =>false
+  end
+  
+  def reject
+    render :layout =>false
+  end
+  
+  def submit_approval
+    @activity.update_attributes(:approved => true)
+    Mailer.activity_approved(@activity, params[:email_contents]).deliver
+    redirect_to approving_activities_path
+  end
+  
+  def submit_rejection
+    @activity.update_attributes(:submitted => false)
+    Mailer.activity_rejected(@activity, params[:email_contents]).deliver
+    redirect_to approving_activities_path
+  end
+
 protected
   
   def ensure_pdf_view
@@ -138,5 +166,14 @@ protected
   
   def set_activity
     @activity = current_user.activities.select{|a| a.id == params[:id].to_i}.first
+    return false unless @activity
+  end
+  
+  def ensure_activity_completer
+    @activity.completer == self
+  end
+  
+  def ensure_activity_approver
+    @activity.approver == self
   end
 end

@@ -17,7 +17,7 @@ class Activities::SectionsController < ApplicationController
   # List the section status for the different activities of an Organisation
   # but don't paginate, a long list is actually more convenient for the Organisation
   # Manager to scan down.
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!, :except => :new_issue
   before_filter :set_activity
   before_filter :set_strand, :only => [:edit]
   before_filter :set_selected
@@ -63,6 +63,10 @@ class Activities::SectionsController < ApplicationController
     section = params[:section]
     @impact_enabled =  (@activity.questions.where(:name => "impact_#{@equality_strand}_9").first.response == 1)
     @consultation_enabled = (@activity.questions.where(:name => "consultation_#{@equality_strand}_7").first.response == 1)
+    if section.to_s == "action_planning"
+      @impact_issues = @activity.issues_by(:impact, @equality_strand)
+      @consultation_issues = @activity.issues_by(:consultation, @equality_strand)
+    end
     render "edit_#{section}"
   end
 
@@ -70,16 +74,22 @@ class Activities::SectionsController < ApplicationController
   # Available to: Activity Manager
   def update
     # If we have issues to process
+    if @activity.submitted
+      flash[:notice] =  "#{@activity.name} has been submitted and cannot be altered."
+      redirect_to questions_activity_path(@activity)
+      return
+    end
+    if !@activity.started
+      @activity.started_on = Date.today
+    end
     if params[:activity][:issue_attributes] then
       #removes all blank elements from the array that were not there previously (ie those without id's)
       params[:activity][:issue_attributes].reject!{|i| i['description'].blank? && i['id'].nil? }
       #marks all previously existing issues that had their description field blanked for destruction
-      params[:activity][:issue_attributes].each{|i| i['issue_destroy'] = 1 if i['description'].blank?}
+      params[:activity][:issue_attributes].each{|i| i['_destroy'] = 1 if i['description'].blank?}
     end
-
     # Update the answers in the activity table
     @activity.update_attributes!(params[:activity])
-    @activity.update_relevancies!
     # Update the activity strategy answers if we have any (currently only in the Purpose section)
     if params[:strategy_responses] then
       params[:strategy_responses].each do |strategy_id, strategy_response|
@@ -92,30 +102,12 @@ class Activities::SectionsController < ApplicationController
     flash[:notice] =  "#{@activity.name} was successfully updated."
     redirect_to questions_activity_path(@activity)
 
-  # rescue ActiveRecord::RecordNotSaved, ActiveRecord::RecordInvalid
-  #   flash[:notice] =  "Could not update the activity."
-  #   @equality_strand = params[:equality_strand].strip
-  #   @id = params[:id]
-  # 
-  #   case @id
-  #   when 'purpose'
-  #     strategies = @activity.organisation.organisation_strategies.sort_by(&:position) # sort by position
-  #     @activity_strategies = Array.new(strategies.size) do |i|
-  #       @activity.activity_strategies.find_or_create_by_strategy_id(strategies[i].id)
-  #     end
-  #     render :template => 'sections/edit_purpose'
-  #   when 'impact'
-  #     render :template => 'sections/edit_impact'
-  #   when 'consultation'
-  #     render :template => 'sections/edit_consultation'
-  #   when 'additional_work'
-  #     render :template => 'sections/edit_additional_work'
-  #   else
-  #     # throw error
-  #     raise ActiveRecord::RecordNotFound
-  #   end
   end
   
+  def new_issue
+    @section = params[:section]
+    render 'new_issue', :locals => {:issue => Issue.new, :strand => params[:strand]}, :layout => false
+  end
   
   
   protected
@@ -137,6 +129,7 @@ class Activities::SectionsController < ApplicationController
   
   def set_activity
     @activity = current_user.activities.select{|a| a.id == params[:id].to_i}.first
+    return false if @activity.submitted
   end
   
   def set_selected

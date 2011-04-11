@@ -11,6 +11,10 @@ var sorter;
 
 $(document).ready(function(){
   
+  $(".colorbox").click(function(){
+    $(this).colorbox({'href': $(this).data("path")});
+  })
+  
   $("td:empty").html("&nbsp;");
     
   $('input.ui-datepicker').datepicker();
@@ -51,6 +55,15 @@ $(document).ready(function(){
   $('span.checkStrand input').click(function(){
     var strand = $(this).attr('id').replace("_checkbox", "");
     $('#row_'+ strand).toggle();
+    var footer_visible = $('.completionRequired.complete:visible').length == $('.completionRequired:visible').length
+    if(footer_visible){
+      $(".approvalStep").show();
+      $(".mockApprovalStep").hide();
+    }
+    else{
+      $(".approvalStep").hide();
+      $(".mockApprovalStep").show();
+    }
     $.post($(this).data("path"));
   })
   
@@ -67,7 +80,7 @@ $(document).ready(function(){
   
   $('.addIssue').click(function(){
     var issue_link = this
-    $.get("/issues/new?section=" + $(issue_link).data("section") + "&strand=" + $(issue_link).data("strand"), function(data){
+    $.get($(this).data("path"), function(data){
       $(issue_link).parents(".question").children("span#issues_list").append(data);
       $('.issueDeleteLink').click(function(){
         $(this).up(".issue").remove()
@@ -97,6 +110,15 @@ $(document).ready(function(){
     // sorter.limitid = 'pagelimit'; //page limit id
     sorter.init('sortable',0,true);
   }
+  
+  $('.issueEdit').click(function(){
+    var issue = $(this).parents(".issue");
+    issue.find(".issueEdit, .issueDetails").toggle();
+    if(issue.find(".issueAction").is(":visible")){
+      issue.find(".issueAction").focus();
+    }
+    return false;
+  })
   
 });
 

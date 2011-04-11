@@ -1,0 +1,6 @@
+.issue
+  = fields_for 'activity[issues_attributes]', issue do |issue_form|
+    = issue_form.text_field :description, :index => nil
+    = link_to_function image_tag('icons/delete.gif'), :class => "deleteIssueLink"
+    = issue_form.hidden_field :strand, :index => nil, :value => strand
+    = issue_form.hidden_field :section, :index => nil, :value => @section

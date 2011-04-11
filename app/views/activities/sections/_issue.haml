@@ -1,5 +1,5 @@
 .issue
-  = fields_for "activity[issue_attributes][]", issue do |issue_form|
+  = fields_for :issues, issue do |issue_form|
     = issue_form.text_field :description, :index => nil
     -if issue.new_record?
       = link_to_function image_tag('icons/delete.gif'), :class => "deleteIssueLink"
