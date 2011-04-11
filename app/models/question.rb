@@ -57,7 +57,6 @@ class Question < ActiveRecord::Base
   end
     
   def check_needed
-    return false unless self.activity.send("#{self.strand}_relevant?")
     parent_okay = self.parent.nil? ? true : self.dependency.satisfied?
     parent_okay
   end

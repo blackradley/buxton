@@ -79,8 +79,8 @@ class Activities::SectionsController < ApplicationController
       redirect_to questions_activity_path(@activity)
       return
     end
-    if !@activity.started
-      @activity.started_on = Date.today
+    if !@activity.actual_start_date
+      @activity.actual_start_date = Date.today
     end
     if params[:activity][:issue_attributes] then
       #removes all blank elements from the array that were not there previously (ie those without id's)

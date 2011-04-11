@@ -4,6 +4,7 @@
     =form.input :name, :label => "Title"
     =form.input :start_date, :label => "Target Start Date", :as => :datepicker
     =form.input :end_date, :label => "Target End Date", :as => :datepicker
+    = form.input :review_on, :label => "Review Date", :as => :datepicker
     =form.autocompleted_input :approver_email, :url => autocomplete_user_email_activities_path, :label => "Approver"
     =form.autocompleted_input :completer_email, :url => autocomplete_user_email_activities_path, :label => "Completer"
     =form.input :activity_type, :as => :select, :collection => @activity.types.collect {|option| [option.titlecase , @activity.types.index(option)] }, :label => "Type", :include_blank => false

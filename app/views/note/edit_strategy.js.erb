@@ -6,5 +6,5 @@ $.fancybox.close();
 <% else %>
   $("#activity_strategy_<%= @parent_strategy.id %>_note").parents(".noteBox").children(".newNote").hide();
   $("#activity_strategy_<%= @parent_strategy.id %>_note").parents(".noteBox").children(".showNote").show();
-  $("#activity_strategy_<%= @parent_strategy.id %>_note").html("<%= escape_javascript(render(:partial => 'sections/attachment', :locals => {:text => @parent_strategy.note.contents})) %>")
+  $("#activity_strategy_<%= @parent_strategy.id %>_note").html("<%= escape_javascript(render(:partial => 'activities/sections/attachment', :locals => {:text => @parent_strategy.note.contents})) %>")
 <% end %>
