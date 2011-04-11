@@ -96,7 +96,10 @@ Buxton::Application.routes.draw do
     end
   end
   
-  resources :service_areas do    
+  resources :service_areas do
+    collection do 
+      get :autocomplete_user_email
+    end    
     member do
       post :toggle_retired_status
     end

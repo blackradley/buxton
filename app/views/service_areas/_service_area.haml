@@ -9,7 +9,7 @@
         %label{:style=>"clear:none;"}= @directorates.first.name
         %input{:type=>"hidden", :name=>"service_area[directorate_id]", :value=>@directorates.first.id}
     =form.hidden_field :approver_id
-    =form.autocompleted_input :approver_email, :url => autocomplete_user_email_directorates_path, :id_element => '#service_area_approver_id', :label => "Service Area Approver"
+    =form.autocompleted_input :approver_email, :url => autocomplete_user_email_service_areas_path, :id_element => '#service_area_approver_id', :label => "Service Area Approver"
     =form.input :retired, :label => "Retired?"
   = form.buttons do
     = form.submit "Save"
