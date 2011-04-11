@@ -4,9 +4,8 @@
   %span.letter
     ="#{@letter}."
   =@breadcrumb.last.to_s
-#questions.no_help
-  =# render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [@question_reference])
-  =# render :partial => 'intro'
+#questions.assessmentComments
+  = render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [@question_reference])
   =form_for(@activity, :url => activities_section_path(@activity)) do |f|
     = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [@question_reference]), :locals => {:f => f}
     = hidden_field_tag 'id', @id 
