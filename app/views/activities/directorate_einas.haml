@@ -1,53 +1,66 @@
 %h2 Directorate EINAs
-.searchBox
-  = form_tag '#', :id => 'searchForm' do
-    %label Search for:
-    = text_field_tag 'search_term', '', :class => 'textField'
-    = submit_tag 'Search', :class => 'submitButton'
-.orangeButton
-  =link_to "Add Eina", new_activity_path, :class=>"add"
-%table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
-  %thead
-    %tr
-      %th Service Area
-      %th Activity Name
-      %th Ref no.
-      %th Approver
-      %th.date Date Started
-      %th.date Actual Completion
-      %th Progress
-      %th.last
-    %tr
-      %th.sortControls
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-      %th.sortControls
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-      %th.sortControls
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-      %th.sortControls
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-      %th.sortControls
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-      %th.sortControls
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-      %th.sortControls
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-      %th.sortControls.last
-  %tbody
-    - @activities.each do |activity|
-      %tr{:class => cycle("light", "dark")}
-        %td= activity.service_area.name
-        %td= activity.name
-        %td= activity.ref_no
-        %td= activity.approver.email
-        %td= activity.started ? activity.actual_start_date.to_s(:short) : "N/A"
-        %td= activity.approved ? activity.approved_on.to_s(:short) : "N/A"
-        %td= activity.progress
-        %td.last= link_to "view", activity_path(activity), :class => "action view"
+- unless @directorates > 0
+  .clear
+  %p You are not the Directorate Contact Officer for any directorates, and so can not create EINAs at this time.
+- else
+  - unless @live_directorates > 0
+    =image_tag("add_disabled.jpg", :style=>"float:right;")
+  -else
+    .orangeButton
+      =link_to "Add EINA", new_activity_path, :class=>"add"
+  .clear
+  - if @activities.empty?
+    %p There are no EINAs yet for any directorates you are the Directorate Contact Officer for, you can create EINA's using  the "Add EINA" button above.
+  -else
+    .searchBox
+      = form_tag '#', :id => 'searchForm' do
+        %label Search for:
+        = text_field_tag 'search_term', '', :class => 'textField'
+        = submit_tag 'Search', :class => 'submitButton'
+        %p Search will return all records with Service Area, Name, Ref No or Approver matching the search text.
+
+    %table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
+      %thead
+        %tr
+          %th Service Area
+          %th EINA Name
+          %th Ref no.
+          %th Approver
+          %th.date Date Started
+          %th.date Actual Completion
+          %th Progress
+          %th.last
+        %tr
+          %th.sortControls
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+          %th.sortControls
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+          %th.sortControls
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+          %th.sortControls
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+          %th.sortControls
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+          %th.sortControls
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+          %th.sortControls
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+          %th.sortControls.last
+      %tbody
+        - @activities.each do |activity|
+          %tr{:class => cycle("light", "dark")}
+            %td= activity.service_area.name
+            %td= activity.name
+            %td= activity.ref_no
+            %td= activity.approver.email
+            %td= activity.started ? activity.actual_start_date.to_s(:short) : "N/A"
+            %td= activity.approved ? activity.approved_on.to_s(:short) : "N/A"
+            %td= activity.progress
+            %td.last= link_to "view", activity_path(activity), :class => "action view"

@@ -140,7 +140,11 @@
 #content_holder .searchBox,
 #cboxLoadedContent .searchBox {
   float: left;
-  width: 500px; }
+  width: 500px;
+  background-color: #e8e8e8;
+  margin-top: 10px;
+  padding: 10px 20px 5px;
+  width: 910px; }
   #content_holder .searchBox form label,
   #cboxLoadedContent .searchBox form label {
     font-weight: bold;
@@ -166,12 +170,15 @@
     color: white;
     float: left;
     padding: 0px;
-    margin: 0px 0px 0px 10px;
+    margin: 0px 20px 0px 10px;
     line-height: 22px;
     font-weight: bold; }
   #content_holder .searchBox form .submitButton:hover,
   #cboxLoadedContent .searchBox form .submitButton:hover {
     background-image: url(../images/orange_buttons/search_hover.jpg); }
+  #content_holder .searchBox form p,
+  #cboxLoadedContent .searchBox form p {
+    font-style: italic; }
 #content_holder .orangeButton,
 #cboxLoadedContent .orangeButton {
   display: inline-block;
