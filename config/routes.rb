@@ -96,7 +96,11 @@ Buxton::Application.routes.draw do
     end
   end
   
-  resources :service_areas
+  resources :service_areas do    
+    member do
+      post :toggle_retired_status
+    end
+  end
   resources :strategies
   
   match 'sections/edit/:id/:equality_strand' => 'sections#edit'

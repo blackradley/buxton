@@ -101,18 +101,22 @@ module ApplicationHelper
   end
 
   def activities_menu
+    menu = Array.new
     current_user.roles.reject{|r| r == "Cop"}.map do |role| 
       case role
       when "Completer"
-        ["My EINAs", my_einas_activities_path]
+        menu << ["My EINAs", my_einas_activities_path]
       when "Approver"
-        ["Awaiting Approval", approving_activities_path]
+        menu << ["Awaiting Approval", approving_activities_path]
       when "Creator"
-        ["Directorate EINAs", directorate_einas_activities_path]
+        if current_user.count_directorates > 0
+          menu << ["Directorate EINAs", directorate_einas_activities_path]
+        end
       when "Cop"
-        ["Governance Officer", "#"]
+        menu << ["Governance Officer", "#"]
       end
     end
+    menu
   end
   
   # Display a coloured bar showing the level selected, produced

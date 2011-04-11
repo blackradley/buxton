@@ -22,7 +22,11 @@
   %tbody
     - @directorates.each do |directorate|
       %tr{:class => cycle("light", "dark")}
-        %td= directorate.name
+        %td
+          = directorate.name 
+          - if directorate.retired?
+            %span.retired
+              ="(Retired)"
         %td= directorate.abbreviation
         %td= directorate.creator.email
         %td.last= link_to "edit", edit_directorate_path(directorate), :class => "action edit", :target => "blank"

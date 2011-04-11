@@ -52,6 +52,10 @@ table {
       background-image: url(../images/icons/edit.gif); }
     table td .view {
       background-image: url(../images/icons/pdf.gif); }
+    table td .retired {
+      font-style: italic;
+      color: #e2474b;
+      font-size: 11px; }
   table .last {
     border-right: 0px solid #bbbbbb; }
   table .sortControls {
