@@ -219,6 +219,10 @@ class Activity < ActiveRecord::Base
     true
   end
 
+  def disabled_strands
+    self.strands(true) - self.strands
+  end
+  
   #This allows you to check whether a activity, section or strand has been completed.
   def completed(section = nil, strand = nil)
     is_purpose = (section.to_s == 'purpose')
@@ -228,7 +232,12 @@ class Activity < ActiveRecord::Base
     #Special check for the unique conditions where section and strand are nil
     if section.nil? && strand.nil? then
       search_conditions = "name REGEXP 'purpose' AND completed = false AND needed = true"
-      return false if self.questions.find(:all, :conditions => search_conditions).size > 0
+      search_conditions = {:completed => false, :needed => true}
+      question_set = self.questions.find(:all, :conditions => search_conditions)
+      self.disabled_strands.each do |s|
+        question_set.reject!{|q| q.strand.to_s == s.to_s}
+      end
+      return false if question_set.size > 0
     end
     #Are there any questions which are required and not completed?
     new_section = section.nil? ? self.sections.map(&:to_s).join("|") : section
@@ -288,7 +297,7 @@ class Activity < ActiveRecord::Base
 
   def impact_on_individuals_completed
     answered_questions = self.questions.find(:all, :conditions => "name REGEXP 'purpose\_overall\_[5,6,7,8,9]' AND (completed = true OR needed = false)")
-    return false unless answered_questions.size == 5
+    return false unless answered_questions.flatten.size == 5
     return true
   end
 
@@ -297,7 +306,7 @@ class Activity < ActiveRecord::Base
     self.strands(true).each do |strand|
       answered_questions += self.questions.find(:all, :conditions => "name REGEXP 'purpose\_#{strand.to_s}\_3' AND (completed = true OR needed = false)")
     end
-    return false unless answered_questions.size == 9
+    return false unless answered_questions.flatten.size == 9
     return true
   end
 
@@ -359,7 +368,7 @@ class Activity < ActiveRecord::Base
   end
 
   def strands(return_all = false)
-    strand_list = ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age', 'gender_reassignment', 'pregnancy_and_maternity', 'marriage_civil_partnership'].map{|strand| strand if self.send("#{strand}_relevant")||return_all}
+    strand_list = ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age', 'gender_reassignment', 'pregnancy_and_maternity', 'marriage_civil_partnership'].map{|strand| strand if self.send("#{strand}_relevant") || self.strand_required?(strand)  ||return_all}
     strand_list.compact
   end
 

@@ -2,9 +2,8 @@
 %h1#questions=h @activity.name + " - " + strand_display(@equality_strand).titlecase + " - Impact"
 #questions
   = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [1,2,3])
-  -if @activity.existing? then
-    = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [4,5])
-    = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [6,7])
+  = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [4,5])
+  = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [6,7])
   = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [8])
   = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [9])
   =form_for(@activity, :url => activities_section_path(@activity)) do |f|
