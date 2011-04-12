@@ -21,8 +21,6 @@ set :runner, user
 default_run_options[:pty] = true # We need to turn on the :pty option because it 
                                  # would seem we don’t get the passphrase prompt 
                                  # from git if we don’t.
-set :repository_cache, "git_cache"
-set :deploy_via, :remote_cache
 set :scm_verbose, true
 set :scm, "git"
 set :scm_passphrase, "Buxton27"
@@ -96,5 +94,5 @@ task :rvm_bundler_setup do
 end
 
 after 'deploy:setup', 'rvm_bundler_setup'
-        require './config/boot'
+        # require './config/boot'
         require 'hoptoad_notifier/capistrano'
