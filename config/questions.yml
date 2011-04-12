@@ -2,7 +2,7 @@ questions:
   purpose:
     3:
       label: 'Does this EINA have any relevance to #{wordings[strand]}?'
-      help: 'This question asks you to identify any positive differential impact that the Function has on #{wordings[strand]}.<br/><br/>  #{data["extra_strand_wordings"]["purpose"][3][strand]}. Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed well.'
+      help: 'This question asks you to identify any positive differential impact that the Function has on #{wordings[strand]}.<br/><br/>  #{data["extra_strand_wordings"]["purpose"][3][strand]}Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed well.'
       type: select
       choices: 3
       weights: 1
@@ -313,7 +313,7 @@ wordings:
   age: 'individuals of different ages'
   gender_reassignment: 'individuals with gender reassignment'
   pregnancy_and_maternity: 'expecting or new parents'
-  marriage_and_civil_partnership: 'individuals who are married or in a civil partnership'
+  marriage_civil_partnership: 'individuals who are married or in a civil partnership'
 
 strands:
   gender:  'Gender'
@@ -325,7 +325,7 @@ strands:
   overall: 'Overall'
   gender_reassignment: 'Gender Reassignment'
   pregnancy_and_maternity: 'Pregnancy & Maternity'
-  marriage_and_civil_partnership: 'Marriage & Civil Partnership.'  
+  marriage_civil_partnership: 'Marriage & Civil Partnership.'  
 
 section_names:
   - purpose
@@ -648,7 +648,7 @@ extra_strand_wordings:
       sexual_orientation: ''
       gender_reassignment: ''
       pregnancy_and_maternity: ''
-      marriage_and_civil_partnership: ''
+      marriage_civil_partnership: ''
   impact:
     6:
      extra_word:
@@ -660,7 +660,7 @@ extra_strand_wordings:
        sexual_orientation: ', including lesbian, gay, bisexual and transgender'
        gender_reassignment: ''
        pregnancy_and_maternity: ''
-       marriage_and_civil_partnership: ''
+       marriage_civil_partnership: ''
      extra_paragraph:
        gender:
        race:
@@ -670,7 +670,7 @@ extra_strand_wordings:
        sexual_orientation:
        gender_reassignment: ''
        pregnancy_and_maternity: ''
-       marriage_and_civil_partnership: ''
+       marriage_civil_partnership: ''
     9:
       gender: 'This means that the impact on one particular group of individuals, men or women, is different than for the other group.'
       race: 'This means that the impact on one particular group of individuals, say Polish people, is different than for another group.'
@@ -680,7 +680,7 @@ extra_strand_wordings:
       sexual_orientation: 'This means that the impact on one particular group of individuals, say bisexuals, is different than for another group.'
       gender_reassignment: ''
       pregnancy_and_maternity: ''
-      marriage_and_civil_partnership: ''
+      marriage_civil_partnership: ''
   consultation:
     1:
       gender:
@@ -691,7 +691,7 @@ extra_strand_wordings:
       sexual_orientation: 'It will be important to ensure that the consultation includes people from a range of sexual orientations , including lesbian, gay, bisexual and transgender. <br/><br/>'
       gender_reassignment: ''
       pregnancy_and_maternity: ''
-      marriage_and_civil_partnership: ''    
+      marriage_civil_partnership: ''    
     4:
       gender:
       race: 'It will be important to ensure that the consultation includes people from a range of ethnic backgrounds.  <br/><br/>'
@@ -701,7 +701,7 @@ extra_strand_wordings:
       sexual_orientation: 'It will be important to ensure that the consultation includes people from a range of sexual orientations , including lesbian, gay, bisexual and transgender. <br/><br/>'
       gender_reassignment: ''
       pregnancy_and_maternity: ''
-      marriage_and_civil_partnership: ''
+      marriage_civil_partnership: ''
     7:
       gender: 'This means that the impact on one particular group of individuals, men or women, is different than for the other group.'
       race: 'This means that the impact on one particular group of individuals, say Polish people, is different than for another group.'
@@ -711,7 +711,7 @@ extra_strand_wordings:
       sexual_orientation: 'This means that the impact on one particular group of individuals, say bisexuals, is different than for another group.'
       gender_reassignment: ''
       pregnancy_and_maternity: ''
-      marriage_and_civil_partnership: ''
+      marriage_civil_partnership: ''
       
 descriptive_terms_for_strands:
   gender: 'gender'
@@ -722,7 +722,7 @@ descriptive_terms_for_strands:
   age: 'age'
   gender_reassignment: ''
   pregnancy_and_maternity: ''
-  marriage_and_civil_partnership: ''
+  marriage_civil_partnership: ''
 
 issues_help_text:
   -
