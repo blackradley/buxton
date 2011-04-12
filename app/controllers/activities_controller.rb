@@ -195,10 +195,10 @@ protected
   end
   
   def ensure_activity_completer
-     redirect_to access_denied_path unless @activity.completer == self
+     redirect_to access_denied_path unless @activity.completer == current_user
   end
   
   def ensure_activity_approver
-     redirect_to access_denied_path unless @activity.approver == self
+     redirect_to access_denied_path unless @activity.approver == current_user
   end
 end
