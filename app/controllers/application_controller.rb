@@ -86,19 +86,19 @@ protected
   end
   
   def ensure_creator
-    current_user.creator?
+    redirect_to access_denied_path unless current_user.creator?
   end
   
   def ensure_completer
-    current_user.completer?
+    redirect_to access_denied_path unless current_user.completer?
   end
   
   def ensure_approver
-    current_user.approver?
+    redirect_to access_denied_path unless current_user.approver?
   end
   
   def ensure_pdf_view
-    current_user.creator? || current_user.approver? || current_user.completer?
+    redirect_to access_denied_path unless current_user.creator? || current_user.approver? || current_user.completer?
   end
   
 private
