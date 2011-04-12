@@ -350,7 +350,7 @@ class Activity < ActiveRecord::Base
   def strand_required?(strand)
     q  = self.questions.where(:name => "purpose_#{strand.to_s}_3")
     return false unless q.first
-    q.response == 1
+    q.first.response == 1
   end
   
   def strand_relevant?(strand)
