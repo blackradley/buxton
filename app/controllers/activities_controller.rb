@@ -74,7 +74,7 @@ class ActivitiesController < ApplicationController
 
   def create
     @activity = Activity.new(params[:activity])
-    @activity.ref_no = "EINA#{sprintf("%06d", Activity.last(:order => :id).id)}"
+    @activity.ref_no = "EINA#{sprintf("%06d", Activity.last(:order => :id).id + 1)}"
     # @directorate = Directorate.find_by_creator_id(current_user.id)
     @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
     @selected = "directorate_einas"
