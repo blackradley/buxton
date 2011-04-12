@@ -68,6 +68,8 @@ class ActivitiesController < ApplicationController
     end
     @selected = "directorate_einas"
     @activity = Activity.new
+    @activity.service_area = services.first
+    @activity.approver = services.first.approver
   end
 
   def create
@@ -81,6 +83,12 @@ class ActivitiesController < ApplicationController
       Mailer.activity_created(@activity).deliver
       redirect_to directorate_einas_activities_path
     else
+      if !@activity.errors[:completer].blank?
+        @activity.errors.add(:completer_email, "An EINA must have someone assigned to undergo the assessment")
+      end
+      if !@activity.errors[:approver].blank?
+        @activity.errors.add(:approver_email, "An EINA must have someone assigned to approve the assessment")
+      end
       @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
       render 'new'
     end
