@@ -185,7 +185,7 @@ class ActivitiesController < ApplicationController
 protected
   
   def ensure_pdf_view
-    current_user.creator? || current_user.approver? || current_user.completer?
+     redirect_to access_denied_path unless current_user.creator? || current_user.approver? || current_user.completer?
   end
   
   
@@ -195,10 +195,10 @@ protected
   end
   
   def ensure_activity_completer
-    @activity.completer == self
+     redirect_to access_denied_path unless @activity.completer == self
   end
   
   def ensure_activity_approver
-    @activity.approver == self
+     redirect_to access_denied_path unless @activity.approver == self
   end
 end
