@@ -8,53 +8,84 @@
 #
 require File.dirname(__FILE__) + '/../test_helper'
 
-class UserTest < Test::Unit::TestCase
-  fixtures :users
-#
-# Check the properties of the administrative user.
-# 
-  def test_administrative
-    user = Administrator.find(1)
-    assert_equal users(:administrator).email, user.email
+class UserTest < ActiveSupport::TestCase
+  
+  context "when a user is a creator" do
+    
+    setup do
+      @user = Factory(:user, :creator => true)
+    end
+  
+    should "respond to a creator method" do
+      assert @user.creator?
+    end
+    
+    should "be included in the creator scope" do
+      assert User.creator.include?(@user)
+    end
+    
+    should "not be included in the creator scope if retired" do
+      @user.update_attributes(:retired => true)
+      assert !User.creator.include?(@user)
+    end
+    
+    context "with 3 live directorates and 2 retired directorates" do
+      setup do
+        3.times do |i|
+          Factory(:directorate, :creator => @user)
+        end
+        
+        2.times do |i|
+          Factory(:directorate, :creator => @user, :retired => true)
+        end
+      end
+      
+      should "have 5 directorates" do 
+        assert_equal 5, @user.count_directorates
+      end
+      
+      should "have 3 live directorates" do
+        assert_equal 3, @user.count_live_directorates
+      end
+    end
   end
-#
-# Check the properties of the organisational user.
-#  
-  def test_organisational
-    user = OrganisationManager.find(2)
-    assert_equal users(:organisation_manager).email, user.email 
+  
+  context "when a user is retired" do
+    setup do
+      @user = Factory(:user, :retired => true)
+    end
+    
+    should "not be included in the live filter" do
+      assert !User.live.include?(@user)
+    end
+      
   end
-#
-# Check the properties of the functional user.
-#  
-  def test_functional
-    user = ActivityManager.find(3)
-    assert_equal users(:activity_manager).email, user.email
-  end
-#
-# Find by functional users by email 
-#
-  def test_find_all_by_email
-    users = User.find_all_by_email(users(:activity_manager).email)
-    assert_equal users.length, 1
-    user = users.first
-    assert_equal users(:activity_manager).email, user.email
-    assert_equal 'ActivityManager', user.class.name
-  end
-#
-# Get the admin users
-#  
-  def test_find_admins
-    admins = Administrator.find(:all)
-    assert_equal admins.length, 1
-    admin = admins.first
-    assert_equal users(:administrator).email, admin.email
-  end
-#
-# Get a user based on the passkey
-#
-  def test_find_by_passkey
-    user = User.find_by_passkey('5b550821be4aa80e4fefd672722c236a109e8abd')
-    assert_equal user.email, users(:organisation_manager).email
+  
+  context "with one activity and a completer and approver" do
+    setup do 
+      @completer = Factory(:user)
+      @approver = Factory(:user)
+      @normal_activity = Factory(:activity, :completer => @completer, :approver => @approver)
+    end
+    
+    should "mark the completer as only a completer" do
+      assert @completer.completer?
+      assert !@completer.creator?
+      assert !@completer.approver?
+    end
+  
+    should "have the role of completer as a completer" do
+      assert_equal ["Completer"], @completer.roles
+    end
+    
+    should "have the role of approver as an approver" do
+      assert_equal ["Approver"], @approver.roles
+    end
+    
+    should "mark the approver as only an approver" do
+      assert !@approver.completer?
+      assert !@approver.creator?
+      assert @approver.approver?
+    end
   end
 end

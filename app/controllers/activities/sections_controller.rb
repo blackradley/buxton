@@ -27,7 +27,7 @@ class Activities::SectionsController < ApplicationController
   def edit_purpose_a
     @breadcrumb << ["What is this EINA for?"]
     @equality_strand = "overall"
-    @activity_strategies = Strategy.all.map do |s|
+    @activity_strategies = Strategy.live.map do |s|
       @activity.activity_strategies.find_or_create_by_strategy_id(s.id)
     end
   end

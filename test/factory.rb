@@ -1,8 +1,21 @@
 Factory.define :activity do |activity|
   activity.sequence(:name){|i| "Activity #{i}"}
-  activity.association :activity_manager
-  activity.association :activity_approver
-  activity.association :directorate
+  activity.association :completer
+  activity.association :approver
+  activity.association :service_area
+end
+
+Factory.define :service_area do |sa|
+  sa.sequence(:name){|i| "Service Area #{i}"}
+  sa.association :approver
+  sa.association :directorate
+end
+
+Factory.define :question do |question|
+  question.section "impact"
+  question.strand  "gender"
+  question.sequence(:name){|i| "impact_gender_#{i}"}
+  question.association :activity
 end
 
 Factory.define :issue do |i|
@@ -14,40 +27,23 @@ Factory.define :issue do |i|
 end
 
 Factory.define :user do |u|
-  u.sequence(:email){|i| "user#{i}@27stars.co.uk"}
-  u.passkey{|u| User.generate_passkey(u)}
+  u.sequence(:email) {|n| "test#{n}@example.com"}
+  u.password "password"
+  u.password_confirmation "password"
 end
 
-Factory.define :activity_manager, :parent => :user, :class => ActivityManager do |am|
-  am.type "ActivityManager"
+Factory.define :completer, :parent => :user do |am|
 end
 
-Factory.define :activity_approver, :parent => :user, :class => ActivityApprover do |am|
-  am.type "ActivityApprover"
+Factory.define :approver, :parent => :user do |am|
 end
 
-Factory.define :organisation_manager, :parent => :user, :class => OrganisationManager do |om|
-  om.type "OrganisationManager"
-  om.association :organisation
-end
-
-Factory.define :directorate_manager, :parent => :user, :class => DirectorateManager do |dm|
-  dm.type "DirectorateManager"
+Factory.define :creator, :parent => :user do |c|
+  c.creator true
 end
 
 Factory.define :directorate do |dir|
   dir.sequence(:name){|i| "Directorate #{i}"}
-  dir.association :organisation
-  dir.association :directorate_manager
-end
-
-Factory.define :organisation do |org|
-  org.sequence(:name){|o| "Organisation #{o}"}
-  org.ces_term "Corporate Equality Scheme"
-  org.strategy_text_selection 0
-  org.subdomain "www"
-  
-  org.after_build do |o|
-     o.organisation_managers = (1..5).map{Factory.build(:organisation_manager, :organisation => o)}
-  end
+  dir.sequence(:abbreviation){|i| "DR#{i}"}
+  dir.association :creator
 end
