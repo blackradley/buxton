@@ -13,6 +13,7 @@
 class Strategy < ActiveRecord::Base
   validates_presence_of :name
   
+  scope :live, "retired is not true"
   include FixInvalidChars
  
   
