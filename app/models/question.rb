@@ -69,6 +69,7 @@ class Question < ActiveRecord::Base
   
   def update_children
     children.each do |child|
+      child.parent.reload
       child.update_status
       child.save!
     end
