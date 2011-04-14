@@ -16,6 +16,8 @@ Factory.define :question do |question|
   question.strand  "gender"
   question.sequence(:name){|i| "impact_gender_#{i}"}
   question.association :activity
+  question.needed true
+  question.completed false
 end
 
 Factory.define :issue do |i|
