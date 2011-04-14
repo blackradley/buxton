@@ -22,10 +22,7 @@ end
 
 Factory.define :issue do |i|
   i.description "Issue description"
-  i.actions "Action to be taken on issuing this issue"
-  i.resources "Stuff available when doing this issue"
-  i.lead_officer "Issue Officer"
-  i.timescales "12-18 months"
+  i.association :activity
 end
 
 Factory.define :user do |u|
