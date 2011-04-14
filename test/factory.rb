@@ -41,6 +41,10 @@ Factory.define :creator, :parent => :user do |c|
   c.creator true
 end
 
+Factory.define :strategy do |s|
+  s.sequence(:name){|i| "Strategy #{i}"}
+end
+
 Factory.define :directorate do |dir|
   dir.sequence(:name){|i| "Directorate #{i}"}
   dir.sequence(:abbreviation){|i| "DR#{i}"}
