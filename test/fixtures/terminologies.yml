@@ -1,20 +1,2 @@
-# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+--- {}
 
-# one:
-#   column: value
-#
-# two:
-#   column: value
-
-strategy:
-  id: 1
-  term: strategy
-scheme:
-  id: 2
-  term: corporate equality scheme
-directorate:
-  id: 3
-  term: directorate
-project:
-  id: 4
-  term: project

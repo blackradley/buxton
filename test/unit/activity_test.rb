@@ -2,7 +2,7 @@ require File.dirname(__FILE__) + '/../test_helper'
 
 class ActivityTest < ActiveSupport::TestCase
   subject{ Factory(:activity)}
-  
+  fixtures :activities, :questions
   should validate_presence_of(:name).with_message(/All activities must have a name/)
   should validate_presence_of(:completer)
   should validate_presence_of(:approver)
@@ -11,10 +11,7 @@ class ActivityTest < ActiveSupport::TestCase
   
   context "when an activity is brand new" do
     setup do
-      @service_area = Factory(:service_area)
-      @completer = Factory(:user)
-      @approver = Factory(:user)
-      @activity = Factory(:activity, :completer => @completer, :approver => @approver, :service_area => @service_area)
+      @activity = activities(:activities_001)
     end
     
     should "not be started" do
@@ -66,10 +63,7 @@ class ActivityTest < ActiveSupport::TestCase
   
   context "when an activity has started the initial assessment by answering the first section" do
     setup do
-      @service_area = Factory(:service_area)
-      @completer = Factory(:user)
-      @approver = Factory(:user)
-      @activity = Factory(:activity, :completer => @completer, :approver => @approver, :service_area => @service_area)
+      @activity = activities(:activities_001)
       @activity.questions.where(:name => ["purpose_overall_2", "purpose_overall_11", "purpose_overall_12"]).each do |q|
         q.update_attributes(:raw_answer => "1")
       end

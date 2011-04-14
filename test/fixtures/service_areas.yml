@@ -1,0 +1,7 @@
+--- 
+service_areas_001: 
+  name: Sample Service Area
+  directorate_id: 1
+  id: 1
+  retired: 0
+  approver_id: 1

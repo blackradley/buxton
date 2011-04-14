@@ -1,125 +1,101 @@
-#  
-# $URL$
-# $Rev$
-# $Author$
-# $Date$
-#
-# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved. 
-#
-# One dummy admin
-#
-administrator:
-  id: 1
-  type: 'Administrator'
-  passkey: 2981b26fccafeabbeb8c78b461fddc1a1f13ba1e
-  email: administrator@27stars.co.uk
-  created_on: 2007-04-01 00:00:00
-  updated_on: 2007-04-01 00:00:00
-  reminded_on: 2007-04-01 00:00:00
-#
-# One dummy organisation
-#
-organisation_manager: 
-  id: 2
-  organisation_id: 1
-  type: 'OrganisationManager'
-  passkey: 5b550821be4aa80e4fefd672722c236a109e8abd
-  email: organisation_manager@27stars.co.uk
-  created_on: 2007-04-01 00:00:00
-  updated_on: 2007-04-01 00:00:00
-  reminded_on: 2007-04-01 00:00:00
-#
-# One dummy function user
-#
-activity_manager:
-  id: 3
-  type: 'ActivityManager'
-  activity_id: 1
-  passkey: 158dbc032e936dc7f36939ecd80d531223e146e2
-  email: activity_manager@27stars.co.uk
-  created_on: 2007-04-01 00:00:00
-  updated_on: 2007-04-01 00:00:00
-  reminded_on: 2007-04-01 00:00:00
-  
-activity_approver:
-  id: 10
-  type: 'ActivityApprover'
-  activity_id: 1
-  passkey: 158dbc032e936dc7f36939ecd80d531223e146e3
-  email: activity_approver@27stars.co.uk
-  created_on: 2007-04-01 00:00:00
-  updated_on: 2007-04-01 00:00:00
-  reminded_on: 2007-04-01 00:00:00
-#
-# One dummy project manager
-#
-project_manager:
+--- 
+users_004: 
+  trained: 1
+  encrypted_password: $2a$10$2wTLkkxWlesm1dUtdPVv0.MkqZJSbGlo9O0aHWvP9WY6zcrBJdIyK
+  failed_attempts: 0
+  created_at: 2011-04-14 14:32:46 Z
+  creator: 1
+  updated_at: 2011-04-14 14:32:47 Z
+  last_sign_in_ip: 
+  last_sign_in_at: 
+  sign_in_count: 0
   id: 4
-  type: 'ProjectManager'
-  project_id: 1
-  passkey: 2d4sfds4f64sdf54ds6f54ds35f4ds56f4ds6f4d
-  email: project_manager@27stars.co.uk
-  created_on: 2007-04-01 00:00:00
-  updated_on: 2007-04-01 00:00:00
-  reminded_on: 2007-04-01 00:00:00
-#
-# One dummy directorate manager
-#
-directorate_manager:
+  type: 
+  password_salt: ""
+  current_sign_in_ip: 
+  locked_at: 
+  current_sign_in_at: 
+  retired: 
+  unlock_token: 
+  locked: 
+  email: creator@27stars.co.uk
+users_005: 
+  trained: 1
+  encrypted_password: $2a$10$CZpTT9hveRr8.a29I0CnsumXkQOU69xRJ0erPGY7ltzHTDpDwS8qa
+  failed_attempts: 0
+  created_at: 2011-04-14 14:32:46 Z
+  creator: 0
+  updated_at: 2011-04-14 14:32:47 Z
+  last_sign_in_ip: 
+  last_sign_in_at: 
+  sign_in_count: 0
   id: 5
-  type: 'DirectorateManager'
-  directorate_id: 1
-  passkey: 2d4sfds4f64sdf54ds6f54ds35f4ds56f4ds6f4d
-  email: directorate_manager@27stars.co.uk
-  created_on: 2007-04-01 00:00:00
-  updated_on: 2007-04-01 00:00:00
-  reminded_on: 2007-04-01 00:00:00
-  
-#
-# One dummy organisation
-#
-organisation_manager_2: 
-  id: 6
-  organisation_id: 2
-  type: 'OrganisationManager'
-  passkey: 5b550821be4aa80e4fefd672722c236a109e8abd
-  email: organisation_manager@27stars.co.uk
-  created_on: 2007-04-01 00:00:00
-  updated_on: 2007-04-01 00:00:00
-  reminded_on: 2007-04-01 00:00:00
-#
-# One dummy function user
-#
-activity_manager_2:
-  id: 7
-  type: 'ActivityManager'
-  activity_id: 2
-  passkey: 158dbc032e936dc7f36939ecd80d531223e146e2
-  email: second_activity_manager@27stars.co.uk
-  created_on: 2007-04-01 00:00:00
-  updated_on: 2007-04-01 00:00:00
-  reminded_on: 2007-04-01 00:00:00
-#
-# One dummy project manager
-#
-project_manager_2:
-  id: 8
-  type: 'ProjectManager'
-  project_id: 2
-  passkey: 2d4sfds4f64sdf54ds6f54ds35f4ds56f4ds6f4d
-  email: second_project_manager@27stars.co.uk
-  created_on: 2007-04-01 00:00:00
-  updated_on: 2007-04-01 00:00:00
-  reminded_on: 2007-04-01 00:00:00
-#
-# One dummy directorate manager
-#
-directorate_manager_2:
-  id: 9
-  type: 'DirectorateManager'
-  directorate_id: 2
-  passkey: 2d4sfds4f64sdf54ds6f54ds35f4ds56f4ds6f4d
-  email: second_directorate_manager@27stars.co.uk
-  created_on: 2007-04-01 00:00:00
-  updated_on: 2007-04-01 00:00:00
-  reminded_on: 2007-04-01 00:00:00
+  type: Administrator
+  password_salt: ""
+  current_sign_in_ip: 
+  locked_at: 
+  current_sign_in_at: 
+  retired: 
+  unlock_token: 
+  locked: 
+  email: admin@27stars.co.uk
+users_001: 
+  trained: 1
+  encrypted_password: $2a$10$oubwgXEDtDbwhsc5j.ZgLu8O.ZheJfvJwMqhsckgZqHEWcLCY21si
+  failed_attempts: 0
+  created_at: 2011-04-14 14:32:44 Z
+  creator: 0
+  updated_at: 2011-04-14 14:33:27 Z
+  last_sign_in_ip: 127.0.0.1
+  last_sign_in_at: 2011-04-14 14:33:27 Z
+  sign_in_count: 1
+  id: 1
+  type: 
+  password_salt: ""
+  current_sign_in_ip: 127.0.0.1
+  locked_at: 
+  current_sign_in_at: 2011-04-14 14:33:27 Z
+  retired: 
+  unlock_token: 
+  locked: 
+  email: joe@27stars.co.uk
+users_002: 
+  trained: 1
+  encrypted_password: $2a$10$9yQsMzs8bqAEC2AGJzEn6.6DFZGp0xuLxmBmlsCNCX6R6xVh1GUie
+  failed_attempts: 0
+  created_at: 2011-04-14 14:32:45 Z
+  creator: 0
+  updated_at: 2011-04-14 14:32:46 Z
+  last_sign_in_ip: 
+  last_sign_in_at: 
+  sign_in_count: 0
+  id: 2
+  type: 
+  password_salt: ""
+  current_sign_in_ip: 
+  locked_at: 
+  current_sign_in_at: 
+  retired: 
+  unlock_token: 
+  locked: 
+  email: heather@27stars.co.uk
+users_003: 
+  trained: 1
+  encrypted_password: $2a$10$GwVAQQJQkmKjU49b.Fhvf.G/hkuTPPDJLTMpLupmqzage.htUGhmW
+  failed_attempts: 0
+  created_at: 2011-04-14 14:32:46 Z
+  creator: 0
+  updated_at: 2011-04-14 14:32:47 Z
+  last_sign_in_ip: 
+  last_sign_in_at: 
+  sign_in_count: 0
+  id: 3
+  type: 
+  password_salt: ""
+  current_sign_in_ip: 
+  locked_at: 
+  current_sign_in_at: 
+  retired: 
+  unlock_token: 
+  locked: 
+  email: shaun@27stars.co.uk
