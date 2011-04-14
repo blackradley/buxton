@@ -2,6 +2,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
   def self.up
     create_table(:users, :force => true) do |t|
       t.database_authenticatable :null => false
+      t.encryptable
       t.text :roles
       t.trackable
       t.timestamps
@@ -11,6 +12,7 @@ class DeviseCreateUsers < ActiveRecord::Migration
     
     create_table(:admins, :force => true) do |t|
       t.database_authenticatable :null => false
+      t.encryptable
       t.trackable
       t.timestamps
     end
