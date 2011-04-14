@@ -370,7 +370,7 @@ class Activity < ActiveRecord::Base
   end
 
   def strands(return_all = false)
-    return self.strands if return_all
+    return self.class.strands if return_all
     strand_list = ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age', 'gender_reassignment', 'pregnancy_and_maternity', 'marriage_civil_partnership'].map{|strand| strand if self.send("#{strand}_relevant") || self.strand_required?(strand)}
     strand_list.compact
   end
