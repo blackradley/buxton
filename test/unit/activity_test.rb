@@ -3,10 +3,10 @@ require File.dirname(__FILE__) + '/../test_helper'
 class ActivityTest < ActiveSupport::TestCase
   subject{ Factory(:activity)}
   fixtures :activities, :questions
-  should validate_presence_of(:name).with_message(/All activities must have a name/)
-  should validate_presence_of(:completer)
-  should validate_presence_of(:approver)
-  should validate_presence_of(:service_area)
+  # should validate_presence_of(:name).with_message(/All activities must have a name/)
+  # should validate_presence_of(:completer)
+  # should validate_presence_of(:approver)
+  # should validate_presence_of(:service_area)
   # should validate_uniqueness_of(:ref_no).with_message('Reference number must be unique')
   
   context "when an activity is brand new" do
@@ -40,6 +40,10 @@ class ActivityTest < ActiveSupport::TestCase
     
     should "not have 1d completed" do
       assert !@activity.questions.find_by_name('purpose_overall_13').completed?
+    end
+    
+    should "not have purpose completed" do
+      assert !@activity.completed(:purpose)
     end
     
     Activity.strands.each do |strand|
@@ -95,6 +99,10 @@ class ActivityTest < ActiveSupport::TestCase
     
     should "not have 1d completed" do
       assert !@activity.questions.find_by_name('purpose_overall_13').completed?
+    end
+    
+    should "not have purpose completed" do
+      assert !@activity.completed(:purpose)
     end
     
     Activity.strands.each do |strand|

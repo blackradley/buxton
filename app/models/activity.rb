@@ -218,6 +218,11 @@ class Activity < ActiveRecord::Base
   def overall_relevant?
     true
   end
+  
+  def overall_relevant
+    true
+  end
+  
 
   def disabled_strands
     self.strands(true) - self.strands
@@ -244,12 +249,15 @@ class Activity < ActiveRecord::Base
     new_strand = strand.nil? ? self.strands(is_purpose).push("overall").join("|") : strand
     search_conditions = {:completed => false, :needed => true}
     search_conditions[:section] = section.to_s if section
-    strands(true).each do |s|
+    strand_list = is_purpose ? strands(true).push("overall") : strands(true)
+    strand_list.each do |s|
+      puts s
       if strand
         next if strand.to_s != s.to_s
       else
         next if !self.send("#{s}_relevant")
       end
+      puts s.inspect
       search_conditions[:strand] = s.to_s
       results = self.questions.find(:all, :conditions => search_conditions)
       if section.to_s == "purpose"
