@@ -135,12 +135,70 @@ class ActivityTest < ActiveSupport::TestCase
       assert @activity.started
     end
     
-    should "have the status of in the full assessment" do
+    should "have the status of in the initial assessment" do
       assert_equal "IA", @activity.progress
     end
     
     should "not be completed" do
       assert !@activity.completed
+    end
+    
+    should "have 1a completed" do
+      assert @activity.target_and_strategies_completed 
+    end
+    
+    should "have 1b completed" do
+      assert @activity.impact_on_individuals_completed
+    end
+    
+    should "have 1c completed" do
+      assert @activity.impact_on_equality_groups
+    end
+    
+    should "have 1d completed" do
+      assert @activity.questions.find_by_name('purpose_overall_13').completed?
+    end
+    
+    should "have purpose completed" do
+      assert @activity.completed(:purpose)
+    end
+    
+    Activity.strands.each do |strand|
+      
+      should "not have impact #{strand} completed" do
+        assert !@activity.completed(:impact, strand.to_sym)
+      end
+      
+      should "not have consultation #{strand} completed" do
+        assert !@activity.completed(:consultation, strand.to_sym)
+      end
+      
+      should "not have additional work #{strand} completed" do
+        assert !@activity.completed(:additional_work, strand.to_sym)
+      end   
+      
+    end
+    
+  end
+  
+  context "when an activity has started the initial assessment by answering the entire first section and answered purpose overall 14" do
+    setup do
+      @activity = activities(:activities_001)
+      @activity.questions.where(:section => "purpose").each do |q|
+        q.update_attributes(:raw_answer => "2")
+      end
+    end
+    
+    should "be started" do
+      assert @activity.started
+    end
+    
+    should "have the status of in the full assessment" do
+      assert_equal "FA", @activity.progress
+    end
+    
+    should "be completed" do
+      assert @activity.completed
     end
     
     should "have 1a completed" do
