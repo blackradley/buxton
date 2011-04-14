@@ -251,19 +251,16 @@ class Activity < ActiveRecord::Base
     search_conditions[:section] = section.to_s if section
     strand_list = is_purpose ? strands(true).push("overall") : strands(true)
     strand_list.each do |s|
-      puts s
       if strand
         next if strand.to_s != s.to_s
       else
         next if !self.send("#{s}_relevant")
       end
-      puts s.inspect
       search_conditions[:strand] = s.to_s
       results = self.questions.find(:all, :conditions => search_conditions)
       if section.to_s == "purpose"
         results.reject!{|q| q.name == "purpose_overall_14"}
       end
-      puts results.map(&:name).inspect
       return false if results.size > 0
     end
     #check if we need to check issues?
