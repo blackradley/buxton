@@ -10,7 +10,7 @@ strategy = Strategy.create(:name => "Managing expectations", :description => "A 
 directorate = Directorate.create!(:name => "Seed Directorate", :creator => joe, :cop => joe, :abbreviation => "SEED")
 directorate.service_areas.create!(:name => "Sample Service Area", :approver => joe)
 
-25.times do |n|
-  joes_activity = Activity.create!(:name => "Shauns Activity #{n}", :completer => joe, :approver => heather, :service_area => directorate.service_areas.first)
-  shauns_activity = Activity.create!(:name => "Joes Activity #{n}", :completer => shaun, :approver => heather, :service_area => directorate.service_areas.first)
+1.times do |n|
+  joes_activity = Activity.create!(:name => "Shauns Activity #{n}", :completer => joe, :approver => heather, :service_area => directorate.service_areas.first, :ref_no =>  "EINA#{sprintf("%06d", 1)}")
+  shauns_activity = Activity.create!(:name => "Joes Activity #{n}", :completer => shaun, :approver => heather, :service_area => directorate.service_areas.first, :ref_no =>  "EINA#{sprintf("%06d", 2)}")
 end

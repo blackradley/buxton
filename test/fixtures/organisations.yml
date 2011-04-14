@@ -1,20 +1,2 @@
-#  
-# $URL$
-# $Rev$
-# $Author$
-# $Date$
-#
-# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved. 
-#
-# A dummy test county
-birmingham:
-  id: 1
-  name: 'Birmingham City Council'
-  created_on: 2007-04-01 00:00:00
-  updated_on: 2007-04-01 00:00:00
+--- {}
 
-test_org:
-  id: 2
-  name: 'Test Organisation'
-  created_on: 2007-04-01 00:00:00
-  updated_on: 2007-04-01 00:00:00
