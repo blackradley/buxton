@@ -236,7 +236,6 @@ class Activity < ActiveRecord::Base
     return false if strategies_not_completed && (is_purpose || section.nil?)
     #Special check for the unique conditions where section and strand are nil
     if section.nil? && strand.nil? then
-      search_conditions = "name REGEXP 'purpose' AND completed = false AND needed = true"
       search_conditions = {:completed => false, :needed => true}
       question_set = self.questions.find(:all, :conditions => search_conditions)
       self.disabled_strands.each do |s|
