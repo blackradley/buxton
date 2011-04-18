@@ -12,6 +12,7 @@ class LogsController < ApplicationController
   before_filter :requires_admin
 
   def index
+    @selected = "activity_logging"
     @logs = Log.find(:all, :order => 'created_at DESC')
   end
   
