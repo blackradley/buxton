@@ -3,7 +3,7 @@
     = image_tag(log.icon)
   %td
     %p{:align => "left"}
-      = log.message
+      =raw log.message
   %td{:width => 190}
     %p{:align => "right"}
-      = log.created_at.strftime("<strong>%a #{log.created_at.day.ordinalize} %B</strong>, %k:%M")
+      =raw log.created_at.strftime("<strong>%a #{log.created_at.day.ordinalize} %B</strong>, %k:%M")

@@ -85,6 +85,8 @@ table {
       background-image: url(../images/bullet_arrow_down_on.gif); }
   table .first {
     width: 420px; }
+  table .icon {
+    width: 30px; }
   table .dateTime {
     width: 160px; }
   table .date {

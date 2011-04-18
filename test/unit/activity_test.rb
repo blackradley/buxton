@@ -428,4 +428,152 @@ class ActivityTest < ActiveSupport::TestCase
     
     
   end
+  
+  context "when an activity has started the initial assessment by answering the entire first section and completed multiple sections and strands" do
+    setup do
+      @activity = activities(:activities_001)
+      @activity.questions.where(:section => "purpose").each do |q|
+        q.update_attributes(:raw_answer => "2")
+      end
+      @activity.questions.where(:name => "purpose_age_3").first.update_attributes(:raw_answer => 1)
+      @activity.update_attributes(:gender_relevant => true)
+      @activity.questions.where(:section => "impact", :strand => "gender").each do |q|
+        q.update_attributes(:raw_answer => "1")
+      end
+      @activity.questions.where(:section => "consultation", :strand => "gender").each do |q|
+        q.update_attributes(:raw_answer => "1")
+      end
+      @activity.questions.where(:section => "additional_work", :strand => "gender").each do |q|
+        q.update_attributes(:raw_answer => "1")
+      end
+      @activity.questions.where(:section => "impact", :strand => "age").each do |q|
+        q.update_attributes(:raw_answer => "1")
+      end
+      @activity.questions.where(:section => "consultation", :strand => "age").each do |q|
+        q.update_attributes(:raw_answer => "1")
+      end
+      @activity.questions.where(:section => "additional_work", :strand => "age").each do |q|
+        q.update_attributes(:raw_answer => "1")
+      end
+      @activity
+    end
+    
+    should "be started" do
+      assert @activity.started
+    end
+    
+    should "have the status of in the full assessment" do
+      assert_equal "FA", @activity.progress
+    end
+    
+    should "not be completed" do
+      assert !@activity.completed
+    end
+    
+    should "have 1a completed" do
+      assert @activity.target_and_strategies_completed 
+    end
+    
+    should "have 1b completed" do
+      assert @activity.impact_on_individuals_completed
+    end
+    
+    should "have 1c completed" do
+      assert @activity.impact_on_equality_groups
+    end
+    
+    should "have 1d completed" do
+      assert @activity.questions.find_by_name('purpose_overall_13').completed?
+    end
+    
+    (Activity.strands - ["gender", "age"]).each do |strand|
+      
+      should "not have impact #{strand} completed" do
+        assert !@activity.completed(:impact, strand.to_sym)
+      end
+      
+      should "not have consultation #{strand} completed" do
+        assert !@activity.completed(:consultation, strand.to_sym)
+      end
+      
+      should "not have additional work #{strand} completed" do
+        assert !@activity.completed(:additional_work, strand.to_sym)
+      end   
+      
+    end
+    
+    should "not have impact gender completed" do
+      assert !@activity.completed(:impact, :gender)
+    end
+    
+    should "not have consultation gender completed" do
+      assert !@activity.completed(:consultation, :gender)
+    end
+    
+    should "have additional work completed" do
+      assert @activity.completed(:additional_work, :gender)
+    end
+    
+    context "when you add incomplete issues" do
+    
+      setup do
+        @activity.issues.create(:strand => "gender", :section => "impact", :description => "Issue description")
+        @activity.issues.create(:strand => "gender", :section => "consultation", :description => "Issue description")
+        @activity.issues.create(:strand => "age", :section => "impact", :description => "Issue description")
+        @activity.issues.create(:strand => "age", :section => "consultation", :description => "Issue description")
+      end
+      
+      should "have impact gender completed" do
+        assert @activity.completed(:impact, :gender)
+      end
+
+      should "have consultation gender completed" do
+        assert @activity.completed(:consultation, :gender)
+      end
+      
+      should "not have action planning completed" do
+        assert !@activity.completed(:action_planning, :gender)
+      end
+    end
+    
+    context "when you add complete issues" do
+    
+      setup do
+        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "impact", :resources => "none", :description => "Issue description")
+        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "consultation", :resources => "none", :description => "Issue description")
+          @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "age", :section => "impact", :resources => "none", :description => "Issue description")
+          @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "age", :section => "consultation", :resources => "none", :description => "Issue description")
+      end
+      
+      should "have impact gender completed" do
+        assert @activity.completed(:impact, :gender)
+      end
+
+      should "have consultation gender completed" do
+        assert @activity.completed(:consultation, :gender)
+      end
+      
+      should "have action planning completed" do
+        assert @activity.completed(:action_planning, :gender)
+      end
+      
+      should "have impact age completed" do
+        assert @activity.completed(:impact, :age)
+      end
+
+      should "have consultation age completed" do
+        assert @activity.completed(:consultation, :age)
+      end
+      
+      should "have action planning completed" do
+        assert @activity.completed(:action_planning, :age)
+      end
+      
+      should "be complete" do
+        assert @activity.completed
+      end
+    end
+    
+    
+  end
 end

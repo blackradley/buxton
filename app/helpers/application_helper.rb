@@ -100,6 +100,13 @@ module ApplicationHelper
     #     return info_array
   end
 
+  def admin_menu
+    menu = Array.new
+    menu << ["Users", users_path]
+    menu << ["Activity Logging", logs_path]
+    menu
+  end
+
   def activities_menu
     menu = Array.new
     current_user.roles.reject{|r| r == "Cop"}.map do |role| 
