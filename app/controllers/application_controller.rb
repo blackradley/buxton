@@ -66,6 +66,7 @@ protected
   
   def after_sign_in_path_for(resource)
    return users_path if current_user.is_a?(Administrator)
+   log_event('Login', %Q[<a href="mailto:#{current_user.email}">#{current_user.email}</a> logged in.])
    return training_user_path(current_user) unless current_user.trained?
    return access_denied_path if current_user.roles.blank?
    return directorate_einas_activities_path if current_user.creator?

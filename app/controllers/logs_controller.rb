@@ -8,7 +8,8 @@
 #
 class LogsController < ApplicationController
   require 'csv'
-  before_filter :verify_index_access
+  before_filter :authenticate_user!
+  before_filter :requires_admin
 
   def index
     @logs = Log.find(:all, :order => 'created_at DESC')
@@ -32,15 +33,4 @@ class LogsController < ApplicationController
     send_file 'log/impact_equality_logs.csv'
   end
 
-protected
-
-  # Secure the relevant methods in the controller.
-  def secure?
-    true
-  end
-  
-  def get_related_model
-    Log
-  end
-  
 end
