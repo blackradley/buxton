@@ -1,6 +1,6 @@
 = semantic_form_for @strategy do |form|
   = form.inputs do
-    =form.input :name, :label => "Strategic Theme"
+    =form.input :name, :label => "Strategic Outcome"
     =form.input :description, :label => "Aims & Objectives"
     =form.input :retired, :label => "Retired?"
   = form.buttons do
@@ -8,11 +8,11 @@
     =raw "or #{link_to "cancel", strategies_path}"
 #formHelp
   %p
-    %strong Strategic Theme:
+    %strong Strategic Outcome:
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat, libero ut sollicitudin ultrices, mi lorem consectetur metus, at tempus elit sem quis nulla. 
   %p
     %strong Aims & Objectives:
     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur volutpat, libero ut sollicitudin ultrices, mi lorem consectetur metus, at tempus elit sem quis nulla. 
   %p
     %strong Retired?:
-    if retired, this Strategic Theme will no longer be available for selection when completing an EA's Initial Assessment.
+    if retired, this Strategic Outcome will no longer be available for selection when completing an EA's Initial Assessment.

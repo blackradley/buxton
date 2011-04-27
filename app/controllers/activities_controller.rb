@@ -44,13 +44,13 @@ class ActivitiesController < ApplicationController
   
   def my_einas
     @breadcrumb = [["My EAs"]]
-    @activities = Activity.where(:completer_id => current_user.id)
+    @activities = Activity.where(:completer_id => current_user.id, :ready => true)
     @selected = "my_einas"
   end
   
   def approving
     @breadcrumb = [["Awaiting Approval"]]
-    @activities = Activity.where(:approver_id => current_user.id)
+    @activities = Activity.where(:approver_id => current_user.id, :ready => true).reject{|a| a.progress == "NS"}
     @selected = "awaiting_approval"
   end
   
@@ -80,7 +80,7 @@ class ActivitiesController < ApplicationController
     @selected = "directorate_einas"
     if @activity.save
       flash[:notice] = "#{@activity.name} was created."
-      Mailer.activity_created(@activity).deliver
+      Mailer.activity_created(@activity).deliver if @activity.ready?
       redirect_to directorate_einas_activities_path
     else
       if !@activity.errors[:completer].blank?
@@ -111,10 +111,18 @@ class ActivitiesController < ApplicationController
     @selected = "directorate_einas"
     @activity = Activity.find(params[:id])
     
-    if @activity.update_attributes!(params[:activity])
+    if @activity.update_attributes(params[:activity])
       flash[:notice] = "#{@activity.name} was updated."
+      Mailer.activity_created(@activity).deliver if @activity.ready?
       redirect_to directorate_einas_activities_path
     else
+      if !@activity.errors[:completer].blank?
+        @activity.errors.add(:completer_email, "An EA must have someone assigned to undergo the assessment")
+      end
+      if !@activity.errors[:approver].blank?
+        @activity.errors.add(:approver_email, "An EA must have someone assigned to approve the assessment")
+      end
+      @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
       render "edit"
     end
   end

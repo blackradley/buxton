@@ -91,6 +91,8 @@ table {
     width: 160px; }
   table .date {
     width: 65px; }
+  table .center {
+    text-align: center; }
   table .checkbox {
     text-align: center; }
     table .checkbox input {

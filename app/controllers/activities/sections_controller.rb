@@ -25,7 +25,7 @@ class Activities::SectionsController < ApplicationController
   # Get the activity information ready for editing using the appropriate form.
   # Available to: Activity Manager
   def edit_purpose_a
-    @breadcrumb << ["What is this EA for?"]
+    @breadcrumb << ["Purpose and Outcomes"]
     @equality_strand = "overall"
     @activity_strategies = Strategy.live.map do |s|
       @activity.activity_strategies.find_or_create_by_strategy_id(s.id)
@@ -38,7 +38,7 @@ class Activities::SectionsController < ApplicationController
   end
   
   def edit_purpose_c
-    @breadcrumb << ["Different benefits and disadvantages of this EA"]
+    @breadcrumb << ["Relevance Test"]
     @equality_strand = "overall"
   end
   

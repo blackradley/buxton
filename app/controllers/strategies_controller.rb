@@ -21,19 +21,19 @@ class StrategiesController < ApplicationController
   before_filter :ensure_creator
   
   def index
-    @breadcrumb = [["Strategic Themes"]]
+    @breadcrumb = [["Strategic Outcomes"]]
     @strategies = Strategy.all
     @selected = "strategies"
   end
   
   def new
-    @breadcrumb = [["Strategic Themes", strategies_path], ["Add Strategic Theme"]]
+    @breadcrumb = [["Strategic Outcomes", strategies_path], ["Add Strategic Outcome"]]
     @strategy = Strategy.new
     @selected = "strategies"
   end
 
   def create
-    @breadcrumb = [["Strategic Themes", strategies_path], ["Add New Strategic Theme"]]
+    @breadcrumb = [["Strategic Outcomes", strategies_path], ["Add New Strategic Outcome"]]
     @strategy = Strategy.new(params[:strategy])    
     @selected = "strategies"
     if @strategy.save
@@ -46,13 +46,13 @@ class StrategiesController < ApplicationController
   
   
   def edit
-    @breadcrumb = [["Strategic Themes", strategies_path], ["Edit Strategic Theme"]]
+    @breadcrumb = [["Strategic Outcomes", strategies_path], ["Edit Strategic Outcome"]]
     @strategy = Strategy.find(params[:id])
     @selected = "strategies"
   end
 
   def update
-    @breadcrumb = [["Strategic Themes", strategies_path], ["Edit Strategic Theme"]]
+    @breadcrumb = [["Strategic Outcomes", strategies_path], ["Edit Strategic Outcome"]]
     @strategy = Strategy.find(params[:id])
     @selected = "strategies"
     if @strategy.update_attributes!(params[:strategy])

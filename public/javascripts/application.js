@@ -11,6 +11,15 @@ var sorter;
 
 $(document).ready(function(){
   
+  $('.formtastic.activity #standardInputs input').change(function(){
+    if($("#standardInputs").find(":text[value=]").length == 0){
+      $("#readyInput").show();
+    }
+    else{
+      $("#readyInput").hide();
+    }
+  })
+  
   $(".colorbox").click(function(){
     $(this).colorbox({'href': $(this).data("path")});
   })

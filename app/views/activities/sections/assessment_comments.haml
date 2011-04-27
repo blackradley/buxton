@@ -1,9 +1,12 @@
 %h1#questions
-  =h @activity.name + " - " + @breadcrumb.last.to_s
+  =h @activity.name
 %h2
   %span.letter
     ="#{@letter}."
-  =@breadcrumb.last.to_s
+  - if @question_reference == 13
+    Summary comment on Initial Assessment
+  - else
+    Summary comment on Full Assessment
 #questions.assessmentComments
   = render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [@question_reference])
   =form_for(@activity, :url => activities_section_path(@activity)) do |f|
