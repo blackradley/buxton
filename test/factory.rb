@@ -3,6 +3,9 @@ Factory.define :activity do |activity|
   activity.association :completer
   activity.association :approver
   activity.association :service_area
+  activity.start_date Date.today
+  activity.end_date Date.today
+  activity.review_date Date.today
 end
 
 Factory.define :service_area do |sa|

@@ -9,6 +9,38 @@ class ActivityTest < ActiveSupport::TestCase
   # should validate_presence_of(:service_area)
   # should validate_uniqueness_of(:ref_no).with_message('Reference number must be unique')
   
+  context "when creating an activity" do
+    setup do 
+      @activity = Activity.new
+    end
+    
+    should "be able to save the activity the first time without entering any details about it" do
+      assert @activity.save
+    end
+    
+    should "be able to save the activity even if required fields when ready aren't filled in" do
+      @activity.name = "Sample EA"
+      assert @activity.save
+    end
+    
+    should "not be able to mark the activity as ready if all required fields aren't filled in" do
+      @activity.name = "Sample EA"
+      @activity.ready = true
+      assert !@activity.save
+    end
+    
+    should "be able to mark it as ready when all required fields are filled in" do
+      @activity.approver = Factory(:user)
+      @activity.completer = Factory(:user)
+      @activity.start_date = Date.today
+      @activity.end_date = Date.today
+      @activity.review_on =Date.today
+      @activity.name = "Sample ready EA"
+      @activity.ready = true
+      assert @activity.save
+    end
+  end
+  
   context "when an activity is brand new" do
     setup do
       @activity = activities(:activities_001)
@@ -553,7 +585,7 @@ class ActivityTest < ActiveSupport::TestCase
         assert @activity.completed(:consultation, :gender)
       end
       
-      should "have action planning completed" do
+      should "have action planning gender completed" do
         assert @activity.completed(:action_planning, :gender)
       end
       
@@ -565,7 +597,7 @@ class ActivityTest < ActiveSupport::TestCase
         assert @activity.completed(:consultation, :age)
       end
       
-      should "have action planning completed" do
+      should "have action planning age completed" do
         assert @activity.completed(:action_planning, :age)
       end
       
