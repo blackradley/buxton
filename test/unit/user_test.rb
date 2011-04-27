@@ -78,14 +78,27 @@ class UserTest < ActiveSupport::TestCase
       assert_equal ["Completer"], @completer.roles
     end
     
-    should "have the role of approver as an approver" do
-      assert_equal ["Approver"], @approver.roles
+    should "not have the role of approver as an approver" do
+      assert_equal [], @approver.roles
     end
     
-    should "mark the approver as only an approver" do
-      assert !@approver.completer?
-      assert !@approver.creator?
-      assert @approver.approver?
+    context "when it has been started" do
+      setup do 
+        @normal_activity.questions.find_by_name("purpose_overall_2").update_attributes(:raw_answer => "Sample answer")
+      end
+    
+      should "have the role of approver as an approver" do
+        assert_equal ["Approver"], @approver.roles
+      end
+      
+      should "mark the approver as only an approver" do
+        assert !@approver.completer?
+        assert !@approver.creator?
+        assert @approver.approver?
+      end
+      
     end
+    
+
   end
 end
