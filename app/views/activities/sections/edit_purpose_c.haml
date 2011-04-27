@@ -1,8 +1,8 @@
-%h1#questions=h @activity.name + " - " + @breadcrumb.last.first
+%h1#questions=h @activity.name
 %h2
   %span.letter
     c.
-  Impact on Equality Groups
+  Impact on Protected Characteristics
 #questions
   = render :partial => 'question_help', :collection => question_details(:purpose, 'gender', [3])
   = render :partial => 'question_help', :collection => question_details(:purpose, 'race', [3])

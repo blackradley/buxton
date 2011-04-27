@@ -24,7 +24,10 @@ class User < ActiveRecord::Base
   def count_live_directorates
     Directorate.where(:creator_id => self.id, :retired => false).count
   end
-    
+  
+  def directorate
+    Directorate.find_by_creator_id(self.id)
+  end
   
   def send_password
     Mailer.new_account(self, @new_pass).deliver
@@ -50,9 +53,9 @@ class User < ActiveRecord::Base
     ["Creator", "Completer", "Approver", "Checker", "Cop"].map do |role|
       case role
       when "Completer"
-        Activity.where(:completer_id => self.id)
+        Activity.where(:completer_id => self.id, :ready => true)
       when "Approver"
-        Activity.where(:approver_id => self.id)
+        Activity.where(:approver_id => self.id, :ready => true)
       when "Creator"
         Activity.all 
       end
@@ -68,11 +71,11 @@ class User < ActiveRecord::Base
   end
   
   def completer?
-    Activity.where(:completer_id => self.id).count > 0
+    Activity.where(:completer_id => self.id, :ready => true).count > 0
   end
   
   def approver?
-    Activity.where(:approver_id => self.id).count > 0
+    Activity.where(:approver_id => self.id, :ready => true).reject{|a| a.progress == "NS"}.count > 0
   end
   
   def checker?

@@ -34,11 +34,17 @@ class Activity < ActiveRecord::Base
   has_many :activity_strategies, :dependent => :destroy
   has_many :issues, :dependent => :destroy
   has_many :questions, :dependent => :destroy
-
-  validates_presence_of :name, :message => 'All activities must have a name.'
+  
+  validates :name, :presence => {:if => :ready?, :full_message => 'Your EA must have a name'}
+  validates :approver, :presence => {:if => :ready?, :full_message =>"Your EA has to have a Senior Officer"}
+  validates :completer, :presence => {:if => :ready?, :full_message =>"Your EA has to have a Task Group Manager"}
+  validates :start_date, :presence => {:if => :ready?, :full_message =>"You must enter the date the EA will start"}
+  validates :end_date, :presence => {:if => :ready?, :full_message =>"You must enter the date the EA will finish on"}
+  validates :review_on, :presence => {:if => :ready?, :full_message =>"You must enter the review date for your EA"}
+  # validates_presence_of :name, :message => 'All activities must have a name.'
   validates_uniqueness_of :ref_no, :message => 'Reference number must be unique', :if => :ref_no?
-  validates_presence_of :completer, :approver
-  validates_presence_of :service_area
+  # validates_presence_of :completer, :approver
+  # validates_presence_of :service_area
   validates_associated :completer, :approver
 #  validates_associated :questions
   # validates_uniqueness_of :name, :scope => :directorate_id
@@ -51,6 +57,17 @@ class Activity < ActiveRecord::Base
   before_save :fix_fields
   
   accepts_nested_attributes_for :questions, :issues
+  
+  
+  def fields_complete
+    return false if self.name.blank?
+    return false if self.approver.blank?
+    return false if self.completer.blank?
+    return false if self.start_date.blank?
+    return false if self.end_date.blank?
+    return false if self.review_on.blank?
+    return true
+  end
   
   def progress
     if self.approved
@@ -392,7 +409,8 @@ class Activity < ActiveRecord::Base
   end
   
   def types
-    ["policy", "function", "strategy", "service"]
+    # ["policy", "function", "strategy", "service"]
+    ["policy", "function"]
   end
   
   def proposed?
@@ -404,7 +422,7 @@ class Activity < ActiveRecord::Base
   end
   
   def statuses
-    ["new", "proposed", "reviewed", "amended"]
+    ["New/Proposed", "Reviewed", "Amended"]
   end
   
   def self.question_setup_names

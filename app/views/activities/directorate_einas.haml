@@ -25,10 +25,10 @@
           %th Service Area
           %th EA Name
           %th Ref no.
-          %th Approver
-          %th.date Date Started
-          %th.date Actual Completion
-          %th Progress
+          %th Senior Officer
+          %th.date.center Date Started
+          %th.date.center Actual Completion
+          %th.center Progress
           %th.last
         %tr
           %th.sortControls
@@ -60,7 +60,10 @@
             %td= activity.name
             %td= activity.ref_no
             %td= activity.approver.email
-            %td= activity.started ? activity.actual_start_date.to_s(:short) : "N/A"
-            %td= activity.approved ? activity.approved_on.to_s(:short) : "N/A"
-            %td= activity.progress
-            %td.last= link_to "view", activity_path(activity), :class => "action view"
+            %td.center= activity.started ? activity.actual_start_date.to_s(:short) : "N/A"
+            %td.center= activity.approved ? activity.approved_on.to_s(:short) : "N/A"
+            %td.center= activity.progress
+            - if activity.ready?
+              %td.last= link_to "view", activity_path(activity), :class => "action view"
+            - else
+              %td.last= link_to "edit", edit_activity_path(activity), :class => "action edit"

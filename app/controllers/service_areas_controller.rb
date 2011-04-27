@@ -37,6 +37,8 @@ class ServiceAreasController < ApplicationController
   def create
     @breadcrumb = [["Service Areas", service_areas_path], ["Add New Service Area"]]
     @service_area = ServiceArea.new(params[:service_area])
+    @directorate = current_user.directorate
+    @service_area.directorate = @directorate
     @selected = "service_areas"
     if @service_area.save
       flash[:notice] = "#{@service_area.name} was created."
@@ -65,6 +67,8 @@ class ServiceAreasController < ApplicationController
   def update
     @breadcrumb = [["Service Areas", service_areas_path], ["Edit Service Area"]]
     @service_area = ServiceArea.find(params[:id])
+    @directorate = current_user.directorate
+    @service_area.directorate = @directorate
     @selected = "service_areas"
     if @service_area.update_attributes!(params[:service_area])
       flash[:notice] = "#{@service_area.name} was updated."
