@@ -46,6 +46,12 @@ class DirectoratesController < ApplicationController
     end
   end
   
+  def toggle_directorate_status
+    @directorate = Directorate.find(params[:id])
+    @directorate.toggle(params[:checkbox])
+    @directorate.save
+    render :nothing => true
+  end
   
   def edit
     @breadcrumb = [["Directorates", directorates_path], ["Edit Directorate"]]

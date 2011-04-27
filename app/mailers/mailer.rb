@@ -14,7 +14,7 @@ class Mailer < ActionMailer::Base
   def activity_created(activity)
     @activity = activity
     mail(:to => activity.completer.email,
-         :subject => "A new EINA has been created")
+         :subject => "A new EA has been created")
     #mail completer
   end
   
@@ -27,7 +27,7 @@ class Mailer < ActionMailer::Base
     @user     = user
     @password = password
     mail(:to => user.email,
-         :subject => "Welcome to the EINA Toolkit")
+         :subject => "Welcome to the EA Toolkit")
   end
   
 
@@ -35,7 +35,7 @@ class Mailer < ActionMailer::Base
     @activity = activity
     @contents = email_contents
     mail(:to => "#{activity.completer.email}, #{activity.creator.email}",
-         :subject => "EINA #{@activity.name} Reference ID #{@activity.ref_no} has been approved")
+         :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has been approved")
   end
   
   
@@ -43,6 +43,6 @@ class Mailer < ActionMailer::Base
     @activity = activity
     @contents = email_contents
     mail(:to => "#{activity.completer.email}, #{activity.creator.email}",
-         :subject => "EINA #{@activity.name} Reference ID #{@activity.ref_no} has been rejected")
+         :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has been rejected")
   end
 end

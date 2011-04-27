@@ -25,7 +25,7 @@ class Activities::SectionsController < ApplicationController
   # Get the activity information ready for editing using the appropriate form.
   # Available to: Activity Manager
   def edit_purpose_a
-    @breadcrumb << ["What is this EINA for?"]
+    @breadcrumb << ["What is this EA for?"]
     @equality_strand = "overall"
     @activity_strategies = Strategy.live.map do |s|
       @activity.activity_strategies.find_or_create_by_strategy_id(s.id)
@@ -33,17 +33,17 @@ class Activities::SectionsController < ApplicationController
   end
   
   def edit_purpose_b
-    @breadcrumb << ["Individuals affected by this EINA"]
+    @breadcrumb << ["Individuals affected by this EA"]
     @equality_strand = "overall"
   end
   
   def edit_purpose_c
-    @breadcrumb << ["Different benefits and disadvantages of this EINA"]
+    @breadcrumb << ["Different benefits and disadvantages of this EA"]
     @equality_strand = "overall"
   end
   
   def edit_purpose_d
-    @breadcrumb << ["Initial Summary of this EINA"]
+    @breadcrumb << ["Initial Summary of this EA"]
     @equality_strand = "overall"
     @letter = "d"
     #question it refers to
@@ -52,7 +52,7 @@ class Activities::SectionsController < ApplicationController
   end
   
   def edit_full_assessment_comment
-    @breadcrumb << ["Full Summary of this EINA"]
+    @breadcrumb << ["Full Summary of this EA"]
     @equality_strand = "overall"
     @letter = "c"
     @question_reference = 14
@@ -134,7 +134,7 @@ class Activities::SectionsController < ApplicationController
   
   def set_selected
     @selected = "my_einas"
-    @breadcrumb = [["My EINAs", my_einas_activities_path], ["#{@activity.name}", questions_activity_path(@activity)]]
+    @breadcrumb = [["My EAs", my_einas_activities_path], ["#{@activity.name}", questions_activity_path(@activity)]]
   end
   
 end
