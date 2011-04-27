@@ -33,7 +33,7 @@ class ActivitiesController < ApplicationController
   end
   
   def directorate_einas
-    @breadcrumb = [["Directorate EINAs"]]
+    @breadcrumb = [["Directorate EAs"]]
     
     @directorates = current_user.count_directorates
     @live_directorates = current_user.count_live_directorates
@@ -43,7 +43,7 @@ class ActivitiesController < ApplicationController
   end
   
   def my_einas
-    @breadcrumb = [["My EINAs"]]
+    @breadcrumb = [["My EAs"]]
     @activities = Activity.where(:completer_id => current_user.id)
     @selected = "my_einas"
   end
@@ -56,7 +56,7 @@ class ActivitiesController < ApplicationController
   
   def new
     # @directorates = Directorate.where(:creator_id=>current_user.id)
-    @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
+    @breadcrumb = [["Directorate EAs", directorate_einas_activities_path], ["New EA"]]
     services = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
     if current_user.count_directorates > 1
       @service_areas = Hash.new
@@ -74,9 +74,9 @@ class ActivitiesController < ApplicationController
 
   def create
     @activity = Activity.new(params[:activity])
-    @activity.ref_no = "EINA#{sprintf("%06d", Activity.last(:order => :id).id + 1)}"
+    @activity.ref_no = "EA#{sprintf("%06d", Activity.last(:order => :id).id + 1)}"
     # @directorate = Directorate.find_by_creator_id(current_user.id)
-    @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
+    @breadcrumb = [["Directorate EAs", directorate_einas_activities_path], ["New EA"]]
     @selected = "directorate_einas"
     if @activity.save
       flash[:notice] = "#{@activity.name} was created."
@@ -84,10 +84,10 @@ class ActivitiesController < ApplicationController
       redirect_to directorate_einas_activities_path
     else
       if !@activity.errors[:completer].blank?
-        @activity.errors.add(:completer_email, "An EINA must have someone assigned to undergo the assessment")
+        @activity.errors.add(:completer_email, "An EA must have someone assigned to undergo the assessment")
       end
       if !@activity.errors[:approver].blank?
-        @activity.errors.add(:approver_email, "An EINA must have someone assigned to approve the assessment")
+        @activity.errors.add(:approver_email, "An EA must have someone assigned to approve the assessment")
       end
       @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
       render 'new'
@@ -96,7 +96,7 @@ class ActivitiesController < ApplicationController
   
   
   def edit
-    @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
+    @breadcrumb = [["Directorate EAs", directorate_einas_activities_path], ["New EA"]]
     @directorate = Directorate.find_by_creator_id(current_user.id)
     @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
     @selected = "directorate_einas"
@@ -106,7 +106,7 @@ class ActivitiesController < ApplicationController
   # Update the activity details accordingly.
   # Available to: Activity Manager
   def update
-    @breadcrumb = [["Directorate EINAs", directorate_einas_activities_path], ["New EINA"]]
+    @breadcrumb = [["Directorate EAs", directorate_einas_activities_path], ["New EA"]]
     @directorate = Directorate.find_by_creator_id(current_user.id)
     @selected = "directorate_einas"
     @activity = Activity.find(params[:id])
@@ -124,9 +124,9 @@ class ActivitiesController < ApplicationController
     if @activity.completed
       @activity.submitted = true
       @activity.save!
-      flash[:notice] = 'Your EINA has been successfully submitted for approval.'
+      flash[:notice] = 'Your EA has been successfully submitted for approval.'
     else
-      flash[:error] = "You need to finish your EINA before you can submit it."
+      flash[:error] = "You need to finish your EA before you can submit it."
     end
     redirect_to questions_activity_path(@activity)
   end
@@ -135,7 +135,7 @@ class ActivitiesController < ApplicationController
   # Available to: Activity Manager
   def questions
     @selected = "my_einas"
-    @breadcrumb = [["My EINAs", my_einas_activities_path], ["#{@activity.name}"]]
+    @breadcrumb = [["My EAs", my_einas_activities_path], ["#{@activity.name}"]]
     completed_status_array = @activity.strands(true).map{|strand| [strand.to_sym, @activity.completed(nil, strand)]}
     completed_status_hash = Hash[*completed_status_array.flatten]
     tag_test = completed_status_hash.select{|k,v| !v}.map(&:first).map do |strand_status|
@@ -146,7 +146,7 @@ class ActivitiesController < ApplicationController
   
   def show
     type = params[:type]
-    log_event('PDF', %Q[The PDF for the <strong>#{@activity.name}</strong> EINA, within directorate <strong>#{@activity.directorate.name}</strong>, was viewed by #{current_user.email}])
+    log_event('PDF', %Q[The PDF for the <strong>#{@activity.name}</strong> EA, within directorate <strong>#{@activity.directorate.name}</strong>, was viewed by #{current_user.email}])
     send_data ActivityPDFGenerator.new(@activity, type).pdf.render, :disposition => 'inline',
       :filename => "#{@activity.name}.pdf",
       :type => "application/pdf"

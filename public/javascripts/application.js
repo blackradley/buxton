@@ -93,7 +93,7 @@ $(document).ready(function(){
   $('.issueDeleteLink').click(function(){
     $(this).up(".issue").remove()
     return false;
-  });
+  });  
   
   if ($('#sortable').length) {
     sorter = new TINY.table.sorter('sorter');
@@ -110,6 +110,18 @@ $(document).ready(function(){
     // sorter.limitid = 'pagelimit'; //page limit id
     sorter.init('sortable',0,true);
   }
+
+  
+  $('.retiredCheckbox :checkbox').click(function(){
+    $.post($(this).data("path"));
+    if($(this).is(":checked")){
+      $(this).parents("tr").children("td:first").append("<span class='retired'>(Retired)</span>")
+    }
+    else{
+      $(this).parents("tr").find(".retired").remove()
+    }
+  });
+  
   
   $('.issueEdit').click(function(){
     var issue = $(this).parents(".issue");
@@ -119,6 +131,8 @@ $(document).ready(function(){
     }
     return false;
   })
+
+  
   
 });
 

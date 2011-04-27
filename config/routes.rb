@@ -94,6 +94,10 @@ Buxton::Application.routes.draw do
       get :autocomplete_user_email
       get :autocomplete_creator_email
     end
+    
+    member do
+      post :toggle_directorate_status
+    end
   end
   
   resources :service_areas do

@@ -1,3 +1,6 @@
+- content_for :head do
+  = javascript_tag "admin"
+
 %h2 Directorates
 .orangeButton
   =link_to "Add Directorate", new_directorate_path, :class=>"add"
@@ -6,6 +9,7 @@
     %tr
       %th Directorate Name
       %th Abb.
+      %th Retired?
       %th Directorate Contact Officer
       %th.last
     %tr
@@ -15,6 +19,7 @@
       %th.sortControls
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
       %th.sortControls
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
@@ -28,5 +33,8 @@
             %span.retired
               ="(Retired)"
         %td= directorate.abbreviation
+        %td.retiredCheckbox.checkbox
+          = fields_for directorate do |f|
+            = f.check_box :retired, "data-path" => toggle_directorate_status_directorate_path(directorate, :checkbox => :retired), :confirm => "Are you sure you wish to retire this directorate?"
         %td= directorate.creator.email
         %td.last= link_to "edit", edit_directorate_path(directorate), :class => "action edit"
