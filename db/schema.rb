@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110427104127) do
+ActiveRecord::Schema.define(:version => 20110428142026) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -229,10 +229,10 @@ ActiveRecord::Schema.define(:version => 20110427104127) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                             :default => "",    :null => false
-    t.string   "encrypted_password", :limit => 128, :default => "",    :null => false
-    t.string   "password_salt",                     :default => "",    :null => false
-    t.integer  "sign_in_count",                     :default => 0
+    t.string   "email",                               :default => "",    :null => false
+    t.string   "encrypted_password",   :limit => 128, :default => "",    :null => false
+    t.string   "password_salt",                       :default => "",    :null => false
+    t.integer  "sign_in_count",                       :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -242,11 +242,12 @@ ActiveRecord::Schema.define(:version => 20110427104127) do
     t.string   "type"
     t.boolean  "retired"
     t.boolean  "locked"
-    t.boolean  "creator",                           :default => false
-    t.integer  "failed_attempts",                   :default => 0
+    t.boolean  "creator",                             :default => false
+    t.integer  "failed_attempts",                     :default => 0
     t.string   "unlock_token"
     t.datetime "locked_at"
-    t.boolean  "trained",                           :default => true
+    t.boolean  "trained",                             :default => true
+    t.string   "reset_password_token"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

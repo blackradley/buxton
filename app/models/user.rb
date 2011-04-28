@@ -1,10 +1,10 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
-  devise :database_authenticatable, :trackable, :validatable, :timeoutable, :lockable 
+  devise :database_authenticatable, :trackable, :validatable, :timeoutable, :lockable , :recoverable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :roles, :activities, :retired, :locked, :trained, :creator
+  attr_accessible :email, :roles, :activities, :retired, :locked, :trained, :creator
   scope :live, :conditions => "type is null and retired is not true"
   scope :creator, :conditions => "creator is true and type is null and retired is not true"
   before_validation(:on => :create) { self.set_password }
@@ -15,6 +15,14 @@ class User < ActiveRecord::Base
     @new_pass = String.random_alphanumeric
     self.password = @new_pass
     self.password_confirmation = @new_pass
+  end
+  
+  def reset_password!
+    @new_pass = String.random_alphanumeric
+    self.password = @new_pass
+    self.password_confirmation = @new_pass
+    self.save
+    Mailer.password_reset(self, @new_pass).deliver
   end
   
   def count_directorates

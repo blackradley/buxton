@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!
+  before_filter :authenticate_user!# , :except => [:reset_password, :reset_password_request]
   skip_before_filter :check_trained
   before_filter :requires_admin, :except => [:training, :update_training, :access_denied]
   before_filter :setup_breadcrumb
@@ -31,9 +31,26 @@ class UsersController < ApplicationController
     end
   end
   
+
+  
   def show
     redirect_to set_homepage
   end
+  # 
+  # def reset_password_request
+  #   render :layout => "login"
+  # end
+  # 
+  # def confirm_reset_password
+  #   if params[:email] && @user = User.find_by_email(params[:email])
+  #     @user.reset_password
+  #     flash[:message] = "Password successfully reset. Please check your email to retrieve your new password"
+  #   else
+  #     flash[:error] = "The email address you entered was not recognised. Please try again."
+  #   end
+  #   redirect_to user_login_path
+  # end
+
 
   def toggle_user_status
     @user = User.find(params[:id])
