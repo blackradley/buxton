@@ -30,6 +30,13 @@ class Mailer < ActionMailer::Base
          :subject => "Welcome to the EA Toolkit")
   end
   
+  def password_reset(user, password)
+    @user = user
+    @password = password
+    mail(:to => user.email,
+         :subject => "Your password has been successfully reset")
+  end
+
 
   def activity_approved(activity, email_contents)
     @activity = activity

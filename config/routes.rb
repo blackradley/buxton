@@ -60,7 +60,7 @@ Buxton::Application.routes.draw do
   match "access_denied", :to => "users#access_denied"
   root :to => "application#set_homepage"
 
-  devise_for :user, :path_names => { :sign_in => 'login', :sign_out => 'logout'} do
+  devise_for :user, :controllers => {:passwords => "passwords"}, :path_names => { :sign_in => 'login', :sign_out => 'logout'} do
     get "login", :to => "devise/sessions#new"
     get "logout", :to => "devise/sessions#destroy"
   end
