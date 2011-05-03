@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   def reset_password!
     @new_pass = String.random_alphanumeric
     self.password = @new_pass
+    self.locked = false
     self.password_confirmation = @new_pass
     self.save
     Mailer.password_reset(self, @new_pass).deliver
