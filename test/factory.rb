@@ -44,6 +44,17 @@ Factory.define :creator, :parent => :user do |c|
   c.creator true
 end
 
+Factory.define :corporate_cop, :parent => :user do |c|
+  c.corporate_cop true
+end
+
+
+Factory.define :administrator do |a|
+  a.sequence(:email) {|n| "admin#{n}@example.com"}
+  a.password "password"
+  a.password_confirmation "password"
+end
+
 Factory.define :strategy do |s|
   s.sequence(:name){|i| "Strategy #{i}"}
 end

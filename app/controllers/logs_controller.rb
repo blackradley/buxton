@@ -9,7 +9,7 @@
 class LogsController < ApplicationController
   require 'csv'
   before_filter :authenticate_user!
-  before_filter :requires_admin
+  before_filter :ensure_corporate_cop
 
   def index
     @selected = "activity_logging"

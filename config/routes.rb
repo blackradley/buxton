@@ -31,6 +31,9 @@ Buxton::Application.routes.draw do
       get :my_einas
       get :approving
       get :autocomplete_user_email
+      get :directorate_governance_eas
+      get :generate_schedule
+      get :actions
     end
     
     member do
@@ -39,6 +42,7 @@ Buxton::Application.routes.draw do
       post :toggle_strand
       get :approve
       get :reject
+      get :summary
       post :submit_approval
       post :submit_rejection
     end

@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   rescue_from NoMethodError, :with => :wrong_user? unless DEV_MODE
   before_filter :authenticate_user!
   before_filter :check_trained
+  alias_method :old_sign_out, :sign_out
   
   def set_homepage
     redirect_to after_sign_in_path_for(current_user)
@@ -90,6 +91,14 @@ protected
     redirect_to access_denied_path unless current_user.creator?
   end
   
+  def ensure_cop
+    redirect_to access_denied_path unless current_user.corporate_cop? || current_user.directorate_cop?
+  end
+  
+  def ensure_corporate_cop
+    redirect_to access_denied_path unless current_user.corporate_cop?
+  end
+  
   def ensure_completer
     redirect_to access_denied_path unless current_user.completer?
   end
@@ -100,6 +109,13 @@ protected
   
   def ensure_pdf_view
     redirect_to access_denied_path unless current_user.creator? || current_user.approver? || current_user.completer?
+  end
+  
+  def sign_out(*args)
+    if current_user
+      log_event('Logout', %Q[<a href="mailto:#{current_user.email}">#{current_user.email}</a> logged out.])
+    end
+    old_sign_out(*args)
   end
   
 private

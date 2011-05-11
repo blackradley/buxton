@@ -1,285 +1,313 @@
-# require File.dirname(__FILE__) + '/../test_helper'
-# require 'activities_controller'
-# 
-# # Re-raise errors caught by the controller.
-# class ActivitiesController; def rescue_action(e) raise e end; end
-# 
-# class ActivitiesControllerTest < Test::Unit::TestCase
-#   fixtures :activities, :users, :organisations, :look_ups, :activities_projects, :terminologies, :organisation_terminologies, :projects
-# 
-#   def setup
-#     @controller = ActivitiesController.new
-#     @request    = ActionController::TestRequest.new
-#     @response   = ActionController::TestResponse.new
-#   end
-#   
-#   # A simple test that calls all public actions via all http actions and uses some dummy parameters.
-#   # There are no assertions in this test, because we don’t know if an action should succeed or redirect.
-#   # The only thing checked with in this test is that the action does not fail.
-#   def test_garbage
-#     ac = ApplicationController.new
-#     @controller.public_methods.each do |action|
-#       unless ac.respond_to?(action)
-#         [:get, :post, :head, :put, :delete].each do |http_method|
-#           [nil, '', 'abc'*80, '-23', '123456789012345'].each do |param|
-#             method(http_method).call(action, :id => param)
-#           end
-#         end
-#       end
-#     end
-#   end
-#   
-#   
-#   def test_cannot_view_activities_without_user    
-#     post :new
-#     assert_redirected_to :controller => 'users'
-#     post :create
-#     assert_redirected_to :controller => 'users'
-#     post :destroy, :id => 1
-#     assert_redirected_to :controller => 'users' 
-#     post :edit_contact, :id => 1
-#     assert_redirected_to :controller => 'users'
-#     post :update_contact, :id => 1
-#     assert_redirected_to :controller => 'users'
-#     get :index
-#     assert_redirected_to :controller => 'users'
-#     get :show
-#     assert_redirected_to :controller => 'users'
-#     get :questions
-#     assert_redirected_to :controller => 'users'
-#     post :update
-#     assert_redirected_to :controller => 'users'
-#     post :update_activity_type
-#     assert_redirected_to :controller => 'users'
-#     post :update_name
-#     assert_redirected_to :controller => 'users'
-#     post :update_ref_no
-#     assert_redirected_to :controller => 'users'
-#     post :update_approver
-#     assert_redirected_to :controller => 'users'
-#     post :summary
-#     assert_redirected_to :controller => 'users'
-#     post :awaiting_approval
-#     assert_redirected_to :controller => 'users'
-#     post :approved
-#     assert_redirected_to :controller => 'users'
-#     post :incomplete
-#     assert_redirected_to :controller => 'users'
-#     post :view, :id => 1
-#     assert_redirected_to :controller => 'users'
-#     
-#   end
-#   
-#   def test_cannot_view_activities_as_organisation_manager
-#     login_as :organisation_manager
-#     get :index
-#     assert_redirected_to '/users/access_denied'
-#     get :show
-#     assert_redirected_to '/users/access_denied'
-#     get :questions
-#     assert_redirected_to '/users/access_denied'
-#     post :update
-#     assert_redirected_to '/users/access_denied'
-#     post :update_activity_type
-#     assert_redirected_to '/users/access_denied'
-#     post :update_name
-#     assert_redirected_to '/users/access_denied'
-#     post :update_ref_no
-#     assert_redirected_to '/users/access_denied'
-#     post :update_approver
-#     assert_redirected_to '/users/access_denied'
-#   end
-#   
-#   # def test_cannot_view_activities_as_activity_manager
-#   #   login_as :activity_manager
-#   #   post :new
-#   #   assert_redirected_to '/users/access_denied'
-#   #   post :create
-#   #   assert_redirected_to '/users/access_denied'
-#   #   post :destroy, :id => 1
-#   #   assert_redirected_to '/users/access_denied'
-#   #   post :edit_contact, :id => 1
-#   #   assert_redirected_to '/users/access_denied'
-#   #   post :update_contact, :id => 1
-#   #   assert_redirected_to '/users/access_denied'
-#   #   post :summary
-#   #   assert_redirected_to '/users/access_denied'
-#   #   post :awaiting_approval
-#   #   assert_redirected_to '/users/access_denied'
-#   #   post :approved
-#   #   assert_redirected_to '/users/access_denied'
-#   #   post :incomplete
-#   #   assert_redirected_to '/users/access_denied'
-#   #   post :view, :id => 1
-#   #   assert_redirected_to '/users/access_denied'
-#   # end
-#   
-#   def test_cannot_view_activities_as_directorate_manager
-#     login_as :directorate_manager
-#     post :new
-#     assert_redirected_to '/users/access_denied'
-#     post :create
-#     assert_redirected_to '/users/access_denied'
-#     post :destroy, :id => 1  ##error
-#     assert_redirected_to '/users/access_denied'
-#     post :edit_contact, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     post :update_contact, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     get :index
-#     assert_redirected_to '/users/access_denied'
-#     get :show
-#     assert_redirected_to '/users/access_denied'
-#     get :questions
-#     assert_redirected_to '/users/access_denied'
-#     post :update
-#     assert_redirected_to '/users/access_denied'
-#     post :update_activity_type
-#     assert_redirected_to '/users/access_denied'
-#     post :update_name
-#     assert_redirected_to '/users/access_denied'
-#     post :update_ref_no
-#     assert_redirected_to '/users/access_denied'
-#     post :update_approver
-#     assert_redirected_to '/users/access_denied'
-#   end
-#   
-#   def test_cannot_view_activities_as_project_manager
-#     login_as :project_manager
-#     post :new
-#     assert_redirected_to '/users/access_denied'
-#     post :create
-#     assert_redirected_to '/users/access_denied'
-#     post :destroy, :id => 1 ##error
-#     assert_redirected_to '/users/access_denied'
-#     post :edit_contact, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     post :update_contact, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     get :index
-#     assert_redirected_to '/users/access_denied'
-#     get :show
-#     assert_redirected_to '/users/access_denied'
-#     get :questions
-#     assert_redirected_to '/users/access_denied'
-#     post :update
-#     assert_redirected_to '/users/access_denied'
-#     post :update_activity_type
-#     assert_redirected_to '/users/access_denied'
-#     post :update_name
-#     assert_redirected_to '/users/access_denied'
-#     post :update_ref_no
-#     assert_redirected_to '/users/access_denied'
-#     post :update_approver
-#     assert_redirected_to '/users/access_denied'
-#   end
-#   
-#   
-#   # def test_can_view_activities_as_administrator
-#   #     login_as :administrator
-#   #     post :new
-#   #     assert_redirected_to '/users/access_denied'
-#   #     post :create
-#   #     assert_redirected_to '/users/access_denied'
-#   #     post :destroy, :id => 1
-#   #     assert_redirected_to '/users/access_denied'
-#   #     post :edit_contact, :id => 1
-#   #     assert_redirected_to '/users/access_denied'
-#   #     post :update_contact, :id => 1
-#   #     assert_redirected_to '/users/access_denied'
-#   #     get :index
-#   #     assert_redirected_to '/users/access_denied'
-#   #     get :show
-#   #     assert_redirected_to '/users/access_denied'
-#   #     get :questions
-#   #     assert_redirected_to '/users/access_denied'
-#   #     post :update
-#   #     assert_redirected_to '/users/access_denied'
-#   #     post :update_activity_type
-#   #     assert_redirected_to '/users/access_denied'
-#   #     post :update_name
-#   #     assert_redirected_to '/users/access_denied'
-#   #     post :update_ref_no
-#   #     assert_redirected_to '/users/access_denied'
-#   #     post :update_approver
-#   #     assert_redirected_to '/users/access_denied'
-#   #     post :summary
-#   #     assert_redirected_to '/users/access_denied'
-#   #     post :awaiting_approval
-#   #     assert_redirected_to '/users/access_denied'
-#   #     post :approved
-#   #     assert_redirected_to '/users/access_denied'
-#   #     post :incomplete
-#   #     assert_redirected_to '/users/access_denied'
-#   #     post :view, :id => 1
-#   #     assert_redirected_to '/users/access_denied'
-#   #   end
-#   
-#   # def test_cannot_view_activities_with_wrong_project_manager
-#   #   login_as :project_manager_2
-#   #   post :view, :id => 1
-#   #   assert_redirected_to '/users/access_denied'
-#   # end
-#   
-#   # def test_cannot_view_activities_with_wrong_directorate_manager
-#   #   login_as :directorate_manager_2
-#   #   post :view, :id => 1
-#   #   assert_redirected_to '/users/access_denied'
-#   # end
-#   
-#   # def test_cannot_view_activities_with_wrong_organisation_manager
-#   #   login_as :organisation_manager_2
-#   #   [:edit_contact, :update_contact, :destroy].each do |method|
-#   #     post method, :id => 1
-#   #     assert_redirected_to '/users/access_denied'
-#   #   end
-#   #   post :view
-#   #   post method, :id => 1
-#   #   assert_redirected_to '/users/access_denied'
-#   # end
-#   
-#     # 
-#     # def test_can_view_activities_with_right_activity_manager
-#     #   login_as :activity_manager
-#     #   post :update_activity_type
-#     #   assert_redirected_to :action => 'questions'
-#     #   [:index, :show, :questions, :update, :update_name, :update_ref_no, :update_approver].each do |method|
-#     #     post method
-#     #     assert_response :success
-#     #   end
-#     # end
-#   
-#   # def test_can_view_activities_with_right_project_manager
-#   #   login_as :project_manager
-#   #   [:summary, :awaiting_approval, :approved, :incomplete].each do |method|
-#   #     post method
-#   #     assert_response :success
-#   #   end
-#   #   post :view, :id => 1
-#   #   assert_response :success
-#   # end
-#   # 
-#   # def test_can_view_activities_with_right_directorate_manager
-#   #   login_as :directorate_manager
-#   #   [:summary, :awaiting_approval, :approved, :incomplete].each do |method|
-#   #     post method
-#   #     assert_response :success
-#   #   end
-#   #   post :view, :id => 1
-#   #   assert_response :success
-#   # end
-#   # 
-#   # def test_can_view_activities_with_right_organisation_manager
-#   #   login_as :organisation_manager
-#   #   post :create
-#   #   assert_redirected_to :action => :incomplete
-#   #   [:new, :summary, :awaiting_approval, :approved, :incomplete].each do |method|
-#   #     post method
-#   #     assert_response :success
-#   #   end
-#   #   [:edit_contact, :update_contact, :destroy, :view].each do |method|
-#   #     post method, :id => 1
-#   #     assert_response :success
-#   #   end
-#   # end
-# end
+require 'test_helper'
+
+class ActivitiesControllerTest < ActionController::TestCase
+
+  fixtures :activities, :questions, :directorates, :service_areas, :users
+  
+  context "when logged in as an administrator" do
+    setup do 
+      @admin = Factory(:administrator)
+      sign_in @admin
+    end
+    
+    
+    should "not be able to see any activities list" do
+      [:directorate_einas, :my_einas, :approving, :directorate_governance_eas].each do |activity_route|
+        get activity_route
+        assert_response :redirect
+        assert_redirected_to access_denied_path
+      end
+    end
+    
+  end
+  
+  context "when logged in as a directorate cop " do
+    setup do 
+      sign_in users(:users_001)
+    end
+    
+    should "not be able to see any activities list aside from the cop ones" do
+      [:directorate_einas, :my_einas, :approving].each do |activity_route|
+        get activity_route
+        assert_response :redirect
+        assert_redirected_to access_denied_path
+      end
+    end
+    
+    should "be able to see the cop activities" do
+      get :directorate_governance_eas
+      assert_response :success
+    end
+    
+    should "be able to view the schedule file for a directorate" do
+      get :generate_schedule
+      assert_response :success
+    end
+    
+    should "not be able to submit an activity for approval" do
+      get :submit, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+    
+    should "be able to view the pdf file for an activity" do
+      get :show, :id => activities(:activities_002).id
+      assert_response :success
+    end
+    
+    should "be able to see an activity summary" do
+      get :summary, :id => activities(:activities_002).id
+      assert_response :success
+    end
+    
+    should "be not able to see the questions" do
+      get :questions, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+    should "not be able to toggle the status of an activity" do
+      post :toggle_strand, :id => activities(:activities_002).id, :strand => "gender"
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+    should "not be able to view the creation of activity" do
+      get :new
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+    should "be able to accept an activity" do
+      get :approve, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+  
+    should "be able to reject an activity" do
+      get :reject, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+  end
+  
+  context "when logged in as a creator" do
+    setup do 
+      sign_in users(:users_004)
+    end
+    
+    should "not be able to see any activities list aside from the creator one" do
+      [:directorate_governance_eas, :my_einas, :approving].each do |activity_route|
+        get activity_route
+        assert_response :redirect
+        assert_redirected_to access_denied_path
+      end
+    end
+    
+    should "be able to see the creator activities" do
+      get :directorate_einas
+      assert_response :success
+    end
+    
+    should "not be able to submit an activity for approval" do
+      get :submit, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+    should "not be able to view the schedule file for a directorate" do
+      get :generate_schedule
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+    should "be able to view the pdf file for an activity" do
+      get :show, :id => activities(:activities_002).id
+      assert_response :success
+    end
+    
+    should "not be able to see an activity summary" do
+      get :summary, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+    should "be not able to see the questions" do
+      get :questions, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+    should "not be able to toggle the status of an activity" do
+      post :toggle_strand, :id => activities(:activities_002).id, :strand => "gender"
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+    should "be able to view the creation of activity" do
+      get :new
+      assert_response :success
+    end
+    
+    should "be able to accept an activity" do
+      get :approve, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+  
+    should "be able to reject an activity" do
+      get :reject, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+  end
+    
+    
+  context "when logged in as a completer" do
+    setup do 
+      sign_in users(:users_003)
+    end
+    
+    should "not be able to see any activities list aside from the creator one" do
+      [:directorate_governance_eas, :directorate_einas, :approving].each do |activity_route|
+        get activity_route
+        assert_response :redirect
+        assert_redirected_to access_denied_path
+      end
+    end
+    
+    should "be able to submit an activity for approval" do
+      get :submit, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to questions_activity_path(activities(:activities_002))
+    end
+    
+    
+    should "be able to see your completer activities" do
+      get :my_einas
+      assert_response :success
+    end
+    
+    should "not be able to view the schedule file for a directorate" do
+      get :generate_schedule
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+    should "be able to view the pdf file for an activity" do
+      get :show, :id => activities(:activities_002).id
+      assert_response :success
+    end
+    
+    should "not be able to see an activity summary" do
+      get :summary, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+    should "be able to see the questions" do
+      get :questions, :id => activities(:activities_002).id
+      assert_response :success
+    end
+    
+    # should "be able to toggle the status of an activity" do
+    #   post :toggle_strand, :id => activities(:activities_002).id, :strand => "gender"
+    #   assert_response :success
+    # end
+    
+    should "not be able to view the creation of activity" do
+      get :new
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+    
+    should "be able to accept an activity" do
+      get :approve, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+  
+    should "be able to reject an activity" do
+      get :reject, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+  end    
+  
+  context "when logged in as an approver" do
+    setup do 
+      sign_in users(:users_002)
+      users(:users_002).activities.select{|a| a.ready?}.first.questions.first.update_attributes(:raw_answer => 1)
+    end
+  
+    should "not be able to see any activities list aside from the creator one" do
+      [:directorate_governance_eas, :directorate_einas, :my_einas].each do |activity_route|
+        get activity_route
+        assert_response :redirect
+        assert_redirected_to access_denied_path
+      end
+    end
+  
+    should "be able to see your approver activities" do
+      get :approving 
+      assert_response :success
+    end
+  
+    should "not be able to view the schedule file for a directorate" do
+      get :generate_schedule
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+  
+    should "be able to view the pdf file for an activity" do
+      get :show, :id => activities(:activities_002).id
+      assert_response :success
+    end
+  
+    should "not be able to submit an activity for approval" do
+      get :submit, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+  
+    should "not be able to see an activity summary" do
+      get :summary, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+  
+    should "not be able to see the questions" do
+      get :questions, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+  
+    # should "be able to toggle the status of an activity" do
+    #   post :toggle_strand, :id => activities(:activities_002).id, :strand => "gender"
+    #   assert_response :success
+    # end
+  
+    should "not be able to view the creation of activity" do
+      get :new
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+  
+    should "be able to accept an activity" do
+      get :approve, :id => activities(:activities_002).id
+      assert_response :success
+    end
+  
+    should "be able to reject an activity" do
+      get :reject, :id => activities(:activities_002).id
+      assert_response :success
+    end
+  
+  end  
+  
+end
