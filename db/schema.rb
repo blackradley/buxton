@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110428142026) do
+ActiveRecord::Schema.define(:version => 20110503105719) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -248,6 +248,7 @@ ActiveRecord::Schema.define(:version => 20110428142026) do
     t.datetime "locked_at"
     t.boolean  "trained",                             :default => true
     t.string   "reset_password_token"
+    t.boolean  "corporate_cop"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -19,10 +19,11 @@ class ActivitiesController < ApplicationController
   helper_method :render_to_string
   before_filter :authenticate_user!
   before_filter :ensure_creator, :only => [:edit, :new, :create, :update, :directorate_einas]
-  before_filter :set_activity, :only => [:edit, :questions, :update, :toggle_strand, :submit, :show, :approve, :reject, :submit_approval, :submit_rejection]
+  before_filter :set_activity, :only => [:edit, :questions, :update, :toggle_strand, :submit, :show, :approve, :reject, :submit_approval, :submit_rejection, :summary]
+  before_filter :ensure_cop, :only => [:summary, :generate_schedule, :actions, :directorate_governance_eas]
   before_filter :ensure_completer, :only => [:my_einas]
   before_filter :ensure_activity_completer, :only => [:questions, :submit, :toggle_strand]
-  before_filter :ensure_approver, :only => [:assisting]
+  before_filter :ensure_approver, :only => [:approving]
   before_filter :ensure_activity_approver, :only => [:approve, :reject, :submit_approval, :submit_rejection]
   before_filter :ensure_pdf_view, :only => [:show]
 
@@ -52,6 +53,12 @@ class ActivitiesController < ApplicationController
     @breadcrumb = [["Awaiting Approval"]]
     @activities = Activity.where(:approver_id => current_user.id, :ready => true).reject{|a| a.progress == "NS"}
     @selected = "awaiting_approval"
+  end
+  
+  def directorate_governance_eas
+    @breadcrumb = [["EA Governance"]]
+    @activities =  Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>current_user.id).map(&:id)}, :ready => true)
+    @selected = "directorate_governance_eas"
   end
   
   def new
@@ -151,6 +158,29 @@ class ActivitiesController < ApplicationController
     end
   end
 
+
+  def summary
+    render :partial => "summary"
+  end
+  
+  def generate_schedule
+    activities = []
+    if current_user.corporate_cop?
+      activities = Activity.where(:id => params[:activities])
+    elsif current_user.directorate_cop?
+      activities = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
+    end
+    send_data SchedulePDFGenerator.new(activities).pdf.render, :disposition => 'inline',
+      :filename => "schedule.pdf",
+      :type => "application/pdf"
+  end
+  
+  def actions
+    service_area_list = current_user.corporate_cop? ? ServiceArea.all : Directorate.where(:cop_id=>current_user.id).map(&:service_areas).flatten
+    @service_areas = service_area_list.map do |sa|
+      [sa, Issue.includes(:activity => {:service_area => :directorate}).where(:directorates => {:cop_id => current_user.id}).count]
+    end
+  end
   
   def show
     type = params[:type]
@@ -193,7 +223,7 @@ class ActivitiesController < ApplicationController
 protected
   
   def ensure_pdf_view
-     redirect_to access_denied_path unless current_user.creator? || current_user.approver? || current_user.completer?
+     redirect_to access_denied_path unless current_user.creator? || current_user.approver? || current_user.completer? || current_user.corporate_cop? || current_user.directorate_cop?
   end
   
   

@@ -84,6 +84,19 @@ class Activity < ActiveRecord::Base
     end
   end
   
+  def full_progress
+    case self.progress
+    when "A"
+      "Approved"
+    when "NS"
+      "Not Started"
+    when "FA"
+      "Full Assessment"
+    when "IA"
+      "Initial Assessment"
+    end
+  end
+  
   def directorate
     self.service_area ? self.service_area.directorate : nil
   end

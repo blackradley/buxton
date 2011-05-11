@@ -1,0 +1,67 @@
+%h2 EA Governance
+- if @activities.empty?
+  %p There are no EAs yet for any directorates you are the Directorate Goverance Officer for.
+-else
+  .orangeButton
+    =link_to "Generate Schedule", generate_schedule_activities_path, :class=>"add schedule", :target => "_blank", "data-root-path" => generate_schedule_activities_path
+  .clear
+  .searchBox
+    = form_tag '#', :id => 'searchForm' do
+      %label Search for:
+      = text_field_tag 'search_term', '', :class => 'textField'
+      = submit_tag 'Search', :class => 'submitButton'
+      %p Search will return all records with Service Area, Name, Ref No or Approver matching the search text.
+
+  %table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
+    %thead
+      %tr
+        %th Directorate
+        %th Service Area
+        %th EA Name
+        %th Ref no.
+        %th Senior Officer
+        %th.date.center Date Started
+        %th.date.center Actual Completion
+        %th.center Progress
+        %th.last
+      %tr
+        %th.sortControls
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+        %th.sortControls
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+        %th.sortControls
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+        %th.sortControls
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+        %th.sortControls
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+        %th.sortControls
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+        %th.sortControls
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+        %th.sortControls
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+          =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+        %th.sortControls.last
+    %tbody
+      - @activities.each do |activity|
+        %tr{:class => cycle("light", "dark"), "data-activity-id" => "#{activity.id}"}
+          %td= activity.service_area.directorate.name
+          %td= activity.service_area.name
+          %td= activity.name
+          %td= activity.ref_no
+          %td= activity.approver.email
+          %td.center= activity.started ? activity.actual_start_date.to_s(:short) : "N/A"
+          %td.center= activity.approved ? activity.approved_on.to_s(:short) : "N/A"
+          %td.center= activity.progress
+          - if activity.ready?
+            %td.last
+              = link_to "view", activity_path(activity), :class => "action view"
+              = link_to "summary", summary_activity_path(activity), :class => "action summary activitySummary"

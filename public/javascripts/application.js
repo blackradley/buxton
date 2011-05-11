@@ -24,6 +24,11 @@ $(document).ready(function(){
     $(this).colorbox({'href': $(this).data("path")});
   })
   
+  $('.schedule').click(function(){
+    var visible_activities = $('tr.light:visible, tr.dark:visible').map(function(){return "activities[]=" + $(this).data("activity-id")});
+    $(this).attr("href", $(this).data("root-path") + "?" + $.makeArray(visible_activities).join("&"));
+  })
+  
   $("td:empty").html("&nbsp;");
     
   $('input.ui-datepicker').datepicker();
@@ -35,8 +40,8 @@ $(document).ready(function(){
   
   $('#searchForm').submit(function(){
     var term = $('#search_term').val();
-    $("table.searchable tbody tr:not(:Contains('"+term+"'))").hide();
-    $("table.searchable tbody tr:Contains('"+term+"')").show();
+    $("table.searchable tbody tr td:not(.last):not(:Contains('"+term+"'))").parents("tr").hide();
+    $("table.searchable tbody tr td:not(.last):Contains('"+term+"')").parents("tr").show();
     return false;
   });
 
@@ -104,6 +109,7 @@ $(document).ready(function(){
     return false;
   });  
   
+  
   if ($('#sortable').length) {
     sorter = new TINY.table.sorter('sorter');
     sorter.head = 'sortControls'; //header class name
@@ -119,7 +125,6 @@ $(document).ready(function(){
     // sorter.limitid = 'pagelimit'; //page limit id
     sorter.init('sortable',0,true);
   }
-
   
   $('.retiredCheckbox :checkbox').click(function(){
     $.post($(this).data("path"));
@@ -130,6 +135,9 @@ $(document).ready(function(){
       $(this).parents("tr").find(".retired").remove()
     }
   });
+  
+  
+  $('.activitySummary').colorbox();
   
   
   $('.issueEdit').click(function(){

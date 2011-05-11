@@ -67,6 +67,10 @@ class User < ActiveRecord::Base
         Activity.where(:approver_id => self.id, :ready => true)
       when "Creator"
         Activity.all 
+      when "Directorate Cop"
+        Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>self.id).map(&:id)})
+      when "Corporate Cop"
+        Activity.all
       end
     end.flatten.compact.uniq
   end
@@ -76,7 +80,7 @@ class User < ActiveRecord::Base
   end
   
   def roles
-    ["Creator", "Completer", "Approver", "Checker", "Cop"].select{|role| self.send("#{role.downcase}?".to_sym)}
+    ["Creator", "Completer", "Approver", "Checker", "Corporate Cop", "Directorate Cop"].select{|role| self.send("#{role.gsub(' ', '_').downcase}?".to_sym)}
   end
   
   def completer?
@@ -87,11 +91,12 @@ class User < ActiveRecord::Base
     Activity.where(:approver_id => self.id, :ready => true).reject{|a| a.progress == "NS"}.count > 0
   end
   
+  def directorate_cop?
+    Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>self.id).map(&:id)}).count > 0
+  end
+  
   def checker?
     false
   end
   
-  def cop?
-    Directorate.where(:cop_id => self.id).count > 0
-  end
 end

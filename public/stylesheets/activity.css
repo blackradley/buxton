@@ -19,6 +19,21 @@
     width: 240px;
     margin-right: 0px; }
 
+#summaryBox h3, #summaryBox h2 {
+  float: none; }
+#summaryBox label {
+  width: 150px;
+  float: left;
+  color: #1b4e77;
+  font-weight: bold;
+  margin: 0px; }
+#summaryBox ul {
+  list-style: none;
+  padding: 0px;
+  margin: 0px; }
+  #summaryBox ul li {
+    line-height: 2em; }
+
 #activity_link {
   font-weight: bold; }
 

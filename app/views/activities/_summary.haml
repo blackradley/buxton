@@ -1,0 +1,31 @@
+#summaryBox
+  %h2= @activity.name
+  %h3 Details
+  %ul
+    %li
+      %label Directorate :
+      = @activity.directorate.name
+    %li 
+      %label Service Area :
+      = @activity.service_area.name
+    %li
+      %label Target Start Date:
+      = @activity.start_date(:full)
+    %li
+      %label Target End Date:
+      = @activity.end_date(:full)
+    %li
+      %label Task Group Leader
+      = @activity.completer.email
+    %li
+      %label Senior Officer
+      = @activity.approver.email
+    %li
+      %label Progress
+      = @activity.full_progress
+  %h3 Relevant Protected Characteristics
+  %ul
+    - @activity.overview_strands.each do |strand_name, strand|
+      %li
+        %label= strand_display(strand).titlecase
+        = check_box_tag("#{strand}_checkbox", strand, @activity.strand_relevant?(strand), :disabled =>true)

@@ -103,7 +103,6 @@ module ApplicationHelper
   def admin_menu
     menu = Array.new
     menu << ["Users", users_path]
-    menu << ["Activity Logging", logs_path]
     menu
   end
 
@@ -119,11 +118,15 @@ module ApplicationHelper
         if current_user.count_directorates > 0
           menu << ["Directorate EAs", directorate_einas_activities_path]
         end
-      when "Cop"
-        menu << ["Governance Officer", "#"]
+      when "Directorate Cop"
+        menu << ["EA Governance", directorate_governance_eas_activities_path]
+        menu << ["Actions", actions_activities_path]
+      when "Corporate Cop"
+        menu << ["Activity Logging", logs_path]
+        menu << ["Actions", actions_activities_path]
       end
     end
-    menu
+    menu.uniq
   end
   
   # Display a coloured bar showing the level selected, produced

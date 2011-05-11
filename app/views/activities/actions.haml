@@ -1,0 +1,29 @@
+.searchBox
+  = form_tag '#', :id => 'searchForm' do
+    %label Search for:
+    = text_field_tag 'search_term', '', :class => 'textField'
+    = submit_tag 'Search', :class => 'submitButton'
+    %p Search will return all records with Service Area, Name, Ref No or Approver matching the search text.
+
+%table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
+  %thead
+    %tr
+      %th Directorate
+      %th Service Area
+      %th.center.last Number of Actions
+    %tr
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls.last
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+  %tbody
+    - @service_areas.each do |service_area, issue_count|
+      %tr{:class => cycle("light", "dark")}
+        %td= service_area.directorate.name
+        %td= service_area.name
+        %td.center.last= issue_count
