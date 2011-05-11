@@ -32,4 +32,4 @@
         = fields_for service_area do |f|
           %td.checkbox
             = f.check_box :retired, "data-path" => toggle_retired_status_service_area_path(service_area, :checkbox => :retired), :confirm => "Are you sure you wish to retire this service area?"
-        %td.last= link_to "edit", edit_service_area_path(service_area), :class => "action edit", :target => "blank"
+        %td.last= link_to "edit", edit_service_area_path(service_area), :class => "action edit"
