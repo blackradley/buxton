@@ -38,6 +38,7 @@ class ActivitiesController < ApplicationController
     
     @directorates = current_user.count_directorates
     @live_directorates = current_user.count_live_directorates
+    @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
     @activities = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id)})
     
     @selected = "directorate_einas"
@@ -76,7 +77,7 @@ class ActivitiesController < ApplicationController
     @selected = "directorate_einas"
     @activity = Activity.new
     @activity.service_area = services.first
-    @activity.approver = services.first.approver
+    @activity.approver = services.first.approver if services.first
   end
 
   def create

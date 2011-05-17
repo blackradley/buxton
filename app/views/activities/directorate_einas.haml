@@ -3,7 +3,7 @@
   .clear
   %p You are not the Directorate Contact Officer for any directorates, and so can not create EAs at this time.
 - else
-  - unless @live_directorates > 0
+  - unless @service_areas.size > 0
     =image_tag("add_disabled.jpg", :style=>"float:right;")
   -else
     .orangeButton
