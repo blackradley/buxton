@@ -50,6 +50,17 @@ class ActivitiesController < ApplicationController
     @selected = "my_einas"
   end
   
+  def clone
+    original_activity = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id)}).find(params[:id])
+    if original_activity
+      @activity = Activity.new(original_activity.attributes)
+      @clone_of = original_activity
+      render :new
+    else
+      redirect_to :directorate_einas
+    end
+  end
+  
   def approving
     @breadcrumb = [["Awaiting Approval"]]
     @activities = Activity.where(:approver_id => current_user.id, :ready => true).reject{|a| a.progress == "NS"}
@@ -81,7 +92,11 @@ class ActivitiesController < ApplicationController
   end
 
   def create
-    @activity = Activity.new(params[:activity])
+    if params[:clone_of]
+      @activity = Activity.clone(current_user.activities.find(params[:clone_of]))
+    else
+      @activity = Activity.new(params[:activity])
+    end
     @activity.ref_no = "EA#{sprintf("%06d", Activity.last(:order => :id).id + 1)}"
     # @directorate = Directorate.find_by_creator_id(current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_einas_activities_path], ["New EA"]]

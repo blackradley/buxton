@@ -39,6 +39,7 @@ Buxton::Application.routes.draw do
     member do
       get :questions
       get :submit
+      get :clone
       post :toggle_strand
       get :approve
       get :reject

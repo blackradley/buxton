@@ -63,7 +63,9 @@
             %td.center= activity.started ? activity.actual_start_date.to_s(:short) : "N/A"
             %td.center= activity.approved ? activity.approved_on.to_s(:short) : "N/A"
             %td.center= activity.progress
-            - if activity.ready?
-              %td.last= link_to "view", activity_path(activity), :class => "action view"
-            - else
-              %td.last= link_to "edit", edit_activity_path(activity), :class => "action edit"
+            %td.last
+              = link_to "clone", clone_activity_path(activity), :class => "action clone"
+              - if activity.ready?
+                = link_to "view", activity_path(activity), :class => "action view"
+              - else
+                = link_to "edit", edit_activity_path(activity), :class => "action edit"
