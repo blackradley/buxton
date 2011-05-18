@@ -1,5 +1,7 @@
 = semantic_form_for @activity do |form|
   = form.inputs :id => "standardInputs" do
+    - if @clone_of
+      = hidden_field_tag "clone_of", @clone_of.id
     =form.input :service_area, :label => "Service Area", :collection => @service_areas, :include_blank => false
     =form.input :name, :label => "Title"
     =form.input :start_date, :label => "Target Start Date", :as => :datepicker

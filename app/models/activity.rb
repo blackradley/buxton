@@ -70,6 +70,9 @@ class Activity < ActiveRecord::Base
   end
   
   def progress
+    if !self.ready
+      return "PC"
+    end
     if self.approved
       return "A"
     end
