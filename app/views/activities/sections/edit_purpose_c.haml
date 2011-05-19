@@ -2,7 +2,7 @@
 %h2
   %span.letter
     c.
-  Impact on Protected Characteristics
+  Relevance Test
 #questions
   = render :partial => 'question_help', :collection => question_details(:purpose, 'gender', [3])
   = render :partial => 'question_help', :collection => question_details(:purpose, 'race', [3])
@@ -17,7 +17,17 @@
     = render :partial => 'intro'
 
     %h5
-      How does this function affect strategies:
+      This section identifies if the policy is relevant to any of the nine protected characteristics.
+    %p{:style => "width:590px"}
+      The policy will be relevant to a protected characteristic if it has any of the following effects on individuals who have that particular protected characteristic:
+    %ul{:style => "padding-left: 20px"}
+      %li{:style => "list-style-type:disc"} Eliminating discrimination
+      %li{:style => "list-style-type:disc"} Advancing equality of opportunity
+      %li{:style => "list-style-type:disc"} Fostering good relations
+      %li{:style => "list-style-type:disc"} Protecting human rights
+    %p{:style => "width:590px"}
+      The policy will also be relevant if it has any differential impact, positive or negative, on individuals having one or more protected characteristics because of that characteristic.
+    
     = render :partial => 'question_compact', :collection => question_details(:purpose, 'gender', [3]), :locals => {:f => f}
     = render :partial => 'question_compact', :collection => question_details(:purpose, 'race', [3]), :locals => {:f => f}
     = render :partial => 'question_compact', :collection => question_details(:purpose, 'disability', [3]), :locals => {:f => f}

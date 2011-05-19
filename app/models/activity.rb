@@ -439,7 +439,7 @@ class Activity < ActiveRecord::Base
   end
   
   def self.question_setup_names
-    {:purpose =>          { :overall => [2,5,6,7,8,9,11,12, 13,14],
+    {:purpose =>          { :overall => [2,5,6,7,8,9, 13,14],
                             :race => [3],
                             :disability => [3],
                             :sexual_orientation => [3],

@@ -5,7 +5,7 @@
   .help
     / = simple_format(@activity.questions.where(:name => "purpose_overall_1").help_text)
   %h3
-    ="#{ot('strategy').titleize} Description:"
+    ="Strategic Outcome - Aims and Objectives:"
   -if !activity_strategy.strategy.description.blank? then
     .help
       =simple_format(activity_strategy.strategy.description)
