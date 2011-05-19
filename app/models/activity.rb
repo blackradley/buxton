@@ -320,7 +320,7 @@ class Activity < ActiveRecord::Base
 
   def target_and_strategies_completed
     answered_questions = self.questions.where(:name => ["purpose_overall_2"]).where("completed = true OR needed = false")
-    return false unless answered_questions.size == 3
+    return false unless answered_questions.size == 1
     self.activity_strategies.each do |strategy|
       unless check_response(strategy.strategy_response) then
         return false
