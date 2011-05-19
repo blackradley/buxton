@@ -2,16 +2,16 @@
 %h2
   %span.letter
     a.
-  Target of Activity and Impact on Strategies
+  Target of Activity and Impact on Strategic Outcomes
 #questions
-  = render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [2,11,12])
+  = render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [2])
   -@activity_strategies.each do |activity_strategy|
     = render :partial => 'activity_strategy_help', :locals => {:activity_strategy => activity_strategy}
   =form_for(@activity, :url => activities_section_path(@activity)) do |f|
     = render :partial => 'intro'
-    = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [2,11,12]), :locals => {:f => f}
+    = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [2]), :locals => {:f => f}
     %h4
-      For each strategy below please indicate whether it is significantly aided by the Function.
+      For each Strategic Outcome below please indicate whether it is significantly aided by the Function.
     -if @activity_strategies.count >= 1
       -yes_no = [["Not Answered", 0], ["Yes", 1], ["No",2]]
       -@activity.activity_strategies.each do |activity_strategy|

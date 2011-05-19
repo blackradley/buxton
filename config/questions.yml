@@ -4,7 +4,7 @@ questions:
       label: 'Does this EINA have any relevance to #{wordings[strand]}?'
       help: 'This question asks you to identify any positive differential impact that the Function has on #{wordings[strand]}.<br/><br/>  #{data["extra_strand_wordings"]["purpose"][3][strand]}Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed well.'
       type: select
-      choices: 3
+      choices: 11
       weights: 1
       dependent_questions: ''
   impact:
@@ -279,20 +279,6 @@ overall_questions:
       choices: 3
       weights: 0
       dependent_questions: ''
-    11:
-      label: 'Is the Function delivered by a third party?'
-      help: ''
-      type: select
-      choices: 3
-      weights: 0
-      dependent_questions: ''
-    12:
-      label: 'Were equality requirements part of the contracting process if the Function is delivered by a third party?'
-      help: ''
-      type: select
-      choices: 3
-      weights: 0
-      dependent_questions: 'purpose_overall_11 yes_value'
     13: 
       label: 'Have you any overall comments on this initial stage of the assessment?'
       help: ''
@@ -307,13 +293,13 @@ overall_questions:
 wordings:
   gender: 'men and women'
   race: 'individuals from different ethnic backgrounds'
-  disability: 'individuals with different kinds of disability'
+  disability: 'individuals with different types of disability'
   faith: 'individuals of different religions or beliefs'
   sexual_orientation: 'individuals of different sexual orientations'
   age: 'individuals of different ages'
-  gender_reassignment: 'individuals with gender reassignment'
-  pregnancy_and_maternity: 'expecting or new parents'
-  marriage_civil_partnership: 'individuals who are married or in a civil partnership'
+  gender_reassignment: 'individuals who have undergone, are undergoing or intend to undergo a gender reassignment'
+  pregnancy_and_maternity: 'pregnant women or those who are on maternity leave'
+  marriage_civil_partnership: 'individuals who are married or in civil partnerships'
 
 strands:
   gender:  'Gender'
@@ -554,89 +540,11 @@ choices:
     - 'No'
     - 'Not sure'
     - 'Not applicable'
-
-weights:
-  0:
-    - 0
-    - 0
-    - 0
-    - 0
-  1:
-    - 15
-    - 5
-    - 10
-    - 15
-  2:
-    - 50
-    - 50
-    - 45
-    - 40
-    - 35
-    - 30
-    - 50
-  3:
-    - 0
-    - '-5'
-    - 0
-    - 0
-  4:
-    - 10
-    - 10
-    - 0
-  5:
-    - 15
-    - 15
-    - 0
-  6:
-    - 0
-    - 10
-    - 0
-  7:
-    - 30
-    - 10
-    - 30
-  8:
-    - 0
-    - -5
-    - 0
-    - 0
-    - 0
-    - 0
-  9:
-    - 0
-    - '-2'
-    - 0
-    - 0
-    - 0
-    - 0
-  10:
-    - 3
-    - 3
-    - 0
-  11:
-    - 5
-    - 1
-    - 5
-
-  12:
-    - 0
-    - 5
-    - 20
-  13:
-    - 0
-    - -3
-    - 0
-    - 0
-    - 0
-    - 0
-  14:
-    - 20
-    - 10
-    - 20
-  15:
-    - 0
-    - '-10'
-    - 0
+  11: 
+    - 'Not answered Yet'
+    - 'Relevant'
+    - 'Not Relevant'
+    - 'Not sure'
 extra_strand_wordings:
   purpose:
     3:
