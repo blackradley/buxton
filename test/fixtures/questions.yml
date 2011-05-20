@@ -2880,25 +2880,6 @@ questions_077:
     - "Yes"
     - "No"
 
-questions_219: 
-  section: purpose
-  label: Is the Function delivered by a third party?
-  name: purpose_overall_11
-  help_text: ""
-  completed: 0
-  raw_answer: 
-  needed: 1
-  input_type: select
-  activity_id: 2
-  id: 219
-  dependency_id: 
-  strand: overall
-  choices: |
-    --- 
-    - Not Answered Yet
-    - "Yes"
-    - "No"
-
 questions_029: 
   section: impact
   label: What is your assessment of the Function in meeting the needs of individuals with gender reassignment?
@@ -4171,25 +4152,6 @@ questions_056:
     - 5 - Excellent
     - Not sure
 
-questions_009: 
-  section: purpose
-  label: Is the Function delivered by a third party?
-  name: purpose_overall_11
-  help_text: ""
-  completed: 0
-  raw_answer: 
-  needed: 1
-  input_type: select
-  activity_id: 1
-  id: 9
-  dependency_id: 
-  strand: overall
-  choices: |
-    --- 
-    - Not Answered Yet
-    - "Yes"
-    - "No"
-
 questions_294: 
   section: impact
   label: Do you have evidence to support the assessment above?
@@ -5138,24 +5100,6 @@ questions_169:
   dependency_id: 73
   strand: gender_reassignment
   choices: 
-questions_220: 
-  section: purpose
-  label: Were equality requirements part of the contracting process if the Function is delivered by a third party?
-  name: purpose_overall_12
-  help_text: ""
-  completed: 0
-  raw_answer: 
-  needed: 0
-  input_type: select
-  activity_id: 2
-  id: 220
-  dependency_id: 102
-  strand: overall
-  choices: |
-    --- 
-    - Not Answered Yet
-    - "Yes"
-    - "No"
 
 questions_030: 
   section: impact
@@ -6661,24 +6605,6 @@ questions_149:
     - "Yes"
     - "No"
 
-questions_010: 
-  section: purpose
-  label: Were equality requirements part of the contracting process if the Function is delivered by a third party?
-  name: purpose_overall_12
-  help_text: ""
-  completed: 0
-  raw_answer: 
-  needed: 0
-  input_type: select
-  activity_id: 1
-  id: 10
-  dependency_id: 9
-  strand: overall
-  choices: |
-    --- 
-    - Not Answered Yet
-    - "Yes"
-    - "No"
 
 questions_387: 
   section: additional_work
