@@ -54,6 +54,8 @@ table {
       background-image: url(../images/icons/pdf.gif); }
     table td .summary {
       background-image: url(../images/icons/report.gif); }
+    table td .clone {
+      background-image: url(../images/icons/arrow_divide.gif); }
     table td .retired {
       font-style: italic;
       color: #e2474b;

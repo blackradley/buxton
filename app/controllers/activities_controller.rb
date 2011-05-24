@@ -93,7 +93,7 @@ class ActivitiesController < ApplicationController
 
   def create
     if params[:clone_of]
-      @activity = Activity.clone(current_user.activities.find(params[:clone_of]))
+      @activity = current_user.activities.select{|a| a.id.to_s == params[:clone_of]}.first.clone
     else
       @activity = Activity.new(params[:activity])
     end
