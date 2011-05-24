@@ -18,7 +18,7 @@ activities_002:
   updated_on: 2011-04-14 14:32:55 Z
   id: 2
   faith_relevant: 
-  activity_status: 
+  activity_status: 0 
   marriage_civil_partnership_relevant: 
   gender_relevant: 
   updated_by: 
@@ -57,7 +57,7 @@ activities_001:
   actual_start_date: 2011-04-14 14:32:48 Z
   id: 1
   faith_relevant: 
-  activity_status: 
+  activity_status: 0 
   marriage_civil_partnership_relevant: 
   gender_relevant: 
   updated_by: 
