@@ -267,29 +267,27 @@ class ActivityPDFGenerator
   
   def build_strand_tables
     section_index = 1
-    Activity.strands.each do |strand|
+    @activity.strands.each do |strand|
       build_differential_impact(strand, section_index)
-      if @activity.send("#{strand}_relevant")
-        heading_proc  = lambda do |document|
-          document.text "<b>3.#{section_index}.2  <c:uline>#{strand_display(strand).titlecase} - Impact</b></c:uline>", :font_size => 12
-          document.text ' '
-          document
-        end
-        build_section("impact", strand, heading_proc)
-        heading_proc = lambda do |document|
-          document.text "<b>3.#{section_index}.3  <c:uline>#{strand_display(strand).titlecase} - Consultation</b></c:uline>", :font_size => 12
-          document.text ' '
-          document
-        end
-        build_section("consultation", strand, heading_proc)
-        heading_proc = lambda do |document|
-          document.text "<b>3.#{section_index}.4  <c:uline>#{strand_display(strand).titlecase} - Additional Work</b></c:uline>", :font_size => 12
-          document.text ' '
-          document
-        end
-        build_section("additional_work", strand, heading_proc)
-        @pdf.start_new_page
+      heading_proc  = lambda do |document|
+        document.text "<b>3.#{section_index}.2  <c:uline>#{strand_display(strand).titlecase} - Impact</b></c:uline>", :font_size => 12
+        document.text ' '
+        document
       end
+      build_section("impact", strand, heading_proc)
+      heading_proc = lambda do |document|
+        document.text "<b>3.#{section_index}.3  <c:uline>#{strand_display(strand).titlecase} - Consultation</b></c:uline>", :font_size => 12
+        document.text ' '
+        document
+      end
+      build_section("consultation", strand, heading_proc)
+      heading_proc = lambda do |document|
+        document.text "<b>3.#{section_index}.4  <c:uline>#{strand_display(strand).titlecase} - Additional Work</b></c:uline>", :font_size => 12
+        document.text ' '
+        document
+      end
+      build_section("additional_work", strand, heading_proc)
+      @pdf.start_new_page
       section_index += 1
     end
     @pdf
