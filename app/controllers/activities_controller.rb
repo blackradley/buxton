@@ -97,6 +97,9 @@ class ActivitiesController < ApplicationController
     else
       @activity = Activity.new(params[:activity])
     end
+    Strategy.live.each do |s|
+      @activity.activity_strategies.find_or_create_by_strategy_id(s.id)
+    end
     @activity.ref_no = "EA#{sprintf("%06d", Activity.last(:order => :id).id + 1)}"
     # @directorate = Directorate.find_by_creator_id(current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_einas_activities_path], ["New EA"]]
@@ -133,7 +136,12 @@ class ActivitiesController < ApplicationController
     @directorate = Directorate.find_by_creator_id(current_user.id)
     @selected = "directorate_einas"
     @activity = Activity.find(params[:id])
-    
+    Strategy.live.each do |s|
+      @activity.activity_strategies.find_or_create_by_strategy_id(s.id)
+    end
+    @activity.activity_strategies.each do |s|
+      s.destroy if s.strategy.retired?
+    end
     if @activity.update_attributes(params[:activity])
       flash[:notice] = "#{@activity.name} was updated."
       Mailer.activity_created(@activity).deliver if @activity.ready?
