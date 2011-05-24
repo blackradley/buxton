@@ -9,8 +9,12 @@
       %th.date Date Started
       %th.date Actual Completion
       %th Progress
+      %th Actions
       %th.last
   %tr
+    %th.sortControls
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+      =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
     %th.sortControls
       =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
       =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
@@ -42,6 +46,7 @@
       %td= activity.started ? activity.actual_start_date.to_s(:short) : "N/A"
       %td= activity.approved ? activity.approved_on.to_s(:short) : "N/A"
       %td= activity.progress
+      %td= activity.issues.count
       %td.last
         = link_to "edit", questions_activity_path(activity), :class => "action edit"
         = link_to "view", activity_path(activity), :class => "action view"

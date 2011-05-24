@@ -15,7 +15,7 @@
   = form.inputs :id => "readyInput", :style => "#{'display:none' unless @activity.fields_complete}" do
     = form.input :ready, :label => "Send to Task Group Manager", :style => "display:none"
   = form.buttons do
-    = form.submit "Save"
+    = form.submit "Save", :disable_with => 'Saving...'
     =raw "or #{link_to "cancel", directorates_path}"
 #formHelp
   %p
