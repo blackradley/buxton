@@ -76,12 +76,7 @@ class ActivityPDFGenerator
     table = []
     table << ['<b>Activity</b>', @activity.name.titlecase]
     table << ["<b>Directorate </b>", @activity.directorate.name.titlecase]
-    
-    if @activity.activity_status.to_i > 0 && @activity.activity_type.to_i > 0 then
-      table << ["<b>Type</b>", "#{@activity.activity_status_name.titlecase} #{@activity.activity_type_name.titlecase}"]
-    else
-      table << ['<b>Type</b>', 'Insufficient questions have been answered to determine the type of this activity.']
-    end
+    table << ["<b>Type</b>", "#{@activity.activity_status_name.titlecase} #{@activity.activity_type_name.titlecase}"]
     table << ["<b>Activity Summary</b>", @activity.summary.to_s]
     table << ["<b>Reference Number</b>", "#{@activity.ref_no}"]
     table << ["<b>Activity Manager</b>", @activity.completer.email]
@@ -172,17 +167,16 @@ class ActivityPDFGenerator
     @pdf.text " "
     strategies = []
     @activity.activity_strategies.each do |activity_strategy|
-      strategies += [activity_strategy, ['Not answered', 'Yes', 'No'][activity_strategy.strategy_response]]
+      strategies << [activity_strategy, ['Not answered', 'Yes', 'No'][activity_strategy.strategy_response.to_i]]
     end
-
-    unless strategies.blank? do
+    unless strategies.blank?
       table_heading = Proc.new do |document|
         document.text " "
         document.text "<b>For each strategy, please decide whether it is going to be significantly aided by the Function.</b>", :font_size => 10
         document.text " "
         document
       end
-     table = []
+      table = []
       strategies.each do |strategy, answer|
         cell_formats << [{:shading => SHADE_COLOUR}, nil]
         table << ["#{strategy.strategy.name.titlecase}", answer]
@@ -196,7 +190,6 @@ class ActivityPDFGenerator
         end
       end
       @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4, :table_title =>table_heading)
-    end
     end
     table_heading = Proc.new do |document|
       document.text " "

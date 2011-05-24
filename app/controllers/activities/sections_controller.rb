@@ -27,8 +27,7 @@ class Activities::SectionsController < ApplicationController
   def edit_purpose_a
     @breadcrumb << ["Purpose and Outcomes"]
     @equality_strand = "overall"
-    @activity_strategies = Strategy.live.map do |s|
-      @activity.activity_strategies.find_or_create_by_strategy_id(s.id)
+    @activity_strategies = @activity.activity_strategies
     end
   end
   
