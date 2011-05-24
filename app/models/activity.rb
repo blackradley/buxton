@@ -417,11 +417,11 @@ class Activity < ActiveRecord::Base
   end
   
   def activity_type_name
-    self.types[self.activity_type].to_s
+    self.types[self.activity_type.to_i].to_s
   end
   
   def activity_status_name
-    self.statuses[self.activity_status].to_s
+    self.statuses[self.activity_status.to_i].to_s
   end
   
   def types
