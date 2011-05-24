@@ -28,7 +28,6 @@ class Activities::SectionsController < ApplicationController
     @breadcrumb << ["Purpose and Outcomes"]
     @equality_strand = "overall"
     @activity_strategies = @activity.activity_strategies
-    end
   end
   
   def edit_purpose_b
