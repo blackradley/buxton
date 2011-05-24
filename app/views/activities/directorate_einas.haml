@@ -29,8 +29,12 @@
           %th.date.center Date Started
           %th.date.center Actual Completion
           %th.center Progress
+          %th Actions
           %th.last
         %tr
+          %th.sortControls
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+            =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
           %th.sortControls
             =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
             =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
@@ -63,6 +67,7 @@
             %td.center= activity.started ? activity.actual_start_date.to_s(:short) : "N/A"
             %td.center= activity.approved ? activity.approved_on.to_s(:short) : "N/A"
             %td.center= activity.progress
+            %td= activity.issues.count
             %td.last
               = link_to "clone", clone_activity_path(activity), :class => "action clone"
               - if activity.ready?

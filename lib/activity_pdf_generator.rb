@@ -82,6 +82,7 @@ class ActivityPDFGenerator
     else
       table << ['<b>Type</b>', 'Insufficient questions have been answered to determine the type of this activity.']
     end
+    table << ["<b>Activity Summary</b>", @activity.summary.to_s]
     table << ["<b>Reference Number</b>", "#{@activity.ref_no}"]
     table << ["<b>Activity Manager</b>", @activity.completer.email]
     table << ["<b>Date Approved</b>", @activity.approved_on.to_s] if @activity.approved?
@@ -169,25 +170,6 @@ class ActivityPDFGenerator
     comments.size.times {cell_formats << nil}
     @pdf = generate_table(@pdf, target, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10)
     @pdf.text " "
-    target_q = @activity.questions.find_by_name("purpose_overall_11").label.to_s
-    target_a =['Not answered', 'Yes', 'No', 'Not sure'][@activity.questions.find_by_name("purpose_overall_11").response.to_i]
-    target = [[target_q, target_a]]
-    comments = get_comments_and_notes(:purpose_overall_11)
-    target += comments  unless comments.blank?
-    cell_formats = [[{:shading => SHADE_COLOUR}, nil]]
-    comments.size.times {cell_formats << nil}
-    @pdf = generate_table(@pdf, target, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10)
-    if @activity.questions.find_by_name("purpose_overall_11").response == 1
-      @pdf.text " "
-      target_q = @activity.questions.find_by_name("purpose_overall_12").label.to_s
-      target_a = ['Not answered', 'Yes', 'No', 'Not sure'][@activity.questions.find_by_name("purpose_overall_12").response.to_i]
-      target = [[target_q, target_a]]
-      comments = get_comments_and_notes(:purpose_overall_12)
-      target += comments  unless comments.blank?
-      cell_formats = [[{:shading => SHADE_COLOUR}, nil]]
-      comments.size.times {cell_formats << nil}
-      @pdf = generate_table(@pdf, target, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10)
-    end
     strategies = []
     @activity.activity_strategies.each do |activity_strategy|
       strategies += [activity_strategy, ['Not answered', 'Yes', 'No'][activity_strategy.strategy_response]]
