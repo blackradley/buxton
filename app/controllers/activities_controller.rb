@@ -98,7 +98,7 @@ class ActivitiesController < ApplicationController
       @activity = Activity.new(params[:activity])
     end
     Strategy.live.each do |s|
-      @activity.activity_strategies.find_or_create_by_strategy_id(s.id)
+      @activity.activity_strategies.build(:strategy => s)
     end
     @activity.ref_no = "EA#{sprintf("%06d", Activity.last(:order => :id).id + 1)}"
     # @directorate = Directorate.find_by_creator_id(current_user.id)
