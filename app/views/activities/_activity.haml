@@ -4,6 +4,7 @@
       = hidden_field_tag "clone_of", @clone_of.id
     =form.input :service_area, :label => "Service Area", :collection => @service_areas, :include_blank => false
     =form.input :name, :label => "Title"
+    = form.input :summary, :label => "Summary of this EA"
     =form.input :start_date, :label => "Target Start Date", :as => :datepicker
     =form.input :end_date, :label => "Target End Date", :as => :datepicker
     = form.input :review_on, :label => "Review Date", :as => :datepicker, :format => :short_ordinal

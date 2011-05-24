@@ -441,6 +441,34 @@ class Activity < ActiveRecord::Base
     ["New/Proposed", "Reviewed", "Amended"]
   end
   
+  def clone
+    parent = Activity.new(self.attributes)
+    parent.ready = false
+    parent.activity_strategies.select{|as| as.strategy.retired?}.map(&:destroy)
+    parent
+    reflection_macro = Proc.new do |obj|
+      obj.class.reflect_on_all_associations.reject{|a| a.macro == :belongs_to}.map do |assoc|
+        [assoc, obj.class.new(obj.attributes), obj]
+      end 
+    end
+    associations = reflection_macro.call(parent)
+    until associations.blank? do 
+      association, new_parent, old_parent = associations.shift
+      case association.name
+      when :has_one
+        record = old_parent.send(association.name)
+        record.send
+        associations << reflection_macro.call(obj) if record
+      when :has_many
+        records = parent.send(association.name)
+        records.each do |r|
+          associations << reflection_macro.call(obj)
+        end
+      end
+    end
+    parent
+  end
+  
   def self.question_setup_names
     {:purpose =>          { :overall => [2,5,6,7,8,9,11,12, 13,14],
                             :race => [3],
@@ -486,73 +514,6 @@ class Activity < ActiveRecord::Base
     }
   end
 
-  #TODO: Needs fixing. It currently makes a start at the display, but is not finished by any means. Won't throw any bugs though.
-  def additional_work_text_lookup(strand, question)
-    strand = strand.to_s
-    fun_pol_indicator = ""
-    activity_status_name = ""
-    begin
-      fun_pol_indicator = activity_type?.downcase #Detect whether it is a activity or a policy
-      activity_status_name = activity_status?.downcase #Detect whether it is an existing activity or a proposed activity.
-    rescue
-    end
-    wordings = hashes['wordings']
-    strands = hashes['strands']
-    response = ""
-    choices = hashes['choices']
-    case question
-      when 1
-        response = "If the #{fun_pol_indicator} were performed well "
-        case send("purpose_#{strand}_3".to_sym)
-          when 1
-            response += "it would not affect #{wordings[strand]} differently."
-          when 2
-            response += "it would affect #{wordings[strand]} differently to a limited extent."
-          when 3
-            response += "it would affect #{wordings[strand]} differently to a significant extent."
-          else
-            response += "it would affect #{wordings[strand]} differently to a significant extent."
-        end
-      when 2
-        response = "If the #{fun_pol_indicator} were performed badly "
-        case send("purpose_#{strand}_4".to_sym)
-          when 1
-            response += "it would not affect #{wordings[strand]} differently."
-          when 2
-            response += "it would affect #{wordings[strand]} differently to a limited extent."
-          when 3
-            response += "it would affect #{wordings[strand]} differently to a significant extent."
-          else
-            response += "it would affect #{wordings[strand]} differently to a significant extent."
-        end
-      when 3
-        response = "The performance of the #{fun_pol_indicator} in meeting the different needs of #{wordings[strand]} is "
-        begin
-          response += choices[2][send("impact_#{strand}_1".to_sym)].split(" - ")[1].downcase
-          response += "."
-        rescue
-          #if it gets here, then response threw an error, meaning that the answer is "Not Answered"
-          response += "not yet determined."
-        end
-      when 4
-        issues_present = (self.send("impact_#{strand}_9".to_sym) == 1)||((self.send("consultation_#{strand}_7".to_sym) == 1))
-        response += "There are #{"no " unless issues_present}performance issues that might have different implications for #{wordings[strand]}."
-      when 5
-        consulted_groups = (self.send("consultation_#{strand}_1".to_sym) == 1)
-        consulted_experts = (self.send("consultation_#{strand}_4".to_sym) == 1)
-        response += "#{wordings[strand].capitalize} have #{"not" unless consulted_groups} been consulted and stakeholders have #{"not" unless consulted_experts} been consulted."
-        response += "\n"
-        issues_identified = (self.send("impact_#{strand}_9".to_sym) == 1)||((self.send("consultation_#{strand}_7".to_sym) == 1))
-        response += "The consultations did not identify any issues with the impact of the #{fun_pol_indicator} upon #{wordings[strand]}." unless issues_identified
-      when 6
-        return "The #{fun_pol_indicator} has not yet been completed sufficiently to warrant calculation of impact level and the priority ranking." unless completed(:purpose, strand.to_sym)&& completed(:impact, strand.to_sym) && completed(:consultation, strand.to_sym)
-        strand = "" unless strand
-        response = "For the #{(strand.to_s.downcase == 'faith') ? 'religion or belief' : strand.to_s.downcase} equality strand the Activity has an overall priority ranking of #{priority_ranking(strand.to_sym)} and a Potential Impact rating of #{impact_wording(strand.to_sym).to_s.capitalize}."
-    end
-
-    return response
-  end
-  
   def check_response(response) #Check response verifies whether a response to a question is correct or not.
       checker = !(response.to_i == 0)
       checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker

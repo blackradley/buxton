@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110503105719) do
+ActiveRecord::Schema.define(:version => 20110524101253) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(:version => 20110503105719) do
     t.boolean  "marriage_civil_partnership_relevant"
     t.date     "actual_start_date"
     t.boolean  "ready"
+    t.text     "summary"
   end
 
   add_index "activities", ["directorate_id"], :name => "index_activities_on_directorate_id"
