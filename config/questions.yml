@@ -1,7 +1,7 @@
 questions:
   purpose:
     3:
-      label: 'Does this EINA have any relevance to #{wordings[strand]}?'
+      label: 'Does this EA have any relevance to #{wordings[strand]}?'
       help: 'This question asks you to identify any positive differential impact that the Function has on #{wordings[strand]}.<br/><br/>  #{data["extra_strand_wordings"]["purpose"][3][strand]}Please indicate whether the Function could affect #{wordings[strand]} differently if it were performed well.'
       type: select
       choices: 11
