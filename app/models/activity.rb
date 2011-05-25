@@ -58,7 +58,8 @@ class Activity < ActiveRecord::Base
   
   scope :ready, {:conditions => {:ready => true}}
   
-  accepts_nested_attributes_for :questions, :issues
+  accepts_nested_attributes_for :questions
+  accepts_nested_attributes_for :issues, :allow_destroy => true
   
   
   def fields_complete

@@ -96,19 +96,13 @@ $(document).ready(function(){
     var issue_link = this
     $.get($(this).data("path"), function(data){
       $(issue_link).parents(".question").children("span#issues_list").append(data);
-      $('.issueDeleteLink').click(function(){
-        $(this).up(".issue").remove()
+      $('.deleteNewIssue').click(function(){
+        $(this).parent('.issue').remove();
         return false;
       });
     })
     return false;
   });
-  
-  $('.issueDeleteLink').click(function(){
-    $(this).up(".issue").remove()
-    return false;
-  });  
-  
   
   if ($('#sortable').length) {
     sorter = new TINY.table.sorter('sorter');
@@ -149,7 +143,11 @@ $(document).ready(function(){
     return false;
   })
 
-  
+  $('.deleteIssue').click(function(){
+    $(this).siblings('.issue_destroy').val('1');
+    $(this).parent('.issue').hide();
+    return false;
+  });
   
 });
 
