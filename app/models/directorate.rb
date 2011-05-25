@@ -11,7 +11,8 @@ class Directorate < ActiveRecord::Base
   has_many :service_areas, :dependent => :destroy
   belongs_to :cop, :class_name => "User"
   validates_uniqueness_of :name, :abbreviation, :creator_id
-  validates_presence_of :name, :abbreviation, :creator
+  validates_presence_of :name, :abbreviation
+  validates_presence_of :creator_email, :cop_email, :message => "must be a valid user"
   # validates_associated :cop
   belongs_to :creator, :class_name => "User"
   
@@ -36,6 +37,8 @@ class Directorate < ActiveRecord::Base
   def cop_email=(email)
     if user = User.live.find_by_email(email)
       self.cop_id = user.id
+    else
+      self.cop_id = nil
     end
   end
   
@@ -50,6 +53,8 @@ class Directorate < ActiveRecord::Base
   def creator_email=(email)
     if user = User.creator.find_by_email(email)
       self.creator_id = user.id
+    else
+      self.creator_id = nil
     end
   end
   
