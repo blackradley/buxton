@@ -130,7 +130,7 @@ class Activities::SectionsController < ApplicationController
   end
   
   def set_selected
-    @selected = "my_einas"
+    @selected = "my_eas"
     @breadcrumb = [["My EAs", my_eas_activities_path], ["#{@activity.name}", questions_activity_path(@activity)]]
   end
   
