@@ -75,8 +75,11 @@ class ActivitiesController < ApplicationController
   
   def directorate_governance_eas
     @breadcrumb = [["EA Governance"]]
-    @activities =  Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>current_user.id).map(&:id)}, :ready => true)
-    @selected = "directorate_governance_eas"
+    @activities =  Activity.includes(:service_area)
+    unless current_user.corporate_cop?
+      @activities = @activities.where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>current_user.id).map(&:id)}, :ready => true)
+    end
+    @selected = "ea_governance"
   end
   
   def new

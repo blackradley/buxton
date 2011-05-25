@@ -73,6 +73,7 @@ protected
    return directorate_einas_activities_path if current_user.creator?
    return my_einas_activities_path if current_user.completer?
    return approving_activities_path if current_user.approver?
+   return directorate_governance_eas_activities_path if current_user.directorate_cop? || current_user.corporate_cop?
    return access_denied_path
   end
   
