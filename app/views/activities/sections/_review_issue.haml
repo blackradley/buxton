@@ -2,7 +2,7 @@
   %span.issueDescription
     = issue_form.object.description
   %span.issueControls
-    = link_to image_tag('icons/delete.gif', :title => 'Delete') + "Delete", '#', :class => "issueDestroy"
+    = link_to image_tag('icons/delete.gif', :title => 'Delete') + "Delete", '#', :class => "deleteIssue"
     = link_to image_tag('icons/edit.gif') + "Open Action Plan", '#',  :class => "issueEdit"
     = link_to image_tag('icons/edit.gif') + "Minimise Action Plan", '#',  :class => "issueEdit", :style => "display:none"
     = issue_form.hidden_field :_destroy, :class => 'issue_destroy'

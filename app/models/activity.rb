@@ -59,7 +59,15 @@ class Activity < ActiveRecord::Base
   scope :ready, {:conditions => {:ready => true}}
   
   accepts_nested_attributes_for :questions
-  accepts_nested_attributes_for :issues, :allow_destroy => true
+  accepts_nested_attributes_for :issues, :allow_destroy => true#, :reject_if => proc { |attributes| attributes['description'].blank? }
+  
+  before_validation :mark_empty_issues
+  
+  def mark_empty_issues
+    issues.select{|i| i.description.blank?}.each do |issue|
+      issue.mark_for_destruction
+    end
+  end
   
   
   def fields_complete
