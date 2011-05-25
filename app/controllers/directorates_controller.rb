@@ -63,7 +63,7 @@ class DirectoratesController < ApplicationController
     @breadcrumb = [["Directorates", directorates_path], ["Edit Directorate"]]
     @directorate = Directorate.find(params[:id])
     @selected = "directorates"
-    if @directorate.update_attributes!(params[:directorate])
+    if @directorate.update_attributes(params[:directorate])
       flash[:notice] = "#{@directorate.name} was updated."
       redirect_to directorates_path
     else

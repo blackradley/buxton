@@ -1,8 +1,8 @@
 namespace :stars do
   
-  PORT = 2020
+  PORT = 13427#2020
   USER = 'deploy'
-  HOST = 'impactengine.org.uk'
+  HOST = 'birmingham.impactequality.co.uk'#'impactengine.org.uk'
   R_ROOT = "public_html/#{HOST}"
   CURRENT = "#{R_ROOT}/current"
   SHARED = "#{R_ROOT}/shared"
@@ -18,13 +18,10 @@ namespace :stars do
       puts "Retrieving remote database..."
       system "rsync -az -e \"ssh -p #{PORT}\" --progress #{USER}@#{HOST}:/tmp/dump.sql ./db/production_data.sql"
       
-      mysql = if RUBY_PLATFORM.downcase.include?("darwin")
+      mysql = if File.exists?("/Applications/MAMP/Library/bin/mysql")
         "/Applications/MAMP/Library/bin/mysql"
-      elsif RUBY_PLATFORM.downcase.include?("linux")
-        "mysql"
       else
-        raise "Unknown path to mysql for this platform."
-        exit(1)
+        "mysql"
       end
       puts "Importing remote database..."
       system "#{mysql} -u #{DB_CONFIG['development']["username"]} -p#{DB_CONFIG['development']["password"]} #{DB_CONFIG['development']["database"]} < ./db/production_data.sql"
