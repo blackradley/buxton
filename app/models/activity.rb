@@ -49,7 +49,7 @@ class Activity < ActiveRecord::Base
 #  validates_associated :questions
   # validates_uniqueness_of :name, :scope => :directorate_id
   
-  before_save :set_approved, :update_completed
+  before_update :set_approved, :update_completed
   after_create :create_questions_if_new
   
   include FixInvalidChars
@@ -156,6 +156,8 @@ class Activity < ActiveRecord::Base
     # Initialise a question, for every question name, if this is a new record
     # 
     # 
+    # 
+    return true if self.questions
     data = File.open(Rails.root + "config/questions.yml"){|yf| YAML::load( yf ) }
     dependents = {}
     Activity.question_setup_names.each do |section, strand_list|
@@ -373,7 +375,7 @@ class Activity < ActiveRecord::Base
   end
 
   def sections
-    Activity.sections
+    self.class.sections
   end
 
   def self.sections
@@ -444,25 +446,49 @@ class Activity < ActiveRecord::Base
   def clone
     parent = Activity.new(self.attributes)
     parent.ready = false
+    parent.approved = false
+    parent.submitted = false
+    parent.start_date = nil
+    parent.end_date = nil
+    parent.review_on = nil
     parent.activity_strategies.select{|as| as.strategy.retired?}.map(&:destroy)
-    parent
-    reflection_macro = Proc.new do |obj|
-      obj.class.reflect_on_all_associations.reject{|a| a.macro == :belongs_to}.map do |assoc|
-        [assoc, obj.class.new(obj.attributes), obj]
+    parent.id = nil
+    reflection_macro = Proc.new do |new_obj, old_obj|
+      old_obj.class.reflect_on_all_associations.reject{|a| a.macro == :belongs_to}.map do |assoc|
+        [assoc, new_obj, old_obj]
       end 
     end
-    associations = reflection_macro.call(parent)
+    associations = reflection_macro.call(parent, self)
     until associations.blank? do 
       association, new_parent, old_parent = associations.shift
-      case association.name
+      case association.macro
       when :has_one
         record = old_parent.send(association.name)
-        record.send
-        associations << reflection_macro.call(obj) if record
+        if record
+          attrbs = record.attributes
+          attrbs.delete('id')
+          attrbs.delete(association.primary_key_name)
+          new_obj = new_parent.send("#{association.name}=".to_sym, record.class.new(attrbs))         
+          if new_parent.is_a?(Dependency) && record.is_a?(Question)
+            new_obj = parent.questions.select{|q| q.name == record.name}.first
+            new_parent.child_question = new_obj
+          end
+          if new_obj.respond_to? :activity_id
+            new_obj.activity_id = nil
+          end
+          associations += reflection_macro.call(new_obj, record) 
+        end
       when :has_many
-        records = parent.send(association.name)
+        records = old_parent.send(association.name)
         records.each do |r|
-          associations << reflection_macro.call(obj)
+          attrbs = r.attributes
+          attrbs.delete('id')
+          attrbs.delete(association.primary_key_name)
+          new_obj = new_parent.send(association.name).build(attrbs)
+          if new_obj.respond_to? :activity_id
+            new_obj.activity_id = nil
+          end
+          associations += reflection_macro.call(new_obj, r)
         end
       end
     end
