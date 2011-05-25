@@ -80,12 +80,11 @@ class Activities::SectionsController < ApplicationController
     if !@activity.actual_start_date
       @activity.actual_start_date = Date.today
     end
-    if params[:activity][:issues_attributes] then
-      #removes all blank elements from the array that were not there previously (ie those without id's)
-      params[:activity][:issues_attributes].reject!{|i| i['description'].blank? && i['id'].nil? }
-      #marks all previously existing issues that had their description field blanked for destruction
-      params[:activity][:issues_attributes].each{|i| i['_destroy'] = 1 if i['description'].blank?}
-    end
+    
+    # if params[:activity][:issues_attributes] then
+    #   #marks all previously existing issues that had their description field blanked for destruction
+    #   params[:activity][:issues_attributes].each{|i| i['_destroy'] = 1 if i['description'].blank?}
+    # end
     # Update the answers in the activity table
     @activity.update_attributes!(params[:activity])
     # Update the activity strategy answers if we have any (currently only in the Purpose section)
@@ -132,7 +131,7 @@ class Activities::SectionsController < ApplicationController
   
   def set_selected
     @selected = "my_einas"
-    @breadcrumb = [["My EAs", my_einas_activities_path], ["#{@activity.name}", questions_activity_path(@activity)]]
+    @breadcrumb = [["My EAs", my_eas_activities_path], ["#{@activity.name}", questions_activity_path(@activity)]]
   end
   
 end
