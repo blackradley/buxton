@@ -157,7 +157,7 @@ class Activity < ActiveRecord::Base
     # 
     # 
     # 
-    return true if self.questions
+    return true unless self.questions.blank?
     data = File.open(Rails.root + "config/questions.yml"){|yf| YAML::load( yf ) }
     dependents = {}
     Activity.question_setup_names.each do |section, strand_list|
