@@ -42,7 +42,6 @@ class Activity < ActiveRecord::Base
   validates :end_date, :presence => {:if => :ready?, :full_message =>"You must enter the date the EA will finish on"}
   validates :review_on, :presence => {:if => :ready?, :full_message =>"You must enter the review date for your EA"}
   # validates_presence_of :name, :message => 'All activities must have a name.'
-  validates_uniqueness_of :ref_no, :message => 'Reference number must be unique', :if => :ref_no?
   # validates_presence_of :completer, :approver
   # validates_presence_of :service_area
   validates_associated :completer, :approver
@@ -70,6 +69,10 @@ class Activity < ActiveRecord::Base
     return false if self.end_date.blank?
     return false if self.review_on.blank?
     return true
+  end
+
+  def ref_no
+    "EA#{sprintf("%06d", self.id)}"
   end
   
   def progress
@@ -446,7 +449,7 @@ class Activity < ActiveRecord::Base
   end
   
   def clone
-    new_activity = Activity.create!(self.attributes.merge({:ref_no => "EA#{sprintf("%06d", Activity.last(:order => :id).id + 1)}"}))
+    new_activity = Activity.create!
     new_activity.ready = false
     new_activity.approved = false
     new_activity.submitted = false
