@@ -12,8 +12,8 @@ class ActivitiesController < ApplicationController
   #         :only => [ :destroy, :create, :update, :update_activity_type, :update_contact, :update_ces ],
   #         :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
-  rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
-  rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
+  # rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
+  # rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
 
   # Make render_to_string available to the #show action
   helper_method :render_to_string
@@ -248,8 +248,15 @@ class ActivitiesController < ApplicationController
   end
   
   def submit_rejection
-    @activity.update_attributes(:submitted => false)
+    new_activity = @activity.clone
+    new_activity.ready = true
+    new_activity.start_date = @activity.start_date
+    new_activity.end_date = @activity.end_date
+    new_activity.review_on = @activity.review_on
+    new_activity.save!
+    # @activity.update_attributes(:submitted => false)
     Mailer.activity_rejected(@activity, params[:email_contents]).deliver
+    @activity.update_attributes(:is_rejected => true)
     redirect_to approving_activities_path
   end
 
