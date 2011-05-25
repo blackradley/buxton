@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110524101253) do
+ActiveRecord::Schema.define(:version => 20110525090628) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -435,7 +435,7 @@ ActiveRecord::Schema.define(:version => 20110524101253) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "type"
-    t.boolean  "retired"
+    t.boolean  "retired",                             :default => false
     t.boolean  "locked"
     t.boolean  "creator",                             :default => false
     t.integer  "failed_attempts",                     :default => 0

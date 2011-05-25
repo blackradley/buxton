@@ -7,6 +7,7 @@ class User < ActiveRecord::Base
   attr_accessible :email, :roles, :activities, :retired, :locked, :trained, :creator
   scope :live, :conditions => "type is null and retired is not true"
   scope :non_admin, :conditions => "type is null"
+  scope :non_retired, :conditions => "retired is not true"
   scope :creator, :conditions => "creator is true and type is null and retired is not true"
   before_validation(:on => :create) { self.set_password }
   after_create :send_password
@@ -98,6 +99,13 @@ class User < ActiveRecord::Base
   
   def checker?
     false
+  end
+  
+  protected
+  
+  def self.find_for_database_authentication(warden_conditions)
+    warden_conditions.merge!(:retired => false)
+    super
   end
   
 end
