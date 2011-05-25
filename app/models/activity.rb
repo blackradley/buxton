@@ -56,6 +56,8 @@ class Activity < ActiveRecord::Base
   
   before_save :fix_fields
   
+  scope :ready, {:conditions => {:ready => true}}
+  
   accepts_nested_attributes_for :questions, :issues
   
   
