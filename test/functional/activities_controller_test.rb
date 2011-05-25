@@ -12,7 +12,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     
     
     should "not be able to see any activities list" do
-      [:directorate_einas, :my_einas, :approving, :directorate_governance_eas].each do |activity_route|
+      [:directorate_einas, :my_eas, :approving, :directorate_governance_eas].each do |activity_route|
         get activity_route
         assert_response :redirect
         assert_redirected_to access_denied_path
@@ -27,7 +27,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
     
     should "not be able to see any activities list aside from the cop ones" do
-      [:directorate_einas, :my_einas, :approving].each do |activity_route|
+      [:directorate_einas, :my_eas, :approving].each do |activity_route|
         get activity_route
         assert_response :redirect
         assert_redirected_to access_denied_path
@@ -99,7 +99,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
     
     should "not be able to see any activities list aside from the creator one" do
-      [:directorate_governance_eas, :my_einas, :approving].each do |activity_route|
+      [:directorate_governance_eas, :my_eas, :approving].each do |activity_route|
         get activity_route
         assert_response :redirect
         assert_redirected_to access_denied_path
@@ -187,7 +187,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     
     
     should "be able to see your completer activities" do
-      get :my_einas
+      get :my_eas
       assert_response :success
     end
     
@@ -246,7 +246,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
   
     should "not be able to see any activities list aside from the creator one" do
-      [:directorate_governance_eas, :directorate_einas, :my_einas].each do |activity_route|
+      [:directorate_governance_eas, :directorate_einas, :my_eas].each do |activity_route|
         get activity_route
         assert_response :redirect
         assert_redirected_to access_denied_path
