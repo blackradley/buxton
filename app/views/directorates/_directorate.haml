@@ -2,10 +2,8 @@
   = form.inputs do
     =form.input :name, :label => "Title"
     =form.input :abbreviation, :label => "Abbreviation"
-    =form.hidden_field :cop_id
-    =form.hidden_field :creator_id
-    = form.autocompleted_input :creator_email, :url => autocomplete_user_email_directorates_path, :id_element => '#directorate_creator_id', :label => "Directorate Contact Officer"
-    =form.autocompleted_input :cop_email, :url => autocomplete_user_email_directorates_path, :id_element => '#directorate_cop_id', :label => "Governance Officer"
+    = form.autocompleted_input :creator_email, :url => autocomplete_user_email_directorates_path, :label => "Directorate Contact Officer"
+    =form.autocompleted_input :cop_email, :url => autocomplete_user_cop_email_directorates_path, :label => "Governance Officer"
     =form.input :retired, :label => "Retired?"
   = form.buttons do
     = form.submit "Save"
