@@ -21,6 +21,7 @@ class DirectoratesController < ApplicationController
   before_filter :ensure_creator
   # autocomplete :user, :email, :scope => :live
   autocomplete :user, :email, :scope => :creator
+  autocomplete :user, :cop_email, :scope => :live
   
   def index
     @breadcrumb = [["Directorates"]]
@@ -42,6 +43,12 @@ class DirectoratesController < ApplicationController
       flash[:notice] = "#{@directorate.name} was created."
       redirect_to :controller => 'directorates', :action => 'index'
     else
+      if !@directorate.errors[:creator_id].blank?
+        @directorate.errors.add(:creator_email, "This Contact Officer has already been assigned to another directorate.")
+      end
+      if !@directorate.errors[:cop_id].blank?
+        @directorate.errors.add(:cop_email, "An Directorate must have a Governance Officer")
+      end
       render 'new'
     end
   end

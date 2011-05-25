@@ -13,6 +13,11 @@ class User < ActiveRecord::Base
   after_create :send_password
   before_save :update_lock_time
   
+  def cop_email
+    #required for directorate autocomplete hack
+    self.email
+  end
+  
   def set_password
     @new_pass = String.random_alphanumeric
     self.password = @new_pass
