@@ -17,7 +17,7 @@ class Activities::SectionsController < ApplicationController
   # List the section status for the different activities of an Organisation
   # but don't paginate, a long list is actually more convenient for the Organisation
   # Manager to scan down.
-  before_filter :authenticate_user!, :except => :new_issue
+  before_filter :authenticate_user!
   before_filter :set_activity
   before_filter :set_strand, :only => [:edit]
   before_filter :set_selected
