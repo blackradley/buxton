@@ -145,7 +145,7 @@ $(document).ready(function(){
 
   $('.deleteIssue').click(function(){
     $(this).siblings('.issue_destroy').val('1');
-    $(this).parent('.issue').hide();
+    $(this).closest('.issue').hide();
     return false;
   });
   
