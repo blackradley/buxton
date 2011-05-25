@@ -457,7 +457,7 @@ class Activity < ActiveRecord::Base
   end
   
   def clone
-    new_activity = Activity.create!
+    new_activity = Activity.create!(self.attributes)
     new_activity.ready = false
     new_activity.approved = false
     new_activity.submitted = false
