@@ -55,6 +55,12 @@ class ActivitiesController < ApplicationController
     if original_activity
       @activity = Activity.new(original_activity.attributes)
       @clone_of = original_activity
+      @activity.ready = false
+      @activity.approved = false
+      @activity.submitted = false
+      @activity.start_date = nil
+      @activity.end_date = nil
+      @activity.review_on = nil
       render :new
     else
       redirect_to :directorate_einas
@@ -95,16 +101,16 @@ class ActivitiesController < ApplicationController
     if params[:clone_of]
       @activity = current_user.activities.select{|a| a.id.to_s == params[:clone_of]}.first.clone
     else
-      @activity = Activity.new(params[:activity])
+      @activity = Activity.new()
     end
     Strategy.live.each do |s|
-      @activity.activity_strategies.build(:strategy => s)
+      @activity.activity_strategies.build(:strategy => s) unless @activity.activity_strategies.map(&:strategy).include?(s)
     end
     @activity.ref_no = "EA#{sprintf("%06d", Activity.last(:order => :id).id + 1)}"
     # @directorate = Directorate.find_by_creator_id(current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_einas_activities_path], ["New EA"]]
     @selected = "directorate_einas"
-    if @activity.save
+    if @activity.update_attributes(params[:activity])
       flash[:notice] = "#{@activity.name} was created."
       Mailer.activity_created(@activity).deliver if @activity.ready?
       redirect_to directorate_einas_activities_path
