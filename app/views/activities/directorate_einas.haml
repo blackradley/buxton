@@ -63,7 +63,7 @@
             %td= activity.service_area.name
             %td= activity.name
             %td= activity.ref_no
-            %td= activity.approver.email
+            %td= activity.approver.try(:email)
             %td.center= activity.started ? activity.actual_start_date.to_s(:short) : "N/A"
             %td.center= activity.approved ? activity.approved_on.to_s(:short) : "N/A"
             %td.center= activity.progress
