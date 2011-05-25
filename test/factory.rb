@@ -48,6 +48,10 @@ Factory.define :corporate_cop, :parent => :user do |c|
   c.corporate_cop true
 end
 
+Factory.define :cop, :parent => :user do |c|
+end
+
+
 
 Factory.define :administrator do |a|
   a.sequence(:email) {|n| "admin#{n}@example.com"}
@@ -63,4 +67,5 @@ Factory.define :directorate do |dir|
   dir.sequence(:name){|i| "Directorate #{i}"}
   dir.sequence(:abbreviation){|i| "DR#{i}"}
   dir.association :creator
+  dir.association :cop
 end

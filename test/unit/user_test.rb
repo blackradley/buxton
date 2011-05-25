@@ -84,7 +84,7 @@ class UserTest < ActiveSupport::TestCase
     
     context "when it has been started" do
       setup do 
-        @normal_activity.questions.find_by_name("purpose_overall_2").update_attributes(:raw_answer => "Sample answer")
+        @normal_activity.questions.first.update_attributes(:raw_answer => "1")
       end
     
       should "have the role of approver as an approver" do
