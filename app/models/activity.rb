@@ -157,7 +157,6 @@ class Activity < ActiveRecord::Base
     # 
     # 
     # 
-    return true unless self.questions.blank?
     data = File.open(Rails.root + "config/questions.yml"){|yf| YAML::load( yf ) }
     dependents = {}
     Activity.question_setup_names.each do |section, strand_list|
@@ -444,55 +443,34 @@ class Activity < ActiveRecord::Base
   end
   
   def clone
-    parent = Activity.new(self.attributes)
-    parent.ready = false
-    parent.approved = false
-    parent.submitted = false
-    parent.start_date = nil
-    parent.end_date = nil
-    parent.review_on = nil
-    parent.activity_strategies.select{|as| as.strategy.retired?}.map(&:destroy)
-    parent.id = nil
-    reflection_macro = Proc.new do |new_obj, old_obj|
-      old_obj.class.reflect_on_all_associations.reject{|a| a.macro == :belongs_to}.map do |assoc|
-        [assoc, new_obj, old_obj]
-      end 
+    new_activity = Activity.create!(self.attributes.merge({:ref_no => "EA#{sprintf("%06d", Activity.last(:order => :id).id + 1)}"}))
+    new_activity.ready = false
+    new_activity.approved = false
+    new_activity.submitted = false
+    new_activity.start_date = nil
+    new_activity.end_date = nil
+    new_activity.review_on = nil
+    puts "Activity created"
+    self.questions.each do |q|
+      puts q.name
+      puts q.inspect
+      new_q = new_activity.questions.find_by_name(q.name)
+      new_q.completed = q.completed
+      new_q.needed = q.needed
+      new_q.raw_answer = q.raw_answer
+      new_q.save!
     end
-    associations = reflection_macro.call(parent, self)
-    until associations.blank? do 
-      association, new_parent, old_parent = associations.shift
-      case association.macro
-      when :has_one
-        record = old_parent.send(association.name)
-        if record
-          attrbs = record.attributes
-          attrbs.delete('id')
-          attrbs.delete(association.primary_key_name)
-          new_obj = new_parent.send("#{association.name}=".to_sym, record.class.new(attrbs))         
-          if new_parent.is_a?(Dependency) && record.is_a?(Question)
-            new_obj = parent.questions.select{|q| q.name == record.name}.first
-            new_parent.child_question = new_obj
-          end
-          if new_obj.respond_to? :activity_id
-            new_obj.activity_id = nil
-          end
-          associations += reflection_macro.call(new_obj, record) 
-        end
-      when :has_many
-        records = old_parent.send(association.name)
-        records.each do |r|
-          attrbs = r.attributes
-          attrbs.delete('id')
-          attrbs.delete(association.primary_key_name)
-          new_obj = new_parent.send(association.name).build(attrbs)
-          if new_obj.respond_to? :activity_id
-            new_obj.activity_id = nil
-          end
-          associations += reflection_macro.call(new_obj, r)
-        end
-      end
+    self.activity_strategies.each do |a|
+      new_a = new_activity.activity_strategies.build(:strategy_id => a.strategy_id, :strategy_response => a.strategy_response)
+      new_a.save!
     end
-    parent
+    self.issues.each do |i|
+      new_i= new_activity.issues.build(:description => i.description, :actions => i.actions, :timescales => i.timescales,
+                                       :resources => i.resources, :lead_officer => i.lead_officer, :strand => i.strand, :section => i.section)
+      new_i.save!
+    end
+    new_activity.save!
+    new_activity
   end
   
   def self.question_setup_names
