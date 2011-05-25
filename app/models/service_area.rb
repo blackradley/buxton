@@ -9,7 +9,8 @@
 class ServiceArea < ActiveRecord::Base
   belongs_to :directorate
   belongs_to :approver, :class_name => "User"
-  validates_presence_of :name, :approver, :directorate
+  validates_presence_of :name, :directorate
+  validates_presence_of :approver_email, :message => "must be a valid user"
   validates_associated :directorate, :approver
   
   attr_accessor :should_destroy
