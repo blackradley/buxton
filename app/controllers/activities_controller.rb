@@ -75,7 +75,7 @@ class ActivitiesController < ApplicationController
   
   def directorate_governance_eas
     @breadcrumb = [["EA Governance"]]
-    @activities =  Activity.includes(:service_area)
+    @activities =  Activity.ready.includes(:service_area)
     unless current_user.corporate_cop?
       @activities = @activities.where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>current_user.id).map(&:id)}, :ready => true)
     end
@@ -199,7 +199,7 @@ class ActivitiesController < ApplicationController
   def generate_schedule
     activities = []
     if current_user.corporate_cop?
-      activities = Activity.where(:id => params[:activities])
+      activities = Activity.ready.where(:id => params[:activities])
     elsif current_user.directorate_cop?
       activities = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
     end
