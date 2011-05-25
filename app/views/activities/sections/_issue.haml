@@ -2,11 +2,11 @@
   = form.fields_for :issues_attributes, issue do |issue_form|
     = issue_form.text_field :description, :index => nil
     -if issue.new_record?
-      = link_to_function image_tag('icons/delete.gif'), :class => "deleteIssueLink"
+      = link_to image_tag('icons/delete.gif'), '#', :class => "deleteNewIssue"
       = issue_form.hidden_field :strand, :index => nil, :value => strand
       = issue_form.hidden_field :section, :index => nil, :value => @section
     - else
-      = link_to_function image_tag('icons/delete.gif'), "#"
+      = link_to image_tag('icons/delete.gif'), "#", :class => 'deleteIssue'
       = issue_form.hidden_field :id, :index => nil
       = issue_form.hidden_field :section, :index => nil, :value => @section
       = issue_form.hidden_field :strand, :index => nil, :value => strand
