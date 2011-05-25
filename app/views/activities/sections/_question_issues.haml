@@ -21,7 +21,7 @@
   %label 
     Please record each of the discrete issues identified in the space below and when you have finished click save.
   %span#issues_list
-    = render :partial => 'issue', :collection => @activity.issues_by(question_issues.section, question_issues.strand), :locals => {:strand =>  params[:equality_strand]}
+    = render :partial => 'issue', :collection => @activity.issues_by(question_issues.section, question_issues.strand), :locals => {:strand =>  params[:equality_strand], :form => f}
   .clear
   %span.add_issue
     = image_tag ('icons/add.gif')
