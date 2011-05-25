@@ -5,6 +5,10 @@ module Rails3JQueryAutocomplete
       method = parameters[:method]
       options = parameters[:options]
       scope_level = options[:scope];
+      if model == User && method == :cop_email
+        method = :email
+        scope_level = :live
+      end
       model = model.send(scope_level) if scope_level
       term = parameters[:term]
       is_full_search = options[:full]
@@ -24,4 +28,5 @@ module Rails3JQueryAutocomplete
     end
 
   end
+
 end

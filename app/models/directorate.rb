@@ -40,6 +40,7 @@ class Directorate < ActiveRecord::Base
     else
       self.cop_id = nil
     end
+    user
   end
   
   def creator_email
@@ -56,6 +57,7 @@ class Directorate < ActiveRecord::Base
     else
       self.creator_id = nil
     end
+    creator
   end
   
 
