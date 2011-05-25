@@ -21,7 +21,7 @@ class ActivitiesController < ApplicationController
   before_filter :ensure_creator, :only => [:edit, :new, :create, :update, :directorate_einas]
   before_filter :set_activity, :only => [:edit, :questions, :update, :toggle_strand, :submit, :show, :approve, :reject, :submit_approval, :submit_rejection, :summary]
   before_filter :ensure_cop, :only => [:summary, :generate_schedule, :actions, :directorate_governance_eas]
-  before_filter :ensure_completer, :only => [:my_einas]
+  before_filter :ensure_completer, :only => [:my_eas]
   before_filter :ensure_activity_completer, :only => [:questions, :submit, :toggle_strand]
   before_filter :ensure_approver, :only => [:approving]
   before_filter :ensure_activity_approver, :only => [:approve, :reject, :submit_approval, :submit_rejection]
@@ -44,10 +44,10 @@ class ActivitiesController < ApplicationController
     @selected = "directorate_einas"
   end
   
-  def my_einas
+  def my_eas
     @breadcrumb = [["My EAs"]]
     @activities = Activity.where(:completer_id => current_user.id, :ready => true)
-    @selected = "my_einas"
+    @selected = "my_eas"
   end
   
   def clone
@@ -182,8 +182,8 @@ class ActivitiesController < ApplicationController
   # Opening page where they must choose between Activity/Policy and Existing/Proposed
   # Available to: Activity Manager
   def questions
-    @selected = "my_einas"
-    @breadcrumb = [["My EAs", my_einas_activities_path], ["#{@activity.name}"]]
+    @selected = "my_eas"
+    @breadcrumb = [["My EAs", my_eas_activities_path], ["#{@activity.name}"]]
     completed_status_array = @activity.strands(true).map{|strand| [strand.to_sym, @activity.completed(nil, strand)]}
     completed_status_hash = Hash[*completed_status_array.flatten]
     tag_test = completed_status_hash.select{|k,v| !v}.map(&:first).map do |strand_status|

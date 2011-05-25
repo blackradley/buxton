@@ -111,7 +111,7 @@ module ApplicationHelper
     current_user.roles.reject{|r| r == "Cop"}.map do |role| 
       case role
       when "Completer"
-        menu << ["My EAs", my_einas_activities_path]
+        menu << ["My EAs", my_eas_activities_path]
       when "Approver"
         menu << ["Awaiting Approval", approving_activities_path]
       when "Creator"
