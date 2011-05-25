@@ -1,10 +1,9 @@
 require 'capistrano/ext/multistage'
-
 # For RVM
-$:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
-require "rvm/capistrano"                  # Load RVM's capistrano plugin.
-set :rvm_ruby_string, 'ree@brs'        # Or whatever env you want it to run in.
-set :rvm_type, :user
+# $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
+# require "rvm/capistrano"                  # Load RVM's capistrano plugin.
+# set :rvm_ruby_string, 'ree@brs'        # Or whatever env you want it to run in.
+# set :rvm_type, :user
 
 # =============================================================================
 # VARS
@@ -23,7 +22,6 @@ default_run_options[:pty] = true # We need to turn on the :pty option because it
                                  # from git if we don’t.
 set :scm_verbose, true
 set :scm, "git"
-set :scm_passphrase, "Buxton27"
 set :repository, "git@github.com:blackradley/buxton.git"
 set :repository_cache, "git_cache"
 set :deploy_via, :remote_cache
@@ -35,18 +33,20 @@ after 'deploy:update_code', 'deploy:cleanup'
 # TASKS
 # =============================================================================
 
-namespace :bundler do
- task :create_symlink, :roles => :app do
-   shared_dir = File.join(shared_path, 'bundle')
-   release_dir = File.join(current_release, '.bundle')
-   run("mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}")
- end
+require 'bundler/capistrano'
 
- task :bundle_new_release, :roles => :app do
-   bundler.create_symlink
-   run "cd #{release_path} && bundle install --without development test"
- end
-end
+# namespace :bundler do
+#  task :create_symlink, :roles => :app do
+#    shared_dir = File.join(shared_path, 'bundle')
+#    release_dir = File.join(current_release, '.bundle')
+#    run("mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}")
+#  end
+# 
+#  task :bundle_new_release, :roles => :app do
+#    bundler.create_symlink
+#    run "cd #{release_path} && bundle install --without development test"
+#  end
+# end
 
 task :shared_files, :roles => [:web] do
   # Make symlink for shared files
@@ -72,7 +72,7 @@ task :package_assets do
 end
 
 after 'deploy:update_code', 'shared_files'
-after 'deploy:update_code', 'bundler:bundle_new_release'
+# after 'deploy:update_code', 'bundler:bundle_new_release'
 after 'deploy:update_code', 'package_assets'
 
 
@@ -88,11 +88,5 @@ namespace :deploy do
   end  
 end
 
-desc "Setup rvm and bundler"
-task :rvm_bundler_setup do
-  run "rvm --create use #{rvm_ruby_string} && gem install bundler"
-end
-
-after 'deploy:setup', 'rvm_bundler_setup'
-        # require './config/boot'
-        require 'hoptoad_notifier/capistrano'
+# require './config/boot'
+require 'hoptoad_notifier/capistrano'
