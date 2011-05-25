@@ -80,11 +80,11 @@ class Activities::SectionsController < ApplicationController
     if !@activity.actual_start_date
       @activity.actual_start_date = Date.today
     end
-    if params[:activity][:issue_attributes] then
+    if params[:activity][:issues_attributes] then
       #removes all blank elements from the array that were not there previously (ie those without id's)
-      params[:activity][:issue_attributes].reject!{|i| i['description'].blank? && i['id'].nil? }
+      params[:activity][:issues_attributes].reject!{|i| i['description'].blank? && i['id'].nil? }
       #marks all previously existing issues that had their description field blanked for destruction
-      params[:activity][:issue_attributes].each{|i| i['_destroy'] = 1 if i['description'].blank?}
+      params[:activity][:issues_attributes].each{|i| i['_destroy'] = 1 if i['description'].blank?}
     end
     # Update the answers in the activity table
     @activity.update_attributes!(params[:activity])
