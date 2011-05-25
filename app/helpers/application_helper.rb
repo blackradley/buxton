@@ -122,6 +122,7 @@ module ApplicationHelper
         menu << ["EA Governance", directorate_governance_eas_activities_path]
         menu << ["Actions", actions_activities_path]
       when "Corporate Cop"
+        menu << ["EA Governance", directorate_governance_eas_activities_path]
         menu << ["Activity Logging", logs_path]
         menu << ["Actions", actions_activities_path]
       end
