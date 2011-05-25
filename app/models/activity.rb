@@ -51,6 +51,8 @@ class Activity < ActiveRecord::Base
   before_update :set_approved, :update_completed
   after_create :create_questions_if_new
   
+  default_scope :conditions => {:is_rejected => false}
+  
   include FixInvalidChars
   
   before_save :fix_fields
