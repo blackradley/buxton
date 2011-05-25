@@ -11,6 +11,7 @@
       %th Abb.
       %th Retired?
       %th Directorate Contact Officer
+      %th Directorate Governance Officer
       %th.last
     %tr
       %th.sortControls
@@ -20,6 +21,9 @@
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
@@ -37,4 +41,5 @@
           = fields_for directorate do |f|
             = f.check_box :retired, "data-path" => toggle_directorate_status_directorate_path(directorate, :checkbox => :retired), :confirm => "Are you sure you wish to retire this directorate?"
         %td= directorate.creator.email
+        %td= directorate.cop.email
         %td.last= link_to "edit", edit_directorate_path(directorate), :class => "action edit"
