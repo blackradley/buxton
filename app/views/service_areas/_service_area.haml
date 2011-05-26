@@ -1,8 +1,7 @@
 = semantic_form_for @service_area do |form|
   = form.inputs do
     =form.input :name, :label => "Service Area"
-    =form.hidden_field :approver_id
-    =form.autocompleted_input :approver_email, :url => autocomplete_user_email_service_areas_path, :id_element => '#service_area_approver_id', :label => "Service Area Senior Officer"
+    =form.autocompleted_input :approver_email, :url => autocomplete_user_email_service_areas_path, :label => "Service Area Senior Officer", :required => false
     =form.input :retired, :label => "Retired?"
   = form.buttons do
     = form.submit "Save"
