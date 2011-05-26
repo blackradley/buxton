@@ -134,11 +134,7 @@ class Activity < ActiveRecord::Base
   end
   
   def approver_email
-    if self.approver
-      self.approver.email
-    else
-      ""
-    end
+    @approver_email ||= approver.try(:email) || ""
   end
   
   def approver_email=(email)
@@ -150,11 +146,7 @@ class Activity < ActiveRecord::Base
   end
   
   def completer_email
-    if self.completer
-      self.completer.email
-    else
-      ""
-    end
+    @completer_email ||= completer.try(:email) || ""
   end
   
   def completer_email=(email)
