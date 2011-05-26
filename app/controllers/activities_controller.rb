@@ -283,12 +283,11 @@ protected
   
   def ensure_pdf_view
      redirect_to access_denied_path unless current_user.creator? || current_user.approver? || current_user.completer? || current_user.corporate_cop? || current_user.directorate_cop?
-  end
-  
+  end 
   
   def set_activity
     @activity = current_user.activities.select{|a| a.id == params[:id].to_i}.first
-    return false unless @activity
+    redirect_to access_denied_path unless @activity
   end
   
   def ensure_activity_completer
