@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
   
   
   def activities
-    ["Creator", "Completer", "Approver", "Checker", "Cop"].map do |role|
+    ["Creator", "Completer", "Approver", "Checker", "Directorate Cop", "Corporate Cop"].map do |role|
       case role
       when "Completer"
         Activity.active.where(:completer_id => self.id, :ready => true)
@@ -75,7 +75,7 @@ class User < ActiveRecord::Base
       when "Creator"
         Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>self.id).map(&:id)})
       when "Directorate Cop"
-        Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>self.id).map(&:id)})
+        Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>self.id).map(&:id)})
       when "Corporate Cop"
         Activity.active
       end
