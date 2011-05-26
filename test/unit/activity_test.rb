@@ -32,6 +32,7 @@ class ActivityTest < ActiveSupport::TestCase
     should "be able to mark it as ready when all required fields are filled in" do
       @activity.approver = Factory(:user)
       @activity.completer = Factory(:user)
+      @activity.qc_officer = Factory(:user)
       @activity.start_date = Date.today
       @activity.end_date = Date.today
       @activity.review_on =Date.today

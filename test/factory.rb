@@ -2,6 +2,7 @@ Factory.define :activity do |activity|
   activity.sequence(:name){|i| "Activity #{i}"}
   activity.association :completer
   activity.association :approver
+  activity.association :qc_officer
   activity.association :service_area
   activity.start_date Date.today
   activity.end_date Date.today
@@ -49,6 +50,9 @@ Factory.define :corporate_cop, :parent => :user do |c|
 end
 
 Factory.define :cop, :parent => :user do |c|
+end
+
+Factory.define :qc_officer, :parent => :user do |qc|
 end
 
 
