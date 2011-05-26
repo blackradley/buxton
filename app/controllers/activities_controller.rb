@@ -111,6 +111,16 @@ class ActivitiesController < ApplicationController
   end
 
   def create
+    invalid = params[:activity].select{|k,v| k.match(/_email/) && !v.blank? && !User.live.exists?(:email => v)}#.each do |k,v|
+    unless invalid.empty?
+      @activity = Activity.new(params[:activity])
+      invalid.each do |k,v|
+        @activity.errors.add(k, "is not a valid user")
+        @activity.instance_variable_set("@#{k}", v)
+      end
+      @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+      render 'new' and return
+    end
     if params[:clone_of]
       @activity = current_user.activities.select{|a| a.id.to_s == params[:clone_of]}.first.clone
     else
