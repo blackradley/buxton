@@ -93,7 +93,7 @@
                 = completed_tag(@activity, :additional_work, strand.to_sym)
                 = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "additional_work"), :title =>"Edit Additional Work", :id => "#{strand_name}_additional_work_pencil"
               %td.last
-                - if @activity.issues.find_by_strand(strand.to_s) then              
+                - if @activity.issues_relevant?(strand.to_s) then              
                   = completed_tag(@activity, :action_planning, strand.to_sym)
                   = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "action_planning"), :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
                 - else
