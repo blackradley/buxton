@@ -13,20 +13,18 @@
   = render :partial => 'question_help', :collection => question_details(:purpose, 'gender_reassignment', [3])
   = render :partial => 'question_help', :collection => question_details(:purpose, 'pregnancy_and_maternity', [3])
   = render :partial => 'question_help', :collection => question_details(:purpose, 'marriage_civil_partnership', [3])
-  =form_for(@activity, :url => activities_section_path(@activity)) do |f|
-    = render :partial => 'intro'
-
+  =form_for(@activity, :url => activities_section_path(@activity)) do |f| 
     %h5
       This section identifies if the policy is relevant to any of the nine protected characteristics.
     %p{:style => "width:590px"}
-      The policy will be relevant to a protected characteristic if it has any of the following effects on individuals who have that particular protected characteristic:
+      ="The #{@activity.activity_type_name} will be relevant to any of the protected characteristics if it has any of the following effects on individuals who have that particular protected characteristic:"
     %ul{:style => "padding-left: 20px"}
-      %li{:style => "list-style-type:disc"} Eliminating discrimination
-      %li{:style => "list-style-type:disc"} Advancing equality of opportunity
-      %li{:style => "list-style-type:disc"} Fostering good relations
-      %li{:style => "list-style-type:disc"} Protecting human rights
+      %li{:style => "list-style-type:disc; width:550px"} Eliminating discrimination, harassment and victimisation
+      %li{:style => "list-style-type:disc; width:550px"} Advancing equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it
+      %li{:style => "list-style-type:disc; width:550px"} Foster good relations between persons who share a relevant protected characteristic and persons who do not share it.
     %p{:style => "width:590px"}
-      The policy will also be relevant if it has any differential impact, positive or negative, on individuals having one or more protected characteristics because of that characteristic.
+      ="The #{@activity.activity_type_name} will also be relevant if it has any differential impact, positive or negative, on individuals having one or more protected characteristics because of that characteristic."
+    %p{:style => "width:590px"}= "Please answer all of the questions below identifying whether the #{@activity.activity_type_name} is relevant to individuals with each of the protected characteristics because of that characteristic."
     
     = render :partial => 'question_compact', :collection => question_details(:purpose, 'gender', [3]), :locals => {:f => f}
     = render :partial => 'question_compact', :collection => question_details(:purpose, 'race', [3]), :locals => {:f => f}

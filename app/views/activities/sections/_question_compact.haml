@@ -6,7 +6,7 @@
 
     %p.question.sub{:id => "#{question_compact.name}",  'data-dependencies' => question_compact.dependency_mapping.to_json, :style => "display:#{displayString};"}
       %label
-        =question_compact.label.capitalize
+        =question_compact.label
       %labelled
         -case question_compact.input_type.to_sym
           -when :text
@@ -18,7 +18,7 @@
   -else
     %p.question_compact{:id => "#{question_compact.name}", 'data-dependencies' => question_compact.dependency_mapping.to_json, :style => "display:block;"}
       %label
-        =question_compact.label.capitalize
+        =question_compact.label
       %labelled
         -case question_compact.input_type.to_sym
           -when :text

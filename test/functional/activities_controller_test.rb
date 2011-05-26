@@ -242,7 +242,7 @@ class ActivitiesControllerTest < ActionController::TestCase
   context "when logged in as an approver" do
     setup do 
       sign_in users(:users_002)
-      users(:users_002).activities.select{|a| a.ready?}.first.questions.first.update_attributes(:raw_answer => 1)
+      Activity.active.where(:approver_id => 2, :ready => true).each{|a|a.questions.first.update_attributes(:raw_answer => 1)}
     end
   
     should "not be able to see any activities list aside from the creator one" do
