@@ -216,6 +216,7 @@ class ActivityPDFGenerator
     end
     #:col_format => [nil, {:text_alignment => :center}]
     @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4, :table_title =>table_heading)
+    @pdf.start_new_page
     @pdf
   end
     
@@ -297,9 +298,9 @@ class ActivityPDFGenerator
     table = []
     cell_formats = []
     question = @activity.questions.find_by_name("purpose_#{strand}_3")
-    question_text = "Might the Function affect #{question.label.sub(',', ' in different ways')}"
+    question_text = question.label
     comments = get_comments_and_notes(question.name)
-    return if comments.blank? && !@activity.send("#{strand}_relevant")
+    # return if comments.blank? && !@activity.send("#{strand}_relevant")
     table << [question_text, question.display_response]
     cell_formats << [{:shading => SHADE_COLOUR}, nil]
     table += comments  unless comments.blank?
