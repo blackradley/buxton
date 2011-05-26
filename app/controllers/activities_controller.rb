@@ -33,7 +33,7 @@ class ActivitiesController < ApplicationController
     redirect_to root_path
   end
   
-  def directorate_einas
+  def directorate_eas
     @breadcrumb = [["Directorate EAs"]]
     
     @directorates = current_user.count_directorates
@@ -41,7 +41,7 @@ class ActivitiesController < ApplicationController
     @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
     @activities = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id)})
     
-    @selected = "directorate_einas"
+    @selected = "directorate_eas"
   end
   
   def my_eas
@@ -53,6 +53,8 @@ class ActivitiesController < ApplicationController
   def clone
     original_activity = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id)}).find(params[:id])
     if original_activity
+      @breadcrumb = [["Directorate EAs", directorate_einas_activities_path], ["Clone #{original_activity.name}"]]
+      @selected = "directorate_eas"
       @activity = Activity.new(original_activity.attributes)
       @clone_of = original_activity
       @activity.ready = false
@@ -109,7 +111,6 @@ class ActivitiesController < ApplicationController
     Strategy.live.each do |s|
       @activity.activity_strategies.build(:strategy => s) unless @activity.activity_strategies.map(&:strategy).include?(s)
     end
-    @activity.ref_no = "EA#{sprintf("%06d", Activity.last(:order => :id).id + 1)}"
     # @directorate = Directorate.find_by_creator_id(current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_einas_activities_path], ["New EA"]]
     @selected = "directorate_einas"

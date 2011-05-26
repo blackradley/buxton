@@ -63,8 +63,8 @@
           %td= activity.name
           %td= activity.ref_no
           %td= activity.approver.email
-          %td.center= activity.started ? activity.actual_start_date.to_s(:short) : "N/A"
-          %td.center= activity.approved ? activity.approved_on.to_s(:short) : "N/A"
+          %td.center= activity.started && activity.actual_start_date ? activity.actual_start_date.to_s(:short) : "N/A"
+          %td.center= activity.approved && activity.approved_on ? activity.approved_on.to_s(:short) : "N/A"
           %td.center= activity.progress
           %td= activity.issues.count
           - if activity.ready?
