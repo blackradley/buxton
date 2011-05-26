@@ -19,11 +19,13 @@ class ActivitiesController < ApplicationController
   helper_method :render_to_string
   before_filter :authenticate_user!
   before_filter :ensure_creator, :only => [:edit, :new, :create, :update, :directorate_eas]
-  before_filter :set_activity, :only => [:edit, :questions, :update, :toggle_strand, :submit, :show, :approve, :reject, :submit_approval, :submit_rejection, :summary]
+  before_filter :set_activity, :only => [:edit, :questions, :update, :toggle_strand, :submit, :show, :approve, :reject, :submit_approval, :submit_rejection, :summary, :comment, :submit_comment]
   before_filter :ensure_cop, :only => [:summary, :generate_schedule, :actions, :directorate_governance_eas]
   before_filter :ensure_completer, :only => [:my_eas]
   before_filter :ensure_activity_completer, :only => [:questions, :submit, :toggle_strand]
   before_filter :ensure_approver, :only => [:approving]
+  before_filter :ensure_quality_control, :only => [:quality_control]
+  before_filter :ensure_activity_quality_control, :only => [:comment, :submit_comment]
   before_filter :ensure_activity_approver, :only => [:approve, :reject, :submit_approval, :submit_rejection]
   before_filter :ensure_pdf_view, :only => [:show]
 
@@ -75,6 +77,12 @@ class ActivitiesController < ApplicationController
     else
       redirect_to :directorate_eas
     end
+  end
+  
+  def quality_control
+    @breadcrumb = [["Quality Control"]]
+    @activities = Activity.active.where(:qc_officer_id => current_user.id, :ready => true, :submitted => true, :undergone_qc => false)
+    @selected = "quality_control"
   end
   
   def approving
@@ -260,6 +268,16 @@ class ActivitiesController < ApplicationController
     render :layout =>false
   end
   
+  def comment
+    render :layout =>false
+  end
+  
+  def submit_comment
+    @activity.update_attributes(:undergone_qc => true)
+    Mailer.activity_comment(@activity, params[:email_contents]).deliver
+    redirect_to quality_control_activities_path
+  end
+  
   def submit_approval
     @activity.update_attributes(:approved => true)
     Mailer.activity_approved(@activity, params[:email_contents]).deliver
@@ -292,6 +310,10 @@ protected
   
   def ensure_activity_completer
      redirect_to access_denied_path unless @activity.completer == current_user
+  end
+  
+  def ensure_activity_quality_control
+    redirect_to access_denied_path unless @activity.qc_officer == current_user
   end
   
   def ensure_activity_approver

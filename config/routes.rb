@@ -29,6 +29,7 @@ Buxton::Application.routes.draw do
     collection do
       get :directorate_eas
       get :my_eas
+      get :quality_control
       get :approving
       get :autocomplete_user_email
       get :directorate_governance_eas
@@ -44,6 +45,8 @@ Buxton::Application.routes.draw do
       get :approve
       get :reject
       get :summary
+      get :comment
+      post :submit_comment
       post :submit_approval
       post :submit_rejection
     end

@@ -1,13 +1,13 @@
-%h2 EAs Awaiting Approval
-%table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
+%h2 Quality Control EA's
+%table#sortable{:cellspacing=>"0", :cellpadding=>"0"}
   %thead
     %tr
       %th Service Area
       %th Activity Name
       %th Ref no.
       %th Senior Officer
-      %th Date Started
-      %th Actual Completion
+      %th.date Date Started
+      %th.date Actual Completion
       %th Progress
       %th Actions
       %th.last
@@ -36,7 +36,7 @@
       %th.sortControls
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-      %th.sortControls.last
+      %td.last.sortControls
   %tbody
     - @activities.each do |activity|
       %tr{:class => cycle("light", "dark")}
@@ -50,7 +50,5 @@
         %td= activity.issues.count
         %td.last
           = link_to "view", activity_path(activity), :class => "action view"
-          - if activity.submitted && !activity.approved && activity.undergone_qc
-            = link_to "approve", '#', "data-path" => approve_activity_path(activity), :class => "action approve colorbox"
-            = link_to "reject", '#', "data-path" => reject_activity_path(activity), :class => "action reject colorbox"
-      
+          = link_to "comment", '#', "data-path" => comment_activity_path(activity), :class => "action comment colorbox"
+

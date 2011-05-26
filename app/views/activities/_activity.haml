@@ -10,6 +10,7 @@
     = form.input :review_on, :label => "Review Date", :as => :datepicker, :format => :short_ordinal
     =form.autocompleted_input :approver_email, :url => autocomplete_user_email_activities_path, :label => "Senior Officer", :required => false
     =form.autocompleted_input :completer_email, :url => autocomplete_user_email_activities_path, :label => "Task Group Manager", :required => false
+    =form.autocompleted_input :qc_officer_email, :url => autocomplete_user_email_activities_path, :label => "Quality Control Officer", :required => false
     =form.input :activity_type, :as => :select, :collection => @activity.types.collect {|option| [option.titlecase , @activity.types.index(option)] }, :label => "Type", :include_blank => false
     =form.input :activity_status, :as => :select, :collection =>  @activity.statuses.collect{|option| [option.titlecase , @activity.statuses.index(option)] }, :label => "Status", :include_blank => false
   = form.inputs :id => "readyInput", :style => "#{'display:none' unless @activity.fields_complete}" do

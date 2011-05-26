@@ -108,8 +108,12 @@ protected
     redirect_to access_denied_path unless current_user.approver?
   end
   
+  def ensure_quality_control
+    redirect_to access_denied_path unless current_user.quality_control?
+  end
+  
   def ensure_pdf_view
-    redirect_to access_denied_path unless current_user.creator? || current_user.approver? || current_user.completer?
+    redirect_to access_denied_path unless current_user.creator? || current_user.approver? || current_user.completer? || current_user.quality_control?
   end
   
   def sign_out(*args)
