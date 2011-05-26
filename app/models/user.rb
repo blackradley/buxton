@@ -69,15 +69,15 @@ class User < ActiveRecord::Base
     ["Creator", "Completer", "Approver", "Checker", "Cop"].map do |role|
       case role
       when "Completer"
-        Activity.where(:completer_id => self.id, :ready => true)
+        Activity.active.where(:completer_id => self.id, :ready => true)
       when "Approver"
-        Activity.where(:approver_id => self.id, :ready => true)
+        Activity.active.where(:approver_id => self.id, :ready => true)
       when "Creator"
-        Activity.all 
+        Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)})
       when "Directorate Cop"
-        Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>self.id).map(&:id)})
+        Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>self.id).map(&:id)})
       when "Corporate Cop"
-        Activity.all
+        Activity.active
       end
     end.flatten.compact.uniq
   end
@@ -91,15 +91,15 @@ class User < ActiveRecord::Base
   end
   
   def completer?
-    Activity.where(:completer_id => self.id, :ready => true).count > 0
+    Activity.active.where(:completer_id => self.id, :ready => true).count > 0
   end
   
   def approver?
-    Activity.where(:approver_id => self.id, :ready => true).reject{|a| a.progress == "NS"}.count > 0
+    Activity.active.where(:approver_id => self.id, :ready => true).reject{|a| a.progress == "NS"}.count > 0
   end
   
   def directorate_cop?
-    Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>self.id).map(&:id)}).count > 0
+    Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>self.id).map(&:id)}).count > 0
   end
   
   def checker?
