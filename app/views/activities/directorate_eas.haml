@@ -69,7 +69,8 @@
             %td.center= activity.progress
             %td= activity.issues.count
             %td.last
-              = link_to "clone", clone_activity_path(activity), :class => "action clone"
+              - if @service_areas.size > 0
+                = link_to "clone", clone_activity_path(activity), :class => "action clone"
               - if activity.ready?
                 = link_to "view", activity_path(activity), :class => "action view"
               - else

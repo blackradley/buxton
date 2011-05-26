@@ -35,23 +35,22 @@ class ActivitiesController < ApplicationController
   
   def directorate_eas
     @breadcrumb = [["Directorate EAs"]]
-    
     @directorates = current_user.count_directorates
     @live_directorates = current_user.count_live_directorates
-    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
-    @activities = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id)})
+    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
+    @activities = Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)})
     
     @selected = "directorate_eas"
   end
   
   def my_eas
     @breadcrumb = [["My EAs"]]
-    @activities = Activity.where(:completer_id => current_user.id, :ready => true)
+    @activities = Activity.active.where(:completer_id => current_user.id, :ready => true)
     @selected = "my_eas"
   end
   
   def clone
-    original_activity = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id)}).find(params[:id])
+    original_activity = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)}).find(params[:id])
     if original_activity
       @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Clone #{original_activity.name}"]]
       @selected = "directorate_eas"
@@ -80,15 +79,15 @@ class ActivitiesController < ApplicationController
   
   def approving
     @breadcrumb = [["Awaiting Approval"]]
-    @activities = Activity.where(:approver_id => current_user.id, :ready => true).reject{|a| a.progress == "NS"}
+    @activities = Activity.active.where(:approver_id => current_user.id, :ready => true).reject{|a| a.progress == "NS"}
     @selected = "awaiting_approval"
   end
   
   def directorate_governance_eas
     @breadcrumb = [["EA Governance"]]
-    @activities =  Activity.ready.includes(:service_area)
+    @activities =  Activity.active.ready.includes(:service_area)
     unless current_user.corporate_cop?
-      @activities = @activities.where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>current_user.id).map(&:id)}, :ready => true)
+      @activities = @activities.where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>current_user.id).map(&:id)}, :ready => true)
     end
     @selected = "ea_governance"
   end
@@ -96,7 +95,7 @@ class ActivitiesController < ApplicationController
   def new
     # @directorates = Directorate.where(:creator_id=>current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
-    services = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
+    services = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
     if current_user.count_directorates > 1
       @service_areas = Hash.new
       services.each do |s|
@@ -144,7 +143,7 @@ class ActivitiesController < ApplicationController
       if !@activity.errors[:approver].blank?
         @activity.errors.add(:approver_email, "An EA must have someone assigned to approve the assessment")
       end
-      @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+      @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
       render 'new'
     end
   end
@@ -153,7 +152,7 @@ class ActivitiesController < ApplicationController
   def edit
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
     @directorate = Directorate.find_by_creator_id(current_user.id)
-    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
     @selected = "directorate_eas"
     @activity = Activity.find(params[:id])
   end
@@ -182,7 +181,7 @@ class ActivitiesController < ApplicationController
       if !@activity.errors[:approver].blank?
         @activity.errors.add(:approver_email, "An EA must have someone assigned to approve the assessment")
       end
-      @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+      @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
       render "edit"
     end
   end
@@ -221,7 +220,7 @@ class ActivitiesController < ApplicationController
     if current_user.corporate_cop?
       activities = Activity.ready.where(:id => params[:activities])
     elsif current_user.directorate_cop?
-      activities = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
+      activities = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
     end
     send_data SchedulePDFGenerator.new(activities).pdf.render, :disposition => 'inline',
       :filename => "schedule.pdf",
@@ -229,7 +228,7 @@ class ActivitiesController < ApplicationController
   end
   
   def actions
-    service_area_list = current_user.corporate_cop? ? ServiceArea.active : Directorate.where(:cop_id=>current_user.id).map(&:service_areas).flatten.reject(&:retired)
+    service_area_list = current_user.corporate_cop? ? ServiceArea.active : Directorate.active.where(:cop_id=>current_user.id).map(&:service_areas).flatten.reject(&:retired)
     @service_areas = service_area_list.map do |sa|
       [sa, Issue.includes(:activity => :service_area).where(:service_areas => {:id => sa.id}).count]
     end
