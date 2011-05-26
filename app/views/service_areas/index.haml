@@ -26,10 +26,14 @@
   %tbody
     - @service_areas.each do |service_area|
       %tr{:class => cycle("light", "dark")}
-        %td= service_area.name
+        %td
+          = service_area.name
+          - if service_area.retired?
+            %span.retired
+              ="(Retired)"
         %td= service_area.directorate.name
         %td= service_area.approver.email
-        = fields_for service_area do |f|
-          %td.checkbox
+        %td.retiredCheckbox.checkbox
+          = fields_for service_area do |f|
             = f.check_box :retired, "data-path" => toggle_retired_status_service_area_path(service_area, :checkbox => :retired), :confirm => "Are you sure you wish to retire this service area?"
         %td.last= link_to "edit", edit_service_area_path(service_area), :class => "action edit"
