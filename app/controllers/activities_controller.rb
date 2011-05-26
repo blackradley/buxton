@@ -55,6 +55,15 @@ class ActivitiesController < ApplicationController
     if original_activity
       @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Clone #{original_activity.name}"]]
       @selected = "directorate_eas"
+      services = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
+      if current_user.count_directorates > 1
+        @service_areas = Hash.new
+        services.each do |s|
+          @service_areas["#{s.name} - #{s.directorate.name}"] = s.id
+        end
+      else
+        @service_areas = services
+      end
       @activity = Activity.new(original_activity.attributes)
       @clone_of = original_activity
       @activity.ready = false
