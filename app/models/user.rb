@@ -73,7 +73,7 @@ class User < ActiveRecord::Base
       when "Approver"
         Activity.active.where(:approver_id => self.id, :ready => true)
       when "Creator"
-        Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)})
+        Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>self.id).map(&:id)})
       when "Directorate Cop"
         Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>self.id).map(&:id)})
       when "Corporate Cop"
