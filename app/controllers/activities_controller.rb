@@ -53,7 +53,7 @@ class ActivitiesController < ApplicationController
   def clone
     original_activity = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id)}).find(params[:id])
     if original_activity
-      @breadcrumb = [["Directorate EAs", directorate_einas_activities_path], ["Clone #{original_activity.name}"]]
+      @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Clone #{original_activity.name}"]]
       @selected = "directorate_eas"
       @activity = Activity.new(original_activity.attributes)
       @clone_of = original_activity
