@@ -70,7 +70,7 @@ class ServiceAreasController < ApplicationController
     @directorate = current_user.directorate
     @service_area.directorate = @directorate
     @selected = "service_areas"
-    if @service_area.update_attributes!(params[:service_area])
+    if @service_area.update_attributes(params[:service_area])
       flash[:notice] = "#{@service_area.name} was updated."
       redirect_to service_areas_path
     else
