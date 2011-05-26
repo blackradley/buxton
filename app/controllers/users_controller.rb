@@ -11,6 +11,9 @@ class UsersController < ApplicationController
   def new
     @breadcrumb = [["User Administration", users_path], ["Add New User"]]
     @user = User.new
+    if request.xhr?
+      render :layout => false
+    end
   end
   
   def edit
@@ -25,9 +28,11 @@ class UsersController < ApplicationController
     @breadcrumb = [["User Administration", users_path], ["Add New User"]]
     @user = User.new(params[:user].merge(:trained => true))
     if @user.save
-      redirect_to users_path
+      render :update do |page|
+        page.redirect_to users_path
+      end
     else
-      render "new"
+      render "new", :layout => false
     end
   end
   
@@ -63,9 +68,11 @@ class UsersController < ApplicationController
     @breadcrumb = [["User Administration", users_path], ["Edit User"]]
     @user = User.live.find(params[:id])
     if @user.update_attributes(params[:user])
-      redirect_to users_path
+      render :update do |page|
+        page.redirect_to users_path
+      end
     else
-      render "edit"
+      render "edit", :layout => false
     end
   end
   
