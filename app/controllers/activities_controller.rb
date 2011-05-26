@@ -172,6 +172,17 @@ class ActivitiesController < ApplicationController
     @directorate = Directorate.find_by_creator_id(current_user.id)
     @selected = "directorate_eas"
     @activity = Activity.find(params[:id])
+    
+    invalid = params[:activity].select{|k,v| k.match(/_email/) && !v.blank? && !User.live.exists?(:email => v)}#.each do |k,v|
+    unless invalid.empty?
+      invalid.each do |k,v|
+        @activity.errors.add(k, "is not a valid user")
+        @activity.instance_variable_set("@#{k}", v)
+      end
+      
+      render 'edit' and return
+    end
+    
     Strategy.live.each do |s|
       @activity.activity_strategies.find_or_create_by_strategy_id(s.id)
     end
