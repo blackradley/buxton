@@ -212,7 +212,7 @@ class ActivitiesController < ApplicationController
   def actions
     service_area_list = current_user.corporate_cop? ? ServiceArea.active : Directorate.where(:cop_id=>current_user.id).map(&:service_areas).flatten.reject(&:retired)
     @service_areas = service_area_list.map do |sa|
-      [sa, Issue.includes(:activity => {:service_area => :directorate}).where(:directorates => {:cop_id => current_user.id}).count]
+      [sa, Issue.includes(:activity => :service_area).where(:service_areas => {:id => sa.id}).count]
     end
   end
   
