@@ -114,7 +114,11 @@ Buxton::Application.routes.draw do
       post :toggle_retired_status
     end
   end
-  resources :strategies
+  resources :strategies do
+    member do
+      post :toggle_retired_status
+    end
+  end
   
   match 'sections/edit/:id/:equality_strand' => 'sections#edit'
   # match '/:controller(/:action(/:id))'

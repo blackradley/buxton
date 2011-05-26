@@ -38,7 +38,7 @@ class ActivitiesController < ApplicationController
     
     @directorates = current_user.count_directorates
     @live_directorates = current_user.count_live_directorates
-    @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
     @activities = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id)})
     
     @selected = "directorate_eas"
@@ -85,7 +85,7 @@ class ActivitiesController < ApplicationController
   def new
     # @directorates = Directorate.where(:creator_id=>current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
-    services = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
+    services = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
     if current_user.count_directorates > 1
       @service_areas = Hash.new
       services.each do |s|
@@ -124,7 +124,7 @@ class ActivitiesController < ApplicationController
       if !@activity.errors[:approver].blank?
         @activity.errors.add(:approver_email, "An EA must have someone assigned to approve the assessment")
       end
-      @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+      @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
       render 'new'
     end
   end
@@ -133,7 +133,7 @@ class ActivitiesController < ApplicationController
   def edit
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
     @directorate = Directorate.find_by_creator_id(current_user.id)
-    @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
     @selected = "directorate_eas"
     @activity = Activity.find(params[:id])
   end
@@ -162,7 +162,7 @@ class ActivitiesController < ApplicationController
       if !@activity.errors[:approver].blank?
         @activity.errors.add(:approver_email, "An EA must have someone assigned to approve the assessment")
       end
-      @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+      @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
       render "edit"
     end
   end
@@ -209,7 +209,7 @@ class ActivitiesController < ApplicationController
   end
   
   def actions
-    service_area_list = current_user.corporate_cop? ? ServiceArea.all : Directorate.where(:cop_id=>current_user.id).map(&:service_areas).flatten
+    service_area_list = current_user.corporate_cop? ? ServiceArea.active : Directorate.where(:cop_id=>current_user.id).map(&:service_areas).flatten.reject(&:retired)
     @service_areas = service_area_list.map do |sa|
       [sa, Issue.includes(:activity => {:service_area => :directorate}).where(:directorates => {:cop_id => current_user.id}).count]
     end
