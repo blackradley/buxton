@@ -18,16 +18,12 @@ $(document).ready(function(){
     else{
       $("#readyInput").hide();
     }
-  })
-  
-  $(".colorbox").click(function(){
-    $(this).colorbox({'href': $(this).data("path")});
-  })
+  });
   
   $('.schedule').click(function(){
     var visible_activities = $('tr.light:visible, tr.dark:visible').map(function(){return "activities[]=" + $(this).data("activity-id")});
     $(this).attr("href", $(this).data("root-path") + "?" + $.makeArray(visible_activities).join("&"));
-  })
+  });
   
   $("td:empty").html("&nbsp;");
     
@@ -69,7 +65,7 @@ $(document).ready(function(){
   $('span.checkStrand input').click(function(){
     var strand = $(this).attr('id').replace("_checkbox", "");
     $('#row_'+ strand).toggle();
-    var footer_visible = $('.completionRequired.complete:visible').length == $('.completionRequired:visible').length
+    var footer_visible = $('.completionRequired.complete:visible').length == $('.completionRequired:visible').length;
     if(footer_visible){
       $(".approvalStep").show();
       $(".mockApprovalStep").hide();
@@ -123,10 +119,10 @@ $(document).ready(function(){
   $('.retiredCheckbox :checkbox').click(function(){
     $.post($(this).data("path"));
     if($(this).is(":checked")){
-      $(this).parents("tr").children("td:first").append("<span class='retired'>(Retired)</span>")
+      $(this).parents("tr").children("td:first").append("<span class='retired'>(Retired)</span>");
     }
     else{
-      $(this).parents("tr").find(".retired").remove()
+      $(this).parents("tr").find(".retired").remove();
     }
   });
   
@@ -147,6 +143,11 @@ $(document).ready(function(){
     $(this).siblings('.issue_destroy').val('1');
     $(this).closest('.issue').hide();
     return false;
+  });
+  
+  
+  $(".colorbox").click(function(){
+    $(this).colorbox({'href': $(this).data("path")});
   });
   
 });
