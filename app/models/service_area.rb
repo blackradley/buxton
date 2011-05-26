@@ -15,6 +15,8 @@ class ServiceArea < ActiveRecord::Base
   
   attr_accessor :should_destroy
   
+  scope :active, :conditions => {:retired => false}
+  
   include FixInvalidChars
   
   before_save :fix_name

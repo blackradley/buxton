@@ -63,6 +63,13 @@ class StrategiesController < ApplicationController
     end
   end
   
+  def toggle_retired_status
+    @strategy = Strategy.find(params[:id])
+    @strategy.toggle(params[:checkbox])
+    @strategy.save
+    render :nothing => true
+  end
+  
 
 protected
 
