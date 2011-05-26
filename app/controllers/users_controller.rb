@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   
   def edit
     @breadcrumb = [["User Administration", users_path], ["Edit User"]]
-    @user = User.live.find(params[:id])
+    @user = User.find(params[:id])
     if request.xhr?
       render :layout => false
     end
@@ -66,7 +66,7 @@ class UsersController < ApplicationController
 
   def update
     @breadcrumb = [["User Administration", users_path], ["Edit User"]]
-    @user = User.live.find(params[:id])
+    @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
       render :update do |page|
         page.redirect_to users_path
