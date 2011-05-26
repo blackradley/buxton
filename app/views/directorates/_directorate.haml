@@ -2,8 +2,8 @@
   = form.inputs do
     =form.input :name, :label => "Title"
     =form.input :abbreviation, :label => "Abbreviation"
-    = form.autocompleted_input :creator_email, :url => autocomplete_user_email_directorates_path, :label => "Directorate Contact Officer"
-    =form.autocompleted_input :cop_email, :url => autocomplete_user_cop_email_directorates_path, :label => "Governance Officer"
+    = form.autocompleted_input :creator_email, :url => autocomplete_user_email_directorates_path, :label => "Directorate Contact Officer", :required => false
+    =form.autocompleted_input :cop_email, :url => autocomplete_user_cop_email_directorates_path, :label => "Governance Officer", :required => false
     =form.input :retired, :label => "Retired?"
   = form.buttons do
     = form.submit "Save"

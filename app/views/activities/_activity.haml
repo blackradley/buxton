@@ -8,15 +8,15 @@
     =form.input :start_date, :label => "Target Start Date", :as => :datepicker
     =form.input :end_date, :label => "Target End Date", :as => :datepicker
     = form.input :review_on, :label => "Review Date", :as => :datepicker, :format => :short_ordinal
-    =form.autocompleted_input :approver_email, :url => autocomplete_user_email_activities_path, :label => "Senior Officer"
-    =form.autocompleted_input :completer_email, :url => autocomplete_user_email_activities_path, :label => "Task Group Manager"
+    =form.autocompleted_input :approver_email, :url => autocomplete_user_email_activities_path, :label => "Senior Officer", :required => false
+    =form.autocompleted_input :completer_email, :url => autocomplete_user_email_activities_path, :label => "Task Group Manager", :required => false
     =form.input :activity_type, :as => :select, :collection => @activity.types.collect {|option| [option.titlecase , @activity.types.index(option)] }, :label => "Type", :include_blank => false
     =form.input :activity_status, :as => :select, :collection =>  @activity.statuses.collect{|option| [option.titlecase , @activity.statuses.index(option)] }, :label => "Status", :include_blank => false
   = form.inputs :id => "readyInput", :style => "#{'display:none' unless @activity.fields_complete}" do
     = form.input :ready, :label => "Send to Task Group Manager", :style => "display:none"
   = form.buttons do
     = form.submit "Save", :disable_with => 'Saving...'
-    =raw "or #{link_to "cancel", directorates_path}"
+    =raw "or #{link_to "cancel", directorate_eas_activities_path}"
 #formHelp
   %p
     %strong Title:
