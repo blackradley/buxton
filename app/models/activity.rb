@@ -335,6 +335,33 @@ class Activity < ActiveRecord::Base
     issues_to_check.flatten.each{|issue| return false unless issue.check_responses} if (section.nil? || section.to_s == 'action_planning')
     return true
   end
+  
+  def issues_relevant?(strand)
+    impact_qn = "impact_#{strand}_9"
+    consultation_qn = "consultation_#{strand}_7"
+    impact_answer = self.questions.where(:name => impact_qn).first.response.to_i
+    consultation_answer = self.questions.where(:name => consultation_qn).first.response.to_i
+    
+    if impact_answer==1 || consultation_answer==1
+      issues.find_by_strand(strand.to_s)
+    else
+      false
+    end
+      
+    
+    # issues_to_check = []
+    # if impact_answer == 1
+    #   issues = self.issues_by('impact', strand)
+    #   return false if issues.size == 0
+    #   issues_to_check << issues
+    # end
+    # if consultation_answer == 1
+    #   issues = self.issues_by('consultation', strand)
+    #   return false if issues.size == 0
+    #   issues_to_check << issues
+    # end
+    # issues_to_check.empty?
+  end
 
   def target_and_strategies_completed
     answered_questions = self.questions.where(:name => ["purpose_overall_2"]).where("completed = true OR needed = false")
