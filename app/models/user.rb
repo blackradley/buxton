@@ -13,6 +13,8 @@ class User < ActiveRecord::Base
   after_create :send_password
   before_save :update_lock_time
   
+  before_save :log_failed_attempts
+  
   def cop_email
     #required for directorate autocomplete hack
     self.email
@@ -62,6 +64,32 @@ class User < ActiveRecord::Base
   def lock_access!
     self.locked = true
     super
+  end
+  
+  def valid_for_authentication?
+    response = super
+    
+    if response==:locked
+      text = %Q[<a href="mailto:#{email}">#{email}</a> failed to log in due to locked account.]
+      # Log this type of event
+      # CAUTION! See: http://notetoself.vrensk.com/2008/08/escaping-single-quotes-in-ruby-harder-than-expected/
+      # for why we're escaping this this way
+      escaped_text = text.gsub(/\\|'/) { |c| "\\#{c}" }
+      FailedLoginLog.create(:message => escaped_text)
+    end
+    response
+  end
+  
+  def log_failed_attempts
+    if failed_attempts > 0 && failed_attempts_changed?
+      text = %Q[<a href="mailto:#{email}">#{email}</a> failed login attempt #{failed_attempts}.]
+      text << " User locked out" if locked?
+      # Log this type of event
+      # CAUTION! See: http://notetoself.vrensk.com/2008/08/escaping-single-quotes-in-ruby-harder-than-expected/
+      # for why we're escaping this this way
+      escaped_text = text.gsub(/\\|'/) { |c| "\\#{c}" }
+      FailedLoginLog.create(:message => escaped_text)
+    end
   end
   
   
