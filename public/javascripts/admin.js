@@ -6,6 +6,17 @@ $(document).ready(function(){
     $.post($(this).data("path"));
   });
   
-  $('table .edit.action').colorbox();
+  $('table .edit.action, .new_user').colorbox();
+  
+  
+  $('.lightboxForm').live('ajax:success', function(data, status, xhr) {
+    // $('#cboxLoadedContent').html(status);
+    // alert(data);
+    if (status.substring(5,0)!='try {')
+      $.colorbox({html: status});
+    // console.log(data);
+    // alert(status);
+    // alert(xhr);
+  });
   
 });
