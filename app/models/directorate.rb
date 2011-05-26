@@ -13,6 +13,7 @@ class Directorate < ActiveRecord::Base
   validates_uniqueness_of :name, :abbreviation, :creator_id
   validates_presence_of :name, :abbreviation
   validates_presence_of :creator_email, :cop_email, :message => "must be a valid user"
+  scope :active, :conditions => {:retired => false}
   # validates_associated :cop
   belongs_to :creator, :class_name => "User"
   

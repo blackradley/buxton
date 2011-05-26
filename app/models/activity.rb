@@ -52,7 +52,9 @@ class Activity < ActiveRecord::Base
   after_create :create_questions_if_new
   
   default_scope :conditions => {:is_rejected => false}
-  
+  scope :active,  lambda{
+    joins(:service_area => :directorate).where(:service_areas => {:retired => false, :directorates => {:retired => false}})
+  }
   include FixInvalidChars
   
   before_save :fix_fields
