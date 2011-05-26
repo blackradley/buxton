@@ -1,7 +1,7 @@
 --- 
 activities_002: 
   pregnancy_and_maternity_relevant: 
-  start_date: 
+  start_date: 2011-04-14 14:32:48 Z
   impact_completed: 1
   name: Joes Activity 0
   consultation_completed: 1
@@ -10,6 +10,7 @@ activities_002:
   created_on: 2011-04-14 14:32:55 Z
   completer_id: 3
   additional_work_completed: 1
+  qc_officer_id: 6
   purpose_completed: 1
   ref_no: EINA000002
   race_relevant: 
@@ -23,7 +24,7 @@ activities_002:
   gender_relevant: 
   updated_by: 
   submitted: 
-  end_date: 
+  end_date: 2011-04-14 14:32:48 Z
   age_relevant: 
   actual_start_date: 2011-04-14 14:32:48 Z
   ready: true
@@ -33,12 +34,12 @@ activities_002:
   gender_reassignment_relevant: 
   approver_id: 2
   activity_project_id: 
-  review_on: 
+  review_on: 2011-04-14 14:32:48 Z
   sexual_orientation_relevant: 
   activity_type: 0
 activities_001: 
   pregnancy_and_maternity_relevant: 
-  start_date: 
+  start_date: 2011-04-14 14:32:48 Z
   ready: true
   impact_completed: 1
   name: Shauns Activity 0
@@ -57,12 +58,13 @@ activities_001:
   actual_start_date: 2011-04-14 14:32:48 Z
   id: 1
   faith_relevant: 
+  qc_officer_id: 6
   activity_status: 0 
   marriage_civil_partnership_relevant: 
   gender_relevant: 
   updated_by: 
   submitted: 
-  end_date: 
+  end_date: 2011-04-14 14:32:48 Z
   age_relevant: 
   use_purpose_completed: 1
   action_planning_completed: 1
@@ -70,6 +72,6 @@ activities_001:
   gender_reassignment_relevant: 
   approver_id: 2
   activity_project_id: 
-  review_on: 
+  review_on: 2011-04-14 14:32:48 Z
   sexual_orientation_relevant: 
   activity_type: 0
