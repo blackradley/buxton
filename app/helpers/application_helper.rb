@@ -116,7 +116,7 @@ module ApplicationHelper
         menu << ["Awaiting Approval", approving_activities_path]
       when "Creator"
         if current_user.count_directorates > 0
-          menu << ["Directorate EAs", directorate_einas_activities_path]
+          menu << ["Directorate EAs", directorate_eas_activities_path]
         end
       when "Directorate Cop"
         menu << ["EA Governance", directorate_governance_eas_activities_path]
