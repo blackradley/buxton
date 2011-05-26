@@ -51,6 +51,8 @@ class Activity < ActiveRecord::Base
   before_update :set_approved, :update_completed
   after_create :create_questions_if_new
   
+  default_scope :conditions => {:is_rejected => false}
+  
   include FixInvalidChars
   
   before_save :fix_fields
@@ -140,6 +142,8 @@ class Activity < ActiveRecord::Base
   def approver_email=(email)
     if user = User.live.find_by_email(email)
       self.approver_id = user.id
+    else
+      self.approver_id = nil
     end
   end
   
@@ -154,6 +158,8 @@ class Activity < ActiveRecord::Base
   def completer_email=(email)
     if user = User.live.find_by_email(email)
       self.completer_id = user.id
+    else
+      self.completer_id = nil
     end
   end
   

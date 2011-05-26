@@ -12,13 +12,13 @@ class ActivitiesController < ApplicationController
   #         :only => [ :destroy, :create, :update, :update_activity_type, :update_contact, :update_ces ],
   #         :render => { :text => '405 HTTP POST required.', :status => 405, :add_headers => { 'Allow' => 'POST' } }
 
-  rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
-  rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
+  # rescue_from ActiveRecord::RecordNotSaved, :with => :show_errors
+  # rescue_from ActiveRecord::RecordInvalid, :with => :show_errors
 
   # Make render_to_string available to the #show action
   helper_method :render_to_string
   before_filter :authenticate_user!
-  before_filter :ensure_creator, :only => [:edit, :new, :create, :update, :directorate_einas]
+  before_filter :ensure_creator, :only => [:edit, :new, :create, :update, :directorate_eas]
   before_filter :set_activity, :only => [:edit, :questions, :update, :toggle_strand, :submit, :show, :approve, :reject, :submit_approval, :submit_rejection, :summary]
   before_filter :ensure_cop, :only => [:summary, :generate_schedule, :actions, :directorate_governance_eas]
   before_filter :ensure_completer, :only => [:my_eas]
@@ -38,7 +38,7 @@ class ActivitiesController < ApplicationController
     
     @directorates = current_user.count_directorates
     @live_directorates = current_user.count_live_directorates
-    @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
     @activities = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id)})
     
     @selected = "directorate_eas"
@@ -65,7 +65,7 @@ class ActivitiesController < ApplicationController
       @activity.review_on = nil
       render :new
     else
-      redirect_to :directorate_einas
+      redirect_to :directorate_eas
     end
   end
   
@@ -86,8 +86,8 @@ class ActivitiesController < ApplicationController
   
   def new
     # @directorates = Directorate.where(:creator_id=>current_user.id)
-    @breadcrumb = [["Directorate EAs", directorate_einas_activities_path], ["New EA"]]
-    services = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
+    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
+    services = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
     if current_user.count_directorates > 1
       @service_areas = Hash.new
       services.each do |s|
@@ -96,7 +96,7 @@ class ActivitiesController < ApplicationController
     else
       @service_areas = services
     end
-    @selected = "directorate_einas"
+    @selected = "directorate_eas"
     @activity = Activity.new
     @activity.service_area = services.first
     @activity.approver = services.first.approver if services.first
@@ -112,12 +112,12 @@ class ActivitiesController < ApplicationController
       @activity.activity_strategies.build(:strategy => s) unless @activity.activity_strategies.map(&:strategy).include?(s)
     end
     # @directorate = Directorate.find_by_creator_id(current_user.id)
-    @breadcrumb = [["Directorate EAs", directorate_einas_activities_path], ["New EA"]]
-    @selected = "directorate_einas"
+    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
+    @selected = "directorate_eas"
     if @activity.update_attributes(params[:activity])
       flash[:notice] = "#{@activity.name} was created."
       Mailer.activity_created(@activity).deliver if @activity.ready?
-      redirect_to directorate_einas_activities_path
+      redirect_to directorate_eas_activities_path
     else
       if !@activity.errors[:completer].blank?
         @activity.errors.add(:completer_email, "An EA must have someone assigned to undergo the assessment")
@@ -125,26 +125,26 @@ class ActivitiesController < ApplicationController
       if !@activity.errors[:approver].blank?
         @activity.errors.add(:approver_email, "An EA must have someone assigned to approve the assessment")
       end
-      @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+      @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
       render 'new'
     end
   end
   
   
   def edit
-    @breadcrumb = [["Directorate EAs", directorate_einas_activities_path], ["New EA"]]
+    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
     @directorate = Directorate.find_by_creator_id(current_user.id)
-    @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
-    @selected = "directorate_einas"
+    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+    @selected = "directorate_eas"
     @activity = Activity.find(params[:id])
   end
 
   # Update the activity details accordingly.
   # Available to: Activity Manager
   def update
-    @breadcrumb = [["Directorate EAs", directorate_einas_activities_path], ["New EA"]]
+    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
     @directorate = Directorate.find_by_creator_id(current_user.id)
-    @selected = "directorate_einas"
+    @selected = "directorate_eas"
     @activity = Activity.find(params[:id])
     Strategy.live.each do |s|
       @activity.activity_strategies.find_or_create_by_strategy_id(s.id)
@@ -155,7 +155,7 @@ class ActivitiesController < ApplicationController
     if @activity.update_attributes(params[:activity])
       flash[:notice] = "#{@activity.name} was updated."
       Mailer.activity_created(@activity).deliver if @activity.ready?
-      redirect_to directorate_einas_activities_path
+      redirect_to directorate_eas_activities_path
     else
       if !@activity.errors[:completer].blank?
         @activity.errors.add(:completer_email, "An EA must have someone assigned to undergo the assessment")
@@ -163,7 +163,7 @@ class ActivitiesController < ApplicationController
       if !@activity.errors[:approver].blank?
         @activity.errors.add(:approver_email, "An EA must have someone assigned to approve the assessment")
       end
-      @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+      @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
       render "edit"
     end
   end
@@ -210,7 +210,7 @@ class ActivitiesController < ApplicationController
   end
   
   def actions
-    service_area_list = current_user.corporate_cop? ? ServiceArea.all : Directorate.where(:cop_id=>current_user.id).map(&:service_areas).flatten
+    service_area_list = current_user.corporate_cop? ? ServiceArea.active : Directorate.where(:cop_id=>current_user.id).map(&:service_areas).flatten.reject(&:retired)
     @service_areas = service_area_list.map do |sa|
       [sa, Issue.includes(:activity => {:service_area => :directorate}).where(:directorates => {:cop_id => current_user.id}).count]
     end
@@ -249,8 +249,15 @@ class ActivitiesController < ApplicationController
   end
   
   def submit_rejection
-    @activity.update_attributes(:submitted => false)
+    new_activity = @activity.clone
+    new_activity.ready = true
+    new_activity.start_date = @activity.start_date
+    new_activity.end_date = @activity.end_date
+    new_activity.review_on = @activity.review_on
+    new_activity.save!
+    # @activity.update_attributes(:submitted => false)
     Mailer.activity_rejected(@activity, params[:email_contents]).deliver
+    @activity.update_attributes(:is_rejected => true)
     redirect_to approving_activities_path
   end
 
