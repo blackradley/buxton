@@ -16,7 +16,9 @@ class ServiceArea < ActiveRecord::Base
   attr_accessor :should_destroy
   
   scope :active, :conditions => {:retired => false}
-  
+  scope :active,  lambda{
+      joins(:directorate).where(:directorates => {:retired => false}, :retired => false).readonly(false)
+    }
   include FixInvalidChars
   
   before_save :fix_name
