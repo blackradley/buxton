@@ -53,6 +53,17 @@ class ActivitiesController < ApplicationController
   def clone
     original_activity = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id)}).find(params[:id])
     if original_activity
+      @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Clone #{original_activity.name}"]]
+      @selected = "directorate_eas"
+      services = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
+      if current_user.count_directorates > 1
+        @service_areas = Hash.new
+        services.each do |s|
+          @service_areas["#{s.name} - #{s.directorate.name}"] = s.id
+        end
+      else
+        @service_areas = services
+      end
       @activity = Activity.new(original_activity.attributes)
       @clone_of = original_activity
       @activity.ready = false
@@ -109,7 +120,6 @@ class ActivitiesController < ApplicationController
     Strategy.live.each do |s|
       @activity.activity_strategies.build(:strategy => s) unless @activity.activity_strategies.map(&:strategy).include?(s)
     end
-    @activity.ref_no = "EA#{sprintf("%06d", Activity.last(:order => :id).id + 1)}"
     # @directorate = Directorate.find_by_creator_id(current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
     @selected = "directorate_eas"
@@ -211,7 +221,7 @@ class ActivitiesController < ApplicationController
   def actions
     service_area_list = current_user.corporate_cop? ? ServiceArea.active : Directorate.where(:cop_id=>current_user.id).map(&:service_areas).flatten.reject(&:retired)
     @service_areas = service_area_list.map do |sa|
-      [sa, Issue.includes(:activity => {:service_area => :directorate}).where(:directorates => {:cop_id => current_user.id}).count]
+      [sa, Issue.includes(:activity => :service_area).where(:service_areas => {:id => sa.id}).count]
     end
   end
   
