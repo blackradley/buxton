@@ -69,7 +69,7 @@ class User < ActiveRecord::Base
     self.roles.map do |role|
       case role
       when "Quality Control"
-        Activity.active.where(:qc_officer_id => self.id, :ready => true)
+        Activity.active.where(:qc_officer_id => self.id, :ready => true, :submitted => true, :undergone_qc => false)
       when "Completer"
         Activity.active.where(:completer_id => self.id, :ready => true)
       when "Approver"
@@ -97,7 +97,7 @@ class User < ActiveRecord::Base
   end
   
   def quality_control?
-    Activity.active.where(:qc_officer_id => self.id, :ready => true).count > 0
+    Activity.active.where(:qc_officer_id => self.id, :ready => true, :submitted => true, :undergone_qc => false).count > 0
   end
   
   def approver?

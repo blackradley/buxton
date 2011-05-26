@@ -61,16 +61,18 @@ class UserTest < ActiveSupport::TestCase
       
   end
   
-  context "with one activity and a completer and approver" do
+  context "with one activity and a completer and approver and a qc officer" do
     setup do 
       @completer = Factory(:user)
       @approver = Factory(:user)
-      @normal_activity = Factory(:activity, :completer => @completer, :approver => @approver, :ready => true)
+      @qc_officer = Factory(:user)
+      @normal_activity = Factory(:activity, :completer => @completer, :approver => @approver, :qc_officer => @qc_officer, :ready => true)
     end
     
     should "mark the completer as only a completer" do
       assert @completer.completer?
       assert !@completer.creator?
+      assert !@completer.quality_control?
       assert !@completer.approver?
     end
   
@@ -80,6 +82,10 @@ class UserTest < ActiveSupport::TestCase
     
     should "not have the role of approver as an approver" do
       assert_equal [], @approver.roles
+    end
+    
+    should "not have the role of qc officer as a qc officer" do
+      assert_equal [], @qc_officer.roles
     end
     
     context "when it has been started" do
@@ -94,7 +100,12 @@ class UserTest < ActiveSupport::TestCase
       should "mark the approver as only an approver" do
         assert !@approver.completer?
         assert !@approver.creator?
+        assert !@approver.quality_control?
         assert @approver.approver?
+      end
+      
+      should "not have the qc officer as a qc officer" do
+        assert_equal [], @qc_officer.roles
       end
       
     end
