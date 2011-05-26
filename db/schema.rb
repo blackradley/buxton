@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110525152825) do
+ActiveRecord::Schema.define(:version => 20110526135542) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -50,6 +50,8 @@ ActiveRecord::Schema.define(:version => 20110525152825) do
     t.boolean  "ready"
     t.text     "summary"
     t.boolean  "is_rejected",                         :default => false
+    t.integer  "qc_officer_id"
+    t.boolean  "undergone_qc",                        :default => false
   end
 
   add_index "activities", ["directorate_id"], :name => "index_activities_on_directorate_id"

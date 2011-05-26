@@ -46,6 +46,13 @@ class Mailer < ActionMailer::Base
   end
   
   
+  def activity_comment(activity, email_contents)
+    @activity = activity
+    @contents = email_contents
+    mail(:to => "#{activity.completer.email}, #{activity.creator.email}, #{activity.approver.email}",
+         :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has undergone quality control")
+  end
+  
   def activity_rejected(activity, email_contents)
     @activity = activity
     @contents = email_contents

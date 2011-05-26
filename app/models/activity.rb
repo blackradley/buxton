@@ -30,6 +30,7 @@
 class Activity < ActiveRecord::Base
   belongs_to :completer, :class_name => "User"
   belongs_to :approver, :class_name => "User"
+  belongs_to :qc_officer, :class_name => "User"
   belongs_to :service_area
   has_many :activity_strategies, :dependent => :destroy
   has_many :issues, :dependent => :destroy
@@ -38,13 +39,14 @@ class Activity < ActiveRecord::Base
   validates :name, :presence => {:if => :ready?, :full_message => 'Your EA must have a name'}
   validates :approver, :presence => {:if => :ready?, :full_message =>"Your EA has to have a Senior Officer"}
   validates :completer, :presence => {:if => :ready?, :full_message =>"Your EA has to have a Task Group Manager"}
+  validates :qc_officer, :presence => {:if => :ready?, :full_message =>"Your EA has to have a Quality Control Officer"}
   validates :start_date, :presence => {:if => :ready?, :full_message =>"You must enter the date the EA will start"}
   validates :end_date, :presence => {:if => :ready?, :full_message =>"You must enter the date the EA will finish on"}
   validates :review_on, :presence => {:if => :ready?, :full_message =>"You must enter the review date for your EA"}
   # validates_presence_of :name, :message => 'All activities must have a name.'
   # validates_presence_of :completer, :approver
   # validates_presence_of :service_area
-  validates_associated :completer, :approver
+  validates_associated :completer, :approver, :qc_officer
 #  validates_associated :questions
   # validates_uniqueness_of :name, :scope => :directorate_id
   
@@ -154,6 +156,18 @@ class Activity < ActiveRecord::Base
       self.completer_id = user.id
     else
       self.completer_id = nil
+    end
+  end
+  
+  def qc_officer_email
+    @qc_officer_email ||= qc_officer.try(:email) || ""
+  end
+  
+  def qc_officer_email=(email)
+    if user = User.live.find_by_email(email)
+      self.qc_officer_id = user.id
+    else
+      self.qc_officer_id = nil
     end
   end
   

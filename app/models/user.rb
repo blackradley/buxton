@@ -66,8 +66,10 @@ class User < ActiveRecord::Base
   
   
   def activities
-    ["Creator", "Completer", "Approver", "Checker", "Directorate Cop", "Corporate Cop"].map do |role|
+    self.roles.map do |role|
       case role
+      when "Quality Control"
+        Activity.active.where(:qc_officer_id => self.id, :ready => true)
       when "Completer"
         Activity.active.where(:completer_id => self.id, :ready => true)
       when "Approver"
@@ -87,11 +89,15 @@ class User < ActiveRecord::Base
   end
   
   def roles
-    ["Creator", "Completer", "Approver", "Checker", "Corporate Cop", "Directorate Cop"].select{|role| self.send("#{role.gsub(' ', '_').downcase}?".to_sym)}
+    ["Creator", "Completer", "Approver", "Checker", "Corporate Cop", "Directorate Cop", "Quality Control"].select{|role| self.send("#{role.gsub(' ', '_').downcase}?".to_sym)}
   end
   
   def completer?
     Activity.active.where(:completer_id => self.id, :ready => true).count > 0
+  end
+  
+  def quality_control?
+    Activity.active.where(:qc_officer_id => self.id, :ready => true).count > 0
   end
   
   def approver?
