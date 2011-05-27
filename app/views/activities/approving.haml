@@ -5,7 +5,7 @@
       %th Service Area
       %th Activity Name
       %th Ref no.
-      %th Senior Officer
+      %th Task Group Manager
       %th Date Started
       %th Actual Completion
       %th Progress
@@ -43,7 +43,7 @@
         %td= activity.service_area.name
         %td= activity.name
         %td= activity.ref_no
-        %td= activity.approver.email
+        %td= activity.completer.email
         %td.center= activity.started && activity.actual_start_date ? activity.actual_start_date.to_s(:short) : "N/A"
         %td.center= activity.approved && activity.approved_on ? activity.approved_on.to_s(:short) : "N/A"
         %td= activity.progress
