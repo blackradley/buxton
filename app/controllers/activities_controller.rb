@@ -95,7 +95,11 @@ class ActivitiesController < ApplicationController
     @breadcrumb = [["EA Governance"]]
     @activities =  Activity.active.ready.includes(:service_area)
     unless current_user.corporate_cop?
-      @activities = @activities.where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>current_user.id).map(&:id)}, :ready => true)
+      @activities = []
+      if current_user.creator?
+        @activities += Activity.active.ready.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)}, :ready => true)
+      end
+      @activities += Activity.active.ready.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>current_user.id).map(&:id)}, :ready => true)
     end
     @selected = "ea_governance"
   end
@@ -239,15 +243,28 @@ class ActivitiesController < ApplicationController
     if current_user.corporate_cop?
       activities = Activity.ready.where(:id => params[:activities])
     elsif current_user.directorate_cop?
-      activities = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
+      activities += Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
     end
+    if current_user.creator?
+      activities += Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
+    end
+    activities = activities.uniq
     send_data SchedulePDFGenerator.new(activities).pdf.render, :disposition => 'inline',
       :filename => "schedule.pdf",
       :type => "application/pdf"
   end
   
   def actions
-    service_area_list = current_user.corporate_cop? ? ServiceArea.active : Directorate.active.where(:cop_id=>current_user.id).map(&:service_areas).flatten.reject(&:retired)
+    service_area_list = []
+    if current_user.corporate_cop?
+      service_area_list += ServiceArea.active  
+    elsif current_user.directorate_cop?
+      service_area_list += Directorate.active.where(:cop_id=>current_user.id).map(&:service_areas).flatten.reject(&:retired)
+    end
+    if current_user.creator
+      service_area_list += Directorate.active.where(:creator_id =>current_user.id).map(&:service_areas).flatten.reject(&:retired)
+    end
+    service_area_list.uniq!
     @service_areas = service_area_list.map do |sa|
       [sa, Issue.includes(:activity => :service_area).where(:service_areas => {:id => sa.id}).count]
     end
