@@ -87,7 +87,7 @@ class ActivitiesController < ApplicationController
   
   def approving
     @breadcrumb = [["Awaiting Approval"]]
-    @activities = Activity.active.where(:approver_id => current_user.id, :ready => true).reject{|a| a.progress == "NS"}
+    @activities = Activity.active.where(:approver_id => current_user.id, :ready => true)
     @selected = "awaiting_approval"
   end
   
@@ -214,6 +214,7 @@ class ActivitiesController < ApplicationController
     if @activity.completed
       @activity.submitted = true
       @activity.save!
+      Mailer.activity_submitted(@activity, params[:email_contents]).deliver
       flash[:notice] = 'Your EA has been successfully submitted for approval.'
     else
       flash[:error] = "You need to finish your EA before you can submit it."

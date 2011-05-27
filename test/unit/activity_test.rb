@@ -12,6 +12,7 @@ class ActivityTest < ActiveSupport::TestCase
   context "when creating an activity" do
     setup do 
       @activity = Activity.new
+      @activity.service_area = Factory(:service_area)
     end
     
     should "be able to save the activity the first time without entering any details about it" do
