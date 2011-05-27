@@ -98,8 +98,8 @@ class ActivitiesControllerTest < ActionController::TestCase
       sign_in users(:users_004)
     end
     
-    should "not be able to see any activities list aside from the creator one" do
-      [:directorate_governance_eas, :my_eas, :approving].each do |activity_route|
+    should "not be able to see any activities list aside from the creator ones" do
+      [:my_eas, :approving].each do |activity_route|
         get activity_route
         assert_response :redirect
         assert_redirected_to access_denied_path
@@ -111,16 +111,20 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_response :success
     end
     
+    should "be able to see the cop activities" do
+      get :directorate_governance_eas
+      assert_response :success
+    end
+    
     should "not be able to submit an activity for approval" do
       get :submit, :id => activities(:activities_002).id
       assert_response :redirect
       assert_redirected_to access_denied_path
     end
     
-    should "not be able to view the schedule file for a directorate" do
+    should "be able to view the schedule file for a directorate" do
       get :generate_schedule
-      assert_response :redirect
-      assert_redirected_to access_denied_path
+      assert_response :success
     end
     
     should "be able to view the pdf file for an activity" do
@@ -128,10 +132,9 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_response :success
     end
     
-    should "not be able to see an activity summary" do
+    should "be able to see an activity summary" do
       get :summary, :id => activities(:activities_002).id
-      assert_response :redirect
-      assert_redirected_to access_denied_path
+      assert_response :success
     end
     
     should "be not able to see the questions" do
@@ -151,13 +154,13 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_response :success
     end
     
-    should "be able to accept an activity" do
+    should "not be able to accept an activity" do
       get :approve, :id => activities(:activities_002).id
       assert_response :redirect
       assert_redirected_to access_denied_path
     end
   
-    should "be able to reject an activity" do
+    should "not be able to reject an activity" do
       get :reject, :id => activities(:activities_002).id
       assert_response :redirect
       assert_redirected_to access_denied_path
