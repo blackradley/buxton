@@ -74,6 +74,12 @@ class DirectoratesController < ApplicationController
       flash[:notice] = "#{@directorate.name} was updated."
       redirect_to directorates_path
     else
+      if !@directorate.errors[:creator_id].blank?
+        @directorate.errors.add(:creator_email, "This Contact Officer has already been assigned to another directorate.")
+      end
+      if !@directorate.errors[:cop_id].blank?
+        @directorate.errors.add(:cop_email, "An Directorate must have a Governance Officer")
+      end
       render "edit"
     end
   end
