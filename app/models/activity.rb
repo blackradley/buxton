@@ -542,6 +542,7 @@ class Activity < ActiveRecord::Base
     new_activity.submitted = false
     new_activity.start_date = nil
     new_activity.end_date = nil
+    new_activity.undergone_qc = false
     new_activity.review_on = nil
     puts "Activity created"
     self.questions.each do |q|
