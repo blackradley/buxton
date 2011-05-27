@@ -547,8 +547,6 @@ class Activity < ActiveRecord::Base
     new_activity.review_on = nil
     puts "Activity created"
     self.questions.each do |q|
-      puts q.name
-      puts q.inspect
       new_q = new_activity.questions.find_by_name(q.name)
       new_q.completed = q.completed
       new_q.needed = q.needed
