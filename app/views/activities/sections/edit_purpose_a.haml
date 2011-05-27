@@ -19,7 +19,6 @@
           %label
             = activity_strategy.strategy.name
           = select('strategy_responses', activity_strategy.strategy_id, yes_no, :selected => yes_no[activity_strategy.strategy_response.to_i])
-    .clear
     = hidden_field_tag 'id', @id
     = hidden_field_tag 'equality_strand', @equality_strand
     %p.question.saveField
