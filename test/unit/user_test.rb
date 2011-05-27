@@ -84,8 +84,8 @@ class UserTest < ActiveSupport::TestCase
       assert_equal [], @approver.roles
     end
     
-    should "not have the role of qc officer as a qc officer" do
-      assert_equal [], @qc_officer.roles
+    should "have the role of qc officer as a qc officer" do
+      assert_equal ['Quality Control'], @qc_officer.roles
     end
     
     context "when it has been started" do
@@ -104,8 +104,8 @@ class UserTest < ActiveSupport::TestCase
         assert @approver.approver?
       end
       
-      should "not have the qc officer as a qc officer" do
-        assert_equal [], @qc_officer.roles
+      should "have the qc officer as a qc officer" do
+        assert_equal ['Quality Control'], @qc_officer.roles
       end
       
     end
