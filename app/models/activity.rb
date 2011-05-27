@@ -36,6 +36,7 @@ class Activity < ActiveRecord::Base
   has_many :issues, :dependent => :destroy
   has_many :questions, :dependent => :destroy
   
+  validates_presence_of :service_area
   validates :name, :presence => {:if => :ready?, :full_message => 'Your EA must have a name'}
   validates :approver, :presence => {:if => :ready?, :full_message =>"Your EA has to have a Senior Officer"}
   validates :completer, :presence => {:if => :ready?, :full_message =>"Your EA has to have a Task Group Manager"}

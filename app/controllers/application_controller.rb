@@ -73,6 +73,7 @@ protected
    return directorate_eas_activities_path if current_user.creator?
    return my_eas_activities_path if current_user.completer?
    return approving_activities_path if current_user.approver?
+   return quality_control_activities_path if current_user.quality_control?
    return directorate_governance_eas_activities_path if current_user.directorate_cop? || current_user.corporate_cop?
    return access_denied_path
   end
