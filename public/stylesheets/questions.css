@@ -187,7 +187,7 @@ h2 img {
         float: left;
         margin-left: 0px;
         margin-bottom: 2px;
-        width: 388px; }
+        width: 400px; }
         #questions .question #issues_list .issue input {
           margin-left: 10px;
           width: 350px; }
@@ -269,7 +269,7 @@ h2 img {
     #questions.no_help .question input,
     #questions.no_help .question select,
     #questions.no_help .question textarea {
-      width: 946px;
+      width: 944px;
       margin-left: 0px; }
     #questions.no_help .question textarea {
       margin-bottom: 0px;
