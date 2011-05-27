@@ -81,7 +81,7 @@ class ActivitiesController < ApplicationController
   
   def quality_control
     @breadcrumb = [["Quality Control"]]
-    @activities = Activity.active.where(:qc_officer_id => current_user.id, :ready => true, :submitted => true, :undergone_qc => false)
+    @activities = Activity.active.where(:qc_officer_id => current_user.id, :ready => true)
     @selected = "quality_control"
   end
   
