@@ -168,7 +168,7 @@ class ActivitiesController < ApplicationController
   
   
   def edit
-    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
+    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Edit EA"]]
     @directorate = Directorate.find_by_creator_id(current_user.id)
     @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
     @selected = "directorate_eas"
