@@ -134,7 +134,13 @@ class ActivitiesController < ApplicationController
       render 'new' and return
     end
     if params[:clone_of]
-      @activity = current_user.activities.select{|a| a.id.to_s == params[:clone_of]}.first.clone
+      @activity = current_user.activities.select{|a| a.id.to_s == params[:clone_of]}.first
+      unless @activity
+        flash[:notice] = "The Service Area for this EA has been retired and therefore this EA cannot be cloned."
+        redirect_to directorate_eas_activities_path and return
+      else
+        @activity = @activity.clone
+      end
     else
       @activity = Activity.new()
     end
