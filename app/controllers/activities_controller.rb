@@ -87,7 +87,7 @@ class ActivitiesController < ApplicationController
   
   def approving
     @breadcrumb = [["Awaiting Approval"]]
-    @activities = Activity.active.where(:approver_id => current_user.id, :ready => true).reject{|a| a.progress == "NS"}
+    @activities = Activity.active.where(:approver_id => current_user.id, :ready => true)
     @selected = "awaiting_approval"
   end
   
