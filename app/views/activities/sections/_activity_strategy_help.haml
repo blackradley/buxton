@@ -1,9 +1,9 @@
 .more{:id => "more_activity_strategy_#{activity_strategy.id}", :style => "display:none"}
-  %h3
-    =image_tag ("icons/help.gif")
-    Help:
-  .help
-    / = simple_format(@activity.questions.where(:name => "purpose_overall_1").help_text)
+  / %h3
+  /   =image_tag ("icons/help.gif")
+  /   Help:
+  / .help
+  /   / = simple_format(@activity.questions.where(:name => "purpose_overall_1").help_text)
   %h3
     ="Strategic Outcome - Aims and Objectives:"
   -if !activity_strategy.strategy.description.blank? then
