@@ -149,6 +149,9 @@ $(document).ready(function(){
   $(".colorbox").click(function(){
     $(this).colorbox({'href': $(this).data("path")});
   });
+  $('.inline').click(function(){
+    $(this).colorbox({'inline': true});
+  })
   
 });
 

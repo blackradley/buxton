@@ -1,4 +1,4 @@
-$.fancybox.close();
+$.colorbox.close();
 <% if @parent_question.comment.contents.blank? %>
   $("#<%= @parent_question.name %>_comment").parents(".commentBox").children(".newComment").show();
   $("#<%= @parent_question.name %>_comment").parents(".commentBox").children(".showComment").hide();
