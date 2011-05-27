@@ -1,12 +1,12 @@
 %h2 Forgot your password?
 
 = form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f|
-  -if resource.errors[:email]
+  -unless resource.errors[:email].blank?
     #flashBox
       = content_tag(:div, "Email not found", :id => "flash_error")
-  %p= f.label :email 
+  %p= f.label :email
   %br
-  %p= f.email_field :email
+  %p= f.text_field :email
   %p= f.submit "Reset", :class=> "submitButton"
 
 #loginHelp
