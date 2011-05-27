@@ -214,6 +214,7 @@ class ActivitiesController < ApplicationController
     if @activity.completed
       @activity.submitted = true
       @activity.save!
+      Mailer.activity_submitted(@activity, params[:email_contents]).deliver
       flash[:notice] = 'Your EA has been successfully submitted for approval.'
     else
       flash[:error] = "You need to finish your EA before you can submit it."

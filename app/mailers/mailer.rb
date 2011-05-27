@@ -30,6 +30,13 @@ class Mailer < ActionMailer::Base
          :subject => "Welcome to the EA Toolkit")
   end
   
+  def activity_submitted(activity, email_contents)
+    @activity = activity
+    @contents = email_contents
+    mail(:to => "#{activity.completer.email}, #{activity.creator.email}, #{activity.qc_officer.email}",
+         :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has been submitted for quality control")
+  end
+  
   def password_reset(user, password)
     @user = user
     @password = password
