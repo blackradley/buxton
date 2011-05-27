@@ -117,6 +117,8 @@ module ApplicationHelper
       when "Creator"
         if current_user.count_directorates > 0
           menu << ["Directorate EAs", directorate_eas_activities_path]
+          menu << ["EA Governance", directorate_governance_eas_activities_path]
+          menu << ["Actions", actions_activities_path]
         end
       when "Quality Control"
         menu << ["Quality Control", quality_control_activities_path]
