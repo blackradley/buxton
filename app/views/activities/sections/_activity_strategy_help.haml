@@ -8,7 +8,7 @@
     ="Strategic Outcome - Aims and Objectives:"
   -if !activity_strategy.strategy.description.blank? then
     .help
-      =simple_format(activity_strategy.strategy.description)
+      = simple_format(activity_strategy.strategy.description)
   -else
     %p.nohelp= "Sorry - no description for this #{ot('strategy')}."
   %h3
