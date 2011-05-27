@@ -117,7 +117,7 @@ protected
   end
   
   def sign_out(*args)
-    if current_user
+    if current_user && !current_user.is_a?(Administrator)
       log_event('Logout', %Q[<a href="mailto:#{current_user.email}">#{current_user.email}</a> logged out.])
     end
     old_sign_out(*args)
