@@ -82,6 +82,7 @@ class ActivityPDFGenerator
     table << ["<b>Activity Manager</b>", @activity.completer.email]
     table << ["<b>Date Approved</b>", @activity.approved_on.to_s] if @activity.approved?
     table << ["<b>Senior Officer</b>", @activity.approver.email.to_s] if @activity.approver
+    table << ["<b>Quality Control Officer</b>", @activity.qc_officer.email.to_s] if @activity.qc_officer
     @pdf = generate_table(@pdf, table, :borders => [150, 540], :col_format => [{:shading => SHADE_COLOUR}, nil])
     @pdf
   end
