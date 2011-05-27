@@ -4,7 +4,7 @@ javascripts:
 - base:
   - jquery
   # - prototype
-  - jquery_fancybox-1_3_0
+  # - jquery_fancybox-1_3_0
   - jquery.colorbox
   - tinytable
   # - effects
@@ -19,8 +19,8 @@ javascripts:
 stylesheets:
 # error.css is never called through Rails so not included here
 - base:
-  - jquery_fancybox-1_3_0
-  - fancybox_extensions
+  # - jquery_fancybox-1_3_0
+  # - fancybox_extensions
   - help_text
   - prototip
   - directorate

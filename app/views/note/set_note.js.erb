@@ -1,4 +1,4 @@
-$.fancybox.close();
+$.colorbox.close();
 <% if @parent_question.note.contents.blank? %>
   $("#<%= @parent_question.name %>_note").parents(".noteBox").children(".newNote").show();
   $("#<%= @parent_question.name %>_note").parents(".noteBox").children(".showNote").hide();
