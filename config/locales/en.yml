@@ -3,3 +3,7 @@
 
 en:
   hello: "Hello world"
+  devise:
+    failure:
+      unauthenticated: 'You need to sign in to continue.'
+      timeout: 'Your session has expired, please sign in again to continue.'
