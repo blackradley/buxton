@@ -120,13 +120,9 @@ class ActivityPDFGenerator
     @pdf.start_new_page
     @pdf.text "<b>1  <c:uline>Activity Type</b></c:uline>", :font_size => 12
     @pdf.text " ", :font_size => 10
-    if @activity.activity_status.to_i > 0 && @activity.activity_type.to_i > 0
-      activity_type = "#{@activity.activity_status_name.titlecase} #{@activity.activity_type_name.titlecase}"
-      activity_type = (@activity.activity_status_name.titlecase == "Existing") ? "an #{activity_type}" : "a #{activity_type}"
-      @pdf.text "The activity has been identified as #{activity_type}.", :font_size => 10
-    else
-      @pdf.text "Insufficient questions have been answered to determine the activity type", :font_size => 10
-    end
+    activity_type = "#{@activity.activity_status_name.titlecase} #{@activity.activity_type_name.titlecase}"
+    activity_type = (@activity.activity_status_name.titlecase == "Existing") ? "an #{activity_type}" : "a #{activity_type}"
+    @pdf.text "The activity has been identified as #{activity_type}.", :font_size => 10
     @pdf.text " ", :font_size => 10
     return @pdf
   end
