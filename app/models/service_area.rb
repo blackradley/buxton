@@ -15,7 +15,6 @@ class ServiceArea < ActiveRecord::Base
   
   attr_accessor :should_destroy
   
-  scope :active, :conditions => {:retired => false}
   scope :active,  lambda{
       joins(:directorate).where(:directorates => {:retired => false}, :retired => false).readonly(false)
     }
@@ -37,7 +36,7 @@ class ServiceArea < ActiveRecord::Base
   end
   
   def approver_email=(email)
-    self.approver_id = User.live.find_by_email(email)
+    self.approver = User.live.find_by_email(email)
   end
 
 end
