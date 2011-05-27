@@ -116,12 +116,20 @@
   float: left;
   padding: 5px 0; }
 #content_holder .approverForm textarea,
-#cboxLoadedContent .approverForm textarea {
+#content_holder .commentform textarea,
+#content_holder .noteform textarea,
+#cboxLoadedContent .approverForm textarea,
+#cboxLoadedContent .commentform textarea,
+#cboxLoadedContent .noteform textarea {
   width: 80%;
   margin-left: 10%;
   height: 10em; }
 #content_holder .approverForm h2,
-#cboxLoadedContent .approverForm h2 {
+#content_holder .commentform h2,
+#content_holder .noteform h2,
+#cboxLoadedContent .approverForm h2,
+#cboxLoadedContent .commentform h2,
+#cboxLoadedContent .noteform h2 {
   width: 100%;
   text-align: center; }
 #content_holder #formHelp,

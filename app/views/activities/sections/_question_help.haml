@@ -28,10 +28,15 @@
         = link_to "Add new comment for report", "##{question_help.name}_comment_form", :class => 'inline'
     .editComment.commentform{:id => "#{question_help.name}_comment_form"}
       .heading
-        %h3 Add a new comment for the report
-      = form_tag(set_comment_comment_index_path(:question_id => question_help.id, :activity_id => @activity.id), :remote => true, :class => "lightboxForm") do
-        =text_area_tag "comment", question_help.comment, :id => "#{question_help.name}_comment_fill_in", :class => "commentTextArea"
-        = link_to "Save", "#", :class => "saveLink"
+        %h2 Add a new comment for the report
+      = form_tag set_comment_comment_index_path(:question_id => question_help.id, :activity_id => @activity.id), :class => "formtastic", :remote => true do
+        %fieldset.approveInputs
+          %ol
+          = text_area_tag :comment, question_help.comment, :id => "#{question_help.name}_comment_fill_in", :class => "commentTextArea"
+        %fieldset.buttons
+          %ol
+            %li.commit
+              = submit_tag "Save", :disable_with => "Saving.."
   %h3
     =image_tag ("icons/note.gif")
     Note to myself:
@@ -52,7 +57,12 @@
         = link_to "Add a new note to myself", "##{"#{question_help.name}_note_form"}", :class => 'inline'
     .editNote.noteform{:id => "#{question_help.name}_note_form"}
       .heading
-        %h3 Add a new note to myself
-      = form_tag(set_note_note_index_path(:question_id => question_help.id, :activity_id => @activity.id), :remote => true, :class => "lightboxForm") do
-        = text_area_tag "note", question_help.note, :id => "#{question_help.name}_note_fill_in", :class => "noteTextArea"
-        = link_to "Save", "#", :class => "saveLink"
+        %h2 Add a new note to myself
+      = form_tag set_note_note_index_path(:question_id => question_help.id, :activity_id => @activity.id), :class => "formtastic", :remote => true do
+        %fieldset.approveInputs
+          %ol
+          = text_area_tag :note, question_help.note, :id => "#{question_help.name}_comment_fill_in", :class => "noteTextArea"
+        %fieldset.buttons
+          %ol
+            %li.commit
+              = submit_tag "Save", :disable_with => "Saving.."

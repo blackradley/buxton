@@ -36,11 +36,15 @@
         = link_to "Add new comment for report", "#activity_strategy_#{activity_strategy.id}_comment_form", :class => 'inline'
     .editComment.commentform{:id => "activity_strategy_#{activity_strategy.id}_comment_form"}
       .heading
-        %h3 Add a new comment for the report
-      = form_tag(edit_strategy_comment_index_path(:activity_strategy_id => activity_strategy.id, :activity_id => @activity.id), :remote => true, :class => "lightboxForm") do
-        =text_area_tag "comment", comment_text, :id => "activity_strategy_#{activity_strategy.id}_comment_fill_in", :class => "commentTextArea"
-        = link_to "Save", "#", :class => "saveLink"
-      
+        %h2 Add a new comment for the report
+      = form_tag edit_strategy_comment_index_path(:activity_strategy_id => activity_strategy.id, :activity_id => @activity.id), :class => "formtastic", :remote => true do
+        %fieldset.approveInputs
+          %ol
+          = text_area_tag :comment, comment_text, :id => "activity_strategy_#{activity_strategy.id}_comment_fill_in", :class => "commentTextArea"
+        %fieldset.buttons
+          %ol
+            %li.commit
+              = submit_tag "Save", :disable_with => "Saving.."
   %h3
     =image_tag ("icons/note.gif")
     Note to myself:
@@ -62,7 +66,12 @@
         =link_to "Add new note to myself", "#activity_strategy_#{activity_strategy.id}_note_form", :class => 'inline'
     .editNote.noteform{:id => "activity_strategy_#{activity_strategy.id}_note_form"}
       .heading
-        %h3 Add a new note to myself
-      = form_tag(edit_strategy_note_index_path(:activity_strategy_id => activity_strategy.id, :activity_id => @activity.id), :remote => true, :class => "lightboxForm") do
-        = text_area_tag "note", note_text, :class => "noteTextArea", :id => "note_#{activity_strategy.id}"
-        = link_to "Save", "#", :class => "saveLink"
+        %h2 Add a new note to myself
+      = form_tag edit_strategy_note_index_path(:activity_strategy_id => activity_strategy.id, :activity_id => @activity.id), :class => "formtastic", :remote => true do
+        %fieldset.approveInputs
+          %ol
+          = text_area_tag :note, note_text, :class => "noteTextArea", :id => "note_#{activity_strategy.id}"
+        %fieldset.buttons
+          %ol
+            %li.commit
+              = submit_tag "Save", :disable_with => "Saving.."
