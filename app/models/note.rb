@@ -14,6 +14,8 @@ class Note < ActiveRecord::Base
   
   before_save :fix_contents
   
+  delegate :to_s, :to => :contents
+  
   def fix_contents
     self.contents = fix_field(self.contents)
   end

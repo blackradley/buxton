@@ -11,7 +11,7 @@ var sorter;
 
 $(document).ready(function(){
   
-  $('.formtastic.activity #standardInputs input').change(function(){
+  $('.formtastic.activity #standardInputs input').bind('keyup change', function(){
     if($("#standardInputs").find(":text[value=]").length == 0){
       $("#readyInput").show();
     }
@@ -149,6 +149,9 @@ $(document).ready(function(){
   $(".colorbox").click(function(){
     $(this).colorbox({'href': $(this).data("path")});
   });
+  $('.inline').click(function(){
+    $(this).colorbox({'inline': true});
+  })
   
 });
 
