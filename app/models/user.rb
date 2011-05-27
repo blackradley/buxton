@@ -66,10 +66,15 @@ class User < ActiveRecord::Base
     super
   end
   
+  def self.maximum_attempts
+    2
+  end
+  
   def valid_for_authentication?
+    was_locked = locked?
     response = super
     
-    if response==:locked
+    if response==:locked && was_locked
       text = %Q[<a href="mailto:#{email}">#{email}</a> failed to log in due to locked account.]
       # Log this type of event
       # CAUTION! See: http://notetoself.vrensk.com/2008/08/escaping-single-quotes-in-ruby-harder-than-expected/
