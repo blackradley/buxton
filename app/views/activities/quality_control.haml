@@ -50,5 +50,6 @@
         %td= activity.issues.count
         %td.last
           = link_to "view", activity_path(activity), :class => "action view"
-          = link_to "comment", '#', "data-path" => comment_activity_path(activity), :class => "action comment colorbox"
+          - if activity.submitted && !activity.undergone_qc && !activity.approved
+            = link_to "comment", '#', "data-path" => comment_activity_path(activity), :class => "action comment colorbox"
 

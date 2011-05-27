@@ -12,7 +12,6 @@ class User < ActiveRecord::Base
   before_validation(:on => :create) { self.set_password }
   after_create :send_password
   before_save :update_lock_time
-  
   before_save :log_failed_attempts
   
   def cop_email
