@@ -3,9 +3,11 @@ class Mailer < ActionMailer::Base
   
   default_url_options[:host] = case Rails.env
                                when 'production'
-                                 'birmingham.impactengine.org.uk'
+                                 'birmingham.impactequality.co.uk'
                                when 'staging'
                                  'birmingham.27stars.co.uk'
+                               when 'preview'
+                                 'preview.impactequality.co.uk'
                                else
                                  'localhost:3000'
                                end
