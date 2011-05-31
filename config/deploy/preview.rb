@@ -1,7 +1,7 @@
 # =============================================================================
 # STAGING SPECIFIC VARIABLES
 # =============================================================================
-set :domain, "birmingham.27stars.co.uk"
+set :domain, "preview.impactequality.co.uk"
 set :rails_env, "preview"
 set :port, 13427
 
