@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 case $1 in
+        "preview" )
+        ssh -p 13427 deploy@preview.impactequality.co.uk
+        ;;
 	"staging" )
   # ssh -p 2020 deploy@78.109.167.171
   ssh -p 13427 deploy@birmingham.27stars.co.uk
@@ -8,7 +11,7 @@ case $1 in
 	ssh buxton@72.47.214.74 -p 1417
 	;;
 	"production" )
-	ssh -p 2020 deploy@78.109.167.172
+	ssh -p 13427 deploy@birmingham.impactequality.co.uk
 	;;
 	"production_old" )
 	ssh buxton@72.47.213.74 -p 1417
