@@ -1,0 +1,11 @@
+--- 
+activity_strategies_001:
+  activity_id: 1
+  strategy_id: 1
+  strategy_response: 1
+  id: 2
+activity_strategies_002:
+  activity_id: 2
+  strategy_id: 1
+  strategy_response: 1
+  id: 1
