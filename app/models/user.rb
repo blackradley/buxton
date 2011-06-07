@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
       when "Corporate Cop"
         Activity.active
       when "Helper"
-        self.task_group_memberships.map(&:activity).flatten
+        Activity.active.includes(:task_group_memberships).where(:task_group_memberships => {:user_id => self.id})
       end
     end.flatten.compact.uniq
   end
@@ -145,7 +145,7 @@ class User < ActiveRecord::Base
   end
   
   def helper?
-    self.task_group_memberships.size > 0
+    Activity.active.includes(:task_group_memberships).where(:task_group_memberships => {:user_id => self.id}).count > 0
   end
   
   protected
