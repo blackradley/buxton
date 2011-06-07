@@ -545,6 +545,10 @@ class Activity < ActiveRecord::Base
     ["New/Proposed", "Reviewed", "Amended"]
   end
   
+  def activity_relevant?
+    self.strands.size > 0
+  end
+  
   def clone
     new_activity = Activity.create!(self.attributes)
     new_activity.ready = false

@@ -15,7 +15,7 @@ class Mailer < ActionMailer::Base
   
   def activity_created(activity)
     @activity = activity
-    mail(:to => activity.completer.email,
+    mail(:to => "#{activity.completer.email}, #{activity.qc_officer.email}",
          :subject => "A new EA has been created")
     #mail completer
   end
@@ -43,7 +43,7 @@ class Mailer < ActionMailer::Base
   def activity_submitted(activity, email_contents)
     @activity = activity
     @contents = email_contents
-    mail(:to => activity.email_targets,
+    mail(:to => "#{activity.completer.email}, #{activity.qc_officer.email}, #{activity.approver}",
          :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has been submitted for quality control")
   end
   
@@ -58,7 +58,7 @@ class Mailer < ActionMailer::Base
   def activity_approved(activity, email_contents)
     @activity = activity
     @contents = email_contents
-    mail(:to => "#{activity.completer.email}, #{activity.creator.email}",
+    mail(:to => "#{activity.completer.email}, #{activity.qc_officer.email}",
          :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has been approved")
   end
   
@@ -66,14 +66,14 @@ class Mailer < ActionMailer::Base
   def activity_comment(activity, email_contents)
     @activity = activity
     @contents = email_contents
-    mail(:to => "#{activity.completer.email}, #{activity.creator.email}, #{activity.approver.email}",
+    mail(:to => activity.email_targets,
          :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has undergone quality control")
   end
   
   def activity_rejected(activity, email_contents)
     @activity = activity
     @contents = email_contents
-    mail(:to => "#{activity.completer.email}, #{activity.creator.email}",
+    mail(:to => "#{activity.completer.email}, #{activity.qc_officer.email}",
          :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has been rejected")
   end
 end
