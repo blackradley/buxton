@@ -89,7 +89,7 @@ class ActivitiesController < ApplicationController
   
   def assisting
     @breadcrumb = [["Assisting"]]
-    @activities = current_user.task_group_memberships.map(&:activity)
+    @activities = Activity.active.includes(:task_group_memberships).where(:task_group_memberships => {:user_id => current_user.id})
     @selected = "assisting"
   end
   
