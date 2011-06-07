@@ -58,12 +58,20 @@ table {
       background-image: url(../images/icons/arrow_divide.gif); }
     table td .comment {
       background-image: url(../images/icons/comment.gif); }
+    table td .approve {
+      background-image: url(../images/icons/tick.gif); }
+    table td .reject {
+      background-image: url(../images/icons/cross.gif); }
+    table td .members {
+      background-image: url(../images/icons/group.gif); }
     table td .retired {
       font-style: italic;
       color: #e2474b;
       font-size: 11px; }
   table .last {
     border-right: 0px solid #bbbbbb; }
+  table .taskGroupRemove {
+    width: 60px; }
   table .sortControls {
     text-align: center;
     background-color: #d2e0f0;

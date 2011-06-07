@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   after_create :send_password
   before_save :update_lock_time
   before_save :log_failed_attempts
+  has_many :task_group_memberships
   
   def cop_email
     #required for directorate autocomplete hack
@@ -113,6 +114,8 @@ class User < ActiveRecord::Base
         Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>self.id).map(&:id)})
       when "Corporate Cop"
         Activity.active
+      when "Helper"
+        self.task_group_memberships.map(&:activity).flatten
       end
     end.flatten.compact.uniq
   end
@@ -122,7 +125,7 @@ class User < ActiveRecord::Base
   end
   
   def roles
-    ["Creator", "Completer", "Approver", "Checker", "Corporate Cop", "Directorate Cop", "Quality Control"].select{|role| self.send("#{role.gsub(' ', '_').downcase}?".to_sym)}
+    ["Creator", "Completer", "Approver", "Corporate Cop", "Helper", "Directorate Cop", "Quality Control"].select{|role| self.send("#{role.gsub(' ', '_').downcase}?".to_sym)}
   end
   
   def completer?
@@ -141,8 +144,8 @@ class User < ActiveRecord::Base
     Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>self.id).map(&:id)}).count > 0
   end
   
-  def checker?
-    false
+  def helper?
+    self.task_group_memberships.size > 0
   end
   
   protected

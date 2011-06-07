@@ -153,6 +153,17 @@ $(document).ready(function(){
     $(this).colorbox({'inline': true});
   })
   
+  
+  $('.lightboxForm').live('ajax:success', function(data, status, xhr) {
+    // $('#cboxLoadedContent').html(status);
+    // alert(data);
+    if (status.substring(5,0)!='try {')
+      $.colorbox({html: status});
+    // console.log(data);
+    // alert(status);
+    // alert(xhr);
+  });
+  
 });
 
 

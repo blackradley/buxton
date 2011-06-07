@@ -1,4 +1,4 @@
-%h2 My EAs
+%h2 Assisting EA's
 %table#sortable{:cellspacing=>"0", :cellpadding=>"0"}
   %thead
     %tr
@@ -49,7 +49,6 @@
         %td= activity.progress
         %td= activity.issues.count
         %td.last
-          = link_to "task group", task_group_activity_path(activity), :class => "action members"
-          = link_to "edit", questions_activity_path(activity), :class => "action edit"
+          = link_to "comment", task_group_comment_box_activity_path(activity), :class => "action comment colorbox"
           = link_to "view", activity_path(activity), :class => "action view"
 
