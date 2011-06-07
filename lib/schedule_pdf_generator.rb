@@ -58,7 +58,7 @@ class SchedulePDFGenerator
     heading_row = ["Service Area", "Reference", "Task Group Leader", "Name", "Status", "Progress", "Completion Date", "Relevant", "Action Plan Submitted"]
     table << heading_row
     @activities.each do |activity|
-      table << [activity.service_area.name, activity.ref_no, activity.completer.email, activity.name, "Status", activity.full_progress, activity.end_date, "Relevant", "Action Plan Submitted"]
+      table << [activity.service_area.name, activity.ref_no, activity.completer.email, activity.name, activity.activity_status_name, activity.full_progress, activity.end_date, activity.activity_relevant? ? "Yes" : "No", "Action Plan Submitted"]
     end
     @pdf = generate_table(@pdf, table, :borders => [60,120,180,240,300,360,420,480,540],:row_format => [{:shading => SHADE_COLOUR}, nil])
     @pdf
