@@ -35,6 +35,9 @@ class CommentController < ApplicationController
     else
       @parent_strategy.comment.update_attributes(:contents => params[:comment])
     end
+    if params[:comment].strip.blank? then
+      @parent_strategy.comment.destroy
+    end
   end
   
   def destroy_strategy
@@ -45,6 +48,9 @@ class CommentController < ApplicationController
   private
   
   def check_submitted
-    return false if @activity.submitted
+    if @activity.submitted
+      render :nothing =>true
+      return false 
+    end
   end
 end
