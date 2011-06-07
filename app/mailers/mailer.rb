@@ -23,6 +23,14 @@ class Mailer < ActionMailer::Base
     #mail checker
   end
   
+  
+  def activity_task_group_comment(activity, email_contents)
+    @activity = activity
+    @contents = email_contents
+    mail(:to => activity.email_targets,
+         :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has been commented on")
+  end
+  
   def new_account(user, password)
     @user     = user
     @password = password
@@ -33,7 +41,7 @@ class Mailer < ActionMailer::Base
   def activity_submitted(activity, email_contents)
     @activity = activity
     @contents = email_contents
-    mail(:to => "#{activity.completer.email}, #{activity.creator.email}, #{activity.qc_officer.email}",
+    mail(:to => activity.email_targets,
          :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has been submitted for quality control")
   end
   

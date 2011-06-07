@@ -108,7 +108,7 @@ module ApplicationHelper
 
   def activities_menu
     menu = Array.new
-    current_user.roles.reject{|r| r == "Cop"}.map do |role| 
+    current_user.roles.map do |role| 
       case role
       when "Completer"
         menu << ["My EAs", my_eas_activities_path]
@@ -129,6 +129,8 @@ module ApplicationHelper
         menu << ["EA Governance", directorate_governance_eas_activities_path]
         menu << ["Activity Logging", logs_path]
         menu << ["Actions", actions_activities_path]
+      when "Helper"
+        menu << ["Assisting", assisting_activities_path]
       end
     end
     menu.uniq

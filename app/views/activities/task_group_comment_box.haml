@@ -1,0 +1,10 @@
+.approverForm
+  %h2= "Please give any comments for on the current state of #{@activity.name}" 
+  = form_tag make_task_group_comment_activity_path(@activity), :class => "formtastic user" do
+    %fieldset.approveInputs
+      %ol
+      = text_area_tag :email_contents
+    %fieldset.buttons
+      %ol
+        %li.commit
+          = submit_tag "Comment", :disable_with => "Commenting.."

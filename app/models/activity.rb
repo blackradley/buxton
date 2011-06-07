@@ -35,6 +35,7 @@ class Activity < ActiveRecord::Base
   has_many :activity_strategies, :dependent => :destroy
   has_many :issues, :dependent => :destroy
   has_many :questions, :dependent => :destroy
+  has_many :task_group_memberships
   
   validates_presence_of :service_area
   validates :name, :presence => {:if => :ready?, :full_message => 'Your EA must have a name'}
@@ -48,6 +49,7 @@ class Activity < ActiveRecord::Base
   # validates_presence_of :completer, :approver
   # validates_presence_of :service_area
   validates_associated :completer, :approver, :qc_officer
+  has_many :helpers, :through => :task_group_memberships
 #  validates_associated :questions
   # validates_uniqueness_of :name, :scope => :directorate_id
   
@@ -68,6 +70,7 @@ class Activity < ActiveRecord::Base
   accepts_nested_attributes_for :issues, :allow_destroy => true#, :reject_if => proc { |attributes| attributes['description'].blank? }
   
   before_validation :mark_empty_issues
+  attr_accessor :task_group_member
   
   def mark_empty_issues
     issues.select{|i| i.description.blank?}.each do |issue|
@@ -119,6 +122,12 @@ class Activity < ActiveRecord::Base
     when "IA"
       "Initial Assessment"
     end
+  end
+  
+  def email_targets
+    email_list = "#{completer.email}, #{approver.email}, #{qc_officer.email}"
+    email_list += self.task_group_memberships.map{|tg| tg.user.email}.join(",")
+    email_list
   end
   
   def directorate

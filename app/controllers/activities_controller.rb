@@ -19,7 +19,9 @@ class ActivitiesController < ApplicationController
   helper_method :render_to_string
   before_filter :authenticate_user!
   before_filter :ensure_creator, :only => [:edit, :new, :create, :update, :directorate_eas]
-  before_filter :set_activity, :only => [:edit, :questions, :update, :toggle_strand, :submit, :show, :approve, :reject, :submit_approval, :submit_rejection, :summary, :comment, :submit_comment]
+  before_filter :set_activity, :only => [:edit, :task_group, :add_task_group_member, :remove_task_group_member, :create_task_group_member,
+                                          :questions, :update, :toggle_strand, :submit, :show, :approve, :reject, :submit_approval, :submit_rejection,
+                                          :task_group_comment_box, :make_task_group_comment, :summary, :comment, :submit_comment]
   before_filter :ensure_cop, :only => [:summary, :generate_schedule, :actions, :directorate_governance_eas]
   before_filter :ensure_completer, :only => [:my_eas]
   before_filter :ensure_activity_completer, :only => [:questions, :submit, :toggle_strand]
@@ -83,6 +85,12 @@ class ActivitiesController < ApplicationController
     @breadcrumb = [["Quality Control"]]
     @activities = Activity.active.where(:qc_officer_id => current_user.id, :ready => true)
     @selected = "quality_control"
+  end
+  
+  def assisting
+    @breadcrumb = [["Assisting"]]
+    @activities = current_user.task_group_memberships.map(&:activity)
+    @selected = "assisting"
   end
   
   def approving
@@ -239,7 +247,55 @@ class ActivitiesController < ApplicationController
       "($('#{strand_status.to_s}_checkbox').checked)"
     end
   end
+  
+  def task_group
+    @selected = "my_eas"
+    @breadcrumb = [["My EAs", my_eas_activities_path], ["#{@activity.name} Task Group Management"]]
+    @task_group_members = @activity.task_group_memberships.map(&:user)
+  end
 
+  def add_task_group_member
+    render :layout => false
+  end
+  
+  def create_task_group_member
+    email = params[:activity][:task_group_member]
+    @activity.task_group_member = email
+    u = User.live.find_by_email(email)
+    if u = User.live.find_by_email(email)
+      @activity.task_group_memberships.build(:user => u)
+    end
+    if u && @activity.save
+      render :update do |page|
+        page.redirect_to task_group_activity_path(@activity)
+      end
+    else
+      if u.blank?
+        @activity.errors.add(:task_group_member, "You must enter a valid user")
+      end
+      if u && !@activity.errors[:task_group_memberships].blank?
+        @activity.errors.add(:task_group_member, "This person has already been added to the task group.")
+      end
+      render "add_task_group_member", :layout => false
+    end
+  end
+  
+  def remove_task_group_member
+    user = @activity.task_group_memberships.find_by_user_id(params[:user_id]).user
+    @activity.task_group_memberships.find_by_user_id(params[:user_id]).destroy
+    flash[:notice] = "#{user.email} was removed from this task group."
+    redirect_to task_group_activity_path(@activity.id)
+  end
+  
+  def task_group_comment_box
+    render :layout => false
+  end
+  
+  def make_task_group_comment
+    Mailer.activity_task_group_comment(@activity, params[:email_contents]).deliver
+    flash[:notice] = "Your comment has been sent."
+    redirect_to assisting_activities_path
+  end
 
   def summary
     render :partial => "summary"
@@ -262,6 +318,7 @@ class ActivitiesController < ApplicationController
   end
   
   def actions
+    @selected = "actions"
     service_area_list = []
     if current_user.corporate_cop?
       service_area_list += ServiceArea.active  
@@ -335,7 +392,7 @@ class ActivitiesController < ApplicationController
 protected
   
   def ensure_pdf_view
-     redirect_to access_denied_path unless current_user.creator? || current_user.approver? || current_user.completer? || current_user.corporate_cop? || current_user.directorate_cop?
+     redirect_to access_denied_path unless current_user.creator? || current_user.approver? || current_user.completer? || current_user.corporate_cop? || current_user.directorate_cop? || current_user.helper?
   end 
   
   def set_activity
