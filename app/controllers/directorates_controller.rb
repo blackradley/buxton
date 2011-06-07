@@ -46,9 +46,6 @@ class DirectoratesController < ApplicationController
       if !@directorate.errors[:creator_id].blank?
         @directorate.errors.add(:creator_email, "This Contact Officer has already been assigned to another directorate.")
       end
-      if !@directorate.errors[:cop_id].blank?
-        @directorate.errors.add(:cop_email, "An Directorate must have a Governance Officer")
-      end
       render 'new'
     end
   end
@@ -76,9 +73,6 @@ class DirectoratesController < ApplicationController
     else
       if !@directorate.errors[:creator_id].blank?
         @directorate.errors.add(:creator_email, "This Contact Officer has already been assigned to another directorate.")
-      end
-      if !@directorate.errors[:cop_id].blank?
-        @directorate.errors.add(:cop_email, "An Directorate must have a Governance Officer")
       end
       render "edit"
     end

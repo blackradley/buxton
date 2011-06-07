@@ -6,131 +6,74 @@
 # #
 # # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 # #
-# require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 # require 'directorates_controller'
 # 
-# # Re-raise errors caught by the controller.
-# class DirectoratesController; def rescue_action(e) raise e end; end
-# 
-# class DirectoratesControllerTest < Test::Unit::TestCase
-#   fixtures :directorates, :users, :organisations, :look_ups
-#   def setup
-#     @controller = DirectoratesController.new
-#     @request    = ActionController::TestRequest.new
-#     @response   = ActionController::TestResponse.new
-#   end
-# 
-#   
-#   def test_cannot_view_directorates_without_user
-#     options = { :controller => 'directorates',
-#                 :action => 'index',
-#                 :organisation_id => '1' }
-#     assert_routing('organisations/1/directorates', options)
-#     
-#     get :index, :organisation_id => 1
-#     assert_redirected_to :controller => 'users'
-#     get :show, :organisation_id => 1, :id => 1
-#     assert_redirected_to :controller => 'users'
-#     get :edit, :organisation_id => 1, :id => 1
-#     assert_redirected_to :controller => 'users'
-#     post :new, :organisation_id => 1
-#     assert_redirected_to :controller => 'users'
-#     post :create, :organisation_id => 1
-#     assert_redirected_to :controller => 'users'
-#     put :update, :organisation_id => 1, :id => 1
-#     assert_redirected_to :controller => 'users'
-#     delete :destroy, :organisation_id => 1, :id => 1
-#     assert_redirected_to :controller => 'users'  
-#   end
-#   
-#   def test_cannot_view_directorates_as_organisation_manager
-#     login_as :organisation_manager
-#     get :index, :organisation_id => 1
-#     assert_redirected_to '/users/access_denied'
-#     get :show, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     get :edit, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     post :new, :organisation_id => 1
-#     assert_redirected_to '/users/access_denied'
-#     post :create, :organisation_id => 1
-#     assert_redirected_to '/users/access_denied'
-#     put :update, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     delete :destroy, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#   end
-#   
-#   def test_cannot_view_directorates_as_activity_manager
-#     login_as :activity_manager
-#     get :index, :organisation_id => 1
-#     assert_redirected_to '/users/access_denied'
-#     get :show, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     get :edit, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     post :new, :organisation_id => 1
-#     assert_redirected_to '/users/access_denied'
-#     post :create, :organisation_id => 1
-#     assert_redirected_to '/users/access_denied'
-#     put :update, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     delete :destroy, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#   end
-#   
-#   def test_cannot_view_directorates_as_directorate_manager
-#     login_as :directorate_manager
-#     get :index, :organisation_id => 1
-#     assert_redirected_to '/users/access_denied'
-#     get :show, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     get :edit, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     post :new, :organisation_id => 1
-#     assert_redirected_to '/users/access_denied'
-#     post :create, :organisation_id => 1
-#     assert_redirected_to '/users/access_denied'
-#     put :update, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     delete :destroy, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#   end
-#   
-#   def test_cannot_view_directorates_as_project_manager
-#     login_as :project_manager
-#     get :index, :organisation_id => 1
-#     assert_redirected_to '/users/access_denied'
-#     get :show, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     get :edit, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     post :new, :organisation_id => 1
-#     assert_redirected_to '/users/access_denied'
-#     post :create, :organisation_id => 1
-#     assert_redirected_to '/users/access_denied'
-#     put :update, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#     delete :destroy, :organisation_id => 1, :id => 1
-#     assert_redirected_to '/users/access_denied'
-#   end
-#   
-#   
-#   # def test_can_view_directorates_as_administrator
-#   #   login_as :administrator
-#   #   get :index, :organisation_id => 1
-#   #   assert_response :success
-#   #   get :show, :organisation_id => 1, :id => 1
-#   #   assert_response :success
-#   #   get :edit, :organisation_id => 1, :id => 1
-#   #   assert_response :success
-#   #   post :new, :organisation_id => 1
-#   #   assert_response :success
-#   #   post :create, :organisation_id => 1, :directorate => [:id => 3, :name => "Test Directorate 3", :directorate_manager_id => 1]
-#   #   assert_redirected_to organisation_directorates_url
-#   #   put :update, :organisation_id => 1, :id => 1
-#   #   assert_redirected_to organisation_directorates_url
-#   #   delete :destroy, :organisation_id => 1, :id => 1
-#   #   assert_redirected_to organisation_directorates_url
-#   # end
-# end
+class DirectoratesControllerTest < ActionController::TestCase
+  # fixtures :directorates
+
+  context "A creator" do
+    setup do
+      @creator = Factory(:creator)
+      sign_in @creator
+    end
+    
+    should "be able to see a list of directorates" do
+      get :index
+      assert_response :success
+    end
+    
+    should "be able to see the new directorates page" do
+      get :new
+      assert_response :success
+    end
+    
+    should "be able to create directorates" do
+      post :create, :directorate => {:name => "Test Directorate", :cop_id => 1, :creator_email => Factory(:creator).email, :abbreviation => 'TEST'}
+      assert_response :redirect
+      assert_redirected_to :action => "index"
+    end
+    
+    should "be able to toggle the retired status of a directorate" do
+      post :toggle_directorate_status, :id => directorates(:directorates_001), :checkbox => 'retired'
+      assert_response :success
+    end
+    
+    should "be able to see the edit directories page" do
+      get :edit, :id => directorates(:directorates_001)
+      assert_response :success
+    end
+    
+    should "be able to update the properties of a directorate" do
+      post :update, :id => directorates(:directorates_001)
+      assert_response :redirect
+      assert_redirected_to :action => "index"
+    end
+    
+    should "not be able to create a directorate if they have assigned someone who is already a creator for another directorate" do
+      post :create, :directorate => {:name => "Test Directorate", :cop_email => "joe@27stars.co.uk", :creator_email => users(:users_004).email, :abbreviation => "TEST"}
+      assert_response :success
+      assert(assigns(:directorate).new_record?)
+    end
+    
+    should "not be able to create a directorate if they have not assigned a corp cop" do
+      post :create, :directorate => {:name => "Test Directorate", :creator_email => Factory(:creator).email, :abbreviation => "TEST"}
+      assert_response :success
+      assert(assigns(:directorate).new_record?)
+    end
+    
+    should "not be able to update a directorate if they have assigned someone who is already a creator for another directorate" do
+      post :update, :id => directorates(:directorates_002), :directorate => {:name => "Test Directorate", :cop_email => "joe@27stars.co.uk", :creator_email => users(:users_004).email, :abbreviation => "TEST"}
+      assert_response :success
+      assert(!assigns(:directorate).valid?)
+    end
+    
+    should "not be able to update a directorate if they have not assigned a corp cop" do
+      post :update, :id => directorates(:directorates_002), :directorate => {:name => "Test Directorate", :cop_email => "", :creator_email => Factory(:creator).email, :abbreviation => "TEST"}
+      assert_response :success
+      assert(!assigns(:directorate).valid?)
+    end
+    
+  end
+  
+end

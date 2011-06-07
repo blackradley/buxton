@@ -110,6 +110,61 @@ class UserTest < ActiveSupport::TestCase
       
     end
     
-
   end
+  
+  context "with two activities and a completer, approver, and QC for each, and a single creator" do
+    setup do
+      @creator = Factory(:user, :creator => true)
+      @service_area = Factory(:service_area)
+      @service_area.directorate.creator = @creator
+      @service_area.save!
+      @completer1 = Factory(:user)
+      @completer2 = Factory(:user)
+      @approver1 = Factory(:user)
+      @approver2 = Factory(:user)
+      @qc1 = Factory(:user)
+      @qc2 = Factory(:user)
+      @activity1 = Factory(:activity, :service_area => @service_area, :completer => @completer1, :approver => @approver1, :qc_officer => @qc1, :ready => true, :submitted => true, :undergone_qc => false)
+      @activity1.questions.first.update_attributes(:raw_answer => "1")
+      @activity2 = Factory(:activity, :service_area => @service_area, :completer => @completer2, :approver => @approver2, :qc_officer => @qc2, :ready => true, :submitted => true, :undergone_qc => false)
+      @activity2.questions.first.update_attributes(:raw_answer => "1")
+    end
+        
+    should "mark both completers as completers" do
+      assert @completer1.completer?
+      assert @completer2.completer?
+    end
+    
+    should "mark both approvers as approvers" do
+      assert @approver1.approver?
+      assert @approver2.approver?
+    end
+    
+    should "mark both QCs as QCs" do
+      assert @qc1.quality_control?
+      assert @qc2.quality_control?
+    end
+
+    should "not allow completers to see the activities of other completers" do
+      assert !@completer1.activities.include?(@activity2)
+      assert !@completer2.activities.include?(@activity1)
+    end
+    
+    should "not allow approvers to see the activities of other approvers" do
+      assert !@approver1.activities.include?(@activity2)
+      assert !@approver2.activities.include?(@activity1)
+    end
+    
+    should "not allow qcs to see the activities of other qcs" do
+      assert !@qc1.activities.include?(@activity2)
+      assert !@qc2.activities.include?(@activity1)
+    end
+    
+    should "allow the creator to see both activities" do
+      #assert @creator.activities.include?(@activity1)
+      #assert @creator.activities.include?(@activity2)
+    end
+    
+  end
+  
 end
