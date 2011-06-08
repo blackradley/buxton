@@ -109,9 +109,9 @@ class User < ActiveRecord::Base
       when "Approver"
         Activity.active.where(:approver_id => self.id, :ready => true)
       when "Creator"
-        Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>self.id).map(&:id)})
+        Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>self.id).map(&:id), :retired => false})
       when "Directorate Cop"
-        Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>self.id).map(&:id)})
+        Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>self.id).map(&:id), :retired => false})
       when "Corporate Cop"
         Activity.active
       when "Helper"
@@ -141,7 +141,7 @@ class User < ActiveRecord::Base
   end
   
   def directorate_cop?
-    Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.where(:cop_id=>self.id).map(&:id)}).count > 0
+    Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>self.id).map(&:id), :retired => false}).count > 0
   end
   
   def helper?
