@@ -37,7 +37,7 @@
             %ul
               %li{:class=>"#{@selected == "directorates" ? "current" : ""}"}=link_to "Directorates", directorates_path
               %li.nohover="|"
-              - if current_user.count_directorates > 0
+              - if current_user.count_live_directorates > 0
                 %li{:class=>"#{@selected == "service_areas" ? "current" : ""}"}=link_to "Service Areas", service_areas_path
                 %li.nohover="|"
               %li{:class=>"#{@selected == "strategies" ? "current" : ""}"}=link_to "Strategic Outcomes", strategies_path

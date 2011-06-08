@@ -19,6 +19,8 @@ class ServiceAreasController < ApplicationController
   helper_method :render_to_string
   before_filter :authenticate_user!
   before_filter :ensure_creator
+  before_filter :ensure_directorates
+  before_filter :set_service_area, :only => [:edit, :update]
   autocomplete :user, :email, :scope => :live
   
   def index
@@ -59,14 +61,14 @@ class ServiceAreasController < ApplicationController
   
   def edit
     @breadcrumb = [["Service Areas", service_areas_path], ["Edit Service Area"]]
-    @service_area = ServiceArea.find(params[:id])
+    @service_area = current_user.directorate.service_areas.find(params[:id])
     @directorates = Directorate.where(:creator_id=>current_user.id, :retired => false)
     @selected = "service_areas"
   end
 
   def update
     @breadcrumb = [["Service Areas", service_areas_path], ["Edit Service Area"]]
-    @service_area = ServiceArea.find(params[:id])
+    @service_area = current_user.directorate.service_areas.find(params[:id])
     @directorate = current_user.directorate
     @service_area.directorate = @directorate
     @selected = "service_areas"
@@ -81,5 +83,16 @@ class ServiceAreasController < ApplicationController
   
 
 protected
+
+  def ensure_directorates
+    redirect_to access_denied_path if current_user.count_live_directorates < 1
+  end
+
+  def set_service_area
+    @service_area = current_user.directorate.service_areas.find(params[:id])
+    unless @service_area
+      redirect_to access_denied_path
+    end
+  end
 
 end
