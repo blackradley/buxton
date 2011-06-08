@@ -103,7 +103,7 @@ class Activity < ActiveRecord::Base
     unless self.started
       return "NS"
     end
-    if self.questions.where("completed = true AND (section != 'purpose' OR name = 'purpose_overall_14') ").size > 0
+    if self.completed(:purpose) && self.questions.where("completed = true AND (section != 'purpose' OR name = 'purpose_overall_14') ").size > 0
       return "FA"
     end
     if self.questions.where("name like 'purpose_%' and completed = true and needed = true AND name not like 'purpose_overall_14'").size > 0
