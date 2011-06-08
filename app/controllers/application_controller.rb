@@ -10,6 +10,7 @@ class ApplicationController < ActionController::Base
   rescue_from NoMethodError, :with => :wrong_user? unless DEV_MODE
   before_filter :authenticate_user!
   before_filter :check_trained
+  before_filter :setup_menus
   alias_method :old_sign_out, :sign_out
   
   def set_homepage
@@ -68,14 +69,17 @@ protected
   def after_sign_in_path_for(resource)
    return users_path if current_user.is_a?(Administrator)
    log_event('Login', %Q[<a href="mailto:#{current_user.email}">#{current_user.email}</a> logged in.])
-   return training_user_path(current_user) unless current_user.trained?
-   return access_denied_path if current_user.roles.blank?
-   return directorate_eas_activities_path if current_user.creator?
-   return my_eas_activities_path if current_user.completer?
-   return approving_activities_path if current_user.approver?
-   return quality_control_activities_path if current_user.quality_control?
-   return directorate_governance_eas_activities_path if current_user.directorate_cop? || current_user.corporate_cop?
-   return access_denied_path
+   # return training_user_path(current_user) unless current_user.trained?
+   unless @activities_menu.blank?
+     return @activities_menu.first[1]
+   else
+    if current_user.creator?
+      return directorates_path
+    elsif current_user.is_a? Administrator
+      return users_path
+    end
+   end
+   return new_user_users_path
   end
   
   def strand_display(strand)
@@ -126,6 +130,40 @@ protected
   
 private
 
+  def setup_menus
+    menu = Array.new
+    return [] unless current_user
+    current_user.roles.map do |role| 
+      case role
+      when "Completer"
+        menu << ["My EAs", my_eas_activities_path]
+      when "Approver"
+        menu << ["Awaiting Approval", approving_activities_path]
+      when "Creator"
+        if current_user.count_live_directorates > 0
+          menu << ["Directorate EAs", directorate_eas_activities_path]
+          menu << ["EA Governance", directorate_governance_eas_activities_path]
+          if current_user.activities.size > 0
+            menu << ["Actions", actions_activities_path]
+          end
+        end
+      when "Quality Control"
+        menu << ["Quality Control", quality_control_activities_path]
+      when "Directorate Cop"
+        menu << ["EA Governance", directorate_governance_eas_activities_path]
+        menu << ["Actions", actions_activities_path]
+      when "Corporate Cop"
+        menu << ["EA Governance", directorate_governance_eas_activities_path]
+        menu << ["Activity Logging", logs_path]
+        menu << ["Actions", actions_activities_path]
+      when "Helper"
+        menu << ["Assisting", assisting_activities_path]
+      end
+    end
+    @activities_menu = menu.uniq
+  end
+  
+  
   def set_activity
     @activity = current_user.activities.select{|a| a.id == params[:activity_id].to_i}.first
   end

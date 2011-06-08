@@ -48,7 +48,8 @@
         - else
           #generalMenu
             %ul
-              =raw admin_menu.map{|text, link| content_tag("li", link_to(text, link), :class => "#{@selected == text.to_s.downcase.gsub(' ','_') ? 'current' : ''}")}.join(content_tag("li", "|", :class =>"nohover"))
+              %li.current
+                = link_to "Users", users_path
       #breadcrumb
         %p
           Birmingham City Council EA Toolkit
