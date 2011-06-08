@@ -53,87 +53,14 @@ module ApplicationHelper
     questions.map! do|number|
       @activity.questions.find_by_name("#{section}_#{strand}_#{number}")
     end
-    # info_array = []
-    #     questions.each do |question|
-    #       info = @activity.question_wording_lookup(section, strand, question)
-    #       look_up_choices = @activity.hashes['choices']
-    #       choices = info[2].to_i
-    #       choices_array=[]
-    #       dependents=[]
-    #       dependents_array=[]
-    #       dependency = []
-    # 
-    #       if choices!=0
-    #          look_up_choices[choices].each do |d|
-    #            choices_array << [d, look_up_choices[choices].index(d)]
-    #          end
-    #        end
-    # 
-    #        dependents = question.children
-    # 
-    #         if dependents
-    #             dependents.each do |da|
-    #               dependents_array << [da[0], @activity.hashes[da[1]].to_i]
-    #             end
-    #           end
-    #       dependency = @activity.dependent_questions("#{section}_#{strand}_#{question}")
-    #       name = "#{section}_#{strand}_#{question}"
-    #       full_question = [*@activity.questions.find_by_name(name)][0]
-    #       comment = full_question.comment
-    #       note = full_question.note
-    #       comment_contents = (comment.nil? ? '' : comment.contents)
-    #       note_contents = (note.nil? ? '' : note.contents)
-    #       info_array << {  :id => name,
-    #                         :full_question => full_question,
-    #                         :label => info[0],
-    #                         :help => info[3],
-    #                         :input_type => info[1].to_sym,
-    #                         :input_choices => choices_array,
-    #                         :dependents => dependents_array,
-    #                         :dependency => dependency,
-    #                         :input_choices => choices_array,
-    #                         :comment => comment_contents,
-    #                         :note => note_contents
-    #                       }
-    #        full_question.save
-    #     end
-    #     return info_array
   end
 
   def admin_menu
-    menu = Array.new
-    menu << ["Users", users_path]
-    menu
+    @admin_menu
   end
 
   def activities_menu
-    menu = Array.new
-    current_user.roles.map do |role| 
-      case role
-      when "Completer"
-        menu << ["My EAs", my_eas_activities_path]
-      when "Approver"
-        menu << ["Awaiting Approval", approving_activities_path]
-      when "Creator"
-        if current_user.count_directorates > 0
-          menu << ["Directorate EAs", directorate_eas_activities_path]
-          menu << ["EA Governance", directorate_governance_eas_activities_path]
-          menu << ["Actions", actions_activities_path]
-        end
-      when "Quality Control"
-        menu << ["Quality Control", quality_control_activities_path]
-      when "Directorate Cop"
-        menu << ["EA Governance", directorate_governance_eas_activities_path]
-        menu << ["Actions", actions_activities_path]
-      when "Corporate Cop"
-        menu << ["EA Governance", directorate_governance_eas_activities_path]
-        menu << ["Activity Logging", logs_path]
-        menu << ["Actions", actions_activities_path]
-      when "Helper"
-        menu << ["Assisting", assisting_activities_path]
-      end
-    end
-    menu.uniq
+    @activities_menu
   end
   
   # Display a coloured bar showing the level selected, produced

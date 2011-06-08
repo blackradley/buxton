@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!# , :except => [:reset_password, :reset_password_request]
   skip_before_filter :check_trained
-  before_filter :requires_admin, :except => [:training, :update_training, :access_denied]
+  before_filter :requires_admin, :except => [:training, :update_training, :access_denied, :new_user]
   before_filter :setup_breadcrumb
   
   def index
@@ -36,7 +36,8 @@ class UsersController < ApplicationController
     end
   end
   
-
+  def new_user
+  end
   
   def show
     redirect_to set_homepage
