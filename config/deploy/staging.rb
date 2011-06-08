@@ -1,7 +1,7 @@
 # =============================================================================
 # STAGING SPECIFIC VARIABLES
 # =============================================================================
-set :domain, "birmingham.27stars.co.uk"
+set :domain, "birmingham.impactequality.co.uk"
 set :rails_env, "staging"
 set :port, 13427
 
@@ -13,7 +13,7 @@ set :rake, 'rake'
 role :app, domain
 role :web, domain
 role :db,  domain, :primary => true
-set :deploy_to, "/home/deploy/public_html/#{domain}"
+set :deploy_to, "/home/deploy/public_html/birmingham.27stars.co.uk"
 set :use_sudo, false
 
 ssh_options[:forward_agent] = true

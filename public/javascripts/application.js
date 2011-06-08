@@ -65,6 +65,14 @@ $(document).ready(function(){
   $('span.checkStrand input').click(function(){
     var strand = $(this).attr('id').replace("_checkbox", "");
     $('#row_'+ strand).toggle();
+    if($('span.checkStrand input:checkbox:checked').length > 0){
+      $('.strandsPresent').show();
+      $('.noStrands').hide();
+    }
+    else{
+      $('.noStrands').show();
+      $('.strandsPresent').hide();
+    }
     var footer_visible = $('.completionRequired.complete:visible').length == $('.completionRequired:visible').length;
     if(footer_visible){
       $(".approvalStep").show();

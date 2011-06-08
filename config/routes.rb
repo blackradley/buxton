@@ -63,6 +63,7 @@ Buxton::Application.routes.draw do
     collection do 
       get :set_homepage
       get :access_denied
+      get :new_user
     end
     
     member do

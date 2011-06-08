@@ -103,7 +103,7 @@ class Activity < ActiveRecord::Base
     unless self.started
       return "NS"
     end
-    if self.questions.where("completed = true AND (section != 'purpose' OR name = 'purpose_overall_14') ").size > 0
+    if self.completed(:purpose) && self.questions.where("completed = true AND (section != 'purpose' OR name = 'purpose_overall_14') ").size > 0
       return "FA"
     end
     if self.questions.where("name like 'purpose_%' and completed = true and needed = true AND name not like 'purpose_overall_14'").size > 0
@@ -354,16 +354,16 @@ class Activity < ActiveRecord::Base
       return false if question_set.size > 0
     end
     #Are there any questions which are required and not completed?
-    new_section = section.nil? ? self.sections.map(&:to_s).join("|") : section
-    new_strand = strand.nil? ? self.strands(is_purpose).push("overall").join("|") : strand
     search_conditions = {:completed => false, :needed => true}
     search_conditions[:section] = section.to_s if section
     strand_list = is_purpose ? strands(true).push("overall") : strands(true)
     strand_list.each do |s|
-      if strand
-        next if strand.to_s != s.to_s
-      else
-        next if !self.send("#{s}_relevant")
+      unless is_purpose
+        if strand
+          next if strand.to_s != s.to_s
+        else
+          next if !self.send("#{s}_relevant")
+        end
       end
       search_conditions[:strand] = s.to_s
       results = self.questions.find(:all, :conditions => search_conditions)
@@ -543,6 +543,10 @@ class Activity < ActiveRecord::Base
   
   def statuses
     ["New/Proposed", "Reviewed", "Amended"]
+  end
+  
+  def activity_relevant?
+    self.strands.size > 0
   end
   
   def clone
