@@ -5,3 +5,10 @@ service_areas_001:
   id: 1
   retired: 0
   approver_id: 1
+service_areas_002: 
+  name: Sample Service Area 2
+  directorate_id: 2
+  id: 2
+  retired: 0
+  approver_id: 2
+  
