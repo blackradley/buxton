@@ -1,7 +1,6 @@
 = semantic_form_for @directorate do |form|
   = form.inputs do
     =form.input :name, :label => "Title"
-    =form.input :abbreviation, :label => "Abbreviation"
     = form.autocompleted_input :creator_email, :url => autocomplete_user_email_directorates_path, :label => "Directorate Contact Officer", :required => false
     =form.autocompleted_input :cop_email, :url => autocomplete_user_cop_email_directorates_path, :label => "Governance Officer", :required => false
     =form.input :retired, :label => "Retired?"
@@ -13,11 +12,11 @@
     %strong Title*:
     must be unqiue.
   %p
-    %strong Abbreviation: 
-    must be unqiue, as this is used to generate the reference codes for EAs within this Directorate.
-  %p
     %strong Directorate Contact Officer:
-    the email address of the assigned Directorate Contact Officer, who will be responsible for creating the Service Areas and EAs within this directorate. This field will autocomplete from the available users.
+    the email address of the assigned Directorate Contact Officer, who will be responsible for creating the Service Areas and EAs within this directorate. This field will autocomplete from the available users. If the user you wish to assign does not appear in the prepopulated list, please contact Service Birmingham.
+  %p
+    %strong Directorate Governance Officer:
+    the email address of the assigned Directorate Governance Officer. This field will autocomplete from the available users. If the user you wish to assign does not appear in the prepopulated list, please contact Service Birmingham.
   %p
     %strong Retired?:
     if retired, this Directorate it will no longer be available for selection when creating new EAs.
