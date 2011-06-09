@@ -5,13 +5,13 @@
       %ul
         %li 
           %h5 To:
-        %li= text_field_tag :to, @activity.completer.email, :disabled => true
+        %li.textField= text_field_tag :to, @activity.completer.email, :disabled => true
         %li
           %h5 CC:
-        %li= text_field_tag :cc,  @activity.qc_officer.email, :disabled => true
+        %li.textField= text_field_tag :cc,  @activity.qc_officer.email, :disabled => true
         %li
           %h5 Subject:
-        %li= text_field_tag :subject, "EA #{@activity.name} Reference ID #{@activity.ref_no} has been approved"
+        %li.textField= text_field_tag :subject, "EA #{@activity.name} Reference ID #{@activity.ref_no} has been approved"
         %li
           %h5 Body:
         %li

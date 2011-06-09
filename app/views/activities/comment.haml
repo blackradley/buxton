@@ -5,13 +5,13 @@
       %ul
         %li 
           %h5 To:
-        %li= text_field_tag :to, @activity.approver.email, :disabled => true
+        %li.textField= text_field_tag :to, @activity.approver.email, :disabled => true
         %li
           %h5 CC:
-        %li= text_field_tag :cc, (@activity.associated_users - [@activity.approver]).uniq.map(&:email).join(", "), :disabled => true
+        %li.textField= text_field_tag :cc, (@activity.associated_users - [@activity.approver]).uniq.map(&:email).join(", "), :disabled => true
         %li
           %h5 Subject:
-        %li= text_field_tag :subject, "EA #{@activity.name} Reference ID #{@activity.ref_no} has undergone quality control"
+        %li.textField= text_field_tag :subject, "EA #{@activity.name} Reference ID #{@activity.ref_no} has undergone quality control"
         %li
           %h5 Body:
         %li
