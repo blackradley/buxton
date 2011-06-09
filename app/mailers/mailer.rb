@@ -20,17 +20,13 @@ class Mailer < ActionMailer::Base
     #mail completer
   end
   
-  def activity_completed(activity)
-    
-    #mail checker
-  end
-  
-  
-  def activity_task_group_comment(activity, email_contents)
+  def activity_task_group_comment(activity, email_contents, subject, user)
     @activity = activity
     @contents = email_contents
-    mail(:to => activity.email_targets,
-         :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has been commented on")
+    mail(:to => activity.completer.email,
+        :cc => activity.task_group_memberships.map(&:user).map(&:email).join(", ")
+          :reply_to => user.email,
+         :subject => subject)
   end
   
   def new_account(user, password)
@@ -43,7 +39,9 @@ class Mailer < ActionMailer::Base
   def activity_submitted(activity, email_contents)
     @activity = activity
     @contents = email_contents
-    mail(:to => "#{activity.completer.email}, #{activity.qc_officer.email}, #{activity.approver}",
+    mail(:to => @activity.qc_officer.email,
+         :cc => [@activity.approver, @activity.completer].uniq.map(&:email).join(", ")
+         :reply_to => @activity.completer.email,
          :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has been submitted for quality control")
   end
   
@@ -55,25 +53,31 @@ class Mailer < ActionMailer::Base
   end
 
 
-  def activity_approved(activity, email_contents)
+  def activity_approved(activity, email_contents, subject)
     @activity = activity
     @contents = email_contents
-    mail(:to => [@activity.completer, @activity.qc_officer].uniq.map(&:email).join(", "),
-         :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has been approved")
+    mail(:to => @activity.completer.email
+         :cc => @activity.qc_officer.email
+         :reply_to => @activity.approver.email,
+         :subject => subject)
   end
   
   
-  def activity_comment(activity, email_contents)
+  def activity_comment(activity, email_contents, subject)
     @activity = activity
     @contents = email_contents
-    mail(:to => activity.email_targets,
-         :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has undergone quality control")
+    mail(:to => activity.approver.email,
+         :cc => (activity.associated_users - [activity.approver]).uniq.map(&:email).join(", ")
+         :reply_to => @activity.qc_officer.email,
+         :subject => subject)
   end
   
-  def activity_rejected(activity, email_contents)
+  def activity_rejected(activity, email_contents, subject)
     @activity = activity
     @contents = email_contents
-    mail(:to => [@activity.completer, @activity.qc_officer].uniq.map(&:email).join(", "),
-         :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has been rejected")
+    mail(:to => @activity.completer.email
+         :cc => @activity.qc_officer.email
+         :reply_to => @activity.approver.email,
+         :subject => subject)
   end
 end
