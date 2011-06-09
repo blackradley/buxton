@@ -118,11 +118,6 @@ class ActivitiesController < ApplicationController
     # @directorates = Directorate.where(:creator_id=>current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
     services = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
-    if current_user.count_directorates > 1
-      @service_areas = Hash.new
-      services.each do |s|
-        @service_areas["#{s.name} - #{s.directorate.name}"] = s.id
-      end
     else
       @service_areas = services
     end
