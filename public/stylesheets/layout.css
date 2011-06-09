@@ -132,6 +132,22 @@
 #cboxLoadedContent .noteform h2 {
   width: 100%;
   text-align: center; }
+#content_holder .approverForm li.textField input,
+#content_holder .commentform li.textField input,
+#content_holder .noteform li.textField input,
+#cboxLoadedContent .approverForm li.textField input,
+#cboxLoadedContent .commentform li.textField input,
+#cboxLoadedContent .noteform li.textField input {
+  width: 80%;
+  margin-left: 10%; }
+#content_holder .approverForm h5,
+#content_holder .commentform h5,
+#content_holder .noteform h5,
+#cboxLoadedContent .approverForm h5,
+#cboxLoadedContent .commentform h5,
+#cboxLoadedContent .noteform h5 {
+  width: 80%;
+  margin-left: 10%; }
 #content_holder #formHelp,
 #cboxLoadedContent #formHelp {
   width: 300px;

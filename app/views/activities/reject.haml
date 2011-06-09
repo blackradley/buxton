@@ -2,8 +2,20 @@
   %h2= "Please give the reason for the rejection of #{@activity.name}" 
   = form_tag submit_rejection_activity_path, :class => "formtastic user" do
     %fieldset.approveInputs
-      %ol
-      = text_area_tag :email_contents, "I am unable to approve this EA because of the following reasons:"
+      %ul
+        %li 
+          %h5 To:
+        %li.textField= text_field_tag :to, @activity.completer.email, :disabled => true
+        %li
+          %h5 CC:
+        %li.textField= text_field_tag :cc,  @activity.qc_officer.email, :disabled => true
+        %li
+          %h5 Subject:
+        %li.textField= text_field_tag :subject, "EA #{@activity.name} Reference ID #{@activity.ref_no} has been rejected"
+        %li
+          %h5 Body:
+        %li
+          = text_area_tag :email_contents, "I am unable to approve this EA because of the following reasons:"
     %fieldset.buttons
       %ol
         %li.commit

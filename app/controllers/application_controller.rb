@@ -113,6 +113,10 @@ protected
     redirect_to access_denied_path unless current_user.approver?
   end
   
+  def ensure_task_group_member
+    redirect_to access_denied_path unless current_user.helper?
+  end
+  
   def ensure_quality_control
     redirect_to access_denied_path unless current_user.quality_control?
   end

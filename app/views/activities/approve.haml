@@ -2,8 +2,20 @@
   %h2= "Please give any final comments for the Manager of #{@activity.name}" 
   = form_tag submit_approval_activity_path, :class => "formtastic user" do
     %fieldset.approveInputs
-      %ol
-      = text_area_tag :email_contents, "This EA has been approved."
+      %ul
+        %li 
+          %h5 To:
+        %li.textField= text_field_tag :to, @activity.completer.email, :disabled => true
+        %li
+          %h5 CC:
+        %li.textField= text_field_tag :cc,  @activity.qc_officer.email, :disabled => true
+        %li
+          %h5 Subject:
+        %li.textField= text_field_tag :subject, "EA #{@activity.name} Reference ID #{@activity.ref_no} has been approved"
+        %li
+          %h5 Body:
+        %li
+          = text_area_tag :email_contents, "This EA has been approved."
     %fieldset.buttons
       %ol
         %li.commit

@@ -124,10 +124,8 @@ class Activity < ActiveRecord::Base
     end
   end
   
-  def email_targets
-    email_list = "#{completer.email}, #{approver.email}, #{qc_officer.email}"
-    email_list += self.task_group_memberships.map{|tg| tg.user.email}.join(",")
-    email_list
+  def associated_users
+    user_list = [completer, approver, qc_officer] + self.task_group_memberships.map(&:user)
   end
   
   def directorate
