@@ -124,10 +124,8 @@ class Activity < ActiveRecord::Base
     end
   end
   
-  def email_targets
+  def associated_users
     user_list = [completer, approver, qc_officer] + self.task_group_memberships.map(&:user)
-    email_list = user_list.uniq.map{|user| user.email}.join(", ")
-    email_list
   end
   
   def directorate

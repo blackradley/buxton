@@ -293,7 +293,7 @@ class ActivitiesController < ApplicationController
   end
   
   def make_task_group_comment
-    Mailer.activity_task_group_comment(@activity, params[:email_contents]).deliver
+    Mailer.activity_task_group_comment(@activity, params[:email_contents], params[:subject], current_user).deliver
     flash[:notice] = "Your comment has been sent."
     redirect_to assisting_activities_path
   end
@@ -367,13 +367,13 @@ class ActivitiesController < ApplicationController
   
   def submit_comment
     @activity.update_attributes(:undergone_qc => true)
-    Mailer.activity_comment(@activity, params[:email_contents]).deliver
+    Mailer.activity_comment(@activity, params[:email_contents], params[:subject]).deliver
     redirect_to quality_control_activities_path
   end
   
   def submit_approval
     @activity.update_attributes(:approved => true)
-    Mailer.activity_approved(@activity, params[:email_contents]).deliver
+    Mailer.activity_approved(@activity, params[:email_contents], params[:subject]).deliver
     redirect_to approving_activities_path
   end
   
@@ -385,7 +385,7 @@ class ActivitiesController < ApplicationController
     new_activity.review_on = @activity.review_on
     new_activity.save!
     # @activity.update_attributes(:submitted => false)
-    Mailer.activity_rejected(@activity, params[:email_contents]).deliver
+    Mailer.activity_rejected(@activity, params[:email_contents], params[:subject]).deliver
     @activity.update_attributes(:is_rejected => true)
     redirect_to approving_activities_path
   end

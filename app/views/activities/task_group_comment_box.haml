@@ -5,10 +5,13 @@
       %ul
         %li 
           %h5 To:
-        %li= text_field_tag :to, @activity.email_targets, :disabled => true
+        %li= text_field_tag :to, @activity.completer.email, :disabled => true
+        %li 
+          %h5 CC:
+        %li= text_field_tag :cc, @activity.task_group_memberships.map(&:user).map(&:email).join(", "),  :disabled =>true
         %li
           %h5 Subject:
-        %li= text_field_tag :subject, "EA #{@activity.name} Reference ID #{@activity.ref_no} has been commented on", :disabled => true
+        %li= text_field_tag :subject, "EA #{@activity.name} Reference ID #{@activity.ref_no} has been commented on"
         %li
           %h5 Body:
         %li
