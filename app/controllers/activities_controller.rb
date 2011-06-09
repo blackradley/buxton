@@ -32,7 +32,6 @@ class ActivitiesController < ApplicationController
   before_filter :ensure_activity_quality_control, :only => [:comment, :submit_comment]
   before_filter :ensure_activity_approver, :only => [:approve, :reject, :submit_approval, :submit_rejection]
   before_filter :ensure_pdf_view, :only => [:show]
-  before_filter :ensure_activity_pdf_view, :only => [:show]
 
   autocomplete :user, :email, :scope => :live
   
