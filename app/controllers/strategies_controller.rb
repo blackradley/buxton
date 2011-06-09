@@ -55,7 +55,7 @@ class StrategiesController < ApplicationController
     @breadcrumb = [["Strategic Outcomes", strategies_path], ["Edit Strategic Outcome"]]
     @strategy = Strategy.find(params[:id])
     @selected = "strategies"
-    if @strategy.update_attributes!(params[:strategy])
+    if @strategy.update_attributes(params[:strategy])
       flash[:notice] = "#{@strategy.name} was updated."
       redirect_to strategies_path
     else
