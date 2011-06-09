@@ -14,6 +14,7 @@ gem 'formtastic'
 gem 'hoptoad_notifier'
 gem 'rails3-jquery-autocomplete'
 gem 'fastercsv'
+gem 'devise_security_extension'
 gem 'will_paginate', "~> 3.0.pre2"
 group :test do
   gem 'shoulda'
