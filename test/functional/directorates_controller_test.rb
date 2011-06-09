@@ -30,22 +30,25 @@ class DirectoratesControllerTest < ActionController::TestCase
     
     should "be able to create directorates" do
       post :create, :directorate => {:name => "Test Directorate", :cop_id => 1, :creator_email => Factory(:creator).email, :abbreviation => 'TEST'}
+      assert_equal "Test Directorate", Directorate.where(:name => "Test Directorate").first.name
       assert_response :redirect
       assert_redirected_to :action => "index"
     end
     
     should "be able to toggle the retired status of a directorate" do
-      post :toggle_directorate_status, :id => directorates(:directorates_001), :checkbox => 'retired'
+      post :toggle_directorate_status, :id => directorates(:directorates_001).id, :checkbox => 'retired'
+      assert_equal true, Directorate.find(1).retired
       assert_response :success
     end
     
     should "be able to see the edit directories page" do
-      get :edit, :id => directorates(:directorates_001)
+      get :edit, :id => directorates(:directorates_001).id
       assert_response :success
     end
     
     should "be able to update the properties of a directorate" do
-      post :update, :id => directorates(:directorates_001)
+      post :update, :id => 1, :directorate => {:name => "Test Directorate 2"}
+      assert_equal "Test Directorate 2", Directorate.find(1).name
       assert_response :redirect
       assert_redirected_to :action => "index"
     end
