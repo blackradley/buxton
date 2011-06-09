@@ -118,7 +118,6 @@ class ActivitiesController < ApplicationController
     # @directorates = Directorate.where(:creator_id=>current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
     services = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
-    end
     @selected = "directorate_eas"
     @activity = Activity.new
     @activity.service_area = services.first
