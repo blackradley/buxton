@@ -24,7 +24,7 @@ class Mailer < ActionMailer::Base
     @activity = activity
     @contents = email_contents
     mail(:to => activity.completer.email,
-        :cc => activity.task_group_memberships.map(&:user).map(&:email).join(", ")
+        :cc => activity.task_group_memberships.map(&:user).map(&:email).join(", "),
           :reply_to => user.email,
          :subject => subject)
   end
@@ -40,7 +40,7 @@ class Mailer < ActionMailer::Base
     @activity = activity
     @contents = email_contents
     mail(:to => @activity.qc_officer.email,
-         :cc => [@activity.approver, @activity.completer].uniq.map(&:email).join(", ")
+         :cc => [@activity.approver, @activity.completer].uniq.map(&:email).join(", "),
          :reply_to => @activity.completer.email,
          :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has been submitted for quality control")
   end
@@ -56,8 +56,8 @@ class Mailer < ActionMailer::Base
   def activity_approved(activity, email_contents, subject)
     @activity = activity
     @contents = email_contents
-    mail(:to => @activity.completer.email
-         :cc => @activity.qc_officer.email
+    mail(:to => @activity.completer.email,
+         :cc => @activity.qc_officer.email,
          :reply_to => @activity.approver.email,
          :subject => subject)
   end
@@ -67,7 +67,7 @@ class Mailer < ActionMailer::Base
     @activity = activity
     @contents = email_contents
     mail(:to => activity.approver.email,
-         :cc => (activity.associated_users - [activity.approver]).uniq.map(&:email).join(", ")
+         :cc => (activity.associated_users - [activity.approver]).uniq.map(&:email).join(", "),
          :reply_to => @activity.qc_officer.email,
          :subject => subject)
   end
@@ -75,8 +75,8 @@ class Mailer < ActionMailer::Base
   def activity_rejected(activity, email_contents, subject)
     @activity = activity
     @contents = email_contents
-    mail(:to => @activity.completer.email
-         :cc => @activity.qc_officer.email
+    mail(:to => @activity.completer.email,
+         :cc => @activity.qc_officer.email,
          :reply_to => @activity.approver.email,
          :subject => subject)
   end
