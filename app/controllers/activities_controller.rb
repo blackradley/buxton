@@ -26,6 +26,7 @@ class ActivitiesController < ApplicationController
   before_filter :ensure_completer, :only => [:my_eas]
   before_filter :ensure_activity_completer, :only => [:questions, :submit, :toggle_strand]
   before_filter :ensure_approver, :only => [:approving]
+  before_filter :ensure_task_group_member, :only => [:assisting]
   before_filter :ensure_quality_control, :only => [:quality_control]
   before_filter :ensure_activity_quality_control, :only => [:comment, :submit_comment]
   before_filter :ensure_activity_approver, :only => [:approve, :reject, :submit_approval, :submit_rejection]
