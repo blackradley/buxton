@@ -393,7 +393,9 @@ class ActivitiesController < ApplicationController
 protected
   
   def ensure_pdf_view
-     redirect_to access_denied_path unless current_user.creator? || current_user.approver? || current_user.completer? || current_user.corporate_cop? || current_user.directorate_cop? || current_user.helper?
+     unless current_user.roles.size > 0 && !current_user.is_a?(Administrator)
+      redirect_to access_denied_path
+     end
   end 
   
   def set_activity
