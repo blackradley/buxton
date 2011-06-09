@@ -11,4 +11,9 @@ service_areas_002:
   id: 2
   retired: 0
   approver_id: 2
-  
+service_areas_003: 
+  name: Sample Service Area 3
+  directorate_id: 3
+  id: 3
+  retired: 0
+  approver_id: 8

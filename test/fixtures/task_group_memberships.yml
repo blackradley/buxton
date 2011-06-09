@@ -5,3 +5,9 @@ task_group_memberships_001:
   activity_id: 2
   created_at: 2011-04-14 14:32:55 Z
   updated_at: 2011-04-14 14:32:55 Z
+task_group_memberships_002:
+  id: 2
+  user_id: 8
+  activity_id: 3
+  created_at: 2011-04-14 14:32:55 Z
+  updated_at: 2011-04-14 14:32:55 Z
