@@ -108,7 +108,9 @@ Devise.setup do |config|
   # "users/sessions/new". It's turned off by default because it's slower if you
   # are using only default views.
   # config.scoped_views = true
-
+  # 
+  # 
+  
   # Configure the default scope given to Warden. By default it's the first
   # devise role declared in your routes.
   # config.default_scope = :user
@@ -139,4 +141,35 @@ Devise.setup do |config|
   #   end
   #   manager.default_strategies(:scope => :user).unshift :twitter_oauth
   # end
+
+  # ==> Security Extension
+  # Configure security extension for devise
+
+  # Should the password expire (e.g 3.months)
+  config.expire_password_after = 60.days
+
+  # Need 1 char of A-Z, a-z and 0-9
+  # config.password_regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z])/
+
+  # How often save old passwords in archive
+  # config.password_archiving_count = 5
+
+  # Deny old password (true, false, count)
+  # config.deny_old_passwords = true
+
+  # enable email validation for :secure_validatable. (true, false, validation_options)
+  # dependency: need an email validator like rails_email_validator
+  # config.email_validation = true
+
+  # captcha integration for recover form
+  # config.captcha_for_recover = true
+
+  # captcha integration for sign up form
+  # config.captcha_for_sign_up = true
+
+  # captcha integration for sign in form
+  # config.captcha_for_sign_in = true
+
+  # captcha integration for unlock form
+  # config.captcha_for_unlock = true
 end
