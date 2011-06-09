@@ -12,7 +12,8 @@ class ActivitiesControllerTest < ActionController::TestCase
     
     
     should "not be able to see any activities list" do
-      [:directorate_eas, :my_eas, :approving, :directorate_governance_eas].each do |activity_route|
+      [:directorate_eas, :my_eas, :approving, :directorate_governance_eas, :actions, :assisting, :quality_control].each do |activity_route|
+        puts activity_route
         get activity_route
         assert_response :redirect
         assert_redirected_to access_denied_path
@@ -27,16 +28,20 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
     
     should "not be able to see any activities list aside from the cop ones" do
-      [:directorate_eas, :my_eas, :approving].each do |activity_route|
+      [:directorate_eas, :my_eas, :approving, :assisting, :quality_control].each do |activity_route|
+        puts activity_route
         get activity_route
         assert_response :redirect
         assert_redirected_to access_denied_path
       end
+      
     end
     
-    should "be able to see the cop activities" do
-      get :directorate_governance_eas
-      assert_response :success
+    should "be able to see the directorate cop activities" do
+      [:directorate_governance_eas, :actions].each do |activity_route|
+        get activity_route
+        assert_response :success
+      end
     end
     
     should "be able to view the schedule file for a directorate" do
@@ -79,13 +84,13 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_redirected_to access_denied_path
     end
     
-    should "be able to accept an activity" do
+    should "not be able to accept an activity" do
       get :approve, :id => activities(:activities_002).id
       assert_response :redirect
       assert_redirected_to access_denied_path
     end
   
-    should "be able to reject an activity" do
+    should "not be able to reject an activity" do
       get :reject, :id => activities(:activities_002).id
       assert_response :redirect
       assert_redirected_to access_denied_path
@@ -99,7 +104,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
     
     should "not be able to see any activities list aside from the creator ones" do
-      [:my_eas, :approving].each do |activity_route|
+      [:my_eas, :approving, :assisting, :quality_control].each do |activity_route|
         get activity_route
         assert_response :redirect
         assert_redirected_to access_denied_path
@@ -112,8 +117,10 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
     
     should "be able to see the cop activities" do
-      get :directorate_governance_eas
-      assert_response :success
+      [:directorate_governance_eas, :actions].each do |activity_route|
+        get activity_route
+        assert_response :success
+      end
     end
     
     should "not be able to submit an activity for approval" do
@@ -174,8 +181,8 @@ class ActivitiesControllerTest < ActionController::TestCase
       sign_in users(:users_003)
     end
     
-    should "not be able to see any activities list aside from the creator one" do
-      [:directorate_governance_eas, :directorate_eas, :approving].each do |activity_route|
+    should "not be able to see any activities list aside from the completer one" do
+      [:directorate_governance_eas, :directorate_eas, :approving, :actions, :assisting, :quality_control].each do |activity_route|
         get activity_route
         assert_response :redirect
         assert_redirected_to access_denied_path
@@ -228,13 +235,13 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
     
     
-    should "be able to accept an activity" do
+    should "not be able to accept an activity" do
       get :approve, :id => activities(:activities_002).id
       assert_response :redirect
       assert_redirected_to access_denied_path
     end
   
-    should "be able to reject an activity" do
+    should "not be able to reject an activity" do
       get :reject, :id => activities(:activities_002).id
       assert_response :redirect
       assert_redirected_to access_denied_path
@@ -249,7 +256,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
   
     should "not be able to see any activities list aside from the creator one" do
-      [:directorate_governance_eas, :directorate_eas, :my_eas].each do |activity_route|
+      [:directorate_governance_eas, :directorate_eas, :my_eas, :actions, :assisting, :quality_control].each do |activity_route|
         get activity_route
         assert_response :redirect
         assert_redirected_to access_denied_path
