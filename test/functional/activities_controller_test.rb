@@ -64,7 +64,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_response :success
     end
     
-    should "be not able to see the questions" do
+    should "not be able to see the questions" do
       get :questions, :id => activities(:activities_002).id
       assert_response :redirect
       assert_redirected_to access_denied_path
@@ -98,6 +98,11 @@ class ActivitiesControllerTest < ActionController::TestCase
       xhr :post, :submit_comment, :id => activities(:activities_002).id, :email_contents => "this activity passed the test"
       assert_redirected_to access_denied_path
       assert !Activity.find(2).undergone_qc
+    end
+    
+    should "not be able to make comments on activities they are assisting on" do
+      xhr :post, :make_task_group_comment, :subject => "Test comment Subject", :id => 2, :email_contents => "Test Comment Contents"
+      assert_redirected_to access_denied_path
     end
     
   end
@@ -183,6 +188,11 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert !Activity.find(2).undergone_qc
     end
     
+    should "not be able to make comments on activities they are assisting on" do
+      xhr :post, :make_task_group_comment, :subject => "Test comment Subject", :id => 2, :email_contents => "Test Comment Contents"
+      assert_redirected_to access_denied_path
+    end
+    
   end
     
     
@@ -263,6 +273,11 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert !Activity.find(2).undergone_qc
     end
     
+    should "not be able to make comments on activities they are assisting on" do
+      xhr :post, :make_task_group_comment, :subject => "Test comment Subject", :id => 2, :email_contents => "Test Comment Contents"
+      assert_redirected_to access_denied_path
+    end
+    
   end    
   
   context "when logged in as an approver" do
@@ -339,6 +354,11 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_redirected_to access_denied_path
       assert !Activity.find(2).undergone_qc
     end
+    
+    should "not be able to make comments on activities they are assisting on" do
+      xhr :post, :make_task_group_comment, :subject => "Test comment Subject", :id => 2, :email_contents => "Test Comment Contents"
+      assert_redirected_to access_denied_path
+    end
   
   end  
   
@@ -409,13 +429,99 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_redirected_to access_denied_path
     end
     
-    should "be able to comment on an activity" do
-      xhr :post, :submit_comment, :id => activities(:activities_002).id, :email_contents => "this activity passed the test"
+    should "be able to comment on an activity submitted for commenting" do
+      xhr :post, :submit_comment, :id => activities(:activities_002).id, :subject => "email subject", :email_contents => "this activity passed the test"
       assert_redirected_to quality_control_activities_path
       assert Activity.find(2).undergone_qc
     end
     
+    should "not be able to make comments on activities they are assisting on" do
+      xhr :post, :make_task_group_comment, :subject => "Test comment Subject", :id => 2, :email_contents => "Test Comment Contents"
+      assert_redirected_to access_denied_path
+    end
+    
   end
-      
+  
+  context "a task group member" do
+    setup do
+      sign_in users(:users_007)
+    end
+    
+    should "be unable to see any activities list aside from the assisting one" do
+      [:my_eas, :directorate_governance_eas, :directorate_eas, :approving, :actions, :quality_control].each do |activity_route|
+        get activity_route
+        assert_response :redirect
+        assert_redirected_to access_denied_path
+      end
+    end
+    
+    should "be able to see the list of activities they are assisting on" do
+      get :assisting
+      assert_response :success
+    end
+    
+    should "not be able to view the schedule file for a directorate" do
+      get :generate_schedule
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+  
+    should "be able to view the pdf file for an activity" do
+      get :show, :id => activities(:activities_002).id
+      assert_response :success
+    end
+  
+    should "not be able to submit an activity for approval" do
+      get :submit, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+  
+    should "not be able to see an activity summary" do
+      get :summary, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+  
+    should "not be able to see the questions" do
+      get :questions, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+  
+    should "not be able to view the creation of activity" do
+      get :new
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+    should "not be able to accept an activity" do
+      get :approve, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+  
+    should "not be able to reject an activity" do
+      get :reject, :id => activities(:activities_002).id
+      assert_response :redirect
+      assert_redirected_to access_denied_path
+    end
+    
+    should "not be able to comment on an activity" do
+      xhr :post, :submit_comment, :id => activities(:activities_002).id, :email_contents => "this activity passed the test"
+      assert_redirected_to access_denied_path
+      assert !Activity.find(2).undergone_qc
+    end
+    
+    should "be able to make comments on activities they are assisting on" do
+      xhr :post, :make_task_group_comment, :subject => "Test comment Subject", :id => 2, :email_contents => "Test Comment Contents"
+      assert_redirected_to assisting_activities_path
+      @email = ActionMailer::Base.deliveries.last
+      assert_equal @email.subject, "Test comment Subject"
+      assert_equal @email.to[0], "shaun@27stars.co.uk"
+      assert_match /Test Comment Contents/, @email.body
+    end
+    
+  end
   
 end
