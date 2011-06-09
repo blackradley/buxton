@@ -393,7 +393,7 @@ class ActivitiesController < ApplicationController
 protected
   
   def ensure_pdf_view
-     unless current_user.roles.size > 0 && !current_user.is_a?(Administrator)
+     if current_user.roles.size <= 0  || current_user.is_a?(Administrator)
       redirect_to access_denied_path
      end
   end 
