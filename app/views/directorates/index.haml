@@ -37,9 +37,9 @@
             %span.retired
               ="(Retired)"
         %td= directorate.abbreviation
-        %td.retiredCheckbox.checkbox
-          = fields_for directorate do |f|
-            = f.check_box :retired, "data-path" => toggle_directorate_status_directorate_path(directorate, :checkbox => :retired), :confirm => "Are you sure you wish to retire this directorate?"
+        %td.directorateCheckbox.checkbox
+          = form_for directorate do |f|
+            = f.check_box :retired, :confirm => "Are you sure you wish to retire this directorate?"
         %td= directorate.creator.email
         %td= directorate.cop.email
         %td.last= link_to "edit", edit_directorate_path(directorate), :class => "action edit"

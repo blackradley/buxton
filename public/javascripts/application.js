@@ -134,6 +134,9 @@ $(document).ready(function(){
     }
   });
   
+  $('.directorateCheckbox :checkbox').click(function(){
+    $(this).parents('form').submit();
+  });
   
   $('.activitySummary').colorbox();
   
