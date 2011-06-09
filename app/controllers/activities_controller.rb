@@ -23,11 +23,12 @@ class ActivitiesController < ApplicationController
                                           :questions, :update, :toggle_strand, :submit, :show, :approve, :reject, :submit_approval, :submit_rejection,
                                           :task_group_comment_box, :make_task_group_comment, :summary, :comment, :submit_comment]
   before_filter :ensure_cop, :only => [:summary, :generate_schedule, :actions, :directorate_governance_eas]
-  before_filter :ensure_completer, :only => [:my_eas]
+  before_filter :ensure_completer, :only => [:my_eas, :task_group, :add_task_group_member, :remove_task_group_member, :create_task_group_member]
   before_filter :ensure_activity_completer, :only => [:questions, :submit, :toggle_strand]
   before_filter :ensure_approver, :only => [:approving]
   before_filter :ensure_task_group_member, :only => [:assisting]
   before_filter :ensure_quality_control, :only => [:quality_control]
+  before_filter :ensure_activity_task_group_member, :only => [:task_group_comment_box, :make_task_group_comment]
   before_filter :ensure_activity_quality_control, :only => [:comment, :submit_comment]
   before_filter :ensure_activity_approver, :only => [:approve, :reject, :submit_approval, :submit_rejection]
   before_filter :ensure_pdf_view, :only => [:show]
@@ -401,6 +402,10 @@ protected
   def set_activity
     @activity = current_user.activities.select{|a| a.id == params[:id].to_i}.first
     redirect_to access_denied_path unless @activity
+  end
+  
+  def ensure_activity_task_group_member
+    redirect_to access_denied_path unless @activity.task_group_memberships.map(&:user).include?(current_user)
   end
   
   def ensure_activity_completer
