@@ -37,6 +37,7 @@ activities_002:
   review_on: 2011-04-14 14:32:48 Z
   sexual_orientation_relevant: 
   activity_type: 0
+  undergone_qc: false
 activities_001: 
   pregnancy_and_maternity_relevant: 
   start_date: 2011-04-14 14:32:48 Z
