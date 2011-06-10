@@ -56,7 +56,7 @@ task :shared_files, :roles => [:web] do
     run "ln -nfs #{shared_path}/#{file} #{release_path}/#{file}"
   end
   
-  run "cd #{release_path} && whenever --update-crontab #{application} --set environment=#{rails_env}"
+  run "cd #{release_path} && bundle exec whenever --update-crontab #{application} --set environment=#{rails_env}"
 end
 
 desc "Update asset packager"
