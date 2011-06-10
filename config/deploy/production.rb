@@ -2,7 +2,7 @@
 # =============================================================================
 # PRODUCTION SPECIFIC VARIABLES
 # =============================================================================
-set :domain, "birmingham.27stars.co.uk"
+set :domain, "birmingham.impactequality.co.uk"
 set :rails_env, "production"
 set :port, 13427
 
