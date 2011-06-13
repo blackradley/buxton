@@ -1,16 +1,11 @@
-
-
-
-
-
 .commentform, .noteform, #finished_free_trial {
   width: 550px;
   height: 220px;
   padding: 10px 0px;
   float: left; }
-  .commentform form,   .noteform form,   #finished_free_trial form {
+  .commentform form, .noteform form, #finished_free_trial form {
     margin: 0; }
-  .commentform p,   .noteform p,   #finished_free_trial p {
+  .commentform p, .noteform p, #finished_free_trial p {
     width: 510px;
     float: left;
     font-size: 12px;
@@ -19,14 +14,14 @@
     padding: 0px;
     margin: 0px 20px;
     overflow: auto; }
-  .commentform .heading h3,   .noteform .heading h3,   #finished_free_trial .heading h3 {
+  .commentform .heading h3, .noteform .heading h3, #finished_free_trial .heading h3 {
     font-size: 14px;
     float: left;
     margin: 0px 20px 0px 20px;
     width: auto;
     padding: 10px 0px;
     height: 20px; }
-  .commentform textarea,   .noteform textarea,   #finished_free_trial textarea {
+  .commentform textarea, .noteform textarea, #finished_free_trial textarea {
     width: 510px;
     float: left;
     height: 130px;
@@ -36,7 +31,7 @@
     padding: 0px;
     margin: 0px 20px;
     overflow: auto; }
-  .commentform a,   .noteform a,   #finished_free_trial a {
+  .commentform a, .noteform a, #finished_free_trial a {
     float: left;
     margin-top: 10px;
     display: inline;
@@ -47,12 +42,12 @@
     font-size: 1em;
     padding: 5px 20px;
     font-weight: bold;
-    color: #FFF;
-    background-color: #1B4E77;
+    color: white;
+    background-color: #1b4e77;
     background-image: url(../images/button_bg.gif);
     border: 2px solid #7ab9c0;
     text-decoration: none; }
-    .commentform a:visited,     .noteform a:visited,     #finished_free_trial a:visited {
+    .commentform a:visited, .noteform a:visited, #finished_free_trial a:visited {
       float: left;
       margin-top: 10px;
       width: auto;
@@ -60,11 +55,11 @@
       font-size: 1em;
       padding: 5px 20px;
       font-weight: bold;
-      color: #FFF;
-      background-color: #1B4E77;
+      color: white;
+      background-color: #1b4e77;
       border: 2px solid #7ab9c0;
       text-decoration: none; }
-    .commentform a:hover,     .noteform a:hover,     #finished_free_trial a:hover {
+    .commentform a:hover, .noteform a:hover, #finished_free_trial a:hover {
       background-image: url(../images/button_on_bg.gif); }
 
 #finished_free_trial {

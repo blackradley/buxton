@@ -32,6 +32,6 @@
   %h3 Relevant Protected Characteristics
   %ul
     - @activity.overview_strands.each do |strand_name, strand|
-      %li
+      %li.checkbox
         %label= strand_display(strand).titlecase
         = check_box_tag("#{strand}_checkbox", strand, @activity.strands.include?(strand), :disabled =>true)

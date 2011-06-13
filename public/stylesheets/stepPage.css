@@ -9,13 +9,10 @@
   overflow: hidden;
   position: relative; }
   .content .workingArea #content_holder .step .stepFooter {
-    float: left;
-    clear: left;
-    margin: 0px;
     width: 950px;
     height: 24px;
-    position: absolute;
     bottom: -1px;
+    z-index: 10;
     background-image: url(../images/section_bottom.gif);
     background-position: top center;
     background-repeat: no-repeat;
@@ -87,7 +84,6 @@
       background-color: #1b4e77;
       color: white !important;
       height: 33px;
-      color: #666666;
       text-align: center;
       vertical-align: middle; }
     .content .workingArea #content_holder .step .stepBox .strandHeading {
