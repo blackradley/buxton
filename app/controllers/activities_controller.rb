@@ -367,27 +367,33 @@ class ActivitiesController < ApplicationController
   end
   
   def submit_comment
-    @activity.update_attributes(:undergone_qc => true)
-    Mailer.activity_comment(@activity, params[:email_contents], params[:subject]).deliver
+    if @activity.submitted?
+      @activity.update_attributes(:undergone_qc => true)
+      Mailer.activity_comment(@activity, params[:email_contents], params[:subject]).deliver
+    end
     redirect_to quality_control_activities_path
   end
   
   def submit_approval
-    @activity.update_attributes(:approved => true)
-    Mailer.activity_approved(@activity, params[:email_contents], params[:subject]).deliver
+    if @activity.undergone_qc? && @activity.submitted?
+      @activity.update_attributes(:approved => true)
+      Mailer.activity_approved(@activity, params[:email_contents], params[:subject]).deliver
+    end
     redirect_to approving_activities_path
   end
   
   def submit_rejection
-    new_activity = @activity.clone
-    new_activity.ready = true
-    new_activity.start_date = @activity.start_date
-    new_activity.end_date = @activity.end_date
-    new_activity.review_on = @activity.review_on
-    new_activity.save!
-    # @activity.update_attributes(:submitted => false)
-    Mailer.activity_rejected(@activity, params[:email_contents], params[:subject]).deliver
-    @activity.update_attributes(:is_rejected => true)
+    if @activity.undergone_qc? && @activity.submitted?
+      new_activity = @activity.clone
+      new_activity.ready = true
+      new_activity.start_date = @activity.start_date
+      new_activity.end_date = @activity.end_date
+      new_activity.review_on = @activity.review_on
+      new_activity.save!
+      # @activity.update_attributes(:submitted => false)
+      Mailer.activity_rejected(@activity, params[:email_contents], params[:subject]).deliver
+      @activity.update_attributes(:is_rejected => true)
+    end
     redirect_to approving_activities_path
   end
 
