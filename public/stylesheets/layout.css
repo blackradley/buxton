@@ -93,10 +93,9 @@
 
 .content {
   position: relative;
+  clear: both;
   width: 950px;
-  float: left;
-  margin: 15px;
-  display: inline; }
+  margin: 15px; }
   .content .workingArea {
     margin: 0px;
     width: 950px;
@@ -105,6 +104,17 @@
     .content .workingArea #content_holder {
       width: 950px;
       margin: 0px; }
+  .content .mask {
+    height: 100%;
+    width: 100%;
+    opacity: 0.5;
+    display: block;
+    background-color: black;
+    overflow: hidden;
+    position: absolute;
+    top: 0;
+    left: 0;
+    filter: alpha(opacity=50); }
 
 #content_holder p,
 #cboxLoadedContent p {
@@ -115,39 +125,51 @@
   margin: 0px 0px 5px;
   float: left;
   padding: 5px 0; }
-#content_holder .approverForm textarea,
-#content_holder .commentform textarea,
-#content_holder .noteform textarea,
-#cboxLoadedContent .approverForm textarea,
-#cboxLoadedContent .commentform textarea,
-#cboxLoadedContent .noteform textarea {
-  width: 80%;
-  margin-left: 10%;
-  height: 10em; }
-#content_holder .approverForm h2,
-#content_holder .commentform h2,
-#content_holder .noteform h2,
-#cboxLoadedContent .approverForm h2,
-#cboxLoadedContent .commentform h2,
-#cboxLoadedContent .noteform h2 {
-  width: 100%;
-  text-align: center; }
-#content_holder .approverForm li.textField input,
-#content_holder .commentform li.textField input,
-#content_holder .noteform li.textField input,
-#cboxLoadedContent .approverForm li.textField input,
-#cboxLoadedContent .commentform li.textField input,
-#cboxLoadedContent .noteform li.textField input {
-  width: 80%;
-  margin-left: 10%; }
-#content_holder .approverForm h5,
-#content_holder .commentform h5,
-#content_holder .noteform h5,
-#cboxLoadedContent .approverForm h5,
-#cboxLoadedContent .commentform h5,
-#cboxLoadedContent .noteform h5 {
-  width: 80%;
-  margin-left: 10%; }
+#content_holder li.checkbox input,
+#cboxLoadedContent li.checkbox input {
+  height: 12px;
+  width: 15px;
+  border: none; }
+#content_holder .approverForm,
+#content_holder .commentform,
+#content_holder .noteform,
+#cboxLoadedContent .approverForm,
+#cboxLoadedContent .commentform,
+#cboxLoadedContent .noteform {
+  width: 600px; }
+  #content_holder .approverForm textarea,
+  #content_holder .commentform textarea,
+  #content_holder .noteform textarea,
+  #cboxLoadedContent .approverForm textarea,
+  #cboxLoadedContent .commentform textarea,
+  #cboxLoadedContent .noteform textarea {
+    width: 80%;
+    margin-left: 10%;
+    height: 10em; }
+  #content_holder .approverForm h2,
+  #content_holder .commentform h2,
+  #content_holder .noteform h2,
+  #cboxLoadedContent .approverForm h2,
+  #cboxLoadedContent .commentform h2,
+  #cboxLoadedContent .noteform h2 {
+    width: 100%;
+    text-align: center; }
+  #content_holder .approverForm li.textField input,
+  #content_holder .commentform li.textField input,
+  #content_holder .noteform li.textField input,
+  #cboxLoadedContent .approverForm li.textField input,
+  #cboxLoadedContent .commentform li.textField input,
+  #cboxLoadedContent .noteform li.textField input {
+    width: 80%;
+    margin-left: 10%; }
+  #content_holder .approverForm h5,
+  #content_holder .commentform h5,
+  #content_holder .noteform h5,
+  #cboxLoadedContent .approverForm h5,
+  #cboxLoadedContent .commentform h5,
+  #cboxLoadedContent .noteform h5 {
+    width: 80%;
+    margin-left: 10%; }
 #content_holder #formHelp,
 #cboxLoadedContent #formHelp {
   width: 300px;

@@ -1,5 +1,4 @@
 // layout elements
-
 #banner
   :margin 0px
   :padding 10px 0px
@@ -84,10 +83,9 @@
 
 .content
   :position relative
+  :clear both
   :width 950px
-  :float left
   :margin 15px  
-  :display inline
 
   .workingArea
     :margin 0px
@@ -97,6 +95,17 @@
     #content_holder
       :width 950px
       :margin 0px
+  .mask
+    :height 100%
+    :width 100%
+    :opacity 0.5
+    :display block
+    :background-color black
+    :overflow hidden
+    :position absolute
+    :top 0
+    :left 0
+    :filter alpha(opacity = 50)
 #content_holder,
 #cboxLoadedContent
   p
@@ -105,9 +114,15 @@
     :margin 0px 0px 5px
     :float left
     :padding 5px 0
+  li.checkbox
+    input
+      :height 12px
+      :width 15px
+      :border none
   .approverForm,
   .commentform,
   .noteform
+    :width 600px
     textarea
       :width 80%
       :margin-left 10%

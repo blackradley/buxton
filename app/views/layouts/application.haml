@@ -1,4 +1,4 @@
-!!! transitional
+!!!
 %html{ 'xmlns' =>'http://www.w3.org/1999/xhtml', 'xml:lang'=> 'en' , 'lang' => 'en' }
   %head 
     %title 
@@ -64,12 +64,16 @@
         .messageArea
           %p
             =flash[:notice]
-      .content      
+      .content
         .workingArea
           #content_holder
             = yield
-        - if @activity && @activity.submitted
-          .mask{:style => "height: 100%; width:100%; opacity:0.5;background-color: black; position: absolute;  top: 0;"}
+            .clear
+          - if @activity && @activity.submitted
+            .mask
+          .clear
+        .clear
+
       .clear
 
       .footer
