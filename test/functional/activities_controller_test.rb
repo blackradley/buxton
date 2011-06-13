@@ -809,17 +809,37 @@ class ActivitiesControllerTest < ActionController::TestCase
     
     should "not be able to submit the approval of an activity that has not been submitted for approval or QC checked" do
       @activity = activities(:activities_002)
-      @activity.submitted = false
-      @activity.undergone_qc = false
+      @activity.update_attributes(:undergone_qc => false, :submitted => false)
       xhr :post, :submit_approval,:id => @activity.id, :email_contents => "This activity has been approved when it should not have been", :subject => "Email subject2"
       @activity.reload
       assert !@activity.approved
       @email = ActionMailer::Base.deliveries.last
-      puts @email.subject
-      puts @email.to
-      puts @email.body
       assert_not_equal @email.subject, "Email subject2"
       assert_not_equal @email.to[0], @activity.completer.email
+    end
+    
+    should "be able to submit their rejection of an activity that has been submitted for approval and has been QC checked. This should create a clone." do
+      @activity = activities(:activities_002)
+      xhr :post, :submit_rejection, :id => @activity.id, :email_contents => "This activity has been successfully rejected", :subject => "Email subject"
+      @activity.reload
+      assert @activity.is_rejected
+      @email = ActionMailer::Base.deliveries.last
+      assert_equal @email.subject, "Email subject"
+      assert_equal @email.to[0], @activity.completer.email
+      assert_match /activity has been successfully rejected/, @email.body
+      assert !Activity.find_by_id(@activity.id)
+    end
+    
+    should "not be able to submit their rejection of an activity that has not been submitted for approval or has not been QC checked. This should not create a clone" do
+      @activity = activities(:activities_002)
+      @activity.update_attributes(:submitted => false, :undergone_qc => false)
+      xhr :post, :submit_rejection, :id => @activity.id, :email_contents => "This activity has been successfully rejected", :subject => "Email subject"
+      @activity.reload
+      assert !@activity.is_rejected
+      @email = ActionMailer::Base.deliveries.last
+      assert_not_equal @email.subject, "Email subject"
+      assert_not_equal @email.to[0], @activity.completer.email
+      assert Activity.find_by_id(@activity.id)
     end
           
     should "not be able to comment on an activity as a QC" do
