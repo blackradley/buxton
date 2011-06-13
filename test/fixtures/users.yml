@@ -139,3 +139,23 @@ users_007:
   unlock_token: 
   locked: 
   email: helper@27stars.co.uk
+users_008: 
+  trained: 1
+  encrypted_password: $2a$10$2wTLkkxWlesm1dUtdPVv0.MkqZJSbGlo9O0aHWvP9WY6zcrBJdIyK
+  failed_attempts: 0
+  created_at: 2011-04-14 14:32:46 Z
+  creator: 0
+  updated_at: 2011-04-14 14:32:47 Z
+  last_sign_in_ip: 
+  last_sign_in_at: 
+  sign_in_count: 0
+  id: 8
+  type: 
+  password_salt: ""
+  current_sign_in_ip: 
+  locked_at: 
+  current_sign_in_at: 
+  retired: 
+  unlock_token: 
+  locked: 
+  email: creator2@27stars.co.uk
