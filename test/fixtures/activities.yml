@@ -59,7 +59,7 @@ activities_001:
   actual_start_date: 2011-04-14 14:32:48 Z
   id: 1
   faith_relevant: 
-  qc_officer_id: 6
+  qc_officer_id: 8
   activity_status: 0 
   marriage_civil_partnership_relevant: 
   gender_relevant: 
@@ -72,6 +72,44 @@ activities_001:
   approved_on: 
   gender_reassignment_relevant: 
   approver_id: 2
+  activity_project_id: 
+  review_on: 2011-04-14 14:32:48 Z
+  sexual_orientation_relevant: 
+  activity_type: 0
+activities_003: 
+  pregnancy_and_maternity_relevant: 
+  start_date: 2011-04-14 14:32:48 Z
+  ready: true
+  impact_completed: 1
+  name: Shauns Activity 0
+  consultation_completed: 1
+  disability_relevant: 
+  directorate_id: 
+  created_on: 2011-04-14 14:32:48 Z
+  completer_id: 8
+  additional_work_completed: 1
+  purpose_completed: 1
+  ref_no: EINA000001
+  race_relevant: 
+  approved: 
+  service_area_id: 3
+  updated_on: 2011-04-14 14:32:48 Z
+  actual_start_date: 2011-04-14 14:32:48 Z
+  id: 3
+  faith_relevant: 
+  qc_officer_id: 8
+  activity_status: 0 
+  marriage_civil_partnership_relevant: 
+  gender_relevant: 
+  updated_by: 
+  submitted: 
+  end_date: 2011-04-14 14:32:48 Z
+  age_relevant: 
+  use_purpose_completed: 1
+  action_planning_completed: 1
+  approved_on: 
+  gender_reassignment_relevant: 
+  approver_id: 8
   activity_project_id: 
   review_on: 2011-04-14 14:32:48 Z
   sexual_orientation_relevant: 
