@@ -337,7 +337,10 @@ class ActivitiesController < ApplicationController
   end
 
   def toggle_strand
-    return false if @activity.submitted
+    if @activity.submitted
+      render :nothing => true
+      return false
+    end 
     unless @activity.strand_required?(params[:strand])
       @activity.toggle("#{params[:strand]}_relevant")
       @activity.save!
