@@ -1,7 +1,7 @@
 # =============================================================================
 # STAGING SPECIFIC VARIABLES
 # =============================================================================
-set :domain, "birmingham.impactequality.co.uk"
+set :domain, "birmingham.27stars.co.uk"
 set :rails_env, "staging"
 set :port, 13427
 
