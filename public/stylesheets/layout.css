@@ -93,7 +93,7 @@
 
 .content {
   position: relative;
-  height: 100%;
+  clear: both;
   width: 950px;
   margin: 15px; }
   .content .workingArea {
