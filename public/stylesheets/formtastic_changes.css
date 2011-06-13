@@ -81,7 +81,7 @@ form.formtastic fieldset.buttons {
     text-align: center;
 }
 
-form.formtastic fieldset.buttons input[type='submit']{
+form.formtastic fieldset.buttons input{
   border: 0px;
   background-image: url(../images/orange_buttons/search.jpg);
   background-repeat: no-repeat;
@@ -94,6 +94,6 @@ form.formtastic fieldset.buttons input[type='submit']{
   line-height: 22px;
   font-weight: bold;
 }
-form.formtastic fieldset.buttons input[type='submit']:hover{
+form.formtastic fieldset.buttons input:hover{
   background-image: url(../images/orange_buttons/search_hover.jpg);
 }
