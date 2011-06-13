@@ -6,6 +6,9 @@ en:
       not_locked: "was not locked"
 
   devise:
+    password_expired:
+      user:
+        reset_password: Your password has expired. Please reset your password using the link on the right to continue.
     failure:
       unauthenticated: 'You need to sign in or sign up before continuing.'
       unconfirmed: 'You have to confirm your account before continuing.'

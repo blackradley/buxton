@@ -23,7 +23,7 @@ Buxton::Application.configure do
 
   # We presently run on a .org.uk domain
   TLD_LENGTH = 2
-
+  
   # Use sendmail protocol to deliver emails
   config.action_mailer.delivery_method = :sendmail
 
@@ -34,7 +34,7 @@ Buxton::Application.configure do
   config.serve_static_assets = false
 
   config.i18n.fallbacks = true
-
+  config.middleware.use "ForceSSL"
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 end
