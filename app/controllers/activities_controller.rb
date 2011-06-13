@@ -45,7 +45,6 @@ class ActivitiesController < ApplicationController
     @live_directorates = current_user.count_live_directorates
     @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
     @activities = Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)})
-    
     @selected = "directorate_eas"
   end
   
@@ -162,6 +161,9 @@ class ActivitiesController < ApplicationController
       end
       if !@activity.errors[:approver].blank?
         @activity.errors.add(:approver_email, "An EA must have someone assigned to approve the assessment")
+      end
+      if !@activity.errors[:qc_officer].blank?
+        @activity.errors.add(:qc_officer_email, "An EA must have someone assigned as a Quality Control Officer for the assessment")
       end
       @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
       render 'new'
