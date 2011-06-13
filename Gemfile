@@ -26,4 +26,5 @@ end
 
 group :development do
   gem "rcov_rails"
+  gem 'mail_safe'
 end
