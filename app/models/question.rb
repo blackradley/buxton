@@ -54,7 +54,7 @@ class Question < ActiveRecord::Base
     if self.input_type == "select"
       return !(response.to_i == 0)
     else 
-      return response.length > 0
+      return response.to_s.length > 0
     end
   end
     
