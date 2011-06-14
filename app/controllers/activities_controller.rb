@@ -32,6 +32,7 @@ class ActivitiesController < ApplicationController
   before_filter :ensure_activity_quality_control, :only => [:comment, :submit_comment]
   before_filter :ensure_activity_approver, :only => [:approve, :reject, :submit_approval, :submit_rejection]
   before_filter :ensure_pdf_view, :only => [:show]
+  before_filter :ensure_activity_editable, :only => [:edit, :update]
 
   autocomplete :user, :email, :scope => :live
   
@@ -421,5 +422,9 @@ protected
   
   def ensure_activity_approver
      redirect_to access_denied_path unless @activity.approver == current_user
+  end
+  
+  def ensure_activity_editable
+    redirect_to access_denied_path if @activity.ready?
   end
 end
