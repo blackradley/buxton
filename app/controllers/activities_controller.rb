@@ -322,7 +322,7 @@ class ActivitiesController < ApplicationController
     end
     service_area_list.uniq!
     @service_areas = service_area_list.map do |sa|
-      [sa, Issue.includes(:activity => :service_area).where(:service_areas => {:id => sa.id}).count]
+      [sa, sa.activities.map(&:relevant_action_count).sum]
     end
   end
   
