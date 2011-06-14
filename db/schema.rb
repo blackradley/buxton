@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110614112618) do
+ActiveRecord::Schema.define(:version => 20110614143711) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -19,7 +19,6 @@ ActiveRecord::Schema.define(:version => 20110614112618) do
     t.datetime "updated_on"
     t.string   "updated_by"
     t.integer  "activity_type",                       :default => 0
-    t.integer  "directorate_id"
     t.datetime "approved_on"
     t.boolean  "purpose_completed",                   :default => false
     t.boolean  "impact_completed",                    :default => false
@@ -35,7 +34,6 @@ ActiveRecord::Schema.define(:version => 20110614112618) do
     t.boolean  "race_relevant"
     t.date     "review_on"
     t.integer  "activity_project_id"
-    t.string   "ref_no",                              :default => ""
     t.integer  "completer_id"
     t.integer  "approver_id"
     t.date     "start_date"
@@ -53,9 +51,6 @@ ActiveRecord::Schema.define(:version => 20110614112618) do
     t.integer  "qc_officer_id"
     t.boolean  "undergone_qc",                        :default => false
   end
-
-  add_index "activities", ["directorate_id"], :name => "index_activities_on_directorate_id"
-  add_index "activities", ["directorate_id"], :name => "index_activities_on_directorate_id_and_approved"
 
   create_table "activities_projects", :id => false, :force => true do |t|
     t.integer "activity_id"
