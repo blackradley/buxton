@@ -110,6 +110,13 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_equal 1, activities(:activities_002).task_group_memberships.count
     end
     
+    should "not be able to toggle strands in an activity" do
+      @activity = activities(:activities_003)
+      post :toggle_strand, :id => @activity.id, :strand => "gender"
+      @activity.reload
+      assert !@activity.gender_relevant
+    end
+    
   end
   
   context "when logged in as a directorate cop " do
@@ -240,6 +247,13 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_equal 1, activities(:activities_002).task_group_memberships.count
     end
     
+    should "not be able to toggle strands in an activity" do
+      @activity = activities(:activities_003)
+      post :toggle_strand, :id => @activity.id, :strand => "gender"
+      @activity.reload
+      assert !@activity.gender_relevant
+    end
+    
   end
   
   context "when logged in as a corporate cop " do
@@ -358,6 +372,13 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_equal 1, activities(:activities_002).task_group_memberships.count
     end
     
+    should "not be able to toggle strands in an activity" do
+      @activity = activities(:activities_003)
+      post :toggle_strand, :id => @activity.id, :strand => "gender"
+      @activity.reload
+      assert !@activity.gender_relevant
+    end
+    
   end
   
   context "when logged in as a creator" do
@@ -435,6 +456,116 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_response :success
     end
     
+    should "be able to create an activity and send it to the completer" do
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      assert_equal 4, Activity.count
+      assert_redirected_to directorate_eas_activities_path
+    end
+    
+    should "not be able to create an activity and send it to the completer if no completer is supplied" do
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      assert_equal 3, Activity.count
+      puts assigns(:activity).errors[:completer_email]
+      assert !assigns(:activity).errors[:completer_email].blank?
+      assert_response :success
+    end
+    
+    should "not be able to create an activity and send it to the completer if no approver is supplied" do
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      assert_equal 3, Activity.count
+      puts assigns(:activity).errors[:approver_email]
+      assert !assigns(:activity).errors[:approver_email].blank?
+      assert_response :success
+    end
+    
+    should "not be able to create an activity and send it to the completer if no QC officer is supplied" do
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "", :type => 0, :activity_status => 0}
+      assert_equal 3, Activity.count
+      puts assigns(:activity).errors[:qc_officer_email]
+      assert !assigns(:activity).errors[:qc_officer_email].blank?
+      assert_response :success
+    end
+    
+    should "not be able to create an activity and send it to the completer if no start date is supplied" do
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      assert_equal 3, Activity.count
+      puts assigns(:activity).errors[:start_date]
+      assert !assigns(:activity).errors[:start_date].blank?
+      assert_response :success
+    end
+    
+    should "not be able to create an activity and send it to the completer if no end date is supplied" do
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      assert_equal 3, Activity.count
+      puts assigns(:activity).errors[:end_date]
+      assert !assigns(:activity).errors[:end_date].blank?
+      assert_response :success
+    end
+    
+    should "not be able to create an activity and send it to the completer if no review date is supplied" do
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      assert_equal 3, Activity.count
+      puts assigns(:activity).errors[:review_on]
+      assert !assigns(:activity).errors[:review_on].blank?
+      assert_response :success
+    end
+    
+    should "not be able to create an activity and send it to the completer if no name is supplied" do
+      post :create, :activity => {:name => "", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      assert_equal 3, Activity.count
+      puts assigns(:activity).errors[:name]
+      assert !assigns(:activity).errors[:name].blank?
+      assert_response :success
+    end
+    
+    should "not be able to create an activity and send it to the completer if an invalid completer is supplied" do
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "gibberish", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      assert_equal 3, Activity.count
+      puts assigns(:activity).errors[:completer_email]
+      assert !assigns(:activity).errors[:completer_email].blank?
+      assert_response :success
+    end
+    
+    should "not be able to create an activity and send it to the completer if an invalid approver is supplied" do
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "gibberish", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      assert_equal 3, Activity.count
+      puts assigns(:activity).errors[:approver_email]
+      assert !assigns(:activity).errors[:approver_email].blank?
+      assert_response :success
+    end
+    
+    should "not be able to create an activity and send it to the completer if an invalid QC officer is supplied" do
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "gibberish", :type => 0, :activity_status => 0}
+      assert_equal 3, Activity.count
+      puts assigns(:activity).errors[:qc_officer_email]
+      assert !assigns(:activity).errors[:qc_officer_email].blank?
+      assert_response :success
+    end
+    
+    should "not be able to create an activity and send it to the completer if it is a clone from a retired service area" do
+      ServiceArea.find(1).update_attributes(:retired => true)
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}, :clone_of => activities(:activities_001).id.to_s
+      assert_equal 3, Activity.count
+      assert_equal "The Service Area for this EA has been retired and therefore this EA cannot be cloned.", flash[:notice]
+    end
+    
+    should "be able to create an activity and send it to the completer when cloning it from another activity" do
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}, :clone_of => activities(:activities_001).id.to_s
+      puts flash[:notice]
+      assert_equal 4, Activity.count
+    end
+    
+    should "be able to view the edit page of an activity that has not been sent to the completer" do
+      get :edit, :id => activities(:activities_001).id
+      assert_response :success
+    end
+    
+    should "not be able to view the edit page of an activity that has been sent to the completer" do
+      activities(:activities_001).update_attributes(:ready => true)
+      get :edit, :id => activities(:activities_001).id
+      assert_redirected_to access_denied_path
+    end
+    
     should "not be able to accept an activity" do
       get :approve, :id => activities(:activities_002).id
       assert_response :redirect
@@ -488,6 +619,13 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_response :redirect
       assert_redirected_to access_denied_path
       assert_equal 1, activities(:activities_002).task_group_memberships.count
+    end
+    
+    should "not be able to toggle strands in an activity" do
+      @activity = activities(:activities_003)
+      post :toggle_strand, :id => @activity.id, :strand => "gender"
+      @activity.reload
+      assert !@activity.gender_relevant
     end
     
   end
@@ -700,6 +838,42 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert activities(:activities_003).task_group_memberships
     end
     
+    should "be able to toggle strands in an activity" do
+      @activity = activities(:activities_002)
+      @activity.update_attributes(:undergone_qc => false, :submitted => false)
+      post :toggle_strand, :id => @activity.id, :strand => "gender"
+      @activity.reload
+      assert_response :success
+      assert @activity.gender_relevant
+      post :toggle_strand, :id => @activity.id, :strand => "gender"
+      @activity.reload
+      assert_response :success
+      assert !@activity.gender_relevant
+    end
+    
+    should "not be able to toggle strands in an activity if that strand is required" do
+      @activity = activities(:activities_002)
+      @activity.questions.where(:name => "purpose_gender_3").first.update_attributes(:raw_answer => 1)
+      post :toggle_strand, :id => @activity.id, :strand => "gender"
+      @activity.reload
+      assert !@activity.gender_relevant
+    end
+    
+    should "not be able to toggle strands in an activity that is submitted" do
+      @activity = activities(:activities_002)
+      @activity.update_attributes(:undergone_qc => true, :submitted => true)
+      post :toggle_strand, :id => @activity.id, :strand => "gender"
+      @activity.reload
+      assert !@activity.gender_relevant
+    end
+    
+    should "not be able to toggle strands in an activity one is not the completer for" do
+      @activity = activities(:activities_003)
+      post :toggle_strand, :id => @activity.id, :strand => "gender"
+      @activity.reload
+      assert !@activity.gender_relevant
+    end
+    
   end    
   
   context "when logged in as an approver" do
@@ -886,6 +1060,13 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_redirected_to access_denied_path
       assert_equal 1, activities(:activities_002).task_group_memberships.count
     end
+    
+    should "not be able to toggle strands in an activity" do
+      @activity = activities(:activities_003)
+      post :toggle_strand, :id => @activity.id, :strand => "gender"
+      @activity.reload
+      assert !@activity.gender_relevant
+    end
   
   end  
   
@@ -1023,6 +1204,13 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_equal 1, activities(:activities_002).task_group_memberships.count
     end
     
+    should "not be able to toggle strands in an activity" do
+      @activity = activities(:activities_003)
+      post :toggle_strand, :id => @activity.id, :strand => "gender"
+      @activity.reload
+      assert !@activity.gender_relevant
+    end
+    
   end
   
   context "a task group member" do
@@ -1150,6 +1338,13 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_equal 1, activities(:activities_002).task_group_memberships.count
     end
     
+    should "not be able to toggle strands in an activity" do
+      @activity = activities(:activities_003)
+      post :toggle_strand, :id => @activity.id, :strand => "gender"
+      @activity.reload
+      assert !@activity.gender_relevant
+    end
+    
   end
   
   context "a user with no roles whatsoever" do
@@ -1260,6 +1455,13 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_response :redirect
       assert_redirected_to access_denied_path
       assert_equal 1, activities(:activities_002).task_group_memberships.count
+    end
+    
+    should "not be able to toggle strands in an activity" do
+      @activity = activities(:activities_003)
+      post :toggle_strand, :id => @activity.id, :strand => "gender"
+      @activity.reload
+      assert !@activity.gender_relevant
     end
     
   end

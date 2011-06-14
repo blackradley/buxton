@@ -21,7 +21,7 @@ activities_002:
   faith_relevant: 
   activity_status: 0 
   marriage_civil_partnership_relevant: 
-  gender_relevant: 
+  gender_relevant:
   updated_by: 
   submitted: 
   end_date: 2011-04-14 14:32:48 Z
@@ -81,7 +81,7 @@ activities_003:
   start_date: 2011-04-14 14:32:48 Z
   ready: true
   impact_completed: 1
-  name: Shauns Activity 0
+  name: Shauns Activity 1
   consultation_completed: 1
   disability_relevant: 
   directorate_id: 
