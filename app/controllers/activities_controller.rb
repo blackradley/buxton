@@ -31,7 +31,6 @@ class ActivitiesController < ApplicationController
   before_filter :ensure_activity_task_group_member, :only => [:task_group_comment_box, :make_task_group_comment]
   before_filter :ensure_activity_quality_control, :only => [:comment, :submit_comment]
   before_filter :ensure_activity_approver, :only => [:approve, :reject, :submit_approval, :submit_rejection]
-  before_filter :ensure_pdf_view, :only => [:show]
   before_filter :ensure_activity_editable, :only => [:edit, :update]
 
   autocomplete :user, :email, :scope => :live
@@ -57,22 +56,18 @@ class ActivitiesController < ApplicationController
   
   def clone
     original_activity = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)}).find(params[:id])
-    if original_activity
-      @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Clone #{original_activity.name}"]]
-      @selected = "directorate_eas"
-      @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
-      @activity = Activity.new(original_activity.attributes)
-      @clone_of = original_activity
-      @activity.ready = false
-      @activity.approved = false
-      @activity.submitted = false
-      @activity.start_date = nil
-      @activity.end_date = nil
-      @activity.review_on = nil
-      render :new
-    else
-      redirect_to :directorate_eas
-    end
+    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Clone #{original_activity.name}"]]
+    @selected = "directorate_eas"
+    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
+    @activity = Activity.new(original_activity.attributes)
+    @clone_of = original_activity
+    @activity.ready = false
+    @activity.approved = false
+    @activity.submitted = false
+    @activity.start_date = nil
+    @activity.end_date = nil
+    @activity.review_on = nil
+    render :new
   end
   
   def quality_control
@@ -394,12 +389,6 @@ class ActivitiesController < ApplicationController
   end
 
 protected
-  
-  def ensure_pdf_view
-     if current_user.roles.size <= 0  || current_user.is_a?(Administrator)
-      redirect_to access_denied_path
-     end
-  end 
   
   def set_activity
     @activity = current_user.activities.select{|a| a.id == params[:id].to_i}.first
