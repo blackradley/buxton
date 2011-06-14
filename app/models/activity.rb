@@ -68,7 +68,7 @@ class Activity < ActiveRecord::Base
   
   accepts_nested_attributes_for :questions
   accepts_nested_attributes_for :issues, :allow_destroy => true#, :reject_if => proc { |attributes| attributes['description'].blank? }
-  
+
   before_validation :mark_empty_issues
   attr_accessor :task_group_member
   

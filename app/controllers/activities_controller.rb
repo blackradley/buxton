@@ -122,6 +122,7 @@ class ActivitiesController < ApplicationController
       @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
       render 'new' and return
     end
+    [:completer_id, :approver_id, :qc_officer_id].each{|p| params[:activity].delete(p)}
     if params[:clone_of]
       @activity = current_user.activities.select{|a| a.id.to_s == params[:clone_of]}.first
       unless @activity
@@ -174,7 +175,7 @@ class ActivitiesController < ApplicationController
     @directorate = Directorate.find_by_creator_id(current_user.id)
     @selected = "directorate_eas"
     @activity = Activity.find(params[:id])
-    
+    [:completer_id, :approver_id, :qc_officer_id].each{|p| params[:activity].delete(p)}
     invalid = params[:activity].select{|k,v| k.match(/_email/) && !v.blank? && !User.live.exists?(:email => v)}#.each do |k,v|
     unless invalid.empty?
       invalid.each do |k,v|
