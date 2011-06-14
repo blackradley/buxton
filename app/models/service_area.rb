@@ -12,6 +12,7 @@ class ServiceArea < ActiveRecord::Base
   validates_presence_of :name, :directorate
   validates_presence_of :approver_email, :message => "must be a valid user"
   validates_associated :directorate, :approver
+  has_many :activities
   
   attr_accessor :should_destroy
   

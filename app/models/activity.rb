@@ -331,6 +331,15 @@ class Activity < ActiveRecord::Base
     true
   end
   
+  def relevant_action_count
+    actions = 0
+    strands.each do |relevant_strand|
+      actions += self.issues.where(:section => "impact", :strand => relevant_strand).count if self.questions.find_by_name("impact_#{relevant_strand}_9").raw_answer == "1"
+      actions += self.issues.where(:section => "consultation", :strand => relevant_strand).count if self.questions.find_by_name("consultation_#{relevant_strand}_7").raw_answer == "1"
+    end
+    actions
+  end
+  
 
   def disabled_strands
     self.strands(true) - self.strands

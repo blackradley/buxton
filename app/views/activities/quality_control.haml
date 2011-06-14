@@ -48,7 +48,7 @@
         %td.center= activity.started && activity.actual_start_date ? activity.actual_start_date.to_s(:short) : "N/A"
         %td.center= activity.approved && activity.approved_on ? activity.approved_on.to_s(:short) : "N/A"
         %td= activity.progress
-        %td= activity.issues.count
+        %td= activity.relevant_action_count
         %td.last
           = link_to "view", activity_path(activity), :class => "action view"
           - if activity.submitted && !activity.undergone_qc && !activity.approved
