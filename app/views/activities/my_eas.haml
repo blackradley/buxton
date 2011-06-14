@@ -39,7 +39,8 @@
       %td.last.sortControls
   %tbody
     - @activities.each do |activity|
-      %tr{:class => cycle("light", "dark")}
+      - updated = activity.activity_and_questions_updated_between(current_user.last_sign_in_at, current_user.current_sign_in_at) ? "recentlyChanged" : ""
+      %tr{:class => cycle("light #{updated}", "dark #{updated}")}
         %td= activity.service_area.name
         %td= activity.name
         %td= activity.ref_no

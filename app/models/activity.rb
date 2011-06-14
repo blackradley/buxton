@@ -423,6 +423,15 @@ class Activity < ActiveRecord::Base
     # issues_to_check.empty?
   end
 
+  def activity_and_questions_updated_between(start_date, end_date)
+    activity_between = self.updated_on > start_date && self.updated_on < end_date
+    questions_between = self.questions.find(:all, :conditions => ["updated_at between ? and ?",
+             start_date, end_date]).size > 0
+    questions_after = self.questions.find(:all, :conditions => ["updated_at between ? and ?",
+                      end_date, Time.now]).size > 0             
+    return (activity_between || questions_between) && !questions_after
+  end
+
   def target_and_strategies_completed
     answered_questions = self.questions.where(:name => ["purpose_overall_2"]).where("completed = true OR needed = false")
     return false unless answered_questions.size == 1
