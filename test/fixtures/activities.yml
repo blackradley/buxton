@@ -6,13 +6,11 @@ activities_002:
   name: Joes Activity 0
   consultation_completed: 1
   disability_relevant: 
-  directorate_id: 
   created_on: 2011-04-14 14:32:55 Z
   completer_id: 3
   additional_work_completed: 1
   qc_officer_id: 6
   purpose_completed: 1
-  ref_no: EINA000002
   race_relevant: 
   approved: 
   service_area_id: 1
@@ -46,12 +44,10 @@ activities_001:
   name: Shauns Activity 0
   consultation_completed: 1
   disability_relevant: 
-  directorate_id: 
   created_on: 2011-04-14 14:32:48 Z
   completer_id: 5
   additional_work_completed: 1
   purpose_completed: 1
-  ref_no: EINA000001
   race_relevant: 
   approved: 
   service_area_id: 1
@@ -84,12 +80,10 @@ activities_003:
   name: Shauns Activity 1
   consultation_completed: 1
   disability_relevant: 
-  directorate_id: 
   created_on: 2011-04-14 14:32:48 Z
   completer_id: 8
   additional_work_completed: 1
   purpose_completed: 1
-  ref_no: EINA000001
   race_relevant: 
   approved: 
   service_area_id: 3

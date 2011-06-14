@@ -20,7 +20,7 @@
   .content .workingArea #content_holder .step .stepBox {
     float: right;
     width: 890px;
-    margin: 20px 30px 20px;
+    margin: 20px 30px 0px;
     overflow: hidden;
     display: inline; }
     .content .workingArea #content_holder .step .stepBox h2 {
@@ -32,8 +32,8 @@
       padding: 0px; }
     .content .workingArea #content_holder .step .stepBox p {
       float: left;
-      width: 870px;
-      margin: 0px 0px 10px 0px; }
+      line-height: 16px;
+      width: 870px; }
       .content .workingArea #content_holder .step .stepBox p a {
         font-weight: bold; }
       .content .workingArea #content_holder .step .stepBox p .orangeButton {
