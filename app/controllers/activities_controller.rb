@@ -21,7 +21,7 @@ class ActivitiesController < ApplicationController
   before_filter :ensure_creator, :only => [:edit, :new, :create, :update, :directorate_eas]
   before_filter :set_activity, :only => [:edit, :task_group, :add_task_group_member, :remove_task_group_member, :create_task_group_member,
                                           :questions, :update, :toggle_strand, :submit, :show, :approve, :reject, :submit_approval, :submit_rejection,
-                                          :task_group_comment_box, :make_task_group_comment, :summary, :comment, :submit_comment]
+                                          :task_group_comment_box, :make_task_group_comment, :summary, :comment, :submit_comment, :clone]
   before_filter :ensure_cop, :only => [:summary, :generate_schedule, :actions, :directorate_governance_eas]
   before_filter :ensure_completer, :only => [:my_eas, :task_group, :add_task_group_member, :remove_task_group_member, :create_task_group_member]
   before_filter :ensure_activity_completer, :only => [:questions, :submit, :toggle_strand]
