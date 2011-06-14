@@ -556,7 +556,6 @@ class Activity < ActiveRecord::Base
     new_activity.end_date = nil
     new_activity.undergone_qc = false
     new_activity.review_on = nil
-    puts "Activity created"
     self.questions.each do |q|
       new_q = new_activity.questions.find_by_name(q.name)
       new_q.completed = q.completed
