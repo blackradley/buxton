@@ -362,6 +362,7 @@ class ActivitiesController < ApplicationController
   def submit_comment
     if @activity.submitted?
       @activity.update_attributes(:undergone_qc => true)
+      flash[:notice] = "Successfully performed Quality Control on #{@activity.name}"
       Mailer.activity_comment(@activity, params[:email_contents], params[:subject]).deliver
     end
     redirect_to quality_control_activities_path
@@ -370,6 +371,7 @@ class ActivitiesController < ApplicationController
   def submit_approval
     if @activity.undergone_qc? && @activity.submitted?
       @activity.update_attributes(:approved => true)
+      flash[:notice] = "Successfully approved #{@activity.name}"
       Mailer.activity_approved(@activity, params[:email_contents], params[:subject]).deliver
     end
     redirect_to approving_activities_path
@@ -384,6 +386,7 @@ class ActivitiesController < ApplicationController
       new_activity.review_on = @activity.review_on
       new_activity.save!
       # @activity.update_attributes(:submitted => false)
+      flash[:notice] = "#{@activity.name} rejected."
       Mailer.activity_rejected(@activity, params[:email_contents], params[:subject]).deliver
       @activity.update_attributes(:is_rejected => true)
     end
