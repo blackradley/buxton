@@ -109,7 +109,6 @@ $(document).ready(function(){
     })
     return false;
   });
-  
   if ($('#sortable').length) {
     sorter = new TINY.table.sorter('sorter');
     sorter.head = 'sortControls'; //header class name
@@ -125,7 +124,6 @@ $(document).ready(function(){
     // sorter.limitid = 'pagelimit'; //page limit id
     sorter.init('sortable',0,true);
   }
-  
   $('.retiredCheckbox :checkbox').click(function(){
     $.post($(this).data("path"));
     if($(this).is(":checked")){

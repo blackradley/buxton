@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110609141224) do
+ActiveRecord::Schema.define(:version => 20110614112618) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -185,18 +185,20 @@ ActiveRecord::Schema.define(:version => 20110609141224) do
   add_index "projects", ["organisation_id"], :name => "index_projects_on_organisation_id"
 
   create_table "questions", :force => true do |t|
-    t.integer "activity_id"
-    t.string  "name"
-    t.boolean "completed",     :default => false
-    t.boolean "needed",        :default => false
-    t.text    "raw_answer"
-    t.text    "choices"
-    t.text    "help_text"
-    t.text    "label"
-    t.string  "input_type"
-    t.string  "section"
-    t.string  "strand"
-    t.integer "dependency_id"
+    t.integer  "activity_id"
+    t.string   "name"
+    t.boolean  "completed",     :default => false
+    t.boolean  "needed",        :default => false
+    t.text     "raw_answer"
+    t.text     "choices"
+    t.text     "help_text"
+    t.text     "label"
+    t.string   "input_type"
+    t.string   "section"
+    t.string   "strand"
+    t.integer  "dependency_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   add_index "questions", ["activity_id", "name", "needed", "completed"], :name => "index_questions_on_activity_id_and_name_and_needed_and_completed"

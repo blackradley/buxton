@@ -34,7 +34,15 @@ TINY.table=function(){
 		var n=document.createElement('tbody');
 		for(i=0;i<this.l;i++){
 			var r=t.r[t.a[i].o].cloneNode(true); n.appendChild(r);
-			r.className=i%2==0?this.even:this.odd; var cells=T$$('td',r);
+			if(i%2==0){
+			  $(r).removeClass(this.odd);
+			  $(r).addClass(this.even);
+			}
+			else{
+			  $(r).removeClass(this.even);
+			  $(r).addClass(this.odd);
+			}
+			var cells=T$$('td',r);
       // for(var z=0;z<t.w;z++){cells[z].className=y==z?i%2==0?this.evensel:this.oddsel:''}
 		}
 		t.replaceChild(n,t.b); if(this.paginate){this.size(this.pagesize)}

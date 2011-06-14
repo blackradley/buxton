@@ -117,6 +117,8 @@ table {
     background-color: white; }
   table .dark td {
     background-color: #f1f1f1; }
+  table .recentlyChanged td {
+    font-weight: bold; }
 
 .list {
   width: 100%;
