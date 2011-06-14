@@ -5,7 +5,8 @@ class AddingPasswordExpiryToDevise < ActiveRecord::Migration
     end
     User.reset_column_information
     User.all.each do |u|
-      u.update_attributes(:password_changed_at => Time.now)
+      u.password_changed_at = Time.now
+      u.save!
     end
   end
 
