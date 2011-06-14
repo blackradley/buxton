@@ -1067,6 +1067,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @activity = activities(:activities_002)
       xhr :post, :submit_approval,:id => @activity.id, :email_contents => "This activity has been approved", :subject => "Email subject"
       assert_redirected_to approving_activities_path
+      assert_equal flash[:notice], "Successfully approved #{@activity.name}"
       @activity.reload
       assert @activity.approved
       @email = ActionMailer::Base.deliveries.last
@@ -1099,6 +1100,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "be able to submit their rejection of an activity that has been submitted for approval and has been QC checked. This should create a clone." do
       @activity = activities(:activities_002)
       xhr :post, :submit_rejection, :id => @activity.id, :email_contents => "This activity has been successfully rejected", :subject => "Email subject"
+      assert_equal flash[:notice], "#{@activity.name} rejected."
       @activity.reload
       assert @activity.is_rejected
       @email = ActionMailer::Base.deliveries.last
@@ -1254,6 +1256,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     
     should "be able to comment on an activity submitted for commenting" do
       xhr :post, :submit_comment, :id => activities(:activities_002).id, :subject => "email subject", :email_contents => "this activity passed the test"
+      assert_equal flash[:notice], "Successfully performed Quality Control on #{activities(:activities_002).name}"
       assert_redirected_to quality_control_activities_path
       assert Activity.find(2).undergone_qc
     end
