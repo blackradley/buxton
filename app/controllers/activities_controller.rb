@@ -215,6 +215,9 @@ class ActivitiesController < ApplicationController
       if !@activity.errors[:approver].blank?
         @activity.errors.add(:approver_email, "An EA must have someone assigned to approve the assessment")
       end
+      if !@activity.errors[:qc_officer].blank?
+        @activity.errors.add(:qc_officer_email, "An EA must have someone assigned as a Quality Control Officer for the assessment")
+      end
       @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
       render "edit"
     end
