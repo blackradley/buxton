@@ -424,6 +424,8 @@ class Activity < ActiveRecord::Base
   end
 
   def activity_and_questions_updated_between(start_date, end_date)
+    return false unless self.updated_on
+    return true unless start_date && end_date
     activity_between = self.updated_on > start_date && self.updated_on < end_date
     questions_between = self.questions.find(:all, :conditions => ["updated_at between ? and ?",
              start_date, end_date]).size > 0
