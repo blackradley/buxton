@@ -51,9 +51,11 @@ class Question < ActiveRecord::Base
   end
     
   def check_response #Check response verifies whether a response to a question is correct or not.
-    checker = !(response.to_i == 0)
-    checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
-    return checker
+    if self.input_type == "select"
+      return !(response.to_i == 0)
+    else 
+      return response.length > 0
+    end
   end
     
   def check_needed
