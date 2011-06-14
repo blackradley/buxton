@@ -60,15 +60,7 @@ class ActivitiesController < ApplicationController
     if original_activity
       @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Clone #{original_activity.name}"]]
       @selected = "directorate_eas"
-      services = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
-      if current_user.count_directorates > 1
-        @service_areas = Hash.new
-        services.each do |s|
-          @service_areas["#{s.name} - #{s.directorate.name}"] = s.id
-        end
-      else
-        @service_areas = services
-      end
+      @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
       @activity = Activity.new(original_activity.attributes)
       @clone_of = original_activity
       @activity.ready = false
@@ -214,6 +206,9 @@ class ActivitiesController < ApplicationController
       end
       if !@activity.errors[:approver].blank?
         @activity.errors.add(:approver_email, "An EA must have someone assigned to approve the assessment")
+      end
+      if !@activity.errors[:qc_officer].blank?
+        @activity.errors.add(:qc_officer_email, "An EA must have someone assigned as a Quality Control Officer for the assessment")
       end
       @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
       render "edit"
