@@ -9,7 +9,10 @@
     .orangeButton
       =link_to "Add EA", new_activity_path, :class=>"add"
   .clear
-  - if @activities.empty?
+  - if @service_areas.size == 0
+    %p
+      You have no Service Areas in the Directorate you are the Directorate Contact Officer for, and hence cannot create an EA for any Service Areas.
+  - if @activities.empty? && @service_areas.size > 0
     %p There are no active EAs for any directorates you are the Directorate Contact Officer for, you can create EAs using  the "Add EA" button above.
   -else
     .searchBox
