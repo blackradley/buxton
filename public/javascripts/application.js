@@ -38,6 +38,8 @@ $(document).ready(function(){
     var term = $('#search_term').val();
     $("table.searchable tbody tr td:not(.last):not(:Contains('"+term+"'))").parents("tr").hide();
     $("table.searchable tbody tr td:not(.last):Contains('"+term+"')").parents("tr").show();
+    $("table.searchable tbody tr:visible:even").removeClass("light").addClass("dark")
+    $("table.searchable tbody tr:visible:odd").removeClass("dark").addClass("light")
     return false;
   });
 
