@@ -2,7 +2,7 @@ namespace :stars do
   
   DB_CONFIG = YAML.load_file('config/database.yml')
   S3_CONFIG = YAML.load_file('config/amazon_s3.yml')
-  APP_NAME = 'Leesman'
+  APP_NAME = 'buxton'
   namespace :db do
     desc "Mysql database backups to Amazon S3"
     task :backup => :environment do
