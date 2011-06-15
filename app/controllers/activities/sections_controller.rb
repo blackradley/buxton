@@ -110,7 +110,7 @@ class Activities::SectionsController < ApplicationController
 
     @equality_strand = ''
     valid_equality_strands = Activity.strands
-    if valid_equality_strands.include? strand
+    if valid_equality_strands.include? strand or strand == "overall"
       @equality_strand = strand
       @id = params[:id]
     else
