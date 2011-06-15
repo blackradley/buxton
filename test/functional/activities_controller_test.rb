@@ -465,7 +465,6 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to create an activity and send it to the completer if no completer is supplied" do
       post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
-      puts assigns(:activity).errors[:completer_email]
       assert !assigns(:activity).errors[:completer_email].blank?
       assert_response :success
     end
@@ -473,7 +472,6 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to create an activity and send it to the completer if no approver is supplied" do
       post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
-      puts assigns(:activity).errors[:approver_email]
       assert !assigns(:activity).errors[:approver_email].blank?
       assert_response :success
     end
@@ -481,7 +479,6 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to create an activity and send it to the completer if no QC officer is supplied" do
       post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
-      puts assigns(:activity).errors[:qc_officer_email]
       assert !assigns(:activity).errors[:qc_officer_email].blank?
       assert_response :success
     end
@@ -489,7 +486,6 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to create an activity and send it to the completer if no start date is supplied" do
       post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
-      puts assigns(:activity).errors[:start_date]
       assert !assigns(:activity).errors[:start_date].blank?
       assert_response :success
     end
@@ -497,7 +493,6 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to create an activity and send it to the completer if no end date is supplied" do
       post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
-      puts assigns(:activity).errors[:end_date]
       assert !assigns(:activity).errors[:end_date].blank?
       assert_response :success
     end
@@ -505,7 +500,6 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to create an activity and send it to the completer if no review date is supplied" do
       post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
-      puts assigns(:activity).errors[:review_on]
       assert !assigns(:activity).errors[:review_on].blank?
       assert_response :success
     end
@@ -513,7 +507,6 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to create an activity and send it to the completer if no name is supplied" do
       post :create, :activity => {:name => "", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
-      puts assigns(:activity).errors[:name]
       assert !assigns(:activity).errors[:name].blank?
       assert_response :success
     end
@@ -521,7 +514,6 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to create an activity and send if an invalid completer is supplied" do
       post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "gibberish", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
-      puts assigns(:activity).errors[:completer_email]
       assert !assigns(:activity).errors[:completer_email].blank?
       assert_response :success
     end
@@ -529,7 +521,6 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to create an activity if an invalid approver is supplied" do
       post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "gibberish", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
-      puts assigns(:activity).errors[:approver_email]
       assert !assigns(:activity).errors[:approver_email].blank?
       assert_response :success
     end
@@ -537,7 +528,6 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to create an activity if an invalid QC officer is supplied" do
       post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "gibberish", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
-      puts assigns(:activity).errors[:qc_officer_email]
       assert !assigns(:activity).errors[:qc_officer_email].blank?
       assert_response :success
     end
@@ -551,7 +541,6 @@ class ActivitiesControllerTest < ActionController::TestCase
     
     should "be able to create an activity and send it to the completer when cloning it from another activity" do
       post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}, :clone_of => activities(:activities_001).id.to_s
-      puts flash[:notice]
       assert_equal 4, Activity.count
     end
     
