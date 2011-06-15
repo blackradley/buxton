@@ -19,7 +19,7 @@ class Activities::SectionsController < ApplicationController
   # Manager to scan down.
   before_filter :authenticate_user!
   before_filter :set_activity
-  before_filter :set_strand, :only => [:edit]
+  before_filter :set_strand, :only => [:edit, :update]
   before_filter :set_selected
 
   # Get the activity information ready for editing using the appropriate form.
@@ -72,11 +72,6 @@ class Activities::SectionsController < ApplicationController
   # Available to: Activity Manager
   def update
     # If we have issues to process
-    if @activity.submitted
-      flash[:notice] =  "#{@activity.name} has been submitted and cannot be altered."
-      redirect_to questions_activity_path(@activity)
-      return
-    end
     if !@activity.actual_start_date
       @activity.actual_start_date = Date.today
     end
@@ -119,14 +114,17 @@ class Activities::SectionsController < ApplicationController
       @equality_strand = strand
       @id = params[:id]
     else
-      # throw error
-      raise ActiveRecord::RecordNotFound
+      redirect_to access_denied_path
+      return false
     end
   end
   
   def set_activity
     @activity = current_user.activities.select{|a| a.id == params[:id].to_i}.first
-    return false if @activity.submitted
+    if @activity.submitted
+      redirect_to access_denied_path
+      return false
+    end 
   end
   
   def set_selected
