@@ -453,6 +453,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     
     should "be able to view the creation of activity" do
       get :new
+      assert assigns(:service_areas)
       assert_response :success
     end
     
@@ -546,6 +547,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     
     should "be able to view the edit page of an activity that has not been sent to the completer" do
       activities(:activities_001).update_attributes(:ready => false)
+      assert assigns(:service_areas)
       get :edit, :id => activities(:activities_001).id
       assert_response :success
     end

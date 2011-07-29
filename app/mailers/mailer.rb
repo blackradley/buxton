@@ -15,16 +15,36 @@ class Mailer < ActionMailer::Base
   
   def activity_created(activity)
     @activity = activity
-    mail(:to => [@activity.completer, @activity.qc_officer].uniq.map(&:email).join(", "),
+    mail(:to => [@activity.creator, @activity.completer, @activity.qc_officer].uniq.map(&:email).join(", "),
          :subject => "A new EA has been created")
     #mail completer
   end
   
-  def activity_task_group_comment(activity, email_contents, subject, user)
+  def activity_task_group_member_added(activity, user)
+    @activity = activity
+    mail(:to => user.email,
+         :subject => "You have been added to a Task Group for the EA #{@activity.name} Reference ID #{@activity.ref_no} ")
+  end
+  
+  def activity_task_group_member_removed(activity, user)
+    @activity = activity
+    mail(:to => user.email,
+         :subject => "You have been removed from the Task Group for the EA #{@activity.name} Reference ID #{@activity.ref_no} ")
+  end
+  
+  def activity_left_ia(activity)
+    @activity = activity
+    mail(:to => @activity.qc_officer.email,
+         :cc => [@activity.approver, @activity.completer].uniq.map(&:email).join(", "),
+         :reply_to => @activity.completer.email,
+         :subject => "EA #{@activity.name} Reference ID #{@activity.ref_no} has completed the Initial Assessment")
+  end
+  
+  def activity_task_group_comment(activity, email_contents,cc, subject, user)
     @activity = activity
     @contents = email_contents
     mail(:to => activity.completer.email,
-        :cc => activity.task_group_memberships.map(&:user).map(&:email).join(", "),
+        :cc => cc,
           :reply_to => user.email,
          :subject => subject)
   end
@@ -57,7 +77,7 @@ class Mailer < ActionMailer::Base
     @activity = activity
     @contents = email_contents
     mail(:to => @activity.completer.email,
-         :cc => @activity.qc_officer.email,
+         :cc => @activity.qc_officer.email, @activity.creator.email,
          :reply_to => @activity.approver.email,
          :subject => subject)
   end
@@ -76,7 +96,7 @@ class Mailer < ActionMailer::Base
     @activity = activity
     @contents = email_contents
     mail(:to => @activity.completer.email,
-         :cc => @activity.qc_officer.email,
+         :cc => @activity.qc_officer.email,@activity.creator.email,
          :reply_to => @activity.approver.email,
          :subject => subject)
   end

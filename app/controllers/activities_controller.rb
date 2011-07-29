@@ -65,6 +65,7 @@ class ActivitiesController < ApplicationController
     @activity.approved = false
     @activity.submitted = false
     @activity.start_date = nil
+    @activity.actual_start_date = nil
     @activity.end_date = nil
     @activity.review_on = nil
     render :new
@@ -104,11 +105,11 @@ class ActivitiesController < ApplicationController
   def new
     # @directorates = Directorate.where(:creator_id=>current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
-    services = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
+    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
     @selected = "directorate_eas"
     @activity = Activity.new
-    @activity.service_area = services.first
-    @activity.approver = services.first.approver if services.first
+    @activity.service_area = @service_areas.first
+    @activity.approver = @service_areas.first.approver if @service_areas.first
   end
 
   def create
@@ -130,6 +131,7 @@ class ActivitiesController < ApplicationController
         redirect_to directorate_eas_activities_path and return
       else
         @activity = @activity.clone
+        @activity.actual_start_date = nil
       end
     else
       @activity = Activity.new()
@@ -254,6 +256,7 @@ class ActivitiesController < ApplicationController
       @activity.task_group_memberships.build(:user => u)
     end
     if u && @activity.save
+      Mailer.activity_task_group_member_added(@activity,u).deliver
       render :update do |page|
         page.redirect_to task_group_activity_path(@activity)
       end
@@ -271,6 +274,7 @@ class ActivitiesController < ApplicationController
   def remove_task_group_member
     user = @activity.task_group_memberships.find_by_user_id(params[:user_id]).user
     @activity.task_group_memberships.find_by_user_id(params[:user_id]).destroy
+    Mailer.activity_task_group_member_removed(@activity,user).deliver
     flash[:notice] = "#{user.email} was removed from this task group."
     redirect_to task_group_activity_path(@activity.id)
   end
@@ -280,7 +284,7 @@ class ActivitiesController < ApplicationController
   end
   
   def make_task_group_comment
-    Mailer.activity_task_group_comment(@activity, params[:email_contents], params[:subject], current_user).deliver
+    Mailer.activity_task_group_comment(@activity, params[:email_contents], params[:cc], params[:subject], current_user).deliver
     flash[:notice] = "Your comment has been sent."
     redirect_to assisting_activities_path
   end
