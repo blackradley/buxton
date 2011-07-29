@@ -158,7 +158,8 @@ $(document).ready(function(){
   
   
   $(".colorbox").click(function(){
-    $(this).colorbox({'href': $(this).data("path")});
+    $(this).colorbox({'href': $(this).data("path"), 
+                      onComplete: function(){$('.cancelLink').click(function(){$.colorbox.close();} ) }} );
   });
   $('.inline').click(function(){
     $(this).colorbox({'inline': true});
@@ -173,6 +174,12 @@ $(document).ready(function(){
     // console.log(data);
     // alert(status);
     // alert(xhr);
+  });
+  
+  $('#activity_service_area_id').change(function(){
+    $("#activity_approver_email").val(
+      $('#activity_service_area_id option:selected').data("email")
+    )
   });
   
 });

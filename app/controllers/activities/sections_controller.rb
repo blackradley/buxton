@@ -75,6 +75,7 @@ class Activities::SectionsController < ApplicationController
     if !@activity.actual_start_date
       @activity.actual_start_date = Date.today
     end
+    initially_in_ia = @activity.questions.where("name like 'purpose_%' and completed = false and needed = true AND name not like 'purpose_overall_14'").size > 0
     
     # if params[:activity][:issues_attributes] then
     #   #marks all previously existing issues that had their description field blanked for destruction
@@ -82,6 +83,10 @@ class Activities::SectionsController < ApplicationController
     # end
     # Update the answers in the activity table
     @activity.update_attributes!(params[:activity])
+    #delivers the finished initial assessment email
+    if initially_in_ia && @activity.questions.where("name like 'purpose_%' and completed = false and needed = true AND name not like 'purpose_overall_14'").size == 0
+      Mailer.activity_left_ia(@activity).deliver
+    end
     # Update the activity strategy answers if we have any (currently only in the Purpose section)
     if params[:strategy_responses] then
       params[:strategy_responses].each do |strategy_id, strategy_response|

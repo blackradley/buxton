@@ -1,5 +1,12 @@
 %h2 Assisting EA's
-%table#sortable{:cellspacing=>"0", :cellpadding=>"0"}
+.searchBox
+  = form_tag '#', :id => 'searchForm' do
+    %label Search for:
+    = text_field_tag 'search_term', '', :class => 'textField'
+    = submit_tag 'Search', :class => 'submitButton'
+    %p Search will return all records with Service Area, Name, Ref No or Approver matching the search text.
+    
+%table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
   %thead
     %tr
       %th Service Area
