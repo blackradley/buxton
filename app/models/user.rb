@@ -115,7 +115,7 @@ class User < ActiveRecord::Base
       when "Corporate Cop"
         Activity.active
       when "Helper"
-        Activity.active.includes(:task_group_memberships).where(:task_group_memberships => {:user_id => self.id})
+        Activity.active.joins(:task_group_memberships).where(:task_group_memberships => {:user_id => self.id})
       end
     end.flatten.compact.uniq
   end
