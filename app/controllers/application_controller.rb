@@ -6,8 +6,8 @@ class ApplicationController < ActionController::Base
 
   before_filter :set_current_user
   before_filter :set_banner if BANNER
-  rescue_from ActiveRecord::RecordNotFound, :with => :not_found
-  rescue_from NoMethodError, :with => :wrong_user? unless DEV_MODE
+  # rescue_from ActiveRecord::RecordNotFound, :with => :not_found
+  # rescue_from NoMethodError, :with => :wrong_user? unless DEV_MODE
   before_filter :authenticate_user!
   before_filter :check_trained
   before_filter :setup_menus
@@ -57,9 +57,9 @@ protected
     false
   end
   
-  def not_found
-    render :file => "#{Rails.root}/public/404.html",  :status => "404 Not Found", :layout => false
-  end
+  # def not_found
+  #   render :file => "#{Rails.root}/public/404.html",  :status => "404 Not Found", :layout => false
+  # end
   
   def requires_admin
     return if devise_controller?
