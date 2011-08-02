@@ -398,7 +398,7 @@ class ActivitiesController < ApplicationController
 protected
   
   def set_activity
-    @activity = current_user.activities.select{|a| a.id == params[:id].to_i}.first
+    @activity = current_user.activities.detect{|a| a.id == params[:id].to_i}
     redirect_to access_denied_path unless @activity
   end
   
