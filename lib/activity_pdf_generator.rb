@@ -65,9 +65,9 @@ class ActivityPDFGenerator
   def build_header
       @pdf.fill_color Color::RGB.const_get('Black')
       @pdf.image( "#{Rails.root}/public/images/bcc_logo_pdf.jpg", :justification => :center, :resize => 0.5)
-      @pdf.text "<b>Equality Assessment Toolkit</b>", :justification => :center, :font_size => 22
+      @pdf.text "<b>Equality Analysis</b>", :justification => :center, :font_size => 22
       @pdf.text " ", :justification => :center, :font_size => 10
-      @pdf.text "<c:uline><b>Birmingham City Council Assessment Report</b></c:uline>", :justification => :center, :font_size => 14
+      @pdf.text "<c:uline><b>Birmingham City Council Analysis Report</b></c:uline>", :justification => :center, :font_size => 14
       @pdf.text " ", :justification => :center, :font_size => 10 #Serves as a new line character. Is this more readable than moving the cursor manually?
     return @pdf
   end
@@ -76,6 +76,7 @@ class ActivityPDFGenerator
     table = []
     table << ['<b>Activity</b>', @activity.name.titlecase]
     table << ["<b>Directorate </b>", @activity.directorate.name.titlecase]
+    table << ["<b>Service Area</b>", @activity.service_area.name.titlecase]
     table << ["<b>Type</b>", "#{@activity.activity_status_name.titlecase} #{@activity.activity_type_name.titlecase}"]
     table << ["<b>Activity Summary</b>", @activity.summary.to_s]
     table << ["<b>Reference Number</b>", "#{@activity.ref_no}"]
@@ -91,28 +92,18 @@ class ActivityPDFGenerator
     @pdf.text " ", :font_size => 10
     @pdf.text "<c:uline><b>Introduction</b></c:uline>", :font_size => 12
     @pdf.text " ", :font_size => 10
-    @pdf.text "The report records the information that has been submitted for this equality impact assessment in the following format."
+    @pdf.text "The report records the information that has been submitted for this equality analysis in the following format."
     @pdf.text " ", :font_size => 10
     @pdf.text "<b>          Overall Purpose</b>", :font_size => 12
     @pdf.text " ", :font_size => 10
     @pdf.text "This section identifies the purpose of the Policy and which types of individual it affects.  It also identifies which equality strands are affected by either a positive or negative differential impact."
     @pdf.text " ", :font_size => 10
-    @pdf.text "<b>          Relevant Equality Strands</b>", :font_size => 12
+    @pdf.text "<b>          Relevant Protected Characteristics</b>", :font_size => 12
     @pdf.text " ", :font_size => 10
-    @pdf.text "For each of the identified relevant equality strands there are three sections which will have been completed."
+    @pdf.text "For each of the identified relevant protected characteristics there are three sections which will have been completed."
     @pdf.text "  <C:bullet />  Impact", :left => 20
     @pdf.text "  <C:bullet />  Consultation", :left => 20
     @pdf.text "  <C:bullet />  Additional Work", :left => 20
-    @pdf.text " ", :font_size => 10
-    @pdf.text "These sections will result in the following rankings:"
-    @pdf.text " ", :font_size => 10
-    @pdf.text "<b>                    Priority Ranking</b>", :font_size => 12
-    @pdf.text " ", :font_size => 10
-    @pdf.text "For relevant equality strands this provides a score between 1 (lowest) to 5 (highest) showing the level of priority, with reference to equalities, the activity has for the organisation.", :left => 40
-    @pdf.text " ", :font_size => 10
-    @pdf.text "<b>                    Impact Ranking</b>", :font_size => 12
-    @pdf.text " ", :font_size => 10
-    @pdf.text "For relevant equality strands this provides a high, medium or low ranking showing the potential differential impact on individuals within each of the equality groups.", :left => 40
     @pdf.text " ", :font_size => 10
     @pdf.text "If the assessment has raised any issues to be addressed there will also be an action planning section."
     @pdf.text " ", :font_size => 10
