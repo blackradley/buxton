@@ -1,17 +1,6 @@
 #strand {
   width: 700px; }
 
-html {
-  height: 100%; }
-  html body {
-    height: 100%; }
-    html body .container {
-      height: 100%; }
-      html body .container .content {
-        height: 100%; }
-        html body .container .content .workingArea {
-          height: 100%; }
-
 .step .stepBox p img {
   margin-bottom: -2px;
   padding-bottom: 4px; }
