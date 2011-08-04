@@ -2,6 +2,7 @@
 
 #questions.no_help
   = form_for @activity, :url => activities_section_path(@activity) do |form|
+    = hidden_field_tag 'equality_strand', @equality_strand
     %h4 In the Impact section you identified the following issues to be addressed:
     - if @impact_issues.size > 0    
       %ul
