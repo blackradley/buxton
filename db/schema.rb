@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110614143711) do
+ActiveRecord::Schema.define(:version => 20110808154440) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -311,6 +311,9 @@ ActiveRecord::Schema.define(:version => 20110614143711) do
     t.text    "lead_officer"
     t.string  "strand"
     t.text    "section"
+    t.text    "recommendations"
+    t.text    "monitoring"
+    t.text    "outcomes"
   end
 
   add_index "issues", ["activity_id"], :name => "index_issues_on_activity_id"
