@@ -42,14 +42,14 @@
           Relevant Protected Characteristics
         %br
         %span.indented
-          Please indicate by ticking the boxes which Equality Dimensions you would like to include in the assessment. The Equality Dimensions which, based on your answers in the Initial Assessment, are deemed relevant to this EA, can not be unselected.
+          The Relevance Test in the Initial Assessment section show which Protected Characteristics are relevant. These need to progress to Full Assessment and cannot be unselected.
       -@activity.overview_strands.each do |strand_name, strand|
         -selected = false
         %span.checkStrand
           -if @activity.strand_required?(strand) then
             = check_box_tag("#{strand}_checkbox", strand_name, true, :disabled =>true)
           -else
-            = check_box_tag("#{strand}_checkbox", strand_name, @activity.strand_relevant?(strand), "data-path" => toggle_strand_activity_path(@activity, :strand => strand), :disabled => @activity.submitted)
+            = check_box_tag("#{strand}_checkbox", strand_name, @activity.strand_relevant?(strand), "data-path" => toggle_strand_activity_path(@activity, :strand => strand), :disabled => true)
           %label
             =h strand_display(strand).titlecase
             / -if @activity.impact_calculation(strand).to_i > 9 then
@@ -116,9 +116,9 @@
   -approval_vis = @activity.completed
   .step.approvalStep{:style => "#{'display:none' unless approval_vis}"}
     .stepBox
-      %h2 Submit Assessment for Approval
+      %h2 Submit Equality Analysis for Quality Control and Approval
       %p
-        If you are happy with your answers, all that remains for you to do is to submit the assessment for approval. Upon submission you will no longer be able to change any of your answers.  The Senior Officer for this EA will be able to see all your answers and comments for the report but not the notes to yourself.
+        If you are happy with the Equality Analysis, all that remains for you to do is submit it for Quality Control and approval. Upon submission you will no longer be able to change any of your answers. The Quality Control Officer and senior Officer will be able to see your answers and comments/analysis for the report but not the notes to yourself.
       -if @activity.submitted.nil? or !@activity.submitted
         %p{:style=>"text-align:center;"}
           =link_to "Submit",  {:controller => 'activities', :action => 'submit'}, :class=>"orangeButton"
