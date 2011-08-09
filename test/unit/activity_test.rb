@@ -481,8 +481,8 @@ class ActivityTest < ActiveSupport::TestCase
     context "when you add incomplete issues" do
     
       setup do
-        @activity.issues.create(:strand => "gender", :section => "impact", :description => "Issue description")
-        @activity.issues.create(:strand => "gender", :section => "consultation", :description => "Issue description")
+        @activity.issues.create(:strand => "gender", :section => "impact", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+        @activity.issues.create(:strand => "gender", :section => "consultation", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
       end
       
       should "have impact gender completed" do
@@ -501,8 +501,8 @@ class ActivityTest < ActiveSupport::TestCase
     context "when you add complete issues" do
     
       setup do
-        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "impact", :resources => "none", :description => "Issue description")
-        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "consultation", :resources => "none", :description => "Issue description")
+        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "impact", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "consultation", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
       end
       
       should "have impact gender completed" do
@@ -609,10 +609,10 @@ class ActivityTest < ActiveSupport::TestCase
     context "when you add incomplete issues" do
     
       setup do
-        @activity.issues.create(:strand => "gender", :section => "impact", :description => "Issue description")
-        @activity.issues.create(:strand => "gender", :section => "consultation", :description => "Issue description")
-        @activity.issues.create(:strand => "age", :section => "impact", :description => "Issue description")
-        @activity.issues.create(:strand => "age", :section => "consultation", :description => "Issue description")
+        @activity.issues.create(:strand => "gender", :section => "impact", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+        @activity.issues.create(:strand => "gender", :section => "consultation", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+        @activity.issues.create(:strand => "age", :section => "impact", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+        @activity.issues.create(:strand => "age", :section => "consultation", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
       end
       
       should "have impact gender completed" do
@@ -631,10 +631,10 @@ class ActivityTest < ActiveSupport::TestCase
     context "when you add complete issues" do
     
       setup do
-        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "impact", :resources => "none", :description => "Issue description")
-        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "consultation", :resources => "none", :description => "Issue description")
-          @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "age", :section => "impact", :resources => "none", :description => "Issue description")
-          @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "age", :section => "consultation", :resources => "none", :description => "Issue description")
+        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "impact", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "consultation", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+          @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "age", :section => "impact", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+          @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "age", :section => "consultation", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
       end
       
       should "have impact gender completed" do

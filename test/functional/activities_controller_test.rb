@@ -768,10 +768,10 @@ class ActivitiesControllerTest < ActionController::TestCase
       @activity.questions.where(:section => "additional_work", :strand => "age").each do |q|
         q.update_attributes(:raw_answer => "1")
       end
-      @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "impact", :resources => "none", :description => "Issue description")
-      @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "consultation", :resources => "none", :description => "Issue description")
-        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "age", :section => "impact", :resources => "none", :description => "Issue description")
-        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "age", :section => "consultation", :resources => "none", :description => "Issue description")
+      @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "impact", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+      @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "consultation", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "age", :section => "impact", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "age", :section => "consultation", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
       post :submit, :id => @activity.id
       assert_response :redirect
       assert_redirected_to questions_activity_path(@activity)
