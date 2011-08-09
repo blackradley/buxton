@@ -26,7 +26,7 @@ class IssueTest < ActiveSupport::TestCase
   context "with an issue that has been completed" do
     setup do
       @activity = Factory.stub(:activity)
-      @issue = Factory(:issue, :activity => @activity, :actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "impact", :resources => "none")
+      @issue = Factory(:issue, :activity => @activity, :actions => "Action", :timescales => "timescale", :lead_officer => "Joe", :strand => "gender", :section => "impact", :resources => "none", :recommendations => "none", :monitoring => "none", :outcomes => "none")
     end
     
     should "be complete" do
