@@ -96,7 +96,7 @@ class Mailer < ActionMailer::Base
     @activity = activity
     @contents = email_contents
     mail(:to => @activity.completer.email,
-         :cc => [@activity.qc_officer.email, @activity.creator.email].uniq.join(", "),
+         :cc => [@activity.qc_officer.email, @activity.creator.email, @activity.approver.email].uniq.join(", "),
          :reply_to => @activity.approver.email,
          :subject => subject)
   end
