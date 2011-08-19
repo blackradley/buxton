@@ -64,6 +64,10 @@
         .messageArea
           %p
             =flash[:notice]
+      - if flash[:error]
+        .messageArea
+          %p
+            =flash[:error]
       .content
         .workingArea
           #content_holder

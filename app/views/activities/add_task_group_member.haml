@@ -1,6 +1,6 @@
 .approverForm
   %h2= "Please enter the Task Group Member you wish to add to #{@activity.name}" 
-  = semantic_form_for @activity, :remote => true, :url => create_task_group_member_activity_path(@activity), :html => {:class => "lightboxForm"} do |form|
+  = semantic_form_for @activity, :remote => true, :url => create_task_group_member_activity_path(@activity), :html => {:class => "lightboxForm", :method => :POST} do |form|
     = form.inputs :id => "standardInputs" do
       =form.autocompleted_input :task_group_member, :url => autocomplete_user_email_activities_path
     = form.buttons do

@@ -121,7 +121,7 @@
         If you are happy with the Equality Analysis, all that remains for you to do is submit it for Quality Control and approval. Upon submission you will no longer be able to change any of your answers. The Quality Control Officer and senior Officer will be able to see your answers and comments/analysis for the report but not the notes to yourself.
       -if @activity.submitted.nil? or !@activity.submitted
         %p{:style=>"text-align:center;"}
-          =link_to "Submit",  {:controller => 'activities', :action => 'submit'}, :class=>"orangeButton"
+          =link_to "Submit",  submit_activity_path(@activity), :method => :POST, :class=>"orangeButton"
       -else
         %p#submitted_answers{:style=>"display:block;"}
           =image_tag('icons/tick.gif')
