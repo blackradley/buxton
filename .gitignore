@@ -7,3 +7,5 @@ log
 public/images/organisations
 tmp
 .DS_Store
+db/production_data.sql
+coverage.data
