@@ -6,8 +6,7 @@ class PasswordsController < Devise::PasswordsController
     if resource
       resource.reset_password!
       set_flash_message(:notice, :updated) if is_navigational_format?
-      sign_in(resource_name, resource)
-      redirect_to root_path
+      redirect_to login_path
     else
       redirect_to access_denied_path
     end
