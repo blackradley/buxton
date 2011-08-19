@@ -40,8 +40,8 @@ Buxton::Application.routes.draw do
     
     member do
       get :questions
-      get :submit
-      get :clone
+      post :submit
+      post :clone
       post :toggle_strand
       get :approve
       get :reject
@@ -49,7 +49,7 @@ Buxton::Application.routes.draw do
       get :task_group
       get :add_task_group_member
       delete :remove_task_group_member
-      put :create_task_group_member
+      post :create_task_group_member
       get :comment
       get :task_group_comment_box
       post :make_task_group_comment
