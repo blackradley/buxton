@@ -58,7 +58,7 @@
         %td= activity.progress
         %td= activity.relevant_action_count
         %td.last
-          = link_to "task group", task_group_activity_path(activity), :class => "action members"
+          = link_to "task group", task_group_activity_path(activity), :class => "action members" unless activity.submitted
           = link_to "edit", questions_activity_path(activity), :class => "action edit" unless activity.submitted
           = link_to "view", activity_path(activity), :class => "action view"
 
