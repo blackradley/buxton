@@ -29,7 +29,7 @@ form.formtastic fieldset > ol > li {
 }
 
 form.formtastic fieldset > ol > li label {
-    display: block;
+    display: inline;
     float: left;
     padding-top: 0;
     width: 150px;
@@ -37,6 +37,7 @@ form.formtastic fieldset > ol > li label {
     font-weight:bold;
 }
 form.formtastic fieldset > ol > li input, form.formtastic fieldset > ol > li.string input{
+    display: inline;
     font-size: 12px;
     line-height: 12px;
     padding: 2px;
