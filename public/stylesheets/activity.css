@@ -1,7 +1,10 @@
 #new_activityForm p {
   float: left; }
 #new_activityForm label {
+  display: inline;
   width: 350px; }
+#new_activityForm input {
+  display: inline; }
 #new_activityForm .labelled {
   width: 240px;
   float: right;
