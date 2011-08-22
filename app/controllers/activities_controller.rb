@@ -32,7 +32,7 @@ class ActivitiesController < ApplicationController
   before_filter :ensure_activity_quality_control, :only => [:comment, :submit_comment]
   before_filter :ensure_activity_approver, :only => [:approve, :reject, :submit_approval, :submit_rejection]
   before_filter :ensure_activity_editable, :only => [:edit, :update]
-  before_filter :ensure_not_approved, :only => [:task_group, :add_task_group_member, :remove_task_group_member, :create_task_group_member, :submit_approval, :submit_rejection, :submit, :task_group_comment_box, :make_task_group_comment, :comment, :submit_comment]
+  before_filter :ensure_not_approved, :only => [:add_task_group_member, :remove_task_group_member, :create_task_group_member, :submit_approval, :submit_rejection, :submit, :task_group_comment_box, :make_task_group_comment, :comment, :submit_comment]
 
   autocomplete :user, :email, :scope => :live
   
@@ -412,7 +412,7 @@ protected
   end
   
   def ensure_activity_quality_control
-    redirect_to access_denied_path unless @activity.qc_officer == current_user
+    redirect_to access_denied_path unless (@activity.qc_officer == current_user) && @activity.submitted && !@activity.undergone_qc
   end
   
   def ensure_activity_approver
@@ -424,10 +424,7 @@ protected
   end
   
   def ensure_not_approved
-    if @activity.approved
-      flash[:error] = "This activity has already been approved and cannot be changed."
-      redirect_to access_denied_path
-    end
+    redirect_to access_denied_path if @activity.approved
   end
   
 end
