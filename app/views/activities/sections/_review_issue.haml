@@ -6,27 +6,13 @@
     = link_to image_tag('icons/edit.gif') + "Open Action Plan", '#',  :class => "issueEdit"
     = link_to image_tag('icons/edit.gif') + "Minimise Action Plan", '#',  :class => "issueEdit", :style => "display:none"
     = issue_form.hidden_field :_destroy, :class => 'issue_destroy'
-  .issueDetails{:style => "display:none;"}
-    %p.question.sub
-      %label
-        Summary actions to address the issues
-      = issue_form.text_area :actions, :class => "issueActions"
-      %label
-        Resources necessary to implement the actions
-      = issue_form.text_area :resources
-      %label
-        Timescales for commencing and completing the actions
-      = issue_form.text_area :timescales
-      %label
-        Lead Officer responsible for the Action Plan
-      = issue_form.text_area :lead_officer
-      %label
-        How will the recommendations of this assessment be built in to wider planning and review processes?
-      = issue_form.text_area :recommendations
-      %label
-        How will you monitor the impact and effectiveness of the new policy or function?
-      = issue_form.text_area :monitoring
-      %label
-        What are, or have been, the outcomes resulting from this Equality Analysis?
-      = issue_form.text_area :outcomes
+  .issueDetails{:style => "display:none"}
+    %ul
+      = issue_form.input :actions, :label => "Summary actions to address the issues",  :wrapper_html =>{:class => "question"}, :input_html => {:class => "issueAction"}
+      = issue_form.input :resources, :label => "Resources necessary to implement the actions", :wrapper_html =>{:class => "question"}
+      = issue_form.input :timescales, :label => "Timescales for commencing and completing the actions", :wrapper_html =>{:class => "question"}
+      = issue_form.input :lead_officer, :label => "Lead Officer responsible for the Action Plan", :wrapper_html =>{:class => "question"}
+      = issue_form.input :recommendations, :label => "How will the recommendations of this assessment be built in to wider planning and review processes?", :wrapper_html =>{:class => "question"}
+      = issue_form.input :monitoring, :label => "How will you monitor the impact and effectiveness of the new policy or function?", :wrapper_html =>{:class => "question"}
+      = issue_form.input :outcomes, :label => "What are, or have been, the outcomes resulting from this Equality Analysis?", :wrapper_html =>{:class => "question"}
   .clear

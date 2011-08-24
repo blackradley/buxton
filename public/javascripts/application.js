@@ -10,7 +10,7 @@ jQuery.expr[':'].Contains = function(a,i,m){
 var sorter;
 
 $(document).ready(function(){
-  
+  $('.mask').height($('.mask').parent().height());
   $('.formtastic.activity #standardInputs input').bind('keyup change', function(){
     if($("#standardInputs").find(":text[value=]").length == 0){
       $("#readyInput").show();
@@ -179,7 +179,7 @@ $(document).ready(function(){
   $('#activity_service_area_id').change(function(){
     $("#activity_approver_email").val(
       $('#activity_service_area_id option:selected').data("email")
-    )
+    );
   });
   
 });

@@ -8,7 +8,8 @@
     =raw(stylesheet_link_merged :base)
     =raw(stylesheet_link_tag 'login')
     =raw javascript_include_merged :base
-    =raw  "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->"
+    = stylesheet_link_tag 'fixes_ie6'
+    =raw  "<!--[if lt IE 7]> #{}<![endif]-->"
     =raw "<!--[if lt IE 7]> #{javascript_include_tag 'jquery.pngFix.js'}<![endif]-->"
     =raw "<!--[if gte IE 7]> #{stylesheet_link_tag 'fixes_ie7'}<![endif]-->"
     = csrf_meta_tag

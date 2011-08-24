@@ -1,20 +1,20 @@
-%h1#questions=h @activity.name + " - " + strand_display(@equality_strand).titlecase + " - Action Planning"
+%h1= @activity.name + " - " + strand_display(@equality_strand).titlecase + " - Action Planning"
 
 #questions.no_help
-  = form_for @activity, :url => activities_section_path(@activity) do |form|
+  = semantic_form_for @activity, :url => activities_section_path(@activity) do |form|
     = hidden_field_tag 'equality_strand', @equality_strand
     %h4 In the Impact section you identified the following issues to be addressed:
     - if @impact_issues.size > 0    
-      %ul
-        = form.fields_for :issues, @impact_issues do |f|
+      = form.semantic_fields_for :issues, @impact_issues do |f|
+        %ul
           = render :partial => 'review_issue', :locals => {:issue_form => f}
     - else
       %p.noIssue No issues to plan actions for.
       
     %h4 In the Consultation section you identified the following issues to be addressed:
     - if @consultation_issues.size > 0
-      %ul
-        = form.fields_for :issues, @consultation_issues do |f|
+      = form.semantic_fields_for :issues, @consultation_issues do |f|
+        %ul
           = render :partial => 'review_issue', :locals => {:issue_form  => f}
     - else
       %p.noIssue No issues to plan actions for.

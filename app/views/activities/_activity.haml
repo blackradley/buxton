@@ -17,7 +17,8 @@
     = form.input :ready, :label => "Send to Task Group Manager", :style => "display:none"
   = form.buttons do
     = form.submit "Save", :disable_with => 'Saving...'
-    =raw "or #{link_to "cancel", directorate_eas_activities_path}"
+    %span.cancelLink
+      =raw "or #{link_to "cancel", directorate_eas_activities_path}"
 #formHelp
   %p
     %strong Title:
