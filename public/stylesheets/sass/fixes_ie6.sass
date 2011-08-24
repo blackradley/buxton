@@ -1,8 +1,37 @@
+
+.clear
+  :height 0px
+  :margin 0px
+  :padding 0px
+  
+form.formtastic 
+  fieldset  
+    ol
+      li.boolean 
+        label 
+          :padding-left 0
+          :width 180px
+        input
+          :border 0
+      li 
+        select
+          :width 424px
+        p.inline-errors
+          width: 414px
+          
+      li.string,
+      li.autocompleted_string,
+      li.datepicker 
+        input
+          width: 415px
+          background-position: 402px center
+      
+      li.text 
+        textarea
+          width: 70%
+
 #strand
   :width 700px
-
-
-
 
 .step
   .stepBox
@@ -14,6 +43,11 @@
     .checkStrand
       input
         :margin-top 2px
+
+h1,
+h2,
+h3
+  :font-weight bold
 
 h1
   :margin-top 20px
@@ -75,7 +109,6 @@ h3
 .content .workingArea #content_holder h1#questions
   :margin-top 10px
   :margin-left 0px
-
 
 #questions
   .more

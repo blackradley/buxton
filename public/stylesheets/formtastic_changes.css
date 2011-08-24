@@ -5,7 +5,7 @@ This will allow you to update formtastic.css with new releases without clobberin
 
 For example, to make the inline hint paragraphs a little darker in color than the standard #666:
 
-form.formtastic fieldset > ol > li p.inline-hints { color:#333; }
+form.formtastic fieldset  ol  li p.inline-hints { color:#333; }
 
 HINT:
 The following style may be *conditionally* included for improved support on older versions of IE(<8)
@@ -22,13 +22,13 @@ form.formtastic fieldset {
     
 }
 
-form.formtastic fieldset > ol > li {
+form.formtastic fieldset  ol  li {
     margin-bottom: 0;
     margin-top: 0;
     padding: 3px 0;
 }
 
-form.formtastic fieldset > ol > li label {
+form.formtastic fieldset  ol  li label {
     display: inline;
     float: left;
     padding-top: 0;
@@ -36,35 +36,35 @@ form.formtastic fieldset > ol > li label {
     line-height: 20px;
     font-weight:bold;
 }
-form.formtastic fieldset > ol > li input, form.formtastic fieldset > ol > li.string input{
+form.formtastic fieldset  ol  li input, form.formtastic fieldset  ol  li.string input{
     display: inline;
     font-size: 12px;
     line-height: 12px;
     padding: 2px;
     width: 434px;
 }
-form.formtastic fieldset > ol > li.datepicker input{
+form.formtastic fieldset  ol  li.datepicker input{
 background-image: url(../images/icons/calendar.png);
 background-repeat: no-repeat;
 background-position: 421px center;
 }
-form.formtastic fieldset > ol > li select{
+form.formtastic fieldset  ol  li select{
     font-size: 12px;
     line-height: 12px;
     padding: 2px;
     width: 440px;
 }
-form.formtastic fieldset > ol > li p.inline-errors {
+form.formtastic fieldset  ol  li p.inline-errors {
     color: #CC0000;
     float: right;
     margin: 0;
     width: 440px;
 }
-form.formtastic fieldset > ol > li.boolean label {
+form.formtastic fieldset  ol  li.boolean label {
     padding-left: 0;
     width: 170px;
 }
-form.formtastic fieldset > ol > li.boolean label input {
+form.formtastic fieldset  ol  li.boolean label input {
     float: right;
     margin: 3px 0 0;
     width: auto;
