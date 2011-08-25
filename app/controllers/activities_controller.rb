@@ -260,9 +260,10 @@ class ActivitiesController < ApplicationController
     end
     if u && @activity.save
       Mailer.activity_task_group_member_added(@activity,u).deliver
-      render :update do |page|
-        page.redirect_to task_group_activity_path(@activity)
-      end
+      render :text => "form load successful",:content_type => 'text/plain'
+      # render :update do |page|
+      #   page.redirect_to task_group_activity_path(@activity)
+      # end
     else
       if u.blank?
         @activity.errors.add(:task_group_member, "You must enter a valid user")

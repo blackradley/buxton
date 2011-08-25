@@ -169,8 +169,10 @@ $(document).ready(function(){
   $('.lightboxForm').live('ajax:success', function(data, status, xhr) {
     // $('#cboxLoadedContent').html(status);
     // alert(data);
-    if (status.substring(5,0)!='try {')
+    if(status == "form load successful"){window.location.reload();}
+    else{
       $.colorbox({html: status});
+    }
     // console.log(data);
     // alert(status);
     // alert(xhr);
