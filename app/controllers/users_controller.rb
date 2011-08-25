@@ -69,9 +69,10 @@ class UsersController < ApplicationController
     @breadcrumb = [["User Administration", users_path], ["Edit User"]]
     @user = User.find(params[:id])
     if @user.update_attributes(params[:user])
-      render :update do |page|
-        page.redirect_to users_path
-      end
+      render :text => "form load successful", :content_type => 'text/plain'
+      # render :update do |page|
+      #   page.redirect_to users_path
+      # end
     else
       render "edit", :layout => false
     end
