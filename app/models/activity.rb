@@ -36,7 +36,6 @@ class Activity < ActiveRecord::Base
   has_many :issues, :dependent => :destroy
   has_many :questions, :dependent => :destroy
   has_many :task_group_memberships
-  has_one :previous_activity, :class_name => "Activity", :foreign_key => :previous_activity_id
   
   validates_presence_of :service_area
   validates :name, :presence => {:if => :ready?, :full_message => 'Your EA must have a name'}
@@ -57,7 +56,8 @@ class Activity < ActiveRecord::Base
   before_update :set_approved, :update_completed
   after_create :create_questions_if_new
   
-  #default_scope :conditions => {:is_rejected => false}
+  default_scope :conditions => {:is_rejected => false}
+
   scope :active,  lambda{
     joins(:service_area => :directorate).where(:service_areas => {:retired => false, :directorates => {:retired => false}}).readonly(false)
   }
@@ -73,6 +73,10 @@ class Activity < ActiveRecord::Base
   before_validation :mark_empty_issues
   attr_accessor :task_group_member
   
+  def previous_activity
+    Activity.send(:with_exclusive_scope){Activity.where(:previous_activity_id => self.id).first}
+  end
+
   def mark_empty_issues
     issues.select{|i| i.description.blank?}.each do |issue|
       issue.mark_for_destruction

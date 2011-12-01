@@ -60,5 +60,6 @@
         %td.last
           = link_to "view", activity_path(activity), :class => "action view"
           - if activity.submitted && !activity.undergone_qc && !activity.approved
-            = link_to "comment", '#', "data-path" => comment_activity_path(activity), :class => "action comment colorbox"
+            = link_to "reject", '#', "data-path" => reject_activity_path(activity), :class => "action reject colorbox"
+            = link_to "comment", '#', "data-path" => comment_activity_path(activity), :class => "action approve colorbox"
 
