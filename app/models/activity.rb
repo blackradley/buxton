@@ -36,6 +36,7 @@ class Activity < ActiveRecord::Base
   has_many :issues, :dependent => :destroy
   has_many :questions, :dependent => :destroy
   has_many :task_group_memberships
+  has_one :previous_activity, :class_name => "Activity", :foreign_key => :previous_activity_id
   
   validates_presence_of :service_area
   validates :name, :presence => {:if => :ready?, :full_message => 'Your EA must have a name'}
@@ -56,7 +57,7 @@ class Activity < ActiveRecord::Base
   before_update :set_approved, :update_completed
   after_create :create_questions_if_new
   
-  default_scope :conditions => {:is_rejected => false}
+  #default_scope :conditions => {:is_rejected => false}
   scope :active,  lambda{
     joins(:service_area => :directorate).where(:service_areas => {:retired => false, :directorates => {:retired => false}}).readonly(false)
   }
@@ -607,6 +608,8 @@ class Activity < ActiveRecord::Base
       new_q.completed = q.completed
       new_q.needed = q.needed
       new_q.raw_answer = q.raw_answer
+      new_q.build_note(:contents => q.note.contents) if q.note
+      new_q.build_comment(:contents => q.comment.contents) if q.comment
       new_q.save!
     end
     self.activity_strategies.each do |a|
@@ -615,7 +618,7 @@ class Activity < ActiveRecord::Base
     end
     self.issues.each do |i|
       new_i= new_activity.issues.build(:description => i.description, :actions => i.actions, :timescales => i.timescales,
-                                       :resources => i.resources, :lead_officer => i.lead_officer, :strand => i.strand, :section => i.section)
+                                       :resources => i.resources, :lead_officer => i.lead_officer, :strand => i.strand, :section => i.section, :parent_issue => i)
       new_i.save!
     end
     new_activity.save!

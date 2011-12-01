@@ -24,7 +24,6 @@ class Question < ActiveRecord::Base
   # end
   # 
 
-  
   def response
     if self.input_type == "select"
       self.raw_answer.to_i
@@ -85,5 +84,37 @@ class Question < ActiveRecord::Base
     end
     dependency_hash
   end
+
+  def changed?
+    different_answer? || different_comment? || different_note?
+  end
+
+  def different_answer?
+    return false unless self.activity.previous_activity
+    previous_question = self.activity.previous_activity.questions.where(:name => self.name).first
+    return previous_question.raw_answer != self.raw_answer 
+  end
+
+  def different_comment?
+    return false unless self.activity.previous_activity
+    previous_question = self.activity.previous_activity.questions.where(:name => self.name).first
+    return false if previous_question.comment.nil? && self.comment.nil?
+    return false unless previous_question.comment || self.comment
+    return previous_question.comment.contents.to_s != self.comment.contents.to_s 
+  end
+
+  def different_note?
+    return false unless self.activity.previous_activity
+    previous_question = self.activity.previous_activity.questions.where(:name => self.name).first
+    return false if previous_question.note.nil? && self.note.nil?
+    return false unless previous_question.note || self.note
+    return previous_question.note.contents != self.note.contents 
+  end
+
+  def previous
+    return nil unless self.activity.previous_activity
+    self.activity.previous_activity.questions.where(:name => self.name).first
+  end
+
 
 end

@@ -388,6 +388,7 @@ class ActivitiesController < ApplicationController
       new_activity.start_date = @activity.start_date
       new_activity.end_date = @activity.end_date
       new_activity.review_on = @activity.review_on
+      new_activity.previous_activity = @activity
       new_activity.save!
       # @activity.update_attributes(:submitted => false)
       flash[:notice] = "#{@activity.name} rejected."

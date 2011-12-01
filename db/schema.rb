@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110808154440) do
+ActiveRecord::Schema.define(:version => 20111201094835) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -50,6 +50,7 @@ ActiveRecord::Schema.define(:version => 20110808154440) do
     t.boolean  "is_rejected",                         :default => false
     t.integer  "qc_officer_id"
     t.boolean  "undergone_qc",                        :default => false
+    t.integer  "previous_activity_id"
   end
 
   create_table "activities_projects", :id => false, :force => true do |t|
@@ -314,6 +315,7 @@ ActiveRecord::Schema.define(:version => 20110808154440) do
     t.text    "recommendations"
     t.text    "monitoring"
     t.text    "outcomes"
+    t.integer "parent_issue_id"
   end
 
   add_index "issues", ["activity_id"], :name => "index_issues_on_activity_id"

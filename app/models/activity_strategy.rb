@@ -26,4 +26,33 @@ class ActivityStrategy < ActiveRecord::Base
       self.activity.update_attributes(:purpose_completed => false) if self.strategy_response == 0
     end
   end
+
+  def changed?
+    different_answer? || different_comment? || different_note?
+  end
+
+  def different_answer?
+    return false unless self.activity.previous_activity
+    previous_strategy = self.activity.previous_activity.activity_strategies.where(:strategy_id => self.strategy_id).first
+    return previous_strategy.strategy_response != self.strategy_response 
+  end
+
+  def different_comment?
+    return false unless self.activity.previous_activity
+    previous_strategy = self.activity.previous_activity.activity_strategies.where(:strategy_id => self.strategy_id).first
+    return previous_strategy.comment.contents != self.comment.contents
+  end
+
+  def different_note?
+    return false unless self.activity.previous_activity
+    previous_strategy = self.activity.previous_activity.activity_strategies.where(:strategy_id => self.strategy_id).first
+    return previous_strategy.note.contents != self.note.contents 
+  end
+
+  def previous
+    return nil unless self.activity.previous_activity
+    self.activity.previous_activity.activity_strategies.where(:strategy_id => self.strategy_id).first
+  end
+
+
 end
