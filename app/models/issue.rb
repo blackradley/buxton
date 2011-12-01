@@ -11,6 +11,7 @@
 class Issue < ActiveRecord::Base
 	belongs_to :activity
   validates_presence_of :description
+  has_one :previous_issue, :class_name => "Issue", :foreign_key => :parent_issue_id
   attr_accessor :issue_destroy
   
   include FixInvalidChars
@@ -60,4 +61,5 @@ class Issue < ActiveRecord::Base
     end
     answered.to_f/total 
   end
+
 end

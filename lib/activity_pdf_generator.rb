@@ -135,6 +135,19 @@ class ActivityPDFGenerator
         table_data << ["<c:uline>Note</c:uline>\n#{note}"]
       end
     end  
+    if @activity.previous_activity 
+      previous_question_data = []
+      q = @activity.questions.where(:name => question.to_s).first
+      if q.different_comment? && !q.previous.comment.blank?
+        previous_question_data << ["<i><c:uline>Previous Comment</c:uline>\n#{q.previous.comment.contents.to_s}</i>"]
+      end
+      unless @public
+        if q.different_note? && !q.previous.note.blank?
+          previous_question_data << ["<i><c:uline>Previous Note</c:uline>\n#{q.previous.note.contents.to_s}</i>"]
+        end
+      end  
+      table_data += previous_question_data
+    end
     return table_data
   end
   
@@ -146,10 +159,13 @@ class ActivityPDFGenerator
     @pdf.text " "
     target_q = @activity.questions.find_by_name("purpose_overall_2").label.to_s
     target_a = @activity.questions.find_by_name("purpose_overall_2").response.to_s
+    qn = @activity.questions.find_by_name("purpose_overall_2")
     target = [[target_q, target_a]]
+    target << ["Previously: " + target_q, qn.previous.display_response].map{|a| "<i>#{a}</i>"} if qn.different_answer?
     comments = get_comments_and_notes(:purpose_overall_2)
     target += comments  unless comments.blank?
     cell_formats = [[{:shading => SHADE_COLOUR}, nil]]
+      cell_formats << [{:shading => SHADE_COLOUR}, nil] if qn.different_answer?
     comments.size.times {cell_formats << nil}
     @pdf = generate_table(@pdf, target, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10)
     @pdf.text " "
@@ -175,6 +191,20 @@ class ActivityPDFGenerator
         unless @public || strategy.note.blank? || strategy.note.contents.blank?
           cell_formats << [nil, nil]
           table << ["<c:uline>Note</c:uline>\n#{strategy.note.contents.to_s}"]
+        end
+        if strategy.changed?
+          if strategy.different_comment?
+            unless strategy.previous.comment.blank? || strategy.previous.comment.contents.blank?
+              cell_formats << [nil, nil]
+              table << ["<i><c:uline>Previous Comment</c:uline>\n#{strategy.previous.comment.contents.to_s}</i>"]
+            end
+          end
+          if strategy.different_note?
+            unless @public || strategy.previous.note.blank? || strategy.previous.note.contents.blank?
+              cell_formats << [nil, nil]
+              table << ["<i><c:uline>Note</c:uline>\n#{strategy.previous.note.contents.to_s}</i>"]
+            end
+          end
         end
       end
       @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4, :table_title =>table_heading)
@@ -207,52 +237,6 @@ class ActivityPDFGenerator
     @pdf.start_new_page
     @pdf
   end
-    
-  # def build_rankings
-  #   @pdf.start_new_page
-  #   border_gap = @page_width/@activity.strands.size
-  #   borders = []
-  #   @pdf.text(" ")
-  #   @pdf.text("<b>3.  <c:uline>Relevant Equality Strands</b></c:uline>", :font_size => 12)
-  #   @pdf.text(" ")
-  #   @pdf.text "The Policy has been identified as being relevant to the following equality strands:", :font_size => 10
-  #   @pdf.text(" ")
-  #   ranking_table_data = Array.new
-  #   impact_table_data = Array.new
-  #   2.times do
-  #     ranking_table_data << []
-  #     impact_table_data << []
-  #   end
-  #   @activity.strands.each do |strand|
-  #     @pdf.text("<C:bullet />  #{strand_display(strand).titlecase}", :left => 20)
-  #     borders << border_gap + (borders.last || 0)
-  #     ranking_table_data[0] << "<b>#{strand_display(strand).titlecase}</b>"
-  #     ranking_table_data[1] << @activity.priority_ranking(strand).to_s
-  #     impact_table_data[0] << "<b>#{strand_display(strand).titlecase}</b>"
-  #     impact_table_data[1] << @activity.impact_wording(strand).to_s.titlecase
-  #   end
-  #   @pdf.text " "
-  #   @pdf.text "This does not imply that the Policy is completely irrelevant to the other dimensions of equality: merely that its main impact is potentially in these areas and that a proportionate response should focus attention here."
-  #   @pdf.text " "
-  #   @pdf.text "<c:uline><b>Rankings</b></c:uline>"
-  #   @pdf.text " "
-  #   @pdf.text "<b>Priority</b> - ranked from 1 lowest priority to 5 highest priority"
-  #   @pdf.text " "
-  #   specific_data = {:borders => borders, :header_args => [[ranking_table_data.delete_at(0)], @header_data.clone.merge(:borders => borders, :shading => SHADE_COLOUR)]}
-  #   @pdf = generate_table(@pdf, ranking_table_data, @table_data.clone.merge(specific_data))  unless borders.empty?
-  #   
-  #   @pdf.text " "
-  #   @pdf.text "<b>Impact</b> - ranked high, medium or low"
-  #   @pdf.text " "
-  #   
-  #   specific_data = {:borders => borders, :header_args => [[impact_table_data.delete_at(0)], @header_data.clone.merge(:borders => borders)]}
-  #   @pdf = generate_table(@pdf, impact_table_data, @table_data.clone.merge(specific_data))  unless borders.empty?
-  # 
-  #   @pdf.text(" ")
-  #   @pdf.text "The following sections look at the results for each of these strands in more detail."
-  #   @pdf.text " "
-  #   @pdf
-  # end
   
   def build_strand_tables
     section_index = 1
@@ -315,7 +299,9 @@ class ActivityPDFGenerator
       question_text = question.label
       response = question.display_response
       table_data << [question_text, response]
+      table_data << ["Previously: " + question_text, question.previous.display_response].map{|a| "<i>#{a}</i>"} if question.different_answer?
       cell_formats << [{:shading => SHADE_COLOUR}, nil]
+      cell_formats << [{:shading => SHADE_COLOUR}, nil] if question.different_answer?
       comments = get_comments_and_notes(question.name)
       table_data += comments  unless comments.blank?
       comments.size.times {cell_formats << nil}
@@ -423,10 +409,15 @@ class ActivityPDFGenerator
       strand_issues.each do |issue|
         table = []
         table << ["Issue", issue.description]
+        table << ["Previous Issue", issue.previous_issue.description].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.description != issue.previous_issue.description
         table << ["Action", issue.actions.to_s]
+        table << ["Previous Action", issue.previous_issue.actions.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.actions != issue.previous_issue.actions
         table << ["Resources", issue.resources.to_s]
+        table << ["Previous Resources", issue.previous_issue.resources.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.resources != issue.previous_issue.resources
         table << ["Timescales", issue.timescales.to_s]
+        table << ["Previous Timescales", issue.previous_issue.timescales.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.timescales != issue.previous_issue.timescales
         table << ["Lead Officer", issue.lead_officer.to_s]
+        table << ["Previous Lead Officer", issue.previous_issue.lead_officer.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.lead_officer != issue.previous_issue.lead_officer
         @pdf = generate_table(@pdf, table, :borders => borders, :font_size => 10, :col_format => [{:shading => SHADE_COLOUR}, nil], :title_lines => title_lines, :table_title =>heading_proc)
         heading_proc = nil
         title_lines = nil
