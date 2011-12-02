@@ -16,6 +16,7 @@ class Question < ActiveRecord::Base
   belongs_to :dependency
   before_save :update_status
   after_save :update_children
+  
   # after_save :debug
   # 
   #  

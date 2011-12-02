@@ -74,7 +74,8 @@ class Activity < ActiveRecord::Base
   attr_accessor :task_group_member
   
   def previous_activity
-    Activity.send(:with_exclusive_scope){Activity.where(:previous_activity_id => self.id).first}
+    return @previous_activity if @previous_activity
+    @previous_activity = Activity.unscoped.where(:previous_activity_id => self.id).first
   end
 
   def mark_empty_issues
@@ -621,8 +622,8 @@ class Activity < ActiveRecord::Base
       new_a.save!
     end
     self.issues.each do |i|
-      new_i= new_activity.issues.build(:description => i.description, :actions => i.actions, :timescales => i.timescales,
-                                       :resources => i.resources, :lead_officer => i.lead_officer, :strand => i.strand, :section => i.section, :parent_issue => i)
+      new_i= new_activity.issues.build(:description => i.description, :actions => i.actions, :timescales => i.timescales, :recommendations => i.recommendations, :monitoring => i.monitoring,
+                                      :outcomes => i.outcomes, :resources => i.resources, :lead_officer => i.lead_officer, :strand => i.strand, :section => i.section, :parent_issue_id => i.id)
       new_i.save!
     end
     new_activity.save!
