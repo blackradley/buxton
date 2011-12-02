@@ -30,8 +30,9 @@ class ActivitiesController < ApplicationController
   before_filter :ensure_quality_control, :only => [:quality_control]
   before_filter :ensure_activity_task_group_member, :only => [:task_group_comment_box, :make_task_group_comment]
   before_filter :ensure_activity_quality_control, :only => [:comment, :submit_comment]
-  before_filter :ensure_activity_approver, :only => [:approve, :reject, :submit_approval, :submit_rejection]
+  before_filter :ensure_activity_approver, :only => [:approve, :submit_approval]
   before_filter :ensure_activity_editable, :only => [:edit, :update]
+  before_filter :ensure_activity_approver_or_qc, :only => [:reject, :submit_rejection]
   before_filter :ensure_not_approved, :only => [:add_task_group_member, :remove_task_group_member, :create_task_group_member, :submit_approval, :submit_rejection, :submit, :task_group_comment_box, :make_task_group_comment, :comment, :submit_comment]
 
   autocomplete :user, :email, :scope => :live
@@ -382,20 +383,23 @@ class ActivitiesController < ApplicationController
   end
   
   def submit_rejection
-    if @activity.undergone_qc? && @activity.submitted?
+    if @activity.submitted?
       new_activity = @activity.clone
       new_activity.ready = true
       new_activity.start_date = @activity.start_date
       new_activity.end_date = @activity.end_date
       new_activity.review_on = @activity.review_on
-      new_activity.previous_activity = @activity
       new_activity.save!
       # @activity.update_attributes(:submitted => false)
       flash[:notice] = "#{@activity.name} rejected."
       Mailer.activity_rejected(@activity, params[:email_contents], params[:subject]).deliver
-      @activity.update_attributes(:is_rejected => true)
+      @activity.update_attributes(:is_rejected => true, :previous_activity_id => new_activity.id)
     end
-    redirect_to approving_activities_path
+    if @activity.undergone_qc
+      redirect_to approving_activities_path
+    else
+      redirect_to quality_control_activities_path
+    end
   end
 
 protected
@@ -427,6 +431,10 @@ protected
   
   def ensure_not_approved
     redirect_to access_denied_path if @activity.approved
+  end
+
+  def ensure_activity_approver_or_qc
+    redirect_to access_denied_path unless @activity.approver == current_user || @activity.qc_officer == current_user
   end
   
 end

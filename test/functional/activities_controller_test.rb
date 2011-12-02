@@ -1234,10 +1234,17 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_redirected_to access_denied_path
     end
   
-    should "not be able to reject an activity" do
-      get :reject, :id => activities(:activities_002).id
-      assert_response :redirect
-      assert_redirected_to access_denied_path
+    should "be able to reject an activity, and this should create a clone" do
+      @activity = activities(:activities_002)
+      xhr :post, :submit_rejection, :id => @activity.id, :email_contents => "This activity has been successfully rejected", :subject => "Email subject"
+      assert_equal flash[:notice], "#{@activity.name} rejected."
+      @activity.reload
+      assert @activity.is_rejected
+      @email = ActionMailer::Base.deliveries.last
+      assert_equal @email.subject, "Email subject"
+      assert_equal @email.to[0], @activity.completer.email
+      assert_match /activity has been successfully rejected/, @email.body
+      assert !Activity.find_by_id(@activity.id)
     end
     
     should "be able to see the comment creation box" do
