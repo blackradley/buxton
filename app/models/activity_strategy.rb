@@ -25,6 +25,7 @@ class ActivityStrategy < ActiveRecord::Base
     if self.activity.purpose_completed then
       self.activity.update_attributes(:purpose_completed => false) if self.strategy_response == 0
     end
+    true
   end
 
   def changed?

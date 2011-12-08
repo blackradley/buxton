@@ -77,7 +77,7 @@
           %th Consultation
           %th Additional Work
           %th.last Action Planning
-        -@activity.overview_strands.each do |strand_name, strand|
+        -@activity.overview_strands.sort{|x,y| strand_display(x.first) <=> strand_display(y.first) }.each do |strand_name, strand|
           -display_on = @activity.strand_relevant?(strand) || @activity.strand_required?(strand) ? "" : "display:none"
           %tr{:id => "row_#{strand}", :style => "#{display_on};", :class => "completionRequired #{'complete' if @activity.completed(nil, strand)}"}
             %th.strandHeading

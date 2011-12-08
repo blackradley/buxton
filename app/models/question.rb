@@ -16,14 +16,14 @@ class Question < ActiveRecord::Base
   belongs_to :dependency
   before_save :update_status
   after_save :update_children
+
+  # before_save :debug
   
-  # after_save :debug
-  # 
-  #  
+   
   # def debug
   #   raise self.inspect
   # end
-  # 
+  
 
   def response
     if self.input_type == "select"

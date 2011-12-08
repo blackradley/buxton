@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111201094835) do
+ActiveRecord::Schema.define(:version => 20111207105857) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -86,6 +86,8 @@ ActiveRecord::Schema.define(:version => 20111201094835) do
     t.integer "child_question_id"
     t.integer "required_value"
   end
+
+  add_index "dependencies", ["question_id"], :name => "index_dependencies_on_question_id"
 
   create_table "directorates", :force => true do |t|
     t.string   "name"
@@ -396,6 +398,7 @@ ActiveRecord::Schema.define(:version => 20111201094835) do
   end
 
   add_index "questions", ["activity_id", "name", "needed", "completed"], :name => "index_questions_on_activity_id_and_name_and_needed_and_completed"
+  add_index "questions", ["activity_id", "name"], :name => "activity_and_question_name", :unique => true
   add_index "questions", ["activity_id"], :name => "index_questions_on_activity_id"
 
   create_table "service_areas", :force => true do |t|

@@ -18,6 +18,7 @@ class Note < ActiveRecord::Base
   
   def fix_contents
     self.contents = fix_field(self.contents)
+    true
   end
   
   def self.can_be_viewed_by?(user_)

@@ -297,6 +297,7 @@ class Activity < ActiveRecord::Base
     else
       self.approved_on = nil
     end
+    true 
   end
   
   def show_full_assessment?

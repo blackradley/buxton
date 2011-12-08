@@ -18,6 +18,7 @@ class Comment < ActiveRecord::Base
   
   def fix_contents
     self.contents = fix_field(self.contents)
+    true
   end
 
   def html_id
