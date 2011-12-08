@@ -28,7 +28,7 @@ class ActivityStrategy < ActiveRecord::Base
     true
   end
 
-  def changed?
+  def changed_in_previous_ea?
     different_answer? || different_comment? || different_note?
   end
 
