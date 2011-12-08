@@ -82,6 +82,7 @@ class Activities::SectionsController < ApplicationController
     #   params[:activity][:issues_attributes].each{|i| i['_destroy'] = 1 if i['description'].blank?}
     # end
     # Update the answers in the activity table
+    # raise params.inspect
     @activity.update_attributes!(params[:activity])
     #delivers the finished initial assessment email
     if initially_in_ia && @activity.questions.where("name like 'purpose_%' and completed = false and needed = true AND name not like 'purpose_overall_14'").size == 0
