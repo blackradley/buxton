@@ -80,7 +80,7 @@ class ActivityPDFGenerator
     table << ["<b>Type</b>", "#{@activity.activity_status_name.titlecase} #{@activity.activity_type_name.titlecase}"]
     table << ["<b>Activity Summary</b>", @activity.summary.to_s]
     table << ["<b>Reference Number</b>", "#{@activity.ref_no}"]
-    table << ["<b>Activity Manager</b>", @activity.completer.email]
+    table << ["<b>Task Group Manager</b>", @activity.completer.email]
     table << ["<b>Date Approved</b>", @activity.approved_on.to_s] if @activity.approved?
     table << ["<b>Senior Officer</b>", @activity.approver.email.to_s] if @activity.approver
     table << ["<b>Quality Control Officer</b>", @activity.qc_officer.email.to_s] if @activity.qc_officer
