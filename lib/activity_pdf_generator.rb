@@ -192,7 +192,7 @@ class ActivityPDFGenerator
           cell_formats << [nil, nil]
           table << ["<c:uline>Note</c:uline>\n#{strategy.note.contents.to_s}"]
         end
-        if strategy.changed?
+        if strategy.changed_in_previous_ea?
           if strategy.different_comment?
             unless strategy.previous.comment.blank? || strategy.previous.comment.contents.blank?
               cell_formats << [nil, nil]
