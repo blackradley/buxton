@@ -2,7 +2,7 @@
   = form.inputs :id => "standardInputs" do
     - if @clone_of
       = hidden_field_tag "clone_of", @clone_of.id
-    =form.input :service_area, :label => "Service Area", :collection => @service_areas.map{|sa| "<option data-email='#{sa.approver.email}' value='#{sa.id}'>#{sa.name}</option>"}.join, :include_blank => false
+    =form.input :service_area, :label => "Service Area", :collection => @current_user.directorate.service_areas.map{|sa| "<option data-email='#{sa.approver.email}' value='#{sa.id}'>#{sa.name}</option>"}.join, :include_blank => false
     =form.input :name, :label => "Title"
     = form.input :summary, :label => "Summary of this EA"
     =form.input :start_date, :label => "Target Start Date", :as => :datepicker
