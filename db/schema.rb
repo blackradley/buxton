@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111207105857) do
+ActiveRecord::Schema.define(:version => 20111209110652) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -36,8 +36,6 @@ ActiveRecord::Schema.define(:version => 20111207105857) do
     t.integer  "activity_project_id"
     t.integer  "completer_id"
     t.integer  "approver_id"
-    t.date     "start_date"
-    t.date     "end_date"
     t.integer  "service_area_id"
     t.boolean  "approved"
     t.boolean  "submitted"

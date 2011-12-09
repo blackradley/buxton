@@ -4,8 +4,6 @@ Factory.define :activity do |activity|
   activity.association :approver
   activity.association :qc_officer
   activity.association :service_area
-  activity.start_date Date.today
-  activity.end_date Date.today
   activity.review_on Date.today
 end
 

@@ -5,8 +5,6 @@
     =form.input :service_area, :label => "Service Area", :collection => @current_user.directorate.service_areas.map{|sa| "<option data-email='#{sa.approver.email}' value='#{sa.id}'>#{sa.name}</option>"}.join, :include_blank => false
     =form.input :name, :label => "Title"
     = form.input :summary, :label => "Summary of this EA"
-    =form.input :start_date, :label => "Target Start Date", :as => :datepicker
-    =form.input :end_date, :label => "Target End Date", :as => :datepicker
     = form.input :review_on, :label => "Review Date", :as => :datepicker, :format => :short_ordinal
     =form.autocompleted_input :approver_email, :url => autocomplete_user_email_activities_path, :label => "Senior Officer", :required => false
     =form.autocompleted_input :completer_email, :url => autocomplete_user_email_activities_path, :label => "Task Group Manager", :required => false
