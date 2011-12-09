@@ -7,7 +7,7 @@ admin = Administrator.create(:email => "admin@27stars.co.uk", :password => "test
   u.update_attributes!(:password => "testpass", :password_confirmation => "testpass")
 end
 strategy = Strategy.create(:name => "Managing expectations", :description => "A measure of how one might measure expectations for this council")
-directorate = Directorate.create!(:name => "Seed Directorate", :creator => joe, :cop => joe, :abbreviation => "SEED")
+directorate = Directorate.create!(:name => "Seed Directorate", :creator => joe, :cop => joe)
 directorate.service_areas.create!(:name => "Sample Service Area", :approver => joe)
 
 1.times do |n|

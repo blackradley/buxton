@@ -36,7 +36,6 @@
           - if directorate.retired?
             %span.retired
               ="(Retired)"
-        %td= directorate.abbreviation
         %td.directorateCheckbox.checkbox
           = form_for directorate do |f|
             = f.check_box :retired, :confirm => "Are you sure you wish to retire this directorate?"

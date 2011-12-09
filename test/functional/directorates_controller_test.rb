@@ -29,7 +29,7 @@ class DirectoratesControllerTest < ActionController::TestCase
     end
     
     should "be able to create directorates" do
-      post :create, :directorate => {:name => "Test Directorate", :cop_id => 1, :creator_email => Factory(:creator).email, :abbreviation => 'TEST'}
+      post :create, :directorate => {:name => "Test Directorate", :cop_id => 1, :creator_email => Factory(:creator).email}
       assert_equal "Test Directorate", Directorate.where(:name => "Test Directorate").first.name
       assert_response :redirect
       assert_redirected_to :action => "index"
@@ -54,25 +54,25 @@ class DirectoratesControllerTest < ActionController::TestCase
     end
     
     should "not be able to create a directorate if they have assigned someone who is already a creator for another directorate" do
-      post :create, :directorate => {:name => "Test Directorate", :cop_email => "joe@27stars.co.uk", :creator_email => users(:users_004).email, :abbreviation => "TEST"}
+      post :create, :directorate => {:name => "Test Directorate", :cop_email => "joe@27stars.co.uk", :creator_email => users(:users_004).email}
       assert_response :success
       assert(assigns(:directorate).new_record?)
     end
     
     should "not be able to create a directorate if they have not assigned a corp cop" do
-      post :create, :directorate => {:name => "Test Directorate", :creator_email => Factory(:creator).email, :abbreviation => "TEST"}
+      post :create, :directorate => {:name => "Test Directorate", :creator_email => Factory(:creator).email}
       assert_response :success
       assert(assigns(:directorate).new_record?)
     end
     
     should "not be able to update a directorate if they have assigned someone who is already a creator for another directorate" do
-      post :update, :id => directorates(:directorates_002), :directorate => {:name => "Test Directorate", :cop_email => "joe@27stars.co.uk", :creator_email => users(:users_004).email, :abbreviation => "TEST"}
+      post :update, :id => directorates(:directorates_002), :directorate => {:name => "Test Directorate", :cop_email => "joe@27stars.co.uk", :creator_email => users(:users_004).email}
       assert_response :success
       assert(!assigns(:directorate).valid?)
     end
     
     should "not be able to update a directorate if they have not assigned a corp cop" do
-      post :update, :id => directorates(:directorates_002), :directorate => {:name => "Test Directorate", :cop_email => "", :creator_email => Factory(:creator).email, :abbreviation => "TEST"}
+      post :update, :id => directorates(:directorates_002), :directorate => {:name => "Test Directorate", :cop_email => "", :creator_email => Factory(:creator).email}
       assert_response :success
       assert(!assigns(:directorate).valid?)
     end
