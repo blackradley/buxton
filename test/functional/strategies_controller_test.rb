@@ -18,9 +18,9 @@ class StrategiesControllerTest < ActionController::TestCase
     assert_redirected_to access_denied_path
   end
   
-  context "as a creator" do
+  context "as a corporate cop" do
     setup do
-      sign_in Factory(:creator)
+      sign_in Factory(:corporate_cop)
     end
     
     should "be able to access strategies" do
@@ -66,8 +66,6 @@ class StrategiesControllerTest < ActionController::TestCase
       assert_equal Strategy.find(1).retired, true
       assert_response :success
     end
-  
-  
   
   end
   

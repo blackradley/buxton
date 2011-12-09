@@ -392,7 +392,7 @@ class ActivitiesController < ApplicationController
       new_activity.save!
       # @activity.update_attributes(:submitted => false)
       flash[:notice] = "#{@activity.name} rejected."
-      Mailer.activity_rejected(@activity, params[:email_contents], params[:subject]).deliver
+      Mailer.activity_rejected(@activity, params[:email_contents], params[:subject], params[:cc]).deliver
       @activity.update_attributes(:is_rejected => true, :previous_activity_id => new_activity.id)
     end
     if @activity.undergone_qc
