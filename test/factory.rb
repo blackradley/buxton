@@ -67,7 +67,6 @@ end
 
 Factory.define :directorate do |dir|
   dir.sequence(:name){|i| "Directorate #{i}"}
-  dir.sequence(:abbreviation){|i| "DR#{i}"}
   dir.association :creator
   dir.association :cop
 end
