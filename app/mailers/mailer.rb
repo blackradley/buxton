@@ -92,11 +92,11 @@ class Mailer < ActionMailer::Base
          :subject => subject)
   end
   
-  def activity_rejected(activity, email_contents, subject)
+  def activity_rejected(activity, email_contents, subject, cc)
     @activity = activity
     @contents = email_contents
     mail(:to => @activity.completer.email,
-         :cc => [@activity.qc_officer.email, @activity.creator.email, @activity.approver.email].uniq.join(", "),
+         :cc => cc,
          :reply_to => @activity.approver.email,
          :subject => subject)
   end

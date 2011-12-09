@@ -18,7 +18,7 @@ class StrategiesController < ApplicationController
   # Make render_to_string available to the #show action
   helper_method :render_to_string
   before_filter :authenticate_user!
-  before_filter :ensure_creator
+  before_filter :ensure_corporate_cop?
   
   def index
     @breadcrumb = [["Strategic Outcomes"]]
@@ -72,5 +72,7 @@ class StrategiesController < ApplicationController
   
 
 protected
-
+  def ensure_corporate_cop?
+    redirect_to access_denied_path unless current_user.corporate_cop?
+  end
 end

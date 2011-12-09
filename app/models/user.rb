@@ -147,6 +147,10 @@ class User < ActiveRecord::Base
   def helper?
     Activity.active.includes(:task_group_memberships).where(:task_group_memberships => {:user_id => self.id}).count > 0
   end
+
+  def cop?
+    self.corporate_cop? || self.directorate_cop?
+  end
   
   protected
   
