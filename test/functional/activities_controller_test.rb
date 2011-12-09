@@ -458,76 +458,62 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
     
     should "be able to create an activity and send it to the completer" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 4, Activity.count
       assert_redirected_to directorate_eas_activities_path
     end
     
     should "not be able to create an activity and send it to the completer if no completer is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:completer_email].blank?
       assert_response :success
     end
     
     should "not be able to create an activity and send it to the completer if no approver is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:approver_email].blank?
       assert_response :success
     end
     
     should "not be able to create an activity and send it to the completer if no QC officer is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:qc_officer_email].blank?
       assert_response :success
     end
     
-    should "not be able to create an activity and send it to the completer if no start date is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
-      assert_equal 3, Activity.count
-      assert !assigns(:activity).errors[:start_date].blank?
-      assert_response :success
-    end
-    
-    should "not be able to create an activity and send it to the completer if no end date is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
-      assert_equal 3, Activity.count
-      assert !assigns(:activity).errors[:end_date].blank?
-      assert_response :success
-    end
-    
     should "not be able to create an activity and send it to the completer if no review date is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:review_on].blank?
       assert_response :success
     end
     
     should "not be able to create an activity and send it to the completer if no name is supplied" do
-      post :create, :activity => {:name => "", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:name].blank?
       assert_response :success
     end
     
     should "not be able to create an activity and send if an invalid completer is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "gibberish", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "gibberish", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:completer_email].blank?
       assert_response :success
     end
     
     should "not be able to create an activity if an invalid approver is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "gibberish", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "gibberish", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:approver_email].blank?
       assert_response :success
     end
     
     should "not be able to create an activity if an invalid QC officer is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "gibberish", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "gibberish", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:qc_officer_email].blank?
       assert_response :success
@@ -535,13 +521,13 @@ class ActivitiesControllerTest < ActionController::TestCase
     
     should "not be able to create an activity and send it to the completer if it is a clone from a retired service area" do
       ServiceArea.find(1).update_attributes(:retired => true)
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}, :clone_of => activities(:activities_001).id.to_s
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}, :clone_of => activities(:activities_001).id.to_s
       assert_equal 3, Activity.count
       assert_equal "The Service Area for this EA has been retired and therefore this EA cannot be cloned.", flash[:notice]
     end
     
     should "be able to create an activity and send it to the completer when cloning it from another activity" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}, :clone_of => activities(:activities_001).id.to_s
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}, :clone_of => activities(:activities_001).id.to_s
       assert_equal 4, Activity.count
     end
     
@@ -561,7 +547,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "be able to update the attributes of activites that have not been sent to the completer" do
       @activity = activities(:activities_001)
       @activity.update_attributes(:ready => false)
-      post :update, :id => @activity.id, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :update, :id => @activity.id, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       @activity.reload
       assert_redirected_to directorate_eas_activities_path
       assert_equal "test activity", @activity.name
@@ -573,7 +559,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to update the attributes of activities and send them to the completer if there is no completer assigned" do
       @activity = activities(:activities_001)
       @activity.update_attributes(:ready => false)
-      post :update, :id => @activity.id, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "helper@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :update, :id => @activity.id, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "helper@27stars.co.uk", :type => 0, :activity_status => 0}
       @activity.reload
       assigns(:activity).errors[:completer_email].first
       assert_equal "An EA must have someone assigned to undergo the assessment", assigns(:activity).errors[:completer_email].first
@@ -587,7 +573,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to update the attributes of activities and send them to the completer if there is no approver assigned" do
       @activity = activities(:activities_001)
       @activity.update_attributes(:ready => false)
-      post :update, :id => @activity.id, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "", :qc_officer_email => "helper@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :update, :id => @activity.id, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "", :qc_officer_email => "helper@27stars.co.uk", :type => 0, :activity_status => 0}
       @activity.reload
       assert_equal "An EA must have someone assigned to approve the assessment", assigns(:activity).errors[:approver_email].first
       assert_equal "Shauns Activity 0", @activity.name
@@ -600,7 +586,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to update the attributes of activities and send them to the completer if there is no qc officer assigned" do
       @activity = activities(:activities_001)
       @activity.update_attributes(:ready => false)
-      post :update, :id => @activity.id, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "", :type => 0, :activity_status => 0}
+      post :update, :id => @activity.id, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "", :type => 0, :activity_status => 0}
       @activity.reload
       assert_equal "An EA must have someone assigned as a Quality Control Officer for the assessment", assigns(:activity).errors[:qc_officer_email].first
       assert_equal "Shauns Activity 0", @activity.name
@@ -613,7 +599,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to update the attributes of activities if there is an invalid completer assigned" do
       @activity = activities(:activities_001)
       @activity.update_attributes(:ready => false)
-      post :update, :id => @activity.id, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "fewfgwars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "helper@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :update, :id => @activity.id, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "fewfgwars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "helper@27stars.co.uk", :type => 0, :activity_status => 0}
       @activity.reload
       assert_equal "is not a valid user", assigns(:activity).errors[:completer_email].first
       assert_equal "Shauns Activity 0", @activity.name
@@ -626,7 +612,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to update the attributes of activities if there is an invalid approver assigned" do
       @activity = activities(:activities_001)
       @activity.update_attributes(:ready => false)
-      post :update, :id => @activity.id, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "er7stars.co.uk", :qc_officer_email => "helper@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :update, :id => @activity.id, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "er7stars.co.uk", :qc_officer_email => "helper@27stars.co.uk", :type => 0, :activity_status => 0}
       @activity.reload
       assert_equal "is not a valid user", assigns(:activity).errors[:approver_email].first
       assert_equal "Shauns Activity 0", @activity.name
@@ -639,7 +625,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     should "not be able to update the attributes of activities if there is an invalid qc officer assigned" do
       @activity = activities(:activities_001)
       @activity.update_attributes(:ready => false)
-      post :update, :id => @activity.id, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :start_date => "2011-04-14 14:32:55", :end_date => "2011-04-14 14:32:55", :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "helpear@27starewcf", :type => 0, :activity_status => 0}
+      post :update, :id => @activity.id, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "helpear@27starewcf", :type => 0, :activity_status => 0}
       @activity.reload
       assert_equal "is not a valid user", assigns(:activity).errors[:qc_officer_email].first
       assert_equal "Shauns Activity 0", @activity.name

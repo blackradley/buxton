@@ -34,8 +34,6 @@ class ActivityTest < ActiveSupport::TestCase
       @activity.approver = Factory(:user)
       @activity.completer = Factory(:user)
       @activity.qc_officer = Factory(:user)
-      @activity.start_date = Date.today
-      @activity.end_date = Date.today
       @activity.review_on =Date.today
       @activity.name = "Sample ready EA"
       @activity.ready = true

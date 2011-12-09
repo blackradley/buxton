@@ -42,8 +42,6 @@ class Activity < ActiveRecord::Base
   validates :approver, :presence => {:if => :ready?, :full_message =>"Your EA has to have a Senior Officer"}
   validates :completer, :presence => {:if => :ready?, :full_message =>"Your EA has to have a Task Group Manager"}
   validates :qc_officer, :presence => {:if => :ready?, :full_message =>"Your EA has to have a Quality Control Officer"}
-  validates :start_date, :presence => {:if => :ready?, :full_message =>"You must enter the date the EA will start"}
-  validates :end_date, :presence => {:if => :ready?, :full_message =>"You must enter the date the EA will finish on"}
   validates :review_on, :presence => {:if => :ready?, :full_message =>"You must enter the review date for your EA"}
   # validates_presence_of :name, :message => 'All activities must have a name.'
   # validates_presence_of :completer, :approver
@@ -89,8 +87,6 @@ class Activity < ActiveRecord::Base
     return false if self.name.blank?
     return false if self.approver.blank?
     return false if self.completer.blank?
-    return false if self.start_date.blank?
-    return false if self.end_date.blank?
     return false if self.review_on.blank?
     return true
   end
@@ -605,8 +601,6 @@ class Activity < ActiveRecord::Base
     new_activity.ready = false
     new_activity.approved = false
     new_activity.submitted = false
-    new_activity.start_date = nil
-    new_activity.end_date = nil
     new_activity.undergone_qc = false
     new_activity.review_on = nil
     self.questions.each do |q|

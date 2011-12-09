@@ -66,9 +66,7 @@ class ActivitiesController < ApplicationController
     @activity.ready = false
     @activity.approved = false
     @activity.submitted = false
-    @activity.start_date = nil
     @activity.actual_start_date = nil
-    @activity.end_date = nil
     @activity.review_on = nil
     render :new
   end
@@ -386,8 +384,6 @@ class ActivitiesController < ApplicationController
     if @activity.submitted?
       new_activity = @activity.clone
       new_activity.ready = true
-      new_activity.start_date = @activity.start_date
-      new_activity.end_date = @activity.end_date
       new_activity.review_on = @activity.review_on
       new_activity.save!
       # @activity.update_attributes(:submitted => false)

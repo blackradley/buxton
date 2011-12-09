@@ -1,7 +1,6 @@
 --- 
 activities_002: 
   pregnancy_and_maternity_relevant: 
-  start_date: 2011-04-14 14:32:48 Z
   impact_completed: 1
   name: Joes Activity 0
   consultation_completed: 1
@@ -22,7 +21,6 @@ activities_002:
   gender_relevant:
   updated_by: 
   submitted: 
-  end_date: 2011-04-14 14:32:48 Z
   age_relevant: 
   actual_start_date: 2011-04-14 14:32:48 Z
   ready: true
@@ -38,7 +36,6 @@ activities_002:
   undergone_qc: false
 activities_001: 
   pregnancy_and_maternity_relevant: 
-  start_date: 2011-04-14 14:32:48 Z
   ready: true
   impact_completed: 1
   name: Shauns Activity 0
@@ -61,7 +58,6 @@ activities_001:
   gender_relevant: 
   updated_by: 
   submitted: 
-  end_date: 2011-04-14 14:32:48 Z
   age_relevant: 
   use_purpose_completed: 1
   action_planning_completed: 1
@@ -74,7 +70,6 @@ activities_001:
   activity_type: 0
 activities_003: 
   pregnancy_and_maternity_relevant: 
-  start_date: 2011-04-14 14:32:48 Z
   ready: true
   impact_completed: 1
   name: Shauns Activity 1
@@ -97,7 +92,6 @@ activities_003:
   gender_relevant: 
   updated_by: 
   submitted: 
-  end_date: 2011-04-14 14:32:48 Z
   age_relevant: 
   use_purpose_completed: 1
   action_planning_completed: 1

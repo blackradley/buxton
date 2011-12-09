@@ -12,12 +12,6 @@
       %label Service Area :
       = @activity.service_area.name
     %li
-      %label Target Start Date:
-      = @activity.start_date(:full)
-    %li
-      %label Target End Date:
-      = @activity.end_date(:full)
-    %li
       %label Task Group Leader
       = @activity.completer.email
     %li
