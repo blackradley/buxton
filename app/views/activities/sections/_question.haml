@@ -26,4 +26,7 @@
           -when :string
             = q.text_field :raw_answer, :id => question.name
           -when :select
-            = q.select :raw_answer, question.choices.map{|choice| [choice, question.choices.index(choice)]}, {},  :id => question.name
+            - if question.name == "consultation_#{question.strand}_1" || question.name == "consultation_#{question.strand}_4"
+              = q.select :raw_answer, question.choices.map{|choice| [choice, question.choices.index(choice)]}, {},  :id => question.name, :class => "consultation_checker"
+            - else
+              = q.select :raw_answer, question.choices.map{|choice| [choice, question.choices.index(choice)]}, {},  :id => question.name

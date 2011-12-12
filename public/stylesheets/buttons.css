@@ -1,44 +1,16 @@
 .button input {
-  margin-top: 10px;
-  clear: both;
-  float: right;
-  width: auto;
-  font-family: Tahoma, Verdana, Arial, Sans-Serif;
-  font-size: 1em;
-  padding: 4px 20px;
-  font-weight: bold;
+  border: 0px;
+  background-image: url(../images/orange_buttons/search.jpg);
+  background-repeat: no-repeat;
+  width: 79px;
+  height: 32px;
+  overflow: hidden;
   color: white;
-  background-color: #1b4e77;
-  background-image: url(../images/button_bg.gif);
-  border: 2px solid #7ab9c0;
-  cursor: pointer; }
-  .button input:hover {
-    background-image: url(../images/button_on_bg.gif); }
+  float: none;
+  padding: 0px;
+  margin: 0px 0px 0px 10px;
+  line-height: 22px;
+  font-weight: bold; }
 
-.button a {
-  float: left;
-  margin-top: 10px;
-  width: auto;
-  font-family: Tahoma, Verdana, Arial, Sans-Serif;
-  font-size: 1em;
-  padding: 5px 20px;
-  font-weight: bold;
-  color: white;
-  background-color: #1b4e77;
-  background-image: url(../images/button_bg.gif);
-  border: 2px solid #7ab9c0;
-  text-decoration: none; }
-  .button a:visited {
-    float: left;
-    margin-top: 10px;
-    width: auto;
-    font-family: Tahoma, Verdana, Arial, Sans-Serif;
-    font-size: 1em;
-    padding: 5px 20px;
-    font-weight: bold;
-    color: white;
-    background-color: #1b4e77;
-    border: 2px solid #7ab9c0;
-    text-decoration: none; }
-  .button a:hover {
-    background-image: url(../images/button_on_bg.gif); }
+.button input:hover {
+  background-image: url(../images/orange_buttons/search_hover.jpg); }

@@ -19,7 +19,24 @@ $(document).ready(function(){
       $("#readyInput").hide();
     }
   });
+
+  $('.consultation_save').click(function(e){
+    if($('.consultation_checker').filter(function(x){return $(this).val()=='2'}).size() == 2){
+      e.preventDefault();
+      $.fn.colorbox({"open":true,  "html": $('.colorbox').html()});
+    }
+  });
+
+  $('.closeColorBox').live("click", (function(e){
+    e.preventDefault();
+    $.fn.colorbox.close()
+  }));
   
+  $('a.activityFormSubmitLink').live('click', (function(e){
+    $('form.edit_activity').submit();
+    e.preventDefault();
+  }));
+
   $('.schedule').click(function(){
     var visible_activities = $('tr.light:visible, tr.dark:visible').map(function(){return "activities[]=" + $(this).data("activity-id")});
     $(this).attr("href", $(this).data("root-path") + "?" + $.makeArray(visible_activities).join("&"));

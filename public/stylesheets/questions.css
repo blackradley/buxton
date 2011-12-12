@@ -14,6 +14,9 @@ h2 img {
   font-family: "Arial Rounded MT Bold", Arial;
   color: #1b4e77; }
 
+.colorbox {
+  display: none; }
+
 #questions {
   width: 950px;
   margin: 0px 0px;
