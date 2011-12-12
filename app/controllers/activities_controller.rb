@@ -331,7 +331,8 @@ class ActivitiesController < ApplicationController
   
   def show
     type = params[:type]
-    log_event('PDF', %Q[The PDF for the <strong>#{@activity.name}</strong> EA, within directorate <strong>#{@activity.directorate.name}</strong>, was viewed by #{current_user.email}])
+    PDFLog.create(:activity => @activity, :user => current_user)
+    #log_event('PDF', %Q[The PDF for the <strong>#{@activity.name.html_safe}</strong> EA, within directorate <strong>#{@activity.directorate.name}</strong>, was viewed by #{current_user.email}])
     send_data ActivityPDFGenerator.new(@activity, type).pdf.render, :disposition => 'inline',
       :filename => "#{@activity.name}.pdf",
       :type => "application/pdf"

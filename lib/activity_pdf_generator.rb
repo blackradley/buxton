@@ -268,7 +268,7 @@ class ActivityPDFGenerator
       section_index += 1
     end
     @pdf.text " "
-    @pdf.text "<b> 3#{'.' + section_index if @activity.strands.size > 0} <c:uline> Comments on the Final Assessment</b></c:uline> ", :font_size => 12
+    @pdf.text "<b> 3#{'.' + section_index.to_s if @activity.strands.size > 0} <c:uline> Comments on the Final Assessment</b></c:uline> ", :font_size => 12
     @pdf.text " "
     @pdf.text @activity.questions.where(:name => "purpose_overall_14").first.response, :font_size => 10
     @pdf.text " "

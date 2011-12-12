@@ -8,14 +8,9 @@
 #
 class Log < ActiveRecord::Base
   ICON = ''
-  LogDetails = Struct.new(:user, :organisation, :level, :action, :date, :time)
-  include FixInvalidChars
   
-  before_save :fix_message
-  
-  def fix_message
-    self.message = fix_field(self.message)
-  end
+  belongs_to :user
+  belongs_to :activity
   
   def icon
     self.class::ICON

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111209113610) do
+ActiveRecord::Schema.define(:version => 20111212163703) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -323,6 +323,8 @@ ActiveRecord::Schema.define(:version => 20111209113610) do
     t.string   "type"
     t.string   "message"
     t.datetime "created_at"
+    t.integer  "activity_id"
+    t.integer  "user_id"
   end
 
   create_table "look_ups", :force => true do |t|

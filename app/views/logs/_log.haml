@@ -3,7 +3,23 @@
     = image_tag(log.icon)
   %td
     %p{:align => "left"}
-      =raw log.message
+      - case log.class.to_s
+        - when "LoginLog"
+          = mail_to log.user.email
+          logged in
+        - when "LogoutLog"
+          = mail_to log.user.email
+          logged out
+        - when "PDFLog"
+          The PDF for the
+          %strong
+            = log.activity.name
+          EA, within directorate
+          %strong
+            = log.activity.directorate.name
+          , was viewed by
+          = mail_to log.user.email
+      = log.message
   %td{:width => 190}
     %p{:align => "right"}
       =raw log.created_at.strftime("<strong>%a #{log.created_at.day.ordinalize} %B</strong>, %k:%M")

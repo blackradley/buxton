@@ -19,17 +19,6 @@ class ApplicationController < ActionController::Base
 
 
 protected
-  def log_event(type, text)
-    # If this is a secret login, disable the creating of logs by returning false here
-    return false if session[:secret]
-    # e.g. Convert :PDF to PDFLog
-    class_name = "#{type}Log"
-    # Log this type of event
-    # CAUTION! See: http://notetoself.vrensk.com/2008/08/escaping-single-quotes-in-ruby-harder-than-expected/
-    # for why we're escaping this this way
-    escaped_text = text.gsub(/\\|'/) { |c| "\\#{c}" }
-    instance_eval("#{class_name}.create(:message => '#{escaped_text}')")
-  end
 
   def site_layout
     devise_controller? ? "login" : "application"
@@ -68,7 +57,8 @@ protected
   
   def after_sign_in_path_for(resource)
    return users_path if current_user.is_a?(Administrator)
-   log_event('Login', %Q[<a href="mailto:#{current_user.email}">#{current_user.email}</a> logged in.])
+   LoginLog.create(:user => current_user)
+   #log_event('Login', %Q[<a href="mailto:#{current_user.email}">#{current_user.email}</a> logged in.])
    # return training_user_path(current_user) unless current_user.trained?
    unless @activities_menu.blank?
      return @activities_menu.first[1]
@@ -127,7 +117,8 @@ protected
   
   def sign_out(*args)
     if current_user && !current_user.is_a?(Administrator)
-      log_event('Logout', %Q[<a href="mailto:#{current_user.email}">#{current_user.email}</a> logged out.])
+      LogoutLog.create(:user => current_user)
+      #log_event('Logout', %Q[<a href="mailto:#{current_user.email}">#{current_user.email}</a> logged out.])
     end
     old_sign_out(*args)
   end
