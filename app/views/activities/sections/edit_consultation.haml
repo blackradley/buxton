@@ -9,5 +9,16 @@
     = hidden_field_tag 'equality_strand', @equality_strand
     %p.question.saveField
       %span.button
-        = submit_tag 'Save', :disable_with => 'Saving...', :id => 'section_save_button'
+        = submit_tag 'Save', :disable_with => 'Saving...', :id => 'section_save_button', :class => "consultation_save"
   .clear
+
+.colorbox
+  .commentform
+    %h2 Warning
+    %p
+      The EA cannot be completed until you have performed at least one consultation. Please review your answers, as this section will not be complete until a consultation has been performed.
+    %p{:style => "text-align: center; padding: 10px;"}
+      %span.button
+        %input{:name => "backButton", :class => "submitButton closeColorBox", :type => "submit", :value => "Go back"}
+      or
+      = link_to "continue", "#", :class => "activityFormSubmitLink"

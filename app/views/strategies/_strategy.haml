@@ -4,7 +4,7 @@
     =form.input :description, :label => "Aims & Objectives"
     =form.input :retired, :label => "Retired?"
   = form.buttons do
-    = form.submit "Save"
+    = form.submit "Save", :disable_with => "Saving.."
     =raw "or #{link_to "cancel", strategies_path}"
 #formHelp
   %p
