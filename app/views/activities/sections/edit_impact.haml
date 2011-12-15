@@ -4,14 +4,14 @@
   = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [1,2,3])
   = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [4,5])
   = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [6,7])
-  = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [8])
+  = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [8, 10])
   = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [9])
   =form_for(@activity, :url => activities_section_path(@activity)) do |f|
     = render :partial => 'intro'
     = render :partial => 'question', :collection => question_details(:impact, @equality_strand, [1,2,3]), :locals => {:f => f}
     = render :partial => 'question', :collection => question_details(:impact, @equality_strand, [4,5]), :locals => {:f => f}
     = render :partial => 'question', :collection => question_details(:impact, @equality_strand, [6,7]), :locals => {:f => f}
-    = render :partial => 'question', :collection => question_details(:impact, @equality_strand, [8]), :locals => {:f => f}
+    = render :partial => 'question', :collection => question_details(:impact, @equality_strand, [8, 10]), :locals => {:f => f}
     = render :partial => 'question_issues', :collection => question_details(:impact, @equality_strand, [9]), :locals => {:f => f}
     = hidden_field_tag 'id', @id
     = hidden_field_tag 'equality_strand', @equality_strand
