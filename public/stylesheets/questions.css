@@ -256,6 +256,17 @@ h2 img {
 
 #questions.no_help {
   background-image: none; }
+  #questions.no_help .newIssueForm h4 {
+    width: 100px;
+    float: left; }
+  #questions.no_help .newIssueForm input {
+    float: left;
+    margin: 10px 0px; }
+  #questions.no_help .newIssueForm span.button {
+    margin-top: 10px;
+    margin-left: 5px;
+    width: 50px;
+    float: left; }
   #questions.no_help h4 {
     width: 600px; }
   #questions.no_help ul {

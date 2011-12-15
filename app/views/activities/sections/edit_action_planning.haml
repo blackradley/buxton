@@ -1,6 +1,14 @@
 %h1= @activity.name + " - " + strand_display(@equality_strand).titlecase + " - Action Planning"
 
 #questions.no_help
+  .new_issue
+  = form_tag add_new_issue_activities_section_path do |f|
+    .newIssueForm
+      %h4 New Issue
+      = hidden_field_tag :strand, @equality_strand
+      = text_field_tag :description
+      %span.button
+        = link_to image_tag ('icons/add.gif'), "#", :class => "formSubmit"
   = semantic_form_for @activity, :url => activities_section_path(@activity) do |form|
     = hidden_field_tag 'equality_strand', @equality_strand
     %h4 In the Impact section you identified the following issues to be addressed:
@@ -19,7 +27,12 @@
     - else
       %p.noIssue No issues to plan actions for.
     %h4 Further issues to be addressed:
-    %p.noIssue No issues to plan actions for.
+    - if @activity.issues.where(:section => "action_planning").size > 0
+      = form.semantic_fields_for :issues, @activity.issues.where(:section => "action_planning") do |f|
+        %ul
+          = render :partial => 'review_issue', :locals => {:issue_form  => f}
+    - else
+      %p.noIssue No issues to plan actions for.
     %p.question
       %span.button
         = submit_tag 'Save', :disable_with => 'Saving...', :id => 'section_save_button'
