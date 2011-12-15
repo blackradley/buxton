@@ -91,7 +91,6 @@ module Formtastic
     # Generate html input options for the datepicker_input
     #
     def datepicker_options(format, value = nil)
-      # raise format.call(value).inspect
       new_value = nil
       if format.is_a?(Symbol)
         if value.blank?
@@ -102,7 +101,7 @@ module Formtastic
       else
         new_value = value.try(:strftime, format)
       end
-      datepicker_options = {:value => new_value, :input_html => {:class => 'ui-datepicker', :style => "display:block"}}
+      datepicker_options = {:input_html => {:class => 'ui-datepicker', :style => "display:block", :value => new_value}}
     end
   end
 end
