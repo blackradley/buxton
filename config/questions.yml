@@ -87,6 +87,11 @@ questions:
       choices: 3
       weights: 0
       dependent_questions: ''
+    10:
+      label: 'Please give more information about the contradictory evidence.'
+      help: 'This question asks you to record the details of the contradictory evidence.<br/><br/>'
+      type: text
+      dependent_questions: 'impact_#{strand}_8 no_value'
   consultation:
     1:
       label: 'Have you obtained the views of #{wordings[strand]} on the impact of the Function?'
