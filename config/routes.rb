@@ -21,6 +21,7 @@ Buxton::Application.routes.draw do
         get :edit_action_planning
         get :new_issue
         get :edit_full_assessment_comment
+        post :add_new_issue
       end
     end
   end

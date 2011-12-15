@@ -101,6 +101,11 @@ class Activities::SectionsController < ApplicationController
 
   end
   
+  def add_new_issue
+    @activity.issues.create(:section => "action_planning", :description => params[:description], :strand => params[:strand])
+    redirect_to edit_activities_section_path(:section => "action_planning", :equality_strand => params[:strand], :activity => @activity)
+  end
+
   def new_issue
     @section = params[:section]
     render 'new_issue', :locals => {:issue => Issue.new, :strand => params[:strand]}, :layout => false
