@@ -270,8 +270,33 @@ class ActivityPDFGenerator
     @pdf.text " "
     @pdf.text "<b> 3#{'.' + section_index.to_s if @activity.strands.size > 0} <c:uline> Comments on the Final Assessment</b></c:uline> ", :font_size => 12
     @pdf.text " "
-    @pdf.text @activity.questions.where(:name => "purpose_overall_14").first.response, :font_size => 10
+    final_question = @activity.questions.where(:name => "purpose_overall_14").first
+    if final_question.changed_in_previous_ea?
+      if final_question.answer_changed?
+        @pdf.text "<i> Previously </i>"
+        @pdf.text "<i> #{final_question.previous.response} </i>"
+      end
+    end
+
+    @pdf.text final_question.response, :font_size => 10
+    if final_question.comment
+      @pdf.text "<b> Additional Comments on 3#{'.' + section_index.to_s if @activity.strands.size > 0} </b>"
+      if final_question.changed_in_previous_ea? && final_question.different_comment?
+        @pdf.text "<i> Previously: #{final_question.previous.comment.contents if final_question.previous.comment} </i>"
+      end
+      @pdf.text final_question.comment.contents
+
+
+    end
+    if final_question.note
+      @pdf.text "<b> Notes on 3#{'.' + section_index.to_s if @activity.strands.size > 0} </b>"
+      if final_question.changed_in_previous_ea? && final_question.different_note?
+        @pdf.text "<i> Previously: #{final_question.previous.note.contents if final_question.previous.note} </i>"
+      end
+      @pdf.text final_question.note.contents
+    end
     @pdf.text " "
+
     @pdf
   end
   

@@ -64,6 +64,7 @@ class Activities::SectionsController < ApplicationController
     if section.to_s == "action_planning"
       @impact_issues = @impact_enabled ? @activity.issues_by(:impact, @equality_strand) : []
       @consultation_issues = @consultation_enabled ? @activity.issues_by(:consultation, @equality_strand) : []
+      other_issues = @activity.issues_by(:action_planning, @equality_strand)
     end
     render "edit_#{section}"
   end
