@@ -237,7 +237,36 @@ class ActivityPDFGenerator
     @pdf.text " "
     @pdf.text "<b> 2.3 <c:uline> Comments on the Initial Assessment</b></c:uline> ", :font_size => 12
     @pdf.text " "
-    @pdf.text @activity.questions.where(:name => "purpose_overall_13").first.response, :font_size => 10
+    final_question = @activity.questions.where(:name => "purpose_overall_13").first
+    if final_question.changed_in_previous_ea?
+      if final_question.different_answer?
+        @pdf.text "<i> Previously </i>"
+        @pdf.text "<i> #{final_question.previous.response} </i>"
+      end
+    end
+
+    @pdf.text final_question.response, :font_size => 10
+    @pdf.text " "
+    if final_question.comment
+      @pdf.text "<b> Additional Comments </b>"
+      if final_question.changed_in_previous_ea? && final_question.different_comment?
+        @pdf.text " "
+        @pdf.text "<i> Previously: #{final_question.previous_comment.blank? ? 'No previous comment' : final_question.previous_comment}</i>"
+      end
+      @pdf.text final_question.comment.contents
+      @pdf.text " "
+
+    end
+    if final_question.note
+      @pdf.text "<b> Additional Notes</b>"
+      if final_question.changed_in_previous_ea? && final_question.different_note?
+        @pdf.text "<i> Previously: #{final_question.previous_note.blank? ? 'No previous note' : final_question.previous_note} </i>"
+        @pdf.text " "
+      end
+      @pdf.text final_question.note.contents
+      @pdf.text " "
+    end
+    @pdf.text " "
     @pdf.start_new_page
     @pdf
   end
@@ -272,26 +301,26 @@ class ActivityPDFGenerator
     @pdf.text " "
     final_question = @activity.questions.where(:name => "purpose_overall_14").first
     if final_question.changed_in_previous_ea?
-      if final_question.answer_changed?
+      if final_question.different_answer?
         @pdf.text "<i> Previously </i>"
         @pdf.text "<i> #{final_question.previous.response} </i>"
       end
     end
-
     @pdf.text final_question.response, :font_size => 10
+     @pdf.text " "
     if final_question.comment
-      @pdf.text "<b> Additional Comments on 3#{'.' + section_index.to_s if @activity.strands.size > 0} </b>"
+      @pdf.text "<b> Additional Comments</b>"
       if final_question.changed_in_previous_ea? && final_question.different_comment?
-        @pdf.text "<i> Previously: #{final_question.previous.comment.contents if final_question.previous.comment} </i>"
+        @pdf.text "<i> Previously: #{final_question.previous_comment.blank? ? 'No previous comment' : final_question.previous_comment} </i>"
       end
       @pdf.text final_question.comment.contents
-
+     @pdf.text " "
 
     end
     if final_question.note
-      @pdf.text "<b> Notes on 3#{'.' + section_index.to_s if @activity.strands.size > 0} </b>"
+      @pdf.text "<b> Additional Notes </b>"
       if final_question.changed_in_previous_ea? && final_question.different_note?
-        @pdf.text "<i> Previously: #{final_question.previous.note.contents if final_question.previous.note} </i>"
+        @pdf.text "<i> Previously: #{final_question.previous_note.blank? ? 'No previous note' : final_question.previous_note} </i>"
       end
       @pdf.text final_question.note.contents
     end
