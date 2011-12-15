@@ -43,8 +43,7 @@ $(document).ready(function(){
   });
   
   $("td:empty").html("&nbsp;");
-    
-  $('input.ui-datepicker').datepicker();
+  $('input.ui-datepicker').datepicker({ dateFormat: 'dd/mm/yy' });
   
   $(".saveLink").click(function(){
     $(this).parent().submit();
