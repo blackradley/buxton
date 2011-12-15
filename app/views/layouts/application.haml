@@ -37,10 +37,11 @@
             %ul
               - if current_user.creator?
                 %li{:class=>"#{@selected == "directorates" ? "current" : ""}"}=link_to "Directorates", directorates_path
-                %li.nohover="|"
                 - if current_user.count_live_directorates > 0
+                  %li.nohover="|"
                   %li{:class=>"#{@selected == "service_areas" ? "current" : ""}"}=link_to "Service Areas", service_areas_path
               - if current_user.corporate_cop?   
+                %li.nohover="|"
                 %li{:class=>"#{@selected == "strategies" ? "current" : ""}"}=link_to "Strategic Outcomes", strategies_path
         - unless current_user.is_a? Administrator
           #generalMenu
