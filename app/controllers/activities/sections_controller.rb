@@ -73,9 +73,7 @@ class Activities::SectionsController < ApplicationController
   # Available to: Activity Manager
   def update
     # If we have issues to process
-    if !@activity.actual_start_date
-      @activity.actual_start_date = Date.today
-    end
+    started = @activity.started
     initially_in_ia = @activity.questions.where("name like 'purpose_%' and completed = false and needed = true AND name not like 'purpose_overall_14'").size > 0
     # if params[:activity][:issues_attributes] then
     #   #marks all previously existing issues that had their description field blanked for destruction
@@ -94,6 +92,11 @@ class Activities::SectionsController < ApplicationController
         activity_strategy.strategy_response = strategy_response
         activity_strategy.save!
       end
+      
+    end
+
+    if !started && @activity.started
+      Mailer.activity_ia_started(@activity).deliver
     end
     
     flash[:notice] =  "#{@activity.name} was successfully updated."
