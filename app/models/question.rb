@@ -101,7 +101,7 @@ class Question < ActiveRecord::Base
     previous_question = self.activity.previous_activity.questions.where(:name => self.name).first
     return false if previous_question.comment.nil? && self.comment.nil?
     return false unless previous_question.comment || self.comment
-    return previous_question.comment.contents.to_s != self.comment.contents.to_s 
+    return previous_comment != self.comment.contents.to_s 
   end
 
   def different_note?
@@ -109,7 +109,7 @@ class Question < ActiveRecord::Base
     previous_question = self.activity.previous_activity.questions.where(:name => self.name).first
     return false if previous_question.note.nil? && self.note.nil?
     return false unless previous_question.note || self.note
-    return previous_question.note.contents != self.note.contents 
+    return previous_note != self.note.contents 
   end
 
   def previous
@@ -117,5 +117,14 @@ class Question < ActiveRecord::Base
     self.activity.previous_activity.questions.where(:name => self.name).first
   end
 
+  def previous_comment
+    return "" unless self.previous && self.previous.comment
+    return self.previous.comment.contents
+  end
+
+  def previous_note
+    return "" unless self.previous && self.previous.note
+    return self.previous.note.contents
+  end
 
 end
