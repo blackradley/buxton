@@ -2,7 +2,7 @@
 %html{ 'xmlns' =>'https://www.w3.org/1999/xhtml', 'xml:lang'=> 'en' , 'lang' => 'en' }
   %head 
     %title 
-      EA Toolkit : 
+      Equality Risk Toolkit : 
       = "#{controller.controller_name} : #{controller.action_name}".titleize
     %meta{'http-equiv' => 'content-type', 'content'=>'text/html;charset=UTF-8'}
     =raw(stylesheet_link_merged :base)
@@ -54,7 +54,7 @@
                 = link_to "Users", users_path
       #breadcrumb
         %p
-          Birmingham City Council EA Toolkit
+          Birmingham City Council Equality Risk Toolkit
           - if @breadcrumb
             - @breadcrumb.each do |segment, link|
               =raw "&raquo;"
