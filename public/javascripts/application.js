@@ -32,6 +32,11 @@ $(document).ready(function(){
     $.fn.colorbox.close()
   }));
   
+  $(".formSubmit").click(function(e){
+    $(this).parents("form").submit();
+    e.preventDefault();
+  })
+
   $('a.activityFormSubmitLink').live('click', (function(e){
     $('form.edit_activity').submit();
     e.preventDefault();
