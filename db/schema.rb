@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20111212163703) do
+ActiveRecord::Schema.define(:version => 20111216120129) do
 
   create_table "activities", :force => true do |t|
     t.string   "name"
@@ -386,14 +386,14 @@ ActiveRecord::Schema.define(:version => 20111212163703) do
     t.boolean  "needed",        :default => false
     t.text     "raw_answer"
     t.text     "choices"
-    t.text     "help_text"
-    t.text     "label"
     t.string   "input_type"
     t.string   "section"
     t.string   "strand"
     t.integer  "dependency_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "raw_label"
+    t.text     "raw_help_text"
   end
 
   add_index "questions", ["activity_id", "name", "needed", "completed"], :name => "index_questions_on_activity_id_and_name_and_needed_and_completed"

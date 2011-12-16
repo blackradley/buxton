@@ -11,7 +11,7 @@
     = render :partial => 'intro'
     = render :partial => 'question', :collection => question_details(:purpose, @equality_strand, [2]), :locals => {:f => f}
     %h4
-      For each Strategic Outcome below please indicate whether it is significantly aided by the Function.
+      ="For each Strategic Outcome below please indicate whether it is significantly aided by the #{@activity.activity_type_name.titlecase}."
     -if @activity_strategies.count >= 1
       -yes_no = [["Not Answered", 0], ["Yes", 1], ["No",2]]
       -@activity.activity_strategies.each do |activity_strategy|
