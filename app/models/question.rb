@@ -41,7 +41,22 @@ class Question < ActiveRecord::Base
     end
   end
   
-  
+  def label=(new_label)
+     self.raw_label = new_label
+  end
+
+  def label
+    raw_label.to_s.gsub('#{function_policy_substitution}', self.activity.activity_type_name.titlecase)
+  end
+
+  def help_text
+    raw_help_text.to_s.gsub('#{function_policy_substitution}', self.activity.activity_type_name.titlecase)
+  end
+
+  def help_text=(new_help_text)
+    self.raw_help_text = raw_help_text
+  end
+
   def parent
     self.dependency ? self.dependency.question : nil
   end 
