@@ -33,6 +33,7 @@ after 'deploy:update_code', 'deploy:cleanup'
 # TASKS
 # =============================================================================
 
+ssh_options[:forward_agent] = true
 require 'bundler/capistrano'
 
 # namespace :bundler do
