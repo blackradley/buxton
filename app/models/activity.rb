@@ -209,9 +209,6 @@ class Activity < ActiveRecord::Base
              new_value.gsub!('#{data["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}', data["extra_strand_wordings"]['impact'][6]['extra_word'][strand.to_s].to_s)
              new_value.gsub!('#{data["extra_strand_wordings"]["impact"][6]["extra_paragraph"][strand]}', data["extra_strand_wordings"]['impact'][6]['extra_paragraph'][strand.to_s].to_s)
            end
-           begin
-             raise section.to_s+strand.to_s+question_number.to_s+new_value.inspect if new_value.include?("\#{")
-           end
            texts[key] = new_value
          end
          basic_attributes = { :help_text => texts[:help_text], :label => texts[:label]}
@@ -252,9 +249,6 @@ class Activity < ActiveRecord::Base
               new_value.gsub!("\#{data[\"extra_strand_wordings\"][\"#{section}\"][#{question_number}][strand]}", data["extra_strand_wordings"][section.to_s][question_number][strand.to_s].to_s)
               new_value.gsub!('#{data["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}', data["extra_strand_wordings"]['impact'][6]['extra_word'][strand.to_s].to_s)
               new_value.gsub!('#{data["extra_strand_wordings"]["impact"][6]["extra_paragraph"][strand]}', data["extra_strand_wordings"]['impact'][6]['extra_paragraph'][strand.to_s].to_s)
-            end
-            begin
-              raise section.to_s+strand.to_s+question_number.to_s+new_value.inspect if new_value.include?("\#{")
             end
             texts[key] = new_value
           end

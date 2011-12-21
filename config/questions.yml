@@ -9,17 +9,17 @@ questions:
       dependent_questions: ''
   impact:
     1:
-      label: 'What is your assessment of the Function in meeting the needs of #{wordings[strand]}?'
-      help:  'This question asks you to assess the current impact of the Function in meeting the particular needs of #{wordings[strand]}.<br/><br/>
+      label: 'What is your assessment of the #{function_policy_substitution} in meeting the needs of #{wordings[strand]}?'
+      help:  'This question asks you to assess the current impact of the #{function_policy_substitution} in meeting the particular needs of #{wordings[strand]}.<br/><br/>
              The available answers are on a five point scale from 5 excellent to 1 poor and as usual ‘Not sure’ is also an acceptable answer.<br/><br/>
-             If the Function is not meeting the needs of any #{wordings[strand]} purely because of their #{descriptive_term[strand]} then clearly the impact of the Function in this regard is not positive.'
+             If the #{function_policy_substitution} is not meeting the needs of any #{wordings[strand]} purely because of their #{descriptive_term[strand]} then clearly the impact of the #{function_policy_substitution} in this regard is not positive.'
       type: select
       choices: 2
       weights: 2
       dependent_questions: ''
     2:
       label: 'Do you have evidence to support the assessment above?'
-      help: 'This question asks you whether you have any information to support your assessment of the impact of the Function that you recorded in the previous question.<br/><br/>
+      help: 'This question asks you whether you have any information to support your assessment of the impact of the #{function_policy_substitution} that you recorded in the previous question.<br/><br/>
              The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/>
              The available answers are:<br/>
              <ul><li>Yes</li>
@@ -41,7 +41,7 @@ questions:
       dependent_questions: 'impact_#{strand}_2 yes_value'
     4:
       label: 'Do you plan to collect any evidence?'
-      help: 'This question asks you whether the Council has any plans to collect information to assess the impact of the Function.'
+      help: 'This question asks you whether the Council has any plans to collect information to assess the impact of the #{function_policy_substitution}.'
       type: select
       choices: 3
       weights: 6
@@ -53,14 +53,14 @@ questions:
       type: text
       dependent_questions: 'impact_#{strand}_4 yes_value'
     6:
-      label: 'Have any complaints been received about the Function in meeting the particular needs of #{wordings[strand]}?'
-      help:  'This question asks you if there are other measures by which you could assess the impact of the Function on #{wordings[strand]}#{data["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}.  Such measures
-             might be the level of complaints, anecdotal evidence or your first hand experience of the Function.<br/><br/>#{data["extra_strand_wordings"]["impact"][6]["extra_paragraph"][strand]}
+      label: 'Have any complaints been received about the #{function_policy_substitution} in meeting the particular needs of #{wordings[strand]}?'
+      help:  'This question asks you if there are other measures by which you could assess the impact of the #{function_policy_substitution} on #{wordings[strand]}#{data["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}.  Such measures
+             might be the level of complaints, anecdotal evidence or your first hand experience of the #{function_policy_substitution}.<br/><br/>#{data["extra_strand_wordings"]["impact"][6]["extra_paragraph"][strand]}
              The available answers to this question are:<br/>
              <ul><li>Yes</li>
              <li>No</li>
              </ul><br/>
-             In the light of this question you may want to go back and review your assessment of the impact of the Function on #{wordings[strand]}.'
+             In the light of this question you may want to go back and review your assessment of the impact of the #{function_policy_substitution} on #{wordings[strand]}.'
       type: select
       choices: 3
       weights: 6
@@ -73,14 +73,14 @@ questions:
       dependent_questions: 'impact_#{strand}_6 yes_value'
     8:
       label: 'You may have evidence from more than one source.  If so, does it present a consistent view?'
-      help: 'This question asks you whether all the information from the range of sources gives a consistent assessment of the impact of the Function.'
+      help: 'This question asks you whether all the information from the range of sources gives a consistent assessment of the impact of the #{function_policy_substitution}.'
       type: select
       choices: 10
       weights: 3
       dependent_questions: ''
     9:
-      label: 'Is there anything about the Function and the way it affects #{wordings[strand]} which needs highlighting?'
-      help: 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different religions or beliefs.  An issue will be where there is a differential impact.  #{data["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
+      label: 'Is there anything about the #{function_policy_substitution} and the way it affects #{wordings[strand]} which needs highlighting?'
+      help: 'This question asks you to identify any issues about the way in which the #{function_policy_substitution} has an impact upon people from different religions or beliefs.  An issue will be where there is a differential impact.  #{data["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
             Differential impact can be positive or negative. Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
             Some differential impact is intentional and can be characterised as positive action.'
       type: select
@@ -94,10 +94,10 @@ questions:
       dependent_questions: 'impact_#{strand}_8 no_value'
   consultation:
     1:
-      label: 'Have you obtained the views of #{wordings[strand]} on the impact of the Function?'
-      help: 'This question asks whether any individuals representing the interests of #{wordings[strand]} have been consulted on the impact of the Function.<br/><br/>
+      label: 'Have you obtained the views of #{wordings[strand]} on the impact of the #{function_policy_substitution}?'
+      help: 'This question asks whether any individuals representing the interests of #{wordings[strand]} have been consulted on the impact of the #{function_policy_substitution}.<br/><br/>
              #{data["extra_strand_wordings"]["consultation"][1][strand]}
-             The consultation may have been arranged specifically for this particular Function or for a number of Functions.<br/><br/>
+             The consultation may have been arranged specifically for this particular #{function_policy_substitution} or for a number of #{function_policy_substitution}s.<br/><br/>
              The available answers to this question are:<br/>
              <ul><li>Yes</li>
              <li>No</li>
@@ -108,11 +108,11 @@ questions:
       dependent_questions: ''
     2:
       label: 'If not, why not?'
-      help: 'This question asks why groups have not been consulted on the impact of the Function.<br/><br/>
+      help: 'This question asks why groups have not been consulted on the impact of the #{function_policy_substitution}.<br/><br/>
              The available answers to this question are:<ul>
              <li>No relevant individuals identified.  This would be the correct answer if it had been decided that there were no suitable groups representing the interests of #{wordings[strand]} to consult with.</li>
              <li>There are plans to consult relevant individuals.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
-             <li>There are no plans to consult relevant individuals.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li></ul>'
+             <li>There are no plans to consult relevant individuals.  There may be reasons why the Council had decided not to consult on the impact of the #{function_policy_substitution}.</li></ul>'
       type: select
       choices: 5
       weights: 8
@@ -124,10 +124,10 @@ questions:
       type: text
       dependent_questions: 'consultation_#{strand}_1 yes_value'
     4:
-      label: 'Have you obtained the views of relevant stakeholders on the impact of the Function on #{wordings[strand]}?'
-      help:  'This question asks whether any stakeholders with knowledge and expertise on the #{"different " if strand == "gender"}interests of #{wordings[strand]} have been consulted on the impact of the Function.<br/><br/>
+      label: 'Have you obtained the views of relevant stakeholders on the impact of the #{function_policy_substitution} on #{wordings[strand]}?'
+      help:  'This question asks whether any stakeholders with knowledge and expertise on the #{"different " if strand == "gender"}interests of #{wordings[strand]} have been consulted on the impact of the #{function_policy_substitution}.<br/><br/>
              #{data["extra_strand_wordings"]["consultation"][4][strand]}
-             The consultation may have been arranged specifically for this particular Function or for a number of Functions.<br/><br/>
+             The consultation may have been arranged specifically for this particular #{function_policy_substitution} or for a number of #{function_policy_substitution}s.<br/><br/>
              The available answers to this question are:<br/>
              <ul><li>Yes</li>
              <li>No</li>
@@ -138,11 +138,11 @@ questions:
       dependent_questions: ''
     5:
       label: 'If not, why not?'
-      help: 'This question asks why stakeholders have not been consulted on the impact of the Function.<br/><br/>
+      help: 'This question asks why stakeholders have not been consulted on the impact of the #{function_policy_substitution}.<br/><br/>
              The available answers to this question are:<ul>
              <li>No relevant stakeholders identified.  This would be the correct answer if it had been decided that there were no suitable stakeholders representing the interests of #{wordings[strand]} to consult with.</li>
              <li>There are plans to consult relevant stakeholders.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
-             <li>There are no plans to consult relevant stakeholders.  There may be reasons why the Council had decided not to consult on the impact of the Function.</li></ul>'
+             <li>There are no plans to consult relevant stakeholders.  There may be reasons why the Council had decided not to consult on the impact of the #{function_policy_substitution}.</li></ul>'
   
       type: select
       choices: 6
@@ -155,8 +155,8 @@ questions:
       type: text
       dependent_questions: 'consultation_#{strand}_4 yes_value'
     7:
-      label: 'Is there anything about the Function and the way it affects #{wordings[strand]} which needs highlighting?'
-      help: 'This question asks you to identify any issues about the way in which the Function has an impact upon people from different religions or beliefs.  An issue will be where there is a differential impact.  #{data["extra_strand_wordings"]["consultation"][7][strand]}<br/><br/>
+      label: 'Is there anything about the #{function_policy_substitution} and the way it affects #{wordings[strand]} which needs highlighting?'
+      help: 'This question asks you to identify any issues about the way in which the #{function_policy_substitution} has an impact upon people from different religions or beliefs.  An issue will be where there is a differential impact.  #{data["extra_strand_wordings"]["consultation"][7][strand]}<br/><br/>
              Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
       type: select
@@ -166,9 +166,9 @@ questions:
   additional_work: 
     1:
       label: 'Do you need any more information to complete the assessment?'
-      help: 'This question asks you to reflect upon whether you think that you need further information to obtain a comprehensive view of the impact of the Function.<br/><br/>
-             The Impact section asked you to identify existing information to assess the impact of the function on #{wordings[strand]}.<br/><br/>
-             The Consultation section asked you to who had been consulted about the impact of the Function. <br/><br/>
+      help: 'This question asks you to reflect upon whether you think that you need further information to obtain a comprehensive view of the impact of the #{function_policy_substitution}.<br/><br/>
+             The Impact section asked you to identify existing information to assess the impact of the #{function_policy_substitution} on #{wordings[strand]}.<br/><br/>
+             The Consultation section asked you to who had been consulted about the impact of the #{function_policy_substitution}. <br/><br/>
              Even with these two sources of information you may feel that there is additional information required such as further data collection and analysis of further consultation.'
       type: select
       choices: 3
@@ -187,48 +187,48 @@ questions:
       weights: 0
       dependent_questions: ''
     4:
-      label: 'Do you think that the Function has a role in preventing #{wordings[strand]} being treated differently, in an unfair or inappropriate way, just because of their #{sentence_desc(strand)}?'
-      help: 'This question asks you to assess whether the Function could have a role in eliminating discrimination or harassment faced by #{wordings[strand]} as a result of their #{descriptive_term[strand]}.<br/><br/>
-            There will be a minority of Functions that are intended to eliminate discrimination or harassment as their primary purpose and some Functions which might have a secondary role in eliminating discrimination or harassment.'
+      label: 'Do you think that the #{function_policy_substitution} has a role in preventing #{wordings[strand]} being treated differently, in an unfair or inappropriate way, just because of their #{sentence_desc(strand)}?'
+      help: 'This question asks you to assess whether the #{function_policy_substitution} could have a role in eliminating discrimination or harassment faced by #{wordings[strand]} as a result of their #{descriptive_term[strand]}.<br/><br/>
+            There will be a minority of #{function_policy_substitution}s that are intended to eliminate discrimination or harassment as their primary purpose and some #{function_policy_substitution}s which might have a secondary role in eliminating discrimination or harassment.'
       type: select
       choices: 3
       weights: 0
       dependent_questions: ''
     5:
-      label: 'Do you think that the Function could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
-      help: 'This question asks you to assess whether the Function could have a role in promoting equality of opportunity for #{wordings[strand]}.<br/><br/>
-             There will be a minority of Functions that are intended to eliminate equality of opportunity as their primary purpose and some Functions which might have a secondary role in promoting equality.'
+      label: 'Do you think that the #{function_policy_substitution} could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
+      help: 'This question asks you to assess whether the #{function_policy_substitution} could have a role in promoting equality of opportunity for #{wordings[strand]}.<br/><br/>
+             There will be a minority of #{function_policy_substitution}s that are intended to eliminate equality of opportunity as their primary purpose and some #{function_policy_substitution}s which might have a secondary role in promoting equality.'
       type: select
       choices: 3
       weights: 0
       dependent_questions: ''
     6:
-      label: 'Do you think that the Function could assist #{wordings[strand]} to get on better with each other?'
-      help:  'This question asks you to assess whether the Function could have a role in assisting #{wordings[strand]} to get on better with each other.<br/><br/>
-              There will be a minority of Functions that are intended to promote good relations as their primary purpose and some Functions that might have this as a secondary role.'
+      label: 'Do you think that the #{function_policy_substitution} could assist #{wordings[strand]} to get on better with each other?'
+      help:  'This question asks you to assess whether the #{function_policy_substitution} could have a role in assisting #{wordings[strand]} to get on better with each other.<br/><br/>
+              There will be a minority of #{function_policy_substitution}s that are intended to promote good relations as their primary purpose and some #{function_policy_substitution}s that might have this as a secondary role.'
       type: select
       choices: 3
       weights: 0
       dependent_questions: ''
     7:
-      label: 'Do you think that the function will take account of disabilities even if it means treating #{wordings[strand]} more favourably?'
-      help: 'The question asks whether the Function takes account of disabilities even if it means treating people with disabilities more favourably.<br/><br/>
+      label: 'Do you think that the #{function_policy_substitution} will take account of disabilities even if it means treating #{wordings[strand]} more favourably?'
+      help: 'The question asks whether the #{function_policy_substitution} takes account of disabilities even if it means treating people with disabilities more favourably.<br/><br/>
              As noted in the Impact section this type of intentional positive impact can be characterized as positive action.'
       type: select
       choices: 3
       weights: 0
       dependent_questions: ''
     8:
-      label: 'Do you think that the Function could assist #{wordings[strand]} to participate more?'
-      help: 'The question asks you whether the Function could encourage individuals with different types of disability to participate more in society.<br/><br/>
-             Functions which assisted with access, both physical and information, for people with different types of disability might assist in this regard.'
+      label: 'Do you think that the #{function_policy_substitution} could assist #{wordings[strand]} to participate more?'
+      help: 'The question asks you whether the #{function_policy_substitution} could encourage individuals with different types of disability to participate more in society.<br/><br/>
+             #{function_policy_substitution}s which assisted with access, both physical and information, for people with different types of disability might assist in this regard.'
       type: select
       choices: 3
       weights: 0
       dependent_questions: ''
     9:
-      label: 'Do you think that the Function could assist in promoting positive attitudes to #{wordings[strand]}?'
-      help: 'The question asks you whether the Function could assist in promoting positive attitudes to individuals with different types of disability.'
+      label: 'Do you think that the #{function_policy_substitution} could assist in promoting positive attitudes to #{wordings[strand]}?'
+      help: 'The question asks you whether the #{function_policy_substitution} could assist in promoting positive attitudes to individuals with different types of disability.'
       type: select
       choices: 3
       weights: 0
@@ -237,43 +237,43 @@ questions:
 overall_questions:
   purpose:
     2:
-      label: 'What is the Function supposed to achieve?'
-      help: 'This question asks you to identify the target outcome or desired state of affairs which the Function is designed to deliver.  If the Function does the job which it is supposed to do, what will it change or achieve.<br/><br/>
+      label: 'What is the #{function_policy_substitution} supposed to achieve?'
+      help: 'This question asks you to identify the target outcome or desired state of affairs which the #{function_policy_substitution} is designed to deliver.  If the #{function_policy_substitution} does the job which it is supposed to do, what will it change or achieve.<br/><br/>
              Examples of target outcomes are:<ul> <li>A narrowing of the gap between the local employment rate for priority disadvantaged groups and the national rate.</li>
              <li>An improvement in the skill levels of the workforce to better meet the needs of the local economy.</li></ul> It is unlikely that the target outcome will be expressed in terms of numerical targets or outputs.'
       type: text
       dependent_questions: ''
     5:
       label: 'Service users'
-      help: 'Service Users, people who use Council serices whether residents or visitors.  Functions which deliver front line services will have an impact on these individuals.'
+      help: 'Service Users, people who use Council serices whether residents or visitors.  #{function_policy_substitution}s which deliver front line services will have an impact on these individuals.'
       type : select
       choices: 3
       weights: 0
       dependent_questions: ''
     6:
       label: 'Staff employed by the organisation'
-      help: 'Functions on how the Council is structured and operates such as HR Functions will have an impact on staff employed by the Council.  Staff are almost certain to be Services Users as well but this question is asked in relation to their role as staff.'
+      help: '#{function_policy_substitution}s on how the Council is structured and operates such as HR #{function_policy_substitution}s will have an impact on staff employed by the Council.  Staff are almost certain to be Services Users as well but this question is asked in relation to their role as staff.'
       type: select
       choices: 3
       weights: 0
       dependent_questions: ''
     7:
       label: 'Supplier organisations, staff and customers'
-      help: 'Functions relating to the way in which the Council purchases goods and services may have an impact on staff employed by supplier organisations.  Staff of supplier organisations are almost certain to be Services Users as well but this question is asked in relation to their role purely as staff of supplier organisations.'
+      help: '#{function_policy_substitution}s relating to the way in which the Council purchases goods and services may have an impact on staff employed by supplier organisations.  Staff of supplier organisations are almost certain to be Services Users as well but this question is asked in relation to their role purely as staff of supplier organisations.'
       type: select
       choices: 3
       weights: 0
       dependent_questions: ''
     8:
       label: 'Partner organisations, staff and customers'
-      help: 'Functions that cover the way the Council works with local partners are likely to affect staff of partner organisations.  Staff of partner organisations are almost certain to be Services Users as well but this question is asked in relation to their role purely as staff of partner organisations.'
+      help: '#{function_policy_substitution}s that cover the way the Council works with local partners are likely to affect staff of partner organisations.  Staff of partner organisations are almost certain to be Services Users as well but this question is asked in relation to their role purely as staff of partner organisations.'
       type: select
       choices: 3
       weights: 0
       dependent_questions: ''
     9:
       label: 'Businesses, staff and customers'
-      help: 'Functions which cover the way in which the Council engages with businesses are likely to have an impact on the employees of such businesses'
+      help: '#{function_policy_substitution}s which cover the way in which the Council engages with businesses are likely to have an impact on the employees of such businesses'
       type: select
       choices: 3
       weights: 0
@@ -322,13 +322,13 @@ section_names:
 header_help_text:
   purpose_overall_1:
     -
-      - "This questions asks you to identify which of the Council’s strategic objective or objectives the Function assists in delivering.<br/><br/>
-         The Function may not have a direct role in delivering one or more strategic objectives but may play more of a supporting role, such roles are just as relevant as more direct roles.<br/><br/>
-         As the Council has committed to deliver the Function it is likely that it will assist in delivering at least one strategic objective in either a direct or supporting role.<br/><br/>
+      - "This questions asks you to identify which of the Council’s strategic objective or objectives the #{function_policy_substitution} assists in delivering.<br/><br/>
+         The #{function_policy_substitution} may not have a direct role in delivering one or more strategic objectives but may play more of a supporting role, such roles are just as relevant as more direct roles.<br/><br/>
+         As the Council has committed to deliver the #{function_policy_substitution} it is likely that it will assist in delivering at least one strategic objective in either a direct or supporting role.<br/><br/>
          The latest Council strategic objectives are listed and the available answers for each objective are yes no and not sure."
-      - 'This questions asks you to identify which of the Council’s strategic objective or objectives the proposed Function assists in delivering.<br/><br/>
-         The proposed Function may not have a direct role in delivering one or more strategic objectives but may play more of a supporting role, such roles are just as relevant as more direct roles.<br/><br/>
-         As the Council has committed to deliver the Function it is likely that it will assist in delivering at least one strategic objective in either a direct or supporting role.<br/><br/>
+      - 'This questions asks you to identify which of the Council’s strategic objective or objectives the proposed #{function_policy_substitution} assists in delivering.<br/><br/>
+         The proposed #{function_policy_substitution} may not have a direct role in delivering one or more strategic objectives but may play more of a supporting role, such roles are just as relevant as more direct roles.<br/><br/>
+         As the Council has committed to deliver the #{function_policy_substitution} it is likely that it will assist in delivering at least one strategic objective in either a direct or supporting role.<br/><br/>
          The latest Council strategic objectives are listed and the available answers for each objective are yes no and not sure.'
     -
       - 'This questions asks you to identify which of the Council’s strategic objective or objectives the Policy assists in delivering.<br/><br/>
@@ -341,26 +341,26 @@ header_help_text:
          The latest Council strategic objectives are listed and the available answers for each objective are yes no and not sure.'
   purpose_overall_2:
     -
-      - 'This question asks you to identify the different groups of individuals the Function has an impact upon.<br/><br/>
+      - 'This question asks you to identify the different groups of individuals the #{function_policy_substitution} has an impact upon.<br/><br/>
          The groups of individuals are:<ul>
-         <li>Service Users, people who use Council services whether residents or visitors.  Functions which deliver front line services will have an impact on these individuals.</li>
-         <li>Staff employed by the Council.  Internal Functions on how the Council is structured and operates such as HR Functions will have an impact on these individuals.  Staff of the Council are likely to be Service Users as well.</li>
-         <li>Staff employed by organisations that supply goods and services to the Council.  Functions which cover the way in which the Council makes its purchases will impact on these individuals.</li>
-         <li>Staff employed by organisations that engage in partnership activities with the Council.  Functions that cover working with local partners are likely to affect these individuals.</li>
-         <li>Employees of businesses operating in the Council area.  Functions which cover the way in which the Council engages with businesses are likely to have an impact on these individuals.</li></ul>
-         Please indicate whether the Function have any impact, good or bad, on the following individuals.  The available answers for each group of individuals are:
+         <li>Service Users, people who use Council services whether residents or visitors.  #{function_policy_substitution}s which deliver front line services will have an impact on these individuals.</li>
+         <li>Staff employed by the Council.  Internal #{function_policy_substitution}s on how the Council is structured and operates such as HR #{function_policy_substitution}s will have an impact on these individuals.  Staff of the Council are likely to be Service Users as well.</li>
+         <li>Staff employed by organisations that supply goods and services to the Council.  #{function_policy_substitution}s which cover the way in which the Council makes its purchases will impact on these individuals.</li>
+         <li>Staff employed by organisations that engage in partnership activities with the Council.  #{function_policy_substitution}s that cover working with local partners are likely to affect these individuals.</li>
+         <li>Employees of businesses operating in the Council area.  #{function_policy_substitution}s which cover the way in which the Council engages with businesses are likely to have an impact on these individuals.</li></ul>
+         Please indicate whether the #{function_policy_substitution} have any impact, good or bad, on the following individuals.  The available answers for each group of individuals are:
          <br/><br/>
          <ul><li>Yes</li>
          <li>No</li>
          </ul>'
-      - 'This question asks you to identify the different groups of individuals the proposed Function has an impact upon.<br/><br/>
+      - 'This question asks you to identify the different groups of individuals the proposed #{function_policy_substitution} has an impact upon.<br/><br/>
          The groups of individuals are:<ul>
-         <li>Service Users, people who use Council services whether residents or visitors.  Functions which deliver front line services will have an impact on these individuals.</li>
-         <li>Staff employed by the Council.  Internal Functions on how the Council is structured and operates such as HR Functions will have an impact on these individuals.  Staff of the Council are likely to be Service Users as well.</li>
-         <li>Staff employed by organisations that supply goods and services to the Council.  Functions which cover the way in which the Council makes its purchases will impact on these individuals.</li>
-         <li>Staff employed by organisations that engage in partnership activities with the Council.  Functions that cover working with local partners are likely to affect these individuals.</li>
-         <li>Employees of businesses operating in the Council area.  Functions which cover the way in which the Council engages with businesses are likely to have an impact on these individuals.</li></ul>
-         Please indicate whether the proposed Function have any impact, good or bad, on the following individuals.  The available answers for each group of individuals are:
+         <li>Service Users, people who use Council services whether residents or visitors.  #{function_policy_substitution}s which deliver front line services will have an impact on these individuals.</li>
+         <li>Staff employed by the Council.  Internal #{function_policy_substitution}s on how the Council is structured and operates such as HR #{function_policy_substitution}s will have an impact on these individuals.  Staff of the Council are likely to be Service Users as well.</li>
+         <li>Staff employed by organisations that supply goods and services to the Council.  #{function_policy_substitution}s which cover the way in which the Council makes its purchases will impact on these individuals.</li>
+         <li>Staff employed by organisations that engage in partnership activities with the Council.  #{function_policy_substitution}s that cover working with local partners are likely to affect these individuals.</li>
+         <li>Employees of businesses operating in the Council area.  #{function_policy_substitution}s which cover the way in which the Council engages with businesses are likely to have an impact on these individuals.</li></ul>
+         Please indicate whether the proposed #{function_policy_substitution} have any impact, good or bad, on the following individuals.  The available answers for each group of individuals are:
          <br/><br/>
          <ul><li>Yes</li>
          <li>No</li>
@@ -392,9 +392,9 @@ header_help_text:
          </ul>'
   purpose_overall_3:
     -
-      - 'This group of questions seeks to identify any positive differential impact that the Function has on individuals.<br/><br/> The questions
+      - 'This group of questions seeks to identify any positive differential impact that the #{function_policy_substitution} has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
-         members of that equality strand.  For example a Function that was designed to improve access to services for people of a certain
+         members of that equality strand.  For example a #{function_policy_substitution} that was designed to improve access to services for people of a certain
          religion or belief and is performing well would expect to have a positive impact only for members of that religion or belief.  It may be that there is other
          unplanned positive differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
@@ -403,9 +403,9 @@ header_help_text:
          </ul><br/>
          Please indicate whether, in your opinion,  the positive impact is limited or significant.'
 
-      - 'This group of questions seeks to identify any positive differential impact that the proposed Function has on individuals.<br/><br/> The questions
+      - 'This group of questions seeks to identify any positive differential impact that the proposed #{function_policy_substitution} has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
-         members of that equality strand.  For example a Function that was designed to improve access to services for people of a certain
+         members of that equality strand.  For example a #{function_policy_substitution} that was designed to improve access to services for people of a certain
          religion or belief and is performing well would expect to have a positive impact only for members of that religion or belief.  It may be that there is other
          unplanned positive differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
@@ -436,9 +436,9 @@ header_help_text:
          Please indicate whether, in your opinion,  the positive impact is limited or significant.'
   purpose_overall_4:
     -
-      - 'This group of questions seeks to identify any negative differential impact that the Function has on individuals.<br/><br/> The questions
+      - 'This group of questions seeks to identify any negative differential impact that the #{function_policy_substitution} has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
-         members of that equality strand.  For example a Function that was designed to improve access to services for people of a certain
+         members of that equality strand.  For example a #{function_policy_substitution} that was designed to improve access to services for people of a certain
          religion or belief and is performing badly may have a negative impact only for members of that religion or belief.  It may be that there is other
          unplanned negative differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
@@ -446,9 +446,9 @@ header_help_text:
         <li>Significant impact</li>
         </ul><br/>
          Please indicate whether, in your opinion,  the negative impact is limited or significant.'
-      - 'This group of questions seeks to identify any negative differential impact that the proposed Function has on individuals.<br/><br/> The questions
+      - 'This group of questions seeks to identify any negative differential impact that the proposed #{function_policy_substitution} has on individuals.<br/><br/> The questions
          are classified by the six equality strands to flag any differential impact arising as a result of the individuals being particular
-         members of that equality strand.  For example a Function that was designed to improve access to services for people of a certain
+         members of that equality strand.  For example a #{function_policy_substitution} that was designed to improve access to services for people of a certain
          religion or belief and is performing badly may have a negative impact only for members of that religion or belief.  It may be that there is other
          unplanned negative differential impact for other individuals.<br/><br/>
          The available answers to the questions are:<br/><ul><li>None at all</li>
@@ -527,7 +527,7 @@ choices:
     - 'Proposed'
   9:
     - 'Not Answered Yet'
-    - 'Function'
+    - '#{function_policy_substitution}'
     - 'Policy'
   10:
     - 'Not Answered Yet'
