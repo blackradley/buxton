@@ -60,7 +60,7 @@ class Mailer < ActionMailer::Base
     @user     = user
     @password = password
     mail(:to => user.email,
-         :subject => "Welcome to the EA Toolkit")
+         :subject => "Welcome to the Equality Risk Toolkit")
   end
   
   def activity_submitted(activity, email_contents)

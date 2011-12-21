@@ -1,1 +1,1 @@
-rvm --create use ree@brs
+rvm --create use default@brs
