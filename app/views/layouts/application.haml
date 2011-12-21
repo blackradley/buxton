@@ -4,6 +4,8 @@
     %title 
       EA Toolkit : 
       = "#{controller.controller_name} : #{controller.action_name}".titleize
+    %meta{'http-equiv' => 'cache-control', 'content'=>'no-store'}
+    %meta{'http-equiv' => 'pragma', 'content'=>'no-cache'}
     %meta{'http-equiv' => 'content-type', 'content'=>'text/html;charset=UTF-8'}
     =raw(stylesheet_link_merged :base)
     =raw(stylesheet_link_tag 'tables')
