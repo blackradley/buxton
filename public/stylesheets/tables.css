@@ -12,7 +12,8 @@ table {
     padding: 0px 10px 5px;
     line-height: 16px;
     height: 44px;
-    vertical-align: bottom; }
+    vertical-align: bottom;
+    word-wrap: break-word; }
     table th .sortControls {
       float: right; }
       table th .sortControls a {
@@ -72,7 +73,8 @@ table {
       color: #e2474b;
       font-size: 11px; }
   table .last {
-    border-right: 0px solid #bbbbbb; }
+    border-right: 0px solid #bbbbbb;
+    width: 100px; }
   table .taskGroupRemove {
     width: 60px; }
   table .sortControls {
