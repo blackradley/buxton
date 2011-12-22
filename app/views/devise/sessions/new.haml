@@ -1,6 +1,6 @@
 %h2 Sign in
 
-= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| 
+= form_for(resource, :as => resource_name, :url => session_path(resource_name), :autocomplete => 'off') do |f| 
   - unless flash.empty?
     #flashBox
       = content_tag(:div, flash[:error], :id => "flash_error") if flash[:error]

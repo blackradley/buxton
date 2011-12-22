@@ -15,9 +15,16 @@ class Mailer < ActionMailer::Base
   
   def activity_created(activity)
     @activity = activity
-    mail(:to => [@activity.creator, @activity.completer, @activity.qc_officer].uniq.map(&:email).join(", "),
+    mail(:to => [@activity.creator, @activity.completer, @activity.qc_officer, @activity.approver].uniq.map(&:email).join(", "),
          :subject => "A new EA has been created")
     #mail completer
+  end
+
+  def activity_ia_started(activity)
+    @activity = activity
+    mail(:to => @activity.approver.email,
+         :cc => @activity.qc_officer.email,
+         :subject => "Initial Assessment has been started for the EA #{@activity.name} Reference ID #{@activity.ref_no}")
   end
   
   def activity_task_group_member_added(activity, user)

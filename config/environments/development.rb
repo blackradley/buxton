@@ -23,6 +23,11 @@ Buxton::Application.configure do
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
   config.action_mailer.default_url_options = { :host => 'buxton.dev' }
+
+  config.action_controller.session = {
+    :expire_after    => 14 * 24 * 3600, #Cookies will expire after 2 weeks
+    :secure => true #The session will now not be sent or received on HTTP requests.
+  }
 end
 BANNER    = true
 KEYS      = true
