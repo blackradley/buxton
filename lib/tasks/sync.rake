@@ -7,7 +7,7 @@ namespace :stars do
   CURRENT = "#{R_ROOT}/current"
   SHARED = "#{R_ROOT}/shared"
   DB_CONFIG = YAML.load_file('config/database.yml')
-  SHARED_FOLDERS = ['public/images/organisations']
+  SHARED_FOLDERS = []
   
   namespace :sync do    
     
