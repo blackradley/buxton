@@ -10,6 +10,7 @@ javascripts:
   # - effects
   # - dragdrop
   # - controls
+  - jquery.bgiframe
   - application
   - rails
   - jquery-ui.min

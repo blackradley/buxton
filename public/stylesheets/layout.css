@@ -197,7 +197,8 @@
   #cboxLoadedContent .searchBox form label {
     font-weight: bold;
     float: left;
-    line-height: 32px; }
+    line-height: 32px;
+    width: 70px; }
   #content_holder .searchBox form .textField,
   #cboxLoadedContent .searchBox form .textField {
     border: 1px solid #999999;
@@ -226,7 +227,9 @@
     background-image: url(../images/orange_buttons/search_hover.jpg); }
   #content_holder .searchBox form p,
   #cboxLoadedContent .searchBox form p {
-    font-style: italic; }
+    font-style: italic;
+    float: left;
+    width: 380px; }
 #content_holder .orangeButton,
 #cboxLoadedContent .orangeButton {
   display: inline-block;
