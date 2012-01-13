@@ -5,20 +5,22 @@
     %p{:align => "left"}
       - case log.class.to_s
         - when "LoginLog"
-          = mail_to log.user.email
+          = mail_to log.user.email.to_s
           logged in
         - when "LogoutLog"
-          = mail_to log.user.email
+          = mail_to log.user.email.to_s
           logged out
+        -when "FailedLoginLog"
+          = mail_to log.user.email.to_s if log.user
         - when "PDFLog"
           The PDF for the
           %strong
-            = log.activity.name
+            = log.find_activity_name
           EA, within directorate
           %strong
-            = log.activity.directorate.name
+            = log.find_directorate_name
           , was viewed by
-          = mail_to log.user.email
+          = mail_to log.user.email.to_s
       = log.message
   %td{:width => 190}
     %p{:align => "right"}

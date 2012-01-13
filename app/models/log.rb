@@ -12,6 +12,14 @@ class Log < ActiveRecord::Base
   belongs_to :user
   belongs_to :activity
   
+  def find_activity_name
+    Activity.unscoped.find(self.activity_id).name.to_s
+  end
+
+  def find_directorate_name
+    Activity.unscoped.find(self.activity_id).directorate.name.to_s
+  end
+
   def icon
     self.class::ICON
   end  
