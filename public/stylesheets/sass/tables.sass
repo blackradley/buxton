@@ -3,6 +3,7 @@
 table
   :clear both
   :width 950px
+  :table-layout fixed
   :margin 20px 0px
   :border 1px solid #BBBBBB
   th
@@ -14,6 +15,7 @@ table
     :line-height 16px
     :height 44px
     :vertical-align bottom
+    :word-wrap break-word
     .sortControls
       :float right
       a
@@ -47,7 +49,8 @@ table
     :text-align left
     :border-right 1px solid #BBBBBB
     :padding 8px 10px
-    :line-height 15px
+    :line-height 1.3em
+    :word-wrap break-word
     .action
       :padding-left 20px
       :margin-right 10px
@@ -75,6 +78,7 @@ table
       :font-size 11px
   .last
     :border-right 0px solid #BBBBBB
+    :width 100px
   .taskGroupRemove
     :width 60px
   .sortControls
@@ -109,7 +113,9 @@ table
   .dateTime
     :width 160px
   .date
-    :width 65px
+    :width 85px
+  .email
+    :width 200px
   .center
     :text-align center
   .checkbox
