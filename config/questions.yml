@@ -186,6 +186,11 @@ questions:
       choices: 3
       weights: 0
       dependent_questions: ''
+    44:
+      label: 'Please explain what work needs to be done.'
+      help: 'A brief description of the nature of the work and timescales for completion will be sufficient.'
+      type: text
+      dependent_questions: 'additional_work_#{strand}_3 yes_value'
     4:
       label: 'Do you think that the #{function_policy_substitution} has a role in preventing #{wordings[strand]} being treated differently, in an unfair or inappropriate way, just because of their #{sentence_desc(strand)}?'
       help: 'This question asks you to assess whether the #{function_policy_substitution} could have a role in eliminating discrimination or harassment faced by #{wordings[strand]} as a result of their #{descriptive_term[strand]}.<br/><br/>
