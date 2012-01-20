@@ -663,15 +663,15 @@ class Activity < ActiveRecord::Base
                             :faith => [1,2,3,4,5,6,7],
                             :age => [1,2,3,4,5,6,7]
                           },    
-      :additional_work => { :race => [1,2,3,4,6],
-                            :disability => [1,2,3,4,6,7,8,9],
-                            :sexual_orientation => [1,2,3,4,6],
-                            :gender => [1,2,3,4],
-                            :gender_reassignment => [1,2,3,4,6],
-                            :pregnancy_and_maternity => [1,2,3,4,6],
-                            :marriage_civil_partnership => [1,2,3,4,6],
-                            :faith => [1,2,3,4,6],
-                            :age => [1,2,3,4,6]
+      :additional_work => { :race => [1,2,3,44,4,6],
+                            :disability => [1,2,3,44,4,6,7,8,9],
+                            :sexual_orientation => [1,2,3,44,4,6],
+                            :gender => [1,2,3,44,4],
+                            :gender_reassignment => [1,2,3,44,4,6],
+                            :pregnancy_and_maternity => [1,2,3,44,4,6],
+                            :marriage_civil_partnership => [1,2,3,44,4,6],
+                            :faith => [1,2,3,44,4,6],
+                            :age => [1,2,3,44,4,6]
                           }
     }
   end
