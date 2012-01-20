@@ -76,6 +76,11 @@ class Activity < ActiveRecord::Base
     @previous_activity = Activity.unscoped.where(:previous_activity_id => self.id).first
   end
 
+  def parent_activity
+    return @parent_activity if @parent_activity
+    @parent_activity = Activity.unscoped.where(:id => self.previous_activity_id).first
+  end
+
   def mark_empty_issues
     issues.select{|i| i.description.blank?}.each do |issue|
       issue.mark_for_destruction
@@ -91,9 +96,9 @@ class Activity < ActiveRecord::Base
     return true
   end
 
-  def ref_no
-    "EA#{sprintf("%06d", self.id)}"
-  end
+  # def ref_no
+  #   "EA#{sprintf("%06d", self.id)}"
+  # end
   
   def progress
     if !self.ready
