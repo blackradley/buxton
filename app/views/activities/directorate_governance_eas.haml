@@ -7,11 +7,11 @@
     =link_to "Generate Schedule", generate_schedule_activities_path, :class=>"add schedule", :target => "_blank", "data-root-path" => generate_schedule_activities_path
   .clear
   .searchBox
-    = form_tag '#', :id => 'searchForm' do
+    = form_tag '#', :id => 'searchForm', :class => "directorateSearch" do
       %label Search for:
       = text_field_tag 'search_term', '', :class => 'textField'
       = submit_tag 'Search', :class => 'submitButton'
-      %p Search will return all records with Service Area, Name, Ref No or Approver matching the search text.
+      %p Search will return all records with a directorate name matching the search text.
 
   %table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
     %thead
