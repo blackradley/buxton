@@ -47,7 +47,7 @@ class Activity < ActiveRecord::Base
   # validates_presence_of :completer, :approver
   # validates_presence_of :service_area
   validates_associated :completer, :approver, :qc_officer
-  has_many :helpers, :through => :task_group_memberships
+  has_many :helpers, :through => :task_group_memberships, :source => :user
   # validates_associated :questions
   # validates_uniqueness_of :name, :scope => :directorate_id
   
