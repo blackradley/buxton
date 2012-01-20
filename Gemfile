@@ -9,7 +9,7 @@ gem "jquery-rails"
 #gem 'rmagick', :require => 'RMagick'
 gem 'pdf-writer', :require => 'pdf/writer'
 gem 'newrelic_rpm'
-gem "devise"
+gem "devise", "= 1.5.2"
 gem 'formtastic'
 gem 'hoptoad_notifier'
 gem 'rails3-jquery-autocomplete'

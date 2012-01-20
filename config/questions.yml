@@ -1,8 +1,8 @@
 questions:
   purpose:
     3:
-      label: 'Does this EA have any relevance to #{wordings[strand]}?'
-      help: '<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons’ disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this EA treats some persons more favourably than others.</p>'
+      label: 'Does this #{function_policy_substitution} have any relevance to #{wordings[strand]}?'
+      help: '<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons’ disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>'
       choices: 11
       type: select
       weights: 1
@@ -186,6 +186,11 @@ questions:
       choices: 3
       weights: 0
       dependent_questions: ''
+    44:
+      label: 'Please explain what work needs to be done.'
+      help: 'A brief description of the nature of the work and timescales for completion will be sufficient.'
+      type: text
+      dependent_questions: 'additional_work_#{strand}_3 yes_value'
     4:
       label: 'Do you think that the #{function_policy_substitution} has a role in preventing #{wordings[strand]} being treated differently, in an unfair or inappropriate way, just because of their #{sentence_desc(strand)}?'
       help: 'This question asks you to assess whether the #{function_policy_substitution} could have a role in eliminating discrimination or harassment faced by #{wordings[strand]} as a result of their #{descriptive_term[strand]}.<br/><br/>
