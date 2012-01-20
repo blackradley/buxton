@@ -76,25 +76,23 @@ class User < ActiveRecord::Base
     response = super
     
     if response==:locked && was_locked
-      text = %Q[<a href="mailto:#{email}">#{email}</a> failed to log in due to locked account.]
+      text = "failed to log in due to locked account."
       # Log this type of event
       # CAUTION! See: http://notetoself.vrensk.com/2008/08/escaping-single-quotes-in-ruby-harder-than-expected/
       # for why we're escaping this this way
-      escaped_text = text.gsub(/\\|'/) { |c| "\\#{c}" }
-      FailedLoginLog.create(:message => escaped_text)
+      FailedLoginLog.create(:message => text, :user_id => self.id)
     end
     response
   end
   
   def log_failed_attempts
     if failed_attempts > 0 && failed_attempts_changed?
-      text = %Q[<a href="mailto:#{email}">#{email}</a> failed login attempt #{failed_attempts}.]
+      text = "failed login attempt #{failed_attempts}."
       text << " User locked out" if locked?
       # Log this type of event
       # CAUTION! See: http://notetoself.vrensk.com/2008/08/escaping-single-quotes-in-ruby-harder-than-expected/
       # for why we're escaping this this way
-      escaped_text = text.gsub(/\\|'/) { |c| "\\#{c}" }
-      FailedLoginLog.create(:message => escaped_text)
+      FailedLoginLog.create(:message => text, :user_id => self.id)
     end
   end
   

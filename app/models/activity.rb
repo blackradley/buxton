@@ -47,8 +47,8 @@ class Activity < ActiveRecord::Base
   # validates_presence_of :completer, :approver
   # validates_presence_of :service_area
   validates_associated :completer, :approver, :qc_officer
-  has_many :helpers, :through => :task_group_memberships
-#  validates_associated :questions
+  has_many :helpers, :through => :task_group_memberships, :source => :user
+  # validates_associated :questions
   # validates_uniqueness_of :name, :scope => :directorate_id
   
   before_update :set_approved, :update_completed
@@ -192,10 +192,10 @@ class Activity < ActiveRecord::Base
     end
   end
   
-  def reset_question_texts
+  def reset_question_texts(destroy_purpose = true)
    data = File.open(Rails.root + "config/questions.yml"){|yf| YAML::load( yf ) }
    dependents = {}
-   Question.where(:name => ["purpose_overall_11", "purpose_overall_12"]).each(&:destroy)
+   Question.where(:name => ["purpose_overall_11", "purpose_overall_12"]).each(&:destroy) if destroy_purpose
    Activity.question_setup_names.each do |section, strand_list|
      strand_list.each do |strand, question_list|
        question_list.each do |question_number|
@@ -663,15 +663,15 @@ class Activity < ActiveRecord::Base
                             :faith => [1,2,3,4,5,6,7],
                             :age => [1,2,3,4,5,6,7]
                           },    
-      :additional_work => { :race => [1,2,3,4,6],
-                            :disability => [1,2,3,4,6,7,8,9],
-                            :sexual_orientation => [1,2,3,4,6],
-                            :gender => [1,2,3,4],
-                            :gender_reassignment => [1,2,3,4,6],
-                            :pregnancy_and_maternity => [1,2,3,4,6],
-                            :marriage_civil_partnership => [1,2,3,4,6],
-                            :faith => [1,2,3,4,6],
-                            :age => [1,2,3,4,6]
+      :additional_work => { :race => [1,2,3,44,4,6],
+                            :disability => [1,2,3,44,4,6,7,8,9],
+                            :sexual_orientation => [1,2,3,44,4,6],
+                            :gender => [1,2,3,44,4],
+                            :gender_reassignment => [1,2,3,44,4,6],
+                            :pregnancy_and_maternity => [1,2,3,44,4,6],
+                            :marriage_civil_partnership => [1,2,3,44,4,6],
+                            :faith => [1,2,3,44,4,6],
+                            :age => [1,2,3,44,4,6]
                           }
     }
   end
