@@ -192,10 +192,10 @@ class Activity < ActiveRecord::Base
     end
   end
   
-  def reset_question_texts
+  def reset_question_texts(destroy_purpose = true)
    data = File.open(Rails.root + "config/questions.yml"){|yf| YAML::load( yf ) }
    dependents = {}
-   Question.where(:name => ["purpose_overall_11", "purpose_overall_12"]).each(&:destroy)
+   Question.where(:name => ["purpose_overall_11", "purpose_overall_12"]).each(&:destroy) if destroy_purpose
    Activity.question_setup_names.each do |section, strand_list|
      strand_list.each do |strand, question_list|
        question_list.each do |question_number|
