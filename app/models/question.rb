@@ -54,7 +54,7 @@ class Question < ActiveRecord::Base
   end
 
   def help_text=(new_help_text)
-    self.raw_help_text = raw_help_text
+    self.raw_help_text = new_help_text
   end
 
   def parent
