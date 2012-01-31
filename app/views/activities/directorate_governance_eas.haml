@@ -72,3 +72,4 @@
             %td.last
               = link_to "view", activity_path(activity), :class => "action view"
               = link_to "summary", summary_activity_path(activity), :class => "action summary activitySummary"
+              = link_to "actions", activities_issues_path(:activity => activity.id), :class => "action actions"

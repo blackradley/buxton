@@ -1,0 +1,42 @@
+- if current_user == @activity.completer
+  .orangeButton
+    =link_to "Add Issue", new_activities_issue_path(:strand => @equality_strand, :activity => @activity.id), :class=>"add"
+%table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
+  %thead
+    %tr
+      %th Description
+      %th Ref no.
+      %th.email Owner
+      %th Target Date
+      - if current_user == @activity.completer
+        %th.last
+    %tr
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      %th.sortControls
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
+        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
+      - if current_user == @activity.completer
+        %th.sortControls.last
+  %tbody
+    - if @equality_strand
+      - issues = @activity.issues.where(:strand => @equality_strand)
+    - else
+      - issues = @activity.issues
+    - issues.each do |issue|
+      -# updated = activity.activity_and_questions_updated_between(current_user.last_sign_in_at, current_user.current_sign_in_at) ? "recentlyChanged" : ""
+      %tr{:class => cycle("light #{}", "dark #{}")}
+        %td= issue.description
+        %td= "#{issue.activity.ref_no}-#{issue.id}"
+        %td= issue.lead_officer_email
+        %td.center= issue.timescales ? issue.timescales.to_s(:short) : "N/A"
+        - if current_user == @activity.completer
+          %td.last
+            = link_to "edit", edit_activities_issue_path(issue, :strand => @equality_strand), :class => "action edit"

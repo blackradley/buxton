@@ -339,6 +339,8 @@ class Activity < ActiveRecord::Base
       actions += self.issues.where(:section => "impact", :strand => relevant_strand).count if self.questions.find_by_name("impact_#{relevant_strand}_9").raw_answer == "1"
       actions += self.issues.where(:section => "consultation", :strand => relevant_strand).count if self.questions.find_by_name("consultation_#{relevant_strand}_7").raw_answer == "1"
     end
+    actions += self.issues.where(:section => "action_planning").count
+    actions += self.issues.where(:section => nil).count
     actions
   end
   

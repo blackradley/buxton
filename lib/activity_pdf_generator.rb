@@ -478,10 +478,10 @@ class ActivityPDFGenerator
         table << ["Previous Action", issue.previous_issue.actions.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.actions != issue.previous_issue.actions
         table << ["Resources", issue.resources.to_s]
         table << ["Previous Resources", issue.previous_issue.resources.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.resources != issue.previous_issue.resources
-        table << ["Timescales", issue.timescales.to_s]
-        table << ["Previous Timescales", issue.previous_issue.timescales.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.timescales != issue.previous_issue.timescales
-        table << ["Lead Officer", issue.lead_officer.to_s]
-        table << ["Previous Lead Officer", issue.previous_issue.lead_officer.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.lead_officer != issue.previous_issue.lead_officer
+        table << ["Timescales", issue.timescales ? issue.timescales.to_s(:short) : "N/A"]
+        table << ["Previous Timescales", issue.previous_issue.timescales.to_s(:short)].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.timescales != issue.previous_issue.timescales
+        table << ["Lead Officer", issue.lead_officer_email.to_s]
+        table << ["Previous Lead Officer", issue.previous_issue.lead_officer_email.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.lead_officer != issue.previous_issue.lead_officer
         @pdf = generate_table(@pdf, table, :borders => borders, :font_size => 10, :col_format => [{:shading => SHADE_COLOUR}, nil], :title_lines => title_lines, :table_title =>heading_proc)
         heading_proc = nil
         title_lines = nil

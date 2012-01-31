@@ -114,6 +114,10 @@ class Activities::SectionsController < ApplicationController
     render 'new_issue', :locals => {:issue => Issue.new, :strand => params[:strand]}, :layout => false
   end
   
+
+  def edit_issue
+    @issue = @activity.issues.find(params[:issue_id])
+  end
   
   protected
   

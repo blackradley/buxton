@@ -12,6 +12,9 @@ class Issue < ActiveRecord::Base
 	belongs_to :activity
   validates_presence_of :description
   has_one :previous_issue, :class_name => "Issue", :foreign_key => :parent_issue_id
+  belongs_to :lead_officer, :class_name => "User"
+
+
   attr_accessor :issue_destroy
   
   include FixInvalidChars
@@ -24,6 +27,19 @@ class Issue < ActiveRecord::Base
       self.attributes[key] = fix_field(value)
     end
   end
+
+  def lead_officer_email
+    @lead_officer_email ||= lead_officer.try(:email) || ""
+  end
+  
+  def lead_officer_email=(email)
+    if user = User.live.find_by_email(email)
+      self.lead_officer_id = user.id
+    else
+      self.lead_officer_id = nil
+    end
+  end
+  
   
   def can_be_edited_by?(user_)
     [ActivityManager, ActivityApprover].include?(user_.class) && user_.activity == self
