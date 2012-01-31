@@ -146,11 +146,9 @@ private
         menu << ["Quality Control", quality_control_activities_path]
       when "Directorate Cop"
         menu << ["EA Governance", directorate_governance_eas_activities_path]
-        menu << ["Actions", actions_activities_path]
       when "Corporate Cop"
         menu << ["EA Governance", directorate_governance_eas_activities_path]
         menu << ["Activity Logging", logs_path]
-        menu << ["Actions", actions_activities_path]
       when "Helper"
         menu << ["Assisting", assisting_activities_path]
       end
