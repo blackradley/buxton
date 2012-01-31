@@ -9,6 +9,7 @@
 Buxton::Application.routes.draw do
   
   namespace :activities do
+    resources :issues 
     resources :sections do
       member do
         get :edit_purpose_a
@@ -20,6 +21,7 @@ Buxton::Application.routes.draw do
         get :edit_additional_work
         get :edit_action_planning
         get :new_issue
+        get :edit_issue
         get :edit_full_assessment_comment
         post :add_new_issue
       end

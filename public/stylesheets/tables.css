@@ -68,6 +68,8 @@ table {
       background-image: url(../images/icons/cross.gif); }
     table td .members {
       background-image: url(../images/icons/group.gif); }
+    table td .actions {
+      background-image: url(../images/icons/application_cascade.png); }
     table td .retired {
       font-style: italic;
       color: #e2474b;

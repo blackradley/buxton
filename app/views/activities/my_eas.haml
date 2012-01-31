@@ -61,4 +61,5 @@
           = link_to "task group", task_group_activity_path(activity), :class => "action members"
           = link_to "edit", questions_activity_path(activity), :class => "action edit" unless activity.submitted
           = link_to "view", activity_path(activity), :class => "action view"
+          = link_to "actions", activities_issues_path(:activity => activity.id), :class => "action actions"
 
