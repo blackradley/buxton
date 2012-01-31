@@ -13,7 +13,7 @@
   = form.buttons do
     = form.submit "Save", :disable_with => 'Saving...'
     %span.cancelLink
-      =raw "or #{link_to "cancel", directorate_eas_activities_path}"
+      =raw "or #{link_to "cancel", edit_activities_section_path(@activity, :equality_strand => @equality_strand, :section => "action_planning")}"
 / #formHelp
 /   %p
 /     %strong Description:
