@@ -34,7 +34,8 @@ Buxton::Application.configure do
   config.serve_static_assets = false
 
   config.i18n.fallbacks = true
-  config.middleware.use "ForceSSL"
+  config.middleware.insert_before ActionDispatch::Static, "Rack::SSL"
+
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
