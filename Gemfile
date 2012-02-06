@@ -16,6 +16,7 @@ gem 'rails3-jquery-autocomplete'
 gem 'fastercsv'
 gem 'devise_security_extension'
 gem 'right_aws'
+gem 'rack-ssl', :require => 'rack/ssl'
 gem 'whenever'
 gem 'will_paginate', "~> 3.0.pre2"
 group :test do
