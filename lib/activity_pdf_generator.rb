@@ -482,6 +482,12 @@ class ActivityPDFGenerator
         table << ["Previous Timescales", issue.previous_issue.timescales.to_s(:short)].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.timescales != issue.previous_issue.timescales
         table << ["Lead Officer", issue.lead_officer_email.to_s]
         table << ["Previous Lead Officer", issue.previous_issue.lead_officer_email.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.lead_officer != issue.previous_issue.lead_officer
+        table << ["Recommendations", issue.recommendations]
+        table << ["Previous Recommendations", issue.previous_issue.recommendations].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.recommendations != issue.previous_issue.recommendations
+        table << ["Monitoring", issue.monitoring]
+        table << ["Previous Monitoring", issue.previous_issue.monitoring].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.monitoring != issue.previous_issue.monitoring
+        table << ["Outcomes", issue.outcomes]
+        table << ["Previous Outcomes", issue.previous_issue.outcomes].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.outcomes != issue.previous_issue.outcomes
         @pdf = generate_table(@pdf, table, :borders => borders, :font_size => 10, :col_format => [{:shading => SHADE_COLOUR}, nil], :title_lines => title_lines, :table_title =>heading_proc)
         heading_proc = nil
         title_lines = nil
