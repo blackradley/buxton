@@ -19,11 +19,11 @@ class Activities::IssuesController < ApplicationController
   # Manager to scan down.
   before_filter :authenticate_user!
   before_filter :set_activity
-  before_filter :set_issue, :only => [:edit, :update]
+  before_filter :set_issue, :only => [:show, :edit, :update]
   before_filter :set_strand, :except => [:index]
   before_filter :set_selected
-  before_filter :ensure_activity_completer, :except => [:index]
-  before_filter :ensure_index_access, :only => [:index]
+  before_filter :ensure_activity_completer, :except => [:index, :show]
+  before_filter :ensure_index_access, :only => [:index, :show]
 
   # Get the activity information ready for editing using the appropriate form.
   # Available to: Activity Manager
@@ -54,7 +54,7 @@ class Activities::IssuesController < ApplicationController
   end
 
   def show
-
+    @breadcrumb = [["EA Governance", directorate_governance_eas_activities_path], ["#{@activity.name}", questions_activity_path(@activity)], ["Issue list", activities_issues_path(:activity => @activity.id)]]
   end
   
   protected
@@ -77,8 +77,13 @@ class Activities::IssuesController < ApplicationController
   end
   
   def set_selected
-    @selected = "my_eas"
-    @breadcrumb = [["My EAs", my_eas_activities_path], ["#{@activity.name}", questions_activity_path(@activity)]]
+    if @activity.completer ==  current_user
+      @selected = "my_eas"
+      @breadcrumb = [["My EAs", my_eas_activities_path], ["#{@activity.name}", questions_activity_path(@activity)]]
+    else
+      @selected = "ea_governance"
+      @breadcrumb = [["EA Governance", directorate_governance_eas_activities_path], ["#{@activity.name}", questions_activity_path(@activity)]]
+    end
   end
 
   def ensure_activity_completer
