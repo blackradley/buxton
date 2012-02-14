@@ -297,7 +297,7 @@ overall_questions:
 wordings:
   gender: 'men and women'
   race: 'individuals from different ethnic backgrounds'
-  disability: 'individuals with different types of disability'
+  disability: 'individuals with a disability'
   faith: 'individuals of different religions or beliefs'
   sexual_orientation: 'individuals of different sexual orientations'
   age: 'individuals of different ages'
