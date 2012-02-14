@@ -8,8 +8,7 @@
       %th Ref no.
       %th.email Owner
       %th Target Date
-      - if current_user == @activity.completer
-        %th.last
+      %th.last
     %tr
       %th.sortControls
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
@@ -23,8 +22,7 @@
       %th.sortControls
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
-      - if current_user == @activity.completer
-        %th.sortControls.last
+      %th.sortControls.last
   %tbody
     - if @equality_strand
       - issues = @activity.issues.where(:strand => @equality_strand)
@@ -40,3 +38,6 @@
         - if current_user == @activity.completer
           %td.last
             = link_to "edit", edit_activities_issue_path(issue, :strand => @equality_strand), :class => "action edit"
+        - else 
+          %td.last
+            = link_to "view", activities_issue_path(issue, :strand => @equality_strand), :class => "action summary"
