@@ -1,19 +1,24 @@
-= semantic_form_for [:activities, @issue] do |form|
-  = hidden_field_tag :activity, @activity.id
-  = form.inputs :id => "standardInputs" do
-    = form.input :description, :label => "Short description of the issue", :as => :string
-    =form.input  :actions, :label => "Summary actions to address the issues",  :wrapper_html =>{:class => "question"}, :input_html => {:class => "issueAction"}
-    =form.input  :resources, :label => "Resources necessary to implement the actions", :wrapper_html =>{:class => "question"}
-    = form.input :timescales, :label => "Timescales for commencing and completing the actions", :wrapper_html =>{:class => "question"}, :as => :datepicker, :format => "%d/%m/%Y"
-    = form.autocompleted_input :lead_officer_email, :url => autocomplete_user_email_activities_path, :label => "Lead Officer", :required => false
-    = form.input :recommendations, :label => "How will the recommendations of this assessment be built in to wider planning and review processes?", :wrapper_html =>{:class => "question"}
-    = form.input :monitoring, :label => "How will you monitor the impact and effectiveness of the new policy or function?", :wrapper_html =>{:class => "question"}
-    = form.input :outcomes, :label => "What are, or have been, the outcomes resulting from this Equality Analysis?", :wrapper_html =>{:class => "question"}
-    = form.hidden_field :strand
-  = form.buttons do
-    = form.submit "Save", :disable_with => 'Saving...'
-    %span.cancelLink
-      =raw "or #{link_to "cancel", edit_activities_section_path(@activity, :equality_strand => @equality_strand, :section => "action_planning")}"
+.issueForm
+  = semantic_form_for [:activities, @issue] do |form|
+    = hidden_field_tag :activity, @activity.id
+    = form.inputs :id => "standardInputs" do
+      = form.input :description, :label => "Short description of the issue", :as => :string
+      =form.input  :actions, :label => "Summary actions to address the issues",  :wrapper_html =>{:class => "question"}, :input_html => {:class => "issueAction"}
+      =form.input  :resources, :label => "Resources necessary to implement the actions", :wrapper_html =>{:class => "question"}
+      = form.input :timescales, :label => "Timescales for commencing and completing the actions", :wrapper_html =>{:class => "question"}, :as => :datepicker, :format => "%d/%m/%Y"
+      = form.autocompleted_input :lead_officer_email, :url => autocomplete_user_email_activities_path, :label => "Lead Officer", :required => false
+      = form.input :recommendations, :label => "How will the recommendations of this assessment be built in to wider planning and review processes?", :wrapper_html =>{:class => "question"}
+      = form.input :monitoring, :label => "How will you monitor the impact and effectiveness of the new policy or function?", :wrapper_html =>{:class => "question"}
+      = form.input :outcomes, :label => "What are, or have been, the outcomes resulting from this Equality Analysis?", :wrapper_html =>{:class => "question"}
+      = form.hidden_field :strand
+    = form.buttons do
+      = form.submit "Save", :disable_with => 'Saving...'
+      %span.cancelLink
+        or
+        - if @equality_strand
+          = link_to "cancel", edit_activities_section_path(@activity, :equality_strand => @equality_strand, :section => "action_planning")
+        - else
+          = link_to "cancel", activities_path
 / #formHelp
 /   %p
 /     %strong Description:

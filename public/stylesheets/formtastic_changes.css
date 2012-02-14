@@ -22,6 +22,9 @@ form.formtastic fieldset {
     
 }
 
+.issueForm form.formtastic fieldset  ol  li {
+  clear: both ;
+}
 form.formtastic fieldset  ol  li {
     margin-bottom: 0;
     margin-top: 0;

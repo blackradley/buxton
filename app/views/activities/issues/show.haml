@@ -1,0 +1,15 @@
+.issueForm
+  = semantic_form_for [:activities, @issue], :url => "#" do |form|
+    = hidden_field_tag :activity, @activity.id
+    = form.inputs :id => "standardInputs" do
+      = form.input :description, :label => "Short description of the issue", :as => :string
+      =form.input  :actions, :label => "Summary actions to address the issues",  :wrapper_html =>{:class => "question"}, :input_html => {:class => "issueAction"}
+      =form.input  :resources, :label => "Resources necessary to implement the actions", :wrapper_html =>{:class => "question"}
+      %li.string.optional.question
+        %label Timescales for commencing and completing the actions
+        = text_field_tag :timescales, @issue.timescales.strftime("%d/%m/%Y")
+      = form.input :lead_officer_email, :label => "Lead Officer", :required => false
+      = form.input :recommendations, :label => "How will the recommendations of this assessment be built in to wider planning and review processes?", :wrapper_html =>{:class => "question"}
+      = form.input :monitoring, :label => "How will you monitor the impact and effectiveness of the new policy or function?", :wrapper_html =>{:class => "question"}
+      = form.input :outcomes, :label => "What are, or have been, the outcomes resulting from this Equality Analysis?", :wrapper_html =>{:class => "question"}
+      = form.hidden_field :strand
