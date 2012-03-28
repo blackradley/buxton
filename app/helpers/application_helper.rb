@@ -128,7 +128,13 @@ module ApplicationHelper
    end
    
   def strand_display(strand)
-    strand.to_s.downcase == 'faith' ? 'religion or belief' : strand
+    if strand.to_s.downcase == 'faith'
+      return 'religion or belief'
+    elsif strand.to_s.downcase == 'marriage_civil_partnership'
+      return 'marriage or civil partnership'
+    else
+      return strand
+    end
   end
   
   def sentence_desc(strand)

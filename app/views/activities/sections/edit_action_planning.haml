@@ -1,2 +1,3 @@
-%h1= @activity.name + " - " + strand_display(@equality_strand).titlecase + " - Action Planning"
+%h1= @activity.name + ", " + strand_display(@equality_strand).titlecase
+%h1= "Action Planning"
 = render :partial => "/activities/issues/issue_list"

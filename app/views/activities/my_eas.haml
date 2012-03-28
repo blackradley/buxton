@@ -5,13 +5,13 @@
     %label Search for:
     = text_field_tag 'search_term', '', :class => 'textField'
     = submit_tag 'Search', :class => 'submitButton'
-    %p Search will return all records with Service Area, Name, Ref No or Approver matching the search text.
+    %p Search will return all records with Service Area, Name, Ref No or Senior Officer matching the search text.
 
 %table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
   %thead
     %tr
       %th Service Area
-      %th Activity Name
+      %th EA Title
       %th Ref no.
       %th.email Senior Officer
       %th.date Date Started
@@ -53,8 +53,8 @@
         %td= activity.name
         %td= activity.ref_no
         %td= activity.approver.email
-        %td.center= activity.started && activity.actual_start_date ? activity.actual_start_date.to_s(:short) : "N/A"
-        %td.center= activity.approved && activity.approved_on ? activity.approved_on.to_s(:short) : "N/A"
+        %td.center= activity.started && activity.actual_start_date ? activity.actual_start_date.strftime('%d/%m/%y') : "N/A"
+        %td.center= activity.approved && activity.approved_on ? activity.approved_on.strftime('%d/%m/%y') : "N/A"
         %td= activity.progress
         %td= activity.relevant_action_count
         %td.last

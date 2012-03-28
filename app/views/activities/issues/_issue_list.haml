@@ -1,6 +1,6 @@
-- if current_user == @activity.completer
-  .orangeButton
-    =link_to "Add Issue", new_activities_issue_path(:strand => @equality_strand, :activity => @activity.id), :class=>"add"
+/ - if current_user == @activity.completer
+/   .orangeButton
+/     =link_to "Add Issue", new_activities_issue_path(:strand => @equality_strand, :activity => @activity.id), :class=>"add"
 %table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
   %thead
     %tr

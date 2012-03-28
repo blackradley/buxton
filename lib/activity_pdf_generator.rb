@@ -152,6 +152,27 @@ class ActivityPDFGenerator
     return table_data
   end
   
+  def get_comments(question)
+    question_object = @activity_questions[question.to_s]
+    comment = question_object[1]
+    question_object = question_object[0]
+    return unless (question_object && question_object.needed)
+    comment = comment.contents.to_s if comment
+    table_data = []
+    unless comment.blank?
+      table_data << ["<c:uline>Comment</c:uline>\n#{comment}"]
+    end
+    if @activity.previous_activity 
+      previous_question_data = []
+      q = @activity.questions.where(:name => question.to_s).first
+      if q.different_comment? && !q.previous.comment.blank?
+        previous_question_data << ["<i><c:uline>Previous Comment</c:uline>\n#{q.previous.comment.contents.to_s}</i>"]
+      end
+      table_data += previous_question_data
+    end
+    return table_data
+  end
+  
   def build_purpose
     @pdf.text " "
     @pdf.text "<b>2  <c:uline>Overall Purpose</b></c:uline>", :font_size => 12
@@ -163,7 +184,7 @@ class ActivityPDFGenerator
     qn = @activity.questions.find_by_name("purpose_overall_2")
     target = [[target_q, target_a]]
     target << ["Previously: " + target_q, qn.previous.display_response].map{|a| "<i>#{a}</i>"} if qn.different_answer?
-    comments = get_comments_and_notes(:purpose_overall_2)
+    comments = get_comments(:purpose_overall_2)
     target += comments  unless comments.blank?
     cell_formats = [[{:shading => SHADE_COLOUR}, nil]]
       cell_formats << [{:shading => SHADE_COLOUR}, nil] if qn.different_answer?
@@ -218,7 +239,7 @@ class ActivityPDFGenerator
     end
     impact_quns = []
     impact_answers = []
-    (5..9).each do |i|
+    [5,6,7].each do |i|
       impact_quns << ["purpose_overall_#{i}".to_sym, @activity.questions.find_by_name("purpose_overall_#{i}").label.to_s]
       impact_answers << (@activity.questions.find_by_name("purpose_overall_#{i}").response.to_i == 1 ? "Yes" : "No")
     end
@@ -229,7 +250,7 @@ class ActivityPDFGenerator
     impact_quns.each_with_index do |question, i|
       table << ["Will the policy have an impact on #{question[1].downcase}?", impact_answers[i]]
       cell_formats << [{:shading => SHADE_COLOUR}, nil]
-      comments = get_comments_and_notes(question[0])
+      comments = get_comments(question[0])
       table += comments  unless comments.blank?
       comments.size.times {cell_formats << nil}
     end
@@ -274,7 +295,7 @@ class ActivityPDFGenerator
   
   def build_strand_tables
     section_index = 1
-    @activity.strands.each do |strand|
+    @activity.strands.sort{|a,b| strand_display(a[0]) <=> strand_display(b[0]) }.each do |strand|
       build_differential_impact(strand, section_index)
       heading_proc  = lambda do |document|
         document.text "<b>3.#{section_index}.2  <c:uline>#{strand_display(strand).titlecase} - Impact</b></c:uline>", :font_size => 12
@@ -335,7 +356,7 @@ class ActivityPDFGenerator
     cell_formats = []
     question = @activity.questions.find_by_name("purpose_#{strand}_3")
     question_text = question.label
-    comments = get_comments_and_notes(question.name)
+    comments = get_comments(question.name)
     # return if comments.blank? && !@activity.send("#{strand}_relevant")
     table << [question_text, question.display_response]
     cell_formats << [{:shading => SHADE_COLOUR}, nil]
@@ -366,7 +387,7 @@ class ActivityPDFGenerator
       table_data << ["Previously: " + question_text, question.previous.display_response].map{|a| "<i>#{a}</i>"} if question.different_answer?
       cell_formats << [{:shading => SHADE_COLOUR}, nil]
       cell_formats << [{:shading => SHADE_COLOUR}, nil] if question.different_answer?
-      comments = get_comments_and_notes(question.name)
+      comments = get_comments(question.name)
       table_data += comments  unless comments.blank?
       comments.size.times {cell_formats << nil}
     end
