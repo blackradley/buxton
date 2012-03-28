@@ -3,7 +3,7 @@
     - if @clone_of
       = hidden_field_tag "clone_of", @clone_of.id
     =form.input :service_area, :label => "Service Area", :collection => @current_user.directorate.service_areas.map{|sa| "<option data-email='#{sa.approver.email}' value='#{sa.id}'>#{sa.name}</option>"}.join, :include_blank => false
-    =form.input :name, :label => "Title"
+    =form.input :name, :label => "EA Title"
     = form.input :summary, :label => "Summary of this EA"
     = form.input :review_on, :label => "Review Date", :as => :datepicker, :format => "%d/%m/%Y"
     =form.autocompleted_input :approver_email, :url => autocomplete_user_email_activities_path, :label => "Senior Officer", :required => false
@@ -14,31 +14,28 @@
   = form.inputs :id => "readyInput", :style => "#{'display:none' unless @activity.fields_complete}" do
     = form.input :ready, :label => "Send to Task Group Manager", :style => "display:none"
   = form.buttons do
-    = form.submit "Save", :disable_with => 'Saving...'
+    = form.submit "Add", :disable_with => 'Saving...'
     %span.cancelLink
       =raw "or #{link_to "cancel", directorate_eas_activities_path}"
 #formHelp
   %p
-    %strong Title:
+    %strong EA Title:
     This is the name of the EA.
   %p
     %strong Summary:
     Please enter a brief summary of the EA, and what it evaluates here.
   %p
-    %strong Target Start/End Dates: 
-    This is the dates that the EA will be active between.
-  %p
     %strong Review Date:
     Enter the date that the EA will undergo another review.
   %p
     %strong Senior Officer:
-    This is the Senior Officer for the EA. This field will autocomplete from the available users, and will be prepopulated with the Senior Officer for the selected Service Area. If the user you wish to add does not appear in the prepopulated list, please contact Service Birmingham.
+    This is the Senior Officer for the EA. This field will auto-complete from the available users, and will be prepopulated with the Senior Officer for the selected Service Area. If the user you wish to add does not appear in the prepopulated list, please contact Service Birmingham.
   %p
     %strong Task Group Manager:
-    This is the Task Group Manager for the EA. This field will autocomplete from the available users. If the user you wish to add does not appear in the prepopulated list, please contact Service Birmingham.
+    This is the Task Group Manager for the EA. This field will auto-complete from the available users. If the user you wish to add does not appear in the prepopulated list, please contact Service Birmingham.
   %p
     %strong Quality Control Officer:
-    This is the Quality Control Officer for the EA. This field will autocomplete from the available users. If the user you wish to add does not appear in the prepopulated list, please contact Service Birmingham.
+    This is the Quality Control Officer for the EA. This field will auto-complete from the available users. If the user you wish to add does not appear in the prepopulated list, please contact Service Birmingham.
   %p
     %strong Type:
     Is this EA about a function to be executed, or is it about a policy to be enacted?

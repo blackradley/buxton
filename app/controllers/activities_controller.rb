@@ -145,6 +145,7 @@ class ActivitiesController < ApplicationController
     @selected = "directorate_eas"
     if @activity.update_attributes(params[:activity])
       flash[:notice] = "#{@activity.name} was created."
+      @activity.generate_ref_no unless params[:clone_of]
       Mailer.activity_created(@activity).deliver if @activity.ready?
       redirect_to directorate_eas_activities_path
     else
@@ -235,6 +236,7 @@ class ActivitiesController < ApplicationController
     @breadcrumb = [["My EAs", my_eas_activities_path], ["#{@activity.name}"]]
     completed_status_array = @activity.strands(true).map{|strand| [strand.to_sym, @activity.completed(nil, strand)]}
     completed_status_hash = Hash[*completed_status_array.flatten]
+    @activity.update_attributes( :actual_start_date => Date.today() ) if @activity.actual_start_date.blank? && @activity.started
     tag_test = completed_status_hash.select{|k,v| !v}.map(&:first).map do |strand_status|
       "($('#{strand_status.to_s}_checkbox').checked)"
     end
@@ -374,7 +376,7 @@ class ActivitiesController < ApplicationController
   
   def submit_approval
     if @activity.undergone_qc? && @activity.submitted?
-      @activity.update_attributes(:approved => true)
+      @activity.update_attributes(:approved => true, :approved_on => Date.today() )
       flash[:notice] = "Successfully approved #{@activity.name}"
       Mailer.activity_approved(@activity, params[:email_contents], params[:subject]).deliver
     end

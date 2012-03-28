@@ -96,9 +96,9 @@ class Activity < ActiveRecord::Base
     return true
   end
 
-  # def ref_no
-  #   "EA#{sprintf("%06d", self.id)}"
-  # end
+  def generate_ref_no
+    self.update_attribute( :ref_no, "EA#{sprintf("%06d", self.id)}" )
+  end
   
   def progress
     if !self.ready
@@ -248,6 +248,7 @@ class Activity < ActiveRecord::Base
             new_value = value.to_s
             new_value.gsub!('#{wordings[strand]}', data["wordings"][strand.to_s].to_s)
             new_value.gsub!('#{descriptive_term[strand]}', data["wordings"][strand.to_s].to_s)
+            new_value.gsub!('#{non-religious clause if strand == "faith"}', strand.to_s == "faith" ? ' - as well as those who do not have a religion or faith' : '')
             new_value.gsub!('#{"different " if strand == "gender"}', strand.to_s == "gender" ? 'different' : '')
             new_value.gsub!('#{sentence_desc(strand)}', sentence_desc(strand.to_s))
             if data["extra_strand_wordings"][section.to_s] && data["extra_strand_wordings"][section.to_s][question_number]
@@ -489,8 +490,8 @@ class Activity < ActiveRecord::Base
   end
 
   def impact_on_individuals_completed
-    answered_questions = self.questions.find(:all, :conditions => "name REGEXP 'purpose\_overall\_[5,6,7,8,9]' AND (completed = true OR needed = false)")
-    return false unless answered_questions.flatten.size == 5
+    answered_questions = self.questions.find(:all, :conditions => "name REGEXP 'purpose\_overall\_(5|6|7)' AND (completed = true OR needed = false)")
+    return false unless answered_questions.flatten.size == 3
     return true
   end
 
@@ -509,6 +510,7 @@ class Activity < ActiveRecord::Base
     conditions[:strand] = strand.to_s if strand
     self.issues.where(conditions)
   end
+  
   def strand_relevancies
     list = {}
     hashes['wordings'].keys.each do |strand|
@@ -516,7 +518,6 @@ class Activity < ActiveRecord::Base
     end
     list
   end
-
   
   def update_completed
     sections.each do |section|
@@ -634,7 +635,7 @@ class Activity < ActiveRecord::Base
   end
   
   def self.question_setup_names
-    {:purpose =>          { :overall => [2,5,6,7,8,9, 13,14],
+    {:purpose =>          { :overall => [2,5,6,7, 13,14],
                             :race => [3],
                             :disability => [3],
                             :sexual_orientation => [3],

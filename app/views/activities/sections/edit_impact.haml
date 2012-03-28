@@ -1,5 +1,6 @@
 -@section = 'impact'
-%h1#questions=h @activity.name + " - " + strand_display(@equality_strand).titlecase + " - Impact"
+%h1#questions=h @activity.name + ", " + strand_display(@equality_strand).titlecase
+%h1#questions=h "Impact"
 #questions
   = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [1,2,3])
   = render :partial => 'question_help', :collection => question_details(:impact, @equality_strand, [4,5])

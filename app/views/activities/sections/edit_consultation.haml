@@ -1,4 +1,5 @@
-%h1#questions=h @activity.name + " - " + strand_display(@equality_strand).titlecase + " - Consultation"
+%h1#questions=h @activity.name + ", " + strand_display(@equality_strand).titlecase
+%h1#questions=h "Consultation"
 #questions
   = render :partial => 'question_help', :collection => question_details(:consultation, @equality_strand, [1,2,3,4,5,6,7])
   =form_for(@activity, :url => activities_section_path(@activity)) do |f|
@@ -12,8 +13,8 @@
         = submit_tag 'Save', :disable_with => 'Saving...', :id => 'section_save_button', :class => "consultation_save"
   .clear
 
-.consultationColorbox
-  .commentform
+.consultationColorbox{ :style => "overflow: hidden;" }
+  .commentform{ :style => "overflow: hidden;" }
     %h2 Warning
     %p
       The EA cannot be completed until you have performed at least one consultation. Please review your answers, as this section will not be complete until a consultation has been performed.

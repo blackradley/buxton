@@ -4,11 +4,11 @@
 .step{:class=>"#{!@activity.completed(:purpose) ? "current" : ""}"}
   .stepBox
     %h2 Initial Assessment
-    %p What is the purpose of this EA? Completing this initial assesment section by clicking the links below:
+    %p Complete the initial assesment section by clicking the links below:
     %p.width_445
       %span.letter
         a.
-      %strong=link_to "Purpose and Outcomes", edit_purpose_a_activities_section_path(@activity), :title => "What is the EA for?"
+      %strong=link_to "Purpose and link to Strategic Themes", edit_purpose_a_activities_section_path(@activity), :title => "What is the EA for?"
       %span{:class => "completionRequired letter_completed #{'complete' if @activity.target_and_strategies_completed}"}
         =tick_cross_display(@activity.target_and_strategies_completed)
       %br
@@ -42,8 +42,8 @@
           Relevant Protected Characteristics
         %br
         %span.indented
-          The Relevance Test in the Initial Assessment section shows which Protected Characteristics are relevant. These need to progress to Full Assessment and cannot be unselected.
-      -@activity.overview_strands.each do |strand_name, strand|
+          The Protected Characteristics selected have been identified as a result of the relevance test undertaken.
+      -@activity.overview_strands.sort{|a,b| strand_display(a[0]) <=> strand_display(b[0]) }.each do |strand_name, strand|
         -selected = false
         %span.checkStrand
           -if @activity.strand_required?(strand) then
@@ -51,7 +51,7 @@
           -else
             = check_box_tag("#{strand}_checkbox", strand_name, @activity.strand_relevant?(strand), :disabled => true)
           %label
-            =h strand_display(strand).titlecase
+            =h strand_display(strand_name).titlecase
             / -if @activity.impact_calculation(strand).to_i > 9 then
             /   <br />
             /   %span.strandRelevant Recommended
@@ -63,9 +63,9 @@
           Assessment Questions
         %br        
         %span.indented
-          The Equality Risk Toolkit asks you questions under four Assessment Sections (impact, consultation, additional work and action planning), for each of the Equality Dimensions selected as relevant.
+          The Equality Risk Toolkit asks you questions under four Assessment Sections (impact, consultation, additional work and action planning), for each of the Protected Characteristics selected as relevant.
           %br
-          The Assessment Sections and Equality Dimensions are set out as a table below.
+          The Assessment Sections and Protected Characteristics are set out as a table below.
           %br
           Click on the <img src="/images/icons/edit.gif" /> icon to answer the questions in that section. Click "Save" when you have finished work on a section.
           %br
@@ -81,7 +81,7 @@
           -display_on = @activity.strand_relevant?(strand) || @activity.strand_required?(strand) ? "" : "display:none"
           %tr{:id => "row_#{strand}", :style => "#{display_on};", :class => "completionRequired #{'complete' if @activity.completed(nil, strand)}"}
             %th.strandHeading
-              =h strand_display(strand).titlecase
+              =h strand_display(strand_name).titlecase
             %td
               = completed_tag(@activity, :impact, strand.to_sym)
               = link_to image_tag('icons/edit.gif'), edit_activities_section_path(@activity, :equality_strand => strand, :section => "impact"), :title =>"Edit Impact", :id => "#{strand_name}_impact_pencil"
@@ -92,8 +92,11 @@
               = completed_tag(@activity, :additional_work, strand.to_sym)
               = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "additional_work"), :title =>"Edit Additional Work", :id => "#{strand_name}_additional_work_pencil"
             %td.last           
-              = completed_tag(@activity, :action_planning, strand.to_sym)
-              = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "action_planning"), :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
+              - if @activity.issues_by(nil, strand).size > 0
+                = completed_tag(@activity, :action_planning, strand.to_sym)
+                = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "action_planning"), :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
+              - else
+                N/A
       %p.width_445.noStrands{:style => "display:#{@activity.strands.size > 0 ? 'none' : 'block'}"}
         %span.letter
           b.
@@ -101,7 +104,7 @@
           Assessment Questions
         %br        
         %span.indented
-          No strands selected as relevant.
+          No Protected Characteristics selected as relevant.
                 
       %p
         %span.letter{:class => "completionRequired #{'complete' if @activity.questions.find_by_name('purpose_overall_14').completed?}"}
@@ -115,7 +118,9 @@
     .stepBox
       %h2 Submit Equality Analysis for Quality Control and Approval
       %p
-        If you are happy with the Equality Analysis, all that remains for you to do is submit it for Quality Control and approval. Upon submission you will no longer be able to change any of your answers. The Quality Control Officer and senior Officer will be able to see your answers and comments/analysis for the report but not the notes to yourself.
+        If you are happy with the Equality Analysis, all that remains for you to do is submit it for Quality Control and Approval. Upon submission you will no longer be able to change any of your answers. The Quality Control Officer and Senior Officer will be able to see your answers and comments/analysis for the report but not the notes to yourself.
+      %p
+        Please note you will not be able to make any changes once the report is submitted
       -if @activity.submitted.nil? or !@activity.submitted
         %p{:style=>"text-align:center;"}
           =link_to "Submit",  submit_activity_path(@activity), :method => :POST, :class=>"orangeButton"

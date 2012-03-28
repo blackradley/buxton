@@ -1,7 +1,7 @@
 questions:
   purpose:
     3:
-      label: 'Does this #{function_policy_substitution} have any relevance to #{wordings[strand]}?'
+      label: '#{wordings[strand]}'
       help: '<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons’ disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>'
       choices: 11
       type: select
@@ -9,16 +9,14 @@ questions:
       dependent_questions: ''
   impact:
     1:
-      label: 'What is your assessment of the #{function_policy_substitution} in meeting the needs of #{wordings[strand]}?'
+      label: 'Describe how the #{function_policy_substitution} meets the needs of #{wordings[strand]}?'
       help:  'This question asks you to assess the current impact of the #{function_policy_substitution} in meeting the particular needs of #{wordings[strand]}.<br/><br/>
              The available answers are on a five point scale from 5 excellent to 1 poor and as usual ‘Not sure’ is also an acceptable answer.<br/><br/>
              If the #{function_policy_substitution} is not meeting the needs of any #{wordings[strand]} purely because of their #{descriptive_term[strand]} then clearly the impact of the #{function_policy_substitution} in this regard is not positive.'
-      type: select
-      choices: 2
-      weights: 2
+      type: text
       dependent_questions: ''
     2:
-      label: 'Do you have evidence to support the assessment above?'
+      label: 'Do you have evidence to support the assessment?'
       help: 'This question asks you whether you have any information to support your assessment of the impact of the #{function_policy_substitution} that you recorded in the previous question.<br/><br/>
              The information could take a wide variety of forms from regular performance management information, evaluation work, surveys, academic publications and audit reports.<br/><br/>
              The available answers are:<br/>
@@ -47,13 +45,13 @@ questions:
       weights: 6
       dependent_questions: 'impact_#{strand}_2 no_value'
     5:
-      label: 'When will you collect the evidence?'
+      label: 'What evidence will be collected and when?'
       help: 'This question asks you to estimate the timescales for collecting additional information.<br/><br/>
             If you are not sure about the timescales please note this in the space provided.'
       type: text
       dependent_questions: 'impact_#{strand}_4 yes_value'
     6:
-      label: 'Have any complaints been received about the #{function_policy_substitution} in meeting the particular needs of #{wordings[strand]}?'
+      label: 'Have you received any other feedback about the #{function_policy_substitution} in meeting the needs of #{wordings[strand]}?'
       help:  'This question asks you if there are other measures by which you could assess the impact of the #{function_policy_substitution} on #{wordings[strand]}#{data["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}.  Such measures
              might be the level of complaints, anecdotal evidence or your first hand experience of the #{function_policy_substitution}.<br/><br/>#{data["extra_strand_wordings"]["impact"][6]["extra_paragraph"][strand]}
              The available answers to this question are:<br/>
@@ -66,7 +64,7 @@ questions:
       weights: 6
       dependent_questions: ''
     7:
-      label: 'Please record the nature of any such complaints'
+      label: 'Please record the nature of such feedback.'
       help: 'This question asks you to record the details of any additional measures.<br/><br/>
             A brief description, source and date will be sufficient.'
       type: text
@@ -208,7 +206,7 @@ questions:
       weights: 0
       dependent_questions: ''
     6:
-      label: 'Do you think that the #{function_policy_substitution} could assist #{wordings[strand]} to get on better with each other?'
+      label: 'Do you think that the #{function_policy_substitution} could assist #{wordings[strand]} to get on better with each other#{non-religious clause if strand == "faith"}?'
       help:  'This question asks you to assess whether the #{function_policy_substitution} could have a role in assisting #{wordings[strand]} to get on better with each other.<br/><br/>
               There will be a minority of #{function_policy_substitution}s that are intended to promote good relations as their primary purpose and some #{function_policy_substitution}s that might have this as a secondary role.'
       type: select
@@ -249,61 +247,47 @@ overall_questions:
       type: text
       dependent_questions: ''
     5:
-      label: 'Service users'
-      help: 'Service Users, people who use Council serices whether residents or visitors.  #{function_policy_substitution}s which deliver front line services will have an impact on these individuals.'
-      type : select
+      label: 'Service Users/Stakeholders'
+      help: '#{function_policy_substitution}s on how the Council is structured and operates such as HR #{function_policy_substitution}s will have an impact on staff employed by the Council.  Staff are almost certain to be Services Users as well but this question is asked in relation to their role as staff.'
+      type: select
       choices: 3
       weights: 0
       dependent_questions: ''
     6:
-      label: 'Staff employed by the organisation'
+      label: 'Employees'
       help: '#{function_policy_substitution}s on how the Council is structured and operates such as HR #{function_policy_substitution}s will have an impact on staff employed by the Council.  Staff are almost certain to be Services Users as well but this question is asked in relation to their role as staff.'
       type: select
       choices: 3
       weights: 0
       dependent_questions: ''
     7:
-      label: 'Supplier organisations, staff and customers'
-      help: '#{function_policy_substitution}s relating to the way in which the Council purchases goods and services may have an impact on staff employed by supplier organisations.  Staff of supplier organisations are almost certain to be Services Users as well but this question is asked in relation to their role purely as staff of supplier organisations.'
-      type: select
-      choices: 3
-      weights: 0
-      dependent_questions: ''
-    8:
-      label: 'Partner organisations, staff and customers'
-      help: '#{function_policy_substitution}s that cover the way the Council works with local partners are likely to affect staff of partner organisations.  Staff of partner organisations are almost certain to be Services Users as well but this question is asked in relation to their role purely as staff of partner organisations.'
-      type: select
-      choices: 3
-      weights: 0
-      dependent_questions: ''
-    9:
-      label: 'Businesses, staff and customers'
-      help: '#{function_policy_substitution}s which cover the way in which the Council engages with businesses are likely to have an impact on the employees of such businesses'
+      label: 'Wider Community'
+      help: '#{function_policy_substitution}s on how the Council is structured and operates such as HR #{function_policy_substitution}s will have an impact on staff employed by the Council.  Staff are almost certain to be Services Users as well but this question is asked in relation to their role as staff.'
       type: select
       choices: 3
       weights: 0
       dependent_questions: ''
     13: 
-      label: 'Have you any overall comments on this initial stage of the assessment?'
+      label: 'This must capture your overall analysis and understanding of assessment being undertaken to arrive at your decision.'
       help: ''
       type: text
       dependent_questions : ''
     14: 
-      label: 'Have you any final comments on this assessment?'
+      label: 'This must capture your final analysis and understanding of assessment being undertaken to arrive at your decision.'
       help: ''
       type: text
       dependent_questions: ''
 
 wordings:
-  gender: 'men and women'
-  race: 'individuals from different ethnic backgrounds'
-  disability: 'individuals with a disability'
-  faith: 'individuals of different religions or beliefs'
-  sexual_orientation: 'individuals of different sexual orientations'
-  age: 'individuals of different ages'
-  gender_reassignment: 'individuals who have undergone or are intending to undergo a gender reassignment'
-  pregnancy_and_maternity: 'pregnant women or those who are on maternity leave'
-  marriage_civil_partnership: 'individuals who are married or in civil partnerships'
+  gender: 'Men and women'
+  race: 'Individuals from different ethnic backgrounds'
+  disability: 'Individuals with a disability'
+  faith: 'Individuals of different religions or beliefs'
+  sexual_orientation: 'Individuals of different sexual orientations'
+  age: 'Individuals of different ages'
+  gender_reassignment: 'Individuals who have undergone or are intending to undergo gender reassignment'
+  pregnancy_and_maternity: 'Pregnant women or those who are on maternity leave'
+  marriage_civil_partnership: 'Individuals who are married or in civil partnerships'
 
 strands:
   gender:  'Gender'
@@ -538,7 +522,6 @@ choices:
     - 'Not Answered Yet'
     - 'Yes'
     - 'No'
-    - 'Not sure'
     - 'Not applicable'
   11: 
     - 'Not answered Yet'

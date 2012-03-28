@@ -4,9 +4,9 @@
   %span.letter
     ="#{@letter}."
   - if @question_reference == 13
-    Summary comment on Initial Assessment
+    Analysis on Initial Assessment
   - else
-    Summary comment on Full Assessment
+    Analysis on Full Assessment
 #questions.assessmentComments
   = render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [@question_reference])
   =form_for(@activity, :url => activities_section_path(@activity)) do |f|
