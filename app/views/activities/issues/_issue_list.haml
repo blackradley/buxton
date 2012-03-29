@@ -7,7 +7,8 @@
       %th Description
       %th Ref no.
       %th.email Owner
-      %th Target Date
+      %th Target Start Date
+      %th Target Completion Date
       %th.last
     %tr
       %th.sortControls
@@ -34,7 +35,8 @@
         %td= issue.description
         %td= "#{issue.activity.ref_no}-#{issue.id}"
         %td= issue.lead_officer_email
-        %td.center= issue.timescales ? issue.timescales.to_s(:short) : "N/A"
+        %td.center= issue.timescales ? issue.timescales.strftime("%d/%m/%Y").to_s : "N/A"
+        %td.center= issue.completing ? issue.completing.strftime("%d/%m/%Y").to_s : "N/A"
         - if current_user == @activity.completer
           %td.last
             = link_to "edit", edit_activities_issue_path(issue, :strand => @equality_strand), :class => "action edit"

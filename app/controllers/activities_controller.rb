@@ -388,6 +388,7 @@ class ActivitiesController < ApplicationController
       new_activity = @activity.clone
       new_activity.ready = true
       new_activity.review_on = @activity.review_on
+      new_activity.recently_rejected = true
       new_activity.save!
       # @activity.update_attributes(:submitted => false)
       flash[:notice] = "#{@activity.name} rejected."
