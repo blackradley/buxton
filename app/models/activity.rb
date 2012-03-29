@@ -61,7 +61,7 @@ class Activity < ActiveRecord::Base
   }
   include FixInvalidChars
   
-  before_save :fix_fields
+  before_save :fix_fields, :set_recently_rejected
   
   scope :ready, {:conditions => {:ready => true}}
   
@@ -70,6 +70,11 @@ class Activity < ActiveRecord::Base
 
   before_validation :mark_empty_issues
   attr_accessor :task_group_member
+  
+  def set_recently_rejected
+    self.recently_rejected = false
+    true
+  end
   
   def previous_activity
     return @previous_activity if @previous_activity
@@ -101,6 +106,9 @@ class Activity < ActiveRecord::Base
   end
   
   def progress
+    if self.recently_rejected
+      return "R"
+    end
     if !self.ready
       return "PC"
     end
@@ -626,7 +634,7 @@ class Activity < ActiveRecord::Base
       new_a.save!
     end
     self.issues.each do |i|
-      new_i= new_activity.issues.build(:description => i.description, :actions => i.actions, :timescales => i.timescales, :recommendations => i.recommendations, :monitoring => i.monitoring,
+      new_i= new_activity.issues.build(:description => i.description, :actions => i.actions, :timescales => i.timescales, :completing => i.completing, :recommendations => i.recommendations, :monitoring => i.monitoring,
                                       :outcomes => i.outcomes, :resources => i.resources, :lead_officer => i.lead_officer, :strand => i.strand, :section => i.section, :parent_issue_id => i.id)
       new_i.save!
     end

@@ -457,7 +457,7 @@ class ActivityPDFGenerator
     @pdf.text("<b>4  <c:uline>Review Date</b></c:uline>", :font_size => 12)
     @pdf.text(" ")
     unless @activity.review_on.to_s.strip.size == 0 then
-      @pdf.text(@activity.review_on.to_s, :font_size => 10)
+      @pdf.text(@activity.review_on.strftime('%d/%m/%y').to_s, :font_size => 10)
       @pdf.text " "
     else
       @pdf.text("No review date has been decided on yet.", :font_size => 10)
@@ -499,8 +499,10 @@ class ActivityPDFGenerator
         table << ["Previous Action", issue.previous_issue.actions.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.actions != issue.previous_issue.actions
         table << ["Resources", issue.resources.to_s]
         table << ["Previous Resources", issue.previous_issue.resources.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.resources != issue.previous_issue.resources
-        table << ["Timescales", issue.timescales ? issue.timescales.to_s(:short) : "N/A"]
-        table << ["Previous Timescales", issue.previous_issue.timescales.to_s(:short)].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.timescales != issue.previous_issue.timescales
+        table << ["Target Start Date", issue.timescales ? issue.timescales.strftime("%d/%m/%Y").to_s : "N/A"]
+        table << ["Previous Target Start Date", issue.previous_issue.timescales.strftime("%d/%m/%Y").to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.timescales != issue.previous_issue.timescales
+        table << ["Target Completion Date", issue.completing ? issue.completing.strftime("%d/%m/%Y").to_s : "N/A"]
+        table << ["Previous Target Completion Date", issue.previous_issue.completing.strftime("%d/%m/%Y").to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.completing != issue.previous_issue.completing
         table << ["Lead Officer", issue.lead_officer_email.to_s]
         table << ["Previous Lead Officer", issue.previous_issue.lead_officer_email.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.lead_officer != issue.previous_issue.lead_officer
         table << ["Recommendations", issue.recommendations]
