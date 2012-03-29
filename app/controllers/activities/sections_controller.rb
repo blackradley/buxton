@@ -122,7 +122,7 @@ class Activities::SectionsController < ApplicationController
   protected
   
   def set_strand
-    strand = params[:equality_strand].strip
+    strand = params[:equality_strand].to_s.strip
     @completer = @activity.completer
 
     @equality_strand = ''
