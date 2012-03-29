@@ -14,11 +14,11 @@ class NoteController < ApplicationController
   def set_note
     @parent_question = @activity.questions.find(params[:question_id])
     unless @parent_question.note then
-      @parent_question.build_note(:contents => params[:note]).save!
+      @parent_question.build_note(:contents => params[:note].to_s).save!
     else
-      @parent_question.note.update_attributes(:contents => params[:note])
+      @parent_question.note.update_attributes(:contents => params[:note].to_s)
     end
-    if params[:note].strip.blank? then
+    if params[:note].to_s.strip.blank? then
       @parent_question.note.destroy
     end
   end
@@ -31,11 +31,11 @@ class NoteController < ApplicationController
   def edit_strategy
     @parent_strategy = @activity.activity_strategies.find(params[:activity_strategy_id])
     unless @parent_strategy.note then
-      @parent_strategy.build_note(:contents => params[:note]).save!
+      @parent_strategy.build_note(:contents => params[:note].to_s).save!
     else
-      @parent_strategy.note.update_attributes(:contents => params[:note])
+      @parent_strategy.note.update_attributes(:contents => params[:note].to_s.to_s)
     end
-    if params[:note].strip.blank? then
+    if params[:note].to_s.strip.blank? then
       @parent_strategy.note.destroy
     end    
   end

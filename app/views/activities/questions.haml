@@ -47,11 +47,11 @@
         -selected = false
         %span.checkStrand
           -if @activity.strand_required?(strand) then
-            = check_box_tag("#{strand}_checkbox", strand_name, true, :disabled =>true)
+            = check_box_tag("#{strand_name}_checkbox", strand, true, :disabled =>true)
           -else
-            = check_box_tag("#{strand}_checkbox", strand_name, @activity.strand_relevant?(strand), :disabled => true)
+            = check_box_tag("#{strand_name}_checkbox", strand, @activity.strand_relevant?(strand), :disabled => true)
           %label
-            =h strand_display(strand_name).titlecase
+            =h strand_display(strand).titlecase
             / -if @activity.impact_calculation(strand).to_i > 9 then
             /   <br />
             /   %span.strandRelevant Recommended
@@ -81,7 +81,7 @@
           -display_on = @activity.strand_relevant?(strand) || @activity.strand_required?(strand) ? "" : "display:none"
           %tr{:id => "row_#{strand}", :style => "#{display_on};", :class => "completionRequired #{'complete' if @activity.completed(nil, strand)}"}
             %th.strandHeading
-              =h strand_display(strand_name).titlecase
+              =h strand_display(strand).titlecase
             %td
               = completed_tag(@activity, :impact, strand.to_sym)
               = link_to image_tag('icons/edit.gif'), edit_activities_section_path(@activity, :equality_strand => strand, :section => "impact"), :title =>"Edit Impact", :id => "#{strand_name}_impact_pencil"

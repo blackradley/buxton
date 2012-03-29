@@ -14,11 +14,11 @@ class CommentController < ApplicationController
   def set_comment
     @parent_question = @activity.questions.find(params[:question_id])
     unless @parent_question.comment then
-      @parent_question.build_comment(:contents => params[:comment]).save!
+      @parent_question.build_comment(:contents => params[:comment].to_s).save!
     else
-      @parent_question.comment.update_attributes(:contents => params[:comment])
+      @parent_question.comment.update_attributes(:contents => params[:comment].to_s)
     end
-    if params[:comment].strip.blank? then
+    if params[:comment].to_s.strip.blank? then
       @parent_question.comment.destroy
     end
   end
@@ -31,11 +31,11 @@ class CommentController < ApplicationController
   def edit_strategy
     @parent_strategy = @activity.activity_strategies.find(params[:activity_strategy_id])
     unless @parent_strategy.comment then
-      @parent_strategy.build_comment(:contents => params[:comment]).save!
+      @parent_strategy.build_comment(:contents => params[:comment].to_s).save!
     else
-      @parent_strategy.comment.update_attributes(:contents => params[:comment])
+      @parent_strategy.comment.update_attributes(:contents => params[:comment].to_s)
     end
-    if params[:comment].strip.blank? then
+    if params[:comment].to_s.strip.blank? then
       @parent_strategy.comment.destroy
     end
   end

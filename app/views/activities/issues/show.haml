@@ -7,7 +7,7 @@
       =form.input  :resources, :label => "Resources necessary to implement the actions", :wrapper_html =>{:class => "question"}
       %li.string.optional.question
         %label Timescales for commencing and completing the actions
-        = text_field_tag :timescales, @issue.timescales.strftime("%d/%m/%Y")
+        = text_field_tag :timescales, @issue.timescales.to_s.strftime("%d/%m/%Y")
       = form.input :lead_officer_email, :label => "Lead Officer", :required => false
       = form.input :recommendations, :label => "How will the recommendations of this assessment be built in to wider planning and review processes?", :wrapper_html =>{:class => "question"}
       = form.input :monitoring, :label => "How will you monitor the impact and effectiveness of the new policy or function?", :wrapper_html =>{:class => "question"}

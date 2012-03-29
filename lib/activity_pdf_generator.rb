@@ -279,15 +279,15 @@ class ActivityPDFGenerator
       @pdf.text " "
 
     end
-    if final_question.note
-      @pdf.text "<b> Additional Notes</b>"
-      if final_question.changed_in_previous_ea? && final_question.different_note?
-        @pdf.text "<i> Previously: #{final_question.previous_note.blank? ? 'No previous note' : final_question.previous_note} </i>"
-        @pdf.text " "
-      end
-      @pdf.text final_question.note.contents
-      @pdf.text " "
-    end
+    # if final_question.note
+    #   @pdf.text "<b> Additional Notes</b>"
+    #   if final_question.changed_in_previous_ea? && final_question.different_note?
+    #     @pdf.text "<i> Previously: #{final_question.previous_note.blank? ? 'No previous note' : final_question.previous_note} </i>"
+    #     @pdf.text " "
+    #   end
+    #   @pdf.text final_question.note.contents
+    #   @pdf.text " "
+    # end
     @pdf.text " "
     @pdf.start_new_page
     @pdf
