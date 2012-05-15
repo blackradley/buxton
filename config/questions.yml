@@ -236,6 +236,16 @@ questions:
       choices: 3
       weights: 0
       dependent_questions: ''
+    10:
+      label: "Please explain your answer below."
+      help: ''
+      type: text
+      dependent_questions: 'additional_work_#{strand}_4 yes_value'
+    11:
+      label: "Please explain your answer below."
+      help: ''
+      type: text
+      dependent_questions: 'additional_work_#{strand}_6 yes_value'
 
 overall_questions:
   purpose:
