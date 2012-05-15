@@ -26,7 +26,7 @@
       %br
       %span.letter
         d.
-      %strong=link_to "Comments on the initial assessment", edit_purpose_d_activities_section_path(@activity), :title =>"Initial Assessment Comments"
+      %strong=link_to "Analysis on Initial Assessment", edit_purpose_d_activities_section_path(@activity), :title =>"Initial Assessment Comments"
       %span{:class => "completionRequired letter_completed #{'complete' if @activity.questions.find_by_name('purpose_overall_13').completed?}"}
         =tick_cross_display(@activity.questions.find_by_name('purpose_overall_13').completed?)        
   .clear
@@ -65,7 +65,7 @@
         %span.indented
           The Equality Risk Toolkit asks you questions under four Assessment Sections (impact, consultation, additional work and action planning), for each of the Protected Characteristics selected as relevant.
           %br
-          The Assessment Sections and Protected Characteristics are set out as a table below.
+          The Assessment Sections and Protected Characteristics are set out as a table to the right.
           %br
           Click on the <img src="/images/icons/edit.gif" /> icon to answer the questions in that section. Click "Save" when you have finished work on a section.
           %br
@@ -109,7 +109,7 @@
       %p
         %span.letter{:class => "completionRequired #{'complete' if @activity.questions.find_by_name('purpose_overall_14').completed?}"}
           c.
-        %strong=link_to "Final comments", edit_full_assessment_comment_activities_section_path(@activity), :title => "Full Assessment Comments"
+        %strong=link_to "Concluding statement on Full Assessment", edit_full_assessment_comment_activities_section_path(@activity), :title => "Full Assessment Comments"
         %span.letter_completed
           =tick_cross_display(@activity.questions.find_by_name('purpose_overall_14').completed?)
     .stepFooter
