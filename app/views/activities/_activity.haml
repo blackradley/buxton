@@ -17,6 +17,8 @@
     = form.submit "Add", :disable_with => 'Saving...'
     %span.cancelLink
       =raw "or #{link_to "cancel", directorate_eas_activities_path}"
+  %p{:id => "descriptiveReadyText", :style => "#{'display:none' unless @activity.fields_complete}; margin-top: 15px"}
+    An EA cannot be amended once sent to the Task Group Manager
 #formHelp
   %p
     %strong EA Title:
