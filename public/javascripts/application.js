@@ -13,10 +13,10 @@ $(document).ready(function(){
   $('.mask').height($('.mask').parent().height());
   $('.formtastic.activity #standardInputs input').bind('keyup change', function(){
     if($("#standardInputs").find(":text[value=]").length == 0){
-      $("#readyInput").show();
+      $("#readyInput, #descriptiveReadyText").show();
     }
     else{
-      $("#readyInput").hide();
+      $("#readyInput, #descriptiveReadyText").hide();
     }
   });
 
