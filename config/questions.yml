@@ -236,11 +236,21 @@ questions:
       choices: 3
       weights: 0
       dependent_questions: ''
+    10:
+      label: "Please explain your answer below."
+      help: ''
+      type: text
+      dependent_questions: 'additional_work_#{strand}_4 yes_value'
+    11:
+      label: "Please explain your answer below."
+      help: ''
+      type: text
+      dependent_questions: 'additional_work_#{strand}_6 yes_value'
 
 overall_questions:
   purpose:
     2:
-      label: 'What is the #{function_policy_substitution} supposed to achieve?'
+      label: 'What is the purpose of this #{function_policy_substitution} and expected outcomes?'
       help: 'This question asks you to identify the target outcome or desired state of affairs which the #{function_policy_substitution} is designed to deliver.  If the #{function_policy_substitution} does the job which it is supposed to do, what will it change or achieve.<br/><br/>
              Examples of target outcomes are:<ul> <li>A narrowing of the gap between the local employment rate for priority disadvantaged groups and the national rate.</li>
              <li>An improvement in the skill levels of the workforce to better meet the needs of the local economy.</li></ul> It is unlikely that the target outcome will be expressed in terms of numerical targets or outputs.'

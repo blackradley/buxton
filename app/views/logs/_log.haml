@@ -8,7 +8,7 @@
           = mail_to log.user.email.to_s
           logged in
         - when "LogoutLog"
-          = mail_to log.user.email.to_s
+          = mail_to log.user.email.to_s if log.user
           logged out
         -when "FailedLoginLog"
           = mail_to log.user.email.to_s if log.user

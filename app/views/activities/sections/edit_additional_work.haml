@@ -17,16 +17,16 @@
       %li
         =h @activity.additional_work_text_lookup(@equality_strand, 6)
 #questions
-  = render :partial => 'question_help', :collection => question_details(:additional_work, @equality_strand, [1,2,3,44,4])
+  = render :partial => 'question_help', :collection => question_details(:additional_work, @equality_strand, [1,2,3,44,4, 10])
   -unless @equality_strand == 'gender' then
-    = render :partial => 'question_help', :collection => question_details(:additional_work, @equality_strand, [6])
+    = render :partial => 'question_help', :collection => question_details(:additional_work, @equality_strand, [6, 11])
   -if @equality_strand=='disability' then   
     = render :partial => 'question_help', :collection => question_details(:additional_work, @equality_strand, [7,8,9])
   =form_for(@activity, :url => activities_section_path(@activity)) do |f| 
     = render :partial => 'intro'
-    = render :partial => 'question', :collection => question_details(:additional_work, @equality_strand, [1,2,3,44,4]), :locals => {:f => f}
+    = render :partial => 'question', :collection => question_details(:additional_work, @equality_strand, [1,2,3,44,4, 10]), :locals => {:f => f}
     -unless @equality_strand == 'gender' then
-      = render :partial => 'question', :collection => question_details(:additional_work, @equality_strand, [6]), :locals => {:f => f}
+      = render :partial => 'question', :collection => question_details(:additional_work, @equality_strand, [6, 11]), :locals => {:f => f}
     -if @equality_strand=='disability' then   
       = render :partial => 'question', :collection => question_details(:additional_work, @equality_strand, [7,8,9]), :locals => {:f => f}
     = hidden_field_tag 'id', @id 

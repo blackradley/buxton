@@ -256,7 +256,7 @@ class Activity < ActiveRecord::Base
             new_value = value.to_s
             new_value.gsub!('#{wordings[strand]}', data["wordings"][strand.to_s].to_s)
             new_value.gsub!('#{descriptive_term[strand]}', data["wordings"][strand.to_s].to_s)
-            new_value.gsub!('#{non-religious clause if strand == "faith"}', strand.to_s == "faith" ? ' - as well as those who do not have a religion or faith' : '')
+            new_value.gsub!('#{non-religious clause if strand == "faith"}', strand.to_s == "faith" ? ' - as well as those who do not have a religion or belief' : '')
             new_value.gsub!('#{"different " if strand == "gender"}', strand.to_s == "gender" ? 'different' : '')
             new_value.gsub!('#{sentence_desc(strand)}', sentence_desc(strand.to_s))
             if data["extra_strand_wordings"][section.to_s] && data["extra_strand_wordings"][section.to_s][question_number]
@@ -674,15 +674,15 @@ class Activity < ActiveRecord::Base
                             :faith => [1,2,3,4,5,6,7],
                             :age => [1,2,3,4,5,6,7]
                           },    
-      :additional_work => { :race => [1,2,3,44,4,6],
-                            :disability => [1,2,3,44,4,6,7,8,9],
-                            :sexual_orientation => [1,2,3,44,4,6],
-                            :gender => [1,2,3,44,4],
-                            :gender_reassignment => [1,2,3,44,4,6],
-                            :pregnancy_and_maternity => [1,2,3,44,4,6],
-                            :marriage_civil_partnership => [1,2,3,44,4,6],
-                            :faith => [1,2,3,44,4,6],
-                            :age => [1,2,3,44,4,6]
+      :additional_work => { :race => [1,2,3,44,4,6, 10, 11],
+                            :disability => [1,2,3,44,4,6,7,8,9, 10, 11],
+                            :sexual_orientation => [1,2,3,44,4,6, 10, 11],
+                            :gender => [1,2,3,44,4, 10],
+                            :gender_reassignment => [1,2,3,44,4,6, 10, 11],
+                            :pregnancy_and_maternity => [1,2,3,44,4,6, 10, 11],
+                            :marriage_civil_partnership => [1,2,3,44,4,6, 10, 11],
+                            :faith => [1,2,3,44,4,6, 10, 11],
+                            :age => [1,2,3,44,4,6, 10, 11]
                           }
     }
   end
