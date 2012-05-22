@@ -41,7 +41,7 @@ class ActivityStrategy < ActiveRecord::Base
   def different_comment?
     return false unless self.activity.previous_activity
     previous_strategy = self.activity.previous_activity.activity_strategies.where(:strategy_id => self.strategy_id).first
-    if previous_strategy.comment.blank?
+    if previous_strategy.comment.blank? || self.comment.blank?
       if self.comment.blank?
         return false
       else
