@@ -27,6 +27,8 @@
 # each of the strategies.  The strategy list for each activity within an organisation
 # is always the same, and the response is stored in the activity_strategy table.
 #
+require 'csv'
+
 class Activity < ActiveRecord::Base
   belongs_to :completer, :class_name => "User"
   belongs_to :approver, :class_name => "User"
@@ -202,13 +204,14 @@ class Activity < ActiveRecord::Base
   
   def reset_question_texts(destroy_purpose = true)
    data = File.open(Rails.root + "config/questions.yml"){|yf| YAML::load( yf ) }
+   help_texts = CSV.read( 'doc/helptext.csv' )
    dependents = {}
    Question.where(:name => ["purpose_overall_11", "purpose_overall_12"]).each(&:destroy) if destroy_purpose
    Activity.question_setup_names.each do |section, strand_list|
      strand_list.each do |strand, question_list|
        question_list.each do |question_number|
          question_data = strand.to_s == "overall" ? data["overall_questions"]['purpose'][question_number] : data["questions"][section.to_s][question_number]
-         old_texts = {:label => question_data['label'].dup, :help_text => question_data["help"].dup}
+         old_texts = {:label => question_data['label'].dup, :help_text => help_texts[ help_texts.index{|x| x[0]=="#{section}_#{strand}_#{question_number}"} ][2]}
          texts = {}
          old_texts.each do |key, value|
            #some questions have extra wordings on a per section and strand basis. The exceptions for this are codified here
@@ -244,12 +247,13 @@ class Activity < ActiveRecord::Base
     # 
     # 
     data = File.open(Rails.root + "config/questions.yml"){|yf| YAML::load( yf ) }
+    help_texts = CSV.read( 'doc/helptext.csv' )
     dependents = {}
     Activity.question_setup_names.each do |section, strand_list|
       strand_list.each do |strand, question_list|
         question_list.each do |question_number|
           question_data = strand.to_s == "overall" ? data["overall_questions"]['purpose'][question_number] : data["questions"][section.to_s][question_number]
-          old_texts = {:label => question_data['label'].dup, :help_text => question_data["help"].dup}
+          old_texts = {:label => question_data['label'].dup, :help_text => help_texts[ help_texts.index{|x| x[0]=="#{section}_#{strand}_#{question_number}"} ][2]}
           texts = {}
           old_texts.each do |key, value|
             #some questions have extra wordings on a per section and strand basis. The exceptions for this are codified here
