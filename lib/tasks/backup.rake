@@ -1,3 +1,5 @@
+require 'csv'
+
 namespace :stars do
   
   DB_CONFIG = YAML.load_file('config/database.yml')
@@ -26,4 +28,58 @@ namespace :stars do
       end
     end
   end
+  
+  namespace :extract do
+    task :helptext => :environment do
+      def requires_strand?( name, number )
+        list = Activity.question_setup_names[ name.to_sym ]
+        result = []
+        list.each do |key, val|
+          if val.include? number
+            result.push( key.to_s )
+          end
+        end
+        return result
+      end
+      data = File.open(Rails.root + "config/questions.yml"){|yf| YAML::load( yf ) }
+      result = []
+      question_groups = data[ 'questions' ]
+      overall_question_groups = data[ 'overall_questions' ]
+      question_groups.each do |section_name, questions|
+        questions.each do |number, fields|
+          required_strands = requires_strand?( section_name, number )
+          if required_strands.any?
+            required_strands.each do |strand|
+              result << [ section_name, strand, number, fields[ 'label' ], fields[ 'help' ] ]
+            end
+          else
+            result << [ section_name, '', number, fields[ 'label' ], fields[ 'help' ] ]
+          end
+        end
+      end
+      overall_question_groups.each do |section_name, questions|
+        questions.each do |number, fields|
+          required_strands = requires_strand?( section_name, number )
+          if required_strands.any?
+            required_strands.each do |strand|
+              result << [ section_name, strand, number, fields[ 'label' ], fields[ 'help' ] ]
+            end
+          else
+            result << [ section_name, '', number, fields[ 'label' ], fields[ 'help' ] ]
+          end
+        end
+      end
+      result = result.sort{|x,y| "#{x[1]}_#{x[2]}" <=> "#{y[1]}_#{y[2]}"}
+      CSV.open("doc/helptext.csv", "wb") do |csv|
+        result.each do |row|
+          if row[ 1 ].present?
+            csv << [ "#{row[0]}_#{row[1]}_#{row[2]}", row[3], row[4] ]
+          else
+            csv << [ "#{row[0]}_#{row[2]}", row[3], row[4] ]
+          end
+        end
+      end
+    end
+  end
+  
 end
