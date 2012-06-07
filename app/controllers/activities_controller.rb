@@ -145,7 +145,7 @@ class ActivitiesController < ApplicationController
     @selected = "directorate_eas"
     if @activity.update_attributes(params[:activity])
       flash[:notice] = "#{@activity.name} was created."
-      @activity.generate_ref_no unless params[:clone_of]
+      @activity.generate_ref_no #unless params[:clone_of]
       Mailer.activity_created(@activity).deliver if @activity.ready?
       redirect_to directorate_eas_activities_path
     else

@@ -49,7 +49,8 @@
           -if @activity.strand_required?(strand) then
             = check_box_tag("#{strand_name}_checkbox", strand, true, :disabled =>true)
           -else
-            = check_box_tag("#{strand_name}_checkbox", strand, @activity.strand_relevant?(strand), :disabled => true)
+            =# check_box_tag("#{strand_name}_checkbox", strand, @activity.strand_relevant?(strand), :disabled => true)
+            = check_box_tag("#{strand_name}_checkbox", strand, false, :disabled => true)
           %label
             =h strand_display(strand).titlecase
             / -if @activity.impact_calculation(strand).to_i > 9 then
@@ -78,7 +79,8 @@
           %th Additional Work
           %th.last Action Planning
         -@activity.overview_strands.sort{|x,y| strand_display(x.first) <=> strand_display(y.first) }.each do |strand_name, strand|
-          -display_on = @activity.strand_relevant?(strand) || @activity.strand_required?(strand) ? "" : "display:none"
+          -#display_on = @activity.strand_relevant?(strand) || @activity.strand_required?(strand) ? "" : "display:none"
+          -display_on = @activity.strand_required?(strand) ? "" : "display:none"
           %tr{:id => "row_#{strand}", :style => "#{display_on};", :class => "completionRequired #{'complete' if @activity.completed(nil, strand)}"}
             %th.strandHeading
               =h strand_display(strand).titlecase
