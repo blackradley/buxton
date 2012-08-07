@@ -217,6 +217,7 @@ class Activity < ActiveRecord::Base
            #some questions have extra wordings on a per section and strand basis. The exceptions for this are codified here
            new_value = value.to_s
            new_value.gsub!('#{wordings[strand]}', data["wordings"][strand.to_s].to_s)
+           new_value.gsub!('#{wordings[strand_short]}', data["strands"][strand.to_s].to_s)
            new_value.gsub!('#{descriptive_term[strand]}', data["wordings"][strand.to_s].to_s)
            new_value.gsub!('#{"different " if strand == "gender"}', strand.to_s == "gender" ? 'different' : '')
            new_value.gsub!('#{sentence_desc(strand)}', sentence_desc(strand.to_s))
@@ -259,6 +260,7 @@ class Activity < ActiveRecord::Base
             #some questions have extra wordings on a per section and strand basis. The exceptions for this are codified here
             new_value = value.to_s
             new_value.gsub!('#{wordings[strand]}', data["wordings"][strand.to_s].to_s)
+            new_value.gsub!('#{wordings[strand_short]}', data["strands"][strand.to_s].to_s)
             new_value.gsub!('#{descriptive_term[strand]}', data["wordings"][strand.to_s].to_s)
             new_value.gsub!('#{non-religious clause if strand == "faith"}', strand.to_s == "faith" ? ' - as well as those who do not have a religion or belief' : '')
             new_value.gsub!('#{"different " if strand == "gender"}', strand.to_s == "gender" ? 'different' : '')

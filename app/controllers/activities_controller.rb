@@ -309,10 +309,27 @@ class ActivitiesController < ApplicationController
       activities += Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
     end
     activities = activities.uniq
-    send_data SchedulePDFGenerator.new(activities).pdf.render, :disposition => 'inline',
-      :filename => "schedule.pdf",
-      :type => "application/pdf"
+    send_data ScheduleCSVGenerator.new(activities).csv, :disposition => 'inline',
+      :filename => "schedule.csv",
+      :type => "text/csv"
   end
+  
+  ########this is the old pdf version, just in case they ever want it back
+  # def generate_schedule
+  #   activities = []
+  #   if current_user.corporate_cop?
+  #     activities = Activity.ready.where(:id => params[:activities])
+  #   elsif current_user.directorate_cop?
+  #     activities += Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
+  #   end
+  #   if current_user.creator?
+  #     activities += Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
+  #   end
+  #   activities = activities.uniq
+  #   send_data SchedulePDFGenerator.new(activities).pdf.render, :disposition => 'inline',
+  #     :filename => "schedule.pdf",
+  #     :type => "application/pdf"
+  # end
   
   def actions
     @selected = "actions"

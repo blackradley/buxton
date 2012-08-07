@@ -1,7 +1,7 @@
 questions:
   purpose:
     3:
-      label: '#{wordings[strand]}'
+      label: '#{wordings[strand_short]}'
       help: '<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons’ disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>'
       choices: 11
       type: select
@@ -11,7 +11,6 @@ questions:
     1:
       label: 'Describe how the #{function_policy_substitution} meets the needs of #{wordings[strand]}?'
       help:  'This question asks you to assess the current impact of the #{function_policy_substitution} in meeting the particular needs of #{wordings[strand]}.<br/><br/>
-             The available answers are on a five point scale from 5 excellent to 1 poor and as usual ‘Not sure’ is also an acceptable answer.<br/><br/>
              If the #{function_policy_substitution} is not meeting the needs of any #{wordings[strand]} purely because of their #{descriptive_term[strand]} then clearly the impact of the #{function_policy_substitution} in this regard is not positive.'
       type: text
       dependent_questions: ''
@@ -206,7 +205,7 @@ questions:
       weights: 0
       dependent_questions: ''
     6:
-      label: 'Do you think that the #{function_policy_substitution} could assist #{wordings[strand]} to get on better with each other#{non-religious clause if strand == "faith"}?'
+      label: 'Do you think that the #{function_policy_substitution} could help foster good relations between persons who share the relevant protected characteristic and persons who do not share it?'
       help:  'This question asks you to assess whether the #{function_policy_substitution} could have a role in assisting #{wordings[strand]} to get on better with each other.<br/><br/>
               There will be a minority of #{function_policy_substitution}s that are intended to promote good relations as their primary purpose and some #{function_policy_substitution}s that might have this as a secondary role.'
       type: select
@@ -279,12 +278,34 @@ overall_questions:
       dependent_questions: ''
     13: 
       label: 'This must capture your overall analysis and understanding of assessment being undertaken to arrive at your decision.'
-      help: ''
+      help: 'This Initial Assessment should be completed at the earliest opportunity and will determine whether or not it is necessary to carry out a Full Equality Assessment.
+              <br/><br/>
+              The Initial Assessment assesses whether the policy, strategy, function or service may have an impact either positively or negatively on any customer group, staff or part of a community of place, interest or identity and should demonstrate that the policy, strategy, function or service is robust; there is no potential for discrimination or adverse impact. All opportunities to promote equality have been taken.
+              <br/><br/>
+              The use of supporting data and intelligence is vital to the decision taken at this stage. If you do not have sufficient evidence to make an informed decision you need to progress to a Full Equality Assessment.
+              <br/><br/>
+              Consultation must take place with appropriate stakeholders as part of the Equality Assessment process. This is to gain their perspectives on the work that is being undertaken and the services delivered.'
       type: text
       dependent_questions : ''
     14: 
       label: 'This must capture your final analysis and understanding of assessment being undertaken to arrive at your decision.'
-      help: ''
+      help: 'In completing this section you will have identified that your assessment:
+            <br/><ul>
+            <li>Demonstrates  “due regard” to the 3 aims of the General Duty</li>
+            <li>Consultation and Engagement has been undertaken and has informed decision making;</li>
+            <li>Consideration has been given to take account of disabled persons’ disabilities, even where that involves treating disabled persons more favourably than other persons;</li>
+            <li>Relevant information (key findings of the assessment ) have been documented;</li>
+            <li>Where an adverse impact has been identified, consideration has been given on how to mitigate the impact</li>
+            <li>Considerations have been given to alternate options;</li>
+            <li>Provides adequate records detailing how decisions have been made at relevant stages, through out the Assessment;</li>
+            <li>Actions completed;</li>
+            <li>Provides information on how you intend to utilise the findings as part of  your decision-making;</li>
+            <li>Provides details on how your policy will meet the city councils responsibility in relation to equality;</li>
+            <li>Demonstrates how you will engage service users, employees in implementation, monitoring and review;</li>
+            <li>Demonstrates what changes/modifications will now be made to the policy in the light of this Assessment;</li>
+            <li>Cabinet members have been provided with the relevant information on this proposal, prior to decision making</li>
+            <br/><br/></ul>
+            Finally, if any further work needs to be done on this Assessment, you will need to state this.'
       type: text
       dependent_questions: ''
 
@@ -304,7 +325,7 @@ strands:
   race: 'Race'
   disability: 'Disability'
   faith: 'Religion or Belief'
-  sexual_orientation: 'Lesbian Gay Bisexual and Transgender'
+  sexual_orientation: 'Sexual Orientation'
   age: 'Age'
   overall: 'Overall'
   gender_reassignment: 'Gender Reassignment'

@@ -137,7 +137,7 @@ private
     current_user.roles.map do |role| 
       case role
       when "Completer"
-        menu << ["My EAs", my_eas_activities_path]
+        menu << ["Task Group Manager", my_eas_activities_path]
       when "Approver"
         menu << ["Awaiting Approval", approving_activities_path]
       when "Creator"
@@ -156,7 +156,7 @@ private
         menu << ["EA Governance", directorate_governance_eas_activities_path]
         menu << ["Activity Logging", logs_path]
       when "Helper"
-        menu << ["Assisting", assisting_activities_path]
+        menu << ["Task Group Member", assisting_activities_path]
       end
     end
     @activities_menu = menu.uniq
