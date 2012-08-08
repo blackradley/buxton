@@ -79,7 +79,7 @@ class Activities::IssuesController < ApplicationController
   def set_selected
     if @activity && @activity.completer ==  current_user
       @selected = "my_eas"
-      @breadcrumb = [["My EAs", my_eas_activities_path], ["#{@activity.name}", questions_activity_path(@activity)]]
+      @breadcrumb = [["Task Group Manager", my_eas_activities_path], ["#{@activity.name}", questions_activity_path(@activity)]]
     else
       @selected = "ea_governance"
       @breadcrumb = [["EA Governance", directorate_governance_eas_activities_path], ["#{@activity.name}", questions_activity_path(@activity)]]

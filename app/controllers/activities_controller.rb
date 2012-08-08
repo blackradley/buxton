@@ -51,7 +51,7 @@ class ActivitiesController < ApplicationController
   end
   
   def my_eas
-    @breadcrumb = [["My EAs"]]
+    @breadcrumb = [["Task Group Manager"]]
     @activities = Activity.active.where(:completer_id => current_user.id, :ready => true)
     @selected = "my_eas"
   end
@@ -233,7 +233,7 @@ class ActivitiesController < ApplicationController
   # Available to: Activity Manager
   def questions
     @selected = "my_eas"
-    @breadcrumb = [["My EAs", my_eas_activities_path], ["#{@activity.name}"]]
+    @breadcrumb = [["Task Group Manager", my_eas_activities_path], ["#{@activity.name}"]]
     completed_status_array = @activity.strands(true).map{|strand| [strand.to_sym, @activity.completed(nil, strand)]}
     completed_status_hash = Hash[*completed_status_array.flatten]
     @activity.update_attributes( :actual_start_date => Date.today() ) if @activity.actual_start_date.blank? && @activity.started
@@ -244,7 +244,7 @@ class ActivitiesController < ApplicationController
   
   def task_group
     @selected = "my_eas"
-    @breadcrumb = [["My EAs", my_eas_activities_path], ["#{@activity.name} Task Group Management"]]
+    @breadcrumb = [["Task Group Manager", my_eas_activities_path], ["#{@activity.name} Task Group Management"]]
     @task_group_members = @activity.task_group_memberships.map(&:user)
   end
 
