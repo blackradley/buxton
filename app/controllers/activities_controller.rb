@@ -309,7 +309,7 @@ class ActivitiesController < ApplicationController
       activities += Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
     end
     activities = activities.uniq
-    send_data ScheduleCSVGenerator.new(activities).csv, :disposition => 'inline',
+    send_file ScheduleCSVGenerator.new(activities).csv,
       :filename => "schedule.csv",
       :type => "text/csv"
   end
