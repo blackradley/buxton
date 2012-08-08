@@ -11,7 +11,7 @@
   <div id="content">
     <h2>Task Group Modification</h2>
     <p>This email is from the Equality Risk Toolkit assessment tool.</p>
-    <p>You have received this email as you have been added to a Task Group aiding in the completion of the equality analysis for this policy/function.</p>
+    <p>You have received this email as you have been added to a Task Group aiding in the completion of the equality analysis for this <%= @activity.activity_type_name.titlecase %>.</p>
     <p>The link below will take you to the <%= @activity.name -%> summary page where you will be able to view the assessment.</p>
     <p><%= auto_link(activity_url(@activity)).html_safe %></p>
     <p>If you have any queries about the assessment process please contact a member of your Directorate Lead Equality Officer.</p>

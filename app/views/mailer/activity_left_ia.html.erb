@@ -11,7 +11,7 @@
   <div id="content">
     <h2>Initial Assessment complete for <%= @activity.name %></h2>
     <p>This email is from the Equality Risk Toolkit assessment tool.</p>
-    <p>You have received this email as you have been identified as a relevant party to the completion of the equality analysis for this policy/function.</p>
+    <p>You have received this email as you have been identified as a relevant party to the completion of the equality analysis for this <%= @activity.activity_type_name.titlecase %>.</p>
     <p>If you have any queries about the assessment process please contact your Directorate Lead Equality Officer.</p>
     <p>Thank you.</p>    
   </div>
