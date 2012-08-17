@@ -7,7 +7,6 @@
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
 class Directorate < ActiveRecord::Base
-  has_many :activities, :dependent => :destroy
   has_many :service_areas, :dependent => :destroy
   belongs_to :cop, :class_name => "User"
   validates_uniqueness_of :name, :creator_id
