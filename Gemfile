@@ -11,7 +11,7 @@ gem 'pdf-writer', :require => 'pdf/writer'
 gem 'newrelic_rpm'
 gem "devise", "= 1.5.2"
 gem 'formtastic'
-gem 'hoptoad_notifier'
+gem 'airbrake'
 gem 'rails3-jquery-autocomplete'
 gem 'fastercsv'
 gem 'devise_security_extension'
