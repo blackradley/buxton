@@ -52,7 +52,8 @@ require 'bundler/capistrano'
 task :shared_files, :roles => [:web] do
   # Make symlink for shared files
   SHARED_FILES = ['config/database.yml',
-                  'public/images/organisations']
+                  'public/images/organisations',
+                  'doc/helptext.csv']
   SHARED_FILES.each do |file|
     run "ln -nfs #{shared_path}/#{file} #{release_path}/#{file}"
   end
