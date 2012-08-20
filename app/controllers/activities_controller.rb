@@ -299,16 +299,24 @@ class ActivitiesController < ApplicationController
   end
   
   def generate_schedule
-    activities = []
-    if current_user.corporate_cop?
-      activities = Activity.ready.where(:id => params[:activities])
-    elsif current_user.directorate_cop?
-      activities += Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
+    activities =  Activity.active.ready.includes(:service_area)
+    unless current_user.corporate_cop?
+      activities = []
+      if current_user.creator?
+        activities += Activity.active.ready.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)}, :ready => true)
+      end
+      activities += Activity.active.ready.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>current_user.id).map(&:id)}, :ready => true)
     end
-    if current_user.creator?
-      activities += Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
-    end
-    activities = activities.uniq
+    # activities = []
+    # if current_user.corporate_cop?
+    #   activities = Activity.ready.where(:id => params[:activities])
+    # elsif current_user.directorate_cop?
+    #   activities += Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
+    # end
+    # if current_user.creator?
+    #   activities += Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
+    # end
+    # activities = activities.uniq
     send_file ScheduleCSVGenerator.new(activities).csv,
       :filename => "schedule.csv",
       :type => "text/csv"
