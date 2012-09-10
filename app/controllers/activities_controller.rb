@@ -18,11 +18,12 @@ class ActivitiesController < ApplicationController
   # Make render_to_string available to the #show action
   helper_method :render_to_string
   before_filter :authenticate_user!
-  before_filter :ensure_creator, :only => [:edit, :new, :create, :update, :directorate_eas]
+  before_filter :ensure_can_create_eas, :only => [:edit, :new, :create, :update]
+  before_filter :ensure_creator, :only => [:directorate_eas]
   before_filter :set_activity, :only => [:edit, :task_group, :add_task_group_member, :remove_task_group_member, :create_task_group_member,
-                                          :questions, :update, :toggle_strand, :submit, :show, :approve, :reject, :submit_approval, :submit_rejection,
+                                          :questions, :update, :toggle_strand, :submit, :show, :delete, :destroy, :approve, :reject, :submit_approval, :submit_rejection,
                                           :task_group_comment_box, :make_task_group_comment, :summary, :comment, :submit_comment, :clone]
-  before_filter :ensure_cop, :only => [:summary, :generate_schedule, :actions, :directorate_governance_eas]
+  before_filter :ensure_cop, :only => [:summary, :generate_schedule, :actions]
   before_filter :ensure_completer, :only => [:my_eas, :task_group, :add_task_group_member, :remove_task_group_member, :create_task_group_member]
   before_filter :ensure_activity_completer, :only => [:questions, :submit, :toggle_strand]
   before_filter :ensure_approver, :only => [:approving]
@@ -91,14 +92,19 @@ class ActivitiesController < ApplicationController
   
   def directorate_governance_eas
     @breadcrumb = [["EA Governance"]]
-    @activities =  Activity.active.ready.includes(:service_area)
-    unless current_user.corporate_cop?
-      @activities = []
-      if current_user.creator?
-        @activities += Activity.active.ready.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)}, :ready => true)
-      end
-      @activities += Activity.active.ready.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>current_user.id).map(&:id)}, :ready => true)
+    if params[ :view_approved ]
+      @activities =  Activity.scoped
+    else
+      @activities =  Activity.scoped.select{|x| !x.approved?}
     end
+    # unless current_user.corporate_cop?
+    #   @activities = []
+    #   if current_user.creator?
+    #     @activities += Activity.active.ready.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)}, :ready => true)
+    #   end
+    #   @activities += current_user.cop_activities.where(:ready => true )
+    #   #@activities += Activity.active.ready.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>current_user.id).map(&:id)}, :ready => true)
+    # end
     @selected = "ea_governance"
   end
   
@@ -129,7 +135,11 @@ class ActivitiesController < ApplicationController
       @activity = current_user.activities.select{|a| a.id.to_s == params[:clone_of]}.first
       unless @activity
         flash[:notice] = "The Service Area for this EA has been retired and therefore this EA cannot be cloned."
-        redirect_to directorate_eas_activities_path and return
+        if current_user.creator?
+          redirect_to directorate_eas_activities_path and return
+        else
+          redirect_to my_eas_activities_path and return
+        end
       else
         @activity = @activity.clone
         @activity.actual_start_date = nil
@@ -147,7 +157,11 @@ class ActivitiesController < ApplicationController
       flash[:notice] = "#{@activity.name} was created."
       @activity.generate_ref_no #unless params[:clone_of]
       Mailer.activity_created(@activity).deliver if @activity.ready?
-      redirect_to directorate_eas_activities_path
+      if current_user.creator?
+        redirect_to directorate_eas_activities_path and return
+      else
+        redirect_to my_eas_activities_path and return
+      end
     else
       if !@activity.errors[:completer].blank?
         @activity.errors.add(:completer_email, "An EA must have someone assigned to undergo the assessment")
@@ -163,13 +177,23 @@ class ActivitiesController < ApplicationController
     end
   end
   
+  def destroy
+    flash[:notice] = "#{@activity.name} has been permenantly deleted."
+    @activity.destroy
+    redirect_to my_eas_activities_path
+  end
   
   def edit
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Edit EA"]]
-    @directorate = Directorate.find_by_creator_id(current_user.id)
-    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
-    @selected = "directorate_eas"
     @activity = Activity.find(params[:id])
+    if current_user.completer?
+      @directorate = @activity.directorate
+      @service_areas = @directorate.service_areas if @directorate
+    else
+      @directorate = Directorate.find_by_creator_id(current_user.id)
+      @service_areas = ServiceArea.active.where(:directorate_id => @directorate.id)
+    end
+    @selected = "directorate_eas"
   end
 
   # Update the activity details accordingly.
@@ -200,7 +224,11 @@ class ActivitiesController < ApplicationController
     if @activity.update_attributes(params[:activity])
       flash[:notice] = "#{@activity.name} was updated."
       Mailer.activity_created(@activity).deliver if @activity.ready?
-      redirect_to directorate_eas_activities_path
+      if current_user.creator?
+        redirect_to directorate_eas_activities_path and return
+      else
+        redirect_to my_eas_activities_path and return
+      end
     else
       if !@activity.errors[:completer].blank?
         @activity.errors.add(:completer_email, "An EA must have someone assigned to undergo the assessment")
@@ -377,6 +405,9 @@ class ActivitiesController < ApplicationController
     render :nothing => true
   end
   
+  def delete
+    render :layout =>false
+  end
   
   def approve
     render :layout =>false
@@ -426,12 +457,25 @@ class ActivitiesController < ApplicationController
       redirect_to quality_control_activities_path
     end
   end
+  
+  def get_service_areas
+    @service_areas = ServiceArea.find_all_by_directorate_id( params[ :directorate_id ].to_i )
+    render :layout => false
+  end
 
 protected
   
   def set_activity
-    @activity = current_user.activities.detect{|a| a.id == params[:id].to_i}
+    if current_user.completer?
+      @activity = Activity.find( params[:id] );
+    else
+      @activity = current_user.activities.detect{|a| a.id == params[:id].to_i}
+    end
     redirect_to access_denied_path unless @activity
+  end
+  
+  def ensure_can_create_eas
+    redirect_to access_denied_path unless current_user.completer? || current_user.creator?
   end
   
   def ensure_activity_task_group_member
@@ -451,7 +495,7 @@ protected
   end
   
   def ensure_activity_editable
-    redirect_to access_denied_path if @activity.ready?
+    redirect_to access_denied_path if @activity.approved? || @activity.submitted
   end
   
   def ensure_not_approved

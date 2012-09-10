@@ -53,6 +53,8 @@ class Activity < ActiveRecord::Base
   # validates_associated :questions
   # validates_uniqueness_of :name, :scope => :directorate_id
   
+  validate :senior_advisor_and_task_group_manager_cannot_be_the_same_person
+  
   before_update :set_approved, :update_completed
   after_create :create_questions_if_new
   
@@ -72,6 +74,12 @@ class Activity < ActiveRecord::Base
 
   before_validation :mark_empty_issues
   attr_accessor :task_group_member
+  
+  def senior_advisor_and_task_group_manager_cannot_be_the_same_person
+    if approver.email == completer.email
+      errors.add( :approver, "cannot be the same as the task group manager" )
+    end
+  end
   
   def set_recently_rejected
     self.recently_rejected = false
@@ -94,6 +102,13 @@ class Activity < ActiveRecord::Base
     end
   end
   
+  def service_area=(arg)
+    if arg.is_a? String
+      self.service_area_id = arg.to_i
+    else
+      self.service_area_id = arg
+    end
+  end
   
   def fields_complete
     return false if self.name.blank?

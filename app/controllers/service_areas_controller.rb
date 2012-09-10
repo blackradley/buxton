@@ -18,14 +18,15 @@ class ServiceAreasController < ApplicationController
   # Make render_to_string available to the #show action
   helper_method :render_to_string
   before_filter :authenticate_user!
-  before_filter :ensure_creator
-  before_filter :ensure_directorates
+  before_filter :ensure_access
   before_filter :set_service_area, :only => [:edit, :update, :toggle_retired_status]
   autocomplete :user, :email, :scope => :live
   
   def index
     @breadcrumb = [["Service Areas"]]
     @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+    @service_areas += current_user.cop_service_areas
+    @service_areas = @service_areas.uniq
     @selected = "service_areas"
   end
   
@@ -39,8 +40,8 @@ class ServiceAreasController < ApplicationController
   def create
     @breadcrumb = [["Service Areas", service_areas_path], ["Add New Service Area"]]
     @service_area = ServiceArea.new(params[:service_area])
-    @directorate = current_user.directorate
-    @service_area.directorate = @directorate
+    @directorate = current_user.all_directorates.first
+    @service_area.directorate = @directorate unless @service_area.directorate
     @selected = "service_areas"
     if @service_area.save
       flash[:notice] = "#{@service_area.name} was created."
@@ -66,8 +67,8 @@ class ServiceAreasController < ApplicationController
 
   def update
     @breadcrumb = [["Service Areas", service_areas_path], ["Edit Service Area"]]
-    @directorate = current_user.directorate
-    @service_area.directorate = @directorate
+    @directorate = current_user.all_directorates.first
+    @service_area.directorate = @directorate unless @service_area.directorate
     @selected = "service_areas"
     if @service_area.update_attributes(params[:service_area])
       flash[:notice] = "#{@service_area.name} was updated."
@@ -81,13 +82,13 @@ class ServiceAreasController < ApplicationController
 
 protected
 
-  def ensure_directorates
-    redirect_to access_denied_path if current_user.count_live_directorates < 1
+  def ensure_access
+    redirect_to access_denied_path if ( current_user.count_live_directorates < 1 || !current_user.creator? ) && current_user.cop_service_areas.count < 1
   end
 
   def set_service_area
-    @service_area = current_user.directorate.service_areas.find_by_id(params[:id])
-    unless @service_area
+    @service_area = ServiceArea.find_by_id(params[:id])
+    unless (current_user.directorate && current_user.directorate.service_areas.include?( @service_area )) || current_user.cop_service_areas.include?( @service_area )
       redirect_to access_denied_path
       return false
     end

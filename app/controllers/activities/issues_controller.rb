@@ -91,7 +91,7 @@ class Activities::IssuesController < ApplicationController
   end
 
   def ensure_index_access
-    redirect_to access_denied_path unless @activity.completer == current_user || @activity.directorate.cop == current_user || current_user.corporate_cop? || current_user.creator?
+    redirect_to access_denied_path unless @activity.completer == current_user || @activity.directorate.cops.include?( current_user ) || current_user.corporate_cop? || current_user.creator?
   end
 
 end

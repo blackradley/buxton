@@ -39,10 +39,12 @@ Buxton::Application.routes.draw do
       get :generate_schedule
       get :assisting
       get :actions
+      post :get_service_areas
     end
     
     member do
       get :questions
+      get :delete
       post :submit
       post :clone
       post :toggle_strand

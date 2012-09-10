@@ -34,14 +34,15 @@
               %li.nohover="|"
               %li
                 =link_to "Logout", logout_path
-        - if current_user && (current_user.creator? || current_user.corporate_cop?)
+        - if current_user && (current_user.creator? || current_user.corporate_cop? || current_user.directorate_cop?)
           #creatorMenu
             %ul
               - if current_user.creator?
                 %li{:class=>"#{@selected == "directorates" ? "current" : ""}"}=link_to "Directorates", directorates_path
-                - if current_user.count_live_directorates > 0
+              - if ( current_user.count_live_directorates > 0 && current_user.creator? ) ||current_user.directorate_cop?
+                - if current_user.creator?
                   %li.nohover="|"
-                  %li{:class=>"#{@selected == "service_areas" ? "current" : ""}"}=link_to "Service Areas", service_areas_path
+                %li{:class=>"#{@selected == "service_areas" ? "current" : ""}"}=link_to "Service Areas", service_areas_path
               - if current_user.corporate_cop?   
                 %li.nohover="|"
                 %li{:class=>"#{@selected == "strategies" ? "current" : ""}"}=link_to "Strategic Outcomes", strategies_path

@@ -1,6 +1,8 @@
 = semantic_form_for @service_area do |form|
   = form.inputs do
     =form.input :name, :label => "Title"
+    - if current_user.all_directorates.count > 1 
+      =form.input :directorate_id, :as => :select, :label => "Directorate", :collection => current_user.all_directorates, :label_method => :name, :value_method => :id, :include_blank => false
     - value = @service_area.approver_email.blank?&&params[:service_area] ? params[:service_area][:approver_email] : @service_area.approver_email
     =form.autocompleted_input :approver_email, :url => autocomplete_user_email_service_areas_path, :label => "Service Area Senior Officer", :required => false, :value => value
     =form.input :retired, :label => "Retired?"
