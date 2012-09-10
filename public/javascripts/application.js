@@ -10,6 +10,35 @@ jQuery.expr[':'].Contains = function(a,i,m){
 var sorter;
 
 $(document).ready(function(){
+  
+  $('#accept_box').live('change', function(e){
+    if ( $(this).is(':checked') ) {
+      $('.enabled').show();
+      $('.disabled').hide();
+    } else {
+      $('.enabled').hide();
+      $('.disabled').show();
+    }
+  });
+  
+  $.ajax({
+    url: $('#service_areas_path_div').data( "path" ),
+    type: 'POST',
+    data: { directorate_id: parseInt( $('#activity_directorate').val() ) }
+  }); 
+  
+  $('#activity_directorate').live('change', function(e){
+    $.ajax({
+      url: $('#service_areas_path_div').data( "path" ),
+      type: 'POST',
+      data: { directorate_id: parseInt( $(this).val() ) }
+    }); 
+  });
+  
+  $('.add_officer_link').live("click", function(e){
+    $('.multi').append('<input data-autocomplete="/directorates/autocomplete_user_cop_email" id="directorate_cop_email" name="directorate[cop_email][]" size="30" type="text" value="" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">');
+  });
+  
   $('.mask').height($('.mask').parent().height());
   $('.formtastic.activity #standardInputs input').bind('keyup change', function(){
     if($("#standardInputs").find(":text[value=]").length == 0){

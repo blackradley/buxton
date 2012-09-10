@@ -1,0 +1,22 @@
+.approverForm
+  %h2
+    =@activity.name
+  %fieldset.approveInputs
+    %ul
+      %li 
+        %h5 QC Officer:
+      %li.textField
+        = @activity.completer.email
+      %li
+        %h5 Senior Officer:
+      %li.textField
+        = @activity.approver.email
+  %fieldset.buttons
+    %ol
+      %li.commit
+        = check_box_tag 'accept_box'
+      %li.commit
+        .enabled{ :style => 'display: none;' }
+          = link_to "delete", activity_path(@activity), :method => :delete, :disable_with => "deleting.."
+        .disabled
+          = link_to "delete", '#'

@@ -8,10 +8,10 @@
 #
 class Directorate < ActiveRecord::Base
   has_many :service_areas, :dependent => :destroy
-  belongs_to :cop, :class_name => "User"
+  has_and_belongs_to_many :cops, :class_name => 'User'
   validates_uniqueness_of :name, :creator_id
   validates_presence_of :name
-  validates_presence_of :creator_email, :cop_email, :message => "must be a valid user"
+  validates_presence_of :creator_email, :message => "must be a valid user"
   scope :active, :conditions => {:retired => false}
   # validates_associated :cop
   belongs_to :creator, :class_name => "User"
@@ -26,21 +26,29 @@ class Directorate < ActiveRecord::Base
     self.name = fix_field(self.name)
   end
   
-  def cop_email
-    if self.cop
-      self.cop.email
+  def cop_email(index=0)
+    if self.cops[ index ]
+      self.cops[ index ].email
     else
       ""
     end
   end
   
-  def cop_email=(email)
-    if user = User.live.find_by_email(email)
-      self.cop_id = user.id
+  def method_missing(method, *args, &block)
+    if method.to_s.include?('cop_email')
+      return cop_email(method.to_s.last.to_i)
     else
-      self.cop_id = nil
+      return super
     end
-    user
+  end
+  
+  def cop_email=(emails)
+    cops.map{|c| cops.delete(c)}
+    emails.each do |email|
+      if user = User.live.find_by_email(email)
+        cops << user
+      end
+    end
   end
   
   def creator_email

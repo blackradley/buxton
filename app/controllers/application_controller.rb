@@ -134,6 +134,7 @@ private
   def setup_menus
     menu = Array.new
     return [] unless current_user
+    menu << ["EA Governance", directorate_governance_eas_activities_path] unless current_user.completer?
     current_user.roles.map do |role| 
       case role
       when "Completer"
@@ -143,7 +144,6 @@ private
       when "Creator"
         if current_user.count_live_directorates > 0
           menu << ["Directorate EAs", directorate_eas_activities_path]
-          menu << ["EA Governance", directorate_governance_eas_activities_path]
           if current_user.activities.size > 0
             menu << ["Actions", actions_activities_path]
           end

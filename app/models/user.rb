@@ -14,6 +14,15 @@ class User < ActiveRecord::Base
   before_save :update_lock_time
   before_save :log_failed_attempts
   has_many :task_group_memberships
+  has_and_belongs_to_many :directorates
+  
+  def cop_activities
+    Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => self.directorate_ids, :retired => false})
+  end
+  
+  def cop_service_areas
+    ServiceArea.find_all_by_directorate_id( self.directorate_ids )
+  end
   
   def cop_email
     #required for directorate autocomplete hack
@@ -34,6 +43,10 @@ class User < ActiveRecord::Base
     self.password_confirmation = @new_pass
     self.save
     Mailer.password_reset(self, @new_pass).deliver
+  end
+  
+  def all_directorates
+    Directorate.where(:creator_id => self.id) + directorates
   end
   
   def count_directorates
@@ -109,7 +122,8 @@ class User < ActiveRecord::Base
       when "Creator"
         Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>self.id).map(&:id), :retired => false})
       when "Directorate Cop"
-        Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>self.id).map(&:id), :retired => false})
+        self.cop_activities
+        # Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>self.id).map(&:id), :retired => false})
       when "Corporate Cop"
         Activity.active
       when "Helper"
@@ -139,7 +153,8 @@ class User < ActiveRecord::Base
   end
   
   def directorate_cop?
-    Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>self.id).map(&:id), :retired => false}).count > 0
+    self.directorates.where(:retired => false).count > 0
+    #Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>self.id).map(&:id), :retired => false}).count > 0
   end
   
   def helper?

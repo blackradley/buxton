@@ -75,7 +75,7 @@
             %td.last
               - if @service_areas.size > 0 && activity.approved?
                 = link_to "clone", clone_activity_path(activity), :class => "action clone", :method => "post"
-              - if activity.ready?
-                = link_to "view", activity_path(activity), :class => "action view"
               - else
                 = link_to "edit", edit_activity_path(activity), :class => "action edit"
+              - if activity.ready?
+                = link_to "view", activity_path(activity), :class => "action view"
