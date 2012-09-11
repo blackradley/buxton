@@ -134,7 +134,7 @@ private
   def setup_menus
     menu = Array.new
     return [] unless current_user
-    menu << ["EA Governance", directorate_governance_eas_activities_path] unless current_user.completer?
+    menu << ["EA Governance", directorate_governance_eas_activities_path]
     current_user.roles.map do |role| 
       case role
       when "Completer"

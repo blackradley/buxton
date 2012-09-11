@@ -36,7 +36,15 @@ $(document).ready(function(){
   });
   
   $('.add_officer_link').live("click", function(e){
-    $('.multi').append('<input data-autocomplete="/directorates/autocomplete_user_cop_email" id="directorate_cop_email" name="directorate[cop_email][]" size="30" type="text" value="" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true">');
+    $('.multi').append('<label></label><input data-autocomplete="/directorates/autocomplete_user_cop_email" id="directorate_cop_email" name="directorate[cop_email][]" size="30" type="text" value="" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"><br/><a href="#" class="delete_dgo">delete</a><br/>');
+  });
+  
+  $('.delete_dgo').live('click', function(e){
+    $(this).prev().prev().prev().remove();
+    $(this).prev().prev().remove();
+    $(this).prev().remove();
+    $(this).next().remove();
+    $(this).remove();
   });
   
   $('.mask').height($('.mask').parent().height());
@@ -218,7 +226,8 @@ $(document).ready(function(){
   
   
   $(".colorbox").click(function(){
-    $(this).colorbox({'href': $(this).data("path"), 
+    $(this).colorbox({'href': $(this).data("path"),
+                      scrolling: false,
                       onComplete: function(){$('.cancelLink').click(function(){$.colorbox.close();} ) }} );
   });
   $('.inline').click(function(){

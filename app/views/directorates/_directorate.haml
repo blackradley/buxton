@@ -2,12 +2,11 @@
   = form.inputs do
     =form.input :name, :label => "Title"
     = form.autocompleted_input :creator_email, :url => autocomplete_user_email_directorates_path, :label => "Directorate Contact Officer", :required => false
-    .multi
-      - if @directorate.cops.count > 0
-        - @directorate.cops.each_with_index do |cop, i|
-          =form.autocompleted_input "cop_email#{i}", :url => autocomplete_user_cop_email_directorates_path, :label => "Governance Officer", :required => false, :name => 'directorate[cop_email][]'
-      - else
-        =form.autocompleted_input "cop_email", :url => autocomplete_user_cop_email_directorates_path, :label => "Governance Officer", :required => false, :name => 'directorate[cop_email][]'
+    - if @directorate.cops.count > 0
+      - @directorate.cops.each_with_index do |cop, i|
+        =form.autocompleted_input "cop_email#{i}", :url => autocomplete_user_cop_email_directorates_path, :label => "Governance Officer", :required => false, :name => 'directorate[cop_email][]'
+    - else
+      =form.autocompleted_input "cop_email", :url => autocomplete_user_cop_email_directorates_path, :label => "Governance Officer", :required => false, :name => 'directorate[cop_email][]', :wrapper_html => { :class => 'multi' }
     = link_to 'add', '#', :class => 'add_officer_link'
     =form.input :retired, :label => "Retired?"
   = form.buttons do
@@ -16,7 +15,7 @@
 #formHelp
   %p
     %strong Title*:
-    must be unqiue.
+    must be unique.
   %p
     %strong Directorate Contact Officer:
     the email address of the assigned Directorate Contact Officer, who will be responsible for creating the Service Areas and EAs within this directorate. This field will auto-complete from the available users. If the user you wish to assign does not appear in the prepopulated list, please contact the Directorate Contact Officer.

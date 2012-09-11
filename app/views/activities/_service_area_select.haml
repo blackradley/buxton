@@ -1,7 +1,8 @@
-%label Service Area
-- if @service_areas
-  = select_tag 'activity[service_area]', options_from_collection_for_select( @service_areas, 'id', 'name', @activity && @activity.service_area_id ), :label => 'Service Area'
-  =#form.input :service_area, :label => "Service Area", :collection => @service_areas.map{|sa| "<option data-email='#{h sa.approver.email}' value='#{h sa.id}'#{' selected' if @activity.service_area && sa.id == @activity.service_area.id}>#{h sa.name}</option>"}.join, :include_blank => false
-- else
-  = select_tag 'activity[service_area]', options_from_collection_for_select( @current_user.directorate.service_areas.where( :retired => false ), 'id', 'name', @activity.service_area_id )
-  =#form.input :service_area, :label => "Service Area", :collection => @current_user.directorate.service_areas.where( :retired => false ).map{|sa| "<option data-email='#{h sa.approver.email}' value='#{h sa.id}'#{' selected' if @activity.service_area && sa.id == @activity.service_area.id}>#{h sa.name}</option>"}.join, :include_blank => false
+%li.select.optional
+  %label Service Area
+  - if @service_areas
+    = select_tag 'activity[service_area]', options_from_collection_for_select( @service_areas, 'id', 'name', @activity && @activity.service_area_id ), :label => 'Service Area'
+    =#form.input :service_area, :label => "Service Area", :collection => @service_areas.map{|sa| "<option data-email='#{h sa.approver.email}' value='#{h sa.id}'#{' selected' if @activity.service_area && sa.id == @activity.service_area.id}>#{h sa.name}</option>"}.join, :include_blank => false
+  - else
+    = select_tag 'activity[service_area]', options_from_collection_for_select( @current_user.directorate.service_areas.where( :retired => false ), 'id', 'name', @activity.service_area_id )
+    =#form.input :service_area, :label => "Service Area", :collection => @current_user.directorate.service_areas.where( :retired => false ).map{|sa| "<option data-email='#{h sa.approver.email}' value='#{h sa.id}'#{' selected' if @activity.service_area && sa.id == @activity.service_area.id}>#{h sa.name}</option>"}.join, :include_blank => false
