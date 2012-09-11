@@ -111,6 +111,7 @@ class ActivitiesController < ApplicationController
   def new
     # @directorates = Directorate.where(:creator_id=>current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
+    @directorates = Directorate.scoped.select{|d| d.service_areas.count > 0}
     @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
     @selected = "directorate_eas"
     @activity = Activity.new
@@ -187,6 +188,7 @@ class ActivitiesController < ApplicationController
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Edit EA"]]
     @activity = Activity.find(params[:id])
     if current_user.completer?
+      @directorates = Directorate.scoped.select{|d| d.service_areas.count > 0}
       @directorate = @activity.directorate
       @service_areas = @directorate.service_areas if @directorate
     else
