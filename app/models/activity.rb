@@ -61,7 +61,7 @@ class Activity < ActiveRecord::Base
   default_scope :conditions => {:is_rejected => false}
 
   scope :active,  lambda{
-    joins(:service_area => :directorate).where(:service_areas => {:retired => false, :directorates => {:retired => false}}).readonly(false)
+    joins(:service_area => :directorate).where(:service_areas => {:retired => false}).where( :directorates => {:retired => false}).readonly(false)
   }
   include FixInvalidChars
   

@@ -2,15 +2,15 @@
 # This preamble is the current preamble for Rails 3 apps; edit as needed.
 source 'http://rubygems.org'
 
-gem 'rails'
+gem 'rails', "~> 3.0.17"
 gem 'haml'
-gem "mysql2"
+gem "mysql2", '< 0.3'
 gem "jquery-rails"
 #gem 'rmagick', :require => 'RMagick'
 gem 'pdf-writer', :require => 'pdf/writer'
 gem 'newrelic_rpm'
 gem "devise", "= 1.5.2"
-gem 'formtastic'
+gem 'formtastic', "< 2.1.0"
 gem 'airbrake'
 gem 'rails3-jquery-autocomplete'
 gem 'fastercsv'
@@ -19,9 +19,9 @@ gem 'right_aws'
 gem 'rack-ssl', :require => 'rack/ssl'
 gem 'whenever'
 gem 'will_paginate', "~> 3.0.pre2"
+gem 'sass'
 group :test do
   gem 'shoulda'
-  gem 'factory_girl'
   gem 'mocha'
 end
 
