@@ -1,7 +1,10 @@
 # =============================================================================
 # STAGING SPECIFIC VARIABLES
+#
+# Staging is for use by Black Radley, and should NOT be visible to their clients
+#
 # =============================================================================
-set :domain, "birmingham.27stars.co.uk"
+set :domain, "staging.impactequality.co.uk"
 set :rails_env, "staging"
 set :port, 13427
 
@@ -13,7 +16,7 @@ set :rake, 'rake'
 role :app, domain
 role :web, domain
 role :db,  domain, :primary => true
-set :deploy_to, "/home/deploy/public_html/birmingham.27stars.co.uk"
+set :deploy_to, "/home/deploy/public_html/#{domain}"
 set :use_sudo, false
 
 ssh_options[:forward_agent] = true
