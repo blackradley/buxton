@@ -1,5 +1,8 @@
 # =============================================================================
-# STAGING SPECIFIC VARIABLES
+# PREVIEW SPECIFIC VARIABLES
+#
+# Preview is visible to the clients of Black Radley
+#
 # =============================================================================
 set :domain, "preview.impactequality.co.uk"
 set :rails_env, "preview"
