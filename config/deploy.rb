@@ -34,20 +34,20 @@ after 'deploy:update_code', 'deploy:cleanup'
 # =============================================================================
 
 ssh_options[:forward_agent] = true
-require 'bundler/capistrano'
+#require 'bundler/capistrano'
 
-# namespace :bundler do
-#  task :create_symlink, :roles => :app do
-#    shared_dir = File.join(shared_path, 'bundle')
-#    release_dir = File.join(current_release, '.bundle')
-#    run("mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}")
-#  end
-# 
-#  task :bundle_new_release, :roles => :app do
-#    bundler.create_symlink
-#    run "cd #{release_path} && bundle install --without development test"
-#  end
-# end
+namespace :bundler do
+ task :create_symlink, :roles => :app do
+   shared_dir = File.join(shared_path, 'bundle')
+   release_dir = File.join(current_release, '.bundle')
+   run("mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}")
+ end
+
+ task :bundle_new_release, :roles => :app do
+   bundler.create_symlink
+   run "cd #{release_path} && bundle install --without development test"
+ end
+end
 
 task :shared_files, :roles => [:web] do
   # Make symlink for shared files
@@ -75,8 +75,8 @@ task :package_assets do
   end
 end
 
+after 'deploy:finalize_update', 'bundler:bundle_new_release'
 after 'deploy:update_code', 'shared_files'
-# after 'deploy:update_code', 'bundler:bundle_new_release'
 after 'deploy:update_code', 'package_assets'
 
 
