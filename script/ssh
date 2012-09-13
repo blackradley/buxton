@@ -4,7 +4,7 @@ case $1 in
   ssh -p 13427 deploy@preview.impactequality.co.uk
   ;;
   "staging" )
-  ssh -p 13427 deploy@birmingham.27stars.co.uk
+  ssh -p 13427 deploy@staging.impactequality.co.uk
   ;;
   "production" )
   ssh -p 13427 deploy@birmingham.impactequality.co.uk

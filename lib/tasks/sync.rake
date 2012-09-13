@@ -1,8 +1,8 @@
 namespace :stars do
   
-  PORT = 13427#2020
+  PORT = 13427
   USER = 'deploy'
-  HOST = 'birmingham.impactequality.co.uk'#'impactengine.org.uk'
+  HOST = 'birmingham.impactequality.co.uk'
   R_ROOT = "public_html/#{HOST}"
   CURRENT = "#{R_ROOT}/current"
   SHARED = "#{R_ROOT}/shared"
