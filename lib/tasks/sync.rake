@@ -29,8 +29,8 @@ namespace :stars do
       system "#{mysql} -u #{DB_CONFIG['development']["username"]} -p#{DB_CONFIG['development']["password"]} #{DB_CONFIG['development']["database"]} < ./db/production_data.sql"
       
       # # TODO: so I usually have a second step which updates the email addresses, blanks out any potentially sensitive data etc.
-      
-      CLIENT_DOMAINS.each_with_index do |domain, index|
+      index = 1
+      CLIENT_DOMAINS.each do |domain|
         new_domain = "example#{index}.example"
         puts "Resetting client email addresses for #{domain} to #{new_domain}"
         User.transaction do
@@ -38,6 +38,7 @@ namespace :stars do
             u.update_attribute( :email, (u.email.gsub(Regexp.new(domain), new_domain)) )
           end
         end
+        index += 1
       end
 
     end
