@@ -47,8 +47,10 @@ GEM
     erubis (2.6.6)
       abstract (>= 1.0.0)
     fastercsv (1.5.5)
-    formtastic (2.0.2)
-      rails (~> 3.0)
+    formtastic (1.2.4)
+      actionpack (>= 2.3.7)
+      activesupport (>= 2.3.7)
+      i18n (~> 0.4)
     girl_friday (0.10.0)
       connection_pool (~> 0.9.0)
     haml (3.1.7)
@@ -90,7 +92,7 @@ GEM
       activesupport (= 3.0.17)
       bundler (~> 1.0)
       railties (= 3.0.17)
-    rails3-jquery-autocomplete (1.0.9)
+    rails3-jquery-autocomplete (0.9.0)
       rails (~> 3.0)
     railties (3.0.17)
       actionpack (= 3.0.17)
@@ -135,7 +137,7 @@ DEPENDENCIES
   devise (= 1.5.2)
   devise_security_extension
   fastercsv
-  formtastic (< 2.1.0)
+  formtastic (< 1.9.0)
   haml
   jquery-rails
   mail_safe
@@ -145,7 +147,7 @@ DEPENDENCIES
   pdf-writer
   rack-ssl
   rails (~> 3.0.17)
-  rails3-jquery-autocomplete
+  rails3-jquery-autocomplete (= 0.9.0)
   rake (= 0.8.7)
   rcov_rails
   right_aws
