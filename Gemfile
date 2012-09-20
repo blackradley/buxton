@@ -10,9 +10,9 @@ gem "jquery-rails"
 gem 'pdf-writer', :require => 'pdf/writer'
 gem 'newrelic_rpm'
 gem "devise", "= 1.5.2"
-gem 'formtastic', "< 2.1.0"
+gem 'formtastic', "< 1.9.0"
 gem 'airbrake'
-gem 'rails3-jquery-autocomplete'
+gem 'rails3-jquery-autocomplete', '0.9.0'
 gem 'fastercsv'
 gem 'devise_security_extension'
 gem 'right_aws'
