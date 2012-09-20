@@ -20,6 +20,7 @@ gem 'rack-ssl', :require => 'rack/ssl'
 gem 'whenever'
 gem 'will_paginate', "~> 3.0.pre2"
 gem 'sass'
+gem 'rake', '0.8.7'
 group :test do
   gem 'shoulda'
   gem 'mocha'
