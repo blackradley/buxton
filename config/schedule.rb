@@ -19,7 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
-if environment == 'production' || environment == 'staging'
+if environment == 'production'
   every 2.hours do
     rake "stars:db:backup"
   end

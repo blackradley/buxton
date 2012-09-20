@@ -98,7 +98,7 @@ GEM
       rake (>= 0.8.7)
       rdoc (~> 3.4)
       thor (~> 0.14.4)
-    rake (0.9.2.2)
+    rake (0.8.7)
     rcov (1.0.0)
     rcov_rails (0.3.1)
       rcov
@@ -146,6 +146,7 @@ DEPENDENCIES
   rack-ssl
   rails (~> 3.0.17)
   rails3-jquery-autocomplete
+  rake (= 0.8.7)
   rcov_rails
   right_aws
   sass
