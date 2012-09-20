@@ -105,7 +105,9 @@ table {
     table .sortControls .down:hover {
       background-image: url(../images/bullet_arrow_down_on.gif); }
   table .first {
-    width: 420px; }
+    width: 220px; }
+  table .retired {
+    width: 60px; }
   table .icon {
     width: 30px; }
   table .dateTime {

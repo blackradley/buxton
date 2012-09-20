@@ -3,7 +3,7 @@
     %label Search for:
     = text_field_tag 'search_term', '', :class => 'textField'
     = submit_tag 'Search', :class => 'submitButton'
-.orangeButton
+.orangeButton.add_user
   =link_to "Add User", new_user_path, :class=>"add new_user"
 
 %table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
@@ -13,7 +13,7 @@
         Email Address
       %th.dateTime
         Last Logged in
-      %th
+      %th.retired
         =#"Trained?"
         =#"Locked?"
         Retired?
