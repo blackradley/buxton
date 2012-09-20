@@ -8,11 +8,12 @@ namespace :stars do
   SHARED = "#{R_ROOT}/shared"
   DB_CONFIG = YAML.load_file('config/database.yml')
   SHARED_FOLDERS = []
-  
+  CLIENT_DOMAINS = ['birmingham.gov.uk', 'servicebirmingham.co.uk']
+
   namespace :sync do    
     
     desc "Sync remote DB with local DB"
-    task :db do
+    task :db => :environment do
       puts "Dumping remote database..."
       system "ssh -p #{PORT} #{USER}@#{HOST} \"mysqldump -u #{DB_CONFIG['production']["username"]} -p#{DB_CONFIG['production']["password"] } -h #{DB_CONFIG['production']['host']} -Q --add-drop-table --add-locks=FALSE --lock-tables=FALSE #{DB_CONFIG['production']["database"]} > /tmp/dump.sql\""
       puts "Retrieving remote database..."
@@ -23,9 +24,22 @@ namespace :stars do
       else
         "mysql"
       end
+      
       puts "Importing remote database..."
       system "#{mysql} -u #{DB_CONFIG['development']["username"]} -p#{DB_CONFIG['development']["password"]} #{DB_CONFIG['development']["database"]} < ./db/production_data.sql"
+      
       # # TODO: so I usually have a second step which updates the email addresses, blanks out any potentially sensitive data etc.
+      
+      CLIENT_DOMAINS.each_with_index do |domain, index|
+        new_domain = "example#{index}.example"
+        puts "Resetting client email addresses for #{domain} to #{new_domain}"
+        User.transaction do
+          User.where("users.email LIKE ?", "%@#{domain}%").each do |u| 
+            u.update_attribute( :email, (u.email.gsub(Regexp.new(domain), new_domain)) )
+          end
+        end
+      end
+
     end
     
     desc "Sync remote files with local files"
