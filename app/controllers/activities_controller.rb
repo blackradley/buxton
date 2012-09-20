@@ -23,7 +23,6 @@ class ActivitiesController < ApplicationController
   before_filter :set_activity, :only => [:edit, :task_group, :add_task_group_member, :remove_task_group_member, :create_task_group_member,
                                           :questions, :update, :toggle_strand, :submit, :show, :delete, :destroy, :approve, :reject, :submit_approval, :submit_rejection,
                                           :task_group_comment_box, :make_task_group_comment, :summary, :comment, :submit_comment, :clone]
-  before_filter :ensure_cop, :only => [:summary, :generate_schedule, :actions]
   before_filter :ensure_completer, :only => [:my_eas, :task_group, :add_task_group_member, :remove_task_group_member, :create_task_group_member]
   before_filter :ensure_activity_completer, :only => [:questions, :submit, :toggle_strand]
   before_filter :ensure_approver, :only => [:approving]
@@ -329,14 +328,7 @@ class ActivitiesController < ApplicationController
   end
   
   def generate_schedule
-    activities =  Activity.active.ready.includes(:service_area)
-    unless current_user.corporate_cop?
-      activities = []
-      if current_user.creator?
-        activities += Activity.active.ready.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)}, :ready => true)
-      end
-      activities += Activity.active.ready.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>current_user.id).map(&:id)}, :ready => true)
-    end
+    activities =  Activity.active.ready
     # activities = []
     # if current_user.corporate_cop?
     #   activities = Activity.ready.where(:id => params[:activities])
