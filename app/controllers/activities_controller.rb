@@ -196,6 +196,12 @@ class ActivitiesController < ApplicationController
     end
     @selected = "directorate_eas"
   end
+  
+  def edit_tgm
+    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Edit EA"]]
+    @activity = Activity.find(params[:id])
+    @selected = "directorate_eas"
+  end
 
   # Update the activity details accordingly.
   # Available to: Activity Manager
@@ -242,6 +248,23 @@ class ActivitiesController < ApplicationController
       end
       @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
       render "edit"
+    end
+  end
+  
+  def update_tgm
+    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
+    @selected = "directorate_eas"
+    @activity = Activity.find(params[:id])
+    
+    if @activity.update_attributes(params[:activity])
+      flash[:notice] = "#{@activity.name} was updated."
+      # Mailer.activity_created(@activity).deliver if @activity.ready?
+      redirect_to directorate_governance_eas_activities_path and return
+    else
+      if !@activity.errors[:completer].blank?
+        @activity.errors.add(:completer_email, "An EA must have someone assigned to undergo the assessment")
+      end
+      render "edit_tgm"
     end
   end
   
