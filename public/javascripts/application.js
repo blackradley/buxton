@@ -36,7 +36,7 @@ $(document).ready(function(){
   });
   
   $('.add_officer_link').live("click", function(e){
-    $('.multi').append('<label></label><input data-autocomplete="/directorates/autocomplete_user_cop_email" id="directorate_cop_email" name="directorate[cop_email][]" size="30" type="text" value="" class="ui-autocomplete-input" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"><br/><a href="#" class="delete_dgo">delete</a><br/>');
+    $('.multi').append('<div class="input_div"><label></label><input data-autocomplete="/directorates/autocomplete_user_cop_email" id="directorate_cop_email" name="directorate[cop_email][]" size="30" type="text" value="" class="ui-autocomplete-input multi" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"><a href="#" class="delete_dgo">delete</a><br/></div>');
   });
   
   $('.delete_dgo').live('click', function(e){
