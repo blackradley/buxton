@@ -328,7 +328,11 @@ class ActivitiesController < ApplicationController
   end
   
   def generate_schedule
-    activities =  Activity.active.ready
+    if params[ :view_approved ].present?
+      @activities =  Activity.scoped
+    else
+      @activities =  Activity.scoped.select{|x| !x.approved?}
+    end
     # activities = []
     # if current_user.corporate_cop?
     #   activities = Activity.ready.where(:id => params[:activities])
@@ -339,7 +343,7 @@ class ActivitiesController < ApplicationController
     #   activities += Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)}, :id => params[:activities], :ready => true)
     # end
     # activities = activities.uniq
-    send_data ScheduleCSVGenerator.new(activities).csv,
+    send_data ScheduleCSVGenerator.new(@activities).csv,
       :filename => "schedule.csv",
       :type => "text/csv"
   end

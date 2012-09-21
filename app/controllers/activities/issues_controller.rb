@@ -23,7 +23,7 @@ class Activities::IssuesController < ApplicationController
   before_filter :set_strand, :except => [:index]
   before_filter :set_selected
   before_filter :ensure_activity_completer, :except => [:index, :show]
-  before_filter :ensure_index_access, :only => [:index, :show]
+  # before_filter :ensure_index_access, :only => [:index, :show]
 
   # Get the activity information ready for editing using the appropriate form.
   # Available to: Activity Manager
@@ -73,7 +73,7 @@ class Activities::IssuesController < ApplicationController
   end
 
   def set_activity
-    @activity = current_user.activities.select{|a| a.id.to_s == params[:activity].to_s}.first
+    @activity = Activity.find( params[:activity] )
   end
   
   def set_selected

@@ -1,9 +1,9 @@
 require 'capistrano/ext/multistage'
 # For RVM
 # $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
-# require "rvm/capistrano"                  # Load RVM's capistrano plugin.
-# set :rvm_ruby_string, 'ree@brs'        # Or whatever env you want it to run in.
-# set :rvm_type, :user
+require "rvm/capistrano"                  # Load RVM's capistrano plugin.
+set :rvm_ruby_string, 'ree@brs'        # Or whatever env you want it to run in.
+set :rvm_type, :user
 
 # =============================================================================
 # VARS
@@ -75,7 +75,7 @@ task :package_assets do
   end
 end
 
-after 'deploy:finalize_update', 'bundler:bundle_new_release'
+after 'deploy:update_code', 'bundler:bundle_new_release'
 after 'deploy:update_code', 'shared_files'
 after 'deploy:update_code', 'package_assets'
 
