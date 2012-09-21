@@ -1,0 +1,14 @@
+= semantic_form_for @activity, :url => update_tgm_activity_path do |form|
+  = form.inputs :id => "standardInputs" do
+    =form.autocompleted_input :completer_email, :url => autocomplete_user_email_activities_path, :label => "Task Group Manager", :required => false
+  = form.buttons do
+    = form.submit "Add", :disable_with => 'Saving...'
+    %span.cancelLink
+      - if @current_user.creator?
+        =raw "or #{link_to "cancel", directorate_eas_activities_path}"
+      - else
+        =raw "or #{link_to "cancel", my_eas_activities_path}"
+#formHelp
+  %p
+    %strong Task Group Manager:
+    This is the Task Group Manager for the EA. This field will auto-complete from the available users. If the user you wish to add does not appear in the prepopulated list, please contact Service Birmingham.

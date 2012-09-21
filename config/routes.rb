@@ -61,6 +61,8 @@ Buxton::Application.routes.draw do
       post :submit_comment
       post :submit_approval
       post :submit_rejection
+      get :edit_tgm
+      put :update_tgm
     end
   end
   

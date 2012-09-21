@@ -24,7 +24,10 @@
   = form.buttons do
     = form.submit "Add", :disable_with => 'Saving...'
     %span.cancelLink
-      =raw "or #{link_to "cancel", directorate_eas_activities_path}"
+      - if @current_user.creator?
+        =raw "or #{link_to "cancel", directorate_eas_activities_path}"
+      - else
+        =raw "or #{link_to "cancel", my_eas_activities_path}"
 #formHelp
   %p
     %strong EA Title:
