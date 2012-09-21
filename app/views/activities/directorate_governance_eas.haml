@@ -1,9 +1,10 @@
 %h2 EA Governance
+.clear
 - if params[ :view_approved ]
   = link_to 'View In Progress', directorate_governance_eas_activities_path
-  %p= " | View All"
+  = " | View All"
 - else
-  %p= "View In Progress | "
+  = "View In Progress | "
   = link_to 'View All', directorate_governance_eas_activities_path(:view_approved => true)
 - if @activities.empty?
   .clear
@@ -23,14 +24,14 @@
     %thead
       %tr
         %th Directorate
-        %th Service Area
+        %th.center Service Area
         %th EA Title
         %th Ref no.
-        %th.email Senior Officer
+        %th.email{:style=> 'width: 140px;' } Senior Officer
         %th.date.center Date Started
         %th.date.center Actual Completion
-        %th.center Progress
-        %th Actions
+        %th.center{:style=> 'width: 50px;' } Progress
+        %th{:style=> 'width: 45px;' } Actions
         %th.last
       %tr
         %th.sortControls
