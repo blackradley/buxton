@@ -11,8 +11,6 @@
     - else
       = render :partial => 'service_area_select'
     =form.input :name, :label => "EA Title"
-    - if current_user.completer? && !( @activity.approved || @activity.submitted ) && @activity.id
-      = link_to 'delete', '#', 'data-path' => delete_activity_path(@activity.id), :class => 'colorbox'
     = form.input :summary, :label => "Summary of this EA"
     = form.input :review_on, :label => "Review Date", :as => :datepicker, :format => "%d/%m/%Y"
     =form.autocompleted_input :approver_email, :url => autocomplete_user_email_activities_path, :label => "Senior Officer", :required => false

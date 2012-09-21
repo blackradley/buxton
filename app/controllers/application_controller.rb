@@ -93,6 +93,10 @@ protected
     redirect_to access_denied_path unless current_user.creator?
   end
   
+  def ensure_creator_or_cop
+    redirect_to access_denied_path unless current_user.creator? || current_user.corporate_cop?
+  end
+  
   def ensure_cop
     redirect_to access_denied_path unless current_user.corporate_cop? || current_user.directorate_cop? || current_user.creator?
   end
