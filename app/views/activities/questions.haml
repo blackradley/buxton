@@ -1,5 +1,7 @@
 %h2
   =h @activity.name
+%span.orangeButton.add{ :style => 'float: right;' }
+  = link_to 'delete', '#', 'data-path' => delete_activity_path(@activity.id), :class => 'colorbox'
 
 .step{:class=>"#{!@activity.completed(:purpose) ? "current" : ""}"}
   .stepBox

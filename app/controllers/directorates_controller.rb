@@ -18,7 +18,7 @@ class DirectoratesController < ApplicationController
   # Make render_to_string available to the #show action
   helper_method :render_to_string
   before_filter :authenticate_user!
-  before_filter :ensure_creator
+  before_filter :ensure_creator_or_cop
   # autocomplete :user, :email, :scope => :live
   autocomplete :user, :email, :scope => :creator
   autocomplete :user, :cop_email, :scope => :live
