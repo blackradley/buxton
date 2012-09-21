@@ -7,7 +7,7 @@
         =form.autocompleted_input "cop_email#{i}", :url => autocomplete_user_cop_email_directorates_path, :label => "Governance Officer", :required => false, :name => 'directorate[cop_email][]'
     - else
       =form.autocompleted_input "cop_email", :url => autocomplete_user_cop_email_directorates_path, :label => "Governance Officer", :required => false, :name => 'directorate[cop_email][]', :wrapper_html => { :class => 'multi' }
-    = link_to 'add', '#', :class => 'add_officer_link'
+    = link_to 'add another Governance Officer', '#', :class => 'add_officer_link'
     =form.input :retired, :label => "Retired?"
   = form.buttons do
     = form.submit "Save"
