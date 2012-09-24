@@ -11,6 +11,7 @@ class Directorate < ActiveRecord::Base
   has_and_belongs_to_many :cops, :class_name => 'User'
   validates_uniqueness_of :name, :creator_id
   validates_presence_of :name
+  validate :has_cops
   validates_presence_of :creator_email, :message => "must be a valid user"
   scope :active, :conditions => {:retired => false}
   # validates_associated :cop
@@ -21,6 +22,12 @@ class Directorate < ActiveRecord::Base
   include FixInvalidChars
   
   before_save :fix_name
+  
+  def has_cops
+    if cops.count == 0
+      errors.add( "cop_email", "At least one Governance Officer must be assigned." )
+    end
+  end
   
   def fix_name
     self.name = fix_field(self.name)
