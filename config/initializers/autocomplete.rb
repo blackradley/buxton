@@ -12,7 +12,7 @@ module Rails3JQueryAutocomplete
       model = model.send(scope_level) if scope_level
       term = parameters[:term]
       is_full_search = options[:full]
-
+      
       limit = get_autocomplete_limit(options)
       implementation = get_implementation(model)
       order = get_autocomplete_order(implementation, method, options)

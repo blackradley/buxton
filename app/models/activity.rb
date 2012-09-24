@@ -76,7 +76,7 @@ class Activity < ActiveRecord::Base
   attr_accessor :task_group_member
   
   def senior_advisor_and_task_group_manager_cannot_be_the_same_person
-    if approver.email == completer.email
+    if approver && completer && approver.email == completer.email
       errors.add( :approver, "cannot be the same as the task group manager" )
     end
   end
