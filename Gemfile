@@ -12,7 +12,7 @@ gem 'newrelic_rpm'
 gem "devise", "= 1.5.2"
 gem 'formtastic', "< 1.9.0"
 gem 'airbrake'
-gem 'rails3-jquery-autocomplete', '0.9.0'
+gem 'rails3-jquery-autocomplete', '0.6.5'
 gem 'fastercsv'
 gem 'devise_security_extension'
 gem 'right_aws'

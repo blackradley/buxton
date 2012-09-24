@@ -71,7 +71,7 @@ GEM
     mocha (0.12.4)
       metaclass (~> 0.0.1)
     mysql2 (0.2.18)
-    newrelic_rpm (3.4.2)
+    newrelic_rpm (3.4.2.1)
     orm_adapter (0.0.7)
     pdf-writer (1.1.8)
       color (>= 1.4.0)
@@ -92,8 +92,9 @@ GEM
       activesupport (= 3.0.17)
       bundler (~> 1.0)
       railties (= 3.0.17)
-    rails3-jquery-autocomplete (0.9.0)
-      rails (~> 3.0)
+    rails3-jquery-autocomplete (0.6.5)
+      rails (~> 3.0.0)
+      yajl-ruby
     railties (3.0.17)
       actionpack (= 3.0.17)
       activesupport (= 3.0.17)
@@ -128,6 +129,7 @@ GEM
       activesupport (>= 2.3.4)
       chronic (~> 0.6.3)
     will_paginate (3.0.3)
+    yajl-ruby (1.1.0)
 
 PLATFORMS
   ruby
@@ -147,7 +149,7 @@ DEPENDENCIES
   pdf-writer
   rack-ssl
   rails (~> 3.0.17)
-  rails3-jquery-autocomplete (= 0.9.0)
+  rails3-jquery-autocomplete (= 0.6.5)
   rake (= 0.8.7)
   rcov_rails
   right_aws
