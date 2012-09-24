@@ -46,6 +46,6 @@ a.delete_dgo:visited {
   color: red;
   margin-top: 10px; }
 
-form.formtastic fieldset ol li.autocompleted_string input.multi {
+form.formtastic fieldset ol li input.multi {
   width: 390px;
   margin-top: 5px; }
