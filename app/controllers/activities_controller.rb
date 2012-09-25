@@ -351,11 +351,7 @@ class ActivitiesController < ApplicationController
   end
   
   def generate_schedule
-    if params[ :view_approved ].present?
-      @activities =  Activity.scoped
-    else
-      @activities =  Activity.scoped.select{|x| !x.approved?}
-    end
+    @activities =  Activity.where(:id => params[ :activities ] )
     # activities = []
     # if current_user.corporate_cop?
     #   activities = Activity.ready.where(:id => params[:activities])
