@@ -24,7 +24,7 @@ class Directorate < ActiveRecord::Base
   before_save :fix_name
   
   def has_cops
-    if cops.count == 0
+    unless cops.first
       errors.add( "cop_email", "At least one Governance Officer must be assigned." )
     end
   end
