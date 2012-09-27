@@ -476,7 +476,7 @@ class ActivitiesController < ApplicationController
   end
   
   def get_service_areas
-    @service_areas = ServiceArea.find_all_by_directorate_id( params[ :directorate_id ].to_i ).where(:retired => false)
+    @service_areas = ServiceArea.find_all_by_directorate_id( params[ :directorate_id ].to_i ).select{|z| z.retired == false }
     render :layout => false
   end
 
