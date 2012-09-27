@@ -119,7 +119,10 @@ class ActivitiesController < ApplicationController
   end
 
   def create
-    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
+    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
+    @directorates = Directorate.scoped.select{|d| d.service_areas.count > 0}
+    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
+    @selected = "directorate_eas"
     invalid = params[:activity].select{|k,v| k.match(/_email/) && !v.blank? && !User.live.exists?(:email => v)}#.each do |k,v|
     unless invalid.empty?
       @activity = Activity.new(params[:activity])
@@ -209,7 +212,7 @@ class ActivitiesController < ApplicationController
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
     @directorate = Directorate.find_by_creator_id(current_user.id)
     @selected = "directorate_eas"
-    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
+    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
     @activity = Activity.find(params[:id])
     [:completer_id, :approver_id, :qc_officer_id].each{|p| params[:activity].delete(p)}
     invalid = params[:activity].select{|k,v| k.match(/_email/) && !v.blank? && !User.live.exists?(:email => v)}#.each do |k,v|
