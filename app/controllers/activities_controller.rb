@@ -390,7 +390,7 @@ class ActivitiesController < ApplicationController
     if current_user.corporate_cop?
       service_area_list += ServiceArea.active  
     elsif current_user.directorate_cop?
-      service_area_list += Directorate.active.where(:cop_id=>current_user.id).map(&:service_areas).flatten.reject(&:retired)
+      service_area_list += Directorate.active.select{|z| z.cops.include?(self)}.map(&:service_areas).flatten.reject(&:retired)
     end
     if current_user.creator
       service_area_list += Directorate.active.where(:creator_id =>current_user.id).map(&:service_areas).flatten.reject(&:retired)
