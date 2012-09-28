@@ -22,7 +22,7 @@ class Activities::IssuesController < ApplicationController
   before_filter :set_issue, :only => [:show, :edit, :update]
   before_filter :set_strand, :except => [:index]
   before_filter :set_selected
-  before_filter :ensure_activity_completer, :except => [:index, :show]
+  before_filter :ensure_activity_completer, :only => [:edit, :update, :create, :new]
   # before_filter :ensure_index_access, :only => [:index, :show]
 
   # Get the activity information ready for editing using the appropriate form.
