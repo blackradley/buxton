@@ -18,7 +18,7 @@ class Activities::IssuesController < ApplicationController
   # but don't paginate, a long list is actually more convenient for the Organisation
   # Manager to scan down.
   before_filter :authenticate_user!
-  before_filter :set_activity
+  before_filter :set_activity, :except => [:show, :edit, :update]
   before_filter :set_issue, :only => [:show, :edit, :update]
   before_filter :set_strand, :except => [:index]
   before_filter :set_selected
