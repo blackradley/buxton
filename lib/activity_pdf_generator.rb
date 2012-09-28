@@ -204,6 +204,7 @@ class ActivityPDFGenerator
       end
       table = []
       strategies.each do |strategy, answer|
+        next unless strategy
         cell_formats << [{:shading => SHADE_COLOUR}, nil]
         table << ["#{strategy.strategy.name.titlecase}", answer]
         unless strategy.comment.blank? || strategy.comment.contents.blank?

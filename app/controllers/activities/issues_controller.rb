@@ -78,7 +78,7 @@ class Activities::IssuesController < ApplicationController
       @breadcrumb = [["Task Group Manager", my_eas_activities_path], ["#{@activity.name}", questions_activity_path(@activity)]]
     else
       @selected = "ea_governance"
-      @breadcrumb = [["EA Governance", directorate_governance_eas_activities_path], ["#{@activity.name}", questions_activity_path(@activity)]]
+      @breadcrumb = [["EA Governance", directorate_governance_eas_activities_path], ["#{@activity.name}"]]
     end
   end
 
