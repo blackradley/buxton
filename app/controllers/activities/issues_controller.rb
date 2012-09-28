@@ -66,10 +66,6 @@ class Activities::IssuesController < ApplicationController
   def set_issue
     @issue = Issue.find(params[:id])
     @activity = @issue.activity
-    unless current_user.activities.include? @activity 
-      redirect_to access_denied_path
-      return false
-    end 
   end
 
   def set_activity
