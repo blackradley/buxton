@@ -70,7 +70,7 @@
           %td= activity.service_area.name
           %td= activity.name
           %td= activity.ref_no
-          %td= activity.approver.email
+          %td= activity.approver.email if activity.approver
           %td.center= activity.started && activity.actual_start_date ? activity.actual_start_date.strftime('%d/%m/%y') : "N/A"
           %td.center= activity.approved && activity.approved_on ? activity.approved_on.strftime('%d/%m/%y') : "N/A"
           %td.center= activity.progress
