@@ -52,7 +52,7 @@ class ActivitiesController < ApplicationController
   
   def my_eas
     @breadcrumb = [["Task Group Manager"]]
-    @activities = Activity.active.where(:completer_id => current_user.id, :ready => true)
+    @activities = Activity.scoped#.active.where(:completer_id => current_user.id, :ready => true)
     @selected = "my_eas"
   end
   
@@ -190,14 +190,14 @@ class ActivitiesController < ApplicationController
   def edit
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Edit EA"]]
     @activity = Activity.find(params[:id])
-    if current_user.completer?
+    # if !current_user.creator? || @activity.directorate.blank
       @directorates = Directorate.scoped.select{|d| d.service_areas.count > 0}
       @directorate = @activity.directorate
       @service_areas = @directorate.service_areas if @directorate
-    else
-      @directorate = Directorate.find_by_creator_id(current_user.id)
-      @service_areas = ServiceArea.active.where(:directorate_id => @directorate.id)
-    end
+    # else
+    #   @directorate = Directorate.find_by_creator_id(current_user.id)
+    #   @service_areas = ServiceArea.active.where(:directorate_id => @directorate.id)
+    # end
     @selected = "directorate_eas"
   end
   

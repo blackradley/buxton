@@ -2,6 +2,8 @@
 .clear
 .orangeButton
   =link_to "Create New EA", new_activity_path, :class=>"add"
+.orangeButton
+  =link_to "Generate Schedule", generate_schedule_activities_path, :class=>"add schedule", :target => "_blank", "data-root-path" => generate_schedule_activities_path
 
 .searchBox
   = form_tag '#', :id => 'searchForm' do
@@ -51,7 +53,7 @@
   %tbody
     - @activities.each do |activity|
       - updated = activity.activity_and_questions_updated_between(current_user.last_sign_in_at, current_user.current_sign_in_at) ? "recentlyChanged" : ""
-      %tr{:class => cycle("light #{updated}", "dark #{updated}")}
+      %tr{:class => cycle("light #{updated}", "dark #{updated}"), "data-activity-id" => "#{activity.id}"}
         %td= activity.service_area.name
         %td= activity.name
         %td= activity.ref_no
@@ -62,9 +64,10 @@
         %td= activity.relevant_action_count
         %td.last
           = link_to "task group", task_group_activity_path(activity), :class => "action members"
-          = link_to "complete", questions_activity_path(activity), :class => "action edit" unless activity.submitted
+          - if activity.completer == current_user
+            = link_to "complete", questions_activity_path(activity), :class => "action edit" unless activity.submitted
           = link_to "view", activity_path(activity), :class => "action view"
           = link_to "actions", activities_issues_path(:activity => activity.id), :class => "action actions"
-          - unless activity.approved? || activity.submitted
+          - if !activity.approved? && !activity.submitted && ( activity.completer == current_user || current_user.directorates.include?( activity.directorate ) || activity.approver == current_user )
             = link_to "edit", edit_activity_path(activity), :class => "action edit"
 
