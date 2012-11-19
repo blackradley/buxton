@@ -18,9 +18,6 @@
     =form.autocompleted_input :qc_officer_email, :url => autocomplete_user_email_activities_path, :label => "Quality Control Officer", :required => false
     =form.input :activity_type, :as => :select, :collection => @activity.types.collect {|option| [option.titlecase , @activity.types.index(option)] }, :label => "Type", :include_blank => false
     =form.input :activity_status, :as => :select, :collection =>  @activity.statuses.collect{|option| [option.titlecase , @activity.statuses.index(option)] }, :label => "Status", :include_blank => false
-  - unless @activity.ready && @activity.id
-    = form.inputs :id => "readyInput", :style => "#{'display:none' unless @activity.fields_complete}" do
-      = form.input :ready, :label => "Send to Task Group Manager", :style => "display:none"
   = form.buttons do
     = form.submit "Add", :disable_with => 'Saving...'
     %span.cancelLink

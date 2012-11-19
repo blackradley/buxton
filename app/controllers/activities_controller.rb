@@ -63,7 +63,6 @@ class ActivitiesController < ApplicationController
     @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
     @activity = Activity.new(original_activity.attributes)
     @clone_of = original_activity
-    @activity.ready = false
     @activity.approved = false
     @activity.submitted = false
     @activity.actual_start_date = nil
@@ -126,6 +125,7 @@ class ActivitiesController < ApplicationController
     invalid = params[:activity].select{|k,v| k.match(/_email/) && !v.blank? && !User.live.exists?(:email => v)}#.each do |k,v|
     unless invalid.empty?
       @activity = Activity.new(params[:activity])
+      @activity.ready = true
       invalid.each do |k,v|
         @activity.errors.add(k, "is not a valid user")
         @activity.instance_variable_set("@#{k}", v)
@@ -153,6 +153,7 @@ class ActivitiesController < ApplicationController
     Strategy.live.each do |s|
       @activity.activity_strategies.build(:strategy => s) unless @activity.activity_strategies.map(&:strategy).include?(s)
     end
+    @activity.ready = true
     # @directorate = Directorate.find_by_creator_id(current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
     @selected = "directorate_eas"
