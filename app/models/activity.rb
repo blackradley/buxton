@@ -40,11 +40,11 @@ class Activity < ActiveRecord::Base
   has_many :task_group_memberships
   
   validates_presence_of :service_area
-  validates :name, :presence => {:if => :ready?, :full_message => 'Your EA must have a name'}
-  validates :approver, :presence => {:if => :ready?, :full_message =>"Your EA has to have a Senior Officer"}
-  validates :completer, :presence => {:if => :ready?, :full_message =>"Your EA has to have a Task Group Manager"}
-  validates :qc_officer, :presence => {:if => :ready?, :full_message =>"Your EA has to have a Quality Control Officer"}
-  validates :review_on, :presence => {:if => :ready?, :full_message =>"You must enter the review date for your EA"}
+  validates :name, :presence => {:full_message => 'Your EA must have a name'}
+  validates :approver, :presence => {:full_message =>"Your EA has to have a Senior Officer"}
+  validates :completer, :presence => {:full_message =>"Your EA has to have a Task Group Manager"}
+  validates :qc_officer, :presence => {:full_message =>"Your EA has to have a Quality Control Officer"}
+  validates :review_on, :presence => {:full_message =>"You must enter the review date for your EA"}
   # validates_presence_of :name, :message => 'All activities must have a name.'
   # validates_presence_of :completer, :approver
   # validates_presence_of :service_area
