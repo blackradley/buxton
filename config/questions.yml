@@ -558,7 +558,7 @@ choices:
     - 'Not answered Yet'
     - 'Relevant'
     - 'Not Relevant'
-    - 'Not sure'
+#   - 'Not sure'
 extra_strand_wordings:
   purpose:
     3:
