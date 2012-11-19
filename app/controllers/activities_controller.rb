@@ -18,12 +18,12 @@ class ActivitiesController < ApplicationController
   # Make render_to_string available to the #show action
   helper_method :render_to_string
   before_filter :authenticate_user!
-  before_filter :ensure_can_create_eas, :only => [:edit, :new, :create, :update]
+  # before_filter :ensure_can_create_eas, :only => [:my_eas, :edit, :new, :create, :update]
   before_filter :ensure_creator, :only => [:directorate_eas]
   before_filter :set_activity, :only => [:edit, :task_group, :add_task_group_member, :remove_task_group_member, :create_task_group_member,
                                           :questions, :update, :toggle_strand, :submit, :show, :delete, :destroy, :approve, :reject, :submit_approval, :submit_rejection,
                                           :task_group_comment_box, :make_task_group_comment, :summary, :comment, :submit_comment, :clone]
-  before_filter :ensure_completer, :only => [:my_eas, :task_group, :add_task_group_member, :remove_task_group_member, :create_task_group_member]
+  before_filter :ensure_completer, :only => [:task_group, :add_task_group_member, :remove_task_group_member, :create_task_group_member]
   before_filter :ensure_activity_completer, :only => [:questions, :submit, :toggle_strand]
   before_filter :ensure_approver, :only => [:approving]
   before_filter :ensure_task_group_member, :only => [:assisting]

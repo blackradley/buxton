@@ -139,10 +139,9 @@ private
     menu = Array.new
     return [] unless current_user
     menu << ["EA Governance", directorate_governance_eas_activities_path]
+    menu << ["Task Group Manager", my_eas_activities_path]# if ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id)).size > 0
     current_user.roles.map do |role| 
       case role
-      when "Completer"
-        menu << ["Task Group Manager", my_eas_activities_path]
       when "Approver"
         menu << ["Awaiting Approval", approving_activities_path]
       when "Creator"
