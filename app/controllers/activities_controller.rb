@@ -20,6 +20,7 @@ class ActivitiesController < ApplicationController
   before_filter :authenticate_user!
   # before_filter :ensure_can_create_eas, :only => [:my_eas, :edit, :new, :create, :update]
   before_filter :ensure_creator, :only => [:directorate_eas]
+  before_filter :ensure_dgo, :only => [:directorate_governance_eas]
   before_filter :set_activity, :only => [:edit, :task_group, :add_task_group_member, :remove_task_group_member, :create_task_group_member,
                                           :questions, :update, :toggle_strand, :submit, :show, :delete, :destroy, :approve, :reject, :submit_approval, :submit_rejection,
                                           :task_group_comment_box, :make_task_group_comment, :summary, :comment, :submit_comment, :clone]
@@ -90,10 +91,10 @@ class ActivitiesController < ApplicationController
   
   def directorate_governance_eas
     @breadcrumb = [["EA Governance"]]
-    if params[ :view_approved ]
-      @activities =  Activity.scoped
-    else
-      @activities =  Activity.scoped.select{|x| !x.approved?}
+    @activities = Activity.where( :directorate_id => current_user.directorates.map(&:id) )
+    @activities = Activity.scoped.joins( :service_area ).where( :service_areas => { :directorate_id => current_user.directorates.map(&:id) } )
+    unless params[ :view_approved ]
+      @activities =  @activities.select{|x| !x.approved?}
     end
     # unless current_user.corporate_cop?
     #   @activities = []
@@ -497,6 +498,10 @@ protected
   
   def ensure_can_create_eas
     redirect_to access_denied_path unless current_user.completer? || current_user.creator?
+  end
+  
+  def ensure_dgo
+    redirect_to access_denied_path unless current_user.roles.include?( "Directorate Cop" )
   end
   
   def ensure_activity_task_group_member
