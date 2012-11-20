@@ -50,7 +50,7 @@ class Directorate < ActiveRecord::Base
   end
   
   def cop_email=(emails)
-    cops.map{|c| cops.delete(c)}
+    cops.clear
     emails.each do |email|
       if user = User.live.find_by_email(email)
         cops << user
