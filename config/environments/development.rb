@@ -22,7 +22,7 @@ Buxton::Application.configure do
   config.action_mailer.delivery_method = :sendmail
   # Only use best-standards-support built into browsers
   config.action_dispatch.best_standards_support = :builtin
-  config.action_mailer.default_url_options = { :host => 'buxton.dev' }
+  config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   config.action_controller.session = {
     :expire_after    => 14 * 24 * 3600, #Cookies will expire after 2 weeks
