@@ -9,13 +9,10 @@
 class Directorate < ActiveRecord::Base
   has_many :service_areas, :dependent => :destroy
   has_and_belongs_to_many :cops, :class_name => 'User'
-  validates_uniqueness_of :name, :creator_id
   validates_presence_of :name
   validate :has_cops
-  validates_presence_of :creator_email, :message => "must be a valid user"
   scope :active, :conditions => {:retired => false}
   # validates_associated :cop
-  belongs_to :creator, :class_name => "User"
   
   attr_accessor :should_destroy
   
@@ -57,24 +54,6 @@ class Directorate < ActiveRecord::Base
       end
     end
   end
-  
-  def creator_email
-    if self.creator
-      self.creator.email
-    else
-      ""
-    end
-  end
-  
-  def creator_email=(email)
-    if user = User.creator.find_by_email(email)
-      self.creator_id = user.id
-    else
-      self.creator_id = nil
-    end
-    creator
-  end
-  
 
   def should_destroy?
     should_destroy.to_i == 1
