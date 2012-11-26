@@ -171,10 +171,6 @@ class Activity < ActiveRecord::Base
   def directorate=(id)
   end
   
-  def creator
-    self.service_area.directorate.creator
-  end
-  
   def approver_email
     @approver_email ||= approver.try(:email) || ""
   end

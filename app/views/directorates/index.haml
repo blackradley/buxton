@@ -9,8 +9,8 @@
     %tr
       %th Directorate Name
       %th Retired?
-      %th Directorate Contact Officer
       %th Directorate Governance Officer
+      %th
       %th.last
     %tr
       %th.sortControls
@@ -21,8 +21,6 @@
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
         =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %th.sortControls
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"up", :title=>"sort ascending"
-        =link_to raw("&nbsp;&nbsp;"),"#", :class=>"down", :title=>"sort descending"
       %td.last.sortControls
   %tbody
     - @directorates.each do |directorate|
@@ -35,6 +33,6 @@
         %td.directorateCheckbox.checkbox
           = form_for directorate do |f|
             = f.check_box :retired, :confirm => "Are you sure you wish to retire this directorate?"
-        %td= directorate.creator.email
         %td= directorate.cops.map(&:email).join( ', ' )
+        %td
         %td.last= link_to "edit", edit_directorate_path(directorate), :class => "action edit"

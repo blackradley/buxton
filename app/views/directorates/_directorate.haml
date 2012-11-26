@@ -1,7 +1,6 @@
 = semantic_form_for @directorate do |form|
   = form.inputs do
     =form.input :name, :label => "Title"
-    = form.autocompleted_input :creator_email, :url => autocomplete_user_email_directorates_path, :label => "Directorate Contact Officer", :required => false
     - if @directorate.cops.count > 0
       =form.autocompleted_input "cop_email0", :url => autocomplete_user_cop_email_directorates_path, :label => "Governance Officer", :required => false, :name => 'directorate[cop_email][]'
       %li.multi
