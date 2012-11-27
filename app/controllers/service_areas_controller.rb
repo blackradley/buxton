@@ -24,8 +24,8 @@ class ServiceAreasController < ApplicationController
   
   def index
     @breadcrumb = [["Service Areas"]]
-    @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
-    @service_areas += current_user.cop_service_areas
+    # @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+    @service_areas = current_user.cop_service_areas
     @service_areas = @service_areas.uniq
     @selected = "service_areas"
   end
@@ -33,7 +33,7 @@ class ServiceAreasController < ApplicationController
   def new
     @breadcrumb = [["Service Areas", service_areas_path], ["Add New Service Area"]]
     @service_area = ServiceArea.new
-    @directorates = Directorate.where(:creator_id=>current_user.id, :retired => false)
+    @directorates = Directorate.where(:retired => false)
     @selected = "service_areas"
   end
 
@@ -47,7 +47,7 @@ class ServiceAreasController < ApplicationController
       flash[:notice] = "#{@service_area.name} was created."
       redirect_to :controller => 'service_areas', :action => 'index'
     else
-      @directorates = Directorate.where(:creator_id=>current_user.id, :retired => false)
+      @directorates = Directorate.where(:retired => false)
       render 'new'
     end
   end
@@ -61,7 +61,7 @@ class ServiceAreasController < ApplicationController
   
   def edit
     @breadcrumb = [["Service Areas", service_areas_path], ["Edit Service Area"]]
-    @directorates = Directorate.where(:creator_id=>current_user.id, :retired => false)
+    @directorates = Directorate.where(:retired => false)
     @selected = "service_areas"
   end
 
@@ -74,7 +74,7 @@ class ServiceAreasController < ApplicationController
       flash[:notice] = "#{@service_area.name} was updated."
       redirect_to service_areas_path
     else
-      @directorates = Directorate.where(:creator_id=>current_user.id, :retired => false)
+      @directorates = Directorate.where(:retired => false)
       render "edit"
     end
   end

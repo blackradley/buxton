@@ -19,7 +19,7 @@ class Mailer < ActionMailer::Base
   
   def activity_created(activity)
     @activity = activity
-    mail(:to => [@activity.creator, @activity.completer, @activity.qc_officer, @activity.approver].uniq.map(&:email).join(", "),
+    mail(:to => [@activity.completer, @activity.qc_officer, @activity.approver].uniq.map(&:email).join(", "),
          :subject => amended_subject("A new EA has been created"))
     #mail completer
   end
@@ -88,7 +88,7 @@ class Mailer < ActionMailer::Base
     @activity = activity
     @contents = email_contents
     mail(:to => @activity.completer.email,
-         :cc => [@activity.qc_officer.email, @activity.creator.email, @activity.approver.email].uniq.join(", "),
+         :cc => [@activity.qc_officer.email, @activity.approver.email].uniq.join(", "),
          :reply_to => @activity.approver.email,
          :subject => amended_subject(subject))
   end
