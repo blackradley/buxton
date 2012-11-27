@@ -46,7 +46,7 @@ class User < ActiveRecord::Base
   end
   
   def all_directorates
-    Directorate.where(:creator_id => self.id) + directorates
+    return directorates
   end
   
   def count_directorates
