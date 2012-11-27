@@ -632,11 +632,6 @@ class Activity < ActiveRecord::Base
   
   def clone
     new_activity = Activity.create!(self.attributes)
-    new_activity.ready = false
-    new_activity.approved = false
-    new_activity.submitted = false
-    new_activity.undergone_qc = false
-    new_activity.review_on = nil
     self.questions.each do |q|
       new_q = new_activity.questions.find_by_name(q.name)
       new_q.completed = q.completed
@@ -655,7 +650,11 @@ class Activity < ActiveRecord::Base
                                       :outcomes => i.outcomes, :resources => i.resources, :lead_officer => i.lead_officer, :strand => i.strand, :section => i.section, :parent_issue_id => i.id)
       new_i.save!
     end
-    new_activity.save!
+    new_activity.ready = false
+    new_activity.approved = false
+    new_activity.submitted = false
+    new_activity.undergone_qc = false
+    new_activity.review_on = nil
     new_activity
   end
   

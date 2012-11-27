@@ -58,16 +58,18 @@ class ActivitiesController < ApplicationController
   end
   
   def clone
-    original_activity = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)}).find(params[:id])
+    original_activity = Activity.find(params[:id])
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Clone #{original_activity.name}"]]
     @selected = "directorate_eas"
-    @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
+    @directorates = Directorate.scoped.select{|d| d.service_areas.count > 0}
     @activity = Activity.new(original_activity.attributes)
     @clone_of = original_activity
     @activity.approved = false
     @activity.submitted = false
     @activity.actual_start_date = nil
     @activity.review_on = nil
+    @activity.service_area_id = @clone_of.service_area_id
+    @service_areas = @clone_of.service_area.directorate.service_areas
     render :new
   end
   
@@ -111,11 +113,11 @@ class ActivitiesController < ApplicationController
     # @directorates = Directorate.where(:creator_id=>current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
     @directorates = Directorate.scoped.select{|d| d.service_areas.count > 0}
-    # @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
+    @service_areas = @directorates.first.service_areas
     @selected = "directorate_eas"
     @activity = Activity.new
-    @activity.service_area = @service_areas.first
-    @activity.approver = @service_areas.first.approver if @service_areas.first
+    # @activity.service_area = @service_areas.first
+    # @activity.approver = @service_areas.first.approver if @service_areas.first
   end
 
   def create

@@ -21,12 +21,6 @@ $(document).ready(function(){
     }
   });
   
-  $.ajax({
-    url: $('#service_areas_path_div').data( "path" ),
-    type: 'POST',
-    data: { directorate_id: parseInt( $('#activity_directorate').val() ) }
-  }); 
-  
   $('#activity_directorate').live('change', function(e){
     $.ajax({
       url: $('#service_areas_path_div').data( "path" ),
