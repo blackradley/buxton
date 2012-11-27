@@ -8,7 +8,7 @@
         %li.textField= text_field_tag :to, @activity.completer.email, :disabled => true
         %li
           %h5 CC:
-        %li.textField= text_field_tag :cc, [@activity.qc_officer.email, @activity.creator.email, @activity.approver.email].uniq.join(", "), :disabled => true
+        %li.textField= text_field_tag :cc, [@activity.qc_officer.email @activity.approver.email].uniq.join(", "), :disabled => true
         %li
           %h5 Subject:
         %li.textField= text_field_tag :subject, "EA #{@activity.name} Reference ID #{@activity.ref_no} has been approved"
