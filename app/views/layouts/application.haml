@@ -39,7 +39,7 @@
             %ul
               - if current_user.creator? || current_user.corporate_cop?
                 %li{:class=>"#{@selected == "directorates" ? "current" : ""}"}=link_to "Directorates", directorates_path
-              - if ( current_user.count_live_directorates > 0 && current_user.creator? ) ||current_user.directorate_cop?
+              - if current_user.directorate_cop?
                 - if current_user.creator?
                   %li.nohover="|"
                 %li{:class=>"#{@selected == "service_areas" ? "current" : ""}"}=link_to "Service Areas", service_areas_path
