@@ -1,7 +1,8 @@
 %h2 Task Group Manager
 .clear
-.orangeButton
-  =link_to "Create New EA", new_activity_path, :class=>"add"
+- if @creatable
+  .orangeButton
+    =link_to "Create New EA", new_activity_path, :class=>"add"
 .orangeButton
   =link_to "Generate Schedule", generate_schedule_activities_path, :class=>"add schedule", :target => "_blank", "data-root-path" => generate_schedule_activities_path
 
