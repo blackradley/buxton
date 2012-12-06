@@ -55,6 +55,7 @@ class ActivitiesController < ApplicationController
     @breadcrumb = [["Task Group Manager"]]
     @activities = Activity.scoped#.active.where(:completer_id => current_user.id, :ready => true)
     @selected = "my_eas"
+    @creatable = ServiceArea.count > 0
   end
   
   def clone
@@ -233,7 +234,7 @@ class ActivitiesController < ApplicationController
       @activity.activity_strategies.find_or_create_by_strategy_id(s.id)
     end
     @activity.activity_strategies.each do |s|
-      s.destroy if s.strategy.retired?
+      s.destroy if s.strategy && s.strategy.retired?
     end
     if @activity.update_attributes(params[:activity])
       flash[:notice] = "#{@activity.name} was updated."
