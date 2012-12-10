@@ -83,7 +83,7 @@ class ServiceAreasController < ApplicationController
 protected
 
   def ensure_access
-    redirect_to access_denied_path if !current_user.corporate_cop?
+    redirect_to access_denied_path if !current_user.directorate_cop?
   end
 
   def set_service_area
