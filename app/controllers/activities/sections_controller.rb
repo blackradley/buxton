@@ -138,7 +138,7 @@ class Activities::SectionsController < ApplicationController
   
   def set_activity
     @activity = current_user.activities.select{|a| a.id == params[:id].to_i}.first
-    if @activity || @activity.submitted
+    if @activity && @activity.submitted
       redirect_to access_denied_path
       return false
     end 
