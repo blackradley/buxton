@@ -5,7 +5,7 @@
     %p{:align => "left"}
       - case log.class.to_s
         - when "LoginLog"
-          = mail_to log.user.email.to_s
+          = mail_to log.user.email.to_s if log.user
           logged in
         - when "LogoutLog"
           = mail_to log.user.email.to_s if log.user
@@ -20,7 +20,7 @@
           %strong
             = log.find_directorate_name
           , was viewed by
-          = mail_to log.user.email.to_s
+          = mail_to log.user.email.to_s if log.user
       = log.message
   %td{:width => 190}
     %p{:align => "right"}
