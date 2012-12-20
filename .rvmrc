@@ -1,4 +1,4 @@
 rvm --create use ree@brs
 if ! [ $? -eq 0 ]; then
-  rvm --create use 1.8.7@brs
+  rvm --create use ruby-1.8.7-p358@brs
 fi
