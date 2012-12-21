@@ -2,7 +2,7 @@
   %h2
     =@activity.name
   %fieldset.approveInputs
-    %h5= "QC Officer: #{@activity.completer.email}"
+    %h5= "QC Officer: #{@activity.qc_officer.email}"
     %h5= "Senior Officer: #{@activity.approver.email}"
   %fieldset.buttons
     %p Are you sure you want to delete this EA? All information related to this EA will be removed from the system and will not be retrievable.
