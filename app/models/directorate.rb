@@ -8,6 +8,7 @@
 #
 class Directorate < ActiveRecord::Base
   has_many :service_areas, :dependent => :destroy
+  has_many :activities, :through => :service_areas
   has_and_belongs_to_many :cops, :class_name => 'User'
   validates_presence_of :name
   validate :has_cops

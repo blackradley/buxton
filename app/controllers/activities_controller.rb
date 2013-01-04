@@ -53,7 +53,8 @@ class ActivitiesController < ApplicationController
   
   def my_eas
     @breadcrumb = [["Task Group Manager"]]
-    @activities = Activity.scoped#.active.where(:completer_id => current_user.id, :ready => true)
+    @activities = Activity.where(:completer_id => current_user.id, :ready => true)
+    @activities += current_user.directorates.map(&:activities).flatten
     @selected = "my_eas"
     @creatable = ServiceArea.count > 0
   end
