@@ -61,6 +61,7 @@ class ActivityStrategy < ActiveRecord::Base
         return true
       end
     end
+    return true if self.note.blank?
     return previous_strategy.note.contents != self.note.contents 
   end
 
