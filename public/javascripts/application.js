@@ -259,7 +259,12 @@ function toggleDependencies(element){
         $("#"+question).show();
       }
       else{
-        $("#"+question).hide();
+        if( $("#"+question).find('.issue').filter(function() { return $(this).css("display") != "none" }).size() > 0 ) {
+          $(element).find('[value="1"]').attr('selected', 'selected');
+          alert('Please delete all issues before changing this option');
+        } else {
+          $("#"+question).hide();
+        }
       }
       toggleDependencies($("#"+question + " select"));
     }); 
