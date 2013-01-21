@@ -211,10 +211,10 @@ class ActivityPDFGenerator
           cell_formats << [nil, nil]
           table << ["<c:uline>Comment</c:uline>\n#{strategy.comment.contents.to_s}"]
         end
-        unless @public || strategy.note.blank? || strategy.note.contents.blank?
-          cell_formats << [nil, nil]
-          table << ["<c:uline>Note</c:uline>\n#{strategy.note.contents.to_s}"]
-        end
+        # unless @public || strategy.note.blank? || strategy.note.contents.blank?
+        #   cell_formats << [nil, nil]
+        #   table << ["<c:uline>Note</c:uline>\n#{strategy.note.contents.to_s}"]
+        # end
         if strategy.changed_in_previous_ea?
           if strategy.different_comment?
             unless strategy.previous.comment.blank? || strategy.previous.comment.contents.blank?
@@ -340,13 +340,13 @@ class ActivityPDFGenerator
      @pdf.text " "
 
     end
-    if final_question.note
-      @pdf.text "<b> Additional Notes </b>"
-      if final_question.changed_in_previous_ea? && final_question.different_note?
-        @pdf.text "<i> Previously: #{final_question.previous_note.blank? ? 'No previous note' : final_question.previous_note} </i>"
-      end
-      @pdf.text final_question.note.contents
-    end
+    # if final_question.note
+    #   @pdf.text "<b> Additional Notes </b>"
+    #   if final_question.changed_in_previous_ea? && final_question.different_note?
+    #     @pdf.text "<i> Previously: #{final_question.previous_note.blank? ? 'No previous note' : final_question.previous_note} </i>"
+    #   end
+    #   @pdf.text final_question.note.contents
+    # end
     @pdf.text " "
 
     @pdf
