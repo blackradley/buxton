@@ -2,7 +2,7 @@
 # This preamble is the current preamble for Rails 3 apps; edit as needed.
 source 'http://rubygems.org'
 
-gem 'rails'
+gem 'rails', "3.0.20"
 gem 'haml'
 gem "mysql2"
 gem "jquery-rails"
