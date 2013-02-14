@@ -5,7 +5,7 @@
       %ul
         %li 
           %h5 To:
-        %li.textField= text_field_tag :to, @activity.approver.email, :disabled => true
+        %li.textField= text_field_tag :to, @activity.approver.try(:email), :disabled => true
         %li
           %h5 CC:
         %li.textField= text_field_tag :cc, (@activity.associated_users - [@activity.approver]).uniq.map(&:email).join(", "), :disabled => true
