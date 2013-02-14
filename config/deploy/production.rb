@@ -19,4 +19,4 @@ set :use_sudo, false
 
 ssh_options[:forward_agent] = true
 
-set :branch, 'rails3'
+set :branch, 'master'
