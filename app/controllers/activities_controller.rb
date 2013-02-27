@@ -514,7 +514,7 @@ protected
   end
   
   def ensure_activity_completer
-     redirect_to access_denied_path unless @activity.completer == current_user
+     redirect_to access_denied_path unless @activity.completer == current_user || @activity.task_group_memberships.map(&:user_id).include?( current_user.id )
   end
   
   def ensure_activity_quality_control
