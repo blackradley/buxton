@@ -81,6 +81,7 @@ class Activities::SectionsController < ApplicationController
     # end
     # Update the answers in the activity table
     @activity.update_attributes!(params[:activity])
+    @activity.update_relevancies!
     #delivers the finished initial assessment email
     if initially_in_ia && @activity.questions.where("name like 'purpose_%' and completed = false and needed = true AND name not like 'purpose_overall_14'").size == 0
       Mailer.activity_left_ia(@activity).deliver
