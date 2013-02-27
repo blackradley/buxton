@@ -183,7 +183,7 @@ class ActivityPDFGenerator
     target_a = @activity.questions.find_by_name("purpose_overall_2").response.to_s
     qn = @activity.questions.find_by_name("purpose_overall_2")
     target = [[target_q, target_a]]
-    target << ["Previously: " + target_q, qn.previous.display_response].map{|a| "<i>#{a}</i>"} if qn.different_answer?
+    target << ["Previously: " + target_q, qn.previous.display_response].map{|a| "<i>#{a}</i>"} if qn.different_answer? && !@activity.approved
     comments = get_comments(:purpose_overall_2)
     target += comments  unless comments.blank?
     cell_formats = [[{:shading => SHADE_COLOUR}, nil]]
@@ -262,7 +262,7 @@ class ActivityPDFGenerator
     @pdf.text " "
     final_question = @activity.questions.where(:name => "purpose_overall_13").first
     if final_question.changed_in_previous_ea?
-      if final_question.different_answer?
+      if final_question.different_answer? && !@activity.approved
         @pdf.text "<i> Previously </i>"
         @pdf.text "<i> #{final_question.previous.response} </i>"
       end
@@ -272,7 +272,7 @@ class ActivityPDFGenerator
     @pdf.text " "
     if final_question.comment
       @pdf.text "<b> Additional Comments </b>"
-      if final_question.changed_in_previous_ea? && final_question.different_comment?
+      if final_question.changed_in_previous_ea? && final_question.different_comment?  && !@activity.approved
         @pdf.text " "
         @pdf.text "<i> Previously: #{final_question.previous_comment.blank? ? 'No previous comment' : final_question.previous_comment}</i>"
       end
@@ -324,7 +324,7 @@ class ActivityPDFGenerator
     @pdf.text " "
     final_question = @activity.questions.where(:name => "purpose_overall_14").first
     if final_question.changed_in_previous_ea?
-      if final_question.different_answer?
+      if final_question.different_answer? && !@activity.approved
         @pdf.text "<i> Previously </i>"
         @pdf.text "<i> #{final_question.previous.response} </i>"
       end
@@ -333,7 +333,7 @@ class ActivityPDFGenerator
      @pdf.text " "
     if final_question.comment
       @pdf.text "<b> Additional Comments</b>"
-      if final_question.changed_in_previous_ea? && final_question.different_comment?
+      if final_question.changed_in_previous_ea? && final_question.different_comment? && !@activity.approved
         @pdf.text "<i> Previously: #{final_question.previous_comment.blank? ? 'No previous comment' : final_question.previous_comment} </i>"
       end
       @pdf.text final_question.comment.contents
@@ -385,7 +385,7 @@ class ActivityPDFGenerator
       question_text = question.label
       response = question.display_response
       table_data << [question_text, response]
-      table_data << ["Previously: " + question_text, question.previous.display_response].map{|a| "<i>#{a}</i>"} if question.different_answer?
+      table_data << ["Previously: " + question_text, question.previous.display_response].map{|a| "<i>#{a}</i>"} if question.different_answer? && !@activity.approved
       cell_formats << [{:shading => SHADE_COLOUR}, nil]
       cell_formats << [{:shading => SHADE_COLOUR}, nil] if question.different_answer?
       comments = get_comments(question.name)
