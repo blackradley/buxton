@@ -6,7 +6,7 @@ class Mailer < ActionMailer::Base
                                when 'production'
                                  'birmingham.impactequality.co.uk'
                                when 'staging'
-                                 'staging.impactequality.co.uk'
+                                 'training.impactequality.co.uk'
                                when 'preview'
                                  'preview.impactequality.co.uk'
                                else
