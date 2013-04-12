@@ -4,7 +4,7 @@
 # Staging is for use by Black Radley, and should NOT be visible to their clients
 #
 # =============================================================================
-set :domain, "training.impactequality.co.uk"
+set :domain, "staging.impactequality.co.uk"
 set :rails_env, "staging"
 set :port, 13427
 
