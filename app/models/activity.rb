@@ -655,6 +655,7 @@ class Activity < ActiveRecord::Base
     new_activity.submitted = false
     new_activity.undergone_qc = false
     new_activity.review_on = nil
+    new_activity.save
     new_activity
   end
   
