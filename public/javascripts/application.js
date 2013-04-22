@@ -53,8 +53,12 @@ $(document).ready(function(){
 
   $('.consultation_save').click(function(e){
     if($('.consultation_checker').filter(function(x){return $(this).val()=='2'}).size() == 2){
-      e.preventDefault();
+      e.preventDefault(); 
       $.fn.colorbox({"open":true,  "html": $('.consultationColorbox').html()});
+    } else {
+      $(this).val('Saving...');
+      $(this).attr('disabled', 'disabled');
+      $(this).parents('form').submit();
     }
   });
 
