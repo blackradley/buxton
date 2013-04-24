@@ -631,7 +631,7 @@ class Activity < ActiveRecord::Base
   end
   
   def clone
-    new_activity = Activity.create!(self.attributes)
+    new_activity = Activity.new(self.attributes)
     self.questions.each do |q|
       new_q = new_activity.questions.find_by_name(q.name)
       new_q.completed = q.completed
