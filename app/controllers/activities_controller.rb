@@ -157,14 +157,15 @@ class ActivitiesController < ApplicationController
           @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Clone #{@activity.name}"]]
           @selected = "directorate_eas"
           @directorates = Directorate.scoped.select{|d| d.service_areas.count > 0}
-          @activity = Activity.new(@activity.attributes)
           @clone_of = @activity
+          @activity = Activity.new(@activity.attributes)
           @activity.approved = false
           @activity.submitted = false
           @activity.actual_start_date = nil
           @activity.review_on = nil
           @activity.service_area_id = @clone_of.service_area_id
           @service_areas = @clone_of.service_area.directorate.service_areas
+          @activity.update_attributes( params[:activity] )
           render :new and return
         end
       end
