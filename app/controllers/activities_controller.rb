@@ -142,6 +142,7 @@ class ActivitiesController < ApplicationController
     [:completer_id, :approver_id, :qc_officer_id].each{|p| params[:activity].delete(p)}
     if params[:clone_of]
       @activity = current_user.activities.select{|a| a.id.to_s == params[:clone_of]}.first
+      @clone_of = @activity
       unless @activity
         flash[:notice] = "The Service Area for this EA has been retired and therefore this EA cannot be cloned."
         if current_user.creator?
