@@ -631,7 +631,7 @@ class Activity < ActiveRecord::Base
   end
   
   def clone
-    new_activity = Activity.new(self.attributes)
+    new_activity = Activity.create!(self.attributes)
     self.questions.each do |q|
       new_q = new_activity.questions.find_by_name(q.name)
       new_q.completed = q.completed
@@ -639,19 +639,23 @@ class Activity < ActiveRecord::Base
       new_q.raw_answer = q.raw_answer
       new_q.build_note(:contents => q.note.contents) if q.note
       new_q.build_comment(:contents => q.comment.contents) if q.comment
+      new_q.save!
     end
     self.activity_strategies.each do |a|
       new_a = new_activity.activity_strategies.build(:strategy_id => a.strategy_id, :strategy_response => a.strategy_response)
+      new_a.save!
     end
     self.issues.each do |i|
       new_i= new_activity.issues.build(:description => i.description, :actions => i.actions, :timescales => i.timescales, :completing => i.completing, :recommendations => i.recommendations, :monitoring => i.monitoring,
                                       :outcomes => i.outcomes, :resources => i.resources, :lead_officer => i.lead_officer, :strand => i.strand, :section => i.section, :parent_issue_id => i.id)
+      new_i.save!
     end
     new_activity.ready = false
     new_activity.approved = false
     new_activity.submitted = false
     new_activity.undergone_qc = false
     new_activity.review_on = nil
+    new_activity.save
     new_activity
   end
   

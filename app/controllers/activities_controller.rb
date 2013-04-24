@@ -142,7 +142,6 @@ class ActivitiesController < ApplicationController
     [:completer_id, :approver_id, :qc_officer_id].each{|p| params[:activity].delete(p)}
     if params[:clone_of]
       @activity = current_user.activities.select{|a| a.id.to_s == params[:clone_of]}.first
-      @clone_of = @activity
       unless @activity
         flash[:notice] = "The Service Area for this EA has been retired and therefore this EA cannot be cloned."
         if current_user.creator?
@@ -151,8 +150,23 @@ class ActivitiesController < ApplicationController
           redirect_to my_eas_activities_path and return
         end
       else
-        @activity = @activity.clone
-        @activity.actual_start_date = nil
+        if Activity.new(params[:activity]).valid?
+          @activity = @activity.clone
+          @activity.actual_start_date = nil
+        else
+          @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Clone #{@activity.name}"]]
+          @selected = "directorate_eas"
+          @directorates = Directorate.scoped.select{|d| d.service_areas.count > 0}
+          @activity = Activity.new(@activity.attributes)
+          @clone_of = @activity
+          @activity.approved = false
+          @activity.submitted = false
+          @activity.actual_start_date = nil
+          @activity.review_on = nil
+          @activity.service_area_id = @clone_of.service_area_id
+          @service_areas = @clone_of.service_area.directorate.service_areas
+          render :new and return
+        end
       end
     else
       @activity = Activity.new()
