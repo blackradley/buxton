@@ -2,7 +2,7 @@ namespace :stars do
   
   PORT = 13427
   USER = 'deploy'
-  HOST = 'birmingham.impactequality.co.uk'
+  HOST = {'production' => 'birmingham.impactequality.co.uk', 'staging' => 'staging.impactequality.co.uk'}
   R_ROOT = "public_html/#{HOST}"
   CURRENT = "#{R_ROOT}/current"
   SHARED = "#{R_ROOT}/shared"
@@ -13,20 +13,15 @@ namespace :stars do
   namespace :sync do    
     
     desc "Sync remote DB with local DB"
-    task :db => :environment do
+    task :db, [:src_env] => :environment do |t, args|
+      args.with_defaults(:src_env => 'production')
       puts "Dumping remote database..."
-      system "ssh -p #{PORT} #{USER}@#{HOST} \"mysqldump -u #{DB_CONFIG['production']["username"]} -p#{DB_CONFIG['production']["password"] } -h #{DB_CONFIG['production']['host']} -Q --add-drop-table --add-locks=FALSE --lock-tables=FALSE #{DB_CONFIG['production']["database"]} > /tmp/dump.sql\""
+      system "ssh -p #{PORT} #{USER}@#{HOST[args.src_env]} \"mysqldump -u #{DB_CONFIG[args.src_env]["username"]} -p#{DB_CONFIG[args.src_env]["password"] } -h #{DB_CONFIG[args.src_env]['host']} -Q --add-drop-table --add-locks=FALSE --lock-tables=FALSE #{DB_CONFIG[args.src_env]["database"]} > /tmp/dump.sql\""
       puts "Retrieving remote database..."
-      system "rsync -az -e \"ssh -p #{PORT}\" --progress #{USER}@#{HOST}:/tmp/dump.sql ./db/production_data.sql"
-      
-      mysql = if File.exists?("/Applications/MAMP/Library/bin/mysql")
-        "/Applications/MAMP/Library/bin/mysql"
-      else
-        "mysql"
-      end
+      system "rsync -az -e \"ssh -p #{PORT}\" --progress #{USER}@#{HOST[args.src_env]}:/tmp/dump.sql ./db/production_data.sql"
       
       puts "Importing remote database..."
-      system "#{mysql} -u #{DB_CONFIG['development']["username"]} -p#{DB_CONFIG['development']["password"]} #{DB_CONFIG['development']["database"]} < ./db/production_data.sql"
+      system "mysql -u #{DB_CONFIG['development']["username"]} -p#{DB_CONFIG['development']["password"]} #{DB_CONFIG['development']["database"]} < ./db/production_data.sql"
       
       # # TODO: so I usually have a second step which updates the email addresses, blanks out any potentially sensitive data etc.
       index = 1
@@ -44,10 +39,11 @@ namespace :stars do
     end
     
     desc "Sync remote files with local files"
-    task :files do
+    task :files, [:src_env] => :environment do |t, args|
+      args.with_defaults(:src_env => 'production')
       SHARED_FOLDERS.each do |f|
         puts "Syncing #{f}..."        
-        system "rsync -az -e \"ssh -p #{PORT}\" --progress #{USER}@#{HOST}:#{SHARED}/#{f}/ #{f}"
+        system "rsync -az -e \"ssh -p #{PORT}\" --progress #{USER}@#{HOST[args.src_env]}:#{SHARED}/#{f}/ #{f}"
       end
     end
     
