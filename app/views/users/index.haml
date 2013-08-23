@@ -21,6 +21,8 @@
       =#   Directorate Contact&nbsp;Officer?
       %th
         Corporate Governor?
+      %th
+        Administrator?
       %th.last
     %tr
       %th.sortControls
@@ -52,5 +54,6 @@
             = f.check_box :retired, "data-path" => toggle_user_status_user_path(user, :checkbox => :retired), :confirm => "Are you sure you wish to retire this user?"
           =# %td.checkbox= f.check_box :creator, "data-path" => toggle_user_status_user_path(user, :checkbox => :creator)
           %td.checkbox= f.check_box :corporate_cop, "data-path" => toggle_user_status_user_path(user, :checkbox => :corporate_cop)
+          %td.checkbox= check_box_tag :administrator, 1, user.is_a?(Administrator), :disabled => true
           %td.last= link_to "edit", edit_user_path(user), :class => "edit action"
 

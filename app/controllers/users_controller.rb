@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   before_filter :setup_breadcrumb
   
   def index
-    @users = User.non_admin
+    @users = User.all
   end
   
   def new
