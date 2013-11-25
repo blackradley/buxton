@@ -1,82 +1,212 @@
-/*
-Syntax error: Inconsistent indentation: "\t  " was used for indentation, but the rest of the document was indented using 2 spaces.
-        on line 10 of /Users/shaun/code/buxton/public/stylesheets/sass/editSections.sass
+#questiontext p {
+  margin-left: 0px;
+  padding-left: 0px;
+  color: #a92c1c; }
 
-5:   padding 10px 20px
-6:   margin-bottom 20px
-7:   
-8:   p
-9:     :margin-left 0px
-10: 	  :padding-left  0px
-11: 	  :color #a92c1c
-12: 
-13: #questions
-14:   :width 660px
-15:   :background
+#questions {
+  width: 660px;
+  background-image: url(../images/questions_bg.gif);
+  background-repeat: repeat-y;
+  background-position: -25px;
+  clear: left;
+  float: left;
+  overflow: hidden; }
+  #questions h1 {
+    text-align: center;
+    font-size: 20px;
+    color: #1b4e77;
+    background: none;
+    float: none; }
+  #questions h4 {
+    width: 400px;
+    clear: none;
+    margin-top: 0px;
+    line-height: 2.5em; }
+  #questions label {
+    width: 400px;
+    float: left;
+    text-align: left;
+    padding-bottom: 2px; }
+  #questions .more {
+    float: right;
+    width: 240px;
+    text-align: left;
+    margin-left: 0px;
+    margin-right: 0px;
+    overflow: hidden;
+    position: relative;
+    clear: right; }
+    #questions .more h3 {
+      width: 240px;
+      text-align: left;
+      margin: 0px 0px;
+      margin-top: 10px; }
+      #questions .more h3 img {
+        float: left;
+        margin: 0px 4px; }
+      #questions .more h3 a {
+        font-size: 1em;
+        font-weight: normal; }
+    #questions .more .help {
+      margin-left: 10px;
+      margin-top: 0px;
+      padding: 10px;
+      color: #1b4e77;
+      font-size: 1em;
+      background-color: #f9fdd0;
+      border: 1px solid #fff3a4;
+      width: 230px; }
+      #questions .more .help ul li {
+        float: left; }
+    #questions .more .nohelp {
+      margin-left: 5px;
+      margin-top: 0px;
+      text-align: center;
+      font-style: italic; }
+    #questions .more p .comment,
+    #questions .more p .note {
+      margin: 0px;
+      float: left;
+      text-align: left;
+      margin-left: 10px;
+      margin-bottom: 5px;
+      padding: 10px;
+      color: #1b4e77;
+      font-size: 1em;
+      width: 220px;
+      overflow: hidden; }
+    #questions .more p .comment {
+      background-color: #dfe3f9;
+      border: 1px solid #b3beda; }
+    #questions .more p .note {
+      background-color: #f0fddc;
+      border: 1px solid #a3bf8e; }
+    #questions .more p .controls {
+      margin: 0px; }
+    #questions .more .control {
+      float: left;
+      margin: 0px 10px; }
+      #questions .more .control img {
+        float: left;
+        margin-right: 5px; }
+    #questions .more .commentform,
+    #questions .more .noteform {
+      margin: 0px;
+      float: left;
+      text-align: left;
+      margin-left: 5px; }
+      #questions .more .commentform a,
+      #questions .more .noteform a {
+        margin-left: 10px;
+        margin-right: 10px; }
+    #questions .more textarea {
+      float: left;
+      margin-bottom: 10px;
+      width: 225px;
+      margin-left: 0px;
+      overflow: auto; }
+    #questions .more ul {
+      margin-left: 10px;
+      margin-top: 5px; }
+      #questions .more ul li {
+        list-style: disc;
+        font-weight: normal;
+        list-style-position: outside; }
+  #questions p img {
+    float: left;
+    margin-top: 4px;
+    margin-left: 6px; }
+  #questions .question {
+    position: relative;
+    clear: left;
+    float: left;
+    width: 410px;
+    text-align: right;
+    margin: 5px 0px 0px 0px;
+    overflow: hidden;
+    display: block;
+    padding-bottom: 5px;
+    background: white; }
+    #questions .question label {
+      margin: 5px 10px;
+      width: 380px;
+      clear: none; }
+    #questions .question input,
+    #questions .question select,
+    #questions .question textarea {
+      float: left;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      width: 380px; }
+    #questions .question .sub {
+      margin-left: 20px;
+      width: 368px;
+      float: left;
+      clear: left;
+      overflow: hidden;
+      margin-top: 5px;
+      border-left: 2px solid #1b4e77; }
+      #questions .question .sub label {
+        width: 338px;
+        margin: 0px 30px 5px 30px;
+        font-weight: normal; }
+      #questions .question .sub input,
+      #questions .question .sub select {
+        margin-left: 30px;
+        width: 318px; }
+      #questions .question .sub textarea {
+        margin-left: 10px;
+        width: 318px; }
+      #questions .question .sub .issue input {
+        margin-left: 30px;
+        width: 310px; }
+      #questions .question .sub a {
+        margin-left: 30px;
+        float: left;
+        margin-bottom: 10px; }
+  #questions .question.focused {
+    background: #eeeeee; }
+  #questions .button input {
+    float: right;
+    margin-right: 160px;
+    width: auto; }
+  #questions li .issue {
+    clear: left;
+    float: left;
+    margin-left: 0px;
+    margin-bottom: 2px;
+    width: 388px; }
+    #questions li .issue .issueDetails {
+      float: left;
+      margin-bottom: 10px; }
+      #questions li .issue .issueDetails .question .sub textarea {
+        margin-left: 30px;
+        width: 318px; }
+      #questions li .issue .issueDetails .question .sub input {
+        margin-left: 0px;
+        width: 318px; }
+  #questions #issues_list {
+    float: left;
+    margin-bottom: 10px; }
+    #questions #issues_list a img {
+      float: left;
+      margin-top: 4px;
+      margin-left: -20px;
+      position: relative; }
+  #questions ul li .issue {
+    margin-left: 10px; }
+  #questions ul li a {
+    font-weight: normal;
+    font-size: 0.9em;
+    line-height: 1em; }
+    #questions ul li a img {
+      margin-bottom: -3px;
+      margin-left: 10px; }
 
-Backtrace:
-/Users/shaun/code/buxton/public/stylesheets/sass/editSections.sass:10
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/engine.rb:424:in `tabulate'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/engine.rb:362:in `each_with_index'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/engine.rb:382:in `each'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/engine.rb:382:in `each_with_index'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/engine.rb:382:in `tabulate'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/engine.rb:345:in `_to_tree'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/engine.rb:315:in `_render'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/engine.rb:263:in `render'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/util.rb:371:in `silence_sass_warnings'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/engine.rb:263:in `render'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/plugin/compiler.rb:340:in `update_stylesheet'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/plugin/compiler.rb:202:in `update_stylesheets'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/plugin/compiler.rb:200:in `each'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/plugin/compiler.rb:200:in `update_stylesheets'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/plugin.rb:81:in `update_stylesheets'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/plugin.rb:54:in `check_for_updates'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/sass-3.2.1/lib/sass/../sass/plugin/rack.rb:51:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/warden-1.2.1/lib/warden/manager.rb:35:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/warden-1.2.1/lib/warden/manager.rb:34:in `catch'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/warden-1.2.1/lib/warden/manager.rb:34:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/actionpack-3.0.20/lib/action_dispatch/middleware/best_standards_support.rb:17:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/actionpack-3.0.20/lib/action_dispatch/middleware/head.rb:14:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/rack-1.2.8/lib/rack/methodoverride.rb:24:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/actionpack-3.0.20/lib/action_dispatch/middleware/params_parser.rb:21:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/actionpack-3.0.20/lib/action_dispatch/middleware/flash.rb:182:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/actionpack-3.0.20/lib/action_dispatch/middleware/session/abstract_store.rb:149:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/actionpack-3.0.20/lib/action_dispatch/middleware/cookies.rb:302:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/activerecord-3.0.20/lib/active_record/query_cache.rb:32:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/activerecord-3.0.20/lib/active_record/connection_adapters/abstract/query_cache.rb:28:in `cache'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/activerecord-3.0.20/lib/active_record/query_cache.rb:12:in `cache'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/activerecord-3.0.20/lib/active_record/query_cache.rb:31:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/activerecord-3.0.20/lib/active_record/connection_adapters/abstract/connection_pool.rb:354:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/actionpack-3.0.20/lib/action_dispatch/middleware/callbacks.rb:46:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/activesupport-3.0.20/lib/active_support/callbacks.rb:416:in `_run_call_callbacks'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/actionpack-3.0.20/lib/action_dispatch/middleware/callbacks.rb:44:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/rack-1.2.8/lib/rack/sendfile.rb:106:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/actionpack-3.0.20/lib/action_dispatch/middleware/remote_ip.rb:48:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/airbrake-3.1.8/lib/airbrake/rails/middleware.rb:15:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/actionpack-3.0.20/lib/action_dispatch/middleware/show_exceptions.rb:47:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/railties-3.0.20/lib/rails/rack/logger.rb:13:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/rack-1.2.8/lib/rack/runtime.rb:17:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/activesupport-3.0.20/lib/active_support/cache/strategy/local_cache.rb:72:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/rack-1.2.8/lib/rack/lock.rb:13:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/rack-1.2.8/lib/rack/lock.rb:13:in `synchronize'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/rack-1.2.8/lib/rack/lock.rb:13:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/actionpack-3.0.20/lib/action_dispatch/middleware/static.rb:30:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/airbrake-3.1.8/lib/airbrake/user_informer.rb:16:in `_call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/airbrake-3.1.8/lib/airbrake/user_informer.rb:12:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/railties-3.0.20/lib/rails/application.rb:168:in `call'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/railties-3.0.20/lib/rails/application.rb:77:in `send'
-/Users/shaun/.rvm/gems/ruby-1.8.7-p370@brs/gems/railties-3.0.20/lib/rails/application.rb:77:in `method_missing'
-/Users/shaun/Library/Application Support/Pow/Versions/0.4.1/node_modules/nack/lib/nack/server.rb:145:in `handle'
-/Users/shaun/Library/Application Support/Pow/Versions/0.4.1/node_modules/nack/lib/nack/server.rb:99:in `start'
-/Users/shaun/Library/Application Support/Pow/Versions/0.4.1/node_modules/nack/lib/nack/server.rb:86:in `each'
-/Users/shaun/Library/Application Support/Pow/Versions/0.4.1/node_modules/nack/lib/nack/server.rb:86:in `start'
-/Users/shaun/Library/Application Support/Pow/Versions/0.4.1/node_modules/nack/lib/nack/server.rb:66:in `loop'
-/Users/shaun/Library/Application Support/Pow/Versions/0.4.1/node_modules/nack/lib/nack/server.rb:66:in `start'
-/Users/shaun/Library/Application Support/Pow/Versions/0.4.1/node_modules/nack/lib/nack/server.rb:13:in `run'
-/Users/shaun/Library/Application Support/Pow/Versions/0.4.1/node_modules/nack/bin/nack_worker:4
-*/
-body:before {
-  white-space: pre;
-  font-family: monospace;
-  content: "Syntax error: Inconsistent indentation: \"\t  \" was used for indentation, but the rest of the document was indented using 2 spaces.\A         on line 10 of /Users/shaun/code/buxton/public/stylesheets/sass/editSections.sass\A \A 5:   padding 10px 20px\A 6:   margin-bottom 20px\A 7:   \A 8:   p\A 9:     :margin-left 0px\A 10: 	  :padding-left  0px\A 11: 	  :color #a92c1c\A 12: \A 13: #questions\A 14:   :width 660px\A 15:   :background"; }
+.issueDescription {
+  width: 200px;
+  float: left; }
+
+.issueControls {
+  width: 180px;
+  float: left; }
