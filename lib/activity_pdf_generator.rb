@@ -64,7 +64,7 @@ class ActivityPDFGenerator
   end
   def build_header
       @pdf.fill_color Color::RGB.const_get('Black')
-      @pdf.image( "#{Rails.root}/public/images/bcc_logo_pdf.jpg", :justification => :center, :resize => 0.5)
+      @pdf.image( "#{Rails.root}/public/images/pdf_logo.png", :justification => :center, :resize => 0.5)
       @pdf.text "<b>Equality Analysis</b>", :justification => :center, :font_size => 22
       @pdf.text " ", :justification => :center, :font_size => 10
       @pdf.text "<c:uline><b>Birmingham City Council Analysis Report</b></c:uline>", :justification => :center, :font_size => 14
