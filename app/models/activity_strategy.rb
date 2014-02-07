@@ -35,13 +35,13 @@ class ActivityStrategy < ActiveRecord::Base
   def different_answer?
     return false unless self.activity.previous_activity
     previous_strategy = self.activity.previous_activity.activity_strategies.where(:strategy_id => self.strategy_id).first
-    return previous_strategy.strategy_response != self.strategy_response 
+    return previous_strategy.try(:strategy_response) != self.strategy_response
   end
 
   def different_comment?
     return false unless self.activity.previous_activity
     previous_strategy = self.activity.previous_activity.activity_strategies.where(:strategy_id => self.strategy_id).first
-    if previous_strategy.comment.blank? || self.comment.blank?
+    if previous_strategy.try(:comment).blank? || self.comment.blank?
       if self.comment.blank?
         return false
       else
@@ -54,7 +54,7 @@ class ActivityStrategy < ActiveRecord::Base
   def different_note?
     return false unless self.activity.previous_activity
     previous_strategy = self.activity.previous_activity.activity_strategies.where(:strategy_id => self.strategy_id).first
-    if previous_strategy.note.blank?
+    if previous_strategy.try(:note).blank?
       if self.note.blank?
         return false
       else
@@ -62,7 +62,7 @@ class ActivityStrategy < ActiveRecord::Base
       end
     end
     return true if self.note.blank?
-    return previous_strategy.note.contents != self.note.contents 
+    return previous_strategy.note.contents != self.note.contents
   end
 
   def previous
