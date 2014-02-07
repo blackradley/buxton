@@ -21,13 +21,13 @@ class ActivityPDFGenerator
     @pdf = PDF::Writer.new(:paper => "A4")
     @page_width = @pdf.absolute_right_margin - @pdf.absolute_left_margin
     @activity = activity
-    
+
     questions = Question.find_all_by_activity_id(@activity.id, :include => [:comment, :note]).map{|q| [q, q.comment, q.note]}
     @activity_questions = {}
     questions.each do |question, comment, note|
       @activity_questions[question.name] = [question, comment, note]
     end
-    
+
     @table_data = {:v_padding => 5, :header => table_header}
     @header_data = {:v_padding => 5}
     methods_to_call =  [:page_numbers, :unapproved_logo_on_first_page, :footer, :header, :body, :intro, :purpose, :strand_tables,
@@ -42,7 +42,7 @@ class ActivityPDFGenerator
   def pdf
     @pdf
   end
-  
+
   def build_page_numbers
     @pdf.start_page_numbering(@pdf.absolute_left_margin,
       @pdf.absolute_bottom_margin - (@pdf.font_height(12) * 1.01) - 5,
@@ -50,7 +50,7 @@ class ActivityPDFGenerator
       :left)
     @pdf
   end
-  
+
   def build_unapproved_logo_on_first_page
       @pdf.unapproved_status = (@activity.approved?) ? '' : 'Work In Progress'
       #The page numbers are started at the top, so that they will always hit the first page, but they appear at the bottom
@@ -71,7 +71,7 @@ class ActivityPDFGenerator
       @pdf.text " ", :justification => :center, :font_size => 10 #Serves as a new line character. Is this more readable than moving the cursor manually?
     return @pdf
   end
-  
+
   def build_body
     table = []
     table << ['<b>EA Name</b>', @activity.name.titlecase]
@@ -88,7 +88,7 @@ class ActivityPDFGenerator
     @pdf = generate_table(@pdf, table, :borders => [150, 540], :col_format => [{:shading => SHADE_COLOUR}, nil])
     @pdf
   end
-  
+
   def build_intro
     @pdf.text " ", :font_size => 10
     @pdf.text "<c:uline><b>Introduction</b></c:uline>", :font_size => 12
@@ -118,7 +118,7 @@ class ActivityPDFGenerator
     @pdf.text " ", :font_size => 10
     return @pdf
   end
-  
+
   def get_comments_and_notes(question)
     question_object = @activity_questions[question.to_s]
     comment = question_object[1]
@@ -135,8 +135,8 @@ class ActivityPDFGenerator
       unless note.blank?
         table_data << ["<c:uline>Note</c:uline>\n#{note}"]
       end
-    end  
-    if @activity.previous_activity 
+    end
+    if @activity.previous_activity
       previous_question_data = []
       q = @activity.questions.where(:name => question.to_s).first
       if q.different_comment? && !q.previous.comment.blank?
@@ -146,12 +146,12 @@ class ActivityPDFGenerator
         if q.different_note? && !q.previous.note.blank?
           previous_question_data << ["<i><c:uline>Previous Note</c:uline>\n#{q.previous.note.contents.to_s}</i>"]
         end
-      end  
+      end
       table_data += previous_question_data
     end
     return table_data
   end
-  
+
   def get_comments(question)
     question_object = @activity_questions[question.to_s]
     comment = question_object[1]
@@ -162,7 +162,7 @@ class ActivityPDFGenerator
     unless comment.blank?
       table_data << ["<c:uline>Comment</c:uline>\n#{comment}"]
     end
-    if @activity.previous_activity 
+    if @activity.previous_activity
       previous_question_data = []
       q = @activity.questions.where(:name => question.to_s).first
       if q.different_comment? && !q.previous.comment.blank?
@@ -172,7 +172,7 @@ class ActivityPDFGenerator
     end
     return table_data
   end
-  
+
   def build_purpose
     @pdf.text " "
     @pdf.text "<b>2  <c:uline>Overall Purpose</b></c:uline>", :font_size => 12
@@ -217,13 +217,13 @@ class ActivityPDFGenerator
         # end
         if strategy.changed_in_previous_ea?
           if strategy.different_comment?
-            unless strategy.previous.comment.blank? || strategy.previous.comment.contents.blank?
+            unless strategy.previous.try(:comment).blank? || strategy.previous.comment.contents.blank?
               cell_formats << [nil, nil]
               table << ["<i><c:uline>Previous Comment</c:uline>\n#{strategy.previous.comment.contents.to_s}</i>"]
             end
           end
           if strategy.different_note?
-            unless @public || strategy.previous.note.blank? || strategy.previous.note.contents.blank?
+            unless @public || strategy.previous.try(:note).blank? || strategy.previous.note.contents.blank?
               cell_formats << [nil, nil]
               table << ["<i><c:uline>Note</c:uline>\n#{strategy.previous.note.contents.to_s}</i>"]
             end
@@ -244,7 +244,7 @@ class ActivityPDFGenerator
       impact_quns << ["purpose_overall_#{i}".to_sym, @activity.questions.find_by_name("purpose_overall_#{i}").label.to_s]
       impact_answers << (@activity.questions.find_by_name("purpose_overall_#{i}").response.to_i == 1 ? "Yes" : "No")
     end
-    
+
     table = []
     cell_formats = []
 
@@ -293,7 +293,7 @@ class ActivityPDFGenerator
     @pdf.start_new_page
     @pdf
   end
-  
+
   def build_strand_tables
     section_index = 1
     @activity.strands.sort{|a,b| strand_display(a[0]) <=> strand_display(b[0]) }.each do |strand|
@@ -351,7 +351,7 @@ class ActivityPDFGenerator
 
     @pdf
   end
-  
+
   def build_differential_impact(strand,  section_index)
     table = []
     cell_formats = []
@@ -396,7 +396,7 @@ class ActivityPDFGenerator
     @pdf.text(" ")
     @pdf
   end
-  
+
   def build_equality_objectives
     @pdf.text("<c:uline><b>6. Equality Objectives</b></c:uline>")
     @pdf.text(" ")
@@ -453,7 +453,7 @@ class ActivityPDFGenerator
     end
     @pdf
   end
-  
+
   def build_review_date
     @pdf.text("<b>4  <c:uline>Review Date</b></c:uline>", :font_size => 12)
     @pdf.text(" ")
@@ -466,7 +466,7 @@ class ActivityPDFGenerator
     end
     @pdf
   end
-  
+
   def build_action_plan
     @pdf.text("<b>5  <c:uline>Action Plan</b></c:uline>", :font_size => 12)
     @pdf.text(" ")
@@ -483,7 +483,7 @@ class ActivityPDFGenerator
       strand_issues = @activity.issues.find_all_by_strand(strand)
       strand_issues.reject!{|issue| issue.section == 'impact'} unless impact_enabled
       strand_issues.reject!{|issue| issue.section == 'consultation'} unless consultation_enabled
-      
+
       next if strand_issues.blank?
       heading_proc = lambda do |document|
         document.text "<b>5.#{index}  #{strand_display(strand).titlecase}</b>", :font_size => 12
@@ -544,14 +544,14 @@ class ActivityPDFGenerator
   end
 
   private
-  
+
   def table_header
-    Proc.new do |pdf, data, table_data| 
+    Proc.new do |pdf, data, table_data|
       pdf = generate_table(pdf, data, table_data)
       pdf
     end
   end
-  
+
   def strand_display(strand)
     strand.to_s.downcase == 'faith' ? 'religion or belief' : strand
   end
