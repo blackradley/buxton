@@ -189,7 +189,7 @@ class ActivityPDFGenerator
     cell_formats = [[{:shading => SHADE_COLOUR}, nil]]
       cell_formats << [{:shading => SHADE_COLOUR}, nil] if qn.different_answer?
     comments.size.times {cell_formats << nil}
-    @pdf = generate_table(@pdf, target, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10)
+    @pdf = generate_table(@pdf, target, :borders => [150, 540], :cell_format => cell_formats, :font_size => 10)
     @pdf.text " "
     strategies = []
     @activity.activity_strategies.each do |activity_strategy|
