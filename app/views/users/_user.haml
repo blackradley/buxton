@@ -1,4 +1,4 @@
-= semantic_form_for @user, :remote => true, :html => {:class => 'lightboxForm'} do |form|
+= semantic_form_for @user.becomes(User), :remote => true, :html => {:class => 'lightboxForm'} do |form|
   = form.inputs do
     =form.input :email, :as => :string
     =#form.input :trained, :label => "Trained?"
