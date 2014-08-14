@@ -7,9 +7,9 @@
 # Copyright (c) 2007 Black Radley Systems Limited. All rights reserved.
 #
 Buxton::Application.routes.draw do
-  
+
   namespace :activities do
-    resources :issues 
+    resources :issues
     resources :sections do
       member do
         get :edit_purpose_a
@@ -36,12 +36,12 @@ Buxton::Application.routes.draw do
       get :approving
       get :autocomplete_user_email
       get :directorate_governance_eas
-      get :generate_schedule
+      post :generate_schedule
       get :assisting
       get :actions
       post :get_service_areas
     end
-    
+
     member do
       get :questions
       get :delete
@@ -65,21 +65,21 @@ Buxton::Application.routes.draw do
       put :update_tgm
     end
   end
-  
-  resources :users do    
-    collection do 
+
+  resources :users do
+    collection do
       get :set_homepage
       get :access_denied
       get :new_user
     end
-    
+
     member do
       post :toggle_user_status
       get :training
       post "training", :to => "users#update_training"
     end
   end
-  
+
   match "access_denied", :to => "users#access_denied"
   root :to => "application#set_homepage"
 
@@ -87,7 +87,7 @@ Buxton::Application.routes.draw do
     get "login", :to => "devise/sessions#new"
     get "logout", :to => "devise/sessions#destroy"
   end
-  
+
   resources :logs do
     collection do
       get :download
@@ -102,7 +102,7 @@ Buxton::Application.routes.draw do
       post :set_comment
     end
   end
-  
+
   resources :note do
     collection do
       delete :destroy_strategy
@@ -111,23 +111,23 @@ Buxton::Application.routes.draw do
     end
   end
   resources :issues
-  
+
   resources :directorates do
     collection do
       get :autocomplete_user_email
       get :autocomplete_creator_email
       get :autocomplete_user_cop_email
     end
-    
+
     member do
       post :toggle_directorate_status
     end
   end
-  
+
   resources :service_areas do
-    collection do 
+    collection do
       get :autocomplete_user_email
-    end    
+    end
     member do
       post :toggle_retired_status
     end
@@ -137,7 +137,7 @@ Buxton::Application.routes.draw do
       post :toggle_retired_status
     end
   end
-  
+
   match 'sections/edit/:id/:equality_strand' => 'sections#edit'
   # match '/:controller(/:action(/:id))'
 end
