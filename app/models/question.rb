@@ -15,15 +15,15 @@ class Question < ActiveRecord::Base
   has_many :dependencies
   belongs_to :dependency
   before_save :update_status
-  after_save :update_children
+  after_commit :update_children
 
   # before_save :debug
-  
-   
+
+
   # def debug
   #   raise self.inspect
   # end
-  
+
 
   def response
     if self.input_type == "select"
@@ -32,7 +32,7 @@ class Question < ActiveRecord::Base
       self.raw_answer
     end
   end
-    
+
   def display_response
     if self.input_type == "select"
       self.choices[self.raw_answer.to_i]
@@ -40,7 +40,7 @@ class Question < ActiveRecord::Base
       self.raw_answer
     end
   end
-  
+
   def label=(new_label)
      self.raw_label = new_label
   end
@@ -59,31 +59,31 @@ class Question < ActiveRecord::Base
 
   def parent
     self.dependency ? self.dependency.question : nil
-  end 
-  
+  end
+
   def children
     self.dependencies.map(&:child_question)
   end
-    
+
   def check_response #Check response verifies whether a response to a question is correct or not.
     if self.input_type == "select"
       return !(response.to_i == 0)
-    else 
+    else
       return response.to_s.length > 0
     end
   end
-    
+
   def check_needed
     parent_okay = self.parent.nil? ? true : self.dependency.satisfied?
     parent_okay
   end
-  
+
   def update_status
     self.completed = check_response
     self.needed = check_needed
     true #before and after save rollback if the before/after save returns false!
   end
-  
+
   def update_children
     children.each do |child|
       child.parent.reload
@@ -92,7 +92,7 @@ class Question < ActiveRecord::Base
     end
     true
   end
-  
+
   def dependency_mapping
     dependency_hash = {}
     self.dependencies.each do |dep|
@@ -108,7 +108,7 @@ class Question < ActiveRecord::Base
   def different_answer?
     return false unless self.activity.previous_activity
     previous_question = self.activity.previous_activity.questions.where(:name => self.name).first
-    return previous_question.raw_answer != self.raw_answer 
+    return previous_question.raw_answer != self.raw_answer
   end
 
   def different_comment?
@@ -116,7 +116,7 @@ class Question < ActiveRecord::Base
     previous_question = self.activity.previous_activity.questions.where(:name => self.name).first
     return false if previous_question.comment.nil? && self.comment.nil?
     return false unless previous_question.comment || self.comment
-    return previous_comment != self.comment.contents.to_s 
+    return previous_comment != self.comment.contents.to_s
   end
 
   def different_note?
@@ -124,7 +124,7 @@ class Question < ActiveRecord::Base
     previous_question = self.activity.previous_activity.questions.where(:name => self.name).first
     return false if previous_question.note.nil? && self.note.nil?
     return false unless previous_question.note || self.note
-    return previous_note != self.note.contents 
+    return previous_note != self.note.contents
   end
 
   def previous
