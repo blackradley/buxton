@@ -136,14 +136,14 @@ class ActivityPDFGenerator
         table_data << ["<c:uline>Note</c:uline>\n#{note}"]
       end
     end
-    if @activity.previous_activity
+    if @activity.previous_activity  && !@activity.approved
       previous_question_data = []
       q = @activity.questions.where(:name => question.to_s).first
-      if q.different_comment? && !q.previous.comment.blank?
+      if q.different_comment? && !q.previous.comment.blank?  && !@activity.approved
         previous_question_data << ["<i><c:uline>Previous Comment</c:uline>\n#{q.previous.comment.contents.to_s}</i>"]
       end
       unless @public
-        if q.different_note? && !q.previous.note.blank?
+        if q.different_note? && !q.previous.note.blank?  && !@activity.approved
           previous_question_data << ["<i><c:uline>Previous Note</c:uline>\n#{q.previous.note.contents.to_s}</i>"]
         end
       end
@@ -162,7 +162,7 @@ class ActivityPDFGenerator
     unless comment.blank?
       table_data << ["<c:uline>Comment</c:uline>\n#{comment}"]
     end
-    if @activity.previous_activity
+    if @activity.previous_activity  && !@activity.approved
       previous_question_data = []
       q = @activity.questions.where(:name => question.to_s).first
       if q.different_comment? && !q.previous.comment.blank?
@@ -215,7 +215,7 @@ class ActivityPDFGenerator
         #   cell_formats << [nil, nil]
         #   table << ["<c:uline>Note</c:uline>\n#{strategy.note.contents.to_s}"]
         # end
-        if strategy.changed_in_previous_ea?
+        if strategy.changed_in_previous_ea?  && !@activity.approved
           if strategy.different_comment?
             unless strategy.previous.try(:comment).blank? || strategy.previous.comment.contents.blank?
               cell_formats << [nil, nil]
