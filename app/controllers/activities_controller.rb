@@ -39,12 +39,12 @@ class ActivitiesController < ApplicationController
   autocomplete :user, :email, :scope => :live
 
   def index
-    if current_user.email=='shaun@27stars.co.uk'
-      @activities = Activity.all
-      render :my_eas
-    else
+    # if current_user.email=='shaun@27stars.co.uk'
+    #   @activities = Activity.all
+    #   render :my_eas
+    # else
       redirect_to root_path
-    end
+    # end
   end
 
   def directorate_eas
@@ -514,7 +514,7 @@ class ActivitiesController < ApplicationController
 protected
 
   def set_activity
-    if current_user.completer? || current_user.is_a?(Administrator)
+    if current_user.completer?# || current_user.is_a?(Administrator)
       @activity = Activity.find( params[:id] );
     else
       @activity = current_user.activities.detect{|a| a.id == params[:id].to_i}
