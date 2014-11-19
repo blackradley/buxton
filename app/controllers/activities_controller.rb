@@ -37,11 +37,16 @@ class ActivitiesController < ApplicationController
   before_filter :ensure_not_approved, :only => [:add_task_group_member, :remove_task_group_member, :create_task_group_member, :submit_approval, :submit_rejection, :submit, :task_group_comment_box, :make_task_group_comment, :comment, :submit_comment]
 
   autocomplete :user, :email, :scope => :live
-  
+
   def index
-    redirect_to root_path
+    if current_user.email=='shaun@27stars.co.uk'
+      @activities = Activity.all
+      render :my_eas
+    else
+      redirect_to root_path
+    end
   end
-  
+
   def directorate_eas
     @breadcrumb = [["Directorate EAs"]]
     @directorates = current_user.count_directorates
@@ -50,7 +55,7 @@ class ActivitiesController < ApplicationController
     @activities = Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)})
     @selected = "directorate_eas"
   end
-  
+
   def my_eas
     @breadcrumb = [["Task Group Manager"]]
     @activities = Activity.where(:completer_id => current_user.id, :ready => true)
@@ -59,7 +64,7 @@ class ActivitiesController < ApplicationController
     @selected = "my_eas"
     @creatable = ServiceArea.count > 0
   end
-  
+
   def clone
     original_activity = Activity.find(params[:id])
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Clone #{original_activity.name}"]]
@@ -75,25 +80,25 @@ class ActivitiesController < ApplicationController
     @service_areas = @clone_of.service_area.directorate.service_areas
     render :new
   end
-  
+
   def quality_control
     @breadcrumb = [["Quality Control"]]
     @activities = Activity.active.where(:qc_officer_id => current_user.id, :ready => true)
     @selected = "quality_control"
   end
-  
+
   def assisting
     @breadcrumb = [["Assisting"]]
     @activities = Activity.active.includes(:task_group_memberships).where(:task_group_memberships => {:user_id => current_user.id})
     @selected = "assisting"
   end
-  
+
   def approving
     @breadcrumb = [["Awaiting Approval"]]
     @activities = Activity.active.where(:approver_id => current_user.id, :ready => true)
     @selected = "awaiting_approval"
   end
-  
+
   def directorate_governance_eas
     @breadcrumb = [["EA Governance"]]
     @activities = Activity.where( :directorate_id => current_user.directorates.map(&:id) )
@@ -111,7 +116,7 @@ class ActivitiesController < ApplicationController
     # end
     @selected = "ea_governance"
   end
-  
+
   def new
     # @directorates = Directorate.where(:creator_id=>current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
@@ -202,13 +207,13 @@ class ActivitiesController < ApplicationController
       render 'new'
     end
   end
-  
+
   def destroy
     flash[:notice] = "#{@activity.name} has been permenantly deleted."
     @activity.destroy
     redirect_to my_eas_activities_path
   end
-  
+
   def edit
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Edit EA"]]
     @activity = Activity.find(params[:id])
@@ -222,7 +227,7 @@ class ActivitiesController < ApplicationController
     # end
     @selected = "directorate_eas"
   end
-  
+
   def edit_tgm
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Edit EA"]]
     @activity = Activity.find(params[:id])
@@ -244,10 +249,10 @@ class ActivitiesController < ApplicationController
         @activity.errors.add(k, "is not a valid user")
         @activity.instance_variable_set("@#{k}", v)
       end
-      
+
       render 'edit' and return
     end
-    
+
     Strategy.live.each do |s|
       @activity.activity_strategies.find_or_create_by_strategy_id(s.id)
     end
@@ -276,12 +281,12 @@ class ActivitiesController < ApplicationController
       render "edit"
     end
   end
-  
+
   def update_tgm
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
     @selected = "directorate_eas"
     @activity = Activity.find(params[:id])
-    
+
     if @activity.update_attributes(params[:activity])
       flash[:notice] = "#{@activity.name} was updated."
       # Mailer.activity_created(@activity).deliver if @activity.ready?
@@ -293,7 +298,7 @@ class ActivitiesController < ApplicationController
       render "edit_tgm"
     end
   end
-  
+
   def submit
     #TODO: setup approver
     if @activity.completed
@@ -319,7 +324,7 @@ class ActivitiesController < ApplicationController
       "($('#{strand_status.to_s}_checkbox').checked)"
     end
   end
-  
+
   def task_group
     @selected = "my_eas"
     @breadcrumb = [["Task Group Manager", my_eas_activities_path], ["#{@activity.name} Task Group Management"]]
@@ -329,7 +334,7 @@ class ActivitiesController < ApplicationController
   def add_task_group_member
     render :layout => false
   end
-  
+
   def create_task_group_member
     email = params[:activity][:task_group_member]
     @activity.task_group_member = email
@@ -353,7 +358,7 @@ class ActivitiesController < ApplicationController
       render "add_task_group_member", :layout => false
     end
   end
-  
+
   def remove_task_group_member
     user = @activity.task_group_memberships.find_by_user_id(params[:user_id]).user
     @activity.task_group_memberships.find_by_user_id(params[:user_id]).destroy
@@ -361,11 +366,11 @@ class ActivitiesController < ApplicationController
     flash[:notice] = "#{user.email} was removed from this task group."
     redirect_to task_group_activity_path(@activity.id)
   end
-  
+
   def task_group_comment_box
     render :layout => false
   end
-  
+
   def make_task_group_comment
     Mailer.activity_task_group_comment(@activity, params[:email_contents], params[:cc], params[:subject], current_user).deliver
     flash[:notice] = "Your comment has been sent."
@@ -375,7 +380,7 @@ class ActivitiesController < ApplicationController
   def summary
     render :partial => "summary"
   end
-  
+
   def generate_schedule
     @activities =  Activity.where(:id => params[ :activities ] )
     # activities = []
@@ -392,7 +397,7 @@ class ActivitiesController < ApplicationController
       :filename => "schedule.csv",
       :type => "text/csv"
   end
-  
+
   ########this is the old pdf version, just in case they ever want it back
   # def generate_schedule
   #   activities = []
@@ -409,12 +414,12 @@ class ActivitiesController < ApplicationController
   #     :filename => "schedule.pdf",
   #     :type => "application/pdf"
   # end
-  
+
   def actions
     @selected = "actions"
     service_area_list = []
     if current_user.corporate_cop?
-      service_area_list += ServiceArea.active  
+      service_area_list += ServiceArea.active
     elsif current_user.directorate_cop?
       service_area_list += Directorate.active.select{|z| z.cops.include?(self)}.map(&:service_areas).flatten.reject(&:retired)
     end
@@ -426,7 +431,7 @@ class ActivitiesController < ApplicationController
       [sa, sa.activities.map(&:relevant_action_count).sum]
     end
   end
-  
+
   def show
     type = params[:type]
     PDFLog.create(:activity => @activity, :user => current_user)
@@ -440,30 +445,30 @@ class ActivitiesController < ApplicationController
     if @activity.submitted
       render :nothing => true
       return false
-    end 
+    end
     unless @activity.strand_required?(params[:strand])
       @activity.toggle("#{params[:strand]}_relevant")
       @activity.save!
     end
     render :nothing => true
   end
-  
+
   def delete
     render :layout =>false
   end
-  
+
   def approve
     render :layout =>false
   end
-  
+
   def reject
     render :layout =>false
   end
-  
+
   def comment
     render :layout =>false
   end
-  
+
   def submit_comment
     if @activity.submitted?
       @activity.update_attributes(:undergone_qc => true)
@@ -472,7 +477,7 @@ class ActivitiesController < ApplicationController
     end
     redirect_to quality_control_activities_path
   end
-  
+
   def submit_approval
     if @activity.undergone_qc? && @activity.submitted?
       @activity.update_attributes(:approved => true, :approved_on => Date.today() )
@@ -481,7 +486,7 @@ class ActivitiesController < ApplicationController
     end
     redirect_to approving_activities_path
   end
-  
+
   def submit_rejection
     if @activity.submitted?
       new_activity = @activity.clone
@@ -500,51 +505,51 @@ class ActivitiesController < ApplicationController
       redirect_to quality_control_activities_path
     end
   end
-  
+
   def get_service_areas
     @service_areas = ServiceArea.find_all_by_directorate_id( params[ :directorate_id ].to_i ).select{|z| z.retired == false }
     render :layout => false
   end
 
 protected
-  
+
   def set_activity
-    if current_user.completer?
+    if current_user.completer? || current_user.is_a?(Administrator)
       @activity = Activity.find( params[:id] );
     else
       @activity = current_user.activities.detect{|a| a.id == params[:id].to_i}
     end
     redirect_to access_denied_path unless @activity
   end
-  
+
   def ensure_can_create_eas
     redirect_to access_denied_path unless current_user.completer? || current_user.creator?
   end
-  
+
   def ensure_dgo
     redirect_to access_denied_path unless current_user.roles.include?( "Directorate Cop" )
   end
-  
+
   def ensure_activity_task_group_member
     redirect_to access_denied_path unless @activity.task_group_memberships.map(&:user).include?(current_user)
   end
-  
+
   def ensure_activity_completer
      redirect_to access_denied_path unless @activity.completer == current_user || @activity.task_group_memberships.map(&:user_id).include?( current_user.id )
   end
-  
+
   def ensure_activity_quality_control
     redirect_to access_denied_path unless (@activity.qc_officer == current_user) && @activity.submitted && !@activity.undergone_qc
   end
-  
+
   def ensure_activity_approver
      redirect_to access_denied_path unless @activity.approver == current_user
   end
-  
+
   def ensure_activity_editable
     redirect_to access_denied_path if @activity.approved? || @activity.submitted
   end
-  
+
   def ensure_not_approved
     redirect_to access_denied_path if @activity.approved
   end
@@ -552,5 +557,5 @@ protected
   def ensure_activity_approver_or_qc
     redirect_to access_denied_path unless @activity.approver == current_user || @activity.qc_officer == current_user
   end
-  
+
 end

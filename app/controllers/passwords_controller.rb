@@ -1,6 +1,6 @@
-class PasswordsController < Devise::PasswordsController 
+class PasswordsController < Devise::PasswordsController
   # POST /resource/password
-  
+
   def edit
     resource = User.find_by_reset_password_token(params[:reset_password_token])
     if resource
@@ -21,5 +21,5 @@ class PasswordsController < Devise::PasswordsController
       respond_with_navigational(resource){ render_with_scope :new }
     end
   end
-  
+
 end
