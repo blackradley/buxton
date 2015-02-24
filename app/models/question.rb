@@ -116,6 +116,7 @@ class Question < ActiveRecord::Base
     previous_question = self.activity.previous_activity.questions.where(:name => self.name).first
     return false if previous_question.comment.nil? && self.comment.nil?
     return false unless previous_question.comment || self.comment
+    return false unless self.comment
     return previous_comment != self.comment.contents.to_s
   end
 
@@ -124,6 +125,7 @@ class Question < ActiveRecord::Base
     previous_question = self.activity.previous_activity.questions.where(:name => self.name).first
     return false if previous_question.note.nil? && self.note.nil?
     return false unless previous_question.note || self.note
+    return false unless self.note
     return previous_note != self.note.contents
   end
 
