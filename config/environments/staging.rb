@@ -35,7 +35,7 @@ Buxton::Application.configure do
 
   config.i18n.fallbacks = true
   config.middleware.insert_before Rack::Lock, "Rack::SSL"
-  
+
   config.action_mailer.default_url_options = { :host => 'training.impactequality.co.uk' }
 
   # Send deprecation notices to registered listeners
@@ -45,3 +45,9 @@ end
 BANNER    = true
 KEYS      = true
 DEV_MODE  = BANNER
+
+Mailsafe.setup do |config|
+  # config.allowed_domain = "27stars.co.uk"
+  config.override_receiver = "irina@27stars.co.uk"
+  config.prefix_email_subject_with_rails_env = true
+end
