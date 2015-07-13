@@ -5,13 +5,13 @@ require File.expand_path('../../test/factory', __FILE__)
 
 class ActionController::TestCase
   include Devise::TestHelpers
-  
+
   self.use_transactional_fixtures = true
-  
-  self.use_instantiated_fixtures  = false
+
+  self.use_instantiated_fixtures  = true
 
   fixtures :all
-  
+
   def json_response
       ActiveSupport::JSON.decode @response.body
   end

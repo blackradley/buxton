@@ -3,8 +3,10 @@ Factory.define :activity do |activity|
   activity.association :completer
   activity.association :approver
   activity.association :qc_officer
-  activity.association :service_area
+  # activity.association :service_area
+  activity.service_area_id{ Factory.create(:service_area).id }
   activity.review_on Date.today
+
 end
 
 Factory.define :service_area do |sa|
@@ -16,7 +18,7 @@ end
 Factory.define :question do |question|
   question.section "impact"
   question.strand  "gender"
-  question.sequence(:name){|i| "impact_gender_#{i}"}
+  question.sequence(:name){|i| "impact_gender_#{i}_test"}
   question.association :activity
   question.needed true
   question.completed false
@@ -68,5 +70,13 @@ end
 Factory.define :directorate do |dir|
   dir.sequence(:name){|i| "Directorate #{i}"}
   dir.association :creator
-  dir.association :cop
+  # dir.association :cop
+  dir.cops { [Factory.build(:user)] }
+
+  # dir.after_build do |u|
+  #   u.cops << Factory.build(:user, :directorates => [u])
+  #   #a = Factory.build(:user, :directorates => [u])
+  #   #u.cops = [a]
+  #   #u.save!
+  # end
 end

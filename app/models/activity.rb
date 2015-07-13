@@ -38,7 +38,7 @@ class Activity < ActiveRecord::Base
   has_many :issues, :dependent => :destroy
   has_many :questions, :dependent => :destroy
   has_many :task_group_memberships
-  
+
   validates_presence_of :service_area
   validates :name, :presence => {:full_message => 'Your EA must have a name'}
   validates :approver, :presence => {:full_message =>"Your EA has to have a Senior Officer"}
@@ -52,40 +52,40 @@ class Activity < ActiveRecord::Base
   has_many :helpers, :through => :task_group_memberships, :source => :user
   # validates_associated :questions
   # validates_uniqueness_of :name, :scope => :directorate_id
-  
+
   validate :senior_advisor_and_task_group_manager_cannot_be_the_same_person
-  
+
   before_update :set_approved, :update_completed
   after_create :create_questions_if_new
-  
+
   default_scope :conditions => {:is_rejected => false}
 
   scope :active,  lambda{
     joins(:service_area => :directorate).where(:service_areas => {:retired => false}).where( :directorates => {:retired => false}).readonly(false)
   }
   include FixInvalidChars
-  
+
   before_save :fix_fields, :set_recently_rejected
-  
+
   scope :ready, {:conditions => {:ready => true}}
-  
+
   accepts_nested_attributes_for :questions
   accepts_nested_attributes_for :issues, :allow_destroy => true#, :reject_if => proc { |attributes| attributes['description'].blank? }
 
   before_validation :mark_empty_issues
   attr_accessor :task_group_member
-  
+
   def senior_advisor_and_task_group_manager_cannot_be_the_same_person
     if approver && completer && approver.email == completer.email
       errors.add( :approver, "cannot be the same as the task group manager" )
     end
   end
-  
+
   def set_recently_rejected
     self.recently_rejected = false
     true
   end
-  
+
   def previous_activity
     return @previous_activity if @previous_activity
     @previous_activity = Activity.unscoped.where(:previous_activity_id => self.id).first
@@ -101,7 +101,7 @@ class Activity < ActiveRecord::Base
       issue.mark_for_destruction
     end
   end
-  
+
   def service_area=(arg)
     if arg.is_a? String
       self.service_area_id = arg.to_i
@@ -109,7 +109,7 @@ class Activity < ActiveRecord::Base
       self.service_area_id = arg
     end
   end
-  
+
   def fields_complete
     return false if self.name.blank?
     return false if self.approver.blank?
@@ -121,7 +121,7 @@ class Activity < ActiveRecord::Base
   def generate_ref_no
     self.update_attribute( :ref_no, "EA#{sprintf("%06d", self.id)}" )
   end
-  
+
   def progress
     if self.recently_rejected
       return "R"
@@ -142,7 +142,7 @@ class Activity < ActiveRecord::Base
       return "IA"
     end
   end
-  
+
   def full_progress
     case self.progress
     when "A"
@@ -155,26 +155,26 @@ class Activity < ActiveRecord::Base
       "Initial Assessment"
     end
   end
-  
+
   def associated_users
     user_list = [completer, approver, qc_officer] + self.task_group_memberships.map(&:user)
   end
-  
+
   def directorate
     self.service_area ? self.service_area.directorate : nil
   end
-  
+
   def directorate_id
     self.service_area ? self.service_area.directorate.id : nil
   end
-  
+
   def directorate=(id)
   end
-  
+
   def approver_email
     @approver_email ||= approver.try(:email) || ""
   end
-  
+
   def approver_email=(email)
     if user = User.live.find_by_email(email)
       self.approver_id = user.id
@@ -182,11 +182,11 @@ class Activity < ActiveRecord::Base
       self.approver_id = nil
     end
   end
-  
+
   def completer_email
     @completer_email ||= completer.try(:email) || ""
   end
-  
+
   def completer_email=(email)
     if user = User.live.find_by_email(email)
       self.completer_id = user.id
@@ -194,11 +194,11 @@ class Activity < ActiveRecord::Base
       self.completer_id = nil
     end
   end
-  
+
   def qc_officer_email
     @qc_officer_email ||= qc_officer.try(:email) || ""
   end
-  
+
   def qc_officer_email=(email)
     if user = User.live.find_by_email(email)
       self.qc_officer_id = user.id
@@ -206,13 +206,13 @@ class Activity < ActiveRecord::Base
       self.qc_officer_id = nil
     end
   end
-  
+
   def fix_fields
     self.attributes.each_pair do |key, value|
       self.attributes[key] = fix_field(value)
     end
   end
-  
+
   def reset_question_texts(destroy_purpose = true)
    data = File.open(Rails.root + "config/questions.yml"){|yf| YAML::load( yf ) }
    help_texts = CSV.read( 'doc/helptext.csv' )
@@ -242,7 +242,7 @@ class Activity < ActiveRecord::Base
          basic_attributes = { :help_text => texts[:help_text], :label => texts[:label]}
          basic_attributes[:choices] = data['choices'][question_data['choices']] if question_data['choices']
          questions = self.questions.find_all_by_name("#{section}_#{strand}_#{question_number}")
-         questions.each do |q| 
+         questions.each do |q|
            q.update_attributes(basic_attributes)
            q.save!
          end
@@ -255,9 +255,9 @@ class Activity < ActiveRecord::Base
   ## See http://blog.sqlauthority.com/2007/06/08/sql-server-insert-multiple-records-using-one-insert-statement-use-of-union-all/
   def create_questions_if_new
     # Initialise a question, for every question name, if this is a new record
-    # 
-    # 
-    # 
+    #
+    #
+    #
     data = File.open(Rails.root + "config/questions.yml"){|yf| YAML::load( yf ) }
     help_texts = CSV.read( 'doc/helptext.csv' )
     dependents = {}
@@ -284,7 +284,7 @@ class Activity < ActiveRecord::Base
             texts[key] = new_value
           end
           basic_attributes = {:input_type => question_data["type"], :needed => question_data["dependent_questions"].blank?,
-                               :help_text => texts[:help_text], :label => texts[:label], :name => "#{section}_#{strand}_#{question_number}", 
+                               :help_text => texts[:help_text], :label => texts[:label], :name => "#{section}_#{strand}_#{question_number}",
                                :strand => strand, :section => section}
           basic_attributes[:choices] = data['choices'][question_data['choices']] if question_data['choices']
           question = self.questions.build(basic_attributes)
@@ -318,13 +318,13 @@ class Activity < ActiveRecord::Base
     else
       self.approved_on = nil
     end
-    true 
+    true
   end
-  
+
   def show_full_assessment?
     true
   end
-  
+
   #broken with section and strand passed!
   def started(section = nil, strand = nil)
     like = [section, strand].join('\_')
@@ -350,15 +350,15 @@ class Activity < ActiveRecord::Base
     end
     return false
   end
-  
+
   def overall_relevant?
     true
   end
-  
+
   def overall_relevant
     true
   end
-  
+
   def relevant_action_count
     actions = 0
     strands.each do |relevant_strand|
@@ -369,12 +369,12 @@ class Activity < ActiveRecord::Base
     actions += self.issues.where(:section => nil).count
     actions
   end
-  
+
 
   def disabled_strands
     self.strands(true) - self.strands
   end
-  
+
   def action_plan_completed
     issues_to_check = []
     strands(false).each do |enabled_strand|
@@ -400,9 +400,10 @@ class Activity < ActiveRecord::Base
     issues_to_check.flatten.each{|issue| return "No" unless issue.check_responses}
     return "Yes"
   end
-  
+
   #This allows you to check whether a activity, section or strand has been completed.
-  def completed(section = nil, strand = nil)
+  #TODO: Is this the best way to check completion? These look like they should be split into seperate methods for clarity.
+  def completed(section = nil, strand = nil, debug = false)
     is_purpose = (section.to_s == 'purpose')
     #are all the strategies completed if they need to be?
     strategies_not_completed = self.activity_strategies.find(:all, :conditions => 'strategy_response LIKE 0').size > 0
@@ -410,7 +411,7 @@ class Activity < ActiveRecord::Base
     #Special check for the unique conditions where section and strand are nil
     if section.nil? && strand.nil? then
       search_conditions = {:completed => false, :needed => true}
-      question_set = self.questions.find(:all, :conditions => search_conditions)
+      question_set = self.questions.where(search_conditions)
       self.disabled_strands.each do |s|
         question_set.reject!{|q| q.strand.to_s == s.to_s}
       end
@@ -420,6 +421,7 @@ class Activity < ActiveRecord::Base
     search_conditions = {:completed => false, :needed => true}
     search_conditions[:section] = section.to_s if section
     strand_list = is_purpose ? strands(true).push("overall") : strands(true)
+    puts strand_list.inspect if debug
     strand_list.each do |s|
       unless is_purpose
         if strand
@@ -428,6 +430,7 @@ class Activity < ActiveRecord::Base
           next if !self.send("#{s}_relevant")
         end
       end
+      puts s if debug
       if section.to_s == "consultation" || section.blank?
         consultation_qns = self.questions.where(:name => ["consultation_#{s.to_s}_1", "consultation_#{s.to_s}_4"])
         return false if consultation_qns.inject(true){|t,q| t && q.raw_answer == "2"}
@@ -441,19 +444,22 @@ class Activity < ActiveRecord::Base
     end
     #check if we need to check issues?
     issues_to_check = []
+
     strands(!strand.to_s.blank?).each do |enabled_strand|
       next unless enabled_strand.to_s.include? strand.to_s
-      impact_qn = "impact_#{enabled_strand}_9"
+      impact_qn = "impact_#{enabled_strand}_10"
       consultation_qn = "consultation_#{enabled_strand}_7"
       impact_answer = self.questions.where(:name => impact_qn).first.response.to_i
       consultation_answer = self.questions.where(:name => consultation_qn).first.response.to_i
       impact_needed = (section.to_s == 'impact' || section.to_s == 'action_planning' || section.nil?)
       consultation_needed = (section.to_s == 'consultation' || section.to_s == 'action_planning'  || section.nil?)
+
       if impact_answer == 1  && impact_needed then
         issues = self.issues_by('impact', enabled_strand)
         return false if issues.size == 0
         issues_to_check << issues
       end
+
       if consultation_answer == 1 && consultation_needed then
         issues = self.issues_by('consultation', enabled_strand)
         return false if issues.size == 0
@@ -464,20 +470,20 @@ class Activity < ActiveRecord::Base
     issues_to_check.flatten.each{|issue| return false unless issue.check_responses} if (section.nil? || section.to_s == 'action_planning')
     return true
   end
-  
+
   def issues_relevant?(strand)
     impact_qn = "impact_#{strand}_9"
     consultation_qn = "consultation_#{strand}_7"
     impact_answer = self.questions.where(:name => impact_qn).first.response.to_i
     consultation_answer = self.questions.where(:name => consultation_qn).first.response.to_i
-    
+
     if impact_answer==1 || consultation_answer==1
       issues.find_by_strand(strand.to_s)
     else
       false
     end
-      
-    
+
+
     # issues_to_check = []
     # if impact_answer == 1
     #   issues = self.issues_by('impact', strand)
@@ -499,7 +505,7 @@ class Activity < ActiveRecord::Base
     questions_between = self.questions.find(:all, :conditions => ["updated_at between ? and ?",
              start_date, end_date]).size > 0
     questions_after = self.questions.find(:all, :conditions => ["updated_at between ? and ?",
-                      end_date, Time.now]).size > 0             
+                      end_date, Time.now]).size > 0
     return (activity_between || questions_between) && !questions_after
   end
 
@@ -535,7 +541,7 @@ class Activity < ActiveRecord::Base
     conditions[:strand] = strand.to_s if strand
     self.issues.where(conditions)
   end
-  
+
   def strand_relevancies
     list = {}
     hashes['wordings'].keys.each do |strand|
@@ -543,7 +549,7 @@ class Activity < ActiveRecord::Base
     end
     list
   end
-  
+
   def update_completed
     sections.each do |section|
       self.send("#{section}_completed=".to_sym, true)
@@ -574,11 +580,11 @@ class Activity < ActiveRecord::Base
     return false unless q.first
     q.first.response == 1
   end
-  
+
   def strand_relevant?(strand)
     self.send("#{strand.to_s}_relevant")
   end
-  
+
   def update_relevancies!
     strand_attributes = {}
     self.strands(true).each do |strand|
@@ -600,36 +606,36 @@ class Activity < ActiveRecord::Base
   def self.strands
     ['gender', 'race', 'disability', 'faith', 'sexual_orientation', 'age', 'gender_reassignment', 'pregnancy_and_maternity', 'marriage_civil_partnership']
   end
-  
+
   def activity_type_name
     self.types[self.activity_type.to_i].to_s
   end
-  
+
   def activity_status_name
     self.statuses[self.activity_status.to_i].to_s
   end
-  
+
   def types
     # ["policy", "function", "strategy", "service"]
     ["policy", "function"]
   end
-  
+
   def proposed?
     self.activity_status == 2
   end
-  
+
   def existing?
     self.activity_status == 1
   end
-  
+
   def statuses
     ["New/Proposed", "Reviewed", "Amended"]
   end
-  
+
   def activity_relevant?
     self.strands.size > 0
   end
-  
+
   def clone
     new_activity = Activity.create!(self.attributes)
     self.questions.each do |q|
@@ -658,7 +664,7 @@ class Activity < ActiveRecord::Base
     new_activity.save
     new_activity
   end
-  
+
   def self.question_setup_names
     {:purpose =>          { :overall => [2,5,6,7, 13,14],
                             :race => [3],
@@ -690,7 +696,7 @@ class Activity < ActiveRecord::Base
                             :marriage_civil_partnership => [1,2,3,4,5,6,7],
                             :faith => [1,2,3,4,5,6,7],
                             :age => [1,2,3,4,5,6,7]
-                          },    
+                          },
       :additional_work => { :race => [1,2,3,44,4,6, 10, 11],
                             :disability => [1,2,3,44,4,6,7,8,9, 10, 11],
                             :sexual_orientation => [1,2,3,44,4,6, 10, 11],
@@ -709,7 +715,7 @@ class Activity < ActiveRecord::Base
       checker = ((response.to_s.length > 0)&&response.to_s != "0") unless checker
       return checker
     end
-    
+
    def sentence_desc(strand)
      case strand.to_s
      when 'race'
