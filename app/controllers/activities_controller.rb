@@ -194,6 +194,7 @@ class ActivitiesController < ApplicationController
         redirect_to my_eas_activities_path and return
       end
     else
+      raise @activity.errors.inspect
       if !@activity.errors[:completer].blank?
         @activity.errors.add(:completer_email, "An EA must have someone assigned to undergo the assessment")
       end
