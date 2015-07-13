@@ -2,9 +2,9 @@
 # This preamble is the current preamble for Rails 3 apps; edit as needed.
 source 'http://rubygems.org'
 
-gem 'rails', "3.0.20"
+gem 'rails', "3.1.12"
 gem 'haml'
-gem "mysql2", '< 0.3'
+gem "mysql2"
 gem "jquery-rails"
 #gem 'rmagick', :require => 'RMagick'
 gem 'pdf-writer', :require => 'pdf/writer'
@@ -21,6 +21,13 @@ gem 'whenever'
 gem 'will_paginate', "~> 3.0.pre2"
 gem 'sass'
 gem 'rake', '0.8.7'
+
+group :assets do
+  gem 'sass-rails',   '~> 3.1.7'
+  gem 'coffee-rails', '~> 3.1.1'
+  gem 'uglifier',     '>= 1.0.3'
+end
+
 group :test do
   gem 'factory_girl', "1.3.3"
   gem 'shoulda'
