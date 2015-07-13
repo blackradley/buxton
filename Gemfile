@@ -22,12 +22,15 @@ gem 'will_paginate', "~> 3.0.pre2"
 gem 'sass'
 gem 'rake', '0.8.7'
 group :test do
+  gem 'factory_girl', "1.3.3"
   gem 'shoulda'
   gem 'mocha'
+  gem "test_after_commit"
 end
 
 group :development do
   gem "rcov_rails"
   gem 'mail_safe'
   gem 'rvm-capistrano'
+  gem 'db_fixtures_dump'
 end

@@ -13,24 +13,25 @@ class Directorate < ActiveRecord::Base
   validates_presence_of :name
   validate :has_cops
   scope :active, :conditions => {:retired => false}
+  belongs_to :creator, :class_name => "User"
   # validates_associated :cop
-  
+
   attr_accessor :should_destroy
-  
+
   include FixInvalidChars
-  
+
   before_save :fix_name
-  
+
   def has_cops
     unless cops.first
       errors.add( "cop_email", "At least one Governance Officer must be assigned." )
     end
   end
-  
+
   def fix_name
     self.name = fix_field(self.name)
   end
-  
+
   def cop_email(index=0)
     if self.cops[ index ]
       self.cops[ index ].email
@@ -38,7 +39,7 @@ class Directorate < ActiveRecord::Base
       ""
     end
   end
-  
+
   def method_missing(method, *args, &block)
     if method.to_s.include?('cop_email')
       return cop_email(method.to_s.last.to_i)
@@ -46,7 +47,7 @@ class Directorate < ActiveRecord::Base
       return super
     end
   end
-  
+
   def cop_email=(emails)
     cops.clear
     emails.each do |email|
@@ -85,12 +86,12 @@ class Directorate < ActiveRecord::Base
 
   # def results_table
   #     Organisation.results_table(self)
-  #   end  
-  
+  #   end
+
   def can_be_edited_by?(user_)
     user_.class == Administrator
   end
-  
+
   def self.can_be_viewed_by?(user_)
     user_.class == Administrator
   end
