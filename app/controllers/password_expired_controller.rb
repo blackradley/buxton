@@ -1,7 +1,6 @@
-class PasswordExpiredController < Devise::PasswordExpiredController 
+class PasswordExpiredController < Devise::PasswordExpiredController
   skip_before_filter :handle_password_change
   prepend_before_filter :authenticate_scope!, :only => [:show, :update]
-  include Devise::Controllers::InternalHelpers
 
   def show
     if not resource.nil? and resource.need_change_password?
@@ -12,7 +11,7 @@ class PasswordExpiredController < Devise::PasswordExpiredController
       redirect_to after_sign_in_path_for(resource)
     end
   end
-  
+
   private
 
   def scope

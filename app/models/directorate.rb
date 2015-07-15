@@ -48,12 +48,17 @@ class Directorate < ActiveRecord::Base
     end
   end
 
+  #TODO: Get rid of this
   def cop_email=(emails)
     cops.clear
-    emails.each do |email|
-      if user = User.live.find_by_email(email)
-        cops << user
+    if emails.is_a? Array
+      emails.each do |email|
+        if user = User.live.find_by_email(email)
+          cops << user
+        end
       end
+    else
+      cops << User.live.find_by_email(emails)
     end
   end
 

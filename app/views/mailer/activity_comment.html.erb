@@ -12,7 +12,7 @@
     <h2>This EA has undergone Quality Control</h2>
     <p>This email is from the Equality Risk Toolkit assessment tool.</p>
     <%= html_format(@contents)%>
-    <p> You can log in at <%= auto_link(questions_activity_url(@activity)).html_safe %> to view the EA</p>
+    <p> You can log in <%= link_to("here", questions_activity_url(@activity)).html_safe %> to view the EA</p>
   </div>
 </body>
 </html>

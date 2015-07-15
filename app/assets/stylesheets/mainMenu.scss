@@ -1,0 +1,100 @@
+#menu {
+  width: 700px;
+  background-image: image-url("tab_bar_bg.png");
+  background-repeat: repeat-x;
+  height: 30px; }
+
+#menuBar ul {
+  margin: 0 0 0 5px;
+  padding: 0;
+  list-style: none;
+  float: left; }
+  #menuBar ul li {
+    list-style: none;
+    background-image: image-url("tab_bg.png");
+    float: left;
+    display: block;
+    margin-right: 5px;
+    margin-top: 0px;
+    height: 30px;
+    overflow: hidden; }
+    #menuBar ul li img {
+      float: left; }
+    #menuBar ul li img.right {
+      float: left; }
+    #menuBar ul li a {
+      text-decoration: none;
+      color: #1B4E77;
+      display: block;
+      padding: 0 0em;
+      line-height: 30px;
+      font-weight: normal;
+      font-size: 12px;
+      cursor: pointer; }
+      #menuBar ul li a:visited {
+        text-decoration: none;
+        color: #1B4E77;
+        display: block;
+        padding: 0 0em;
+        line-height: 30px;
+        font-weight: normal;
+        cursor: pointer; }
+      #menuBar ul li a:hover {
+        background-color: #fff;
+        color: #1B4E77; }
+    #menuBar ul li .tab_left {
+      background-image: image-url("tab_left.png");
+      width: 12px;
+      height: 30px;
+      float: left; }
+    #menuBar ul li .tab_center {
+      float: left; }
+    #menuBar ul li .tab_right {
+      background-image: image-url("tab_right.png");
+      float: left;
+      width: 12px;
+      height: 30px; }
+  #menuBar ul li.disabled {
+    background-image: none;
+    background-color: #ddd; }
+    #menuBar ul li.disabled a {
+      text-decoration: none;
+      color: #999;
+      display: block;
+      padding: 0 0em;
+      line-height: 30px;
+      font-weight: normal;
+      cursor: default; }
+      #menuBar ul li.disabled a:visited {
+        text-decoration: none;
+        color: #999;
+        display: block;
+        background-color: #aeb1ab;
+        padding: 0 0em;
+        line-height: 30px;
+        font-weight: normal;
+        cursor: default; }
+      #menuBar ul li.disabled a:hover {
+        background-color: #ccc;
+        color: #999; }
+    #menuBar ul li.disabled .tab_left {
+      background-image: image-url("tab_left.png");
+      width: 12px;
+      height: 30px;
+      float: left; }
+    #menuBar ul li.disabled .tab_center {
+      float: left; }
+    #menuBar ul li.disabled .tab_right {
+      background-image: image-url("tab_right.png");
+      float: left;
+      width: 12px;
+      height: 30px; }
+  #menuBar ul li.selected {
+    background-image: none;
+    background-color: #fff; }
+    #menuBar ul li.selected a {
+      color: #1B4E77;
+      background-color: #fff; }
+      #menuBar ul li.selected a:visited {
+        color: #1B4E77;
+        background-color: #fff; }

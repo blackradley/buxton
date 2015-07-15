@@ -1,0 +1,121 @@
+.clear {
+  height: 0px;
+  margin: 0px;
+  padding: 0px; }
+
+form.formtastic fieldset ol li.boolean label {
+  padding-left: 0;
+  width: 180px; }
+form.formtastic fieldset ol li.boolean input {
+  border: 0; }
+form.formtastic fieldset ol li select {
+  width: 424px; }
+form.formtastic fieldset ol li p.inline-errors {
+  width: 414px; }
+form.formtastic fieldset ol li.string input,
+form.formtastic fieldset ol li.autocompleted_string input,
+form.formtastic fieldset ol li.datepicker input {
+  width: 415px;
+  background-position: 402px center; }
+form.formtastic fieldset ol li.text textarea {
+  width: 70%; }
+
+#strand {
+  width: 700px; }
+
+.step .stepBox p img {
+  margin-bottom: -2px;
+  padding-bottom: 4px; }
+.step .stepBox .checkStrand input {
+  margin-top: 2px; }
+
+h1,
+h2,
+h3 {
+  font-weight: bold; }
+
+h1 {
+  margin-top: 20px; }
+
+h4 .h4_link {
+  margin-top: -23px; }
+
+.help_example {
+  float: left;
+  margin-left: 5px;
+  margin-top: 10px; }
+
+.help_example {
+  float: left;
+  margin-left: 65px;
+  margin-top: 0px; }
+
+.section_summary_toggles {
+  width: 100px; }
+
+#content_holder {
+  height: auto; }
+
+#disable {
+  width: 700px; }
+
+#menuBar ul li .tab_left {
+  background-image: image-url("tab_left.gif"); }
+#menuBar ul li .tab_right {
+  background-image: image-url("tab_right.gif"); }
+
+#new_activity .labelled .checkbox input {
+  margin-top: -3px; }
+
+#pdf_link {
+  margin-top: -20px; }
+
+h3 {
+  padding-top: 20px; }
+
+#view_activities_by {
+  margin-top: 20px;
+  width: 201px; }
+
+#questions.no_help .button input {
+  margin-right: 290px; }
+
+.content .workingArea #content_holder h1#questions {
+  margin-top: 10px;
+  margin-left: 0px; }
+
+#questions .more {
+  margin-top: -20px; }
+  #questions .more .help {
+    width: 235px; }
+  #questions .more .comment,
+  #questions .more .note {
+    width: 235px; }
+  #questions .more p.comment {
+    margin-left: 2px; }
+  #questions .more p.note {
+    margin-left: 2px; }
+  #questions .more .commentform,
+  #questions .more .noteform {
+    width: 235px;
+    margin-bottom: 0px;
+    margin-left: 2px; }
+  #questions .more textarea {
+    width: 220px; }
+#questions h5 {
+  padding: 0px 0px 10px;
+  margin-top: 10px; }
+#questions .question .add_issue img {
+  margin-right: 0px; }
+
+#disable {
+  height: 980px; }
+
+#form_holder #signup_form p .form_note {
+  width: 100%; }
+#form_holder #signup_form p span.button .button {
+  padding-left: 0;
+  padding-right: 0; }
+#form_holder #signup_form p span.button .submit {
+  padding-left: 10px;
+  padding-right: 10px; }

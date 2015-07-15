@@ -30,10 +30,17 @@ Buxton::Application.configure do
   config.action_dispatch.best_standards_support = :builtin
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
-  config.action_controller.session = {
+  config.session_store = {
     :expire_after    => 14 * 24 * 3600, #Cookies will expire after 2 weeks
     :secure => true #The session will now not be sent or received on HTTP requests.
   }
+
+  # Raise exception on mass assignment protection for Active Record models
+  config.active_record.mass_assignment_sanitizer = :strict
+
+  # Log the query plan for queries taking more than this (works
+  # with SQLite, MySQL, and PostgreSQL)
+  config.active_record.auto_explain_threshold_in_seconds = 0.5
 end
 BANNER    = true
 KEYS      = true

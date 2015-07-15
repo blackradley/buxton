@@ -1,0 +1,51 @@
+.directorate fieldset {
+  border-top: 2px solid #1b4e77;
+  padding-left: 0px;
+  padding-bottom: 20px;
+  padding-top: 10px; }
+  .directorate fieldset legend {
+    color: #1b4e77;
+    font-weight: bold;
+    background-color: white;
+    font-size: 1.1em; }
+  .directorate fieldset label {
+    width: 200px; }
+    .directorate fieldset label .long {
+      width: 600px; }
+  .directorate fieldset .labelled {
+    float: left;
+    width: 280px;
+    line-height: 20px;
+    font-weight: bold;
+    overflow: none; }
+    .directorate fieldset .labelled .long {
+      width: 600px; }
+  .directorate fieldset .labelled.long input {
+    width: auto;
+    margin-left: 0px;
+    border: none;
+    float: left;
+    clear: left; }
+  .directorate fieldset .labelled.long .answer {
+    width: 260px;
+    float: left; }
+
+.add_officer_link {
+  float: right;
+  background-image: image-url("add.png");
+  background-repeat: no-repeat;
+  background-position: center left;
+  padding-left: 20px;
+  height: 15px; }
+
+a.delete_dgo {
+  float: right;
+  color: red; }
+
+a.delete_dgo:visited {
+  color: red;
+  margin-top: 10px; }
+
+form.formtastic fieldset ol li input.multi {
+  width: 390px;
+  margin-top: 5px; }

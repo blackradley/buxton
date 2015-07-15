@@ -1,0 +1,301 @@
+.content .workingArea #content_holder h1#questions {
+  text-align: left;
+  font-size: 20px;
+  color: #1b4e77;
+  background: none;
+  float: none;
+  margin-left: 0px; }
+
+h2 img {
+  margin-bottom: -2px; }
+
+.letter {
+  font-size: 24px;
+  font-family: "Arial Rounded MT Bold", Arial;
+  color: #1b4e77; }
+
+.consultationColorbox {
+  display: none; }
+
+#questions {
+  width: 950px;
+  margin: 0px 0px;
+  background-image: image-url("questions_bg.gif");
+  background-repeat: repeat-y;
+  background-position: 165px 0px;
+  clear: left;
+  float: left;
+  overflow: hidden; }
+  #questions ul {
+    padding: 0px;
+    margin: 0px; }
+    #questions ul li {
+      padding: 0px;
+      margin: 0px;
+      margin-left: 10px;
+      list-style: none;
+      font-weight: bold; }
+      #questions ul li a {
+        font-weight: normal;
+        font-size: 0.9em;
+        line-height: 1em; }
+        #questions ul li a img {
+          margin-bottom: -3px;
+          margin-left: 10px; }
+  #questions p img {
+    float: left;
+    margin-top: 4px;
+    margin-left: 6px; }
+  #questions h4,
+  #questions h5 {
+    width: 590px;
+    clear: left;
+    margin-top: 0px; }
+  #questions label {
+    width: 570px;
+    float: left;
+    text-align: left;
+    padding-bottom: 2px; }
+  #questions .more {
+    float: right;
+    width: 340px;
+    text-align: left;
+    margin: 0px;
+    overflow: hidden;
+    position: relative;
+    clear: right;
+    margin-top: -10px; }
+    #questions .more .noteform, #questions .more .commentform {
+      display: none; }
+    #questions .more h3 {
+      width: 340px;
+      text-align: left;
+      margin: 0px;
+      margin-top: 10px;
+      clear: both; }
+      #questions .more h3 img {
+        float: left;
+        margin: 0px 4px; }
+      #questions .more h3 a {
+        font-size: 1em;
+        font-weight: normal; }
+    #questions .more .help {
+      margin: 0px 0px 0px 5px;
+      padding: 10px;
+      color: #515f8d;
+      font-size: 1em;
+      background-color: #f9fdd0;
+      border: 1px solid #fff3a4;
+      width: 310px; }
+      #questions .more .help p {
+        margin: 0;
+        padding: 0 0 5px 0; }
+    #questions .more .comment,
+    #questions .more .note {
+      margin: 0px 0px 5px 10px;
+      float: left;
+      text-align: left;
+      padding: 10px;
+      color: #1b4e77;
+      font-size: 1em;
+      width: 310px;
+      overflow: hidden; }
+    #questions .more p.comment {
+      background-color: #dfe3f9;
+      border: 1px solid #b3beda;
+      margin-left: 5px; }
+    #questions .more p.note {
+      background-color: #f0fddc;
+      border: 1px solid #a3bf8e;
+      margin-left: 5px; }
+      #questions .more p.note .controls {
+        margin: 0px; }
+    #questions .more .control {
+      float: left;
+      margin-right: 10px;
+      margin-left: 10px; }
+      #questions .more .control img {
+        float: left;
+        margin-right: 5px; }
+    #questions .more .commentform,
+    #questions .more .noteform {
+      margin: 0px;
+      float: left;
+      text-align: left;
+      margin-bottom: 20px;
+      margin-left: 5px; }
+    #questions .more .commentform a {
+      margin: 0px 0px; }
+    #questions .more .noteform a {
+      margin: 0px 0px; }
+    #questions .more textarea {
+      float: left;
+      margin-bottom: 10px;
+      width: 230px;
+      overflow: auto;
+      margin-left: 0px; }
+    #questions .more ul {
+      margin-left: 10px;
+      margin-top: 5px; }
+      #questions .more ul li {
+        list-style: disc;
+        font-weight: normal;
+        list-style-position: outside; }
+  #questions .question.focused {
+    background: #eeeeee; }
+  #questions .question {
+    position: relative;
+    clear: left;
+    float: left;
+    width: 590px;
+    text-align: left;
+    margin: 5px 0px 0px;
+    overflow: hidden;
+    display: block;
+    padding-bottom: 5px; }
+    #questions .question label {
+      margin: 5px 10px;
+      width: 570px;
+      clear: none; }
+    #questions .question input,
+    #questions .question select,
+    #questions .question textarea {
+      float: left;
+      margin: 0px 0px 10px 10px;
+      width: 570px; }
+    #questions .question .sub {
+      margin-left: 20px;
+      width: 578px;
+      float: left;
+      clear: left;
+      overflow: hidden;
+      margin-top: 5px;
+      border-left: 2px solid #1b4e77; }
+      #questions .question .sub input,
+      #questions .question .sub select {
+        margin-left: 30px;
+        width: 318px; }
+      #questions .question .sub label {
+        width: 338px;
+        margin: 0px 30px 5px 30px;
+        font-weight: normal; }
+      #questions .question .sub textarea {
+        margin-left: 10px;
+        width: 318px; }
+    #questions .question #issues_list {
+      float: left;
+      margin-bottom: 10px; }
+      #questions .question #issues_list .issue {
+        clear: left;
+        float: left;
+        margin-left: 0px;
+        margin-bottom: 2px;
+        width: 400px; }
+        #questions .question #issues_list .issue input {
+          margin-left: 10px;
+          width: 350px; }
+      #questions .question #issues_list a img {
+        float: left;
+        margin-top: 0px;
+        margin-left: 10px;
+        position: relative; }
+    #questions .question img {
+      margin: 1px 0px 10px 0px; }
+    #questions .question .add_issue {
+      margin-left: 10px;
+      margin-bottom: 10px; }
+      #questions .question .add_issue img {
+        float: left;
+        margin-left: 10px;
+        margin-right: 5px;
+        margin-top: -2px; }
+  #questions .question_compact {
+    position: relative;
+    clear: left;
+    float: left;
+    width: 590px;
+    text-align: left;
+    margin: 5px 0px 0px;
+    overflow: hidden;
+    padding-bottom: 5px; }
+    #questions .question_compact label {
+      margin: 5px 10px;
+      width: 425px;
+      clear: none; }
+    #questions .question_compact input,
+    #questions .question_compact select,
+    #questions .question_compact textarea {
+      float: left;
+      margin: 10px 10px 5px 10px;
+      width: 125px; }
+  #questions .question_compact.focused {
+    background: #eeeeee; }
+  #questions .button {
+    width: 590px;
+    float: left;
+    text-align: center; }
+    #questions .button input {
+      border: 0px;
+      background-image: image-url("orange_buttons/search.jpg");
+      background-repeat: no-repeat;
+      width: 79px;
+      height: 32px;
+      overflow: hidden;
+      color: white;
+      float: none;
+      padding: 0px;
+      margin: 0px 0px 0px 10px;
+      line-height: 22px;
+      font-weight: bold; }
+    #questions .button input:hover {
+      background-image: image-url("orange_buttons/search_hover.jpg"); }
+
+#questions.assessmentComments textarea {
+  margin-bottom: 0px;
+  height: 300px; }
+
+#questions.no_help {
+  background-image: none; }
+  #questions.no_help .newIssueForm h4 {
+    width: 100px;
+    float: left; }
+  #questions.no_help .newIssueForm input {
+    float: left;
+    margin: 10px 0px; }
+  #questions.no_help .newIssueForm span.button {
+    margin-top: 10px;
+    margin-left: 5px;
+    width: 50px;
+    float: left; }
+  #questions.no_help h4 {
+    width: 600px; }
+  #questions.no_help ul {
+    margin-bottom: 20px; }
+    #questions.no_help ul li {
+      margin: 0px; }
+  #questions.no_help .question {
+    width: 950px;
+    padding: 0px; }
+    #questions.no_help .question label {
+      width: 600px;
+      margin-left: 0px;
+      font-weight: normal; }
+    #questions.no_help .question input,
+    #questions.no_help .question select,
+    #questions.no_help .question textarea {
+      width: 944px;
+      margin-left: 0px; }
+    #questions.no_help .question textarea {
+      margin-bottom: 0px;
+      height: 300px; }
+  #questions.no_help .button {
+    width: 950px; }
+    #questions.no_help .button input {
+      width: 79px;
+      height: 32px;
+      margin: 0px 0px 0px 10px !important; }
+  #questions.no_help .question.focused {
+    background-color: white !important; }
+
+.issueControls img {
+  margin-right: 5px; }

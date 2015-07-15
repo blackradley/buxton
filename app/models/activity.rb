@@ -102,11 +102,12 @@ class Activity < ActiveRecord::Base
     end
   end
 
+  #TODO: Fix this
   def service_area=(arg)
-    if arg.is_a? String
+    if arg.is_a?(String) || arg.is_a?(Fixnum)
       self.service_area_id = arg.to_i
     else
-      self.service_area_id = arg
+      self.service_area_id = arg.id
     end
   end
 
