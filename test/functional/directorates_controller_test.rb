@@ -73,7 +73,7 @@ class DirectoratesControllerTest < ActionController::TestCase
     end
 
     should "not be able to update a directorate if they have not assigned a corp cop" do
-      post :update, :id => directorates(:directorates_002), :directorate => {:name => "Test Directorate", :cop_email => ""}
+      post :update, :id => directorates(:directorates_002), :directorate => {:name => "Test Directorate"}
       assert_response :success
       assert(!assigns(:directorate).valid?)
     end

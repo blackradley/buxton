@@ -1,0 +1,103 @@
+/* -------------------------------------------------------------------------------------------------
+
+Load this stylesheet after formtastic.css in your layouts to override the CSS to suit your needs.
+This will allow you to update formtastic.css with new releases without clobbering your own changes.
+
+For example, to make the inline hint paragraphs a little darker in color than the standard #666:
+
+form.formtastic fieldset  ol  li p.inline-hints { color:#333; }
+
+HINT:
+The following style may be *conditionally* included for improved support on older versions of IE(<8)
+form.formtastic fieldset ol li fieldset legend { margin-left: -6px;}
+
+--------------------------------------------------------------------------------------------------*/
+form.formtastic{
+    width: 600px;
+    clear:left;
+    float:left;
+}
+form.formtastic fieldset {
+    width: 600px;
+
+}
+
+.issueForm form.formtastic fieldset  ol  li {
+  clear: both ;
+}
+form.formtastic fieldset  ol  li {
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 3px 0;
+}
+
+form.formtastic fieldset  ol  li label {
+    display: inline;
+    float: left;
+    padding-top: 0;
+    width: 150px;
+    line-height: 20px;
+    font-weight:bold;
+}
+form.formtastic fieldset  ol  li input, form.formtastic fieldset  ol  li.string input{
+    display: inline;
+    font-size: 12px;
+    line-height: 12px;
+    padding: 2px;
+    width: 434px;
+}
+form.formtastic fieldset  ol  li.datepicker input{
+background-image: image-url("icons/calendar.png");
+background-repeat: no-repeat;
+background-position: 421px center;
+}
+form.formtastic fieldset  ol  li select{
+    font-size: 12px;
+    line-height: 12px;
+    padding: 2px;
+    width: 440px;
+}
+form.formtastic fieldset  ol  li p.inline-errors {
+    color: #CC0000;
+    float: right;
+    margin: 0;
+    width: 440px;
+}
+form.formtastic fieldset  ol  li.boolean label {
+    padding-left: 0;
+    width: 170px;
+}
+form.formtastic fieldset  ol  li.boolean label input {
+    float: right;
+    margin: 3px 0 0;
+    width: auto;
+}
+form.formtastic fieldset.buttons{
+  padding-left:0px;
+}
+form.formtastic fieldset.buttons li {
+    float: none;
+    padding-right: 0;
+    text-align:center;
+}
+
+form.formtastic fieldset.buttons {
+    text-align: center;
+}
+
+form.formtastic fieldset.buttons input{
+  border: 0px;
+  background-image: image-url("orange_buttons/search.jpg");
+  background-repeat: no-repeat;
+  width: 79px;
+  height: 32px;
+  overflow: hidden;
+  color: #ffffff;
+  padding: 0px;
+  margin: 0px 0px 0px 10px;
+  line-height: 22px;
+  font-weight: bold;
+}
+form.formtastic fieldset.buttons input:hover{
+  background-image: image-url("orange_buttons/search_hover.jpg");
+}

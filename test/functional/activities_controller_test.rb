@@ -158,7 +158,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to view the PDF file for an activity that's not in their directorate" do
-      get :show, :id => Factory(:activity, :service_area => service_areas(:service_areas_002)).id
+      get :show, :id => Factory.create(:activity, :service_area => service_areas(:service_areas_002)).id
       assert_response :redirect
       assert_redirected_to access_denied_path
     end
@@ -169,7 +169,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to see an activity summary for an activity that's not in their directorate" do
-      get :show, :id => Factory(:activity, :service_area => service_areas(:service_areas_002)).id
+      get :show, :id => Factory.create(:activity, :service_area => service_areas(:service_areas_002)).id
       assert_response :redirect
       assert_redirected_to access_denied_path
     end
@@ -1050,7 +1050,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @email = ActionMailer::Base.deliveries.last
       assert_equal @email.subject, "Email subject"
       assert_equal @email.to[0], @activity.completer.email
-      assert_match /This activity has been approved/, @email.body
+      assert_match /This activity has been approved/, @email.body.to_s
     end
 
     should "not be able to submit the approval of an activity that they are not approver for" do
@@ -1083,7 +1083,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @email = ActionMailer::Base.deliveries.last
       assert_equal @email.subject, "Email subject"
       assert_equal @email.to[0], @activity.completer.email
-      assert_match /activity has been successfully rejected/, @email.body
+      assert_match /activity has been successfully rejected/, @email.body.to_s
       assert !Activity.find_by_id(@activity.id)
     end
 
@@ -1229,7 +1229,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @email = ActionMailer::Base.deliveries.last
       assert_equal @email.subject, "Email subject"
       assert_equal @email.to[0], @activity.completer.email
-      assert_match /activity has been successfully rejected/, @email.body
+      assert_match /activity has been successfully rejected/, @email.body.to_s
       assert !Activity.find_by_id(@activity.id)
     end
 
@@ -1392,7 +1392,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @email = ActionMailer::Base.deliveries.last
       assert_equal @email.subject, "Test comment Subject"
       assert_equal @email.to[0], "shaun@27stars.co.uk"
-      assert_match /Test Comment Contents/, @email.body
+      assert_match /Test Comment Contents/, @email.body.to_s
     end
 
     should "not be able to make comments on activities they are not assisting on" do

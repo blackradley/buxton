@@ -1,0 +1,212 @@
+#questiontext p {
+  margin-left: 0px;
+  padding-left: 0px;
+  color: #a92c1c; }
+
+#questions {
+  width: 660px;
+  background-image: image-url("questions_bg.gif");
+  background-repeat: repeat-y;
+  background-position: -25px;
+  clear: left;
+  float: left;
+  overflow: hidden; }
+  #questions h1 {
+    text-align: center;
+    font-size: 20px;
+    color: #1b4e77;
+    background: none;
+    float: none; }
+  #questions h4 {
+    width: 400px;
+    clear: none;
+    margin-top: 0px;
+    line-height: 2.5em; }
+  #questions label {
+    width: 400px;
+    float: left;
+    text-align: left;
+    padding-bottom: 2px; }
+  #questions .more {
+    float: right;
+    width: 240px;
+    text-align: left;
+    margin-left: 0px;
+    margin-right: 0px;
+    overflow: hidden;
+    position: relative;
+    clear: right; }
+    #questions .more h3 {
+      width: 240px;
+      text-align: left;
+      margin: 0px 0px;
+      margin-top: 10px; }
+      #questions .more h3 img {
+        float: left;
+        margin: 0px 4px; }
+      #questions .more h3 a {
+        font-size: 1em;
+        font-weight: normal; }
+    #questions .more .help {
+      margin-left: 10px;
+      margin-top: 0px;
+      padding: 10px;
+      color: #1b4e77;
+      font-size: 1em;
+      background-color: #f9fdd0;
+      border: 1px solid #fff3a4;
+      width: 230px; }
+      #questions .more .help ul li {
+        float: left; }
+    #questions .more .nohelp {
+      margin-left: 5px;
+      margin-top: 0px;
+      text-align: center;
+      font-style: italic; }
+    #questions .more p .comment,
+    #questions .more p .note {
+      margin: 0px;
+      float: left;
+      text-align: left;
+      margin-left: 10px;
+      margin-bottom: 5px;
+      padding: 10px;
+      color: #1b4e77;
+      font-size: 1em;
+      width: 220px;
+      overflow: hidden; }
+    #questions .more p .comment {
+      background-color: #dfe3f9;
+      border: 1px solid #b3beda; }
+    #questions .more p .note {
+      background-color: #f0fddc;
+      border: 1px solid #a3bf8e; }
+    #questions .more p .controls {
+      margin: 0px; }
+    #questions .more .control {
+      float: left;
+      margin: 0px 10px; }
+      #questions .more .control img {
+        float: left;
+        margin-right: 5px; }
+    #questions .more .commentform,
+    #questions .more .noteform {
+      margin: 0px;
+      float: left;
+      text-align: left;
+      margin-left: 5px; }
+      #questions .more .commentform a,
+      #questions .more .noteform a {
+        margin-left: 10px;
+        margin-right: 10px; }
+    #questions .more textarea {
+      float: left;
+      margin-bottom: 10px;
+      width: 225px;
+      margin-left: 0px;
+      overflow: auto; }
+    #questions .more ul {
+      margin-left: 10px;
+      margin-top: 5px; }
+      #questions .more ul li {
+        list-style: disc;
+        font-weight: normal;
+        list-style-position: outside; }
+  #questions p img {
+    float: left;
+    margin-top: 4px;
+    margin-left: 6px; }
+  #questions .question {
+    position: relative;
+    clear: left;
+    float: left;
+    width: 410px;
+    text-align: right;
+    margin: 5px 0px 0px 0px;
+    overflow: hidden;
+    display: block;
+    padding-bottom: 5px;
+    background: white; }
+    #questions .question label {
+      margin: 5px 10px;
+      width: 380px;
+      clear: none; }
+    #questions .question input,
+    #questions .question select,
+    #questions .question textarea {
+      float: left;
+      margin-left: 10px;
+      margin-bottom: 10px;
+      width: 380px; }
+    #questions .question .sub {
+      margin-left: 20px;
+      width: 368px;
+      float: left;
+      clear: left;
+      overflow: hidden;
+      margin-top: 5px;
+      border-left: 2px solid #1b4e77; }
+      #questions .question .sub label {
+        width: 338px;
+        margin: 0px 30px 5px 30px;
+        font-weight: normal; }
+      #questions .question .sub input,
+      #questions .question .sub select {
+        margin-left: 30px;
+        width: 318px; }
+      #questions .question .sub textarea {
+        margin-left: 10px;
+        width: 318px; }
+      #questions .question .sub .issue input {
+        margin-left: 30px;
+        width: 310px; }
+      #questions .question .sub a {
+        margin-left: 30px;
+        float: left;
+        margin-bottom: 10px; }
+  #questions .question.focused {
+    background: #eeeeee; }
+  #questions .button input {
+    float: right;
+    margin-right: 160px;
+    width: auto; }
+  #questions li .issue {
+    clear: left;
+    float: left;
+    margin-left: 0px;
+    margin-bottom: 2px;
+    width: 388px; }
+    #questions li .issue .issueDetails {
+      float: left;
+      margin-bottom: 10px; }
+      #questions li .issue .issueDetails .question .sub textarea {
+        margin-left: 30px;
+        width: 318px; }
+      #questions li .issue .issueDetails .question .sub input {
+        margin-left: 0px;
+        width: 318px; }
+  #questions #issues_list {
+    float: left;
+    margin-bottom: 10px; }
+    #questions #issues_list a img {
+      float: left;
+      margin-top: 4px;
+      margin-left: -20px;
+      position: relative; }
+  #questions ul li .issue {
+    margin-left: 10px; }
+  #questions ul li a {
+    font-weight: normal;
+    font-size: 0.9em;
+    line-height: 1em; }
+    #questions ul li a img {
+      margin-bottom: -3px;
+      margin-left: 10px; }
+
+.issueDescription {
+  width: 200px;
+  float: left; }
+
+.issueControls {
+  width: 180px;
+  float: left; }

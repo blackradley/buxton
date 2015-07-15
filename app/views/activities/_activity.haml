@@ -3,7 +3,7 @@
     - if @clone_of
       = hidden_field_tag "clone_of", @clone_of.id
     #service_areas_path_div{ :data => { :path => get_service_areas_activities_path } }
-    =form.input :directorate, :label => "Directorate", :collection => @directorates, :labal_method => :name, :value_method => :id, :include_blank => false, :selected => @activity.directorate ? @activity.directorate.id : nil
+    =form.input :directorate, :label => "Directorate", :collection => @directorates, :label_method => :name, :value_method => :id, :include_blank => false, :selected => @activity.directorate ? @activity.directorate.id : nil
     .service_area
       = render :partial => 'service_area_select'
     =form.input :name, :label => "EA Title"

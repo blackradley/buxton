@@ -1,0 +1,40 @@
+/* prototip.css : http://www.nickstakenburg.com/projects/prototip */
+.prototip { position: absolute; }
+.prototip .effectWrapper { position: relative; }
+.prototip .tooltip { position: relative; }
+.prototip .toolbar {
+	position: relative;
+	display: block;
+	}
+.prototip .toolbar .title {
+	display: block;
+	position: relative;
+	}
+.prototip .content { clear: both; }
+.prototip .toolbar a.close {
+	position: relative;
+	text-decoration: none;
+	float: right;
+	width: 15px;
+	height: 15px;
+	background: transparent image-url("close.gif");
+	display: block;
+	line-height: 0;
+	font-size: 0px;
+	border: 0;
+	}
+.prototip .toolbar a.close:hover { background: transparent image-url("close_hover.gif"); }
+
+.iframeShim {
+	position: absolute;
+	border: 0;
+	margin: 0;
+    padding: 0;
+    background: none;
+}
+
+/* Tooltip styles */
+.prototip .default { text-align: left; width: 200px; color: #515f8d; border: 1px solid #b3beda; background-color: #dfe3f9; font-size: 1em; padding: 10px; }
+.prototip .default .toolbar { }
+.prototip .default .title { padding: 0; }
+.prototip .default .content { padding: 0 }

@@ -194,7 +194,7 @@ class ActivitiesController < ApplicationController
         redirect_to my_eas_activities_path and return
       end
     else
-      raise @activity.errors.inspect
+      # raise @activity.errors.inspect
       if !@activity.errors[:completer].blank?
         @activity.errors.add(:completer_email, "An EA must have someone assigned to undergo the assessment")
       end
@@ -238,6 +238,9 @@ class ActivitiesController < ApplicationController
   # Update the activity details accordingly.
   # Available to: Activity Manager
   def update
+    @directorates = Directorate.scoped.select{|d| d.service_areas.count > 0}
+    @directorate = @activity.directorate
+    @service_areas = @directorate.service_areas if @directorate
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
     # @directorate = Directorate.find_by_creator_id(current_user.id)
     @selected = "directorate_eas"

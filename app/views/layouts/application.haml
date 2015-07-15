@@ -1,19 +1,19 @@
 !!!
 %html{ 'xmlns' =>'https://www.w3.org/1999/xhtml', 'xml:lang'=> 'en' , 'lang' => 'en' }
-  %head 
-    %title 
-      Equality Risk Toolkit : 
+  %head
+    %title
+      Equality Risk Toolkit :
       = "#{controller.controller_name} : #{controller.action_name}".titleize
     %meta{'http-equiv' => 'cache-control', 'content'=>'no-store'}
     %meta{'http-equiv' => 'pragma', 'content'=>'no-cache'}
     %meta{'http-equiv' => 'content-type', 'content'=>'text/html;charset=UTF-8'}
-    =raw(stylesheet_link_merged :base)
-    =raw(stylesheet_link_tag 'tables')
+    =stylesheet_link_tag :application
+    =stylesheet_link_tag 'tables'
     - if @current_user.respond_to?(:organisation) && !@current_user.organisation.nil? then
       =raw "<style>.mastHead .logo { background-image: url(/images/organisations/#{@current_user.organisation.id}.png);}</style>"
     - if controller.action_name=='signup'
       =raw "<style>.mastHead .logo { background-image: url(/images/free_signup.png);}</style>"
-    =raw javascript_include_merged :base
+    = javascript_include_tag :application
     - if params[:controller] == "users"
       = javascript_include_tag "admin"
     =raw  "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->"
@@ -33,7 +33,7 @@
             - if current_user
               %li.nohover="|"
               %li
-                =link_to "Logout", logout_path
+                =link_to "Logout", destroy_user_session_path
         - if current_user && (current_user.creator? || current_user.corporate_cop? || current_user.directorate_cop?)
           #creatorMenu
             %ul
@@ -89,7 +89,7 @@
         %p
           =raw "Powered by <a href='http://www.impactequality.co.uk' target = '_blank'>Black Radley</a>."
       .clear
-        / | 
+        / |
         / = link_to "Terms of Use", :controller => 'users', :action => 'terms_and_conditions'
         / |
-        / = link_to "Your Privacy", :controller => 'users', :action => 'privacy_protection' 
+        / = link_to "Your Privacy", :controller => 'users', :action => 'privacy_protection'
