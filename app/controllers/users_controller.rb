@@ -3,11 +3,11 @@ class UsersController < ApplicationController
   skip_before_filter :check_trained
   before_filter :requires_admin, :except => [:training, :update_training, :access_denied, :new_user]
   before_filter :setup_breadcrumb
-  
+
   def index
     @users = User.all
   end
-  
+
   def new
     @breadcrumb = [["User Administration", users_path], ["Add New User"]]
     @user = User.new
@@ -15,7 +15,7 @@ class UsersController < ApplicationController
       render :layout => false
     end
   end
-  
+
   def edit
     @breadcrumb = [["User Administration", users_path], ["Edit User"]]
     @user = User.find(params[:id])
@@ -23,7 +23,7 @@ class UsersController < ApplicationController
       render :layout => false
     end
   end
-  
+
   def create
     @breadcrumb = [["User Administration", users_path], ["Add New User"]]
     @user = User.new((params[:user] || {}).merge(:trained => true))
@@ -35,27 +35,13 @@ class UsersController < ApplicationController
       render "new", :layout => false
     end
   end
-  
+
   def new_user
   end
-  
+
   def show
     redirect_to set_homepage
   end
-  # 
-  # def reset_password_request
-  #   render :layout => "login"
-  # end
-  # 
-  # def confirm_reset_password
-  #   if params[:email] && @user = User.find_by_email(params[:email])
-  #     @user.reset_password
-  #     flash[:message] = "Password successfully reset. Please check your email to retrieve your new password"
-  #   else
-  #     flash[:error] = "The email address you entered was not recognised. Please try again."
-  #   end
-  #   redirect_to user_login_path
-  # end
 
 
   def toggle_user_status
@@ -77,20 +63,20 @@ class UsersController < ApplicationController
       render "edit", :layout => false
     end
   end
-  
+
   def access_denied
   end
-  
+
   def training
   end
-  
+
   def update_training
     current_user.update_attributes(:trained => true)
     redirect_to root_path
   end
 
   private
-  
+
   def setup_breadcrumb
     @breadcrumb = [["User Administration"]]
   end

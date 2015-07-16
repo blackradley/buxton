@@ -22,7 +22,7 @@ class ActivityPDFGenerator
     @page_width = @pdf.absolute_right_margin - @pdf.absolute_left_margin
     @activity = activity
 
-    questions = Question.find_all_by_activity_id(@activity.id, :include => [:comment, :note]).map{|q| [q, q.comment, q.note]}
+    questions = Question.includes(:comment, :note).where(activity_id: @activity.id).map{|q| [q, q.comment, q.note]}
     @activity_questions = {}
     questions.each do |question, comment, note|
       @activity_questions[question.name] = [question, comment, note]
@@ -179,9 +179,9 @@ class ActivityPDFGenerator
     @pdf.text " "
     @pdf.text "<b>2.1  <c:uline>What the Activity is for</b></c:uline>", :font_size => 12
     @pdf.text " "
-    target_q = @activity.questions.find_by_name("purpose_overall_2").label.to_s
-    target_a = @activity.questions.find_by_name("purpose_overall_2").response.to_s
-    qn = @activity.questions.find_by_name("purpose_overall_2")
+    target_q = @activity.questions.find_by(name: "purpose_overall_2").label.to_s
+    target_a = @activity.questions.find_by(name: "purpose_overall_2").response.to_s
+    qn = @activity.questions.find_by(name: "purpose_overall_2")
     target = [[target_q, target_a]]
     target << ["Previously: " + target_q, qn.previous.display_response].map{|a| "<i>#{a}</i>"} if qn.different_answer? && !@activity.approved
     comments = get_comments(:purpose_overall_2)
@@ -241,8 +241,8 @@ class ActivityPDFGenerator
     impact_quns = []
     impact_answers = []
     [5,6,7].each do |i|
-      impact_quns << ["purpose_overall_#{i}".to_sym, @activity.questions.find_by_name("purpose_overall_#{i}").label.to_s]
-      impact_answers << (@activity.questions.find_by_name("purpose_overall_#{i}").response.to_i == 1 ? "Yes" : "No")
+      impact_quns << ["purpose_overall_#{i}".to_sym, @activity.questions.find_by(name: "purpose_overall_#{i}").label.to_s]
+      impact_answers << (@activity.questions.find_by(name: "purpose_overall_#{i}").response.to_i == 1 ? "Yes" : "No")
     end
 
     table = []
@@ -355,7 +355,7 @@ class ActivityPDFGenerator
   def build_differential_impact(strand,  section_index)
     table = []
     cell_formats = []
-    question = @activity.questions.find_by_name("purpose_#{strand}_3")
+    question = @activity.questions.find_by(name: "purpose_#{strand}_3")
     question_text = question.label
     comments = get_comments(question.name)
     # return if comments.blank? && !@activity.send("#{strand}_relevant")
@@ -415,13 +415,13 @@ class ActivityPDFGenerator
       row_cell_format = []
       row << strand_display(strand).titlecase
       row_cell_format << nil
-      row <<  @activity.questions.find_by_name("additional_work_#{strand}_4").display_response
+      row <<  @activity.questions.find_by(name: "additional_work_#{strand}_4").display_response
       row_cell_format << nil
       if strand.to_s == 'gender' then
         row << " "
         row_cell_format << {:shading => SHADE_COLOUR}
       else
-        row << @activity.questions.find_by_name("additional_work_#{strand}_6").display_response
+        row << @activity.questions.find_by(name: "additional_work_#{strand}_6").display_response
         row_cell_format << nil
       end
       table << row
@@ -443,9 +443,9 @@ class ActivityPDFGenerator
       heading_information =  [["<b>Equality Strand</b>", "<b>Take Account of Disabilities Even if it Means Treating More Favourably</b>",  "<b>Encourage Participation by Disabled People</b>", "<b>Promote Positive Attitudes to Disabled People</b>"]]
       row = []
       row << 'Disability'
-      row << @activity.questions.find_by_name("additional_work_disability_7").display_response
-      row << @activity.questions.find_by_name("additional_work_disability_8").display_response
-      row << @activity.questions.find_by_name("additional_work_disability_9").display_response
+      row << @activity.questions.find_by(name: "additional_work_disability_7").display_response
+      row << @activity.questions.find_by(name: "additional_work_disability_8").display_response
+      row << @activity.questions.find_by(name: "additional_work_disability_9").display_response
       table << row
       specific_data = {:borders => borders, :header_args => [heading_information, @header_data.clone.merge(:borders => borders)]}
       @pdf = generate_table(@pdf, table, @table_data.clone.merge(specific_data))
@@ -478,11 +478,11 @@ class ActivityPDFGenerator
     issues = []
     index = 1
     @activity.strands.each do |strand|
-      impact_enabled =  @activity.questions.find_by_name("impact_#{strand}_9").response == 1
-      consultation_enabled =  @activity.questions.find_by_name("consultation_#{strand}_7").response == 1
-      strand_issues = @activity.issues.find_all_by_strand(strand)
-      strand_issues.reject!{|issue| issue.section == 'impact'} unless impact_enabled
-      strand_issues.reject!{|issue| issue.section == 'consultation'} unless consultation_enabled
+      impact_enabled =  @activity.questions.find_by(name: "impact_#{strand}_9").response == 1
+      consultation_enabled =  @activity.questions.find_by(name: "consultation_#{strand}_7").response == 1
+      strand_issues = @activity.issues.where(strand: strand)
+      strand_issues = strand_issues.where.not( section: 'impact' ) unless impact_enabled
+      strand_issues = strand_issues.where.not( section: 'consultation' ) unless consultation_enabled
 
       next if strand_issues.blank?
       heading_proc = lambda do |document|

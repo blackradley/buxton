@@ -1084,7 +1084,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       assert_equal @email.subject, "Email subject"
       assert_equal @email.to[0], @activity.completer.email
       assert_match /activity has been successfully rejected/, @email.body.to_s
-      assert !Activity.find_by_id(@activity.id)
+      assert !Activity.find_by(id: @activity.id)
     end
 
     should "not be able to submit their rejection of an activity that has not been submitted for approval or has not been QC checked. This should not create a clone" do
@@ -1096,7 +1096,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @email = ActionMailer::Base.deliveries.last
       assert_not_equal @email.subject, "Email subject"
       assert_not_equal @email.to[0], @activity.completer.email
-      assert Activity.find_by_id(@activity.id)
+      assert Activity.find_by(id: @activity.id)
     end
 
     should "not be able to comment on an activity as a QC" do

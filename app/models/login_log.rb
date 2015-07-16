@@ -6,9 +6,9 @@
 #
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
-class LoginLog < Log  
+class LoginLog < Log
   ICON = 'icons/login.gif'
-  
+
   def details
     det = LogDetails.new
     unless message.include?('activity creation screen')
@@ -23,7 +23,7 @@ class LoginLog < Log
         det[:level] = level[1].to_s.titleize
         level_manager = "#{level[1].camelcase}Manager".constantize
       end
-      det[:organisation] = level_manager.find_by_email(data).send(level[1].to_sym).name if level_manager.find_by_email(data) && level_manager.find_by_email(data).send(level[1].to_sym)
+      det[:organisation] = level_manager.find_by(email: data).send(level[1].to_sym).name if level_manager.find_by(email: data) && level_manager.find_by(email: data).send(level[1].to_sym)
       det[:action] = "Logged in"
       det[:date] = self.created_at.strftime("%d/%m/%Y")
       det[:time] = self.created_at.strftime("%H:%M")

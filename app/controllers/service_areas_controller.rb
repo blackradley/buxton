@@ -21,7 +21,7 @@ class ServiceAreasController < ApplicationController
   before_filter :ensure_access
   before_filter :set_service_area, :only => [:edit, :update, :toggle_retired_status]
   autocomplete :user, :email, :scope => :live
-  
+
   def index
     @breadcrumb = [["Service Areas"]]
     # @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
@@ -29,7 +29,7 @@ class ServiceAreasController < ApplicationController
     @service_areas = @service_areas.uniq
     @selected = "service_areas"
   end
-  
+
   def new
     @breadcrumb = [["Service Areas", service_areas_path], ["Add New Service Area"]]
     @service_area = ServiceArea.new
@@ -51,14 +51,14 @@ class ServiceAreasController < ApplicationController
       render 'new'
     end
   end
-  
+
   def toggle_retired_status
     @service_area.toggle(params[:checkbox])
     @service_area.save
     render :nothing => true
   end
-  
-  
+
+
   def edit
     @breadcrumb = [["Service Areas", service_areas_path], ["Edit Service Area"]]
     @directorates = Directorate.where(:retired => false)
@@ -78,7 +78,7 @@ class ServiceAreasController < ApplicationController
       render "edit"
     end
   end
-  
+
 
 protected
 
@@ -87,7 +87,7 @@ protected
   end
 
   def set_service_area
-    @service_area = ServiceArea.find_by_id(params[:id])
+    @service_area = ServiceArea.find_by(id: params[:id])
     unless (current_user.directorate && current_user.directorate.service_areas.include?( @service_area )) || current_user.cop_service_areas.include?( @service_area )
       redirect_to access_denied_path
       return false

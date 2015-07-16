@@ -9,6 +9,7 @@
 # An issue is an item that requires an action plan, and is specified in consultation sections.
 # Each strand has it's own issues, and these issues get taken into account in completed tags and dependent activities.
 class Issue < ActiveRecord::Base
+  attr_protected
 	belongs_to :activity
   validates_presence_of :description
   has_one :previous_issue, :class_name => "Issue", :foreign_key => :parent_issue_id
@@ -16,12 +17,12 @@ class Issue < ActiveRecord::Base
 
 
   attr_accessor :issue_destroy
-  
+
   include FixInvalidChars
-  
+
   before_save :fix_fields
   after_save :destroy_if_issue_destroy
-  
+
   def fix_fields
     self.attributes.each_pair do |key, value|
       self.attributes[key] = fix_field(value)
@@ -31,20 +32,20 @@ class Issue < ActiveRecord::Base
   def lead_officer_email
     @lead_officer_email ||= lead_officer.try(:email) || ""
   end
-  
+
   def lead_officer_email=(email)
-    if user = User.live.find_by_email(email)
+    if user = User.live.find_by(email: email)
       self.lead_officer_id = user.id
     else
       self.lead_officer_id = nil
     end
   end
-  
-  
+
+
   def can_be_edited_by?(user_)
     [ActivityManager, ActivityApprover].include?(user_.class) && user_.activity == self
   end
-  
+
   def self.can_be_viewed_by?(user_)
     [ActivityManager, ActivityApprover].include? user_.class
   end
@@ -60,14 +61,14 @@ class Issue < ActiveRecord::Base
   def check_response(response) #Check response verifies whether a response to a question is correct or not.
     return (response.to_s.length > 0)
   end
-  
+
   def check_responses
     Issue.content_columns.each do |cc|
       return false unless self.check_response(self.send(cc.name.to_sym))
     end
     return true
   end
-  
+
   def percentage_answered
     # 2 = 2 columns we don't need (strand and section)
     total = Issue.content_columns.size - 2
@@ -75,7 +76,7 @@ class Issue < ActiveRecord::Base
     Issue.content_columns.each do |cc|
       answered += 1 if cc.name.to_sym != :strand && cc.name.to_sym != :section && self.check_response(self.send(cc.name.to_sym))
     end
-    answered.to_f/total 
+    answered.to_f/total
   end
 
 end

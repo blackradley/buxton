@@ -8,13 +8,13 @@
       = render :partial => 'service_area_select'
     =form.input :name, :label => "EA Title"
     = form.input :summary, :label => "Summary of this EA"
-    = form.input :review_on, :label => "Review Date", :as => :datepicker, :format => "%d/%m/%Y"
-    =form.autocompleted_input :approver_email, :url => autocomplete_user_email_activities_path, :label => "Senior Officer", :required => false
-    =form.autocompleted_input :completer_email, :url => autocomplete_user_email_activities_path, :label => "Task Group Manager", :required => false
-    =form.autocompleted_input :qc_officer_email, :url => autocomplete_user_email_activities_path, :label => "Quality Control Officer", :required => false
+    = form.input :review_on, :label => "Review Date", as: :string, :format => "%d/%m/%Y", :input_html => {class: "ui-datepicker", style: "display:block", value: @activity.review_on.try(:strftime, '%d/%m/%Y') }
+    =form.input :approver_email, as: :autocomplete, :url => autocomplete_user_email_activities_path, :label => "Senior Officer", :required => false
+    =form.input :completer_email, as: :autocomplete, :url => autocomplete_user_email_activities_path, :label => "Task Group Manager", :required => false
+    =form.input :qc_officer_email, as: :autocomplete, :url => autocomplete_user_email_activities_path, :label => "Quality Control Officer", :required => false
     =form.input :activity_type, :as => :select, :collection => @activity.types.collect {|option| [option.titlecase , @activity.types.index(option)] }, :label => "Type", :include_blank => false
     =form.input :activity_status, :as => :select, :collection =>  @activity.statuses.collect{|option| [option.titlecase , @activity.statuses.index(option)] }, :label => "Status", :include_blank => false
-  = form.buttons do
+  = form.actions do
     = form.submit "Add", :disable_with => 'Saving...'
     %span.cancelLink
       - if @current_user.creator?

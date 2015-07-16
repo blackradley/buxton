@@ -10,7 +10,7 @@ module PDF
     def convert(text)
       text.scrub
     rescue
-      text
+      text.to_s
     end
 
     def text(text, options = {})

@@ -14,6 +14,7 @@
 # So it is not really a many to many relationship.
 #
 class ActivityStrategy < ActiveRecord::Base
+  attr_protected
   belongs_to :activity
   belongs_to :strategy
   has_one :note

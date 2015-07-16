@@ -13,7 +13,7 @@ class LogsController < ApplicationController
 
   def index
     @selected = "activity_logging"
-    @logs = Log.find(:all, :order => 'created_at DESC')
+    @logs = Log.all.order('created_at DESC')
   end
-  
+
 end

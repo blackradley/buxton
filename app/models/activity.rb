@@ -30,6 +30,8 @@
 require 'csv'
 
 class Activity < ActiveRecord::Base
+  attr_protected
+
   belongs_to :completer, :class_name => "User"
   belongs_to :approver, :class_name => "User"
   belongs_to :qc_officer, :class_name => "User"
@@ -58,7 +60,7 @@ class Activity < ActiveRecord::Base
   before_update :set_approved, :update_completed
   after_create :create_questions_if_new
 
-  default_scope :conditions => {:is_rejected => false}
+  default_scope -> { where :is_rejected => false }
 
   scope :active,  lambda{
     joins(:service_area => :directorate).where(:service_areas => {:retired => false}).where( :directorates => {:retired => false}).readonly(false)
@@ -67,7 +69,7 @@ class Activity < ActiveRecord::Base
 
   before_save :fix_fields, :set_recently_rejected
 
-  scope :ready, {:conditions => {:ready => true}}
+  scope :ready, -> { where :ready => true }
 
   accepts_nested_attributes_for :questions
   accepts_nested_attributes_for :issues, :allow_destroy => true#, :reject_if => proc { |attributes| attributes['description'].blank? }
@@ -177,7 +179,7 @@ class Activity < ActiveRecord::Base
   end
 
   def approver_email=(email)
-    if user = User.live.find_by_email(email)
+    if user = User.live.find_by(email: email)
       self.approver_id = user.id
     else
       self.approver_id = nil
@@ -189,7 +191,7 @@ class Activity < ActiveRecord::Base
   end
 
   def completer_email=(email)
-    if user = User.live.find_by_email(email)
+    if user = User.live.find_by(email: email)
       self.completer_id = user.id
     else
       self.completer_id = nil
@@ -201,7 +203,7 @@ class Activity < ActiveRecord::Base
   end
 
   def qc_officer_email=(email)
-    if user = User.live.find_by_email(email)
+    if user = User.live.find_by(email: email)
       self.qc_officer_id = user.id
     else
       self.qc_officer_id = nil
@@ -242,7 +244,7 @@ class Activity < ActiveRecord::Base
          end
          basic_attributes = { :help_text => texts[:help_text], :label => texts[:label]}
          basic_attributes[:choices] = data['choices'][question_data['choices']] if question_data['choices']
-         questions = self.questions.find_all_by_name("#{section}_#{strand}_#{question_number}")
+         questions = self.questions.where(name: "#{section}_#{strand}_#{question_number}")
          questions.each do |q|
            q.update_attributes(basic_attributes)
            q.save!
@@ -303,7 +305,7 @@ class Activity < ActiveRecord::Base
     dependents.each do |child, parents|
       parents.each do |parent_q, value|
         begin
-          self.questions.find_by_name(parent_q).dependencies.create!(:child_question => child, :required_value => value)
+          self.questions.find_by(name: parent_q).dependencies.create!(:child_question => child, :required_value => value)
         rescue
           raise parent_q.inspect
         end
@@ -338,8 +340,8 @@ class Activity < ActiveRecord::Base
     if section && !(section == :action_planning) then
        #First we calculate all the questions, in case there is a nil.
         answered_questions = []
-        answered_questions += self.questions.find(:all, :conditions => "name LIKE 'consultation_%#{strand}_7' and completed = true")
-        answered_questions += self.questions.find(:all, :conditions => "name LIKE 'impact_%#{strand}_9' and completed = true")
+        answered_questions += self.questions.where( "name LIKE 'consultation_%#{strand}_7' and completed = true")
+        answered_questions += self.questions.where( "name LIKE 'impact_%#{strand}_9' and completed = true")
         return true if answered_questions.size > 0
     end
     if section && !(section == :purpose) then #Check strategies are completed.
@@ -363,8 +365,8 @@ class Activity < ActiveRecord::Base
   def relevant_action_count
     actions = 0
     strands.each do |relevant_strand|
-      actions += self.issues.where(:section => "impact", :strand => relevant_strand).count if self.questions.find_by_name("impact_#{relevant_strand}_9").raw_answer == "1"
-      actions += self.issues.where(:section => "consultation", :strand => relevant_strand).count if self.questions.find_by_name("consultation_#{relevant_strand}_7").raw_answer == "1"
+      actions += self.issues.where(:section => "impact", :strand => relevant_strand).count if self.questions.find_by(name: "impact_#{relevant_strand}_9").raw_answer == "1"
+      actions += self.issues.where(:section => "consultation", :strand => relevant_strand).count if self.questions.find_by(name: "consultation_#{relevant_strand}_7").raw_answer == "1"
     end
     actions += self.issues.where(:section => "action_planning").count
     actions += self.issues.where(:section => nil).count
@@ -407,14 +409,14 @@ class Activity < ActiveRecord::Base
   def completed(section = nil, strand = nil, debug = false)
     is_purpose = (section.to_s == 'purpose')
     #are all the strategies completed if they need to be?
-    strategies_not_completed = self.activity_strategies.find(:all, :conditions => 'strategy_response LIKE 0').size > 0
+    strategies_not_completed = self.activity_strategies.where('strategy_response LIKE 0').size > 0
     return false if strategies_not_completed && (is_purpose || section.nil?)
     #Special check for the unique conditions where section and strand are nil
     if section.nil? && strand.nil? then
       search_conditions = {:completed => false, :needed => true}
       question_set = self.questions.where(search_conditions)
       self.disabled_strands.each do |s|
-        question_set.reject!{|q| q.strand.to_s == s.to_s}
+        question_set = question_set.where.not( strand: s )
       end
       return false if question_set.size > 0
     end
@@ -437,9 +439,9 @@ class Activity < ActiveRecord::Base
         return false if consultation_qns.inject(true){|t,q| t && q.raw_answer == "2"}
       end
       search_conditions[:strand] = s.to_s
-      results = self.questions.find(:all, :conditions => search_conditions)
+      results = self.questions.where(search_conditions)
       if section.to_s == "purpose"
-        results.reject!{|q| q.name == "purpose_overall_14"}
+        results = results.where.not(name: "purpose_overall_14")
       end
       return false if results.size > 0
     end
@@ -479,7 +481,7 @@ class Activity < ActiveRecord::Base
     consultation_answer = self.questions.where(:name => consultation_qn).first.response.to_i
 
     if impact_answer==1 || consultation_answer==1
-      issues.find_by_strand(strand.to_s)
+      issues.find_by(strand: strand.to_s)
     else
       false
     end
@@ -503,10 +505,8 @@ class Activity < ActiveRecord::Base
     return false unless self.updated_on
     return true unless start_date && end_date
     activity_between = self.updated_on > start_date && self.updated_on < end_date
-    questions_between = self.questions.find(:all, :conditions => ["updated_at between ? and ?",
-             start_date, end_date]).size > 0
-    questions_after = self.questions.find(:all, :conditions => ["updated_at between ? and ?",
-                      end_date, Time.now]).size > 0
+    questions_between = self.questions.where( "updated_at between ? and ?", start_date, end_date ).size > 0
+    questions_after = self.questions.where( "updated_at between ? and ?", end_date, Time.now ).size > 0
     return (activity_between || questions_between) && !questions_after
   end
 
@@ -522,7 +522,7 @@ class Activity < ActiveRecord::Base
   end
 
   def impact_on_individuals_completed
-    answered_questions = self.questions.find(:all, :conditions => "name REGEXP 'purpose\_overall\_(5|6|7)' AND (completed = true OR needed = false)")
+    answered_questions = self.questions.where("name REGEXP 'purpose\_overall\_(5|6|7)' AND (completed = true OR needed = false)")
     return false unless answered_questions.flatten.size == 3
     return true
   end
@@ -530,7 +530,7 @@ class Activity < ActiveRecord::Base
   def impact_on_equality_groups
     answered_questions = []
     self.strands(true).each do |strand|
-      answered_questions += self.questions.find(:all, :conditions => "name REGEXP 'purpose\_#{strand.to_s}\_3' AND (completed = true OR needed = false)")
+      answered_questions += self.questions.where("name REGEXP 'purpose\_#{strand.to_s}\_3' AND (completed = true OR needed = false)")
     end
     return false unless answered_questions.flatten.size == 9
     return true
@@ -640,7 +640,7 @@ class Activity < ActiveRecord::Base
   def clone
     new_activity = Activity.create!(self.attributes)
     self.questions.each do |q|
-      new_q = new_activity.questions.find_by_name(q.name)
+      new_q = new_activity.questions.find_by(name: q.name)
       new_q.completed = q.completed
       new_q.needed = q.needed
       new_q.raw_answer = q.raw_answer

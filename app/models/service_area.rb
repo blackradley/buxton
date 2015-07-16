@@ -7,6 +7,7 @@
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
 class ServiceArea < ActiveRecord::Base
+  attr_protected
   belongs_to :directorate
   belongs_to :approver, :class_name => "User"
   validates_presence_of :name, :directorate
@@ -37,7 +38,7 @@ class ServiceArea < ActiveRecord::Base
   end
 
   def approver_email=(email)
-    self.approver = User.live.find_by_email(email)
+    self.approver = User.live.find_by(email: email)
   end
 
 end

@@ -7,12 +7,12 @@
       =form.input  :resources, :label => "Resources necessary to implement the actions", :wrapper_html =>{:class => "question"}
       = form.input :timescales, :label => "Commencing", :wrapper_html =>{:class => "question"}, :as => :datepicker, :format => "%d/%m/%Y"
       = form.input :completing, :label => "Completing", :wrapper_html =>{:class => "question"}, :as => :datepicker, :format => "%d/%m/%Y"
-      = form.autocompleted_input :lead_officer_email, :url => autocomplete_user_email_activities_path, :label => "Lead Officer", :required => false
+      = form.input :lead_officer_email, :url => autocomplete_user_email_activities_path, :label => "Lead Officer", :required => false, as: :autocomplete
       = form.input :recommendations, :label => "How will the recommendations of this assessment be built in to wider planning and review processes?", :wrapper_html =>{:class => "question"}
       = form.input :monitoring, :label => "How will you monitor the impact and effectiveness of the new policy or function?", :wrapper_html =>{:class => "question"}
       = form.input :outcomes, :label => "What are, or have been, the outcomes resulting from this Equality Analysis?", :wrapper_html =>{:class => "question"}
       = form.hidden_field :strand
-    = form.buttons do
+    = form.actions do
       = form.submit "Save", :disable_with => 'Saving...'
       %span.cancelLink
         or
@@ -28,7 +28,7 @@
 /     %strong Actions:
 /     Please enter a description of what actions you intend to take about this issue, and what steps should be taken to address it.
 /   %p
-/     %strong Resources: 
+/     %strong Resources:
 /     Describe all the resources necessary to implement the actions described previously.
 /   %p
 /     %strong Timescales:

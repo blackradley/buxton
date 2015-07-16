@@ -1,5 +1,5 @@
 %h1#questions
-  =h @activity.name 
+  =h @activity.name
   <br />
   = link_to image_tag('icons/previous.gif', :class =>'previous'), { :action => 'edit', :id => 'additional_work', :equality_strand => @equality_strand }, :title =>"Previous Section"
   = strand_display(@equality_strand).titlecase + " - "
@@ -10,9 +10,9 @@
 
 #questions
   =form_for(:issues, :url => {:controller => 'issues', :action => 'update'}) do |f|
-    -issues = @activity.issues.reject{|issue| issue.strand != @equality_strand }
-    - issues.reject!{|issue| issue.section.to_s == 'impact'} unless @impact_enabled
-    - issues.reject!{|issue| issue.section.to_s == 'consultation'} unless @consultation_enabled
+    -issues = @activity.issues.where( strand: @equality_strand )
+    -issues = issues.where.not(section: 'impact') unless @impact_enabled
+    -issues = issues.where.not(section: 'consultation') unless @consultation_enabled
     - if issues.size > 0
       -for issue in issues
         %h3

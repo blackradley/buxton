@@ -2,7 +2,7 @@ class AddingQuestionToActivities < ActiveRecord::Migration
   def self.up
   	Activity.all.each do |activity|
   		Activity.strands.each do |strand|
-	  		question = Question.where(:activity_id => activity.id).find_by_name("additional_work_#{strand}_3")
+	  		question = Question.where(:activity_id => activity.id).find_by(name: "additional_work_#{strand}_3")
 	  		dependency = Dependency.new(:question_id => question.id, :required_value => 1)
 	  		dependency.save
 	  		need = question.raw_answer == '1' ? true : false

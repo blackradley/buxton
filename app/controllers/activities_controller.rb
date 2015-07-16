@@ -69,7 +69,7 @@ class ActivitiesController < ApplicationController
     original_activity = Activity.find(params[:id])
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Clone #{original_activity.name}"]]
     @selected = "directorate_eas"
-    @directorates = Directorate.scoped.select{|d| d.service_areas.count > 0}
+    @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
     @activity = Activity.new(original_activity.attributes)
     @clone_of = original_activity
     @activity.approved = false
@@ -102,7 +102,7 @@ class ActivitiesController < ApplicationController
   def directorate_governance_eas
     @breadcrumb = [["EA Governance"]]
     @activities = Activity.where( :directorate_id => current_user.directorates.map(&:id) )
-    @activities = Activity.scoped.joins( :service_area ).where( :service_areas => { :directorate_id => current_user.directorates.map(&:id) } )
+    @activities = Activity.joins( :service_area ).where( :service_areas => { :directorate_id => current_user.directorates.map(&:id) } )
     unless params[ :view_approved ]
       @activities =  @activities.select{|x| !x.approved?}
     end
@@ -120,7 +120,7 @@ class ActivitiesController < ApplicationController
   def new
     # @directorates = Directorate.where(:creator_id=>current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
-    @directorates = Directorate.scoped.select{|d| d.service_areas.count > 0}
+    @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
     @service_areas = @directorates.first.service_areas
     @selected = "directorate_eas"
     @activity = Activity.new
@@ -130,7 +130,7 @@ class ActivitiesController < ApplicationController
 
   def create
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
-    @directorates = Directorate.scoped.select{|d| d.service_areas.count > 0}
+    @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
     # @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
     @selected = "directorate_eas"
     invalid = params[:activity].select{|k,v| k.match(/_email/) && !v.blank? && !User.live.exists?(:email => v)}#.each do |k,v|
@@ -161,7 +161,7 @@ class ActivitiesController < ApplicationController
         else
           @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Clone #{@activity.name}"]]
           @selected = "directorate_eas"
-          @directorates = Directorate.scoped.select{|d| d.service_areas.count > 0}
+          @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
           @clone_of = @activity
           @activity = Activity.new(@activity.attributes)
           @activity.approved = false
@@ -181,13 +181,12 @@ class ActivitiesController < ApplicationController
       @activity.activity_strategies.build(:strategy => s) unless @activity.activity_strategies.map(&:strategy).include?(s)
     end
     @activity.ready = true
-    # @directorate = Directorate.find_by_creator_id(current_user.id)
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
     @selected = "directorate_eas"
     if @activity.update_attributes(params[:activity])
       flash[:notice] = "#{@activity.name} was created."
       @activity.generate_ref_no# unless params[:clone_of]
-      Mailer.activity_created(@activity).deliver if @activity.ready?
+      Mailer.activity_created(@activity).deliver_now if @activity.ready?
       if current_user.creator?
         redirect_to directorate_eas_activities_path and return
       else
@@ -218,14 +217,10 @@ class ActivitiesController < ApplicationController
   def edit
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Edit EA"]]
     @activity = Activity.find(params[:id])
-    # if !current_user.creator? || @activity.directorate.blank
-      @directorates = Directorate.scoped.select{|d| d.service_areas.count > 0}
-      @directorate = @activity.directorate
-      @service_areas = @directorate.service_areas if @directorate
-    # else
-    #   @directorate = Directorate.find_by_creator_id(current_user.id)
-    #   @service_areas = ServiceArea.active.where(:directorate_id => @directorate.id)
-    # end
+    @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
+    @directorate = @activity.directorate
+    @service_areas = @directorate.service_areas if @directorate
+
     @selected = "directorate_eas"
   end
 
@@ -238,11 +233,11 @@ class ActivitiesController < ApplicationController
   # Update the activity details accordingly.
   # Available to: Activity Manager
   def update
-    @directorates = Directorate.scoped.select{|d| d.service_areas.count > 0}
+    @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
     @directorate = @activity.directorate
     @service_areas = @directorate.service_areas if @directorate
     @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
-    # @directorate = Directorate.find_by_creator_id(current_user.id)
+
     @selected = "directorate_eas"
     # @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
     @activity = Activity.find(params[:id])
@@ -258,14 +253,14 @@ class ActivitiesController < ApplicationController
     end
 
     Strategy.live.each do |s|
-      @activity.activity_strategies.find_or_create_by_strategy_id(s.id)
+      @activity.activity_strategies.find_or_create_by(strategy_id: s.id)
     end
     @activity.activity_strategies.each do |s|
       s.destroy if s.strategy && s.strategy.retired?
     end
     if @activity.update_attributes(params[:activity])
       flash[:notice] = "#{@activity.name} was updated."
-      Mailer.activity_created(@activity).deliver if @activity.ready?
+      Mailer.activity_created(@activity).deliver_now if @activity.ready?
       if current_user.creator?
         redirect_to directorate_eas_activities_path and return
       else
@@ -293,7 +288,7 @@ class ActivitiesController < ApplicationController
 
     if @activity.update_attributes(params[:activity])
       flash[:notice] = "#{@activity.name} was updated."
-      # Mailer.activity_created(@activity).deliver if @activity.ready?
+      # Mailer.activity_created(@activity).deliver_now if @activity.ready?
       redirect_to directorate_governance_eas_activities_path and return
     else
       if !@activity.errors[:completer].blank?
@@ -308,7 +303,7 @@ class ActivitiesController < ApplicationController
     if @activity.completed
       @activity.submitted = true
       @activity.save!
-      Mailer.activity_submitted(@activity, params[:email_contents]).deliver
+      Mailer.activity_submitted(@activity, params[:email_contents]).deliver_now
       flash[:notice] = 'Your EA has been successfully submitted for approval.'
     else
       flash[:error] = "You need to finish your EA before you can submit it."
@@ -342,12 +337,12 @@ class ActivitiesController < ApplicationController
   def create_task_group_member
     email = params[:activity][:task_group_member]
     @activity.task_group_member = email
-    u = User.live.find_by_email(email)
-    if u = User.live.find_by_email(email)
+    u = User.live.find_by(email: email)
+    if u
       @activity.task_group_memberships.build(:user => u)
     end
     if u && @activity.save
-      Mailer.activity_task_group_member_added(@activity,u).deliver
+      Mailer.activity_task_group_member_added(@activity,u).deliver_now
       render :text => "form load successful",:content_type => 'text/plain'
       # render :update do |page|
       #   page.redirect_to task_group_activity_path(@activity)
@@ -364,9 +359,9 @@ class ActivitiesController < ApplicationController
   end
 
   def remove_task_group_member
-    user = @activity.task_group_memberships.find_by_user_id(params[:user_id]).user
-    @activity.task_group_memberships.find_by_user_id(params[:user_id]).destroy
-    Mailer.activity_task_group_member_removed(@activity,user).deliver
+    user = @activity.task_group_memberships.find_by(user_id: params[:user_id]).user
+    @activity.task_group_memberships.find_by(user_id: params[:user_id]).destroy
+    Mailer.activity_task_group_member_removed(@activity,user).deliver_now
     flash[:notice] = "#{user.email} was removed from this task group."
     redirect_to task_group_activity_path(@activity.id)
   end
@@ -376,7 +371,7 @@ class ActivitiesController < ApplicationController
   end
 
   def make_task_group_comment
-    Mailer.activity_task_group_comment(@activity, params[:email_contents], params[:cc], params[:subject], current_user).deliver
+    Mailer.activity_task_group_comment(@activity, params[:email_contents], params[:cc], params[:subject], current_user).deliver_now
     flash[:notice] = "Your comment has been sent."
     redirect_to assisting_activities_path
   end
@@ -477,7 +472,7 @@ class ActivitiesController < ApplicationController
     if @activity.submitted?
       @activity.update_attributes(:undergone_qc => true)
       flash[:notice] = "Successfully performed Quality Control on #{@activity.name}"
-      Mailer.activity_comment(@activity, params[:email_contents], params[:subject]).deliver
+      Mailer.activity_comment(@activity, params[:email_contents], params[:subject]).deliver_now
     end
     redirect_to quality_control_activities_path
   end
@@ -486,7 +481,7 @@ class ActivitiesController < ApplicationController
     if @activity.undergone_qc? && @activity.submitted?
       @activity.update_attributes(:approved => true, :approved_on => Date.today() )
       flash[:notice] = "Successfully approved #{@activity.name}"
-      Mailer.activity_approved(@activity, params[:email_contents], params[:subject]).deliver
+      Mailer.activity_approved(@activity, params[:email_contents], params[:subject]).deliver_now
     end
     redirect_to approving_activities_path
   end
@@ -500,7 +495,7 @@ class ActivitiesController < ApplicationController
       new_activity.save!
       # @activity.update_attributes(:submitted => false)
       flash[:notice] = "#{@activity.name} rejected."
-      Mailer.activity_rejected(@activity, params[:email_contents], params[:subject], params[:cc]).deliver
+      Mailer.activity_rejected(@activity, params[:email_contents], params[:subject], params[:cc]).deliver_now
       @activity.update_attributes(:is_rejected => true, :previous_activity_id => new_activity.id)
     end
     if @activity.undergone_qc
@@ -511,7 +506,7 @@ class ActivitiesController < ApplicationController
   end
 
   def get_service_areas
-    @service_areas = ServiceArea.find_all_by_directorate_id( params[ :directorate_id ].to_i ).select{|z| z.retired == false }
+    @service_areas = ServiceArea.where(directorate_id: params[ :directorate_id ].to_i ).select{|z| z.retired == false }
     render :layout => false
   end
 

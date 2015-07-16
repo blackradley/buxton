@@ -47,7 +47,7 @@ $(document).ready(function(){
 
   $('.mask').height($('.mask').parent().height());
   $('.formtastic.activity #standardInputs input').bind('keyup change', function(){
-    if($("#standardInputs").find(":text[value=]").length == 0){
+    if($("#standardInputs").find(":text[value='']").length == 0){
       $("#readyInput, #descriptiveReadyText").show();
     }
     else{

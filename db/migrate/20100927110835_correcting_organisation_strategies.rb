@@ -6,7 +6,7 @@ class CorrectingOrganisationStrategies < ActiveRecord::Migration
       oi.destroy
     }
     puts "Deleting activity strategies for outdated ids"
-    outdated_ids.map{|id| ActivityStrategy.find_by_strategy_id(id)}.flatten.map(&:destroy)
+    outdated_ids.map{|id| ActivityStrategy.find_by(strategy_id: id)}.flatten.map(&:destroy)
     puts "Deleted AS for outdated ids"
     old_ids = [513041609, 513041610, 513041611, 513041612, 513041613, 513041614, 513041615, 513041616, 513041617, 513041618, 513041619, 513041620, 513041621, 513041622, 513041623, 513041624, 513041625]
     organisation_id = 14

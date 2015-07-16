@@ -7,21 +7,22 @@
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
 class Project < ActiveRecord::Base
+  attr_protected
    has_and_belongs_to_many :activities
    belongs_to :organisation
    has_one :project_manager
    has_many :project_strategies, :dependent => :destroy
-   
+
    validates_uniqueness_of :name, :scope => :organisation_id
    validates_presence_of :name, :project_manager
    validates_associated :activities
-   
+
    after_update :save_project_strategies
-   
+
    attr_accessor :should_destroy
-   
+
    include FixInvalidChars
-   
+
    before_save :fix_name
 
    def fix_name
@@ -54,18 +55,18 @@ class Project < ActiveRecord::Base
        end
      end
    end
-   
+
 
   def results_table
     Organisation.results_table(self)
   end
-  
+
   def can_be_edited_by?(user_)
     user_.class == Administrator
   end
-  
+
   def self.can_be_viewed_by?(user_)
     user_.class == Administrator
   end
-  
+
 end

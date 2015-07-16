@@ -5,7 +5,7 @@ namespace :clone do
     if id = ENV['ID']
       activity = Activity.find(id)
     elsif name = ENV['NAME']
-      activity = Activity.find_by_name(name)
+      activity = Activity.find_by(name: name)
     else
       puts 'No activity specified. Usage: rake ID=5 clone:activity or rake NAME="sample activity" clone:activity'
       return
@@ -36,7 +36,7 @@ namespace :clone do
         clone.save!
       end
     end
-    
+
     new_act.name = ENV['NEW_NAME'] || activity.name + ' (copy)'
     new_act.approved = "not submitted"
     new_act.approved_on = nil
