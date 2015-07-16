@@ -29,8 +29,8 @@
       %span.letter
         d.
       %strong=link_to "Analysis on Initial Assessment", edit_purpose_d_activities_section_path(@activity), :title =>"Initial Assessment Comments"
-      %span{:class => "completionRequired letter_completed #{'complete' if @activity.questions.find_by_name('purpose_overall_13').completed?}"}
-        =tick_cross_display(@activity.questions.find_by_name('purpose_overall_13').completed?)        
+      %span{:class => "completionRequired letter_completed #{'complete' if @activity.questions.find_by(name: 'purpose_overall_13').completed?}"}
+        =tick_cross_display(@activity.questions.find_by(name: 'purpose_overall_13').completed?)
   .clear
   .stepFooter
 -if @activity.completed(:purpose)
@@ -64,7 +64,7 @@
           b.
         %strong
           Assessment Questions
-        %br        
+        %br
         %span.indented
           The Equality Risk Toolkit asks you questions under four Assessment Sections (impact, consultation, additional work and action planning), for each of the Protected Characteristics selected as relevant.
           %br
@@ -95,7 +95,7 @@
             %td
               = completed_tag(@activity, :additional_work, strand.to_sym)
               = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "additional_work"), :title =>"Edit Additional Work", :id => "#{strand_name}_additional_work_pencil"
-            %td.last           
+            %td.last
               - if @activity.issues_by(nil, strand).size > 0
                 = completed_tag(@activity, :action_planning, strand.to_sym)
                 = link_to image_tag('icons/edit.gif'),  edit_activities_section_path(@activity, :equality_strand => strand, :section => "action_planning"), :title =>"Edit Action Planning", :id => "#{strand_name}_action_planning_pencil"
@@ -106,16 +106,16 @@
           b.
         %strong
           Assessment Questions
-        %br        
+        %br
         %span.indented
           No Protected Characteristics selected as relevant.
-                
+
       %p
-        %span.letter{:class => "completionRequired #{'complete' if @activity.questions.find_by_name('purpose_overall_14').completed?}"}
+        %span.letter{:class => "completionRequired #{'complete' if @activity.questions.find_by(name: 'purpose_overall_14').completed?}"}
           c.
         %strong=link_to "Concluding statement on Full Assessment", edit_full_assessment_comment_activities_section_path(@activity), :title => "Full Assessment Comments"
         %span.letter_completed
-          =tick_cross_display(@activity.questions.find_by_name('purpose_overall_14').completed?)
+          =tick_cross_display(@activity.questions.find_by(name: 'purpose_overall_14').completed?)
     .stepFooter
   -approval_vis = @activity.completed
   .step.approvalStep{:style => "#{'display:none' unless approval_vis}"}

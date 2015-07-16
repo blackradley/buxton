@@ -1,4 +1,5 @@
 class Dependency < ActiveRecord::Base
+  attr_protected
   belongs_to :question
   has_one :child_question, :class_name => "Question"
 

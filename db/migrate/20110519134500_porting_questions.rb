@@ -1,7 +1,7 @@
 class PortingQuestions < ActiveRecord::Migration
-  
+
   def self.up
-    Activity.first.instance_eval do 
+    Activity.first.instance_eval do
       data = File.open(Rails.root + "config/questions.yml"){|yf| YAML::load( yf ) }
       dependents = {}
       Question.where(:name => ["purpose_overall_11", "purpose_overall_12"]).each(&:destroy)
@@ -30,8 +30,8 @@ class PortingQuestions < ActiveRecord::Migration
             end
             basic_attributes = { :help_text => texts[:help_text], :label => texts[:label]}
             basic_attributes[:choices] = data['choices'][question_data['choices']] if question_data['choices']
-            questions = self.questions.find_all_by_name("#{section}_#{strand}_#{question_number}")
-            questions.each do |q| 
+            questions = self.questions.where(name: "#{section}_#{strand}_#{question_number}")
+            questions.each do |q|
               q.update_attributes(basic_attributes)
               q.save!
             end
@@ -39,7 +39,7 @@ class PortingQuestions < ActiveRecord::Migration
         end
       end
     end
-    
+
   end
 
   def self.down

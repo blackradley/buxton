@@ -22,11 +22,13 @@ Buxton::Application.configure do
 
   config.i18n.fallbacks = true
   config.middleware.insert_before Rack::Lock, "Rack::SSL"
-  
+
   config.action_mailer.default_url_options = { :host => 'preview.impactequality.co.uk' }
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
+
+  config.eager_load = true
 end
 
 BANNER    = true

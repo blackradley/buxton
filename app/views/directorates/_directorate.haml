@@ -2,16 +2,16 @@
   = form.inputs do
     =form.input :name, :label => "Title"
     - if @directorate.cops.count > 0
-      =form.autocompleted_input "cop_email0", :url => autocomplete_user_cop_email_directorates_path, :label => "Governance Officer", :required => false, :name => 'directorate[cop_email][]'
+      =form.input "cop_email0", :url => autocomplete_user_cop_email_directorates_path, :label => "Governance Officer", :required => false, :name => 'directorate[cop_email][]', as: :autocomplete
       %li.multi
         - @directorate.cops.each_with_index do |cop, i|
           - if i > 0
             = raw("<div class=\"input_div\"><label></label><input data-autocomplete=\"/directorates/autocomplete_user_cop_email\" id=\"directorate_cop_email\" name=\"directorate[cop_email][]\" size=\"30\" type=\"text\" value=\"#{h(cop.email)}\" class=\"ui-autocomplete-input multi\" autocomplete=\"off\" role=\"textbox\" aria-autocomplete=\"list\" aria-haspopup=\"true\"><a href=\"#\" class=\"delete_dgo\">delete</a><br/></div>")
     - else
-      =form.autocompleted_input "cop_email", :url => autocomplete_user_cop_email_directorates_path, :label => "Governance Officer", :required => false, :name => 'directorate[cop_email][]', :wrapper_html => { :class => 'multi' }
+      =form.input "cop_email", :url => autocomplete_user_cop_email_directorates_path, :label => "Governance Officer", :required => false, :name => 'directorate[cop_email][]', :wrapper_html => { :class => 'multi' }, as: :autocomplete
     = link_to 'add another Governance Officer', '#', :class => 'add_officer_link'
     =form.input :retired, :label => "Retired?"
-  = form.buttons do
+  = form.actions do
     = form.submit "Save"
     =raw "or #{link_to "cancel", directorates_path}"
 #formHelp

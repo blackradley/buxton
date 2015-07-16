@@ -1,5 +1,5 @@
 module ApplicationHelper
-  
+
   # Display the users progress through the questions, this is used both in the
   # Activity and on the Organisation, hence it is here in the ApplicationHelper.
   def progress_bar(percentage, width=100)
@@ -34,7 +34,7 @@ module ApplicationHelper
       return date.to_formatted_s(:date_time12)
     end
   end
-  
+
 
   # Show the logged in user type.
   def login_status
@@ -51,7 +51,7 @@ module ApplicationHelper
 
   def question_details(section, strand, questions)
     questions.map! do|number|
-      @activity.questions.find_by_name("#{section}_#{strand}_#{number}")
+      @activity.questions.find_by(name: "#{section}_#{strand}_#{number}")
     end
   end
 
@@ -62,7 +62,7 @@ module ApplicationHelper
   def activities_menu
     @activities_menu
   end
-  
+
   # Display a coloured bar showing the level selected, produced
   # entirely via div's courtessy of Sam.
   def level_bar(value, out_of, css_class)
@@ -80,7 +80,7 @@ module ApplicationHelper
   def answer(activity, activity_questions, section, strand, ids)
     output = Array(ids).collect do |id|
       name = "#{section}_#{strand}_#{id}"
-      #question = activity.questions.find_by_name(name)
+
       question = activity_questions[name][0]
       comment = activity_questions[name][1]
       next unless question.needed
@@ -126,7 +126,7 @@ module ApplicationHelper
      </p>])
      #%Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]
    end
-   
+
   def strand_display(strand)
     if strand.to_s.downcase == 'faith'
       return 'religion or belief'
@@ -136,7 +136,7 @@ module ApplicationHelper
       return strand
     end
   end
-  
+
   def sentence_desc(strand)
     case strand.to_s
     when 'race'
@@ -147,5 +147,5 @@ module ApplicationHelper
       strand.to_s.titleize.downcase
     end
   end
-  
+
 end

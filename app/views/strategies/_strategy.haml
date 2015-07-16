@@ -3,16 +3,16 @@
     =form.input :name, :label => "Strategic Outcome"
     =form.input :description, :label => "Aims & Objectives"
     =form.input :retired, :label => "Retired?"
-  = form.buttons do
+  = form.actions do
     = form.submit "Save", :disable_with => "Saving.."
     =raw "or #{link_to "cancel", strategies_path}"
 #formHelp
   %p
     %strong Strategic Outcome:
-    This should be a one line summary of what this Strategic Outcome is aiming to achieve. 
+    This should be a one line summary of what this Strategic Outcome is aiming to achieve.
   %p
     %strong Aims & Objectives:
-    This should be a longer description of the aims and objectives of the Strategic Outcome. This will appear to a Task Group Manager when they are deciding if their EA is relevant to this Strategic Outcome. 
+    This should be a longer description of the aims and objectives of the Strategic Outcome. This will appear to a Task Group Manager when they are deciding if their EA is relevant to this Strategic Outcome.
   %p
     %strong Retired?:
     if retired, this Strategic Outcome will no longer be available for selection when completing an EA's Initial Assessment.

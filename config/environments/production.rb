@@ -48,7 +48,7 @@ Buxton::Application.configure do
   }
 
   # Compress JavaScripts and CSS
-  config.assets.compress = true
+  config.assets.js_compressor = :uglifier
 
   # Don't fallback to assets pipeline if a precompiled asset is missed
   config.assets.compile = false
@@ -67,6 +67,8 @@ Buxton::Application.configure do
 
   # Raise exception on mass assignment protection for Active Record models
   config.active_record.mass_assignment_sanitizer = :strict
+
+  config.eager_load = true
 end
 
 BANNER    = false

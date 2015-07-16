@@ -72,20 +72,20 @@ form.formtastic fieldset  ol  li.boolean label input {
     margin: 3px 0 0;
     width: auto;
 }
-form.formtastic fieldset.buttons{
+form.formtastic fieldset.buttons, form.formtastic fieldset.actions{
   padding-left:0px;
 }
-form.formtastic fieldset.buttons li {
+form.formtastic fieldset.buttons li, form.formtastic fieldset.actions li  {
     float: none;
     padding-right: 0;
     text-align:center;
 }
 
-form.formtastic fieldset.buttons {
+form.formtastic fieldset.buttons, form.formtastic fieldset.actions {
     text-align: center;
 }
 
-form.formtastic fieldset.buttons input{
+form.formtastic fieldset.buttons input, form.formtastic fieldset.actions input{
   border: 0px;
   background-image: image-url("orange_buttons/search.jpg");
   background-repeat: no-repeat;
@@ -98,6 +98,6 @@ form.formtastic fieldset.buttons input{
   line-height: 22px;
   font-weight: bold;
 }
-form.formtastic fieldset.buttons input:hover{
+form.formtastic fieldset.buttons input:hover, form.formtastic fieldset.actions input:hover{
   background-image: image-url("orange_buttons/search_hover.jpg");
 }

@@ -36,6 +36,11 @@ Buxton::Application.configure do
   # Configure static asset server for tests with Cache-Control for performance
   config.serve_static_files = true
   config.static_cache_control = 'public, max-age=3600'
+
+  config.eager_load = false
+
+  config.active_support.test_order = :sorted
+  config.active_record.raise_in_transactional_callbacks = true
 end
 BANNER    = true
 KEYS      = true

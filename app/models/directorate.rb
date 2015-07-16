@@ -7,12 +7,13 @@
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
 class Directorate < ActiveRecord::Base
+  attr_protected
   has_many :service_areas, :dependent => :destroy
   has_many :activities, :through => :service_areas
   has_and_belongs_to_many :cops, :class_name => 'User'
   validates_presence_of :name
   validate :has_cops
-  scope :active, :conditions => {:retired => false}
+  scope :active, -> {where :retired => false}
   belongs_to :creator, :class_name => "User"
   # validates_associated :cop
 
@@ -53,12 +54,12 @@ class Directorate < ActiveRecord::Base
     cops.clear
     if emails.is_a? Array
       emails.each do |email|
-        if user = User.live.find_by_email(email)
+        if user = User.live.find_by(email: email)
           cops << user
         end
       end
     else
-      cops << User.live.find_by_email(emails)
+      cops << User.live.find_by(email: emails)
     end
   end
 

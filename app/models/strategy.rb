@@ -12,9 +12,10 @@
 #
 class Strategy < ActiveRecord::Base
   validates_presence_of :name
-  
-  scope :live, :conditions => "retired is not true"
+  attr_protected
+
+  scope :live, -> {where(retired: false)}
   include FixInvalidChars
- 
-  
+
+
 end

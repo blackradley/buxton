@@ -62,7 +62,7 @@ Buxton::Application.routes.draw do
       post :submit_approval
       post :submit_rejection
       get :edit_tgm
-      put :update_tgm
+      patch :update_tgm
     end
   end
 
@@ -80,7 +80,7 @@ Buxton::Application.routes.draw do
     end
   end
 
-  match "access_denied", :to => "users#access_denied"
+  match "access_denied", :to => "users#access_denied", via: :get
   root :to => "application#set_homepage"
 
   devise_for :user, :controllers => {:passwords => "passwords", :password_expired => "password_expired"}, :path_names => { :sign_in => 'login', :sign_out => 'logout'} #do
@@ -138,6 +138,6 @@ Buxton::Application.routes.draw do
     end
   end
 
-  match 'sections/edit/:id/:equality_strand' => 'sections#edit'
+  match 'sections/edit/:id/:equality_strand' => 'sections#edit', via: :get
   # match '/:controller(/:action(/:id))'
 end

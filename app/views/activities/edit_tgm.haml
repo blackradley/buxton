@@ -1,7 +1,7 @@
 = semantic_form_for @activity, :url => update_tgm_activity_path do |form|
   = form.inputs :id => "standardInputs" do
-    =form.autocompleted_input :completer_email, :url => autocomplete_user_email_activities_path, :label => "Task Group Manager", :required => false
-  = form.buttons do
+    =form.input :completer_email, :url => autocomplete_user_email_activities_path, :label => "Task Group Manager", :required => false, as: :autcomplete
+  = form.actions do
     = form.submit "Add", :disable_with => 'Saving...'
     %span.cancelLink
       - if @current_user.creator?

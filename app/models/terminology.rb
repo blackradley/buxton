@@ -7,5 +7,6 @@
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
 class Terminology < ActiveRecord::Base
-  has_many :organisation_terminologies, :dependent => :destroy  
+  attr_protected
+  has_many :organisation_terminologies, :dependent => :destroy
 end

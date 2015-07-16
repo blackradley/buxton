@@ -71,7 +71,7 @@ class ActivityTest < ActiveSupport::TestCase
     end
 
     should "not have 1d completed" do
-      assert !@activity.questions.find_by_name('purpose_overall_13').completed?
+      assert !@activity.questions.find_by(name: 'purpose_overall_13').completed?
     end
 
     should "not have purpose completed" do
@@ -130,7 +130,7 @@ class ActivityTest < ActiveSupport::TestCase
     end
 
     should "not have 1d completed" do
-      assert !@activity.questions.find_by_name('purpose_overall_13').completed?
+      assert !@activity.questions.find_by(name: 'purpose_overall_13').completed?
     end
 
     should "not have purpose completed" do
@@ -188,7 +188,7 @@ class ActivityTest < ActiveSupport::TestCase
     end
 
     should "have 1d completed" do
-      assert @activity.questions.find_by_name('purpose_overall_13').completed?
+      assert @activity.questions.find_by(name: 'purpose_overall_13').completed?
     end
 
     should "not have purpose completed" do
@@ -246,7 +246,7 @@ class ActivityTest < ActiveSupport::TestCase
     end
 
     should "have 1d completed" do
-      assert @activity.questions.find_by_name('purpose_overall_13').completed?
+      assert @activity.questions.find_by(name: 'purpose_overall_13').completed?
     end
 
     should "have purpose completed" do
@@ -304,7 +304,7 @@ class ActivityTest < ActiveSupport::TestCase
     end
 
     should "have 1d completed" do
-      assert @activity.questions.find_by_name('purpose_overall_13').completed?
+      assert @activity.questions.find_by(name: 'purpose_overall_13').completed?
     end
 
     should "have purpose completed" do
@@ -369,7 +369,7 @@ class ActivityTest < ActiveSupport::TestCase
     end
 
     should "have 1d completed" do
-      assert @activity.questions.find_by_name('purpose_overall_13').completed?
+      assert @activity.questions.find_by(name: 'purpose_overall_13').completed?
     end
 
     (Activity.strands - ["gender"]).each do |strand|
@@ -393,9 +393,6 @@ class ActivityTest < ActiveSupport::TestCase
     end
 
     should "not have consultation gender completed" do
-      puts '###############################################'
-      puts @activity.questions.map(&:name)
-      puts @activity.questions.where(:strand => "gender", :section => "consultation").map(&:inspect)
       assert !@activity.completed(:consultation, :gender, true)
     end
 
@@ -444,7 +441,7 @@ class ActivityTest < ActiveSupport::TestCase
     end
 
     should "have 1d completed" do
-      assert @activity.questions.find_by_name('purpose_overall_13').completed?
+      assert @activity.questions.find_by(name: 'purpose_overall_13').completed?
     end
 
     (Activity.strands - ["gender"]).each do |strand|
@@ -576,7 +573,7 @@ class ActivityTest < ActiveSupport::TestCase
     end
 
     should "have 1d completed" do
-      assert @activity.questions.find_by_name('purpose_overall_13').completed?
+      assert @activity.questions.find_by(name: 'purpose_overall_13').completed?
     end
 
     (Activity.strands - ["gender", "age"]).each do |strand|
@@ -632,7 +629,6 @@ class ActivityTest < ActiveSupport::TestCase
     context "when you add complete issues" do
 
       setup do
-        puts @activity.questions.count
         @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer_id => 1, :strand => "gender", :section => "impact", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
         @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer_id => 1, :strand => "gender", :section => "consultation", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
         @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer_id => 1, :strand => "age", :section => "impact", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
