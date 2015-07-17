@@ -33,6 +33,8 @@ gem 'uglifier'
 gem 'activerecord-session_store'
 gem 'responders', '~> 2.0'
 
+gem 'mailsafe'
+
 group :test do
   gem 'test-unit'
   gem 'factory_girl', "1.3.3"
@@ -44,8 +46,6 @@ end
 group :development do
   gem 'web-console', '~> 2.0'
   gem 'spring'
-  # gem "rcov_rails"
-  gem 'mail_safe'
 
   gem 'capistrano', '~> 3.0', require: false
   gem 'capistrano-rails',   '~> 1.1', require: false
