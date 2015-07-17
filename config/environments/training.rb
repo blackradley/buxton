@@ -35,7 +35,7 @@ Buxton::Application.configure do
 
   config.i18n.fallbacks = true
 
-  config.action_mailer.default_url_options = { :host => "impact-equality-staging.27stars.co.uk" }
+  config.action_mailer.default_url_options = { :host => 'training.impactequality.co.uk' }
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify

@@ -17,7 +17,7 @@ gem 'airbrake'
 gem 'rails3-jquery-autocomplete'
 gem 'devise_security_extension'
 gem 'right_aws'
-gem 'rack-ssl', :require => 'rack/ssl'
+
 gem 'whenever'
 gem 'will_paginate', "~> 3.0.pre2"
 
