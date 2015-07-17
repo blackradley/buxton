@@ -67,7 +67,7 @@ class ActivitiesController < ApplicationController
 
   def clone
     original_activity = Activity.find(params[:id])
-    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Clone #{original_activity.name}"]]
+    @breadcrumb = [["My EAs", my_eas_activities_path], ["Clone #{original_activity.name}"]]
     @selected = "directorate_eas"
     @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
     @activity = Activity.new(original_activity.attributes)
@@ -119,7 +119,7 @@ class ActivitiesController < ApplicationController
 
   def new
     # @directorates = Directorate.where(:creator_id=>current_user.id)
-    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
+    @breadcrumb = [["My EAs", my_eas_activities_path], ["New EA"]]
     @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
     @service_areas = @directorates.first.service_areas
     @selected = "directorate_eas"
@@ -129,7 +129,7 @@ class ActivitiesController < ApplicationController
   end
 
   def create
-    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
+    @breadcrumb = [["My EAs", my_eas_activities_path], ["New EA"]]
     @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
     # @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
     @selected = "directorate_eas"
@@ -159,7 +159,7 @@ class ActivitiesController < ApplicationController
           @activity = @activity.clone
           @activity.actual_start_date = nil
         else
-          @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Clone #{@activity.name}"]]
+          @breadcrumb = [["My EAs", my_eas_activities_path], ["Clone #{@activity.name}"]]
           @selected = "directorate_eas"
           @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
           @clone_of = @activity
@@ -181,7 +181,7 @@ class ActivitiesController < ApplicationController
       @activity.activity_strategies.build(:strategy => s) unless @activity.activity_strategies.map(&:strategy).include?(s)
     end
     @activity.ready = true
-    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
+    @breadcrumb = [["My EAs", my_eas_activities_path], ["New EA"]]
     @selected = "directorate_eas"
     if @activity.update_attributes(params[:activity])
       flash[:notice] = "#{@activity.name} was created."
@@ -215,7 +215,7 @@ class ActivitiesController < ApplicationController
   end
 
   def edit
-    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Edit EA"]]
+    @breadcrumb = [["My EAs", my_eas_activities_path], ["Edit EA"]]
     @activity = Activity.find(params[:id])
     @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
     @directorate = @activity.directorate
@@ -225,7 +225,7 @@ class ActivitiesController < ApplicationController
   end
 
   def edit_tgm
-    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["Edit EA"]]
+    @breadcrumb = [["My EAs", my_eas_activities_path], ["Edit EA"]]
     @activity = Activity.find(params[:id])
     @selected = "directorate_eas"
   end
@@ -236,7 +236,7 @@ class ActivitiesController < ApplicationController
     @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
     @directorate = @activity.directorate
     @service_areas = @directorate.service_areas if @directorate
-    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
+    @breadcrumb = [["My EAs", my_eas_activities_path], ["New EA"]]
 
     @selected = "directorate_eas"
     # @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
@@ -282,7 +282,7 @@ class ActivitiesController < ApplicationController
   end
 
   def update_tgm
-    @breadcrumb = [["Directorate EAs", directorate_eas_activities_path], ["New EA"]]
+    @breadcrumb = [["My EAs", my_eas_activities_path], ["New EA"]]
     @selected = "directorate_eas"
     @activity = Activity.find(params[:id])
 
