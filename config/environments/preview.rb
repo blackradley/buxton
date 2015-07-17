@@ -18,10 +18,9 @@ Buxton::Application.configure do
   config.action_dispatch.x_sendfile_header = "X-Sendfile"
 
   # In production, Apache or nginx will already do this
-  config.serve_static_assets = false
+  config.serve_static_files = false
 
   config.i18n.fallbacks = true
-  config.middleware.insert_before Rack::Lock, "Rack::SSL"
 
   config.action_mailer.default_url_options = { :host => 'preview.impactequality.co.uk' }
 
