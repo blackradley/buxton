@@ -21,7 +21,6 @@ Buxton::Application.configure do
   config.serve_static_assets = false
 
   config.i18n.fallbacks = true
-  config.middleware.insert_before Rack::Lock, "Rack::SSL"
 
   config.action_mailer.default_url_options = { :host => 'preview.impactequality.co.uk' }
 
