@@ -1,17 +1,15 @@
 !!! transitional
 %html{ 'xmlns' =>'http://www.w3.org/1999/xhtml', 'xml:lang'=> 'en' , 'lang' => 'en' }
-  %head 
-    %title 
-      Equality Risk Toolkit : 
+  %head
+    %title
+      Equality Risk Toolkit :
       = "#{controller.controller_name} : #{controller.action_name}".titleize
     %meta{'http-equiv' => 'cache-control', 'content'=>'no-store'}
     %meta{'http-equiv' => 'pragma', 'content'=>'no-cache'}
     %meta{'http-equiv' => 'content-type', 'content'=>'text/html;charset=UTF-8'}
-    =raw(stylesheet_link_merged :base)
-    =raw(stylesheet_link_tag 'login')
-    =raw javascript_include_merged :base
-    = stylesheet_link_tag 'fixes_ie6'
-    =raw  "<!--[if lt IE 7]> #{}<![endif]-->"
+    =stylesheet_link_tag :application
+    = javascript_include_tag :application
+    =raw  "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->"
     =raw "<!--[if lt IE 7]> #{javascript_include_tag 'jquery.pngFix.js'}<![endif]-->"
     =raw "<!--[if gte IE 7]> #{stylesheet_link_tag 'fixes_ie7'}<![endif]-->"
     = csrf_meta_tag
