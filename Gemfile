@@ -31,6 +31,7 @@ gem 'coffee-rails'
 gem 'uglifier'
 
 gem 'activerecord-session_store'
+gem 'responders', '~> 2.0'
 
 group :test do
   gem 'test-unit'
@@ -41,6 +42,8 @@ group :test do
 end
 
 group :development do
+  gem 'web-console', '~> 2.0'
+  gem 'spring'
   # gem "rcov_rails"
   gem 'mail_safe'
   gem 'rvm-capistrano'

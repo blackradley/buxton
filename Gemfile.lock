@@ -55,6 +55,8 @@ GEM
       multi_json
     arel (6.0.2)
     bcrypt (3.1.10)
+    binding_of_caller (0.7.2)
+      debug_inspector (>= 0.0.1)
     builder (3.2.2)
     capistrano (2.15.5)
       highline
@@ -72,6 +74,7 @@ GEM
     coffee-script-source (1.9.1.1)
     color (1.7.1)
     db_fixtures_dump (0.1.1)
+    debug_inspector (0.0.2)
     devise (3.5.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -178,6 +181,7 @@ GEM
     shoulda-context (1.2.1)
     shoulda-matchers (2.8.0)
       activesupport (>= 3.0.0)
+    spring (1.3.6)
     sprockets (3.2.0)
       rack (~> 1.0)
     sprockets-rails (2.3.2)
@@ -199,6 +203,11 @@ GEM
       json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
+    web-console (2.2.1)
+      activemodel (>= 4.0)
+      binding_of_caller (>= 0.7.2)
+      railties (>= 4.0)
+      sprockets-rails (>= 2.0, < 4.0)
     whenever (0.9.4)
       chronic (>= 0.6.3)
     will_paginate (3.0.7)
@@ -227,14 +236,17 @@ DEPENDENCIES
   rails (~> 4.0)
   rails3-jquery-autocomplete
   rake
+  responders (~> 2.0)
   right_aws
   rvm-capistrano
   sass-rails
   shoulda
+  spring
   sprockets
   test-unit
   test_after_commit
   uglifier
+  web-console (~> 2.0)
   whenever
   will_paginate (~> 3.0.pre2)
 
