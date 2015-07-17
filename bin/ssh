@@ -10,6 +10,6 @@ case $1 in
   ssh -p 13427 deploy@birmingham.impactequality.co.uk
   ;;
   "staging" )
-  ssh -p 13427 deploy@impact-equality-staging.27stars.co.uk
+  ssh -t -p 13427 deploy@impact-equality-staging.27stars.co.uk "cd public_html/br-buxton-rails-stg/current; /bin/bash --login"
   ;;
 esac
