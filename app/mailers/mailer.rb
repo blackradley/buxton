@@ -16,12 +16,11 @@ class Mailer < ActionMailer::Base
                                end
 
   def amended_subject(subject_text)
-    if Rails.env == 'preview'
+    unless Rails.env.production?
       return "[#{Rails.env.upcase}] #{subject_text}"
-    elsif Rails.env == 'staging'
-      return "[TRAINING] #{subject_text}"
+    else
+      return subject_text
     end
-    return subject_text
   end
 
   def activity_created(activity)
