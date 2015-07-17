@@ -8,7 +8,6 @@
     %meta{'http-equiv' => 'pragma', 'content'=>'no-cache'}
     %meta{'http-equiv' => 'content-type', 'content'=>'text/html;charset=UTF-8'}
     =stylesheet_link_tag :application
-    =stylesheet_link_tag 'tables'
     - if @current_user.respond_to?(:organisation) && !@current_user.organisation.nil? then
       =raw "<style>.mastHead .logo { background-image: url(/images/organisations/#{@current_user.organisation.id}.png);}</style>"
     - if controller.action_name=='signup'
