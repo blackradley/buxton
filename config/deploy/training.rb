@@ -7,10 +7,8 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-server "preview.impactequality.co.uk", roles: %w{web app db}, user: 'deploy', port: 13427
+server "staging.impactequality.co.uk", roles: %w{web app db}, user: 'deploy', port: 13427
 set :deploy_to, "/home/deploy/public_html/#{domain}"
-
-
 
 # role-based syntax
 # ==================
@@ -35,6 +33,7 @@ set :deploy_to, "/home/deploy/public_html/#{domain}"
 # Feel free to add new variables to customise your setup.
 
 set :branch, "master"
+
 
 # Custom SSH Options
 # ==================
