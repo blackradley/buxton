@@ -112,8 +112,7 @@ GEM
       nokogiri (>= 1.5.9)
     mail (2.6.3)
       mime-types (>= 1.16, < 3)
-    mail_safe (0.3.4)
-      actionmailer (>= 3.0.0)
+    mailsafe (0.2.1)
     metaclass (0.0.4)
     mime-types (2.6.1)
     mini_portile (0.6.2)
@@ -233,7 +232,7 @@ DEPENDENCIES
   formtastic (~> 2)
   haml
   jquery-rails
-  mail_safe
+  mailsafe
   mocha
   mysql2
   newrelic_rpm

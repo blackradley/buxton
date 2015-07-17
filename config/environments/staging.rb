@@ -48,3 +48,8 @@ end
 BANNER    = true
 KEYS      = true
 DEV_MODE  = BANNER
+
+
+Mailsafe.setup do |config|
+  config.override_receiver = "irina@27stars.co.uk"
+end
