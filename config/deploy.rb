@@ -1,96 +1,62 @@
-require 'capistrano/ext/multistage'
-# For RVM
-# $:.unshift(File.expand_path('./lib', ENV['rvm_path'])) # Add RVM's lib directory to the load path.
-require "rvm/capistrano"                  # Load RVM's capistrano plugin.
-set :rvm_ruby_string, 'ree@brs'        # Or whatever env you want it to run in.
+# config valid only for current version of Capistrano
+lock '3.4.0'
+
+set :application, 'buxton'
+set :repo_url, "git@github.com:blackradley/buxton.git"
+
+set :rvm_ruby_version, "2.2.2@br-buxton-rails"       # Or whatever env you want it to run in.
 set :rvm_type, :user
 
-# =============================================================================
-# VARS
-# =============================================================================
-set :application, "buxton"
-# set :repository,  "http://svn3.cvsdude.com/BlackRadley/buxton/trunk"
+# Default branch is :master
+# ask :branch, `git rev-parse --abbrev-ref HEAD`.chomp
 
-set :user, 'deploy'
-set :runner, user
-# set :scm_username, '27stars-karl'
-# set :scm_password, 'dogstar'
-# set :rake, '/opt/ruby-enterprise-1.8.6-20090201/bin/rake'
+# Default deploy_to directory is /var/www/my_app_name
+# set :deploy_to, '/var/www/my_app_name'
 
-default_run_options[:pty] = true # We need to turn on the :pty option because it 
-                                 # would seem we don’t get the passphrase prompt 
-                                 # from git if we don’t.
-set :scm_verbose, true
-set :scm, "git"
-set :repository, "git@github.com:blackradley/buxton.git"
-set :repository_cache, "git_cache"
-set :deploy_via, :remote_cache
-set :database_yml_in_scm, false
+# Default value for :scm is :git
+# set :scm, :git
 
-set :keep_releases, 10
-after 'deploy:update_code', 'deploy:cleanup'
-# =============================================================================
-# TASKS
-# =============================================================================
+# Default value for :format is :pretty
+# set :format, :pretty
 
-ssh_options[:forward_agent] = true
-#require 'bundler/capistrano'
+# Default value for :log_level is :debug
+# set :log_level, :debug
 
-namespace :bundler do
- task :create_symlink, :roles => :app do
-   shared_dir = File.join(shared_path, 'bundle')
-   release_dir = File.join(current_release, '.bundle')
-   run("mkdir -p #{shared_dir} && ln -s #{shared_dir} #{release_dir}")
- end
+# Default value for :pty is false
+# set :pty, true
 
- task :bundle_new_release, :roles => :app do
-   bundler.create_symlink
-   run "cd #{release_path} && bundle install --without development test"
- end
-end
+# Default value for :linked_files is []
+set :linked_files, fetch(:linked_files, []).push('config/database.yml', 'doc/helptext.csv')
 
-task :shared_files, :roles => [:web] do
-  # Make symlink for shared files
-  SHARED_FILES = ['config/database.yml',
-                  'public/images/organisations',
-                  'doc/helptext.csv']
-  SHARED_FILES.each do |file|
-    run "ln -nfs #{shared_path}/#{file} #{release_path}/#{file}"
+# Default value for linked_dirs is []
+set :linked_dirs, fetch(:linked_dirs, []).push('log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system', 'public/images/organisations')
+
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+
+# Default value for keep_releases is 5
+# set :keep_releases, 5
+
+ set :ssh_options, {
+   forward_agent: true,
+ }
+
+namespace :deploy do
+
+  task :restart do
+    on roles(:app), in: :sequence, wait: 5 do
+      # Your restart mechanism here, for example:
+      execute :touch, release_path.join('tmp/restart.txt')
+    end
   end
-  
-  run "cd #{release_path} && bundle exec whenever --update-crontab #{application} --set environment=#{rails_env}"
-end
 
-desc "Update asset packager"
-task :package_assets do
-  # Produce CSS files ready for asset_packager, then build assets
-  # (General SASS files first, then template colour schemes, then asset_packager)
-  TASKS = ['asset:packager:delete_all',
-           'asset:packager:build_all']
-  TASKS.each do |task|
-    run <<-EOF
-      cd #{release_path} &&
-      #{rake} RAILS_ENV=#{rails_env} #{task}
-    EOF
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
+    end
   end
+
 end
-
-after 'deploy:update_code', 'bundler:bundle_new_release'
-after 'deploy:update_code', 'shared_files'
-after 'deploy:update_code', 'package_assets'
-
-
-namespace :deploy do  
-  task :start, :roles => :app do  
-  end  
-
-  task :stop, :roles => :app do  
-  end  
-
-  task :restart, :roles => :app do  
-    run "touch #{release_path}/tmp/restart.txt"
-  end  
-end
-
-# require './config/boot'
-require 'airbrake/capistrano'

@@ -46,6 +46,11 @@ group :development do
   gem 'spring'
   # gem "rcov_rails"
   gem 'mail_safe'
-  gem 'rvm-capistrano'
+
+  gem 'capistrano', '~> 3.0', require: false
+  gem 'capistrano-rails',   '~> 1.1', require: false
+  gem 'capistrano-bundler', '~> 1.1', require: false
+  gem 'capistrano-rvm',   '~> 0.1', require: false
+
   gem 'db_fixtures_dump'
 end
