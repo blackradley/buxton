@@ -18,7 +18,7 @@ Buxton::Application.configure do
   config.action_dispatch.x_sendfile_header = "X-Sendfile"
 
   # In production, Apache or nginx will already do this
-  config.serve_static_assets = false
+  config.serve_static_files = false
 
   config.i18n.fallbacks = true
 
