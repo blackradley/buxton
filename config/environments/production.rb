@@ -69,6 +69,8 @@ Buxton::Application.configure do
   config.active_record.mass_assignment_sanitizer = :strict
 
   config.eager_load = true
+
+  config.log_level = :info
 end
 
 BANNER    = false

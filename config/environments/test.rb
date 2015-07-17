@@ -40,7 +40,7 @@ Buxton::Application.configure do
   config.eager_load = false
 
   config.active_support.test_order = :sorted
-  config.active_record.raise_in_transactional_callbacks = true
+  config.log_level = :debug
 end
 BANNER    = true
 KEYS      = true
