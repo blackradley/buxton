@@ -6,7 +6,7 @@ Buxton::Application.configure do
   # config.logger = SyslogLogger.new
 
   # Full error reports are disabled and caching is turned on
-  config.action_controller.consider_all_requests_local = false
+  config.consider_all_requests_local = false
   config.action_controller.perform_caching             = true
 
   # Use a different cache store in production
@@ -36,7 +36,7 @@ Buxton::Application.configure do
   config.i18n.fallbacks = true
   config.middleware.insert_before Rack::Lock, "Rack::SSL"
 
-  config.action_mailer.default_url_options = { :host => 'training.impactequality.co.uk' }
+  config.action_mailer.default_url_options = { :host => "impact-equality-staging.27stars.co.uk" }
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
