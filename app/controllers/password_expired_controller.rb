@@ -6,7 +6,7 @@ class PasswordExpiredController < Devise::PasswordExpiredController
     if not resource.nil? and resource.need_change_password?
       sign_out
       set_flash_message :notice, :reset_password
-      redirect_to login_path
+      redirect_to new_user_session_path
     else
       redirect_to after_sign_in_path_for(resource)
     end
