@@ -1,12 +1,12 @@
-#  
+#
 # $URL$
 # $Rev$
 # $Author$
 # $Date$
 #
-# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved. 
+# Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
-class QuestionBuilder < ActionView::Helpers::FormBuilder    
+class QuestionBuilder < ActionView::Helpers::FormBuilder
 
   # Generates all the HTML needed for a form question
   def question(section, options={})
@@ -23,20 +23,20 @@ class QuestionBuilder < ActionView::Helpers::FormBuilder
     help = query[3]
     look_up_choices = activity.hashes['choices']
     # Get the answer options for this question and make an appropriate input field
-    input_field = case type     
+    input_field = case type
     when :text
-      text_area question 
+      text_area question
     when :string
       text_field question
     when :select
-      select question, look_up_choices[choices].collect{|l| [l, look_up_choices[choices].index(l)]}	    
+      select question, look_up_choices[choices].collect{|l| [l, look_up_choices[choices].index(l)]}
     end
-	    
+
     # Show our formatted question!
 	  unless help == ""
-      %Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}<img src="/images/icons/help.gif" onclick="Element.toggle('help_#{section}_#{strand}_#{number}')"></p><span id="help_#{section}_#{strand}_#{number}" class="toggleHelp" style="display:none;">#{help}</span><div class="clear"></div>]
+      %Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}<img src="/assets/icons/help.gif" onclick="Element.toggle('help_#{section}_#{strand}_#{number}')"></p><span id="help_#{section}_#{strand}_#{number}" class="toggleHelp" style="display:none;">#{help}</span><div class="clear"></div>]
     else
-       %Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]   
+       %Q[<p><label for="#{object_name.to_s}_#{question.to_s}">#{label}</label>#{input_field}</p>]
     end
   end
 end
