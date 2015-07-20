@@ -120,7 +120,7 @@ class ActivitiesController < ApplicationController
   def new
     # @directorates = Directorate.where(:creator_id=>current_user.id)
     @breadcrumb = [["My EAs", my_eas_activities_path], ["New EA"]]
-    @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
+    @directorates = Directorate.active.select{|d| d.service_areas.count > 0}
     @service_areas = @directorates.first.service_areas
     @selected = "directorate_eas"
     @activity = Activity.new
@@ -130,7 +130,7 @@ class ActivitiesController < ApplicationController
 
   def create
     @breadcrumb = [["My EAs", my_eas_activities_path], ["New EA"]]
-    @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
+    @directorates = Directorate.active.select{|d| d.service_areas.count > 0}
     # @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
     @selected = "directorate_eas"
     invalid = params[:activity].select{|k,v| k.match(/_email/) && !v.blank? && !User.live.exists?(:email => v)}#.each do |k,v|
