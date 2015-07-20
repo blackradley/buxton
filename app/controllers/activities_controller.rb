@@ -193,15 +193,14 @@ class ActivitiesController < ApplicationController
         redirect_to my_eas_activities_path and return
       end
     else
-      # raise @activity.errors.inspect
-      if !@activity.errors[:completer].blank?
-        @activity.errors.add(:completer_email, "An EA must have someone assigned to undergo the assessment")
+      if @activity.errors[:completer].present?
+        @activity.errors.add(:completer_email, "Task Group Manager " + @activity.errors[:completer].to_sentence)
       end
-      if !@activity.errors[:approver].blank?
-        @activity.errors.add(:approver_email, "An EA must have someone assigned to approve the assessment")
+      if @activity.errors[:approver].present?
+        @activity.errors.add(:approver_email, "Senior Officer " + @activity.errors[:approver].to_sentence)
       end
-      if !@activity.errors[:qc_officer].blank?
-        @activity.errors.add(:qc_officer_email, "An EA must have someone assigned as a Quality Control Officer for the assessment")
+      if @activity.errors[:qc_officer].present?
+        @activity.errors.add(:qc_officer_email, "Quality Control Officer " + @activity.errors[:qc_officer].to_sentence)
       end
       @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
       render 'new'
