@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     @breadcrumb = [["User Administration", users_path], ["Add New User"]]
     @user = User.new
     if request.xhr?
-      render :layout => false
+      render partial: "new"
     end
   end
 
@@ -20,20 +20,15 @@ class UsersController < ApplicationController
     @breadcrumb = [["User Administration", users_path], ["Edit User"]]
     @user = User.find(params[:id])
     if request.xhr?
-      render :layout => false
+      render partial: "edit"
     end
   end
 
   def create
     @breadcrumb = [["User Administration", users_path], ["Add New User"]]
     @user = User.new((params[:user] || {}).merge(:trained => true))
-    if @user.save
-      render :update do |page|
-        page.redirect_to users_path
-      end
-    else
-      render "new", :layout => false
-    end
+    @user.save
+    render layout: false
   end
 
   def new_user
@@ -54,14 +49,8 @@ class UsersController < ApplicationController
   def update
     @breadcrumb = [["User Administration", users_path], ["Edit User"]]
     @user = User.find(params[:id])
-    if @user.update_attributes(params[:user])
-      render plain: "form load successful", :content_type => 'text/plain'
-      # render :update do |page|
-      #   page.redirect_to users_path
-      # end
-    else
-      render "edit", :layout => false
-    end
+    @user.update_attributes(params[:user])
+    render layout: false
   end
 
   def access_denied
