@@ -125,7 +125,7 @@ class ActivitiesController < ApplicationController
     @selected = "directorate_eas"
     @activity = Activity.new
     # @activity.service_area = @service_areas.first
-    # @activity.approver = @service_areas.first.approver if @service_areas.first
+    @activity.approver = @service_areas.first.approver if @service_areas.first #Default approver
   end
 
   def create
