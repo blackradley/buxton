@@ -339,7 +339,11 @@ html/**/>body #strand
 
 /*Clickable Buttons*/
 
-.button input, button
+button{
+	border:none;
+}
+
+.button input, button:not(#cboxClose)
 {	margin-top: 10px;
 	clear: both;
 	float: right;
