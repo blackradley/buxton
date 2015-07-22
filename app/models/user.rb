@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :trackable, :validatable, :lockable , :recoverable, :password_expirable
 
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :roles, :activities, :retired, :locked, :trained, :creator
+  attr_accessible :email, :roles, :activities, :retired, :locked, :trained, :creator, :password
   scope :live, -> {where "type is null and retired is not true"}
   scope :non_admin, -> {where "type is null"}
   scope :non_retired, -> {where "retired is not true"}
