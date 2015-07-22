@@ -3,22 +3,22 @@
     %label
       =question_issues.label
     %labelled
-      -case question_issues.input_type.to_sym   
+      -case question_issues.input_type.to_sym
         -when :text
           = q.text_area :raw_answer
         -when :string
           = q.text_field :raw_answer
         -when :select
           = q.select :raw_answer, question_issues.choices.map{|choice| [choice, question_issues.choices.index(choice)]}
-  
+
 -displayString = "none"
 -if @activity.questions.where(:name => question_issues.name).first.response.to_s == '1'
   -displayString = "block"
 
 .more{:id => "more_" + "#{question_issues.name}_issues", :style => "display:none"}
-  
+
 .question.sub{:id => "#{question_issues.name}_issues", 'data-dependencies' => {}.to_json, :style => "display:#{displayString};"}
-  %label 
+  %label
     Please record each of the discrete issues identified in the space below and when you have finished click save.
   %span#issues_list
     = render :partial => 'issue', :collection => @activity.issues_by(question_issues.section, question_issues.strand), :locals => {:strand =>  params[:equality_strand], :form => f}
