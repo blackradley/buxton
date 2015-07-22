@@ -165,7 +165,7 @@ $(document).ready(function(){
 
   // Toggles the question depending on what is contained in the dependency hashes
   $('.question select, .question_compact select').change(function(obj){
-    toggleDependencies(obj.srcElement);
+    toggleDependencies(this);
   });
 
   $('.addIssue').click(function(){
