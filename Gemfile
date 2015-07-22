@@ -33,6 +33,8 @@ gem 'uglifier'
 gem 'activerecord-session_store'
 gem 'responders', '~> 2.0'
 
+gem 'mailsafe'
+
 
 group :test do
   gem 'test-unit'
@@ -52,6 +54,5 @@ group :development do
   gem 'capistrano-rvm',   '~> 0.1', require: false
 
   gem 'db_fixtures_dump'
-  gem 'mailsafe'
 
 end
