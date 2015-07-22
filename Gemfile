@@ -33,7 +33,6 @@ gem 'uglifier'
 gem 'activerecord-session_store'
 gem 'responders', '~> 2.0'
 
-gem 'mailsafe'
 
 group :test do
   gem 'test-unit'
@@ -45,7 +44,7 @@ end
 
 group :development do
   gem 'web-console', '~> 2.0'
-  gem 'spring'
+  # gem 'spring'
 
   gem 'capistrano', '~> 3.0', require: false
   gem 'capistrano-rails',   '~> 1.1', require: false
@@ -53,4 +52,6 @@ group :development do
   gem 'capistrano-rvm',   '~> 0.1', require: false
 
   gem 'db_fixtures_dump'
+  gem 'mailsafe'
+
 end
