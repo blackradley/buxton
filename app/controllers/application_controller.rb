@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery
+  protect_from_forgery with: :exception
   layout :site_layout
-  
+
   helper :all # include all helpers, all the time
 
   before_filter :set_current_user
@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   before_filter :check_trained
   before_filter :setup_menus
   alias_method :old_sign_out, :sign_out
-  
+
   def set_homepage
     redirect_to after_sign_in_path_for(current_user)
   end
@@ -30,7 +30,7 @@ protected
   def set_current_user
     @current_user = current_user
   end
-  
+
   def set_banner
     @banner_text = "Not live. You are on a server in #{Rails.env} mode."
 
@@ -45,16 +45,16 @@ protected
   def secure?
     false
   end
-  
+
   # def not_found
   #   render :file => "#{Rails.root}/public/404.html",  :status => "404 Not Found", :layout => false
   # end
-  
+
   def requires_admin
     return if devise_controller?
     redirect_to access_denied_path unless user_signed_in? && current_user.is_a?(Administrator)
   end
-  
+
   def after_sign_in_path_for(resource)
    return users_path if current_user.is_a?(Administrator)
    LoginLog.create(:user => current_user)
@@ -71,7 +71,7 @@ protected
    end
    return new_user_users_path
   end
-  
+
   def strand_display(strand)
     if strand.to_s.downcase == 'faith'
       return 'religion or belief'
@@ -88,43 +88,43 @@ protected
       redirect_to training_user_path(current_user) and return unless current_user.trained?
     end
   end
-  
+
   def ensure_creator
     redirect_to access_denied_path unless current_user.creator?
   end
-  
+
   def ensure_creator_or_cop
     redirect_to access_denied_path unless current_user.creator? || current_user.corporate_cop?
   end
-  
+
   def ensure_cop
     redirect_to access_denied_path unless current_user.corporate_cop? || current_user.directorate_cop? || current_user.creator?
   end
-  
+
   def ensure_corporate_cop
     redirect_to access_denied_path unless current_user.corporate_cop?
   end
-  
+
   def ensure_completer
     redirect_to access_denied_path unless current_user.completer?
   end
-  
+
   def ensure_approver
     redirect_to access_denied_path unless current_user.approver?
   end
-  
+
   def ensure_task_group_member
     redirect_to access_denied_path unless current_user.helper?
   end
-  
+
   def ensure_quality_control
     redirect_to access_denied_path unless current_user.quality_control?
   end
-  
+
   def ensure_pdf_view
     redirect_to access_denied_path unless current_user.creator? || current_user.approver? || current_user.completer? || current_user.quality_control?
   end
-  
+
   def sign_out(*args)
     if current_user && !current_user.is_a?(Administrator)
       LogoutLog.create(:user => current_user)
@@ -132,14 +132,14 @@ protected
     end
     old_sign_out(*args)
   end
-  
+
 private
 
   def setup_menus
     menu = Array.new
     return [] unless current_user
     menu << ["Task Group Manager", my_eas_activities_path]# if ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id)).size > 0
-    current_user.roles.map do |role| 
+    current_user.roles.map do |role|
       case role
       when "Approver"
         menu << ["Awaiting Approval", approving_activities_path]
@@ -163,8 +163,8 @@ private
     end
     @activities_menu = menu.uniq
   end
-  
-  
+
+
   def set_activity
     @activity = current_user.activities.select{|a| a.id == params[:activity_id].to_i}.first
   end
