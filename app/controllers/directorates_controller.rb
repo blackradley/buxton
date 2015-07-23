@@ -20,15 +20,15 @@ class DirectoratesController < ApplicationController
   before_filter :authenticate_user!
   before_filter :ensure_creator_or_cop
   # autocomplete :user, :email, :scope => :live
-  autocomplete :user, :email, :scope => :creator
-  autocomplete :user, :cop_email, :scope => :live
-  
+  autocomplete :user, :email, :scope => :live
+  # autocomplete :user, :cop_email, :scope => :live
+
   def index
     @breadcrumb = [["Directorates"]]
     @directorates = Directorate.all
     @selected = "directorates"
   end
-  
+
   def new
     @breadcrumb = [["Directorates", directorates_path], ["Add New Directorate"]]
     @directorate = Directorate.new
@@ -46,7 +46,7 @@ class DirectoratesController < ApplicationController
       render 'new'
     end
   end
-  
+
   def toggle_directorate_status
     @directorate = Directorate.find(params[:id])
     @directorate.toggle(params[:checkbox])
@@ -56,7 +56,7 @@ class DirectoratesController < ApplicationController
     @selected = "directorates"
     render :index
   end
-  
+
   def edit
     @breadcrumb = [["Directorates", directorates_path], ["Edit Directorate"]]
     @directorate = Directorate.find(params[:id])
@@ -74,7 +74,7 @@ class DirectoratesController < ApplicationController
       render "edit"
     end
   end
-  
+
 
 protected
 
