@@ -59,7 +59,7 @@ class Directorate < ActiveRecord::Base
         end
       end
     else
-      cops << User.live.find_by(email: emails)
+      cops << User.live.find_by(email: emails) if emails.present?
     end
   end
 
