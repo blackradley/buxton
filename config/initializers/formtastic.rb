@@ -79,35 +79,35 @@
 # specifying that class here.  Defaults to SemanticFormBuilder.
 # Formtastic::SemanticFormHelper.builder = MyCustomBuilder
 
-module Formtastic
-  module DatePicker
+# module Formtastic
+#   module DatePicker
 
-    class DatepickerInput < Formtastic::Inputs::StringInput
-      def input_html_options
-        super.merge(:class => "#{super[:class]} ui-datepicker", :style => "display:block", :value => new_value)
-      end
-    end
+#     class DatepickerInput < Formtastic::Inputs::StringInput
+#       def input_html_options
+#         super.merge(:class => "#{super[:class]} ui-datepicker", :style => "display:block", :value => new_value)
+#       end
+#     end
 
-    def datepicker_input(method, options = {})
-      format = options[:format] || '%d %b %Y'
-      string_input(method, datepicker_options(format, object.send(method)).merge(options))
-    end
+#     def datepicker_input(method, options = {})
+#       format = options[:format] || '%d %b %Y'
+#       string_input(method, datepicker_options(format, object.send(method)).merge(options))
+#     end
 
-    # Generate html input options for the datepicker_input
-    #
-    def datepicker_options(format, value = nil)
-      new_value = nil
-      if format.is_a?(Symbol)
-        if value.blank?
-          new_value = ""
-        else
-          new_value = value.to_s(format)
-        end
-      else
-        new_value = value.try(:strftime, format)
-      end
-      datepicker_options = {:input_html => {:class => 'ui-datepicker', :style => "display:block", :value => new_value}}
-    end
-  end
-end
-Formtastic::FormBuilder.send(:include, Formtastic::DatePicker)
+#     # Generate html input options for the datepicker_input
+#     #
+#     def datepicker_options(format, value = nil)
+#       new_value = nil
+#       if format.is_a?(Symbol)
+#         if value.blank?
+#           new_value = ""
+#         else
+#           new_value = value.to_s(format)
+#         end
+#       else
+#         new_value = value.try(:strftime, format)
+#       end
+#       datepicker_options = {:input_html => {:class => 'ui-datepicker', :style => "display:block", :value => new_value}}
+#     end
+#   end
+# end
+# Formtastic::FormBuilder.send(:include, Formtastic::DatePicker)
