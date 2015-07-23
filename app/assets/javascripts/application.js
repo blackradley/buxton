@@ -237,12 +237,16 @@ $(document).ready(function(){
   })
 
 
-  $('.lightboxForm').on('ajax:success', function(data, status, xhr) {
+  $(document).on('ajax:complete', '.lightboxForm', function(data, status, xhr) {
     // $('#cboxLoadedContent').html(status);
-    // alert(data);
-    if(status == "form load successful"){window.location.reload();}
-    else{
-      $.colorbox({html: status});
+    // console.log();
+    // alert(status);
+    console.log(status.responseText)
+    if(status.responseText == "form load successful"){
+      window.location.reload();
+    } else {
+      // console.log(data);
+      $.colorbox({html: status.responseText});
     }
     // console.log(data);
     // alert(status);

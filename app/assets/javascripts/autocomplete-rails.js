@@ -13,8 +13,7 @@
 *   Example:
 *       <input type="text" data-autocomplete="/url/to/autocomplete" id_element="#id_field">
 */
-
-$(document).ready(function(){
+$(document).on('ready ajaxComplete', function() {
 	$('input[data-autocomplete]').railsAutocomplete();
 });
 
