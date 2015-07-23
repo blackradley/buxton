@@ -115,8 +115,8 @@ Buxton::Application.routes.draw do
   resources :directorates do
     collection do
       get :autocomplete_user_email
-      get :autocomplete_creator_email
-      get :autocomplete_user_cop_email
+      # get :autocomplete_creator_email
+      # get :autocomplete_user_cop_email
     end
 
     member do
