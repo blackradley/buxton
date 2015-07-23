@@ -1048,7 +1048,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @activity.reload
       assert @activity.approved
       @email = ActionMailer::Base.deliveries.last
-      assert_equal @email.subject, "Email subject"
+      assert_equal @email.subject, "[TEST] Email subject"
       assert_equal @email.to[0], @activity.completer.email
       assert_match /This activity has been approved/, @email.body.to_s
     end
@@ -1059,7 +1059,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @activity.reload
       assert !@activity.approved
       @email = ActionMailer::Base.deliveries.last
-      assert_not_equal @email.subject, "Email subject"
+      assert_not_equal @email.subject, "[TEST] Email subject"
       assert_not_equal @email.to[0], @activity.completer.email
     end
 
@@ -1070,7 +1070,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @activity.reload
       assert !@activity.approved
       @email = ActionMailer::Base.deliveries.last
-      assert_not_equal @email.subject, "Email subject2"
+      assert_not_equal @email.subject, "[TEST] Email subject2"
       assert_not_equal @email.to[0], @activity.completer.email
     end
 
@@ -1081,7 +1081,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @activity.reload
       assert @activity.is_rejected
       @email = ActionMailer::Base.deliveries.last
-      assert_equal @email.subject, "Email subject"
+      assert_equal @email.subject, "[TEST] Email subject"
       assert_equal @email.to[0], @activity.completer.email
       assert_match /activity has been successfully rejected/, @email.body.to_s
       assert !Activity.find_by(id: @activity.id)
@@ -1094,7 +1094,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @activity.reload
       assert !@activity.is_rejected
       @email = ActionMailer::Base.deliveries.last
-      assert_not_equal @email.subject, "Email subject"
+      assert_not_equal @email.subject, "[TEST] Email subject"
       assert_not_equal @email.to[0], @activity.completer.email
       assert Activity.find_by(id: @activity.id)
     end
@@ -1227,7 +1227,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @activity.reload
       assert @activity.is_rejected
       @email = ActionMailer::Base.deliveries.last
-      assert_equal @email.subject, "Email subject"
+      assert_equal @email.subject, "[TEST] Email subject"
       assert_equal @email.to[0], @activity.completer.email
       assert_match /activity has been successfully rejected/, @email.body.to_s
       assert !Activity.find_by_id(@activity.id)
@@ -1390,7 +1390,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       xhr :post, :make_task_group_comment, :subject => "Test comment Subject", :id => 2, :email_contents => "Test Comment Contents"
       assert_redirected_to assisting_activities_path
       @email = ActionMailer::Base.deliveries.last
-      assert_equal @email.subject, "Test comment Subject"
+      assert_equal @email.subject, "[TEST] Test comment Subject"
       assert_equal @email.to[0], "shaun@27stars.co.uk"
       assert_match /Test Comment Contents/, @email.body.to_s
     end
@@ -1399,7 +1399,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       xhr :post, :make_task_group_comment, :subject => "Test comment Subject", :id => 1, :email_contents => "Test Comment Contents"
       assert_redirected_to access_denied_path
       @email = ActionMailer::Base.deliveries.last
-      assert_not_equal @email.subject, "Test comment Subject"
+      assert_not_equal @email.subject, "[TEST] Test comment Subject"
       assert_not_equal @email.to[0], "shaun@27stars.co.uk"
     end
 
