@@ -378,8 +378,8 @@ class ActivityPDFGenerator
   def build_section(section, strand, heading_proc)
     table_data = []
     borders = [300, @page_width]
-    information = @activity.questions.where(:strand => strand, :section => section, :needed => true).order(:name)
-    information.sort!{|a, b| a.name.slice(/\d+\z/) <=> b.name.slice(/\d+\z/)}
+    information = @activity.questions.where(:strand => strand, :section => section, :needed => true).order(:name).sort{|a, b| a.name.slice(/\d+\z/) <=> b.name.slice(/\d+\z/)}
+    # information.sort!{|a, b| a.name.slice(/\d+\z/) <=> b.name.slice(/\d+\z/)}
     cell_formats = []
     information.each do |question|
       question_text = question.label
