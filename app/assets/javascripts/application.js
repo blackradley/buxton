@@ -15,7 +15,7 @@ var sorter;
 
 $(document).ready(function(){
 
-  $('#accept_box').on('change', function(e){
+  $(document).on('change', '#accept_box', function(e){
     if ( $(this).is(':checked') ) {
       $('.enabled').show();
       $('.disabled').hide();
@@ -25,7 +25,7 @@ $(document).ready(function(){
     }
   });
 
-  $('#activity_directorate').on('change', function(e){
+  $(document).on('change', '#activity_directorate', function(e){
     $.ajax({
       url: $('#service_areas_path_div').data( "path" ),
       type: 'POST',
@@ -33,11 +33,11 @@ $(document).ready(function(){
     });
   });
 
-  $('.add_officer_link').on("click", function(e){
+  $(document).on("click", '.add_officer_link', function(e){
     $('.multi').append('<div class="input_div"><label></label><input data-autocomplete="/directorates/autocomplete_user_cop_email" id="directorate_cop_email" name="directorate[cop_email][]" size="30" type="text" value="" class="ui-autocomplete-input multi" autocomplete="off" role="textbox" aria-autocomplete="list" aria-haspopup="true"><a href="#" class="delete_dgo">delete</a><br/></div>');
   });
 
-  $('.delete_dgo').on('click', function(e){
+  $(document).on('click', '.delete_dgo', function(e){
     $(this).prev().prev().prev().remove();
     $(this).prev().prev().remove();
     $(this).prev().remove();
@@ -66,17 +66,17 @@ $(document).ready(function(){
     }
   });
 
-  $('.closeColorBox').on("click", (function(e){
+  $(document).on('click', '.closeColorBox', function(e){
     e.preventDefault();
     $.fn.colorbox.close()
-  }));
+  });
 
   $(".formSubmit").click(function(e){
     $(this).parents("form").submit();
     e.preventDefault();
   })
 
-  $('a.activityFormSubmitLink').on('click', (function(e){
+  $(document).on('click', 'a.activityFormSubmitLink', (function(e){
     $('form.edit_activity').submit();
     e.preventDefault();
   }));
@@ -237,12 +237,16 @@ $(document).ready(function(){
   })
 
 
-  $('.lightboxForm').on('ajax:success', function(data, status, xhr) {
+  $(document).on('ajax:complete', '.lightboxForm', function(data, status, xhr) {
     // $('#cboxLoadedContent').html(status);
-    // alert(data);
-    if(status == "form load successful"){window.location.reload();}
-    else{
-      $.colorbox({html: status});
+    // console.log();
+    // alert(status);
+    console.log(status.responseText)
+    if(status.responseText == "form load successful"){
+      window.location.reload();
+    } else {
+      // console.log(data);
+      $.colorbox({html: status.responseText});
     }
     // console.log(data);
     // alert(status);

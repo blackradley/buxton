@@ -310,3 +310,20 @@
   background-image: image-url("orange_buttons/add.jpg");
   background-repeat: no-repeat;
   background-position: center left; }
+
+.confirmHolder {
+  p {
+    width: 90%;
+    float: left;
+  }
+  input {
+    width: 5%;
+    float: right;
+  }
+}
+
+
+button:focus {outline:0;}
+a:focus {outline:0;}
+input:focus {outline:0;}
+#colorbox:focus { outline: 0;}
