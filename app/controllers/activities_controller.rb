@@ -142,7 +142,8 @@ class ActivitiesController < ApplicationController
         @activity.errors.add(k, "is not a valid user")
         @activity.instance_variable_set("@#{k}", v)
       end
-      @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+      @service_areas = Directorate.find(params[:activity][:directorate]).service_areas
+      # @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
       render 'new' and return
     end
     [:completer_id, :approver_id, :qc_officer_id].each{|p| params[:activity].delete(p)}
@@ -203,7 +204,7 @@ class ActivitiesController < ApplicationController
       if @activity.errors[:qc_officer].present?
         @activity.errors.add(:qc_officer_email, "Quality Control Officer " + @activity.errors[:qc_officer].to_sentence)
       end
-      @service_areas = @activity.directorate.service_areas
+      @service_areas = Directorate.find(params[:activity][:directorate]).service_areas
 
       # @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
       render 'new'
@@ -211,7 +212,7 @@ class ActivitiesController < ApplicationController
   end
 
   def destroy
-    flash[:notice] = "#{@activity.name} has been permenantly deleted."
+    flash[:notice] = "#{@activity.name} has been permanently deleted."
     @activity.destroy
     redirect_to my_eas_activities_path
   end
