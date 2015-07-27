@@ -902,11 +902,11 @@ width: 318px;
 
 #questions p.question.sub .issue input, #questions .question.sub .issue input{
 margin-left:30px;
-width: 310px;
+width: 310px !important;
 }
 
 #questions .question.sub a{
-	margin-left: 30px;
+	// margin-left: 30px;
 	float:left;
 	margin-bottom:10px;
 }
@@ -914,7 +914,7 @@ width: 310px;
 #questions #issues_list a img{
 	float:left;
 	margin-top: 4px;
-	margin-left: -20px;
+	margin-left: 5px !important;
 	position:relative;
 }
 
