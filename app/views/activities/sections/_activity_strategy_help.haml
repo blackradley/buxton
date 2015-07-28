@@ -16,7 +16,7 @@
     Comment/Analysis for report:
   - if activity_strategy.comment
     - comment_text = activity_strategy.comment.contents
-  -else 
+  -else
     - comment_text = ""
   - opt = ['none', 'block']
   - flag = (!comment_text.blank? ? 1 : 0)
@@ -48,7 +48,7 @@
   %h3
     =image_tag ("icons/note.gif")
     Note to myself:
-  - note_text = activity_strategy.note ? activity_strategy.note.contents : "" 
+  - note_text = activity_strategy.note ? activity_strategy.note.contents : ""
   - flag = (!note_text.blank? ? 1 : 0)
   .noteBox
     .showNote.normalnoteview{:id => "activity_strategy_#{activity_strategy.id}_note_view", :style => "display:#{opt[flag]}"}
@@ -66,7 +66,7 @@
         =link_to "Add new note to myself", "#activity_strategy_#{activity_strategy.id}_note_form", :class => 'inline'
     .editNote.noteform{:id => "activity_strategy_#{activity_strategy.id}_note_form"}
       .heading
-        %h2 Add a new note to myself
+        %h2 Add a new note to myself for #{activity_strategy.strategy.name}
       = form_tag edit_strategy_note_index_path(:activity_strategy_id => activity_strategy.id, :activity_id => @activity.id), :class => "formtastic", :remote => true do
         %fieldset.approveInputs
           %ol
