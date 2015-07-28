@@ -1425,6 +1425,20 @@ Question_718:
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:14 Z
   needed: true
+Question_purpose_marriage_civil_partnership_3_4:
+  activity_id: 3
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_marriage_civil_partnership_4
+  input_type: select
+  strand: marriage_civil_partnership
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
+  needed: true
 Question_451:
   activity_id: 2
   id: 451
@@ -1682,6 +1696,20 @@ Question_716:
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:14 Z
   needed: true
+Question_purpose_pregnancy_and_maternity_3_4:
+  activity_id: 3
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_pregnancy_and_maternity_4
+  input_type: select
+  strand: pregnancy_and_maternity
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
+  needed: true
 Question_414:
   activity_id: 2
   id: 414
@@ -1796,6 +1824,20 @@ Question_468:
   updated_at: 2015-07-07 14:03:10 Z
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:10 Z
+  needed: true
+Question_purpose_gender_reassignment_2_4:
+  activity_id: 2
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_gender_reassignment_4
+  input_type: select
+  strand: gender_reassignment
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
   needed: true
 Question_266:
   activity_id: 2
@@ -2367,6 +2409,20 @@ Question_227:
   updated_at: 2015-07-07 14:03:06 Z
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:06 Z
+  needed: true
+Question_purpose_gender_reassignment_1_4:
+  activity_id: 1
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_gender_reassignment_4
+  input_type: select
+  strand: gender_reassignment
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
   needed: true
 Question_262:
   activity_id: 2
@@ -2963,6 +3019,20 @@ Question_479:
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:10 Z
   needed: true
+Question_purpose_faith_2_4:
+  activity_id: 2
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_faith_4
+  input_type: select
+  strand: faith
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
+  needed: true
 Question_323:
   activity_id: 2
   id: 323
@@ -3195,6 +3265,20 @@ Question_477:
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:10 Z
   needed: true
+Question_purpose_marriage_civil_partnership_2_4:
+  activity_id: 2
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_marriage_civil_partnership_4
+  input_type: select
+  strand: marriage_civil_partnership
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
+  needed: true
 Question_275:
   activity_id: 2
   id: 275
@@ -3318,6 +3402,20 @@ Question_723:
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:14 Z
   needed: true
+Question_purpose_gender_3_4:
+  activity_id: 3
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_gender_4
+  input_type: select
+  strand: gender
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
+  needed: true
 Question_677:
   activity_id: 3
   id: 677
@@ -3411,6 +3509,20 @@ Question_475:
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:10 Z
   needed: true
+Question_purpose_pregnancy_and_maternity_2_4:
+  activity_id: 2
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_pregnancy_and_maternity_4
+  input_type: select
+  strand: pregnancy_and_maternity
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
+  needed: true
 Question_238:
   activity_id: 1
   id: 238
@@ -3427,6 +3539,20 @@ Question_238:
   updated_at: 2015-07-07 14:03:07 Z
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:07 Z
+  needed: true
+Question_purpose_faith_1_4:
+  activity_id: 1
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_faith_4
+  input_type: select
+  strand: faith
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
   needed: true
 Question_273:
   activity_id: 2
@@ -3540,6 +3666,20 @@ Question_721:
   updated_at: 2015-07-07 14:03:14 Z
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:14 Z
+  needed: true
+Question_purpose_sexual_orientation_3_4:
+  activity_id: 3
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_sexual_orientation_4
+  input_type: select
+  strand: sexual_orientation
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
   needed: true
 Question_675:
   activity_id: 3
@@ -3669,6 +3809,20 @@ Question_236:
   updated_at: 2015-07-07 14:03:06 Z
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:06 Z
+  needed: true
+Question_purpose_marriage_civil_partnership_1_4:
+  activity_id: 1
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_marriage_civil_partnership_4
+  input_type: select
+  strand: marriage_civil_partnership
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
   needed: true
 Question_271:
   activity_id: 2
@@ -3884,6 +4038,20 @@ Question_234:
   updated_at: 2015-07-07 14:03:06 Z
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:06 Z
+  needed: true
+Question_purpose_pregnancy_and_maternity_1_4:
+  activity_id: 1
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_pregnancy_and_maternity_4
+  input_type: select
+  strand: pregnancy_and_maternity
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
   needed: true
 Question_188:
   activity_id: 1
@@ -4864,6 +5032,20 @@ Question_482:
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:10 Z
   needed: true
+Question_purpose_gender_2_4:
+  activity_id: 2
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_gender_4
+  input_type: select
+  strand: gender
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
+  needed: true
 Question_447:
   activity_id: 2
   id: 447
@@ -5139,6 +5321,20 @@ Question_480:
   updated_at: 2015-07-07 14:03:10 Z
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:10 Z
+  needed: true
+Question_purpose_sexual_orientation_2_4:
+  activity_id: 2
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_sexual_orientation_4
+  input_type: select
+  strand: sexual_orientation
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
   needed: true
 Question_445:
   activity_id: 2
@@ -5511,6 +5707,20 @@ Question_241:
   updated_at: 2015-07-07 14:03:07 Z
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:07 Z
+  needed: true
+Question_purpose_gender_1_4:
+  activity_id: 1
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_gender_4
+  input_type: select
+  strand: gender
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
   needed: true
 Question_195:
   activity_id: 1
@@ -7141,6 +7351,20 @@ Question_719:
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:14 Z
   needed: true
+Question_purpose_disability_3_4:
+  activity_id: 3
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_disability_4
+  input_type: select
+  strand: disability
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
+  needed: true
 Question_452:
   activity_id: 2
   id: 452
@@ -7420,6 +7644,20 @@ Question_717:
   updated_at: 2015-07-07 14:03:14 Z
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:14 Z
+  needed: true
+Question_purpose_race_3_4:
+  activity_id: 3
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_race_4
+  input_type: select
+  strand: race
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
   needed: true
 Question_450:
   activity_id: 2
@@ -8755,6 +8993,20 @@ Question_478:
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:10 Z
   needed: true
+Question_purpose_disability_2_4:
+  activity_id: 2
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_disability_4
+  input_type: select
+  strand: disability
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
+  needed: true
 Question_276:
   activity_id: 2
   id: 276
@@ -8964,6 +9216,20 @@ Question_476:
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:10 Z
   needed: true
+Question_purpose_race_2_4:
+  activity_id: 2
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_race_4
+  input_type: select
+  strand: race
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
+  needed: true
 Question_239:
   activity_id: 1
   id: 239
@@ -8980,6 +9246,20 @@ Question_239:
   updated_at: 2015-07-07 14:03:07 Z
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:07 Z
+  needed: true
+Question_purpose_sexual_orientation_1_4:
+  activity_id: 1
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_sexual_orientation_4
+  input_type: select
+  strand: sexual_orientation
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
   needed: true
 Question_274:
   activity_id: 2
@@ -9110,6 +9390,20 @@ Question_722:
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:14 Z
   needed: true
+Question_purpose_age_3_4:
+  activity_id: 3
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_age_4
+  input_type: select
+  strand: age
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
+  needed: true
 Question_676:
   activity_id: 3
   id: 676
@@ -9239,6 +9533,20 @@ Question_237:
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:06 Z
   needed: true
+Question_purpose_disability_1_4:
+  activity_id: 1
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_disability_4
+  input_type: select
+  strand: disability
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
+  needed: true
 Question_272:
   activity_id: 2
   id: 272
@@ -9343,6 +9651,20 @@ Question_720:
   updated_at: 2015-07-07 14:03:14 Z
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:14 Z
+  needed: true
+Question_purpose_faith_3_4:
+  activity_id: 3
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_faith_4
+  input_type: select
+  strand: faith
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
   needed: true
 Question_674:
   activity_id: 3
@@ -9489,6 +9811,20 @@ Question_235:
   updated_at: 2015-07-07 14:03:06 Z
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:06 Z
+  needed: true
+Question_purpose_race_1_4:
+  activity_id: 1
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_race_4
+  input_type: select
+  strand: race
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
   needed: true
 Question_270:
   activity_id: 2
@@ -10711,6 +11047,20 @@ Question_481:
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:10 Z
   needed: true
+Question_purpose_age_2_4:
+  activity_id: 2
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_age_4
+  input_type: select
+  strand: age
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
+  needed: true
 Question_446:
   activity_id: 2
   id: 446
@@ -11276,6 +11626,20 @@ Question_709:
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:14 Z
   needed: true
+Question_purpose_gender_reassignment_3_4:
+  activity_id: 3
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_gender_reassignment_4
+  input_type: select
+  strand: gender_reassignment
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
+  needed: true
 Question_698:
   activity_id: 3
   id: 698
@@ -11374,6 +11738,20 @@ Question_240:
   updated_at: 2015-07-07 14:03:07 Z
   raw_help_text: "<p>Having due regard to the need to advance equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it involves the need to:</p><ul><li>remove or minimise disadvantages suffered by persons who share a relevant protected characteristic that are connected to that characteristic;</li><li>take steps to meet the needs of persons who share a relevant protected characteristic that are different from the needs of persons who do not share it;</li><li>encourage persons who share a relevant protected characteristic to participate in public life or in any other activity in which participation by such persons is disproportionately low.</li><p>The steps involved in meeting the needs of disabled persons that are different from the needs of persons who are not disabled include, in particular, steps to take account of disabled persons\xE2\x80\x99 disabilities.Having due regard to the need to foster good relations between persons who share a relevant protected characteristic and persons who do not share it involves having due regard, in particular, to the need to:</p><ul><li>tackle prejudice;</li><li>promote understanding.</li></ul><p>It is acceptable that this #{function_policy_substitution} treats some persons more favourably than others.</p>"
   created_at: 2015-07-07 14:03:07 Z
+  needed: true
+Question_purpose_age_1_4:
+  activity_id: 1
+  choices:
+  - Not answered Yet
+  - Yes
+  - No
+  section: purpose
+  completed: false
+  name: purpose_age_4
+  input_type: select
+  strand: age
+  raw_label: Is a full Equality Analysis required at this stage?
+  raw_help_text: ""
   needed: true
 Question_159:
   activity_id: 1

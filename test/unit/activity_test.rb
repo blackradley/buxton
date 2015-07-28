@@ -526,6 +526,7 @@ class ActivityTest < ActiveSupport::TestCase
         q.update_attributes!(:raw_answer => "2")
       end
       @activity.questions.where(:name => "purpose_age_3").first.update_attributes(:raw_answer => 1)
+      @activity.questions.where(:name => "purpose_age_4").first.update_attributes(:raw_answer => 1)
       @activity.update_attributes(:gender_relevant => true)
       @activity.questions.where(:section => "impact", :strand => "gender").each do |q|
         q.update_attributes!(:raw_answer => "1")
