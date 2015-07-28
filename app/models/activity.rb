@@ -216,43 +216,47 @@ class Activity < ActiveRecord::Base
     end
   end
 
-  def reset_question_texts(destroy_purpose = true)
-   data = File.open(Rails.root + "config/questions.yml"){|yf| YAML::load( yf ) }
-   help_texts = CSV.read( 'doc/helptext.csv' )
-   dependents = {}
-   Question.where(:name => ["purpose_overall_11", "purpose_overall_12"]).each(&:destroy) if destroy_purpose
-   Activity.question_setup_names.each do |section, strand_list|
-     strand_list.each do |strand, question_list|
-       question_list.each do |question_number|
-         question_data = strand.to_s == "overall" ? data["overall_questions"]['purpose'][question_number] : data["questions"][section.to_s][question_number]
-         old_texts = {:label => question_data['label'].dup, :help_text => help_texts[ help_texts.index{|x| x[0]=="#{section}_#{strand}_#{question_number}"} ][2]}
-         texts = {}
-         old_texts.each do |key, value|
-           #some questions have extra wordings on a per section and strand basis. The exceptions for this are codified here
-           new_value = value.to_s
-           new_value.gsub!('#{wordings[strand]}', data["wordings"][strand.to_s].to_s)
-           new_value.gsub!('#{wordings[strand_short]}', data["strands"][strand.to_s].to_s)
-           new_value.gsub!('#{descriptive_term[strand]}', data["wordings"][strand.to_s].to_s)
-           new_value.gsub!('#{"different " if strand == "gender"}', strand.to_s == "gender" ? 'different' : '')
-           new_value.gsub!('#{sentence_desc(strand)}', sentence_desc(strand.to_s))
-           if data["extra_strand_wordings"][section.to_s] && data["extra_strand_wordings"][section.to_s][question_number]
-             new_value.gsub!("\#{data[\"extra_strand_wordings\"][\"#{section}\"][#{question_number}][strand]}", data["extra_strand_wordings"][section.to_s][question_number][strand.to_s].to_s)
-             new_value.gsub!('#{data["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}', data["extra_strand_wordings"]['impact'][6]['extra_word'][strand.to_s].to_s)
-             new_value.gsub!('#{data["extra_strand_wordings"]["impact"][6]["extra_paragraph"][strand]}', data["extra_strand_wordings"]['impact'][6]['extra_paragraph'][strand.to_s].to_s)
-           end
-           texts[key] = new_value
-         end
-         basic_attributes = { :help_text => texts[:help_text], :label => texts[:label]}
-         basic_attributes[:choices] = data['choices'][question_data['choices']] if question_data['choices']
-         questions = self.questions.where(name: "#{section}_#{strand}_#{question_number}")
-         questions.each do |q|
-           q.update_attributes(basic_attributes)
-           q.save!
-         end
-       end
-     end
-   end
-  end
+  # def reset_question_texts(destroy_purpose = true)
+  #  data = File.open(Rails.root + "config/questions.yml"){|yf| YAML::load( yf ) }
+  #  help_texts = CSV.read( 'doc/helptext.csv' )
+  #  dependents = {}
+  #  Question.where(:name => ["purpose_overall_11", "purpose_overall_12"]).each(&:destroy) if destroy_purpose
+  #  Activity.question_setup_names.each do |section, strand_list|
+  #    strand_list.each do |strand, question_list|
+  #      question_list.each do |question_number|
+  #         question_data = strand.to_s == "overall" ? data["overall_questions"]['purpose'][question_number] : data["questions"][section.to_s][question_number]
+
+  #         idx = help_texts.index{|x| x[0]=="#{section}_#{strand}_#{question_number}"}
+  #         help = idx ? help_texts[ idx ][2] : ''
+  #         old_texts = {:label => question_data['label'].dup, :help_text => help}
+
+  #         texts = {}
+  #         old_texts.each do |key, value|
+  #           #some questions have extra wordings on a per section and strand basis. The exceptions for this are codified here
+  #           new_value = value.to_s
+  #           new_value.gsub!('#{wordings[strand]}', data["wordings"][strand.to_s].to_s)
+  #           new_value.gsub!('#{wordings[strand_short]}', data["strands"][strand.to_s].to_s)
+  #           new_value.gsub!('#{descriptive_term[strand]}', data["wordings"][strand.to_s].to_s)
+  #           new_value.gsub!('#{"different " if strand == "gender"}', strand.to_s == "gender" ? 'different' : '')
+  #           new_value.gsub!('#{sentence_desc(strand)}', sentence_desc(strand.to_s))
+  #           if data["extra_strand_wordings"][section.to_s] && data["extra_strand_wordings"][section.to_s][question_number]
+  #             new_value.gsub!("\#{data[\"extra_strand_wordings\"][\"#{section}\"][#{question_number}][strand]}", data["extra_strand_wordings"][section.to_s][question_number][strand.to_s].to_s)
+  #             new_value.gsub!('#{data["extra_strand_wordings"]["impact"][6]["extra_word"][strand]}', data["extra_strand_wordings"]['impact'][6]['extra_word'][strand.to_s].to_s)
+  #             new_value.gsub!('#{data["extra_strand_wordings"]["impact"][6]["extra_paragraph"][strand]}', data["extra_strand_wordings"]['impact'][6]['extra_paragraph'][strand.to_s].to_s)
+  #           end
+  #           texts[key] = new_value
+  #         end
+  #         basic_attributes = { :help_text => texts[:help_text], :label => texts[:label]}
+  #         basic_attributes[:choices] = data['choices'][question_data['choices']] if question_data['choices']
+  #         questions = self.questions.where(name: "#{section}_#{strand}_#{question_number}")
+  #         questions.each do |q|
+  #           q.update_attributes(basic_attributes)
+  #           q.save!
+  #         end
+  #       end
+  #     end
+  #   end
+  # end
   ## One statement per question is far too slow
   ## Execute SQL directly for a single INSERT statement, using SELECT and JOIN.
   ## See http://blog.sqlauthority.com/2007/06/08/sql-server-insert-multiple-records-using-one-insert-statement-use-of-union-all/
@@ -268,12 +272,16 @@ class Activity < ActiveRecord::Base
       strand_list.each do |strand, question_list|
         question_list.each do |question_number|
           question_data = strand.to_s == "overall" ? data["overall_questions"]['purpose'][question_number] : data["questions"][section.to_s][question_number]
-          old_texts = {:label => question_data['label'].dup, :help_text => help_texts[ help_texts.index{|x| x[0]=="#{section}_#{strand}_#{question_number}"} ][2]}
+          idx = help_texts.index{|x| x[0]=="#{section}_#{strand}_#{question_number}"}
+          help = idx ? help_texts[ idx ][2] : ''
+          old_texts = {:label => question_data['label'].dup, :help_text => help}
           texts = {}
           old_texts.each do |key, value|
             #some questions have extra wordings on a per section and strand basis. The exceptions for this are codified here
             new_value = value.to_s
             new_value.gsub!('#{wordings[strand]}', data["wordings"][strand.to_s].to_s)
+            new_value.gsub!('#{wordings[strand]}', data["wordings"][strand.to_s].to_s)
+            new_value.gsub!('#{wordings[full_analysis_required]}', data['wordings']['full_analysis_required'].to_s)
             new_value.gsub!('#{wordings[strand_short]}', data["strands"][strand.to_s].to_s)
             new_value.gsub!('#{descriptive_term[strand]}', data["wordings"][strand.to_s].to_s)
             new_value.gsub!('#{non-religious clause if strand == "faith"}', strand.to_s == "faith" ? ' - as well as those who do not have a religion or belief' : '')
@@ -557,7 +565,7 @@ class Activity < ActiveRecord::Base
       end
     end
     strands.each do |strand|
-      self.send("#{strand}_relevant=".to_sym, self.questions.where(:name => "purpose_#{strand.to_s}_3").first.raw_answer == "1")
+      self.send("#{strand}_relevant=".to_sym, self.questions.where(:name => "purpose_#{strand.to_s}_4").first.raw_answer == "1")
     end
     true
   end
@@ -575,7 +583,7 @@ class Activity < ActiveRecord::Base
   end
 
   def strand_required?(strand)
-    q  = self.questions.where(:name => "purpose_#{strand.to_s}_3")
+    q  = self.questions.where(:name => "purpose_#{strand.to_s}_4")
     return false unless q.first
     q.first.response == 1
   end
@@ -587,7 +595,7 @@ class Activity < ActiveRecord::Base
   def update_relevancies!
     strand_attributes = {}
     self.strands(true).each do |strand|
-      if self.questions.where(:name => "purpose_#{strand.to_s}_3").first.response == 1
+      if self.questions.where(:name => "purpose_#{strand.to_s}_4").first.raw_answer == "1"
         strand_attributes["#{strand}_relevant"] =  true
       else
         strand_attributes["#{strand}_relevant"] = false
@@ -666,15 +674,15 @@ class Activity < ActiveRecord::Base
 
   def self.question_setup_names
     {:purpose =>          { :overall => [2,5,6,7, 13,14],
-                            :race => [3],
-                            :disability => [3],
-                            :sexual_orientation => [3],
-                            :gender => [3],
-                            :gender_reassignment => [3],
-                            :pregnancy_and_maternity => [3],
-                            :marriage_civil_partnership => [3],
-                            :faith => [3],
-                            :age => [3]
+                            :race => [3,4],
+                            :disability => [3,4],
+                            :sexual_orientation => [3,4],
+                            :gender => [3,4],
+                            :gender_reassignment => [3,4],
+                            :pregnancy_and_maternity => [3,4],
+                            :marriage_civil_partnership => [3,4],
+                            :faith => [3,4],
+                            :age => [3,4]
                           },
       :impact =>          { :race => [1,2,3,4,5,6,7,8,9,10],
                             :disability => [1,2,3,4,5,6,7,8,9,10],

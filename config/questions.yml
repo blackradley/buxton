@@ -7,6 +7,12 @@ questions:
       type: select
       weights: 1
       dependent_questions: ''
+    4:
+      label: '#{wordings[full_analysis_required]}'
+      help: ''
+      choices: 3
+      type: select
+      dependent_questions: ''
   impact:
     1:
       label: 'Describe how the #{function_policy_substitution} meets the needs of #{wordings[strand]}?'
@@ -320,7 +326,7 @@ wordings:
   gender_reassignment: 'Individuals who have undergone or are intending to undergo gender reassignment'
   pregnancy_and_maternity: 'Pregnant women or those who are on maternity leave'
   marriage_civil_partnership: 'Individuals who are married or in civil partnerships'
-
+  full_analysis_required: 'Is a full Equality Analysis required at this stage?'
 strands:
   gender:  'Gender'
   race: 'Race'
@@ -560,7 +566,6 @@ choices:
     - 'Not answered Yet'
     - 'Relevant'
     - 'Not Relevant'
-#   - 'Not sure'
 extra_strand_wordings:
   purpose:
     3:

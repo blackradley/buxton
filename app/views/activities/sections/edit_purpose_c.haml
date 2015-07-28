@@ -13,7 +13,7 @@
   = render :partial => 'question_help', :collection => question_details(:purpose, 'race', [3])
   = render :partial => 'question_help', :collection => question_details(:purpose, 'faith', [3])
   = render :partial => 'question_help', :collection => question_details(:purpose, 'sexual_orientation', [3])
-  =form_for(@activity, :url => activities_section_path(@activity)) do |f| 
+  =form_for(@activity, :url => activities_section_path(@activity)) do |f|
     %p{:style => "width:590px"}
       ="Please complete this section in full. The #{@activity.activity_type_name} will be relevant to any of the protected characteristics if it has any of the following effects on individuals who have that particular protected characteristic:"
     %ul{:style => "padding-left: 20px"}
@@ -25,17 +25,10 @@
     %p{:style => "width:590px"}= "Which PC is the #{@activity.activity_type_name} relevant/not relevant to and please explain your answer in detail using the Comment/Analysis for Report."
     %h5
       The following section should be used to indicate if the policy or function is relevant to any of the nine protected characteristics.
-    = render :partial => 'question_compact', :collection => question_details(:purpose, 'age', [3]), :locals => {:f => f}
-    = render :partial => 'question_compact', :collection => question_details(:purpose, 'disability', [3]), :locals => {:f => f}
-    = render :partial => 'question_compact', :collection => question_details(:purpose, 'gender', [3]), :locals => {:f => f}
-    = render :partial => 'question_compact', :collection => question_details(:purpose, 'gender_reassignment', [3]), :locals => {:f => f}
-    = render :partial => 'question_compact', :collection => question_details(:purpose, 'marriage_civil_partnership', [3]), :locals => {:f => f}
-    = render :partial => 'question_compact', :collection => question_details(:purpose, 'pregnancy_and_maternity', [3]), :locals => {:f => f}
-    = render :partial => 'question_compact', :collection => question_details(:purpose, 'race', [3]), :locals => {:f => f}
-    = render :partial => 'question_compact', :collection => question_details(:purpose, 'faith', [3]), :locals => {:f => f}
-    = render :partial => 'question_compact', :collection => question_details(:purpose, 'sexual_orientation', [3]), :locals => {:f => f}
+      - %w(age disability gender gender_reassignment marriage_civil_partnership pregnancy_and_maternity race faith sexual_orientation).each do |strand|
+        = render partial: 'question_compact', collection: question_details(:purpose, strand, [3,4]), locals: {f: f}
 
-    = hidden_field_tag 'id', @id 
+    = hidden_field_tag 'id', @id
     = hidden_field_tag 'equality_strand', @equality_strand
     %p.question.saveField
       %span.button
