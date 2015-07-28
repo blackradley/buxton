@@ -388,12 +388,12 @@ class ActivityTest < ActiveSupport::TestCase
 
     end
 
-    should "not have impact gender completed" do
+    should "have impact gender completed" do
       assert @activity.completed(:impact, :gender)
     end
 
-    should "not have consultation gender completed" do
-      assert !@activity.completed(:consultation, :gender)
+    should "have consultation gender completed" do
+      assert @activity.completed(:consultation, :gender)
     end
 
     should "not have additional work completed" do
