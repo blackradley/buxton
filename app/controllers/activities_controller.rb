@@ -149,14 +149,14 @@ class ActivitiesController < ApplicationController
     [:completer_id, :approver_id, :qc_officer_id].each{|p| params[:activity].delete(p)}
     if params[:clone_of]
       @activity = current_user.activities.find(params[:clone_of]).first
-      unless @activity
-        flash[:notice] = "The Service Area for this EA has been retired and therefore this EA cannot be cloned."
-        if current_user.creator?
-          redirect_to directorate_eas_activities_path and return
-        else
-          redirect_to my_eas_activities_path and return
-        end
-      else
+      # unless @activity
+      #   flash[:notice] = "The Service Area for this EA has been retired and therefore this EA cannot be cloned."
+      #   if current_user.creator?
+      #     redirect_to directorate_eas_activities_path and return
+      #   else
+      #     redirect_to my_eas_activities_path and return
+      #   end
+      # else
         if Activity.new(params[:activity]).valid?
           @activity = @activity.clone
           @activity.actual_start_date = nil
@@ -175,7 +175,7 @@ class ActivitiesController < ApplicationController
           @activity.update_attributes( params[:activity] )
           render :new and return
         end
-      end
+      # end
     else
       @activity = Activity.new()
     end
@@ -444,10 +444,10 @@ class ActivitiesController < ApplicationController
   end
 
   def toggle_strand
-    if @activity.submitted
-      render :nothing => true
-      return false
-    end
+    # if @activity.submitted
+    #   render :nothing => true
+    #   return false
+    # end
     unless @activity.strand_required?(params[:strand])
       @activity.toggle("#{params[:strand]}_relevant")
       @activity.save!
