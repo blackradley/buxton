@@ -69,7 +69,7 @@
             = link_to "complete", questions_activity_path(activity), :class => "action edit" unless activity.submitted
           = link_to "view", activity_path(activity), :class => "action view"
           = link_to "actions", activities_issues_path(:activity => activity.id), :class => "action actions"
-          - if !activity.approved? && !activity.submitted && ( activity.completer == current_user || current_user.directorates.include?( activity.directorate ) || activity.approver == current_user )
+          - if !activity.approved? && ( activity.completer == current_user || current_user.directorates.include?( activity.directorate ) || activity.approver == current_user )
             = link_to "edit", edit_activity_path(activity), :class => "action edit"
           - if activity.approved? && ( activity.completer == current_user || current_user.directorates.include?( activity.directorate ) )
             = link_to "clone", clone_activity_path(activity), :class => "action clone", :method => "post"
