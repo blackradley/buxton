@@ -109,7 +109,8 @@ questions:
              The available answers to this question are:<ul>
              <li>No relevant individuals identified.  This would be the correct answer if it had been decided that there were no suitable groups representing the interests of #{wordings[strand]} to consult with.</li>
              <li>There are plans to consult relevant individuals.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
-             <li>There are no plans to consult relevant individuals.  There may be reasons why the Council had decided not to consult on the impact of the #{function_policy_substitution}.</li></ul>'
+             <li>There are no plans to consult relevant individuals.  There may be reasons why the Council had decided not to consult on the impact of the #{function_policy_substitution}.</li>
+             <li>Consultation not required at this time.  No consultation is required for the #{function_policy_substitution}</li></ul>'
       type: select
       choices: 5
       weights: 8
@@ -527,6 +528,7 @@ choices:
     - 'No relevant individuals identified'
     - 'There are plans to consult relevant individuals'
     - 'There are no plans to consult relevant individuals'
+    - 'Consultation not required at this time'
   6:
     - 'Not Answered Yet'
     - 'No relevant stakeholders identified'
