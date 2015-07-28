@@ -141,7 +141,7 @@ class ActivitiesController < ApplicationController
         @activity.errors.add(k, "is not a valid user")
         @activity.instance_variable_set("@#{k}", v)
       end
-      @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
+      @service_areas = @directorates.first.service_areas
       render 'new' and return
     end
     [:completer_id, :approver_id, :qc_officer_id].each{|p| params[:activity].delete(p)}
