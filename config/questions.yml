@@ -109,7 +109,8 @@ questions:
              The available answers to this question are:<ul>
              <li>No relevant individuals identified.  This would be the correct answer if it had been decided that there were no suitable groups representing the interests of #{wordings[strand]} to consult with.</li>
              <li>There are plans to consult relevant individuals.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
-             <li>There are no plans to consult relevant individuals.  There may be reasons why the Council had decided not to consult on the impact of the #{function_policy_substitution}.</li></ul>'
+             <li>There are no plans to consult relevant individuals.  There may be reasons why the Council had decided not to consult on the impact of the #{function_policy_substitution}.</li>
+             <li>Consultation not required at this time.  No consultation is required for the #{function_policy_substitution}</li></ul>'
       type: select
       choices: 5
       weights: 8
@@ -140,7 +141,7 @@ questions:
              <li>No relevant stakeholders identified.  This would be the correct answer if it had been decided that there were no suitable stakeholders representing the interests of #{wordings[strand]} to consult with.</li>
              <li>There are plans to consult relevant stakeholders.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
              <li>There are no plans to consult relevant stakeholders.  There may be reasons why the Council had decided not to consult on the impact of the #{function_policy_substitution}.</li></ul>'
-  
+
       type: select
       choices: 6
       weights: 13
@@ -160,7 +161,7 @@ questions:
       choices: 3
       weights: 0
       dependent_questions: ''
-  additional_work: 
+  additional_work:
     1:
       label: 'Do you need any more information to complete the assessment?'
       help: 'This question asks you to reflect upon whether you think that you need further information to obtain a comprehensive view of the impact of the #{function_policy_substitution}.<br/><br/>
@@ -276,7 +277,7 @@ overall_questions:
       choices: 3
       weights: 0
       dependent_questions: ''
-    13: 
+    13:
       label: 'This must capture your overall analysis and understanding of assessment being undertaken to arrive at your decision.'
       help: 'This Initial Assessment should be completed at the earliest opportunity and will determine whether or not it is necessary to carry out a Full Equality Assessment.
               <br/><br/>
@@ -287,7 +288,7 @@ overall_questions:
               Consultation must take place with appropriate stakeholders as part of the Equality Assessment process. This is to gain their perspectives on the work that is being undertaken and the services delivered.'
       type: text
       dependent_questions : ''
-    14: 
+    14:
       label: 'This must capture your final analysis and understanding of assessment being undertaken to arrive at your decision.'
       help: 'In completing this section you will have identified that your assessment:
             <br/><ul>
@@ -330,7 +331,7 @@ strands:
   overall: 'Overall'
   gender_reassignment: 'Gender Reassignment'
   pregnancy_and_maternity: 'Pregnancy & Maternity'
-  marriage_civil_partnership: 'Marriage & Civil Partnership.'  
+  marriage_civil_partnership: 'Marriage & Civil Partnership.'
 
 section_names:
   - purpose
@@ -527,6 +528,7 @@ choices:
     - 'No relevant individuals identified'
     - 'There are plans to consult relevant individuals'
     - 'There are no plans to consult relevant individuals'
+    - 'Consultation not required at this time'
   6:
     - 'Not Answered Yet'
     - 'No relevant stakeholders identified'
@@ -554,7 +556,7 @@ choices:
     - 'Yes'
     - 'No'
     - 'Not applicable'
-  11: 
+  11:
     - 'Not answered Yet'
     - 'Relevant'
     - 'Not Relevant'
@@ -613,7 +615,7 @@ extra_strand_wordings:
       sexual_orientation: 'It will be important to ensure that the consultation includes people from a range of sexual orientations , including lesbian, gay, bisexual and transgender. <br/><br/>'
       gender_reassignment: ''
       pregnancy_and_maternity: ''
-      marriage_civil_partnership: ''    
+      marriage_civil_partnership: ''
     4:
       gender:
       race: 'It will be important to ensure that the consultation includes people from a range of ethnic backgrounds.  <br/><br/>'
@@ -634,7 +636,7 @@ extra_strand_wordings:
       gender_reassignment: ''
       pregnancy_and_maternity: ''
       marriage_civil_partnership: ''
-      
+
 descriptive_terms_for_strands:
   gender: 'gender'
   race: 'ethnicity'

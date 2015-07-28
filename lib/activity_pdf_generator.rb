@@ -95,7 +95,7 @@ class ActivityPDFGenerator
     @pdf.text " ", :font_size => 10
     @pdf.text "The report records the information that has been submitted for this equality analysis in the following format."
     @pdf.text " ", :font_size => 10
-    @pdf.text "<b>          Overall Purpose</b>", :font_size => 12
+    @pdf.text "<b>          Initial Assessment</b>", :font_size => 12
     @pdf.text " ", :font_size => 10
     @pdf.text "This section identifies the purpose of the Policy and which types of individual it affects.  It also identifies which equality strands are affected by either a positive or negative differential impact."
     @pdf.text " ", :font_size => 10
@@ -175,9 +175,9 @@ class ActivityPDFGenerator
 
   def build_purpose
     @pdf.text " "
-    @pdf.text "<b>2  <c:uline>Overall Purpose</b></c:uline>", :font_size => 12
+    @pdf.text "<b>2  <c:uline>Initial Assessment</b></c:uline>", :font_size => 12
     @pdf.text " "
-    @pdf.text "<b>2.1  <c:uline>What the Activity is for</b></c:uline>", :font_size => 12
+    @pdf.text "<b>2.1  <c:uline>Purpose and Link to Strategic Themes</b></c:uline>", :font_size => 12
     @pdf.text " "
     target_q = @activity.questions.find_by(name: "purpose_overall_2").label.to_s
     target_a = @activity.questions.find_by(name: "purpose_overall_2").response.to_s
@@ -257,8 +257,21 @@ class ActivityPDFGenerator
     end
     #:col_format => [nil, {:text_alignment => :center}]
     @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4, :table_title =>table_heading)
+
     @pdf.text " "
-    @pdf.text "<b> 2.3 <c:uline> Analysis on Initial Assessment</b></c:uline> ", :font_size => 12
+    @pdf.text "<b> 2.3 <c:uline> Relevance Test</b></c:uline> ", :font_size => 12
+    @pdf.text " "
+
+    table = []
+    table << ['<b>Protected Characteristics</b>', '<b>Relevant</b>']
+
+    @activity.overview_strands.sort{|a,b| strand_display(a[0]) <=> strand_display(b[0]) }.each do |strand_name, strand|
+      table << [strand_display(strand).titlecase, @activity.strand_required?(strand) ? 'Yes' : 'No']
+    end
+    @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :font_size => 10)
+
+    @pdf.text " "
+    @pdf.text "<b> 2.4 <c:uline> Analysis on Initial Assessment</b></c:uline> ", :font_size => 12
     @pdf.text " "
     final_question = @activity.questions.where(:name => "purpose_overall_13").first
     if final_question.changed_in_previous_ea?

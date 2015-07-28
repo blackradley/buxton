@@ -58,19 +58,19 @@ $(document).ready(function(){
   });
 
   $('.consultation_save').click(function(e){
-    if($('.consultation_checker').filter(function(x){return $(this).val()=='2'}).size() == 2){
-      if(e.preventDefault) e.preventDefault();
-      $.fn.colorbox({"open":true,  "html": $('.consultationColorbox').html()});
-    } else {
+    // if($('.consultation_checker').filter(function(x){return $(this).val()=='2'}).size() == 2){
+    //   if(e.preventDefault) e.preventDefault();
+    //   $.colorbox({html: $('.consultationColorbox').html()});
+    // } else {
       $(this).val('Saving...');
       $(this).attr('disabled', 'disabled');
       $(this).parents('form').submit();
-    }
+    // }
   });
 
   $(document).on('click', '.closeColorBox', function(e){
     e.preventDefault();
-    $.fn.colorbox.close()
+    $.colorbox.close()
   });
 
   $(".formSubmit").click(function(e){
