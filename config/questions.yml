@@ -76,7 +76,7 @@ questions:
       weights: 3
       dependent_questions: ''
     9:
-      label: 'Is there anything about the #{function_policy_substitution} and the way it affects #{wordings[strand]} which needs highlighting?'
+      label: 'Is there anything about the #{function_policy_substitution} and the way it affects #{wordings[strand]} which needs an action plan?'
       help: 'This question asks you to identify any issues about the way in which the #{function_policy_substitution} has an impact upon people from different religions or beliefs.  An issue will be where there is a differential impact.  #{data["extra_strand_wordings"]["impact"][9][strand]}<br/><br/>
             Differential impact can be positive or negative. Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
             Some differential impact is intentional and can be characterised as positive action.'
@@ -153,7 +153,7 @@ questions:
       type: text
       dependent_questions: 'consultation_#{strand}_4 yes_value'
     7:
-      label: 'Is there anything about the #{function_policy_substitution} and the way it affects #{wordings[strand]} which needs highlighting?'
+      label: 'Is there anything about the #{function_policy_substitution} and the way it affects #{wordings[strand]} which needs an action plan?'
       help: 'This question asks you to identify any issues about the way in which the #{function_policy_substitution} has an impact upon people from different religions or beliefs.  An issue will be where there is a differential impact.  #{data["extra_strand_wordings"]["consultation"][7][strand]}<br/><br/>
              Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'

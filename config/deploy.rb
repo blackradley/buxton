@@ -2,7 +2,7 @@
 lock '3.4.0'
 
 set :application, 'buxton'
-set :repo_url, "git@github.com:blackradley/buxton.git"
+set :repo_url, "git@bitbucket.org:27stars/br-buxton-rails.git"
 
 set :rvm_ruby_version, "2.2.2@br-buxton-rails"       # Or whatever env you want it to run in.
 set :rvm_type, :user
