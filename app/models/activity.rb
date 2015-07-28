@@ -432,10 +432,10 @@ class Activity < ActiveRecord::Base
           next if !self.send("#{s}_relevant")
         end
       end
-      if section.to_s == "consultation" || section.blank?
-        consultation_qns = self.questions.where(:name => ["consultation_#{s.to_s}_1", "consultation_#{s.to_s}_4"])
-        return false if consultation_qns.inject(true){|t,q| t && q.raw_answer == "2"}
-      end
+      # if section.to_s == "consultation" || section.blank?
+      #   consultation_qns = self.questions.where(:name => ["consultation_#{s.to_s}_1", "consultation_#{s.to_s}_4"])
+      #   return false if consultation_qns.inject(true){|t,q| t && q.raw_answer == "2"}
+      # end
       search_conditions[:strand] = s.to_s
       results = self.questions.where(search_conditions)
       if section.to_s == "purpose"
