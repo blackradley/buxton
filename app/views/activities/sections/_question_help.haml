@@ -11,7 +11,7 @@
     =image_tag ("icons/comment.gif")
     Comment/analysis for the report:
   - opt = ['none', 'block']
-  - flag = (!question_help.comment.blank? ? 1 : 0) 
+  - flag = (!question_help.comment.blank? ? 1 : 0)
   .commentBox
     .showComment.normalcommentview{:id => "#{question_help.name}_comment_view", :style => "display:#{opt[flag]}"}
       %p.comment{:id => "#{question_help.name}_comment"}
@@ -40,7 +40,7 @@
   %h3
     =image_tag ("icons/note.gif")
     Note to myself:
-  - flag = (!question_help.note.blank? ? 1 : 0) 
+  - flag = (!question_help.note.blank? ? 1 : 0)
   .noteBox
     .showNote.normalnoteview{:id => "#{question_help.name}_note_view", :style => "display:#{opt[flag]}"}
       %p.note{:id => "#{question_help.name}_note"}
@@ -57,7 +57,7 @@
         = link_to "Add a new note to myself", "##{"#{question_help.name}_note_form"}", :class => 'inline'
     .editNote.noteform{:id => "#{question_help.name}_note_form"}
       .heading
-        %h2 Add a new note to myself
+        %h2 Add a new note to myself for "#{question_help.label}"
       = form_tag set_note_note_index_path(:question_id => question_help.id, :activity_id => @activity.id), :class => "formtastic", :remote => true do
         %fieldset.approveInputs
           %ol
