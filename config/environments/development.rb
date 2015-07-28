@@ -51,7 +51,6 @@ KEYS      = true
 DEV_MODE  = BANNER
 TLD_LENGTH = 0
 
-
 Mailsafe.setup do |config|
   # config.allowed_domain = "27stars.co.uk"
   config.override_receiver = `git config user.email`.strip

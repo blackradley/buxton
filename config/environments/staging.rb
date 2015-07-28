@@ -49,7 +49,8 @@ BANNER    = true
 KEYS      = true
 DEV_MODE  = BANNER
 
-
 Mailsafe.setup do |config|
+  # config.allowed_domain = "27stars.co.uk"
   config.override_receiver = "irina@27stars.co.uk"
+  config.prefix_email_subject_with_rails_env = true
 end
