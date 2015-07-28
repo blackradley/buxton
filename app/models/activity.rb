@@ -406,7 +406,7 @@ class Activity < ActiveRecord::Base
 
   #This allows you to check whether a activity, section or strand has been completed.
   #TODO: Is this the best way to check completion? These look like they should be split into seperate methods for clarity.
-  def completed(section = nil, strand = nil, debug = false)
+  def completed(section = nil, strand = nil)
     is_purpose = (section.to_s == 'purpose')
     #are all the strategies completed if they need to be?
     strategies_not_completed = self.activity_strategies.where('strategy_response LIKE 0').size > 0
@@ -424,7 +424,6 @@ class Activity < ActiveRecord::Base
     search_conditions = {:completed => false, :needed => true}
     search_conditions[:section] = section.to_s if section
     strand_list = is_purpose ? strands(true).push("overall") : strands(true)
-    puts strand_list.inspect if debug
     strand_list.each do |s|
       unless is_purpose
         if strand
@@ -433,7 +432,6 @@ class Activity < ActiveRecord::Base
           next if !self.send("#{s}_relevant")
         end
       end
-      puts s if debug
       if section.to_s == "consultation" || section.blank?
         consultation_qns = self.questions.where(:name => ["consultation_#{s.to_s}_1", "consultation_#{s.to_s}_4"])
         return false if consultation_qns.inject(true){|t,q| t && q.raw_answer == "2"}

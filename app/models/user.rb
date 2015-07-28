@@ -111,7 +111,7 @@ class User < ActiveRecord::Base
 
 
   def activities
-    self.roles.map do |role|
+    ids = self.roles.map do |role|
       case role
       when "Quality Control"
         Activity.active.where(:qc_officer_id => self.id, :ready => true)
@@ -129,7 +129,8 @@ class User < ActiveRecord::Base
       when "Helper"
         Activity.active.joins(:task_group_memberships).where(:task_group_memberships => {:user_id => self.id})
       end
-    end.flatten.compact.uniq
+    end.flatten.compact.uniq.map(&:id)
+    return Activity.where(id: ids)
   end
 
   def term(term)
