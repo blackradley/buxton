@@ -296,8 +296,9 @@ class ActivityPDFGenerator
 
   def build_strand_tables
     section_index = 1
-    @activity.strands.sort{|a,b| strand_display(a[0]) <=> strand_display(b[0]) }.each do |strand|
-      build_differential_impact(strand, section_index)
+    @activity.strands(true).sort{|a,b| strand_display(a[0]) <=> strand_display(b[0]) }.each do |strand|
+      build_differential_impact(strand, section_index) if ( @activity.strand_required?(strand) || get_comments("purpose_#{strand}_3").present? )
+      next unless @activity.strand_required?(strand)
       heading_proc  = lambda do |document|
         document.text "<b>3.#{section_index}.2  <c:uline>#{strand_display(strand).titlecase} - Impact</b></c:uline>", :font_size => 12
         document.text ' '
