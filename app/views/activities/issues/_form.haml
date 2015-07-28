@@ -5,8 +5,8 @@
       = form.input :description, :label => "Short description of the issue", :as => :string
       =form.input  :actions, :label => "Summary actions to address the issues",  :wrapper_html =>{:class => "question"}, :input_html => {:class => "issueAction"}
       =form.input  :resources, :label => "Resources necessary to implement the actions", :wrapper_html =>{:class => "question"}
-      = form.input :timescales, :label => "Commencing", :wrapper_html =>{:class => "question"}, :input_html => {class: "ui-datepicker", style: "display:block", value: @activity.timescales.try(:strftime, '%d/%m/%Y') }
-      = form.input :completing, :label => "Completing", :wrapper_html =>{:class => "question"}, :input_html => {class: "ui-datepicker", style: "display:block", value: @activity.completing.try(:strftime, '%d/%m/%Y') }
+      = form.input :timescales, :label => "Commencing", :wrapper_html =>{:class => "question"}, :input_html => {class: "ui-datepicker", style: "display:block", value: @issue.timescales.try(:strftime, '%d/%m/%Y') }, as: :string
+      = form.input :completing, :label => "Completing", :wrapper_html =>{:class => "question"}, :input_html => {class: "ui-datepicker", style: "display:block", value: @issue.completing.try(:strftime, '%d/%m/%Y') }, as: :string
       = form.input :lead_officer_email, :url => autocomplete_user_email_activities_path, :label => "Lead Officer", :required => false, as: :autocomplete
       = form.input :recommendations, :label => "How will the recommendations of this assessment be built in to wider planning and review processes?", :wrapper_html =>{:class => "question"}
       = form.input :monitoring, :label => "How will you monitor the impact and effectiveness of the new policy or function?", :wrapper_html =>{:class => "question"}

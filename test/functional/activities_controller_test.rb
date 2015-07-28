@@ -464,56 +464,56 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to create an activity and send it to the completer if no completer is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :directorate => ServiceArea.find(1).directorate.id, :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:completer_email].blank?
       assert_response :success
     end
 
     should "not be able to create an activity and send it to the completer if no approver is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :directorate => ServiceArea.find(1).directorate.id, :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:approver_email].blank?
       assert_response :success
     end
 
     should "not be able to create an activity and send it to the completer if no QC officer is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :directorate => ServiceArea.find(1).directorate.id, :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:qc_officer_email].blank?
       assert_response :success
     end
 
     should "not be able to create an activity and send it to the completer if no review date is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :directorate => ServiceArea.find(1).directorate.id, :review_on => "", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:review_on].blank?
       assert_response :success
     end
 
     should "not be able to create an activity and send it to the completer if no name is supplied" do
-      post :create, :activity => {:name => "", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "", :service_area => ServiceArea.find(1), :directorate => ServiceArea.find(1).directorate.id, :review_on => "2011-04-14 14:32:55", :ready => "true", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:name].blank?
       assert_response :success
     end
 
     should "not be able to create an activity and send if an invalid completer is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "gibberish", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :directorate => ServiceArea.find(1).directorate.id, :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "gibberish", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:completer_email].blank?
       assert_response :success
     end
 
     should "not be able to create an activity if an invalid approver is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "gibberish", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :directorate => ServiceArea.find(1).directorate.id, :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "gibberish", :qc_officer_email => "creator2@27stars.co.uk", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:approver_email].blank?
       assert_response :success
     end
 
     should "not be able to create an activity if an invalid QC officer is supplied" do
-      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "gibberish", :type => 0, :activity_status => 0}
+      post :create, :activity => {:name => "test activity", :service_area => ServiceArea.find(1), :directorate => ServiceArea.find(1).directorate.id, :review_on => "2011-04-14 14:32:55", :ready => "false", :completer_email => "creator2@27stars.co.uk", :approver_email => "creator2@27stars.co.uk", :qc_officer_email => "gibberish", :type => 0, :activity_status => 0}
       assert_equal 3, Activity.count
       assert !assigns(:activity).errors[:qc_officer_email].blank?
       assert_response :success
@@ -1048,7 +1048,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @activity.reload
       assert @activity.approved
       @email = ActionMailer::Base.deliveries.last
-      assert_equal @email.subject, "Email subject"
+      assert_equal @email.subject, "[TEST] Email subject"
       assert_equal @email.to[0], @activity.completer.email
       assert_match /This activity has been approved/, @email.body.to_s
     end
@@ -1059,7 +1059,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @activity.reload
       assert !@activity.approved
       @email = ActionMailer::Base.deliveries.last
-      assert_not_equal @email.subject, "Email subject"
+      assert_not_equal @email.subject, "[TEST] Email subject"
       assert_not_equal @email.to[0], @activity.completer.email
     end
 
@@ -1070,7 +1070,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @activity.reload
       assert !@activity.approved
       @email = ActionMailer::Base.deliveries.last
-      assert_not_equal @email.subject, "Email subject2"
+      assert_not_equal @email.subject, "[TEST] Email subject2"
       assert_not_equal @email.to[0], @activity.completer.email
     end
 
@@ -1081,7 +1081,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @activity.reload
       assert @activity.is_rejected
       @email = ActionMailer::Base.deliveries.last
-      assert_equal @email.subject, "Email subject"
+      assert_equal @email.subject, "[TEST] Email subject"
       assert_equal @email.to[0], @activity.completer.email
       assert_match /activity has been successfully rejected/, @email.body.to_s
       assert !Activity.find_by(id: @activity.id)
@@ -1094,7 +1094,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @activity.reload
       assert !@activity.is_rejected
       @email = ActionMailer::Base.deliveries.last
-      assert_not_equal @email.subject, "Email subject"
+      assert_not_equal @email.subject, "[TEST] Email subject"
       assert_not_equal @email.to[0], @activity.completer.email
       assert Activity.find_by(id: @activity.id)
     end
@@ -1227,7 +1227,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       @activity.reload
       assert @activity.is_rejected
       @email = ActionMailer::Base.deliveries.last
-      assert_equal @email.subject, "Email subject"
+      assert_equal @email.subject, "[TEST] Email subject"
       assert_equal @email.to[0], @activity.completer.email
       assert_match /activity has been successfully rejected/, @email.body.to_s
       assert !Activity.find_by_id(@activity.id)
@@ -1390,7 +1390,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       xhr :post, :make_task_group_comment, :subject => "Test comment Subject", :id => 2, :email_contents => "Test Comment Contents"
       assert_redirected_to assisting_activities_path
       @email = ActionMailer::Base.deliveries.last
-      assert_equal @email.subject, "Test comment Subject"
+      assert_equal @email.subject, "[TEST] Test comment Subject"
       assert_equal @email.to[0], "shaun@27stars.co.uk"
       assert_match /Test Comment Contents/, @email.body.to_s
     end
@@ -1399,7 +1399,7 @@ class ActivitiesControllerTest < ActionController::TestCase
       xhr :post, :make_task_group_comment, :subject => "Test comment Subject", :id => 1, :email_contents => "Test Comment Contents"
       assert_redirected_to access_denied_path
       @email = ActionMailer::Base.deliveries.last
-      assert_not_equal @email.subject, "Test comment Subject"
+      assert_not_equal @email.subject, "[TEST] Test comment Subject"
       assert_not_equal @email.to[0], "shaun@27stars.co.uk"
     end
 

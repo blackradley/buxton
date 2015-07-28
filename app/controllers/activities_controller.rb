@@ -131,6 +131,7 @@ class ActivitiesController < ApplicationController
   def create
     @breadcrumb = [["My EAs", my_eas_activities_path], ["New EA"]]
     @directorates = Directorate.active.select{|d| d.service_areas.count > 0}
+
     # @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id, :retired =>false).map(&:id))
     @selected = "directorate_eas"
     invalid = params[:activity].select{|k,v| k.match(/_email/) && !v.blank? && !User.live.exists?(:email => v)}#.each do |k,v|
@@ -141,12 +142,13 @@ class ActivitiesController < ApplicationController
         @activity.errors.add(k, "is not a valid user")
         @activity.instance_variable_set("@#{k}", v)
       end
-      @service_areas = @directorates.first.service_areas
+      @service_areas = Directorate.find(params[:activity][:directorate]).service_areas
+      # @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
       render 'new' and return
     end
     [:completer_id, :approver_id, :qc_officer_id].each{|p| params[:activity].delete(p)}
     if params[:clone_of]
-      @activity = current_user.activities.select{|a| a.id.to_s == params[:clone_of]}.first
+      @activity = current_user.activities.find(params[:clone_of]).first
       unless @activity
         flash[:notice] = "The Service Area for this EA has been retired and therefore this EA cannot be cloned."
         if current_user.creator?
@@ -202,13 +204,15 @@ class ActivitiesController < ApplicationController
       if @activity.errors[:qc_officer].present?
         @activity.errors.add(:qc_officer_email, "Quality Control Officer " + @activity.errors[:qc_officer].to_sentence)
       end
-      @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
+      @service_areas = Directorate.find(params[:activity][:directorate]).service_areas
+
+      # @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
       render 'new'
     end
   end
 
   def destroy
-    flash[:notice] = "#{@activity.name} has been permenantly deleted."
+    flash[:notice] = "#{@activity.name} has been permanently deleted."
     @activity.destroy
     redirect_to my_eas_activities_path
   end
