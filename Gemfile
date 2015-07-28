@@ -12,7 +12,7 @@ gem "jquery-rails"
 gem 'pdf-writer', git: "https://github.com/Hermanverschooten/pdf-writer.git"
 gem 'newrelic_rpm'
 # gem "devise", "= 1.5.2"
-gem 'formtastic', "~> 2"
+gem 'formtastic'#, "~> 2"
 gem 'airbrake'
 gem 'rails3-jquery-autocomplete'
 gem 'devise_security_extension'
