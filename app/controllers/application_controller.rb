@@ -24,6 +24,9 @@ protected
     devise_controller? ? "login" : "application"
   end
 
+  def deny_admins
+    redirect_to access_denied_path if current_user.is_a?(Administrator)
+  end
 
   # If the user_id session variable exists, grab this user from the database and store
   # in @current_user making it available to the action of any controller.

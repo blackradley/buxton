@@ -18,6 +18,8 @@ class ActivitiesController < ApplicationController
   # Make render_to_string available to the #show action
   helper_method :render_to_string
   before_filter :authenticate_user!
+
+  before_filter :deny_admins
   # before_filter :ensure_can_create_eas, :only => [:my_eas, :edit, :new, :create, :update]
   before_filter :ensure_creator, :only => [:directorate_eas]
   before_filter :ensure_dgo, :only => [:directorate_governance_eas]
@@ -47,7 +49,7 @@ class ActivitiesController < ApplicationController
     # end
   end
 
-  def directorate_eas
+  def directorate_eas_activities_path
     @breadcrumb = [["Directorate EAs"]]
     @directorates = current_user.count_directorates
     @live_directorates = current_user.count_live_directorates

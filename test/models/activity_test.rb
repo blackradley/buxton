@@ -719,4 +719,46 @@ class ActivityTest < ActiveSupport::TestCase
 
 
   end
+
+  context "when checking required sections" do
+    setup do
+      @activity = activities(:activities_001)
+
+      @activity.questions.where(:name => "purpose_gender_3").first.update_attributes(:raw_answer => 1)
+      @activity.questions.where(:name => "purpose_gender_4").first.update_attributes(:raw_answer => 1)
+
+      @activity.questions.where(:name => "purpose_age_3").first.update_attributes(:raw_answer => 1)
+      @activity.questions.where(:name => "purpose_age_4").first.update_attributes(:raw_answer => 2)
+
+      @activity.questions.where(:name => "purpose_race_3").first.update_attributes(:raw_answer => 2)
+      @activity.questions.where(:name => "purpose_race_4").first.update_attributes(:raw_answer => 1)
+
+      @activity.questions.where(:name => "purpose_faith_3").first.update_attributes(:raw_answer => 2)
+      @activity.questions.where(:name => "purpose_faith_4").first.update_attributes(:raw_answer => 2)
+
+      @activity.update_completed
+    end
+
+    should "require section that is relevant and required" do
+      assert @activity.gender_relevant
+      assert @activity.strands.include?('gender')
+    end
+
+
+    should "not require section that is relevant but not required" do
+      assert !@activity.age_relevant
+      assert !@activity.strands.include?('age')
+    end
+
+
+    should "require section that is not relevant but is required" do
+      assert @activity.race_relevant
+      assert @activity.strands.include?('race')
+    end
+
+    should "not require section that neither relevant nor required" do
+      assert !@activity.faith_relevant
+      assert !@activity.strands.include?('faith')
+    end
+  end
 end
