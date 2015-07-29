@@ -4,7 +4,7 @@ class LogsControllerTest < ActionController::TestCase
 
   context "when not a cop" do
     setup do
-      sign_in Factory(:user)
+      sign_in FactoryGirl.create(:user)
     end
 
     should "not be able to access the logs" do
@@ -17,10 +17,10 @@ class LogsControllerTest < ActionController::TestCase
 
   context "when anyone but a corporate cop" do
     setup do
-      @user = Factory(:creator)
-      Factory(:activity, :completer => @user, :approver =>  Factory(:user), :qc_officer => Factory(:user))
-      Factory(:activity, :completer => Factory(:user), :approver =>  @user, :qc_officer => Factory(:user))
-      Factory(:activity, :completer => Factory(:user), :approver =>  Factory(:user), :qc_officer => @user)
+      @user = FactoryGirl.create(:creator)
+      FactoryGirl.create(:activity, :completer => @user, :approver =>  FactoryGirl.create(:user), :qc_officer => FactoryGirl.create(:user))
+      FactoryGirl.create(:activity, :completer => FactoryGirl.create(:user), :approver =>  @user, :qc_officer => FactoryGirl.create(:user))
+      FactoryGirl.create(:activity, :completer => FactoryGirl.create(:user), :approver =>  FactoryGirl.create(:user), :qc_officer => @user)
       sign_in @user
     end
 
@@ -34,7 +34,7 @@ class LogsControllerTest < ActionController::TestCase
 
   context "When an admin" do
     setup do
-      sign_in Factory(:administrator)
+      sign_in FactoryGirl.create(:administrator)
     end
 
     should "not be able to access the logs" do
@@ -47,7 +47,7 @@ class LogsControllerTest < ActionController::TestCase
 
   context "When a corporate cop" do
     setup do
-      sign_in Factory(:corporate_cop)
+      sign_in FactoryGirl.create(:corporate_cop)
     end
 
     should "be able to access the logs" do

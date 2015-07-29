@@ -6,7 +6,7 @@
 #
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class HelpTextTest < ActiveSupport::TestCase
   # Replace this with your real tests.

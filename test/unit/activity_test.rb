@@ -1,7 +1,7 @@
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class ActivityTest < ActiveSupport::TestCase
-  subject{ Factory(:activity)}
+  subject{ FactoryGirl.create(:activity)}
   fixtures :activities, :questions, :users, :service_areas
   # should validate_presence_of(:name).with_message(/All activities must have a name/)
   # should validate_presence_of(:completer)
@@ -12,7 +12,7 @@ class ActivityTest < ActiveSupport::TestCase
   context "when creating an activity" do
     setup do
       @activity = Activity.new
-      @activity.service_area_id = Factory(:service_area).id
+      @activity.service_area_id = FactoryGirl.create(:service_area).id
     end
 
     should "not be able to save the activity the first time without entering any details about it" do
@@ -31,9 +31,9 @@ class ActivityTest < ActiveSupport::TestCase
     end
 
     should "be able to mark it as ready when all required fields are filled in" do
-      @activity.approver = Factory(:user)
-      @activity.completer = Factory(:user)
-      @activity.qc_officer = Factory(:user)
+      @activity.approver = FactoryGirl.create(:user)
+      @activity.completer = FactoryGirl.create(:user)
+      @activity.qc_officer = FactoryGirl.create(:user)
       @activity.review_on =Date.today
       @activity.name = "Sample ready EA"
       @activity.ready = true
@@ -505,8 +505,8 @@ class ActivityTest < ActiveSupport::TestCase
     context "when you add complete issues" do
 
       setup do
-        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer_id => 1, :strand => "gender", :section => "impact", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
-        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer_id => 1, :strand => "gender", :section => "consultation", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+        @activity.issues.create(:actions => "Action", :timescales => Date.yesterday.to_s(:db), :completing => Date.tomorrow.to_s(:db), :lead_officer_id => 1, :strand => "gender", :section => "impact", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+        @activity.issues.create(:actions => "Action", :timescales => Date.yesterday.to_s(:db), :completing => Date.tomorrow.to_s(:db), :lead_officer_id => 1, :strand => "gender", :section => "consultation", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
       end
 
       should "have impact gender completed" do
@@ -518,7 +518,7 @@ class ActivityTest < ActiveSupport::TestCase
       end
 
       should "have action planning completed" do
-        # assert @activity.completed(:action_planning, :gender)
+        assert @activity.completed(:action_planning, :gender)
       end
     end
 

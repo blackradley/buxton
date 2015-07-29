@@ -6,7 +6,7 @@ class ActivitiesControllerTest < ActionController::TestCase
 
   context "when logged in as an administrator" do
     setup do
-      @admin = Factory(:administrator)
+      @admin = FactoryGirl.create(:administrator)
       sign_in @admin
     end
 
@@ -97,7 +97,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to add users to the task group for an activity" do
-      xhr :post, :create_task_group_member, :activity => {:task_group_member => Factory(:user).email}, :id => 1
+      xhr :post, :create_task_group_member, :activity => {:task_group_member => FactoryGirl.create(:user).email}, :id => 1
       assert_response :redirect
       assert_redirected_to access_denied_path
       assert_equal 0, activities(:activities_001).task_group_memberships.count
@@ -158,7 +158,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to view the PDF file for an activity that's not in their directorate" do
-      get :show, :id => Factory.create(:activity, :service_area => service_areas(:service_areas_002)).id
+      get :show, :id => FactoryGirl.create(:activity, :service_area => service_areas(:service_areas_002)).id
       assert_response :redirect
       assert_redirected_to access_denied_path
     end
@@ -169,7 +169,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to see an activity summary for an activity that's not in their directorate" do
-      get :show, :id => Factory.create(:activity, :service_area => service_areas(:service_areas_002)).id
+      get :show, :id => FactoryGirl.create(:activity, :service_area => service_areas(:service_areas_002)).id
       assert_response :redirect
       assert_redirected_to access_denied_path
     end
@@ -234,7 +234,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to add users to the task group for an activity" do
-      xhr :post, :create_task_group_member, :activity => {:task_group_member => Factory(:user).email}, :id => 1
+      xhr :post, :create_task_group_member, :activity => {:task_group_member => FactoryGirl.create(:user).email}, :id => 1
       assert_response :redirect
       assert_redirected_to access_denied_path
       assert_equal 0, activities(:activities_001).task_group_memberships.count
@@ -258,7 +258,7 @@ class ActivitiesControllerTest < ActionController::TestCase
 
   context "when logged in as a corporate cop " do
     setup do
-      sign_in Factory(:corporate_cop)
+      sign_in FactoryGirl.create(:corporate_cop)
     end
 
     should "not be able to see any activities list aside from the cop ones" do
@@ -359,7 +359,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to add users to the task group for an activity" do
-      xhr :post, :create_task_group_member, :activity => {:task_group_member => Factory(:user).email}, :id => 1
+      xhr :post, :create_task_group_member, :activity => {:task_group_member => FactoryGirl.create(:user).email}, :id => 1
       assert_response :redirect
       assert_redirected_to access_denied_path
       assert_equal 0, activities(:activities_001).task_group_memberships.count
@@ -423,7 +423,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to view the PDF file for an activity that's not in their directorate" do
-      # get :show, :id => Factory(:activity, :service_area => service_areas(:service_areas_002)).id
+      # get :show, :id => FactoryGirl.create(:activity, :service_area => service_areas(:service_areas_002)).id
       # assert_response :redirect
       # assert_redirected_to access_denied_path
     end
@@ -434,7 +434,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to see an activity summary for an activity that's not in their directorate" do
-      # get :show, :id => Factory(:activity, :service_area => service_areas(:service_areas_002)).id
+      # get :show, :id => FactoryGirl.create(:activity, :service_area => service_areas(:service_areas_002)).id
       # assert_response :redirect
       # assert_redirected_to access_denied_path
     end
@@ -689,7 +689,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to add users to the task group for an activity" do
-      xhr :post, :create_task_group_member, :activity => {:task_group_member => Factory(:user).email}, :id => 1
+      xhr :post, :create_task_group_member, :activity => {:task_group_member => FactoryGirl.create(:user).email}, :id => 1
       assert_response :redirect
       assert_redirected_to access_denied_path
       assert_equal 0, activities(:activities_001).task_group_memberships.count
@@ -877,13 +877,13 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "be able to add users to the task group for an activity" do
-      xhr :post, :create_task_group_member, :activity => {:task_group_member => Factory(:user).email}, :id => 2
+      xhr :post, :create_task_group_member, :activity => {:task_group_member => FactoryGirl.create(:user).email}, :id => 2
       assert_response :success
       assert_equal 2, activities(:activities_002).task_group_memberships.count
     end
 
     should "not be able to add users to the task group for an activity for which they are not the completer" do
-      # xhr :post, :create_task_group_member, :activity => {:task_group_member => Factory(:user).email}, :id => 1
+      # xhr :post, :create_task_group_member, :activity => {:task_group_member => FactoryGirl.create(:user).email}, :id => 1
       # assert_response :redirect
       # assert_redirected_to access_denied_path
       # assert_equal 0, activities(:activities_001).task_group_memberships.count
@@ -1131,7 +1131,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to add users to the task group for an activity" do
-      xhr :post, :create_task_group_member, :activity => {:task_group_member => Factory(:user).email}, :id => 1
+      xhr :post, :create_task_group_member, :activity => {:task_group_member => FactoryGirl.create(:user).email}, :id => 1
       assert_response :redirect
       assert_redirected_to access_denied_path
       assert_equal 0, activities(:activities_001).task_group_memberships.count
@@ -1282,7 +1282,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to add users to the task group for an activity" do
-      xhr :post, :create_task_group_member, :activity => {:task_group_member => Factory(:user).email}, :id => 1
+      xhr :post, :create_task_group_member, :activity => {:task_group_member => FactoryGirl.create(:user).email}, :id => 1
       assert_response :redirect
       assert_redirected_to access_denied_path
       assert_equal 0, activities(:activities_001).task_group_memberships.count
@@ -1416,7 +1416,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to add users to the task group for an activity" do
-      xhr :post, :create_task_group_member, :activity => {:task_group_member => Factory(:user).email}, :id => 1
+      xhr :post, :create_task_group_member, :activity => {:task_group_member => FactoryGirl.create(:user).email}, :id => 1
       assert_response :redirect
       assert_redirected_to access_denied_path
       assert_equal 0, activities(:activities_001).task_group_memberships.count
@@ -1440,7 +1440,7 @@ class ActivitiesControllerTest < ActionController::TestCase
 
   context "a user with no roles whatsoever" do
     setup do
-      sign_in Factory(:user)
+      sign_in FactoryGirl.create(:user)
     end
 
     should "be able to access the index page and get redirected appropriately" do
@@ -1535,7 +1535,7 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to add users to the task group for an activity" do
-      xhr :post, :create_task_group_member, :activity => {:task_group_member => Factory(:user).email}, :id => 1
+      xhr :post, :create_task_group_member, :activity => {:task_group_member => FactoryGirl.create(:user).email}, :id => 1
       assert_response :redirect
       assert_redirected_to access_denied_path
       assert_equal 0, activities(:activities_001).task_group_memberships.count

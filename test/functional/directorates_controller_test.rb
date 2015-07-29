@@ -14,7 +14,7 @@ class DirectoratesControllerTest < ActionController::TestCase
 
   context "A creator" do
     setup do
-      @creator = Factory(:creator)
+      @creator = FactoryGirl.create(:creator)
       sign_in @creator
     end
 
@@ -29,14 +29,14 @@ class DirectoratesControllerTest < ActionController::TestCase
     end
 
     should "be able to create directorates" do
-      post :create, :directorate => {:name => "Test Directorate", :cop_email => Factory(:cop).email}
+      post :create, :directorate => {:name => "Test Directorate", :cop_email => FactoryGirl.create(:cop).email}
       assert_equal "Test Directorate", Directorate.where(:name => "Test Directorate").first.name
       assert_response :redirect
       assert_redirected_to :action => "index"
     end
 
     should "be able to toggle the retired status of a directorate" do
-      directorate = Factory.create(:directorate, :creator => @creator)
+      directorate = FactoryGirl.create(:directorate, :creator => @creator)
       post :toggle_directorate_status, :id => directorate.id, :checkbox => 'retired'
       assert_equal true, Directorate.find(directorate.id).retired
       assert_response :success
@@ -48,7 +48,7 @@ class DirectoratesControllerTest < ActionController::TestCase
     end
 
     should "be able to update the properties of a directorate" do
-      post :update, :id => 1, :directorate => {:name => "Test Directorate 2", :cop_email => Factory(:cop).email}
+      post :update, :id => 1, :directorate => {:name => "Test Directorate 2", :cop_email => FactoryGirl.create(:cop).email}
       assert_equal "Test Directorate 2", Directorate.find(1).name
       assert_response :redirect
       assert_redirected_to :action => "index"

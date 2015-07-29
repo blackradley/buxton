@@ -6,15 +6,15 @@
 #
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class QuestionTest < ActiveSupport::TestCase
 
   context "for a stand alone text question" do
 
     setup do
-      @activity = Factory.build(:activity)
-      @question = Factory.create(:question, :input_type => "text", :activity => @activity)
+      @activity = FactoryGirl.build(:activity)
+      @question = FactoryGirl.create(:question, :input_type => "text", :activity => @activity)
       @question.save!
 
     end
@@ -66,8 +66,8 @@ class QuestionTest < ActiveSupport::TestCase
   context "for a stand alone select question" do
 
     setup do
-      @activity = Factory.build(:activity)
-      @question = Factory(:question, :input_type => "select", :needed => true, :activity => @activity, :choices => ["Not Answered", "Yes", "No"])
+      @activity = FactoryGirl.build(:activity)
+      @question = FactoryGirl.create(:question, :input_type => "select", :needed => true, :activity => @activity, :choices => ["Not Answered", "Yes", "No"])
       @question.save!
     end
 
@@ -140,9 +140,9 @@ class QuestionTest < ActiveSupport::TestCase
 
   context "For a select question with children" do
     setup do
-      @activity = Factory.create(:activity)
-      @question = Factory.create(:question, :input_type => "select", :needed => true, :activity => @activity, :choices => ["Not Answered", "Yes", "No"])
-      @child_question = Factory.create(:question, :input_type => "select", :needed => false, :activity => @activity, :choices => ["Not Answered", "Yes", "No"])
+      @activity = FactoryGirl.create(:activity)
+      @question = FactoryGirl.create(:question, :input_type => "select", :needed => true, :activity => @activity, :choices => ["Not Answered", "Yes", "No"])
+      @child_question = FactoryGirl.create(:question, :input_type => "select", :needed => false, :activity => @activity, :choices => ["Not Answered", "Yes", "No"])
       @question.dependencies.create!(:child_question => @child_question, :required_value => 1)
       @question.save!
     end

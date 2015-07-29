@@ -6,7 +6,7 @@
 #
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 
 class StrategyTest < ActiveSupport::TestCase
@@ -18,11 +18,11 @@ class StrategyTest < ActiveSupport::TestCase
     setup do
       Strategy.destroy_all
       2.times do |i|
-        Factory.create(:strategy, :name => "Strategy #{i}", :description => "Description #{i}")
+        FactoryGirl.create(:strategy, :name => "Strategy #{i}", :description => "Description #{i}")
       end
 
       3.times do |i|
-        Factory.create(:strategy, :name => "Strategy #{i}", :description => "Description #{i}", :retired => true)
+        FactoryGirl.create(:strategy, :name => "Strategy #{i}", :description => "Description #{i}", :retired => true)
       end
     end
 
