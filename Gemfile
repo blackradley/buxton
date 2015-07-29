@@ -38,7 +38,7 @@ gem 'mailsafe'
 
 group :test do
   gem 'test-unit'
-  gem 'factory_girl', "1.3.3"
+  gem 'factory_girl_rails'
   gem 'shoulda'
   gem 'mocha'
   gem "test_after_commit"
@@ -54,5 +54,7 @@ group :development do
   gem 'capistrano-rvm',   '~> 0.1', require: false
 
   gem 'db_fixtures_dump'
+  gem 'guard'
+  gem 'guard-minitest'
 
 end

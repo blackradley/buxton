@@ -5,7 +5,7 @@ class ServiceAreasControllerTest < ActionController::TestCase
   #TODO Directorate cops are the ones who edit/create service areas, it seems
   context "A user that is not a creator" do
     setup do
-      sign_in Factory(:user)
+      sign_in FactoryGirl.create(:user)
     end
 
     should "be unable to access the Service Areas table" do
@@ -50,7 +50,7 @@ class ServiceAreasControllerTest < ActionController::TestCase
 
   context "A user that is a creator but is not in charge of a directorate" do
     setup do
-      sign_in Factory(:creator)
+      sign_in FactoryGirl.create(:creator)
     end
 
     should "be unable to access the Service Areas table" do
@@ -95,8 +95,8 @@ class ServiceAreasControllerTest < ActionController::TestCase
 
   context "A user that is a creator and has been assigned to a directorate that is retired" do
     setup do
-      sign_in @creator = Factory(:creator)
-      directorates(:directorates_retired).update_attributes!(:creator_id => @creator.id, :cops => [Factory(:user)])
+      sign_in @creator = FactoryGirl.create(:creator)
+      directorates(:directorates_retired).update_attributes!(:creator_id => @creator.id, :cops => [FactoryGirl.create(:user)])
     end
 
     should "be unable to access the Service Areas table" do
@@ -141,8 +141,8 @@ class ServiceAreasControllerTest < ActionController::TestCase
 
   context "A user that is a creator and has been assigned to a directorate that is active" do
     setup do
-      sign_in @creator = Factory(:creator)
-      directorates(:directorates_001).update_attributes!(:creator_id => @creator.id, :cops => [Factory(:user)])
+      sign_in @creator = FactoryGirl.create(:creator)
+      directorates(:directorates_001).update_attributes!(:creator_id => @creator.id, :cops => [FactoryGirl.create(:user)])
     end
 
     should "not be able to access the Service Areas table" do

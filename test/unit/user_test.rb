@@ -6,14 +6,14 @@
 #
 # Copyright (c) 2008 Black Radley Systems Limited. All rights reserved.
 #
-require File.dirname(__FILE__) + '/../test_helper'
+require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
 
   context "when a user is a creator" do
 
     setup do
-      @user = Factory.create(:user, :creator => true)
+      @user = FactoryGirl.create(:user, :creator => true)
     end
 
     should "respond to a creator method" do
@@ -32,11 +32,11 @@ class UserTest < ActiveSupport::TestCase
     # context "with 3 live directorates and 2 retired directorates" do
     #   setup do
     #     3.times do |i|
-    #       Factory.create(:directorate, :creator => Factory.create(:user))
+    #       FactoryGirl.create(:directorate, :creator => FactoryGirl.create(:user))
     #     end
     #
     #     2.times do |i|
-    #       Factory.create(:directorate, :creator => Factory.create(:user), :retired => true)
+    #       FactoryGirl.create(:directorate, :creator => FactoryGirl.create(:user), :retired => true)
     #     end
     #   end
     #
@@ -52,7 +52,7 @@ class UserTest < ActiveSupport::TestCase
 
   context "when a user is retired" do
     setup do
-      @user = Factory.create(:user, :retired => true)
+      @user = FactoryGirl.create(:user, :retired => true)
     end
 
     should "not be included in the live filter" do
@@ -63,11 +63,11 @@ class UserTest < ActiveSupport::TestCase
 
   context "with one activity and a completer and approver and a qc officer" do
     setup do
-      @completer = Factory.create(:user)
-      @approver = Factory.create(:user)
-      @qc_officer = Factory.create(:user)
-      service_area = Factory.create(:service_area, :directorate => Factory.create(:directorate, :cops => [Factory.create(:cop)]))
-      @normal_activity = Factory.create(:activity, :completer => @completer, :approver => @approver, :qc_officer => @qc_officer, :ready => true, :service_area_id => service_area.id)
+      @completer = FactoryGirl.create(:user)
+      @approver = FactoryGirl.create(:user)
+      @qc_officer = FactoryGirl.create(:user)
+      service_area = FactoryGirl.create(:service_area, :directorate => FactoryGirl.create(:directorate, :cops => [FactoryGirl.create(:cop)]))
+      @normal_activity = FactoryGirl.create(:activity, :completer => @completer, :approver => @approver, :qc_officer => @qc_officer, :ready => true, :service_area_id => service_area.id)
     end
 
     should "mark the completer as only a completer" do
@@ -115,19 +115,19 @@ class UserTest < ActiveSupport::TestCase
 
   context "with two activities and a completer, approver, and QC for each, and a single creator" do
     setup do
-      @creator = Factory.create(:user, :creator => true)
-      @service_area = Factory.create(:service_area)
+      @creator = FactoryGirl.create(:user, :creator => true)
+      @service_area = FactoryGirl.create(:service_area)
       @service_area.directorate.creator = @creator
       @service_area.save!
-      @completer1 = Factory.create(:user)
-      @completer2 = Factory.create(:user)
-      @approver1 = Factory.create(:user)
-      @approver2 = Factory.create(:user)
-      @qc1 = Factory.create(:user)
-      @qc2 = Factory.create(:user)
-      @activity1 = Factory.create(:activity, :service_area_id => @service_area.id, :completer => @completer1, :approver => @approver1, :qc_officer => @qc1, :ready => true, :submitted => true, :undergone_qc => false)
+      @completer1 = FactoryGirl.create(:user)
+      @completer2 = FactoryGirl.create(:user)
+      @approver1 = FactoryGirl.create(:user)
+      @approver2 = FactoryGirl.create(:user)
+      @qc1 = FactoryGirl.create(:user)
+      @qc2 = FactoryGirl.create(:user)
+      @activity1 = FactoryGirl.create(:activity, :service_area_id => @service_area.id, :completer => @completer1, :approver => @approver1, :qc_officer => @qc1, :ready => true, :submitted => true, :undergone_qc => false)
       @activity1.questions.first.update_attributes(:raw_answer => "1")
-      @activity2 = Factory.create(:activity, :service_area_id => @service_area.id, :completer => @completer2, :approver => @approver2, :qc_officer => @qc2, :ready => true, :submitted => true, :undergone_qc => false)
+      @activity2 = FactoryGirl.create(:activity, :service_area_id => @service_area.id, :completer => @completer2, :approver => @approver2, :qc_officer => @qc2, :ready => true, :submitted => true, :undergone_qc => false)
       @activity2.questions.first.update_attributes(:raw_answer => "1")
     end
 
