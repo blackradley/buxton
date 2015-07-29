@@ -336,6 +336,9 @@ class ActivityTest < ActiveSupport::TestCase
         q.update_attributes!(:raw_answer => "2")
       end
       @activity.update_attributes(:gender_relevant => true)
+      @activity.questions.where(:name => "purpose_gender_3").first.update_attributes(:raw_answer => 1)
+      @activity.questions.where(:name => "purpose_gender_4").first.update_attributes(:raw_answer => 1)
+
       @activity.questions.where(:section => "impact", :strand => "gender").each do |q|
         q.update_attributes!(:raw_answer => "2")
       end
@@ -353,7 +356,7 @@ class ActivityTest < ActiveSupport::TestCase
     end
 
     should "not be completed" do
-      # assert !@activity.completed(nil,nil, true)
+      assert !@activity.completed(nil,nil)
     end
 
     should "have 1a completed" do
@@ -407,7 +410,10 @@ class ActivityTest < ActiveSupport::TestCase
       @activity.questions.where(:section => "purpose").each do |q|
         q.update_attributes(:raw_answer => "2")
       end
+      @activity.questions.where(:name => "purpose_age_3").first.update_attributes(:raw_answer => 1)
+      @activity.questions.where(:name => "purpose_age_4").first.update_attributes(:raw_answer => 1)
       @activity.update_attributes(:gender_relevant => true)
+
       @activity.questions.where(:section => "impact", :strand => "gender").each do |q|
         q.update_attributes(:raw_answer => "1")
       end
@@ -425,7 +431,7 @@ class ActivityTest < ActiveSupport::TestCase
     end
 
     should "not be completed" do
-      # assert !@activity.completed
+      assert !@activity.completed
     end
 
     should "have 1a completed" do
@@ -525,18 +531,32 @@ class ActivityTest < ActiveSupport::TestCase
       @activity.questions.where(:section => "purpose").each do |q|
         q.update_attributes!(:raw_answer => "2")
       end
+      @activity.questions.where(:name => "purpose_gender_3").first.update_attributes(:raw_answer => 1)
+      @activity.questions.where(:name => "purpose_gender_4").first.update_attributes(:raw_answer => 1)
+
       @activity.questions.where(:name => "purpose_age_3").first.update_attributes(:raw_answer => 1)
       @activity.questions.where(:name => "purpose_age_4").first.update_attributes(:raw_answer => 1)
-      @activity.update_attributes(:gender_relevant => true)
+
+      @activity.update_attributes(:gender_relevant => true, :age_relevant => true)
       @activity.questions.where(:section => "impact", :strand => "gender").each do |q|
-        q.update_attributes!(:raw_answer => "1")
+        if q.name == 'impact_gender_10'
+          q.update_attributes!(:raw_answer => "2")
+        else
+          q.update_attributes!(:raw_answer => "1")
+        end
       end
       @activity.questions.where(:section => "consultation", :strand => "gender").each do |q|
-        q.update_attributes!(:raw_answer => "1")
+        if q.name == 'consultation_gender_7'
+          q.update_attributes!(:raw_answer => "2")
+        else
+          q.update_attributes!(:raw_answer => "1")
+        end
+
       end
       @activity.questions.where(:section => "additional_work", :strand => "gender").each do |q|
         q.update_attributes!(:raw_answer => "1")
       end
+
       @activity.questions.where(:section => "impact", :strand => "age").each do |q|
         q.update_attributes!(:raw_answer => "1")
       end
@@ -593,21 +613,48 @@ class ActivityTest < ActiveSupport::TestCase
 
     end
 
-    should "not have impact gender completed" do
-      assert !@activity.completed(:impact, :gender)
+    should "have impact gender completed" do
+      assert @activity.completed(:impact, :gender)
     end
 
-    should "not have consultation gender completed" do
-      assert !@activity.completed(:consultation, :gender)
+    should "have consultation gender completed" do
+      assert @activity.completed(:consultation, :gender)
     end
 
-    should "have additional work completed" do
+    should "have gender additional work completed" do
       assert @activity.completed(:additional_work, :gender)
+    end
+
+    should "have completed gender" do
+      assert @activity.completed(nil, :gender)
+    end
+
+    should "not have impact age completed" do
+      # Final question indicates that issues need highlighting - "1" is yes, but none have been added
+      assert !@activity.completed(:impact, :age)
+    end
+
+    should "not have consultation age completed" do
+      # Final question indicates that issues need highlighting - "1" is yes, but none have been added
+      assert !@activity.completed(:consultation, :age)
+    end
+
+    should "have age additional work completed" do
+      assert @activity.completed(:additional_work, :age)
+    end
+
+    should "not have completed age" do
+      assert !@activity.completed(nil, :age)
     end
 
     context "when you add incomplete issues" do
 
       setup do
+        @activity.questions.find_by(name: 'impact_gender_9').update_attribute(:raw_answer, '1')
+        @activity.questions.find_by(name: 'consultation_gender_7').update_attribute(:raw_answer, '1')
+        @activity.questions.find_by(name: 'impact_age_9').update_attribute(:raw_answer, '1')
+        @activity.questions.find_by(name: 'consultation_age_7').update_attribute(:raw_answer, '1')
+
         @activity.issues.create(:strand => "gender", :section => "impact", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
         @activity.issues.create(:strand => "gender", :section => "consultation", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
         @activity.issues.create(:strand => "age", :section => "impact", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
@@ -630,10 +677,15 @@ class ActivityTest < ActiveSupport::TestCase
     context "when you add complete issues" do
 
       setup do
-        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer_id => 1, :strand => "gender", :section => "impact", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
-        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer_id => 1, :strand => "gender", :section => "consultation", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
-        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer_id => 1, :strand => "age", :section => "impact", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
-        @activity.issues.create(:actions => "Action", :timescales => "timescale", :lead_officer_id => 1, :strand => "age", :section => "consultation", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+        @activity.questions.find_by(name: 'impact_gender_10').update_attribute(:raw_answer, '1')
+        @activity.questions.find_by(name: 'consultation_gender_7').update_attribute(:raw_answer, '1')
+        @activity.questions.find_by(name: 'impact_age_10').update_attribute(:raw_answer, '1')
+        @activity.questions.find_by(name: 'consultation_age_7').update_attribute(:raw_answer, '1')
+
+        @activity.issues.create(:actions => "Action", :timescales => Date.yesterday.to_s(:db), :completing => Date.tomorrow.to_s(:db), :lead_officer_id => 1, :strand => "gender", :section => "impact", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+        @activity.issues.create(:actions => "Action", :timescales => Date.yesterday.to_s(:db), :completing => Date.tomorrow.to_s(:db), :lead_officer_id => 1, :strand => "gender", :section => "consultation", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+        @activity.issues.create(:actions => "Action", :timescales => Date.yesterday.to_s(:db), :completing => Date.tomorrow.to_s(:db), :lead_officer_id => 1, :strand => "age", :section => "impact", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+        @activity.issues.create(:actions => "Action", :timescales => Date.yesterday.to_s(:db), :completing => Date.tomorrow.to_s(:db), :lead_officer_id => 1, :strand => "age", :section => "consultation", :resources => "none", :description => "Issue description", :recommendations => "none", :monitoring => "none", :outcomes => "none")
       end
 
       should "have impact gender completed" do
@@ -645,7 +697,7 @@ class ActivityTest < ActiveSupport::TestCase
       end
 
       should "have action planning gender completed" do
-        # assert @activity.completed(:action_planning, :gender)
+        assert @activity.completed(:action_planning, :gender)
       end
 
       should "have impact age completed" do
@@ -657,11 +709,11 @@ class ActivityTest < ActiveSupport::TestCase
       end
 
       should "have action planning age completed" do
-        # assert @activity.completed(:action_planning, :age)
+        assert @activity.completed(:action_planning, :age)
       end
 
       should "be complete" do
-        # assert @activity.completed
+        assert @activity.completed
       end
     end
 
