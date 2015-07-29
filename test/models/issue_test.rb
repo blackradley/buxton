@@ -26,11 +26,11 @@ class IssueTest < ActiveSupport::TestCase
   context "with an issue that has been completed" do
     setup do
       @activity = FactoryGirl.build(:activity)
-      @issue = FactoryGirl.create(:issue, :activity => @activity, :actions => "Action", :timescales => "timescale", :lead_officer_id => 1, :strand => "gender", :section => "impact", :resources => "none", :recommendations => "none", :monitoring => "none", :outcomes => "none")
+      @issue = FactoryGirl.create(:issue, :activity => @activity, :actions => "Action", :timescales => Date.yesterday.to_s(:db), :completing => Date.tomorrow.to_s(:db), :lead_officer_id => 1, :strand => "gender", :section => "impact", :resources => "none", :recommendations => "none", :monitoring => "none", :outcomes => "none")
     end
 
     should "be complete" do
-      # assert @issue.check_responses
+      assert @issue.check_responses
     end
 
   end

@@ -12,17 +12,17 @@ class ActivitiesControllerTest < ActionController::TestCase
 
 
     should "not be able to see any activities list" do
-      # [:directorate_eas, :my_eas, :approving, :directorate_governance_eas, :actions, :assisting, :quality_control].each do |activity_route|
-      #   get activity_route
-      #   assert_response :redirect
-      #   assert_redirected_to access_denied_path
-      # end
+      [:directorate_eas, :my_eas, :approving, :actions, :assisting, :quality_control].each do |activity_route|
+        get activity_route
+        assert_response :redirect, "Expected #{activity_route} to redirect"
+        assert_redirected_to access_denied_path
+      end
     end
 
     should "not be able to view the schedule file for a directorate" do
-      # get :generate_schedule
-      # assert_response :redirect
-      # assert_redirected_to access_denied_path
+      get :generate_schedule
+      assert_response :redirect
+      assert_redirected_to access_denied_path
     end
 
     should "not be able to view the pdf file for an activity" do
@@ -50,9 +50,9 @@ class ActivitiesControllerTest < ActionController::TestCase
     end
 
     should "not be able to view the creation of activity" do
-      # get :new
-      # assert_response :redirect
-      # assert_redirected_to access_denied_path
+      get :new
+      assert_response :redirect
+      assert_redirected_to access_denied_path
     end
 
     should "not be able to accept an activity" do
