@@ -480,32 +480,32 @@ class Activity < ActiveRecord::Base
     return true
   end
 
-  def issues_relevant?(strand)
-    impact_qn = "impact_#{strand}_9"
-    consultation_qn = "consultation_#{strand}_7"
-    impact_answer = self.questions.where(:name => impact_qn).first.response.to_i
-    consultation_answer = self.questions.where(:name => consultation_qn).first.response.to_i
+  # def issues_relevant?(strand)
+  #   impact_qn = "impact_#{strand}_9"
+  #   consultation_qn = "consultation_#{strand}_7"
+  #   impact_answer = self.questions.where(:name => impact_qn).first.response.to_i
+  #   consultation_answer = self.questions.where(:name => consultation_qn).first.response.to_i
 
-    if impact_answer==1 || consultation_answer==1
-      issues.find_by(strand: strand.to_s)
-    else
-      false
-    end
+  #   if impact_answer==1 || consultation_answer==1
+  #     issues.find_by(strand: strand.to_s)
+  #   else
+  #     false
+  #   end
 
 
-    # issues_to_check = []
-    # if impact_answer == 1
-    #   issues = self.issues_by('impact', strand)
-    #   return false if issues.size == 0
-    #   issues_to_check << issues
-    # end
-    # if consultation_answer == 1
-    #   issues = self.issues_by('consultation', strand)
-    #   return false if issues.size == 0
-    #   issues_to_check << issues
-    # end
-    # issues_to_check.empty?
-  end
+  #   # issues_to_check = []
+  #   # if impact_answer == 1
+  #   #   issues = self.issues_by('impact', strand)
+  #   #   return false if issues.size == 0
+  #   #   issues_to_check << issues
+  #   # end
+  #   # if consultation_answer == 1
+  #   #   issues = self.issues_by('consultation', strand)
+  #   #   return false if issues.size == 0
+  #   #   issues_to_check << issues
+  #   # end
+  #   # issues_to_check.empty?
+  # end
 
   def activity_and_questions_updated_between(start_date, end_date)
     return false unless self.updated_on
