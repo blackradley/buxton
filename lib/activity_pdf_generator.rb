@@ -160,13 +160,13 @@ class ActivityPDFGenerator
     comment = comment.contents.to_s if comment
     table_data = []
     unless comment.blank?
-      table_data << ["<c:uline>Comment</c:uline>\n#{comment}"]
+      table_data << "<b>Comment:</b>\n#{comment}"
     end
     if @activity.previous_activity  && !@activity.approved
       previous_question_data = []
       q = @activity.questions.where(:name => question.to_s).first
       if q.different_comment? && !q.previous.comment.blank?
-        previous_question_data << ["<i><c:uline>Previous Comment</c:uline>\n#{q.previous.comment.contents.to_s}</i>"]
+        previous_question_data << "<i><b>Previous Comment:</b>\n#{q.previous.comment.contents.to_s}</i>"
       end
       table_data += previous_question_data
     end
@@ -375,8 +375,7 @@ class ActivityPDFGenerator
     # return if comments.blank? && !@activity.send("#{strand}_relevant")
     table << [question_text, question.display_response]
     cell_formats << [{:shading => SHADE_COLOUR}, nil]
-    table += comments  unless comments.blank?
-    comments.size.times {cell_formats << nil}
+    # comments.size.times {cell_formats << nil}
     return if table.blank?
     heading_proc = lambda do |document|
       document.text "<b>3.#{section_index}  <c:uline>#{strand_display(strand).titlecase}</b></c:uline>", :font_size => 12
@@ -386,28 +385,59 @@ class ActivityPDFGenerator
       document
     end
     @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :font_size => 10, :cell_format => cell_formats, :title_lines => 4, :table_title =>heading_proc)
+    comments.each{|comment| @pdf.text comment}.to_s
     @pdf.text " "
+
   end
 
   def build_section(section, strand, heading_proc)
     table_data = []
     borders = [300, @page_width]
-    information = @activity.questions.where(:strand => strand, :section => section, :needed => true).order(:name).sort{|a, b| a.name.slice(/\d+\z/) <=> b.name.slice(/\d+\z/)}
+    information = @activity.questions.where(:strand => strand, :section => section, :needed => true).order(:name).sort{|a, b| a.name.slice(/\d+\z/).to_i <=> b.name.slice(/\d+\z/).to_i}
     # information.sort!{|a, b| a.name.slice(/\d+\z/) <=> b.name.slice(/\d+\z/)}
     cell_formats = []
+    heading_proc.call(@pdf)
     information.each do |question|
+      comments = get_comments(question.name)
       question_text = question.label
       response = question.display_response
-      table_data << [question_text, response]
-      table_data << ["Previously: " + question_text, question.previous.display_response].map{|a| "<i>#{a}</i>"} if question.different_answer? && !@activity.approved
-      cell_formats << [{:shading => SHADE_COLOUR}, nil]
-      cell_formats << [{:shading => SHADE_COLOUR}, nil] if question.different_answer?
-      comments = get_comments(question.name)
-      table_data += comments  unless comments.blank?
-      comments.size.times {cell_formats << nil}
+      if question.input_type == "text"
+        #Write out what's been tabled so far since we'll need to start a new table after inserting the text reply
+        @pdf = generate_table(@pdf, table_data, :borders => borders, :font_size => 10, :cell_format => cell_formats, :title_lines => 4)
+        table_data = []
+        cell_formats = []
+
+        #write out question text
+        @pdf.text "<b>#{question_text}</b>"
+        @pdf.text response
+        if question.different_answer? && !@activity.approved
+          @pdf.text "<b><i>Previously: #{question_text}</i></b>"
+          @pdf.text "<i>#{question.previous.display_response}</i>"
+        end
+        #write out comments
+        comments.map{|comment| @pdf.text comment} if comments.present?
+        @pdf.text(" ")
+
+      else
+        #carry on constructing the table
+        table_data << [question_text, response]
+        table_data << ["Previously: " + question_text, question.previous.display_response].map{|a| "<i>#{a}</i>"} if question.different_answer? && !@activity.approved
+        cell_formats << [{:shading => SHADE_COLOUR}, nil]
+        cell_formats << [{:shading => SHADE_COLOUR}, nil] if question.different_answer?
+        if comments.present?
+          #again, need to kill the table and start again if there are any comments
+          @pdf = generate_table(@pdf, table_data, :borders => borders, :font_size => 10, :cell_format => cell_formats, :title_lines => 4)
+          table_data = []
+          cell_formats = []
+          comments.map{|comment| @pdf.text comment}
+          @pdf.text(" ")
+        end
+      end
     end
-    @pdf = generate_table(@pdf, table_data, :borders => borders, :font_size => 10, :cell_format => cell_formats, :title_lines => 4, :table_title =>heading_proc)
-    @pdf.text(" ")
+    if table_data.present? #write the table if there's still stuff in the array.
+      @pdf = generate_table(@pdf, table_data, :borders => borders, :font_size => 10, :cell_format => cell_formats, :title_lines => 4)
+      @pdf.text(" ")
+    end
     @pdf
   end
 
@@ -506,30 +536,37 @@ class ActivityPDFGenerator
       end
       title_lines = 4
       index += 1
+      heading_proc.call(@pdf)
       strand_issues.each do |issue|
         table = []
         table << ["Issue", issue.description]
         table << ["Previous Issue", issue.previous_issue.description].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.description != issue.previous_issue.description
-        table << ["Action", issue.actions.to_s]
-        table << ["Previous Action", issue.previous_issue.actions.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.actions != issue.previous_issue.actions
-        table << ["Resources", issue.resources.to_s]
-        table << ["Previous Resources", issue.previous_issue.resources.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.resources != issue.previous_issue.resources
+        @pdf = generate_table(@pdf, table, :borders => borders, :font_size => 10, :col_format => [{:shading => SHADE_COLOUR}, nil], :title_lines => title_lines)
+        table = []
+
+        ["<b>Action</b>", issue.actions.to_s, " "].each{|a| @pdf.text a}
+        ["<b>Previous Action</b>", issue.previous_issue.actions.to_s, " "].map{|i| "<i>#{i}</i>"}.each{|a| @pdf.text a} if issue.previous_issue && issue.actions != issue.previous_issue.actions
+        ["<b>Resources</b>", issue.resources.to_s, " "].each{|a| @pdf.text a}
+        ["<b>Previous Resources</b>", issue.previous_issue.resources.to_s, " "].map{|i| "<i>#{i}</i>"}.each{|a| @pdf.text a} if issue.previous_issue && issue.resources != issue.previous_issue.resources
         table << ["Target Start Date", issue.timescales ? issue.timescales.strftime("%d/%m/%Y").to_s : "N/A"]
         table << ["Previous Target Start Date", issue.previous_issue.timescales.strftime("%d/%m/%Y").to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.timescales != issue.previous_issue.timescales
         table << ["Target Completion Date", issue.completing ? issue.completing.strftime("%d/%m/%Y").to_s : "N/A"]
         table << ["Previous Target Completion Date", issue.previous_issue.completing.strftime("%d/%m/%Y").to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.completing != issue.previous_issue.completing
         table << ["Lead Officer", issue.lead_officer_email.to_s]
         table << ["Previous Lead Officer", issue.previous_issue.lead_officer_email.to_s].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.lead_officer != issue.previous_issue.lead_officer
-        table << ["Recommendations", issue.recommendations]
-        table << ["Previous Recommendations", issue.previous_issue.recommendations].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.recommendations != issue.previous_issue.recommendations
-        table << ["Monitoring", issue.monitoring]
-        table << ["Previous Monitoring", issue.previous_issue.monitoring].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.monitoring != issue.previous_issue.monitoring
-        table << ["Outcomes", issue.outcomes]
-        table << ["Previous Outcomes", issue.previous_issue.outcomes].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.outcomes != issue.previous_issue.outcomes
-        @pdf = generate_table(@pdf, table, :borders => borders, :font_size => 10, :col_format => [{:shading => SHADE_COLOUR}, nil], :title_lines => title_lines, :table_title =>heading_proc)
-        heading_proc = nil
-        title_lines = nil
+        @pdf = generate_table(@pdf, table, :borders => borders, :font_size => 10, :col_format => [{:shading => SHADE_COLOUR}, nil])
+        table = []
+
+        ["<b>Recommendations</b>", issue.recommendations, " "].each{|a| @pdf.text a}
+        ["<b>Previous Recommendations</b>", issue.previous_issue.recommendations, " "].map{|i| "<i>#{i}</i>"}.each{|a| @pdf.text a} if issue.previous_issue && issue.recommendations != issue.previous_issue.recommendations
+        ["<b>Monitoring</b>", issue.monitoring, " "].each{|a| @pdf.text a}
+        ["<b>Previous Monitoring</b>", issue.previous_issue.monitoring, " "].map{|i| "<i>#{i}</i>"} if issue.previous_issue && issue.monitoring != issue.previous_issue.monitoring
+        ["<b>Outcomes</b>", issue.outcomes, " "].each{|a| @pdf.text a}
+        ["<b>Previous Outcomes</b>", issue.previous_issue.outcomes, " "].map{|i| "<i>#{i}</i>"}.each{|a| @pdf.text a} if issue.previous_issue && issue.outcomes != issue.previous_issue.outcomes
+
         @pdf.text ' '
+        @pdf.text ' '
+
       end
     end
     @pdf
