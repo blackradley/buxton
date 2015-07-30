@@ -202,6 +202,7 @@ class ActivityPDFGenerator
         document.text " "
         document
       end
+      table_heading.call(@pdf)
       table = []
       strategies.each do |strategy, answer|
         next unless strategy.strategy
@@ -230,7 +231,7 @@ class ActivityPDFGenerator
           end
         end
       end
-      @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4, :table_title =>table_heading)
+      @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4) unless table.blank?
     end
     table_heading = Proc.new do |document|
       document.text " "
