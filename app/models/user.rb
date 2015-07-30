@@ -17,11 +17,11 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :directorates
 
   def cop_activities
-    Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => self.directorate_ids, :retired => false})
+    Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => self.directorates.map(&:id), :retired => false})
   end
 
   def cop_service_areas
-    ServiceArea.where(directorate_id: self.directorate_ids )
+    ServiceArea.find_by(directorate_id: self.directorates.map(&:id) )
   end
 
   def cop_email
