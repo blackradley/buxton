@@ -191,11 +191,11 @@ class ActivitiesController < ApplicationController
       flash[:notice] = "#{@activity.name} was created."
       @activity.generate_ref_no# unless params[:clone_of]
       Mailer.activity_created(@activity).deliver_now if @activity.ready?
-      if current_user.creator?
-        redirect_to directorate_eas_activities_path and return
-      else
+      # if current_user.creator?
+      #   redirect_to directorate_eas_activities_path and return
+      # else
         redirect_to my_eas_activities_path and return
-      end
+      # end
     else
       if @activity.errors[:completer].present?
         @activity.errors.add(:completer_email, "Task Group Manager " + @activity.errors[:completer].to_sentence)
