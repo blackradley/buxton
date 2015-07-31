@@ -15,7 +15,7 @@ class Question < ActiveRecord::Base
   has_many :dependencies
   belongs_to :dependency
   before_save :update_status
-  after_commit :update_children, except: :destroy
+  after_commit :update_children, on: [:create, :update]
   attr_protected
 
   # before_save :debug
