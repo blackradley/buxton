@@ -551,7 +551,7 @@ protected
   end
 
   def ensure_activity_editable
-    redirect_to access_denied_path if @activity.approved? || @activity.submitted
+    redirect_to access_denied_path if @activity.approved?
   end
 
   def ensure_not_approved
