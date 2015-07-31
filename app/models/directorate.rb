@@ -12,6 +12,7 @@ class Directorate < ActiveRecord::Base
   has_many :activities, :through => :service_areas
   has_and_belongs_to_many :cops, :class_name => 'User'
   validates_presence_of :name
+  validates_uniqueness_of :name
   validate :has_cops
   scope :active, -> {where :retired => false}
   belongs_to :creator, :class_name => "User"
