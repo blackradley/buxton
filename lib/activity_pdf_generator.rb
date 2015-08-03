@@ -189,7 +189,7 @@ class ActivityPDFGenerator
     comments = get_comments(:purpose_overall_2)
 
     @pdf = generate_table(@pdf, target, :borders => [150, 540], :cell_format => cell_formats, :font_size => 10)
-    @pdf.text comments
+    comments.map{|comment| @pdf.text comment}
     @pdf.text " "
     # target += comments  unless comments.blank?
 
@@ -256,13 +256,19 @@ class ActivityPDFGenerator
       table << ["Will the policy have an impact on #{question[1].downcase}?", impact_answers[i]]
       cell_formats << [{:shading => SHADE_COLOUR}, nil]
       comments = get_comments(question[0])
-      table += comments  unless comments.blank?
-      comments.size.times {cell_formats << nil}
+      if comments.present?
+        @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4, :table_title =>table_heading)
+        table = []
+        cell_formats = []
+        comments.map{|comment| @pdf.text comment}
+        pdf.text " "
+      end
     end
     #:col_format => [nil, {:text_alignment => :center}]
-    @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4, :table_title =>table_heading)
-
-    @pdf.text " "
+    if table.present?
+      @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4, :table_title =>table_heading)
+      @pdf.text " "
+    end
     @pdf.text "<b> 2.3 <c:uline> Relevance Test</b></c:uline> ", :font_size => 12
     @pdf.text " "
 
