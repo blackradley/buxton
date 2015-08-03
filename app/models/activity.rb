@@ -536,9 +536,9 @@ class Activity < ActiveRecord::Base
   def impact_on_equality_groups
     answered_questions = []
     self.strands(true).each do |strand|
-      answered_questions += self.questions.where("name REGEXP 'purpose\_#{strand.to_s}\_3' AND (completed = true OR needed = false)")
+      answered_questions += self.questions.where("name REGEXP 'purpose\_#{strand.to_s}\_(3|4)' AND (completed = true OR needed = false)")
     end
-    return false unless answered_questions.flatten.size == 9
+    return false unless answered_questions.flatten.size == 18
     return true
   end
 
