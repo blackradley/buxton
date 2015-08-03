@@ -209,8 +209,11 @@ class ActivityPDFGenerator
         cell_formats << [{:shading => SHADE_COLOUR}, nil]
         table << ["#{strategy.strategy.name.titlecase}", answer]
         unless strategy.comment.blank? || strategy.comment.contents.blank?
+          @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4)
+          table = []
+          cell_formats = []
           cell_formats << [nil, nil]
-          table << ["<c:uline>Comment</c:uline>\n#{strategy.comment.contents.to_s}"]
+          @pdf.text "<b>Comment:</b>\n#{strategy.comment.contents}"
         end
         # unless @public || strategy.note.blank? || strategy.note.contents.blank?
         #   cell_formats << [nil, nil]
@@ -219,14 +222,7 @@ class ActivityPDFGenerator
         if strategy.changed_in_previous_ea?  && !@activity.approved
           if strategy.different_comment?
             unless strategy.previous.try(:comment).blank? || strategy.previous.comment.contents.blank?
-              cell_formats << [nil, nil]
-              table << ["<i><c:uline>Previous Comment</c:uline>\n#{strategy.previous.comment.contents.to_s}</i>"]
-            end
-          end
-          if strategy.different_note?
-            unless @public || strategy.previous.try(:note).blank? || strategy.previous.note.contents.blank?
-              cell_formats << [nil, nil]
-              table << ["<i><c:uline>Note</c:uline>\n#{strategy.previous.note.contents.to_s}</i>"]
+              @pdf.text ["<i><b>Previous Comment</b>\n#{strategy.previous.comment.contents.to_s}</i>"]
             end
           end
         end
