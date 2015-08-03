@@ -179,16 +179,16 @@ class ActivityPDFGenerator
     @pdf.text " "
     @pdf.text "<b>2.1  <c:uline>Purpose and Link to Strategic Themes</b></c:uline>", :font_size => 12
     @pdf.text " "
-    target_q = @activity.questions.find_by(name: "purpose_overall_2").label.to_s
-    target_a = @activity.questions.find_by(name: "purpose_overall_2").response.to_s
+    @pdf.text "<b>#{@activity.questions.find_by(name: "purpose_overall_2").label.to_s}</b>"
+    @pdf.text @activity.questions.find_by(name: "purpose_overall_2").response.to_s
+
     qn = @activity.questions.find_by(name: "purpose_overall_2")
-    target = [[target_q, target_a]]
-    target << ["Previously: " + target_q, qn.previous.display_response].map{|a| "<i>#{a}</i>"} if qn.different_answer? && !@activity.approved
-    cell_formats = [[{:shading => SHADE_COLOUR}, nil]]
-    cell_formats << [{:shading => SHADE_COLOUR}, nil] if qn.different_answer?
+    if qn.different_answer? && !@activity.approved
+      @pdf.text "<i><b>Previously: " + target_q "</b></i>"
+      @pdf.text "<i>#{qn.previous.display_response}</i>"
+    end
     comments = get_comments(:purpose_overall_2)
 
-    @pdf = generate_table(@pdf, target, :borders => [150, 540], :cell_format => cell_formats, :font_size => 10)
     comments.map{|comment| @pdf.text comment}
     @pdf.text " "
     # target += comments  unless comments.blank?
