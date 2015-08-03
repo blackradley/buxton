@@ -26,7 +26,7 @@ class ServiceAreasController < ApplicationController
     @breadcrumb = [["Service Areas"]]
     # @service_areas = ServiceArea.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
     @service_areas = current_user.cop_service_areas
-    @service_areas = @service_areas.uniq
+    # @service_areas = @service_areas.uniq
     @selected = "service_areas"
   end
 
