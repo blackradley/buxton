@@ -212,7 +212,6 @@ class ActivityPDFGenerator
           @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4)
           table = []
           cell_formats = []
-          cell_formats << [nil, nil]
           @pdf.text "<b>Comment:</b>\n#{strategy.comment.contents}"
         end
         # unless @public || strategy.note.blank? || strategy.note.contents.blank?
@@ -222,7 +221,12 @@ class ActivityPDFGenerator
         if strategy.changed_in_previous_ea?  && !@activity.approved
           if strategy.different_comment?
             unless strategy.previous.try(:comment).blank? || strategy.previous.comment.contents.blank?
-              @pdf.text ["<i><b>Previous Comment</b>\n#{strategy.previous.comment.contents.to_s}</i>"]
+              unless table.blank?
+                @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4)
+                table = []
+                cell_formats = []
+              end
+              @pdf.text "<i><b>Previous Comment</b>\n#{strategy.previous.comment.contents.to_s}</i>"
             end
           end
         end
