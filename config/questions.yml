@@ -12,7 +12,7 @@ questions:
       help: ''
       choices: 3
       type: select
-      dependent_questions: 'purpose_#{strand}_3 yes_value'
+      dependent_questions: ''
   impact:
     1:
       label: 'Describe how the #{function_policy_substitution} meets the needs of #{wordings[strand]}?'
