@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
   end
 
   def cop_service_areas
-    ServiceArea.find_by(directorate_id: self.directorates.map(&:id) )
+    ServiceArea.where( directorate_id: self.directorates.map(&:id) )
   end
 
   def cop_email
