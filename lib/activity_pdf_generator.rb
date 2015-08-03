@@ -184,13 +184,15 @@ class ActivityPDFGenerator
     qn = @activity.questions.find_by(name: "purpose_overall_2")
     target = [[target_q, target_a]]
     target << ["Previously: " + target_q, qn.previous.display_response].map{|a| "<i>#{a}</i>"} if qn.different_answer? && !@activity.approved
-    comments = get_comments(:purpose_overall_2)
-    target += comments  unless comments.blank?
     cell_formats = [[{:shading => SHADE_COLOUR}, nil]]
-      cell_formats << [{:shading => SHADE_COLOUR}, nil] if qn.different_answer?
-    comments.size.times {cell_formats << nil}
+    cell_formats << [{:shading => SHADE_COLOUR}, nil] if qn.different_answer?
+    comments = get_comments(:purpose_overall_2)
+
     @pdf = generate_table(@pdf, target, :borders => [150, 540], :cell_format => cell_formats, :font_size => 10)
-    @pdf.text " "
+    @pdf.text = comments
+    @pdf.text = " "
+    # target += comments  unless comments.blank?
+
     strategies = []
     @activity.activity_strategies.each do |activity_strategy|
       strategies << [activity_strategy, ['Not answered', 'Yes', 'No'][activity_strategy.strategy_response.to_i]]
