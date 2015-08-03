@@ -189,8 +189,8 @@ class ActivityPDFGenerator
     comments = get_comments(:purpose_overall_2)
 
     @pdf = generate_table(@pdf, target, :borders => [150, 540], :cell_format => cell_formats, :font_size => 10)
-    @pdf.text = comments
-    @pdf.text = " "
+    @pdf.text comments
+    @pdf.text " "
     # target += comments  unless comments.blank?
 
     strategies = []
