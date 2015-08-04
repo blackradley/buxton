@@ -7,9 +7,9 @@
 # server 'example.com', user: 'deploy', roles: %w{app web}, other_property: :other_value
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
-server "preview.impactequality.co.uk", roles: %w{web app db}, user: 'deploy', port: 13427
-set :deploy_to, "/home/deploy/public_html/#{domain}"
-
+server "preview.impactequality.co.uk", roles: %w{web app db}, user: 'deploy', port: 54321
+set :deploy_to, "/home/deploy/public_html/br-buxton-rails-pvw"
+set :rvm_ruby_version, "2.2.2@br-buxton-rails-pvw"
 
 
 # role-based syntax
