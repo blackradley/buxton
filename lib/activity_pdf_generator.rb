@@ -206,6 +206,7 @@ class ActivityPDFGenerator
       end
       table_heading.call(@pdf)
       table = []
+      cell_formats = []
       strategies.each do |strategy, answer|
         next unless strategy.strategy
         cell_formats << [{:shading => SHADE_COLOUR}, nil]
