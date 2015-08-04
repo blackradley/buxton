@@ -176,6 +176,9 @@ class ActivitiesController < ApplicationController
           @activity.review_on = nil
           @activity.service_area_id = @clone_of.service_area_id
           @service_areas = @clone_of.service_area.directorate.service_areas
+          a.errors.each do |key, value|
+            @activity.errors[key.to_sym] << value
+          end
           @activity.errors = a.errors
           @activity.update_attributes( params[:activity] )
           render :new and return
