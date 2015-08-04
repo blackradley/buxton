@@ -2,7 +2,7 @@ namespace :stars do
 
   PORT = 13427
   USER = 'deploy'
-  HOST = {'production' => 'birmingham.impactequality.co.uk', 'training' => 'staging.impactequality.co.uk'}
+  HOST = {'production' => 'birmingham.impactequality.co.uk', 'training' => 'staging.impactequality.co.uk', 'staging' => 'impact-equality-staging.27stars.co.uk'}
   R_ROOT = "public_html/#{HOST}"
   CURRENT = "#{R_ROOT}/current"
   SHARED = "#{R_ROOT}/shared"
@@ -16,11 +16,13 @@ namespace :stars do
     task :db, [:src_env] => :environment do |t, args|
       args.with_defaults(:src_env => 'production')
       puts "Dumping remote database..."
+      puts "ssh -p #{PORT} #{USER}@#{HOST[args.src_env]} \"mysqldump -u #{DB_CONFIG[args.src_env]["username"]} -p#{DB_CONFIG[args.src_env]["password"] } -h #{DB_CONFIG[args.src_env]['host']} -Q --add-drop-table --add-locks=FALSE --lock-tables=FALSE #{DB_CONFIG[args.src_env]["database"]} > /tmp/dump.sql\""
       system "ssh -p #{PORT} #{USER}@#{HOST[args.src_env]} \"mysqldump -u #{DB_CONFIG[args.src_env]["username"]} -p#{DB_CONFIG[args.src_env]["password"] } -h #{DB_CONFIG[args.src_env]['host']} -Q --add-drop-table --add-locks=FALSE --lock-tables=FALSE #{DB_CONFIG[args.src_env]["database"]} > /tmp/dump.sql\""
       puts "Retrieving remote database..."
       system "rsync -az -e \"ssh -p #{PORT}\" --progress #{USER}@#{HOST[args.src_env]}:/tmp/dump.sql ./db/production_data.sql"
 
       puts "Importing remote database..."
+      puts "mysql -u #{DB_CONFIG[Rails.env]["username"]} -p#{DB_CONFIG[Rails.env]["password"]} #{DB_CONFIG[Rails.env]["database"]} < ./db/production_data.sql"
       system "mysql -u #{DB_CONFIG[Rails.env]["username"]} -p#{DB_CONFIG[Rails.env]["password"]} #{DB_CONFIG[Rails.env]["database"]} < ./db/production_data.sql"
 
       # Migrate the DB so that required fields exist for the next step
