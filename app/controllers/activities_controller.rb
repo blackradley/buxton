@@ -389,7 +389,11 @@ class ActivitiesController < ApplicationController
   end
 
   def generate_schedule
-    @activities =  Activity.where(:id => params[ :activities ].split(",") )
+    if params[:activities].present?
+      @activities =  Activity.where(:id => params[ :activities ].split(",") )
+    else
+      @activities = Activity.all
+    end
     # activities = []
     # if current_user.corporate_cop?
     #   activities = Activity.ready.where(:id => params[:activities])
