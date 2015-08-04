@@ -163,6 +163,8 @@ class ActivitiesController < ApplicationController
           @activity = @activity.clone
           @activity.actual_start_date = nil
         else
+          a = Activity.new(params[:activity])
+
           @breadcrumb = [["My EAs", my_eas_activities_path], ["Clone #{@activity.name}"]]
           @selected = "directorate_eas"
           @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
@@ -174,6 +176,7 @@ class ActivitiesController < ApplicationController
           @activity.review_on = nil
           @activity.service_area_id = @clone_of.service_area_id
           @service_areas = @clone_of.service_area.directorate.service_areas
+          @activity.errors = a.errors
           @activity.update_attributes( params[:activity] )
           render :new and return
         end
