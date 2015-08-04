@@ -23,6 +23,9 @@ namespace :stars do
       puts "Importing remote database..."
       system "mysql -u #{DB_CONFIG[Rails.env]["username"]} -p#{DB_CONFIG[Rails.env]["password"]} #{DB_CONFIG[Rails.env]["database"]} < ./db/production_data.sql"
 
+      # Migrate the DB so that required fields exist for the next step
+      Rake::Task["db:migrate"].invoke
+
       # # TODO: so I usually have a second step which updates the email addresses, blanks out any potentially sensitive data etc.
       index = 1
       CLIENT_DOMAINS.each do |domain|
