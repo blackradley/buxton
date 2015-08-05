@@ -179,7 +179,6 @@ class ActivitiesController < ApplicationController
           a.errors.each do |key, value|
             @activity.errors[key.to_sym] << value
           end
-          @activity.errors = a.errors
           @activity.update_attributes( params[:activity] )
           render :new and return
         end
