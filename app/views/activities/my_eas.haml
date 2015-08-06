@@ -4,7 +4,9 @@
   .orangeButton
     =link_to "Create New EA", new_activity_path, :class=>"add"
 .orangeButton
-  =link_to "Generate Schedule", generate_schedule_activities_path, :class=>"add schedule", "data-root-path" => generate_schedule_activities_path, :method => :post
+  = form_tag generate_schedule_activities_path do
+    = hidden_field_tag :activities, ""
+    = link_to "Generate Schedule", '#', :class=>"add schedule"#, "data-root-path" => generate_schedule_activities_path, :method => :post
 
 .searchBox
   = form_tag '#', :id => 'searchForm' do

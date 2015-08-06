@@ -176,7 +176,9 @@ class ActivitiesController < ApplicationController
           @activity.review_on = nil
           @activity.service_area_id = @clone_of.service_area_id
           @service_areas = @clone_of.service_area.directorate.service_areas
-          @activity.errors = a.errors
+          a.errors.each do |key, value|
+            @activity.errors[key.to_sym] << value
+          end
           @activity.update_attributes( params[:activity] )
           render :new and return
         end
@@ -389,7 +391,11 @@ class ActivitiesController < ApplicationController
   end
 
   def generate_schedule
-    @activities =  Activity.where(:id => params[ :activities ] )
+    if params[:activities].present?
+      @activities =  Activity.where(:id => params[ :activities ].split(",") )
+    else
+      @activities = Activity.all
+    end
     # activities = []
     # if current_user.corporate_cop?
     #   activities = Activity.ready.where(:id => params[:activities])
