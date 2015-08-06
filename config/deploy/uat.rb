@@ -8,7 +8,7 @@
 # server 'db.example.com', user: 'deploy', roles: %w{db}
 
 server "impact-equality-uat.27stars.co.uk", roles: %w{web app db}, user: 'deploy', port: 13427
-set :deploy_to, "/home/deploy/public_html/br-buxton-rails-uat"
+set :deploy_to, "/home/deploy/public_html/br-buxton-rails"
 set :rvm_ruby_version, "2.2.2@br-buxton-rails-uat"
 
 # role-based syntax
