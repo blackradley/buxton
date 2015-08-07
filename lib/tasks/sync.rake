@@ -2,7 +2,11 @@ namespace :stars do
 
   PORT = 13427
   USER = 'deploy'
-  HOST = {'production' => 'birmingham.impactequality.co.uk', 'training' => 'staging.impactequality.co.uk', 'staging' => 'impact-equality-staging.27stars.co.uk'}
+  HOST = {'production' => 'birmingham.impactequality.co.uk',
+    'training' => 'staging.impactequality.co.uk',
+    'staging' => 'impact-equality-staging.27stars.co.uk',
+    'uat' => 'impact-equality-uat.27stars.co.uk'
+  }
   R_ROOT = "public_html/#{HOST}"
   CURRENT = "#{R_ROOT}/current"
   SHARED = "#{R_ROOT}/shared"
