@@ -7,6 +7,8 @@ class Mailer < ActionMailer::Base
                                  'birmingham.impactequality.co.uk'
                                when 'staging'
                                  'impact-equality-staging.27stars.co.uk'
+                               when 'uat'
+                                 'impact-equality-uat.27stars.co.uk'
                                when 'preview'
                                  'preview.impactequality.co.uk'
                                when 'training'
