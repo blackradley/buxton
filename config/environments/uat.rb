@@ -38,7 +38,7 @@ Buxton::Application.configure do
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
-  config.action_mailer.default_url_options = { :host => 'birmingham.impactequality.co.uk' }
+  config.action_mailer.default_url_options = { :host => 'impact-equality-uat.27stars.co.uk' }
 
   # Set cookies to be secure
   config.action_controller.session = {
