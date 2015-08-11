@@ -3,12 +3,12 @@
     -displayString = "none"
     -if question.dependency.satisfied?
       -displayString = "block"
-    
+
     %p.question.sub{:id => "#{question.name}", :style => "display:#{displayString};", 'data-dependencies' => question.dependency_mapping.to_json}
       %label
         =question.label
       %labelled
-        -case question.input_type.to_sym    
+        -case question.input_type.to_sym
           -when :text
             = q.text_area :raw_answer
           -when :string
@@ -16,11 +16,12 @@
           -when :select
             = q.select :raw_answer, question.choices.map{|choice| [choice, question.choices.index(choice)]}, {}, :id => question.name
   -else
+    - puts question.name
     %p.question{:id => "#{question.name}", :style => "display:block;", 'data-dependencies' => question.dependency_mapping.to_json}
       %label
         =question.label
       %labelled
-        -case question.input_type.to_sym    
+        -case question.input_type.to_sym
           -when :text
             = q.text_area :raw_answer, :id => question.name
           -when :string
