@@ -59,10 +59,10 @@ class Activities::SectionsController < ApplicationController
 
   def edit
     @section = params[:section]
-    @impact_enabled =  (@activity.questions.where(:name => "impact_#{@equality_strand}_9").first.response == 1)
+    # @impact_enabled =  (@activity.questions.where(:name => "impact_#{@equality_strand}_9").first.response == 1)
     @consultation_enabled = (@activity.questions.where(:name => "consultation_#{@equality_strand}_7").first.response == 1)
     if @section.to_s == "action_planning"
-      @impact_issues = @impact_enabled ? @activity.issues_by(:impact, @equality_strand) : []
+      @impact_issues = [] #@impact_enabled ? @activity.issues_by(:impact, @equality_strand) : []
       @consultation_issues = @consultation_enabled ? @activity.issues_by(:consultation, @equality_strand) : []
       other_issues = @activity.issues_by(:action_planning, @equality_strand)
     end

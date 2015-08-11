@@ -349,7 +349,7 @@ class Activity < ActiveRecord::Base
        #First we calculate all the questions, in case there is a nil.
         answered_questions = []
         answered_questions += self.questions.where( "name LIKE 'consultation_%#{strand}_7' and completed = true")
-        answered_questions += self.questions.where( "name LIKE 'impact_%#{strand}_9' and completed = true")
+        # answered_questions += self.questions.where( "name LIKE 'impact_%#{strand}_9' and completed = true")
         return true if answered_questions.size > 0
     end
     if section && !(section == :purpose) then #Check strategies are completed.
@@ -373,7 +373,7 @@ class Activity < ActiveRecord::Base
   def relevant_action_count
     actions = 0
     strands.each do |relevant_strand|
-      actions += self.issues.where(:section => "impact", :strand => relevant_strand).count if self.questions.find_by(name: "impact_#{relevant_strand}_9").raw_answer == "1"
+      # actions += self.issues.where(:section => "impact", :strand => relevant_strand).count if self.questions.find_by(name: "impact_#{relevant_strand}_9").raw_answer == "1"
       actions += self.issues.where(:section => "consultation", :strand => relevant_strand).count if self.questions.find_by(name: "consultation_#{relevant_strand}_7").raw_answer == "1"
     end
     actions += self.issues.where(:section => "action_planning").count
@@ -389,7 +389,7 @@ class Activity < ActiveRecord::Base
   def action_plan_completed
     issues_to_check = []
     strands(false).each do |enabled_strand|
-      impact_qn = "impact_#{enabled_strand}_9"
+      # impact_qn = "impact_#{enabled_strand}_9"
       consultation_qn = "consultation_#{enabled_strand}_7"
       impact_answer = self.questions.where(:name => impact_qn).first.response.to_i
       consultation_answer = self.questions.where(:name => consultation_qn).first.response.to_i
@@ -456,18 +456,18 @@ class Activity < ActiveRecord::Base
 
     strands(!strand.to_s.blank?).each do |enabled_strand|
       next unless enabled_strand.to_s.include? strand.to_s
-      impact_qn = "impact_#{enabled_strand}_10"
+      # impact_qn = "impact_#{enabled_strand}_10"
       consultation_qn = "consultation_#{enabled_strand}_7"
-      impact_answer = self.questions.where(:name => impact_qn).first.response.to_i
+      # impact_answer = self.questions.where(:name => impact_qn).first.response.to_i
       consultation_answer = self.questions.where(:name => consultation_qn).first.response.to_i
-      impact_needed = (section.to_s == 'impact' || section.to_s == 'action_planning' || section.nil?)
+      # impact_needed = (section.to_s == 'impact' || section.to_s == 'action_planning' || section.nil?)
       consultation_needed = (section.to_s == 'consultation' || section.to_s == 'action_planning'  || section.nil?)
 
-      if impact_answer == 1  && impact_needed then
-        issues = self.issues_by('impact', enabled_strand)
-        return false if issues.size == 0
-        issues_to_check << issues
-      end
+      # if impact_answer == 1  && impact_needed then
+      #   issues = self.issues_by('impact', enabled_strand)
+      #   return false if issues.size == 0
+      #   issues_to_check << issues
+      # end
 
       if consultation_answer == 1 && consultation_needed then
         issues = self.issues_by('consultation', enabled_strand)
@@ -684,15 +684,15 @@ class Activity < ActiveRecord::Base
                             :faith => [3,4],
                             :age => [3,4]
                           },
-      :impact =>          { :race => [1,2,3,4,5,6,7,8,9,10],
-                            :disability => [1,2,3,4,5,6,7,8,9,10],
-                            :sexual_orientation => [1,2,3,4,5,6,7,8,9,10],
-                            :gender => [1,2,3,4,5,6,7,8,9,10],
-                            :gender_reassignment => [1,2,3,4,5,6,7,8,9,10],
-                            :pregnancy_and_maternity => [1,2,3,4,5,6,7,8,9,10],
-                            :marriage_civil_partnership => [1,2,3,4,5,6,7,8,9, 10],
-                            :faith => [1,2,3,4,5,6,7,8,9,10],
-                            :age => [1,2,3,4,5,6,7,8,9,10]
+      :impact =>          { :race => [1,2,3,4,5,8,10],
+                            :disability => [1,2,3,4,5,8,10],
+                            :sexual_orientation => [1,2,3,4,5,8,10],
+                            :gender => [1,2,3,4,5,8,10],
+                            :gender_reassignment => [1,2,3,4,5,8,10],
+                            :pregnancy_and_maternity => [1,2,3,4,5,8,10],
+                            :marriage_civil_partnership => [1,2,3,4,5,8,10],
+                            :faith => [1,2,3,4,5,8,10],
+                            :age => [1,2,3,4,5,8,10]
                           },
       :consultation =>    { :race => [1,2,3,4,5,6,7],
                             :disability => [1,2,3,4,5,6,7],
@@ -704,15 +704,15 @@ class Activity < ActiveRecord::Base
                             :faith => [1,2,3,4,5,6,7],
                             :age => [1,2,3,4,5,6,7]
                           },
-      :additional_work => { :race => [1,2,3,44,4,6, 10, 11],
-                            :disability => [1,2,3,44,4,6,7,8,9, 10, 11],
-                            :sexual_orientation => [1,2,3,44,4,6, 10, 11],
-                            :gender => [1,2,3,44,4, 10],
-                            :gender_reassignment => [1,2,3,44,4,6, 10, 11],
-                            :pregnancy_and_maternity => [1,2,3,44,4,6, 10, 11],
-                            :marriage_civil_partnership => [1,2,3,44,4,6, 10, 11],
-                            :faith => [1,2,3,44,4,6, 10, 11],
-                            :age => [1,2,3,44,4,6, 10, 11]
+      :additional_work => { :race => [1,2,4,6, 10, 11],
+                            :disability => [1,2,4,6,7,8,9, 10, 11],
+                            :sexual_orientation => [1,2,4,6, 10, 11],
+                            :gender => [1,2,4, 10],
+                            :gender_reassignment => [1,2,4,6, 10, 11],
+                            :pregnancy_and_maternity => [1,2,4,6, 10, 11],
+                            :marriage_civil_partnership => [1,2,4,6, 10, 11],
+                            :faith => [1,2,4,6, 10, 11],
+                            :age => [1,2,4,6, 10, 11]
                           }
     }
   end
