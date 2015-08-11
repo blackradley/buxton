@@ -466,8 +466,8 @@ class ActivityTest < ActiveSupport::TestCase
 
     end
 
-    should "not have impact gender completed" do
-      assert !@activity.completed(:impact, :gender)
+    should "have impact gender completed" do
+      assert @activity.completed(:impact, :gender)
     end
 
     should "not have consultation gender completed" do
@@ -629,9 +629,8 @@ class ActivityTest < ActiveSupport::TestCase
       assert @activity.completed(nil, :gender)
     end
 
-    should "not have impact age completed" do
-      # Final question indicates that issues need highlighting - "1" is yes, but none have been added
-      assert !@activity.completed(:impact, :age)
+    should "have impact age completed" do
+      assert @activity.completed(:impact, :age)
     end
 
     should "not have consultation age completed" do

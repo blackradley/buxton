@@ -646,7 +646,7 @@ class Activity < ActiveRecord::Base
   def clone
     new_activity = Activity.create!(self.attributes)
     self.questions.each do |q|
-      new_q = new_activity.questions.find_by(name: q.name)
+      next unless new_q = new_activity.questions.find_by(name: q.name)
       new_q.completed = q.completed
       new_q.needed = q.needed
       new_q.raw_answer = q.raw_answer
