@@ -33,7 +33,7 @@ set :deploy_to, "/home/deploy/public_html/br-buxton-rails-stg"
 # http://capistranorb.com/documentation/getting-started/configuration/
 # Feel free to add new variables to customise your setup.
 
-set :branch, "next"
+set :branch, "deploy"
 
 
 # Custom SSH Options
