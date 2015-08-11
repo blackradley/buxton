@@ -533,7 +533,7 @@ class ActivityPDFGenerator
     issues = []
     index = 1
     @activity.strands.each do |strand|
-      impact_enabled =  @activity.questions.find_by(name: "impact_#{strand}_9").response == 1
+      impact_enabled = @activity.questions.find_by(name: "impact_#{strand}_9").present? && @activity.questions.find_by(name: "impact_#{strand}_9").response == 1
       consultation_enabled =  @activity.questions.find_by(name: "consultation_#{strand}_7").response == 1
       strand_issues = @activity.issues.where(strand: strand)
       strand_issues = strand_issues.where.not( section: 'impact' ) unless impact_enabled
