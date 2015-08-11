@@ -274,12 +274,12 @@ class ActivityPDFGenerator
     @pdf.text " "
 
     table = []
-    table << ['<b>Protected Characteristics</b>', '<b>Relevant</b>']
+    table << ['<b>Protected Characteristics</b>', '<b>Relevant</b>', '<b>Full Assessment Required</b>']
 
     @activity.overview_strands.sort{|a,b| strand_display(a[0]) <=> strand_display(b[0]) }.each do |strand_name, strand|
-      table << [strand_display(strand).titlecase, @activity.strand_required?(strand) ? 'Yes' : 'No']
+      table << [strand_display(strand).titlecase, @activity.questions.find_by(name: "purpose_#{strand}_3").display_response, @activity.strand_required?(strand) ? 'Yes' : 'No']
     end
-    @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :font_size => 10)
+    @pdf = generate_table(@pdf, table, :borders => [200,@page_width - 150 , @page_width], :font_size => 10)
 
     @pdf.text " "
     @pdf.text "<b> 2.4 <c:uline> Analysis on Initial Assessment</b></c:uline> ", :font_size => 12
@@ -319,6 +319,10 @@ class ActivityPDFGenerator
   end
 
   def build_strand_tables
+    @pdf.text "<b>3 <c:uline>Full Assessment</c:uline></b>", :font_size => 12
+    @pdf.text " "
+    @pdf.text "The assessment questions below are completed for all characteristics identified for full assessment in the initial assessment phase.", :font_size => 12
+    @pdf.text " "
     section_index = 1
     @activity.strands(true).sort{|a,b| strand_display(a[0]) <=> strand_display(b[0]) }.each do |strand|
       build_differential_impact(strand, section_index) if ( @activity.strand_required?(strand) || get_comments("purpose_#{strand}_3").present? )
@@ -389,9 +393,9 @@ class ActivityPDFGenerator
     # comments.size.times {cell_formats << nil}
     return if table.blank?
     heading_proc = lambda do |document|
-      document.text "<b>3.#{section_index}  <c:uline>#{strand_display(strand).titlecase}</b></c:uline>", :font_size => 12
+      document.text "<b>3.#{section_index}  <c:uline>#{strand_display(strand).titlecase} - Assessment Questions</b></c:uline>", :font_size => 12
       document.text ' '
-      document.text "<b>3.#{section_index}.1  <c:uline>#{strand_display(strand).titlecase} - Differential Impact</b></c:uline>", :font_size => 12
+      document.text "<b>3.#{section_index}.1  <c:uline>#{strand_display(strand).titlecase} - Relevance</b></c:uline>", :font_size => 12
       document.text ' '
       document
     end
