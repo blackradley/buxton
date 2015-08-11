@@ -15,7 +15,10 @@
     =form.input :activity_type, :as => :select, :collection => @activity.types.collect {|option| [option.titlecase , @activity.types.index(option)] }, :label => "Type", :include_blank => false
     =form.input :activity_status, :as => :select, :collection =>  @activity.statuses.collect{|option| [option.titlecase , @activity.statuses.index(option)] }, :label => "Status", :include_blank => false
   = form.actions do
-    = form.submit "Add", :disable_with => 'Saving...'
+    - if @activity.persisted?
+      = form.submit "Save", :disable_with => 'Saving...'
+    -else
+      = form.submit "Create", :disable_with => 'Saving...'
     %span.cancelLink
       - if @current_user.creator?
         =raw "or #{link_to "cancel", directorate_eas_activities_path}"
