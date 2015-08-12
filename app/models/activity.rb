@@ -391,15 +391,15 @@ class Activity < ActiveRecord::Base
     strands(false).each do |enabled_strand|
       # impact_qn = "impact_#{enabled_strand}_9"
       consultation_qn = "consultation_#{enabled_strand}_7"
-      impact_answer = self.questions.where(:name => impact_qn).first.response.to_i
+      # impact_answer = self.questions.where(:name => impact_qn).first.response.to_i
       consultation_answer = self.questions.where(:name => consultation_qn).first.response.to_i
       impact_needed = true
       consultation_needed = true
-      if impact_answer == 1  && impact_needed then
-        issues = self.issues_by('impact', enabled_strand)
-        return "No" if issues.size == 0
-        issues_to_check << issues
-      end
+      # if impact_answer == 1  && impact_needed then
+      #   issues = self.issues_by('impact', enabled_strand)
+      #   return "No" if issues.size == 0
+      #   issues_to_check << issues
+      # end
       if consultation_answer == 1 && consultation_needed then
         issues = self.issues_by('consultation', enabled_strand)
         return "No" if issues.size == 0
