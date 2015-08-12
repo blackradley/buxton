@@ -156,6 +156,7 @@ class QuestionTest < ActiveSupport::TestCase
     end
 
     should "list the dependency in the dependency mapping" do
+      # @question.inspect
       assert_equal @question.dependency_mapping, {@child_question.name => 1}
     end
 
