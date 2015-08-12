@@ -252,13 +252,13 @@ class ActivityPDFGenerator
 
     table = []
     cell_formats = []
-
+    table_heading.call(pdf)
     impact_quns.each_with_index do |question, i|
       table << ["Will the policy have an impact on #{question[1].downcase}?", impact_answers[i]]
       cell_formats << [{:shading => SHADE_COLOUR}, nil]
       comments = get_comments(question[0])
       if comments.present?
-        @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4, :table_title =>table_heading)
+        @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4)
         table = []
         cell_formats = []
         comments.map{|comment| @pdf.text comment}
@@ -267,7 +267,7 @@ class ActivityPDFGenerator
     end
     #:col_format => [nil, {:text_alignment => :center}]
     if table.present?
-      @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4, :table_title =>table_heading)
+      @pdf = generate_table(@pdf, table, :borders => [300, @page_width], :cell_format => cell_formats, :font_size => 10, :title_lines => 4)
       @pdf.text " "
     end
     @pdf.text "<b> 2.3 <c:uline> Relevance Test</b></c:uline> ", :font_size => 12
