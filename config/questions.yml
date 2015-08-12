@@ -159,7 +159,7 @@ questions:
       type: text
       dependent_questions: 'consultation_#{strand}_4 yes_value'
     7:
-      label: 'Is there anything about the #{function_policy_substitution} and the way it affects #{wordings[strand]} which needs an action plan?'
+      label: 'Is a further action plan required?'
       help: 'This question asks you to identify any issues about the way in which the #{function_policy_substitution} has an impact upon people from different religions or beliefs.  An issue will be where there is a differential impact.  #{data["extra_strand_wordings"]["consultation"][7][strand]}<br/><br/>
              Differential impact can be positive or negative.  Negative or adverse differential impact needs to be addressed by putting in place compensatory measures.<br/><br/>
              Some differential impact is intentional and can be characterised as positive action.'
@@ -169,7 +169,7 @@ questions:
       dependent_questions: ''
   additional_work:
     1:
-      label: 'Do you need any more information to complete the assessment?'
+      label: 'Do you need any more information or to do any more work to complete the assessment?'
       help: 'This question asks you to reflect upon whether you think that you need further information to obtain a comprehensive view of the impact of the #{function_policy_substitution}.<br/><br/>
              The Impact section asked you to identify existing information to assess the impact of the #{function_policy_substitution} on #{wordings[strand]}.<br/><br/>
              The Consultation section asked you to who had been consulted about the impact of the #{function_policy_substitution}. <br/><br/>
@@ -179,7 +179,7 @@ questions:
       weights: 0
       dependent_questions: ''
     2:
-      label: 'Please explain what information you need.'
+      label: 'Please explain what information you need, or what work needs to be done.'
       help: 'A brief description of the nature of the information, source and timescales for collection will be sufficient.'
       type: text
       dependent_questions: 'additional_work_#{strand}_1 yes_value'

@@ -1,9 +1,9 @@
 .approverForm
-  %h2= "Please give any comments to the Task Group Manager and the Senior Officer of #{@activity.name}" 
+  %h2= "Please give any comments to the Task Group Manager and the Senior Officer of #{@activity.name}"
   = form_tag submit_comment_activity_path, :class => "formtastic user" do
     %fieldset.approveInputs
       %ul
-        %li 
+        %li
           %h5 To:
         %li.textField= text_field_tag :to, @activity.approver.try(:email), :disabled => true
         %li
@@ -19,4 +19,4 @@
     %fieldset.buttons
       %ol
         %li.commit
-          = submit_tag "Comment", :disable_with => "Commenting.."
+          = submit_tag "Approve", :disable_with => "Approving.."
