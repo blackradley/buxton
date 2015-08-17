@@ -9,7 +9,23 @@ Buxton::Application.configure do
   config.consider_all_requests_local = false
   config.action_controller.perform_caching             = true
 
+  # Use a different cache store in production
+  # config.cache_store = :mem_cache_store
+
+  # Enable serving of images, stylesheets, and javascripts from an asset server
+  # config.action_controller.asset_host                  = "http://assets.example.com"
+
+  # Disable delivery errors, bad email addresses will be ignored
+  # config.action_mailer.raise_delivery_errors = false
+
+  # Use the database for sessions instead of the file system
+  # (create the session table with 'rake db:sessions:create')
+
+  # We presently run on a .org.uk domain
   TLD_LENGTH = 2
+
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  config.force_ssl = true
 
   # Use sendmail protocol to deliver emails
   config.action_mailer.delivery_method = :sendmail
@@ -22,13 +38,14 @@ Buxton::Application.configure do
 
   config.i18n.fallbacks = true
 
-  config.action_mailer.default_url_options = { :host => 'preview.impactequality.co.uk' }
+  config.action_mailer.default_url_options = { :host => "preview.impactequality.co.uk" }
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
   config.eager_load = true
-  config.log_level = :debug
+
+  config.log_level = :info
 end
 
 BANNER    = true
