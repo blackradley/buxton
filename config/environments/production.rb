@@ -24,6 +24,9 @@ Buxton::Application.configure do
   # We presently run on a .org.uk domain
   TLD_LENGTH = 2
 
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  config.force_ssl = true
+
   # Use sendmail protocol to deliver emails
   config.action_mailer.delivery_method = :sendmail
 
@@ -35,37 +38,10 @@ Buxton::Application.configure do
 
   config.i18n.fallbacks = true
 
+  config.action_mailer.default_url_options = { :host => "birmingham.impactequality.co.uk" }
+
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
-
-  config.action_mailer.default_url_options = { :host => 'birmingham.impactequality.co.uk' }
-
-  # Set cookies to be secure
-  config.action_controller.session = {
-    :expire_after    => 14 * 24 * 3600, #Cookies will expire after 2 weeks
-    :secure => true #The session will now not be sent or received on HTTP requests.
-  }
-
-  # Compress JavaScripts and CSS
-  config.assets.js_compressor = :uglifier
-
-  # Don't fallback to assets pipeline if a precompiled asset is missed
-  config.assets.compile = false
-
-  # Generate digests for assets URLs
-  config.assets.digest = true
-
-  # Defaults to Rails.root.join("public/assets")
-  # config.assets.manifest = YOUR_PATH
-
-  # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
-  config.assets.precompile += %w( ie_fixes/fixes_ie6.css ie_fixes/fixes_ie7.css )
-
-  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
-
-  # Raise exception on mass assignment protection for Active Record models
-  config.active_record.mass_assignment_sanitizer = :strict
 
   config.eager_load = true
 
@@ -73,5 +49,5 @@ Buxton::Application.configure do
 end
 
 BANNER    = false
-KEYS      = false
+KEYS      = true
 DEV_MODE  = BANNER

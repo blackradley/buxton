@@ -24,6 +24,9 @@ Buxton::Application.configure do
   # We presently run on a .org.uk domain
   TLD_LENGTH = 2
 
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  config.force_ssl = true
+
   # Use sendmail protocol to deliver emails
   config.action_mailer.delivery_method = :sendmail
 
@@ -35,14 +38,14 @@ Buxton::Application.configure do
 
   config.i18n.fallbacks = true
 
-  config.action_mailer.default_url_options = { :host => 'training.impactequality.co.uk' }
+  config.action_mailer.default_url_options = { :host => "training.impactequality.co.uk" }
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
 
   config.eager_load = true
 
-  config.log_level = :debug
+  config.log_level = :info
 end
 
 BANNER    = true
