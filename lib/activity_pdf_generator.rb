@@ -216,6 +216,7 @@ class ActivityPDFGenerator
           table = []
           cell_formats = []
           @pdf.text "<b>Comment:</b>\n#{strategy.comment.contents}"
+          @pdf.text " "
         end
         # unless @public || strategy.note.blank? || strategy.note.contents.blank?
         #   cell_formats << [nil, nil]
