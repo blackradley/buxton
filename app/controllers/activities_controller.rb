@@ -54,7 +54,7 @@ class ActivitiesController < ApplicationController
     @directorates = current_user.count_directorates
     @live_directorates = current_user.count_live_directorates
     @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
-    @activities = Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)})
+    @activities = Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id)})
     @selected = "directorate_eas"
   end
 
@@ -85,19 +85,19 @@ class ActivitiesController < ApplicationController
 
   def quality_control
     @breadcrumb = [["Quality Control"]]
-    @activities = Activity.active.where(:qc_officer_id => current_user.id, :ready => true)
+    @activities = Activity.where(:qc_officer_id => current_user.id, :ready => true)
     @selected = "quality_control"
   end
 
   def assisting
     @breadcrumb = [["Assisting"]]
-    @activities = Activity.active.includes(:task_group_memberships).where(:task_group_memberships => {:user_id => current_user.id})
+    @activities = Activity.includes(:task_group_memberships).where(:task_group_memberships => {:user_id => current_user.id})
     @selected = "assisting"
   end
 
   def approving
     @breadcrumb = [["Awaiting Approval"]]
-    @activities = Activity.active.where(:approver_id => current_user.id, :ready => true)
+    @activities = Activity.where(:approver_id => current_user.id, :ready => true)
     @selected = "awaiting_approval"
   end
 
