@@ -146,8 +146,8 @@ questions:
              The available answers to this question are:<ul>
              <li>No relevant stakeholders identified.  This would be the correct answer if it had been decided that there were no suitable stakeholders representing the interests of #{wordings[strand]} to consult with.</li>
              <li>There are plans to consult relevant stakeholders.  This would be the correct answer if the consultation was planned but had not yet taken place.</li>
-             <li>There are no plans to consult relevant stakeholders.  There may be reasons why the Council had decided not to consult on the impact of the #{function_policy_substitution}.</li></ul>'
-
+             <li>There are no plans to consult relevant stakeholders.  There may be reasons why the Council had decided not to consult on the impact of the #{function_policy_substitution}.</li></ul>
+             <li>Consultation not required at this time.  No consultation is required for the #{function_policy_substitution}</li></ul>'
       type: select
       choices: 6
       weights: 13
@@ -540,6 +540,7 @@ choices:
     - 'No relevant stakeholders identified'
     - 'There are plans to consult relevant stakeholders'
     - 'There are no plans to consult relevant stakeholders'
+    - 'Consultation not required at this time'
   7:
     - 'Not Answered Yet'
     - 'None'
