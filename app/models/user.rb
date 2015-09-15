@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :directorates
 
   def cop_activities
-    Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => self.directorates.map(&:id), :retired => false})
+    Activity.includes(:service_area).where(:service_areas => {:directorate_id => self.directorates.map(&:id), :retired => false})
   end
 
   def cop_service_areas
@@ -114,20 +114,20 @@ class User < ActiveRecord::Base
     ids = self.roles.map do |role|
       case role
       when "Quality Control"
-        Activity.active.where(:qc_officer_id => self.id, :ready => true)
+        Activity.where(:qc_officer_id => self.id, :ready => true)
       when "Completer"
-        Activity.active.where(:completer_id => self.id, :ready => true)
+        Activity.where(:completer_id => self.id, :ready => true)
       when "Approver"
-        Activity.active.where(:approver_id => self.id, :ready => true)
+        Activity.where(:approver_id => self.id, :ready => true)
       when "Creator"
-        Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>self.id).map(&:id), :retired => false})
+        Activity.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:creator_id=>self.id).map(&:id), :retired => false})
       when "Directorate Cop"
         self.cop_activities
         # Activity.active.includes(:service_area).where(:service_areas => {:directorate_id => Directorate.active.where(:cop_id=>self.id).map(&:id), :retired => false})
       when "Corporate Cop"
-        Activity.active
+        Activity.all
       when "Helper"
-        Activity.active.joins(:task_group_memberships).where(:task_group_memberships => {:user_id => self.id})
+        Activity.all.joins(:task_group_memberships).where(:task_group_memberships => {:user_id => self.id})
       end
     end.flatten.compact.uniq.map(&:id)
     return Activity.where(id: ids)
@@ -142,15 +142,15 @@ class User < ActiveRecord::Base
   end
 
   def completer?
-    Activity.active.where(:completer_id => self.id, :ready => true).count > 0
+    Activity.where(:completer_id => self.id, :ready => true).count > 0
   end
 
   def quality_control?
-    Activity.active.where(:qc_officer_id => self.id, :ready => true).count > 0
+    Activity.where(:qc_officer_id => self.id, :ready => true).count > 0
   end
 
   def approver?
-    Activity.active.where(:approver_id => self.id, :ready => true).reject{|a| a.progress == "NS"}.count > 0
+    Activity.where(:approver_id => self.id, :ready => true).reject{|a| a.progress == "NS"}.count > 0
   end
 
   def directorate_cop?
@@ -159,7 +159,7 @@ class User < ActiveRecord::Base
   end
 
   def helper?
-    Activity.active.includes(:task_group_memberships).where(:task_group_memberships => {:user_id => self.id}).count > 0
+    Activity.includes(:task_group_memberships).where(:task_group_memberships => {:user_id => self.id}).count > 0
   end
 
   def cop?
