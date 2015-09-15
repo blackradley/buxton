@@ -40,6 +40,11 @@ namespace :stars do
         User.transaction do
           User.where("users.email LIKE ?", "%@#{domain}%").each do |u|
             u.update_attribute( :email, (u.email.gsub(Regexp.new(domain), new_domain)) )
+            puts u.email
+            u.email = u.email.gsub(" ", "_")
+            u.password = "testpass"
+            u.password_confirmation = "testpass"
+            u.save!
           end
         end
         index += 1
