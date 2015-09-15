@@ -139,10 +139,10 @@ class Activities::SectionsController < ApplicationController
 
   def set_activity
     @activity = current_user.activities.find(params[:id].to_i)
-    if @activity && @activity.submitted
-      redirect_to access_denied_path
-      return false
-    end
+    # if @activity && @activity.submitted
+    #   redirect_to access_denied_path
+    #   return false
+    # end
   end
 
   def set_selected
