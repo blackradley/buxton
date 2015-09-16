@@ -184,7 +184,7 @@ class ActivityPDFGenerator
 
     qn = @activity.questions.find_by(name: "purpose_overall_2")
     if qn.different_answer? && !@activity.approved
-      @pdf.text "<i><b>Previously: " + target_q + "</b></i>"
+      @pdf.text "<i><b>Previously: " + @activity.questions.find_by_name("purpose_overall_2").label.to_s + "</b></i>"
       @pdf.text "<i>#{qn.previous.display_response}</i>"
     end
     comments = get_comments(:purpose_overall_2)
