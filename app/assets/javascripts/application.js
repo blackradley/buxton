@@ -231,8 +231,8 @@ $(document).ready(function(){
   });
 
 
-  $(".colorbox").click(function(){
-    $(this).colorbox({'href': $(this).data("path"),
+  $(document).on("click", ".colorbox", function(){
+    $.colorbox({'href': $(this).data("path"),
                       scrolling: false,
                       onComplete: function(){$('.cancelLink').click(function(){$.colorbox.close();} ) }} );
   });
