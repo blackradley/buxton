@@ -231,10 +231,11 @@ $(document).ready(function(){
   });
 
 
-  $(".colorbox").click(function(){
-    $(this).colorbox({'href': $(this).data("path"),
+  $(document).on("click", ".colorbox", function(e){
+    $.colorbox({'href': $(this).data("path"),
                       scrolling: false,
                       onComplete: function(){$('.cancelLink').click(function(){$.colorbox.close();} ) }} );
+    e.preventDefault();
   });
   $('.inline').click(function(){
     $(this).colorbox({'inline': true});

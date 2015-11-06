@@ -18,7 +18,7 @@ class PasswordsController < Devise::PasswordsController
     if successfully_sent?(resource)
       respond_with({}, :location => after_sending_reset_password_instructions_path_for(resource_name))
     else
-      respond_with_navigational(resource){ render_with_scope :new }
+      respond_with_navigational(resource){ render :new }
     end
   end
 
