@@ -36,7 +36,7 @@ class ActivitiesController < ApplicationController
   before_filter :ensure_activity_approver, :only => [:approve, :submit_approval]
   before_filter :ensure_activity_editable, :only => [:edit, :update]
   before_filter :ensure_activity_approver_or_qc, :only => [:reject, :submit_rejection]
-  before_filter :ensure_not_approved, :only => [:add_task_group_member, :remove_task_group_member, :create_task_group_member, :submit_approval, :submit_rejection, :submit, :task_group_comment_box, :make_task_group_comment, :comment, :submit_comment]
+  before_filter :ensure_not_approved, :only => [:submit_approval, :submit_rejection, :submit, :comment, :submit_comment]
 
   autocomplete :user, :email, :scope => :live
 

@@ -1,6 +1,6 @@
 %h2 Task Group Members
 .orangeButton
-  =link_to "Add Task Group Member", add_task_group_member_activity_path(@activity), :class=>"add colorbox"
+  =link_to "Add Task Group Member", '#', data:{ path: add_task_group_member_activity_path(@activity) }, :class=>"add colorbox"
 .clear
 - if @task_group_members.empty?
   %p There are no task group members for this EA. You can add new task group members by using the "Add Task Group Member" button above.
