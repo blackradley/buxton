@@ -1,5 +1,5 @@
 class Mailer < ActionMailer::Base
-  SUPPORT_ADDRESSES = ['support@27stars.co.uk']
+  SUPPORT_ADDRESSES = ['impact_equality@blackradley.com']
   default :from => 'support@blackradley.com', :bcc => SUPPORT_ADDRESSES
 
   default_url_options[:host] = case Rails.env
