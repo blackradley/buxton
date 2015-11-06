@@ -5,7 +5,7 @@
     = text_field_tag 'search_term', '', :class => 'textField'
     = submit_tag 'Search', :class => 'submitButton'
     %p Search will return all records with Service Area, Name, Ref No or Senior Officer matching the search text.
-    
+
 %table#sortable.searchable{:cellspacing=>"0", :cellpadding=>"0"}
   %thead
     %tr
@@ -57,7 +57,7 @@
         %td= activity.progress
         %td= activity.relevant_action_count
         %td.last
-          = link_to "comment", task_group_comment_box_activity_path(activity), :class => "action comment colorbox"
+          = link_to "comment", '#', data: { path: task_group_comment_box_activity_path(activity) }, :class => "action comment colorbox"
           = link_to "view", activity_path(activity), :class => "action view"
           - if activity.approved? && ( activity.completer == current_user || current_user.directorates.include?( activity.directorate ) )
             = link_to "complete", questions_activity_path(activity), :class => "action edit" unless activity.submitted
