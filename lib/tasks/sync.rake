@@ -38,12 +38,10 @@ namespace :stars do
         new_domain = "example#{index}.example"
         puts "Resetting client email addresses for #{domain} to #{new_domain}"
         User.transaction do
-          User.where("users.email LIKE ?", "%@#{domain}%").each do |u|
-            u.update_attribute( :email, (u.email.gsub(Regexp.new(domain), new_domain)) )
+          User.where("users.email LIKE ?", "%@#{domain}%").each_with_index do |u, idx|
             puts u.email
-            u.email = u.email.gsub(" ", "_")
-            u.password = "testpass"
-            u.password_confirmation = "testpass"
+            u.update_attribute( :email, (u.email.gsub(Regexp.new(domain), new_domain).gsub(" ", "")) + idx.to_s )
+            u.password = u.password_confirmation = "testpass"
             u.save!
           end
         end
