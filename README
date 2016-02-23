@@ -1,8 +1,2 @@
 Project Buxton
 ==============
-
-1. Check out from <http://svn3.cvsdude.com/BlackRadley/buxton/trunk>.
-
-2. Run db:migrate to create the database.
-
-3. To receive a reminder e-mail visit <http://localhost:3000/user> and enter your e-mail address.
