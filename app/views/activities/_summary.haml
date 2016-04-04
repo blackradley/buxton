@@ -1,6 +1,6 @@
 #summaryBox
-  %h2= @activity.name
-  %h3 EA Summary
+  %h2 EA Summary
+  %h3= @activity.name
   %p
     = @activity.summary
   %h3 EA Details
@@ -8,7 +8,7 @@
     %li
       %label Directorate :
       = @activity.directorate.name
-    %li 
+    %li
       %label Service Area :
       = @activity.service_area.name
     %li
