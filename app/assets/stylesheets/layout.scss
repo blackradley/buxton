@@ -127,6 +127,9 @@
   margin: 0px 0px 5px;
   float: left;
   padding: 5px 0; }
+#cboxLoadedContent #summaryBox h2 {
+  float: none;
+}
 #content_holder li.checkbox input,
 #cboxLoadedContent li.checkbox input {
   height: 12px;
@@ -327,3 +330,14 @@ button:focus {outline:0;}
 a:focus {outline:0;}
 input:focus {outline:0;}
 #colorbox:focus { outline: 0;}
+
+/* To change position of close button to Top Right Corner */
+#colorbox #cboxClose
+{
+top: 0;
+right: 0;
+}
+#cboxLoadedContent{
+margin-top:0;
+margin-bottom:0;
+}
