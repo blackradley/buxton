@@ -7,6 +7,8 @@
 //= require jquery.colorbox
 //= require_tree .
 
+if ( ! window.console ) console = { log: function(){} };
+
 jQuery.expr[':'].Contains = function(a,i,m){
     return (a.textContent || a.innerText || "").toUpperCase().indexOf(m[3].toUpperCase())>=0;
 };
