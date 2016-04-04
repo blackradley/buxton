@@ -71,15 +71,20 @@ class ActivitiesController < ApplicationController
     original_activity = Activity.find(params[:id])
     @breadcrumb = [["My EAs", my_eas_activities_path], ["Clone #{original_activity.name}"]]
     @selected = "directorate_eas"
-    @directorates = Directorate.all.select{|d| d.service_areas.count > 0}
+    @directorates = Directorate.active.select{|d| d.service_areas.count > 0}
     @activity = Activity.new(original_activity.attributes)
     @clone_of = original_activity
     @activity.approved = false
     @activity.submitted = false
     @activity.actual_start_date = nil
     @activity.review_on = nil
-    @activity.service_area_id = @clone_of.service_area_id
-    @service_areas = @clone_of.service_area.directorate.service_areas
+    if ServiceArea.active.find_by(id: @clone_of.service_area_id)
+      @activity.service_area_id = @clone_of.service_area_id
+      @service_areas = @clone_of.service_area.directorate.service_areas
+    else
+      @activity.service_area_id = nil
+      @service_areas = []
+    end
     render :new
   end
 
@@ -123,7 +128,7 @@ class ActivitiesController < ApplicationController
     # @directorates = Directorate.where(:creator_id=>current_user.id)
     @breadcrumb = [["My EAs", my_eas_activities_path], ["New EA"]]
     @directorates = Directorate.active.select{|d| d.service_areas.count > 0}
-    @service_areas = @directorates.first.service_areas
+    @service_areas = []#@directorates.first.service_areas
     @selected = "directorate_eas"
     @activity = Activity.new
     # @activity.service_area = @service_areas.first
@@ -144,7 +149,7 @@ class ActivitiesController < ApplicationController
         @activity.errors.add(k, "is not a valid user")
         @activity.instance_variable_set("@#{k}", v)
       end
-      @service_areas = Directorate.find(params[:activity][:directorate]).service_areas
+      @service_areas = Directorate.find_by(id: params[:activity][:directorate]).try(:service_areas) || []
       # @service_areas = ServiceArea.active.where(:directorate_id => Directorate.where(:creator_id=>current_user.id).map(&:id))
       render 'new' and return
     end
@@ -211,7 +216,7 @@ class ActivitiesController < ApplicationController
       if @activity.errors[:qc_officer].present?
         @activity.errors.add(:qc_officer_email, "Quality Control Officer " + @activity.errors[:qc_officer].to_sentence)
       end
-      @service_areas = Directorate.find(params[:activity][:directorate]).service_areas
+      @service_areas = Directorate.find_by(id: params[:activity][:directorate]).try(:service_areas) || []
 
       # @service_areas = ServiceArea.active.where(:directorate_id => Directorate.active.where(:creator_id=>current_user.id).map(&:id))
       render 'new'

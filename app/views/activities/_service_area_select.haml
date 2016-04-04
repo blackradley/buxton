@@ -1,5 +1,6 @@
-%li.select.optional
-  %label Service Area
-  - if @service_areas
-    = select_tag 'activity[service_area]', options_from_collection_for_select( @service_areas, 'id', 'name', @activity && @activity.service_area_id ), :label => 'Service Area'
-    =#form.input :service_area, :label => "Service Area", :collection => @service_areas.map{|sa| "<option data-email='#{h sa.approver.email}' value='#{h sa.id}'#{' selected' if @activity.service_area && sa.id == @activity.service_area.id}>#{h sa.name}</option>"}.join, :include_blank => false
+%label Service Area
+- if @service_areas
+  = select_tag 'activity[service_area]', options_from_collection_for_select( @service_areas, 'id', 'name', @activity && @activity.service_area_id ), :label => 'Service Area'
+  =#form.input :service_area, :label => "Service Area", :collection => @service_areas, :label_method => :name, :value_method => :id, :selected => @activity.service_area_id, include_blank: false
+- if @activity && @activity.errors[:service_area].present?
+  %p.inline-errors Service area can't be blank

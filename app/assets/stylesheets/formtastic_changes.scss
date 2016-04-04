@@ -60,7 +60,7 @@ form.formtastic fieldset  ol  li select{
 form.formtastic fieldset  ol  li p.inline-errors {
     color: #CC0000;
     // float: right;
-    margin: 0;
+    margin: 6px 0 !important;
     width: 440px;
 }
 form.formtastic fieldset  ol  li.boolean label {
