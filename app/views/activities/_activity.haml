@@ -3,9 +3,10 @@
     - if @clone_of
       = hidden_field_tag "clone_of", @clone_of.id
     #service_areas_path_div{ :data => { :path => get_service_areas_activities_path } }
-    =form.input :directorate, :label => "Directorate", :collection => @directorates, :label_method => :name, :value_method => :id, :include_blank => false, :selected => @activity.directorate ? @activity.directorate.id : nil
-    .service_area
-      = render :partial => 'service_area_select'
+    =form.input :directorate, :label => "Directorate", :collection => @directorates, :label_method => :name, :value_method => :id, :selected => @activity.directorate ? @activity.directorate.id : nil
+    %li.select.optional
+      .service_area
+        = render :partial => 'service_area_select', locals: {form: form}
     =form.input :name, :label => "EA Title"
     = form.input :summary, :label => "Summary of this EA"
     = form.input :review_on, :label => "Review Date", as: :string, :format => "%d/%m/%Y", :input_html => {class: "ui-datepicker", style: "display:block", value: @activity.review_on.try(:strftime, '%d/%m/%Y') }
