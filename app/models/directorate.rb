@@ -24,6 +24,8 @@ class Directorate < ActiveRecord::Base
 
   before_save :fix_name
 
+  after_save :clean_up_cops
+
   def has_cops
     unless cops.first
       errors.add( "cop_email", "At least one Governance Officer must be assigned." )
@@ -61,6 +63,16 @@ class Directorate < ActiveRecord::Base
       end
     else
       cops << User.live.find_by(email: emails) if emails.present?
+    end
+  end
+
+  def clean_up_cops
+    #remove duplicate corporate cops
+    self.cops.each do |cop|
+      if self.cops.where(id: cop.id).count > 1
+        self.cops.delete(cop)
+        self.cops << cop
+      end
     end
   end
 
