@@ -5,12 +5,23 @@
   Level of Impact
 #questions
   = render :partial => 'question_help', :collection => question_details(:purpose, @equality_strand, [5,6,7])
-  = render :partial => 'intro'
+  -#= render :partial => 'intro'
+  %p{:style=>'width:590px'}
+    %strong Please complete this section in full. As usual there is help text in the right hand column. Below the help text is space to add a comment to the report where it would be useful to define the number of people affected and the makeup of that demographic.
+  %p{:style=>'width:590px'}
+    %strong There is also a space to leave a private note or reminder to yourself if required.
+  %p{:style=>'width:590px'}
+    Tips:
+  %ul{:style => "padding-left: 20px"}
+    %li{:style => "list-style-type:disc; width:550px"} Take time to research, understand and describe exactly who will be directly impacted by your proposals and whether any of the 9 protected characteristics are included in this demographic.
+    %li{:style => "list-style-type:disc; width:550px"} Use facts and figures in your report
+    %li{:style => "list-style-type:disc; width:550px"} Benchmarking data is useful here.
+
   =form_for(@activity, :url => activities_section_path(@activity)) do |f|
     %h5
       Which of these individuals does the Function have an impact on?
     = render :partial => 'question_compact', :collection => question_details(:purpose, @equality_strand, [5,6,7]), :locals => {:f => f}
-    = hidden_field_tag 'id', @id 
+    = hidden_field_tag 'id', @id
     = hidden_field_tag 'equality_strand', @equality_strand
     %p.question.saveField
       %span.button

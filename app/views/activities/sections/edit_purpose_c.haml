@@ -14,15 +14,22 @@
   = render :partial => 'question_help', :collection => question_details(:purpose, 'faith', [3])
   = render :partial => 'question_help', :collection => question_details(:purpose, 'sexual_orientation', [3])
   =form_for(@activity, :url => activities_section_path(@activity)) do |f|
+
     %p{:style => "width:590px"}
-      ="Please complete this section in full. The #{@activity.activity_type_name} will be relevant to any of the protected characteristics if it has any of the following effects on individuals who have that particular protected characteristic:"
+      Please complete this section in full. The #{@activity.activity_type_name} will be relevant if people from a protected characteristic are impacted by the #{@activity.activity_type_name} being developed. You need to establish if there is any differential impact on these people because of the protected characteristic. If you are unsure or need more information to establish this, then you will need to move to a full assessment.
+    %p{:style => "width:590px"}
+      If you know the differential impact and you have already made adjustments, then you may not need  to do a full assessment to evidence your decisions. However, you must explain how you have established what this impact is, and what adjustments you have made.
+    %p{:style => "width:590px"}
+      If you are aware that there may be a differential impact, but the full assessment will be done at a later date in the project then you need to explain this in your report.
+    %p{:style => "width:590px"}
+      %strong Tips:
     %ul{:style => "padding-left: 20px"}
-      %li{:style => "list-style-type:disc; width:550px"} Eliminating discrimination, harassment and victimisation
-      %li{:style => "list-style-type:disc; width:550px"} Advancing equality of opportunity between persons who share a relevant protected characteristic and persons who do not share it
-      %li{:style => "list-style-type:disc; width:550px"} Foster good relations between persons who share a relevant protected characteristic and persons who do not share it.
-    %p{:style => "width:590px"}
-      ="The #{@activity.activity_type_name} will also be relevant if it has any differential impact, positive or negative, on individuals having one or more protected characteristics because of that characteristic."
-    %p{:style => "width:590px"}= "Which PC is the #{@activity.activity_type_name} relevant/not relevant to and please explain your answer in detail using the Comment/Analysis for Report."
+      %li{:style => "list-style-type:disc; width:550px"} Defining the demographic size and makeup will help identify which of the protected characteristics may be impacted.
+      %li{:style => "list-style-type:disc; width:550px"} The larger the demographic, the less likely you are to know who is affected and how. A full assessment and consultation will be required.
+      %li{:style => "list-style-type:disc; width:550px"} "Due regard" means consciously thinking about equality impacts as part of the process of decision making.
+      %li{:style => "list-style-type:disc; width:550px"} If you do not do a full assessment at this point, evidence your decisions or any adjustments made in Part D of the report.
+      %li{:style => "list-style-type:disc; width:550px"} If you are not sure how a protected characteristic will be impacted, undertaking a full assessment will help structure your thinking. You can always revise this section of the EA if you change your mind.
+
     %h5
       The following section should be used to indicate if the policy or function is relevant to any of the nine protected characteristics.
       - %w(age disability gender gender_reassignment marriage_civil_partnership pregnancy_and_maternity race faith sexual_orientation).each do |strand|
