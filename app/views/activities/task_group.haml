@@ -3,7 +3,8 @@
   =link_to "Add Task Group Member", '#', data:{ path: add_task_group_member_activity_path(@activity) }, :class=>"add colorbox"
 .clear
 - if @task_group_members.empty?
-  %p There are no task group members for this EA. You can add new task group members by using the "Add Task Group Member" button above.
+  %p There are no task group members for this EA. You can add new task group members by using the "Add Task Group Member" button above.  This function allows invited Task Group Members to see a PDF of your EA and send you comments.
+  %p Tip: You may wish to set yourself up as a Task Group Member if you later allocate the EA to another person to be the Task Group Manager.  This will allow you to still see the PDF and comment on the EA whilst the new TGM completes the EA.
 -else
   %table#sortable{:cellspacing=>"0", :cellpadding=>"0"}
     %thead
@@ -22,4 +23,3 @@
           %td.last.taskGroupRemove
             = link_to "remove", remove_task_group_member_activity_path(@activity, :user_id => user), :method => :delete, :confirm => "Are you sure you want to remove #{user.email} from this Task Group?", :class => "action reject"
             =# link_to "view", activity_path(activity), :class => "action view"
-
