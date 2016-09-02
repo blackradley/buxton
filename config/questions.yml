@@ -205,8 +205,7 @@ questions:
       dependent_questions: ''
     5:
       label: 'Do you think that the #{function_policy_substitution} could have a role in making sure that #{wordings[strand]} were treated equally and fairly?'
-      help: 'This question asks you to assess whether the #{function_policy_substitution} could have a role in promoting equality of opportunity for #{wordings[strand]}.<br/><br/>
-             There will be a minority of #{function_policy_substitution}s that are intended to eliminate equality of opportunity as their primary purpose and some #{function_policy_substitution}s which might have a secondary role in promoting equality.'
+      help: 'This question asks you to assess whether the #{function_policy_substitution} could have a role in promoting equality of opportunity for #{wordings[strand]}.<br/><br/> There will be a minority of #{function_policy_substitution}s that are intended to eliminate equality of opportunity as their primary purpose and some #{function_policy_substitution}s which might have a secondary role in promoting equality.'
       type: select
       choices: 3
       weights: 0
@@ -284,7 +283,7 @@ overall_questions:
       weights: 0
       dependent_questions: ''
     13:
-      label: 'This must capture your overall analysis and understanding of assessment being undertaken to arrive at your decision.'
+      label: 'This must capture your overall analysis and understanding of assessment being undertaken to arrive at your decision. You must outline any consideration or adjustments which may have been made. If adjustments cannot be made for business or technical reasons you must explain the business case behind this decision.'
       help: 'This Initial Assessment should be completed at the earliest opportunity and will determine whether or not it is necessary to carry out a Full Equality Assessment.
               <br/><br/>
               The Initial Assessment assesses whether the policy, strategy, function or service may have an impact either positively or negatively on any customer group, staff or part of a community of place, interest or identity and should demonstrate that the policy, strategy, function or service is robust; there is no potential for discrimination or adverse impact. All opportunities to promote equality have been taken.
