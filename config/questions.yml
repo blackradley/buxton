@@ -9,7 +9,7 @@ questions:
       dependent_questions: ''
     4:
       label: '#{wordings[full_analysis_required]}'
-      help: ''
+      help: '<p>Although Function/Policy is found to relevant, a full Equality Analysis may not actually be required at this stage.</p><p>Examples where this may be the case include:</p><ul><li>If the EA is for a cabinet report for funding and although relevant it is too early in the project to do a full assessment at this stage.</li><li>The impact is well understood and adjustments have been made. This can be detailed in part D or the analysis.</li></ul><p><b>Tips</b></p><ul><li>Several EAs may be required for one project as it moves through governance from business case to review post implementation.</li><li>Once an EA has been approved, it can be cloned and renamed for updating to include further work or review.</li></ul>'
       choices: 3
       type: select
       dependent_questions: ''
