@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 case $1 in
   "preview" )
-  ssh -p 13427 deploy@preview.impactequality.co.uk
+  ssh -t -p 54321 deploy@app.impactequality.co.uk "cd public_html/br-buxton-rails-pvw/current; /bin/bash --login"
   ;;
   "training" )
-  ssh -p 13427 deploy@staging.impactequality.co.uk
+  ssh -t -p 54321 deploy@app.impactequality.co.uk "cd public_html/br-buxton-rails-trn/current; /bin/bash --login"
   ;;
   "production" )
-  ssh -p 13427 deploy@birmingham.impactequality.co.uk
+  ssh -t -p 54321 deploy@app.impactequality.co.uk "cd public_html/br-buxton-rails-prd/current; /bin/bash --login"
   ;;
   "staging" )
   ssh -t -p 13427 deploy@impact-equality-staging.27stars.co.uk "cd public_html/br-buxton-rails-stg/current; /bin/bash --login"
