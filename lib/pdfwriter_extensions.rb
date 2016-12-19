@@ -8,9 +8,9 @@ module PDF
     alias_method :old_add_text_wrap, :add_text_wrap
 
     def convert(text)
-      text.scrub.gsub(/[“”]/, "\"").gsub(/–/, "-")
+      text.scrub.gsub(/[“”]/, "\"").gsub(/[‘’]/, "\'").gsub(/–/, "-")
     rescue
-      text.to_s.gsub(/[“”]/, "\"").gsub(/–/, "-")
+      text.to_s.gsub(/[“”]/, "\"").gsub(/[‘’]/, "\'").gsub(/–/, "-")
     end
 
     def text(text, options = {})
