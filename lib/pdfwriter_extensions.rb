@@ -8,9 +8,9 @@ module PDF
     alias_method :old_add_text_wrap, :add_text_wrap
 
     def convert(text)
-      text.scrub
+      text.scrub.gsub(/[“”]/, "\"").gsub(/[‘’]/, "\'").gsub(/–/, "-").gsub(/[\u2010\u2011\u2012\u2013\u2014\u2015\u2E3A\u2E3B]/, "-")
     rescue
-      text.to_s
+      text.to_s.gsub(/[“”]/, "\"").gsub(/[‘’]/, "\'").gsub(/–/, "-").gsub(/[\u2010\u2011\u2012\u2013\u2014\u2015\u2E3A\u2E3B]/, "-")
     end
 
     def text(text, options = {})
