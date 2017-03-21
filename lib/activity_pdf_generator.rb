@@ -350,7 +350,7 @@ class ActivityPDFGenerator
       section_index += 1
     end
     @pdf.text " "
-    @pdf.text "<b> 3#{'.' + section_index.to_s if @activity.strands.size > 0} <c:uline> Concluding Statement on Full Assessment</b></c:uline> ", :font_size => 12
+    @pdf.text "<b> 3#{'.' + section_index.to_s} <c:uline> Concluding Statement on Full Assessment</b></c:uline> ", :font_size => 12
     @pdf.text " "
     final_question = @activity.questions.where(:name => "purpose_overall_14").first
     if final_question.changed_in_previous_ea?
