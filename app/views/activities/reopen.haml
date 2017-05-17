@@ -1,0 +1,9 @@
+.approverForm
+  %h2 This EA has already been completed and submitted for approval.
+  %h2 Clicking the "Reopen" button below will reset the EA's approval status and allow it to be edited.
+  %h2 Note that this will require the EA be resubmitted to the QA and approval process.
+  = form_tag submit_reopen_activity_path, :class => "formtastic user" do
+    %fieldset.buttons
+      %ol
+        %li.commit
+          = submit_tag "Reopen", data: {:disable_with => "Working..."}

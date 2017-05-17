@@ -1,9 +1,9 @@
 .approverForm
-  %h2= "Please give the reason for the rejection to the Task Group Manager and Senior Officer of #{@activity.name}." 
+  %h2= "Please give the reason for the rejection to the Task Group Manager and Senior Officer of #{@activity.name}."
   = form_tag submit_rejection_activity_path, :class => "formtastic user" do
     %fieldset.approveInputs
       %ul
-        %li 
+        %li
           %h5 To:
         %li.textField= text_field_tag :to, @activity.completer.try(:email), :disabled => true
         %li
@@ -19,4 +19,4 @@
     %fieldset.buttons
       %ol
         %li.commit
-          = submit_tag "Reject", :disable_with => "Rejecting.."
+          = submit_tag "Reject", data: {:disable_with => "Rejecting.."}
