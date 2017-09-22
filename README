@@ -7,7 +7,7 @@ Project Buxton
 
 * Clone the latest copy into then move everything including hidden files
   (this is because you cannot clones into a non-empty directory)
-	git clone --depth=1 -b develop  https://github.com/blackradley/buxton.git 
+	git clone --depth=1 -b develop  https://joejcollins@bitbucket.org/joejcollins/impact_equality.git 
 	shopt -s dotglob nullglob
 	mv buxton/* ./
 	rmdir buxton
