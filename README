@@ -1,44 +1,47 @@
-Project Buxton
+Impact Equality
 ==============
 
 * Sign in at https://blackradley.signin.aws.amazon.com/console
+    Go to Cloud9 and create a new environment
+    Delete the README.md and .c9
 
-* Create a blank environment
-
-* Clone the latest copy into then move everything including hidden files
-  (this is because you cannot clones into a non-empty directory)
-	git clone --depth=1 -b develop  https://github.com/blackradley/buxton.git 
-	shopt -s dotglob nullglob
-	mv buxton/* ./
-	rmdir buxton
+* Clone the latest copy and get ready for development
+    git clone https://joejcollins@bitbucket.org/joejcollins/impact_equality.git ./
+    git config credential.helper store
+    git checkout develop
+    sudo yum -y update
+    sudo yum -y install gitflow
+    git flow init
 
 * Get MySQL installed, set password to password and create a database
-    sudo yum -y update
     sudo yum -y install mysql-server
-    sudo chown -R mysql:mysql /var/lib/mysql
     sudo chkconfig mysqld on
     sudo service mysqld start
     mysqladmin -u root password password
     mysqladmin -u root -p create cloud9database
 
-
-* Install Ruby
-	rvm install ruby-2.2.2
+* Install Ruby as super user
+    sudo -i
+    rvm install ruby-2.2.2
+    rvm --default use 2.2.2
+    exit
 
 * Install the gem installer
-    sudo  install rake -v '10.5.0'
-    chown -R ec2-user /usr/local/rvm/gems
-	gem install bundler
+    sudo chown -R ec2-user /usr/local/rvm/gems
+    gem install rake -v '10.5.0'
+    gem install bundler
 
 * Install the mysql-devel which is needed for the mysql gem and install the other gems
     sudo -i
     yum install mysql-devel
-	bundle install
+    exit
+    bundle install
 
-* Either import a backup of the database.
+* Import a backup of the database.
     mysql --user=root --password=password 
-    use cloud9database9;
-    source ~/db/buxton-preview-2016-11-04.sql
+    use cloud9database;
+    source ~/environment/db/buxton-preview-2016-12-12.sql;
+    quit
 	
 * Copy config/database.example.yml to database.yml and edit the connection to this
     development:
@@ -48,13 +51,13 @@ Project Buxton
       password: password
       host: localhost
 
-* Or migrate the database to the latest version
-	rake db:migrate
+* Migrate the database to the latest version
+    rake db:migrate
 
 * Run the development server
     rails s -b $IP -p $PORT -e development
 
 * Then find a user
-	mysql --user=root --password=password 
-	use cloud9database;
-	select * from users;
+    mysql --user=root --password=password 
+    use cloud9database;
+    select * from users;
