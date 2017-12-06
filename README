@@ -1,9 +1,9 @@
 Project Buxton
 ==============
 
-* Sign in at https://c9.io/
+* Sign in at https://blackradley.signin.aws.amazon.com/console
 
-* Create a blank workspace (but don't reference the git repository).
+* Create a blank environment
 
 * Clone the latest copy into then move everything including hidden files
   (this is because you cannot clones into a non-empty directory)
@@ -12,35 +12,49 @@ Project Buxton
 	mv buxton/* ./
 	rmdir buxton
 
+* Get MySQL installed, set password to password and create a database
+    sudo yum -y update
+    sudo yum -y install mysql-server
+    sudo chown -R mysql:mysql /var/lib/mysql
+    sudo chkconfig mysqld on
+    sudo service mysqld start
+    mysqladmin -u root password password
+    mysqladmin -u root -p create cloud9database
+
+
 * Install Ruby
 	rvm install ruby-2.2.2
 
 * Install the gem installer
+    sudo  install rake -v '10.5.0'
+    chown -R ec2-user /usr/local/rvm/gems
 	gem install bundler
 
-* Install the gems
+* Install the mysql-devel which is needed for the mysql gem and install the other gems
+    sudo -i
+    yum install mysql-devel
 	bundle install
 
+* Either import a backup of the database.
+    mysql --user=root --password=password 
+    use cloud9database9;
+    source ~/db/buxton-preview-2016-11-04.sql
+	
 * Copy config/database.example.yml to database.yml and edit the connection to this
     development:
       adapter: mysql2
-      encoding: utf8
-      database: c9
-      username: <%=ENV['C9_USER']%>
-      host: <%=ENV['IP']%>
+      database: cloud9database
+      username: root
+      password: password
+      host: localhost
 
-* Either import a backup of the database.
-    mysql-ctl cli  
-    use c9;
-    source ~/workspace/db/buxton-preview-2016-11-04.sql
-
-* Migrate the database to the latest version
+* Or migrate the database to the latest version
 	rake db:migrate
 
 * Run the development server
     rails s -b $IP -p $PORT -e development
 
 * Then find a user
-	mysql-ctl cli
-	use c9;
+	mysql --user=root --password=password 
+	use cloud9database;
 	select * from users;
