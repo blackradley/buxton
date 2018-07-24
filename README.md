@@ -82,9 +82,11 @@
     rake db:migrate
 
 * Run the development server
+
     rails s -e development
 
 * Then find a user
+
     mysql -u root -p 
     use buxton;
     select * from users;
