@@ -35,54 +35,56 @@
 
 * Move to the repository and initialize git flow
 
-    cd /mnt/c/Users/develop-joe/Documents/Projects/br_impact_equality_buxton$
+    cd /mnt/c/Users/develop-joe/Documents/Projects/br_impact_equality_buxton
     git flow init
 
-* Get MySQL installed, set password to password and create a database
-    sudo yum -y install mysql-server
-    sudo chkconfig mysqld on
-    sudo service mysqld start
-    mysqladmin -u root password password
-    mysqladmin -u root -p create cloud9database
+* Get MySQL installed, set password to 'password' and create a database from <https://www.rafaelhart.com/2017/08/mysql-in-windows-subsystem-for-linux/>
 
-* Install Ruby as super user
-    sudo -i
-    rvm install ruby-2.2.2
-    rvm --default use 2.2.2
-    exit
+    sudo apt install mysql-server mysql-client 
+    sudo service mysql status
+    sudo service mysql start
+    mysql -u root -p
+    mysql> CREATE DATABASE buxton;
+    mysql> use buxton;
+    mysql> source /mnt/c/Users/develop-joe/Documents/Projects/br_impact_equality_buxton//db/buxton-preview-2016-12-12.sql;
+    quit
 
-* Install the gem installer
-    sudo chown -R ec2-user /usr/local/rvm/gems
+* Install Ruby and the gem installer 
+
+    sudo apt-get install git-core curl zlib1g-dev build-essential libssl-dev libreadline-dev libyaml-dev libsqlite3-dev sqlite3 libxml2-dev libxslt1-dev libcurl4-openssl-dev software-properties-common libffi-dev
+    sudo apt-get install libgdbm-dev libncurses5-dev automake libtool bison libffi-dev
+    gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+    curl -sSL https://get.rvm.io | bash -s stable
+    source /home/user/.rvm/scripts/rvm
+    rvm install 2.2.2
+    rvm use 2.2.2 --default
+    ruby -v
     gem install rake -v '10.5.0'
     gem install bundler
 
-* Install the mysql-devel which is needed for the mysql gem and install the other gems
-    sudo -i
-    yum install mysql-devel
-    exit
+* Install the libmysqlclient-dev which is needed for the mysql gem and install the other gems
+
+    sudo apt-get install libmysqlclient-dev
     bundle install
 
-* Import a backup of the database.
-    mysql --user=root --password=password 
-    use cloud9database;
-    source ~/environment/db/buxton-preview-2016-12-12.sql;
-    quit
-	
 * Copy config/database.example.yml to database.yml and edit the connection to this
+
     development:
       adapter: mysql2
-      database: cloud9database
+      database: buxton
       username: root
       password: password
       host: localhost
 
-* Migrate the database to the latest version
+* Migrate the database to the latest version, whcih for some reason needs nodejs to be installed
+
+    sudo apt-get install nodejs
     rake db:migrate
 
 * Run the development server
-    rails s -b $IP -p $PORT -e development
+    rails s -e development
 
 * Then find a user
-    mysql --user=root --password=password 
-    use cloud9database;
+    mysql -u root -p 
+    use buxton;
     select * from users;
