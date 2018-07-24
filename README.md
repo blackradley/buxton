@@ -1,16 +1,41 @@
-Impact Equality
-==============
+# Impact Equality
 
-* Sign in at https://blackradley.signin.aws.amazon.com/console
-    Go to Cloud9 and create a new environment
-    Delete the README.md and .c9
+## Setup on Windows 10
 
-* Clone the latest copy and get ready for development
-    git clone https://joejcollins@bitbucket.org/joejcollins/impact_equality.git ./
+* Make sure you have the Windows Subsystem for Linux installed.
+
+    Windows Settings > Updates & Security > For Developers > True
+    Control Panel > Programs > Turn Windows features on or off > Windows Subsystem for Linux > True
+    Microsoft store > Ubuntu 16.04 > Get
+
+* Start using the WSL from the commandline, update (the repositories) and upgrade (the packages)
+
+    ubuntu
+    sudo apt update
+    sudo apt upgrade
+
+* Windows and Linux deal with line endings differently so configure git to automatically convert the line endings
+
+    git config --global core.autocrlf true
+
+* For convenience store your git credentials
+
     git config credential.helper store
+   
+* Clone the latest copy and get ready for development
+
+    git clone https://joejcollins@bitbucket.org/joejcollins/impact_equality.git ./
     git checkout develop
-    sudo yum -y update
-    sudo yum -y install gitflow
+
+* Install gitflow.
+
+    sudo add-apt-repository ppa:pdoes/gitflow-avh
+    sudo apt-get update
+    sudo apt install git-flow
+
+* Move to the repository and initialize git flow
+
+    cd /mnt/c/Users/develop-joe/Documents/Projects/br_impact_equality_buxton$
     git flow init
 
 * Get MySQL installed, set password to password and create a database
