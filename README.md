@@ -76,7 +76,7 @@
       password: password
       host: localhost
 
-* Migrate the database to the latest version, whcih for some reason needs nodejs to be installed
+* Migrate the database to the latest version, which for some reason needs nodejs to be installed
 
     sudo apt-get install nodejs
     rake db:migrate
