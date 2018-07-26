@@ -67,7 +67,7 @@ class ActivityPDFGenerator
       @pdf.image( "#{Rails.root}/app/assets/images/pdf_logo.png", :justification => :center, :resize => 0.5)
       @pdf.text "<b>Equality Analysis</b>", :justification => :center, :font_size => 22
       @pdf.text " ", :justification => :center, :font_size => 10
-      @pdf.text "<c:uline><b>Birmingham City Council Analysis Report</b></c:uline>", :justification => :center, :font_size => 14
+      @pdf.text "<c:uline><b>Borchester Town Council Analysis Report</b></c:uline>", :justification => :center, :font_size => 14
       @pdf.text " ", :justification => :center, :font_size => 10 #Serves as a new line character. Is this more readable than moving the cursor manually?
     return @pdf
   end

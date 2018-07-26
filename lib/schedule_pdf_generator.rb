@@ -46,9 +46,9 @@ class SchedulePDFGenerator
   def build_header
       @pdf.fill_color Color::RGB.const_get('Black')
       # @pdf.image( "#{Rails.root}/public/images/header_bg.jpg", :justification => :center, :resize => 0.5)
-      @pdf.text "<b>Birmingham City Council</b>", :justification => :center, :font_size => 22
+      @pdf.text "<b>Borchester Town Council</b>", :justification => :center, :font_size => 22
       @pdf.text " ", :justification => :center, :font_size => 10
-      @pdf.text "<c:uline><b>Birmingham City Council Equality Risk Toolkit Schedule Report</b></c:uline>", :justification => :center, :font_size => 14
+      @pdf.text "<c:uline><b>Borchester Town Council Equality Risk Toolkit Schedule Report</b></c:uline>", :justification => :center, :font_size => 14
       @pdf.text " ", :justification => :center, :font_size => 10 #Serves as a new line character. Is this more readable than moving the cursor manually?
     return @pdf
   end
