@@ -30,13 +30,13 @@ class User < ActiveRecord::Base
   end
 
   def set_password
-    @new_pass = String.random_alphanumeric
+    @new_pass = Passphrase::Passphrase.new(languages: ["en"], number_of_words: 2) #String.random_alphanumeric
     self.password = @new_pass
     self.password_confirmation = @new_pass
   end
 
   def reset_password!
-    @new_pass = String.random_alphanumeric
+    @new_pass = Passphrase::Passphrase.new(languages: ["en"], number_of_words: 2) #String.random_alphanumeric
     self.password = @new_pass
     self.locked = false
     self.failed_attempts = 0

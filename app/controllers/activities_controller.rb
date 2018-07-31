@@ -25,7 +25,7 @@ class ActivitiesController < ApplicationController
   before_filter :ensure_dgo, :only => [:directorate_governance_eas]
   before_filter :set_activity, :only => [:edit, :task_group, :add_task_group_member, :remove_task_group_member, :create_task_group_member,
                                           :questions, :update, :toggle_strand, :submit, :show, :delete, :destroy, :approve, :reject, :submit_approval, :submit_rejection,
-                                          :task_group_comment_box, :make_task_group_comment, :summary, :comment, :submit_comment, :clone]
+                                          :reopen, :submit_reopen, :task_group_comment_box, :make_task_group_comment, :summary, :comment, :submit_comment, :clone]
   before_filter :ensure_completer, :only => [:task_group, :add_task_group_member, :remove_task_group_member, :create_task_group_member]
   before_filter :ensure_activity_completer, :only => [:questions, :submit, :toggle_strand]
   before_filter :ensure_approver, :only => [:approving]
@@ -485,6 +485,21 @@ class ActivitiesController < ApplicationController
 
   def comment
     render :layout =>false
+  end
+
+  def reopen
+    render layout: false
+  end
+
+  def submit_reopen
+    if @activity.submitted?
+      @activity.ready = false
+      @activity.approved = false
+      @activity.submitted = false
+      @activity.undergone_qc = false
+      @activity.save!
+    end
+    redirect_to questions_activity_path(@activity)
   end
 
   def submit_comment

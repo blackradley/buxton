@@ -1,9 +1,9 @@
 .approverForm
-  %h2= "Please give any final comments for the Manager of #{@activity.name}" 
+  %h2= "Please give any final comments for the Manager of #{@activity.name}"
   = form_tag submit_approval_activity_path, :class => "formtastic user" do
     %fieldset.approveInputs
       %ul
-        %li 
+        %li
           %h5 To:
         %li.textField= text_field_tag :to, @activity.completer.try(:email), :disabled => true
         %li
@@ -19,4 +19,4 @@
     %fieldset.buttons
       %ol
         %li.commit
-          = submit_tag "Approve", :disable_with => "Approving.."
+          = submit_tag "Approve", date: {:disable_with => "Approving.."}

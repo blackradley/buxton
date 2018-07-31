@@ -51,6 +51,7 @@ Buxton::Application.routes.draw do
       get :approve
       get :reject
       get :summary
+      get :reopen
       get :task_group
       get :add_task_group_member
       delete :remove_task_group_member
@@ -61,6 +62,7 @@ Buxton::Application.routes.draw do
       post :submit_comment
       post :submit_approval
       post :submit_rejection
+      post :submit_reopen
       get :edit_tgm
       patch :update_tgm
     end
