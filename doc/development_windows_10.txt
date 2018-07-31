@@ -3,7 +3,7 @@
 * Make sure you have the Windows Subsystem for Linux installed.
 
     Windows Settings > Updates & Security > For Developers > True
-    Control Panel > Programs > Turn Windows features on or off > Windows Subsystem for Linux > True
+    Control Panel > Programs and Features > Turn Windows features on or off > Windows Subsystem for Linux > True
     Microsoft store > Ubuntu 16.04 > Get
 
 * Start using the WSL from the commandline, update (the repositories) and upgrade (the packages)
