@@ -9,11 +9,11 @@
     %meta{'http-equiv' => 'content-type', 'content'=>'text/html;charset=UTF-8'}
     =stylesheet_link_tag :application
     = javascript_include_tag :application
-    =raw  "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->"
+    =raw "<!--[if lt IE 7]> #{stylesheet_link_tag 'fixes_ie6'}<![endif]-->"
     =raw "<!--[if lt IE 7]> #{javascript_include_tag 'jquery.pngFix.js'}<![endif]-->"
     =raw "<!--[if gte IE 7]> #{stylesheet_link_tag 'fixes_ie7'}<![endif]-->"
-    = csrf_meta_tag
-    %link{:href=>'/images/favicon.ico', :rel=>'icon', :type=>"image/x-icon"}
+    =csrf_meta_tag
+    =favicon_link_tag
   %body
     - if @banner_text
       #banner

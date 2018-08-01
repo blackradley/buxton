@@ -22,7 +22,7 @@
    
 * Clone the latest copy and get ready for development
 
-    git clone https://joejcollins@bitbucket.org/joejcollins/impact_equality.git ./
+    git clone https://github.com/blackradley/buxton.git ./
     git checkout develop
 
 * Install gitflow.
@@ -44,7 +44,7 @@
     mysql -u root -p
     mysql> CREATE DATABASE buxton;
     mysql> use buxton;
-    mysql> source /mnt/c/Users/develop-joe/Documents/Projects/br_impact_equality_buxton//db/buxton-preview-2016-12-12.sql;
+    mysql> source /mnt/c/Users/joejc/Documents/Projects/br_impact_equality_buxton/db/buxton-develop-2018-07-26.sql;
     quit
 
 * Install Ruby and the gem installer 
@@ -54,10 +54,10 @@
     gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
     curl -sSL https://get.rvm.io | bash -s stable
     source /home/user/.rvm/scripts/rvm
-    rvm install 2.2.2
-    rvm use 2.2.2 --default
+    rvm install 2.2.6
+    rvm use 2.2.6 --default
     ruby -v
-    gem install rake -v '10.5.0'
+    gem install rake -v '12.3.1'
     gem install bundler
 
 * Install the libmysqlclient-dev which is needed for the mysql gem and install the other gems
