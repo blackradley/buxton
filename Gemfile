@@ -2,9 +2,9 @@
 # This preamble is the current preamble for Rails 3 apps; edit as needed.
 source 'http://rubygems.org'
 
-gem 'rails', "~> 4.0"
+gem 'rails', "4.2.10"
 gem 'haml'
-gem "mysql2"
+gem "mysql2", '~> 0.4.0'
 gem "jquery-rails"
 # gem 'jquery-colorbox-rails'
 
@@ -13,7 +13,7 @@ gem 'pdf-writer', git: "https://github.com/Hermanverschooten/pdf-writer.git"
 gem 'newrelic_rpm'
 # gem "devise", "= 1.5.2"
 gem 'formtastic'#, "~> 2"
-gem 'airbrake'
+# gem 'airbrake'
 gem 'rails3-jquery-autocomplete'
 gem 'devise_security_extension'
 gem 'passphrase'

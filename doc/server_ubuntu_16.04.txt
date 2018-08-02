@@ -1,0 +1,129 @@
+# Setup on Ubuntu 16.04
+
+Pretty much following <https://www.phusionpassenger.com/library/walkthroughs/deploy/ruby/ownserver/nginx/oss/install_language_runtime.html>.
+
+## Azure VM (example)
+
+	Basics
+	Subscription: Black Radley
+	Resource group: (new) blackradley-buxton-example
+	Location: UK West
+
+	Settings
+	Computer name: blackradley-buxton-example
+	Disk type: SSD
+	Username: username
+	Size: Standard B1s (1 vcpus, 1 GB memory)
+	Managed: Yes
+	OS disk size: 30 GiB
+	Virtual network: (new) blackradley-buxton-example-vnet
+	Subnet: (new) default (10.0.1.0/24)
+	Public IP address: (new) blackradley-buxton-example-ip
+	Network security group (firewall): (new) blackradley-buxton-example-nsg
+	Availability set: None
+	Guest OS diagnostics: Disabled
+	Boot diagnostics: Enabled
+	Diagnostics storage account: (new) blackradleybuxtonexamp
+	Auto-shutdown: Off
+	Backup: Disabled
+
+## VM (SSH to server as username)
+
+Check the Ubuntu version
+
+    lsb_release -a 
+
+Install mysql
+
+    sudo apt-get install libmysqlclient-dev
+    sudo apt install mysql-server mysql-client 
+    sudo service mysql status
+    sudo service mysql start
+
+Install curl and gpg
+
+    sudo apt-get update
+    sudo apt-get install -y curl gnupg build-essential
+
+Install RVM and Ruby
+
+    sudo gpg --keyserver hkp://keys.gnupg.net --recv-keys 409B6B1796C275462A1703113804BB82D39DC0E3
+    curl -sSL https://get.rvm.io | sudo bash -s stable
+    sudo usermod -a -G rvm `whoami`
+    logout
+
+    rvm install 2.2.6
+    rvm use 2.2.6 --default
+    ruby -v
+    gem install rake -v '12.3.1'
+    gem install bundler --no-rdoc --no-ri
+    sudo apt-get install -y nodejs
+    
+Install Passenger
+
+    sudo apt-get install -y dirmngr gnupg
+    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 561F9B9CAC40B2F7
+    sudo apt-get install -y apt-transport-https ca-certificates
+    sudo sh -c 'echo deb https://oss-binaries.phusionpassenger.com/apt/passenger xenial main > /etc/apt/sources.list.d/passenger.list'
+    sudo apt-get update
+    sudo apt-get install -y nginx-extras passenger
+
+Edit /etc/nginx/nginx.conf and uncomment or add `include /etc/nginx/passenger.conf;` in the http{} block.
+
+    sudo service nginx restart
+    sudo /usr/bin/passenger-config validate-install
+
+Setup the certificates
+
+    sudo apt-get update
+    sudo apt-get install software-properties-common
+    sudo add-apt-repository ppa:certbot/certbot
+    sudo apt-get update
+    sudo apt-get install python-certbot-nginx 
+    sudo certbot --nginx
+    sudo certbot renew --dry-run
+
+Setup the deployment user (with a password)
+
+    lsb_release -a 
+    sudo adduser deploy
+    sudo mkdir -p ~deploy/.ssh
+    touch $HOME/.ssh/authorized_keys
+    sudo sh -c "cat $HOME/.ssh/authorized_keys >> ~deploy/.ssh/authorized_keys"
+    sudo chown -R deploy: ~deploy/.ssh
+    sudo chmod 700 ~deploy/.ssh
+    sudo sh -c "chmod 600 ~deploy/.ssh/*"
+
+Setup the application
+
+    sudo apt-get install -y git
+    sudo mkdir -p /var/www/buxton
+    cd /var/www/buxton
+    sudo git clone https://github.com/blackradley/buxton.git ./
+    mysql -u root -p
+    mysql> CREATE DATABASE buxton;
+    mysql> use buxton;
+    mysql> source /var/www/buxton/db/buxton-develop-2018-07-26.sql;
+    quit
+    logout
+
+Edit the database.yml to include the database details
+
+    cd /var/www/buxton
+    sudo nano ./config/database.example.yml
+    sudo chown -R deploy /var/www/buxton
+
+Log in as the deploy user to carry on
+
+    cd /var/www/buxton
+    bundle install --deployment --without development test
+    rake db:migrate RAILS_ENV=production
+    bundle exec rake secret
+
+
+
+ sudo nano /etc/nginx/sites-enabled/buxton.conf
+
+ http://borchester.ukwest.cloudapp.azure.com/
+
+ sudo service nginx restart

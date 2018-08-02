@@ -493,7 +493,6 @@ class ActivitiesController < ApplicationController
 
   def submit_reopen
     if @activity.submitted?
-      @activity.ready = false
       @activity.approved = false
       @activity.submitted = false
       @activity.undergone_qc = false

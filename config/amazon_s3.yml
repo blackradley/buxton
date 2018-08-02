@@ -1,4 +1,4 @@
 production:
   bucket: buxton
-  access_key_id: ***REMOVED***
-  secret_access_key: ***REMOVED***
+  access_key_id: REMOVED
+  secret_access_key: REMOVED
