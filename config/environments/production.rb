@@ -31,7 +31,7 @@ Buxton::Application.configure do
   config.action_mailer.smtp_settings = {
     user_name: ENV["SEND_GRID_USERNAME"],
     password: ENV["SEND_GRID_PASSWORD"],
-    domain: 'blackradley.com',
+    domain: 'borchester.ukwest.cloudapp.azure.com',
     address: 'smtp.sendgrid.net',
     port: 587,
     authentication: 'plain',
