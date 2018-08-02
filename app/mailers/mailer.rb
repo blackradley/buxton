@@ -4,7 +4,7 @@ class Mailer < ActionMailer::Base
 
   default_url_options[:host] = case Rails.env
                                when 'production'
-                                 'birmingham.impactequality.co.uk'
+                                 'borchester.ukwest.cloudapp.azure.com'
                                when 'staging'
                                  'impact-equality-staging.27stars.co.uk'
                                when 'uat'
