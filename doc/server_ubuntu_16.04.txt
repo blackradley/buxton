@@ -73,6 +73,16 @@ Edit /etc/nginx/nginx.conf and uncomment or add `include /etc/nginx/passenger.co
     sudo service nginx restart
     sudo /usr/bin/passenger-config validate-install
 
+Setup the certificates
+
+    sudo apt-get update
+    sudo apt-get install software-properties-common
+    sudo add-apt-repository ppa:certbot/certbot
+    sudo apt-get update
+    sudo apt-get install python-certbot-nginx 
+    sudo certbot --nginx
+    sudo certbot renew --dry-run
+
 Setup the deployment user (with a password)
 
     lsb_release -a 
