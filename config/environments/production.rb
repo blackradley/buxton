@@ -29,8 +29,8 @@ Buxton::Application.configure do
 
   # Use sendgrid to deliver email
   config.action_mailer.smtp_settings = {
-    user_name: ENV["SEND_GRID_USERNAME"],
-    password: ENV["SEND_GRID_PASSWORD"],
+    user_name: Rails.application.secrets.sendgrid_username,
+    password: Rails.application.secrets.sendgrid_password,
     domain: 'borchester.ukwest.cloudapp.azure.com',
     address: 'smtp.sendgrid.net',
     port: 587,
@@ -43,7 +43,7 @@ Buxton::Application.configure do
 
   config.i18n.fallbacks = true
 
-  config.action_mailer.default_url_options = { :host => "birmingham.impactequality.co.uk" }
+  config.action_mailer.default_url_options = { :host => "borchester.ukwest.cloudapp.azure.com" }
 
   # Send deprecation notices to registered listeners
   config.active_support.deprecation = :notify
