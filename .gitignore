@@ -11,3 +11,4 @@ tmp
 .DS_Store
 db/production_data.sql
 coverage.data
+secrets.yml
