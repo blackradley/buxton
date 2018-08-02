@@ -58,7 +58,7 @@
     rvm use 2.2.6 --default
     ruby -v
     gem install rake -v '12.3.1'
-    gem install bundler
+    gem install bundler --no-rdoc --no-ri
 
 * Install the libmysqlclient-dev which is needed for the mysql gem and install the other gems
 
