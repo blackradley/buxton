@@ -120,10 +120,24 @@ Log in as the deploy user to carry on
     rake db:migrate RAILS_ENV=production
     bundle exec rake secret
 
+Configure Nginx and Passenger
+
+    passenger-config about ruby-command
+    sudo nano /etc/nginx/sites-enabled/buxton.conf
+
+    server {
+        listen 443 ssl;
+        server_name borchester.ukwest.cloudapp.azure.com;
+
+        # Tell Nginx and Passenger where your app's 'public' directory is
+        root /var/www/buxton/public;
+
+        # Turn on Passenger
+        passenger_enabled on;
+        passenger_ruby /usr/local/rvm/gems/ruby-2.2.6/wrappers/ruby;
+    }
+
+    sudo service nginx restart
+    curl http://borchester.ukwest.cloudapp.azure.com/
 
 
- sudo nano /etc/nginx/sites-enabled/buxton.conf
-
- http://borchester.ukwest.cloudapp.azure.com/
-
- sudo service nginx restart
