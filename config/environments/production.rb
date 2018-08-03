@@ -27,11 +27,16 @@ Buxton::Application.configure do
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
 
-  # Use sendmail protocol to deliver emails
-  config.action_mailer.delivery_method = :sendmail
-
-  # Specifies the header that your server uses for sending files
-  config.action_dispatch.x_sendfile_header = "X-Sendfile"
+  # Use sendgrid to deliver email
+  config.action_mailer.smtp_settings = {
+    user_name: Rails.application.secrets.sendgrid_username,
+    password: Rails.application.secrets.sendgrid_password,
+    domain: 'impactequality.co.uk',
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    authentication: 'plain',
+    enable_starttls_auto: true
+   }
 
   # In production, Apache or nginx will already do this
   config.serve_static_files = false
