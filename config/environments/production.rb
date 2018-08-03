@@ -31,7 +31,7 @@ Buxton::Application.configure do
   config.action_mailer.smtp_settings = {
     user_name: Rails.application.secrets.sendgrid_username,
     password: Rails.application.secrets.sendgrid_password,
-    domain: 'impactequality.co.uk',
+    domain: 'borchester.ukwest.cloudapp.azure.com',
     address: 'smtp.sendgrid.net',
     port: 587,
     authentication: 'plain',
