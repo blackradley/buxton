@@ -5,6 +5,7 @@ source 'http://rubygems.org'
 gem 'rails', "4.2.10"
 gem 'haml'
 gem "mysql2", '~> 0.4.0'
+gem 'sqlite3'
 gem "jquery-rails"
 # gem 'jquery-colorbox-rails'
 

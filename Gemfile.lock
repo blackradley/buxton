@@ -297,6 +297,7 @@ DEPENDENCIES
   sass-rails
   shoulda
   sprockets
+  sqlite3
   test-unit
   test_after_commit
   uglifier
