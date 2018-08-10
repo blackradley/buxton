@@ -1,0 +1,102 @@
+body { background-color: #EDF6F8; }
+body { font-size: 12.373626373626374px; }
+body { background-repeat: repeat; }
+body { background-position: left top; }
+#shoppingbasket a, #shoppingbasket a:hover { color: #D59826; }
+#menu, #menu ul :hover ul, #menu ul li a, #menu ul { background-color: #F4F4F4; }
+#menu ul li a:hover, #menu ul li:hover > a, #menu ul li:hover > a.sub, #menu ul :hover ul li a { color: #00A1AC; }
+#menu ul li a:hover, #menu ul li:hover > a, #menu ul li:hover > a.sub,  #menu ul :hover ul li a  { background-color: #FFFFFF; }
+#menu ul li a { color: #0A2229; }
+#menu { font-family: Arial; }
+#languages, #languages a, #resizer, #resizer a, #printPage, #printPage a { color: #D59826; }
+#footer, #copyright, #footerHolder { background-color: #99aeb5; }
+#footer, #copyright { color: #FFFFFF; }
+#footer, #copyright { font-family: Arial; }
+#footer, #copyright { font-size: 10px; }
+#footer a, #footer a:visited, #footer a:hover, #footerHolder a, #footerHolder a:hover { color: #FFFFFF; }
+#currentLanguage, #languages a:hover { color: #ffffff; }
+#content h4 { font-family: Arial; }
+#content h4 { color: #00A1AC; }
+#content h4 { font-size: 12px; }
+#content h3 { font-family: Arial; }
+#content h3 { color: #00A1AC; }
+#content h3 { font-size: 11.582417582417582px; }
+#content h2 { font-family: Arial; }
+#content h2 { color: #00A1AC; }
+#content h2 { font-size: 13.956043956043956px; }
+#content h1 { color: #00A1AC; }
+#content h1 { font-family: Arial; }
+#content h1 { font-size: 16.725274725274726px; }
+#content a:hover { color: #0B6B69; }
+#content a { color: #00A1AC; }
+#content { font-family: Arial; }
+#content { color: #0A2229; }
+#banner { background-color: #FFFFFF; }
+#content #content-inside #song_page.albumContent #albumContent{ width:320px;}
+#content #content-inside #song_page .album{ margin:0px 13px;}
+body {background-repeat: repeat; background-position: 0 0}
+#logoholder { background-color:#FFFFFF; }
+#logoholder {height:100px; }
+#logoposition { top:auto; bottom:0px; text-align:left}
+#topbg { background-image:url(/images/sites/623/generated/top_bg_a0a1a31988aa4cad8a244676df1ce9e5.png); }
+#footer { background-image:url(/images/sites/623/generated/footer_bg_a0a1a31988aa4cad8a244676df1ce9e5.png); }
+#container { background-image:url(/images/sites/623/generated/content_bg_a0a1a31988aa4cad8a244676df1ce9e5.png); }
+#menu ul ul li{ border-color: #FFFFFF; }
+#calendar_page .event {background-color: #00A1AC; color: #FFFFFF}#calendar_page .year_calendar .calendar table th {background-color: #00A1AC; color: #FFFFFF}.button input { background-color:#00A1AC; color:#FFFFFF; }
+.button input:hover { background-color:#0B6B69; color:#FFFFFF; }
+body #container #content #contact_form form fieldset { border-color:#00A1AC; }
+body #container #content #contact_form form fieldset legend { color:#00A1AC; }
+.menubulletright { background-image:url(/images/sites/623/generated/flyout_bullet_af01e79085ef9e649f29a720ca417779.png); }
+.menubulletleft { background-image:url(/images/sites/623/generated/bullet_af01e79085ef9e649f29a720ca417779.png); }
+#menu ul li:hover a > .menubulletleft { background-image:url(/images/sites/623/generated/hover_bullet_42ca6da71887171f711e67f3fbd2ff12.png); }
+#menu ul li.current .menubulletleft { background-image:url(/images/sites/623/generated/current_bullet_42ca6da71887171f711e67f3fbd2ff12.png); }
+#menu ul li.current a { color: #00A1AC; }
+#footer { background-color:transparent; }
+#footerHolder { background-color:transparent; }
+#copyright { background-color:transparent; }
+#menu, #menu ul, #menu ul li a { background-color:transparent; }
+#footer_holder {border-top-color:#cccccc; }
+#content {border-left-color:#cccccc; }
+#copyright {border-right-color:#cccccc; }
+#container { margin-top:50px; width:840px;}
+#inner_container { margin:0px 20px;}
+#topbg { width:840px; height:20px; position:absolute; top:-20px; left:-20px; background-position:0px 0px; background-repeat:no-repeat; }
+#footer { width:840px; margin:0px auto; padding-top:30px; padding-bottom:40px; background-position:top left; background-repeat:no-repeat;}
+#footerHolder #copyright {overflow:hidden;}
+* html #topbg { background-image:url(/images/sites/623/generated/top_bg_a0a1a31988aa4cad8a244676df1ce9e5.gif); }
+* html #footer { background-image:url(/images/sites/623/generated/footer_bg_a0a1a31988aa4cad8a244676df1ce9e5.gif); }
+* html #container { background-image:url(/images/sites/623/generated/content_bg_a0a1a31988aa4cad8a244676df1ce9e5.gif); }
+* html .menubulletright { background-image:url(/images/sites/623/generated/flyout_bullet_af01e79085ef9e649f29a720ca417779.gif); }
+* html .menubulletleft { background-image:url(/images/sites/623/generated/bullet_af01e79085ef9e649f29a720ca417779.gif); }
+* #menu ul li a:hover, #menu ul li:hover, #menu ul :hover ul li a, * #menu ul li.current a:hover, #menu ul li.current:hover, #menu ul :hover ul li.current a { background-color: #FFFFFF; color: #00A1AC;}
+* #inner_container { display: inline; }
+#content #content-inside #gallerySlider_page #gallerySliderControls #gallerySliderPreviews .gallerySliderPreview {	border: 2px solid #FFFFFF; }
+#content #content-inside #gallerySlider_page #gallerySliderControls #gallerySliderPreviews .gallerySliderPreview:hover {	border: 2px solid #00A1AC; }
+#content #content-inside #gallerySlider_page #gallerySliderControls #gallerySliderPreviews .selected{ border: 2px solid #00A1AC; }
+#content #content-inside #gallerySlider_page #gallerySliderControls #gallerySliderControlsLeft{ background-image:url(/images/sites/623/generated/gallery_left_6bacc9765bd47be60e9b27d4737ad8b1.gif);}
+#content #content-inside #gallerySlider_page #gallerySliderControls #gallerySliderControlsRight{ background-image:url(/images/sites/623/generated/gallery_right_6bacc9765bd47be60e9b27d4737ad8b1.gif);}
+#container #inner_container #content #content-inside #gallery_page .gallery_images .gallery_image .image_label h3{font-size:12.373626373626374px; }
+#container #inner_container #content #content-inside #video_gallery_page .videos .video .video_title h3{font-size:12.373626373626374px; }
+#content #content-inside #gallerySlider_page #gallerySliderMainTable{ margin-bottom:20px; }
+#container #inner_container #content #content-inside #video_gallery_page .videos .video{ margin:5px 1px;}
+#container #inner_container #content #content-inside #gallery_page .gallery_images .gallery_image{ margin:5px 24px;}
+#container #inner_container #content #content-inside #shop_page .category{ margin:0px 10px 10px;}
+#content #content-inside #listing_page .listing{ border-color:#00A1AC;}
+#content #content-inside #listing_page .listing .listing_body_image{ width:399px; }
+#content.bigger p, #content.bigger ul, #content.bigger ol{ font-size:14px !important;}
+#footer.bigger, #copyright.bigger{font-size:12px !important;}
+#content.bigger h1{ font-size:18px !important;}
+#content.bigger h2{ font-size:15px !important;}
+#content.bigger h3{ font-size:13px !important;}
+#content.bigger h4{ font-size:14px !important;}
+#menu.bigger ul li a{ font-size:13px !important;}
+#topmenu.bigger #shoppingbasket a, #topmenu.bigger #searchBox, #topmenu.bigger #printPage, #topmenu.bigger #printPage a, #topmenu.bigger #languages, #topmenu.bigger #languages a{ font-size:13px !important;}
+#content.biggest p, #content.biggest ul, #content.biggest ol{ font-size:16px !important;}
+#footer.biggest, #copyright.biggest{font-size:14px !important;}
+#content.biggest h1{ font-size:20px !important;}
+#content.biggest h2{ font-size:17px !important;}
+#content.biggest h3{ font-size:15px !important;}
+#content.biggest h4{ font-size:16px !important;}
+#menu.biggest ul li a{ font-size:15px !important;}
+#topmenu.biggest #shoppingbasket a, #topmenu.biggest #searchBox, #topmenu.biggest #printPage, #topmenu.biggest #printPage a, #topmenu.biggest #languages, #topmenu.biggest #languages a{ font-size:15px !important;}
+#content #content-inside #gallery_page .gallery_images .gallery_image .image_label h3{font-size:11px !important;}#content.bigger #content-inside #gallery_page .gallery_images .gallery_image .image_label h3{font-size:13px !important;}#content.biggest #content-inside #gallery_page .gallery_images .gallery_image .image_label h3{font-size:15px !important;}

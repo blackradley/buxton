@@ -1,0 +1,31 @@
+#preview_quick_help a,
+#quick_help a {
+  background-image: url(/images/cy/hovers.png); }
+  #preview_quick_help a:hover,
+  #quick_help a:hover {
+    background-image: url(/images/cy/hovers.png); }
+
+.preview_top_outer .menulist .top,
+.preview_top_outer .menulist .submenu_top,
+.preview_top_outer .menulist .bottom {
+  background-image: url(/images/cy/hovers.png); }
+.preview_top_outer .menulist li ul li.submenu a,
+.preview_top_outer .menulist li.pages a,
+.preview_top_outer .menulist li.creator a,
+.preview_top_outer .menulist li.help a,
+.preview_top_outer .menulist li.view a,
+.preview_top_outer .menulist li.edit a,
+.preview_top_outer .menulist ul li.submenu a:hover,
+.preview_top_outer .menulist li.help ul li a:hover,
+.preview_top_outer .menulist li.view ul li a:hover,
+.preview_top_outer .menulist li.edit ul li a:hover,
+.preview_top_outer .menulist li.creator ul li a:hover,
+.preview_top_outer .menulist li.pages ul li a:hover,
+.preview_top_outer .menulist li ul li.submenu ul li a:hover,
+.preview_top_outer .menulist ul li a:hover {
+  background-image: url(/images/cy/hovers.png); }
+
+#lightbox #prevLink:hover, #lightbox #prevLink:visited:hover {
+  background: url(../../images/lightbox/cy/prevlabel.gif) left 15% no-repeat; }
+#lightbox #nextLink:hover, #lightbox #nextLink:visited:hover {
+  background: url(../../images/lightbox/cy/nextlabel.gif) right 15% no-repeat; }

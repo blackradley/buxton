@@ -1,0 +1,164 @@
+body {
+  height: 100%;
+  padding: 0px;
+  margin: 0px; }
+
+a {
+  outline: none; }
+
+#container {
+  width: 820px;
+  position: relative;
+  margin: 0px auto; }
+  #container #inner_container {
+    width: 800px;
+    position: relative;
+    float: left; }
+
+#banner {
+  width: 800px;
+  float: left;
+  position: relative;
+  display: inline; }
+
+#logoholder {
+  float: left;
+  overflow: hidden;
+  position: relative;
+  width: 800px;
+  margin: 0px;
+  display: inline; }
+  #logoholder #logoposition {
+    position: absolute;
+    width: 100%;
+    left: 0px; }
+
+#holder {
+  clear: both;
+  width: 800px;
+  margin: 0px;
+  position: relative; }
+
+#menuCol {
+  float: left; }
+
+#menu {
+  float: left;
+  padding-bottom: 0px;
+  height: 100%;
+  font: bold 12px/40px Arial, Tahoma, Sans-serif;
+  height: auto;
+  width: 200px;
+  text-align: left; }
+
+#menu ul li {
+  display: inline; }
+
+.menubulletleft {
+  float: left;
+  background-repeat: no-repeat;
+  height: 12px;
+  margin: 0px 5px;
+  width: 12px;
+  margin-top: 9px; }
+
+.menu_title {
+  float: left;
+  padding-left: 5px;
+  height: 30px;
+  overflow: hidden;
+  width: 115px; }
+
+.menubulletright {
+  float: left;
+  background-repeat: no-repeat;
+  height: 12px;
+  margin-left: 5px;
+  width: 12px;
+  margin-top: 9px; }
+
+#belowMenu {
+  clear: left;
+  float: left;
+  font-weight: normal;
+  line-height: 1.4em;
+  margin-bottom: 0;
+  padding-bottom: 30px;
+  text-align: left;
+  width: 160px;
+  overflow: hidden;
+  margin-left: 20px; }
+  #belowMenu p,
+  #belowMenu ul,
+  #belowMenu ol {
+    margin: 15px 0px;
+    padding: 0px; }
+  #belowMenu ul,
+  #belowMenu ol {
+    padding-left: 20px; }
+
+#content {
+  float: right;
+  width: 600px;
+  min-height: 400px;
+  height: 100%; }
+
+#content_panel {
+  position: relative; }
+  #content_panel #content_top {
+    height: 20px;
+    width: 800px;
+    position: absolute;
+    top: 0px;
+    left: 0px; }
+
+#footer {
+  margin: 0px auto; }
+  #footer #footerMenu {
+    width: 800px;
+    text-align: center;
+    padding-top: 20px;
+    margin: 0px 30px;
+    display: inline; }
+    #footer #footerMenu ul {
+      list-style: none;
+      margin: 0px;
+      padding: 0px;
+      text-align: center; }
+      #footer #footerMenu ul li {
+        display: inline;
+        margin: 0px 10px;
+        line-height: 1.6em; }
+        #footer #footerMenu ul li a {
+          white-space: nowrap; }
+  #footer a,
+  #footer a:visited,
+  #footer a:hover {
+    font-size: inherit; }
+  #footer #copyright {
+    margin: 0px 10px;
+    text-align: center;
+    padding: 20px 10px;
+    overflow: hidden; }
+    #footer #copyright p {
+      line-height: 1.4em; }
+
+#two_column_page {
+  width: 320px; }
+
+#content #content-inside #shop_page .product .name {
+  width: 320px; }
+
+#content #content-inside #product_page #product_image {
+  width: 220px; }
+  #content #content-inside #product_page #product_image #product_thumbnails {
+    width: 212px;
+    margin-left: 8px; }
+    #content #content-inside #product_page #product_image #product_thumbnails .product_thumbnail {
+      margin-left: 12px;
+      margin-bottom: 12px; }
+
+#content #content-inside #product_page #product_price {
+  width: 320px; }
+  #content #content-inside #product_page #product_price .product_variation_box {
+    width: 220px; }
